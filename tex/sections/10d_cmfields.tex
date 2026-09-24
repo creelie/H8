@@ -1,0 +1,430 @@
+\section{Weil classes of every CM field}\label{sec:cmfields}
+
+The Weil classes of an imaginary quadratic field are the case $m=1$ of a
+construction that makes sense for every CM field $F$ of degree $2m$, and the
+question whether those classes are algebraic might seem to lie outside the
+methods of this paper. It does not. Every theorem of \Cref{sec:construction} that turns the conjecture for a Weil
+family into a propagation statement is a theorem about a connected period
+domain, a flat class on it, a group whose rational points act with dense
+orbits, and a base point where the class is a polynomial in divisor classes;
+none of the four uses that the field is quadratic. This section carries the
+four over, and supplies the base point, which is the one input that is new.
+Nothing here is conditional on a question about semiregularity: the base
+point is a CM point, and the classes there are products of divisor classes
+by the Lefschetz theorem on $(1,1)$ classes.%
+\footnote{Nothing is claimed about the whole Hodge ring at a CM point, which
+can contain classes that are not polynomials in divisor classes. What is used
+is narrower: the particular Weil classes of \Cref{thm:cmbasepoint} are written
+out as polynomials with rational coefficients in divisor classes, each divisor
+class is algebraic by the Lefschetz theorem, and products of algebraic classes
+are algebraic.}
+
+\subsection{The families}
+
+\begin{setupenv}[Weil type for a CM field]\label{setup:cmfield}
+Let $F$ be a CM field of degree $2m$ with maximal totally real subfield
+$F_{0}$, and write $\alpha\mapsto\bbar\alpha$ for the nontrivial automorphism
+of $F/F_{0}$, which is complex conjugation under every embedding. The real
+places of $F_{0}$ are $\tau_{1},\dots,\tau_{m}$, and each extends to a
+conjugate pair $\sigma_{\tau},\bbar\sigma_{\tau}$ of embeddings of $F$ into
+$\CC$. Let $V$ be an $F$-vector space of dimension $2n$, let
+$H\colon V\times V\to F$ be a nondegenerate hermitian form, $F$-linear in the
+first variable, and fix a totally imaginary $\xi\in F^{\times}$, that is
+$\bbar\xi=-\xi$. Put
+\[
+  E(x,y)=\Tr_{F/\QQ}\bigl(\xi\,H(x,y)\bigr),
+\]
+a nondegenerate alternating $\QQ$-bilinear form with
+$E(\alpha x,y)=E(x,\bbar\alpha y)$. For each $\tau$ let
+$V_{\tau}=V\otimes_{F_{0},\tau}\RR$, a vector space of dimension $2n$ over
+$F\otimes_{F_{0},\tau}\RR\cong\CC$, and let $(p_{\tau},q_{\tau})$ be the
+signature of the hermitian form $H_{\tau}$ induced by $H$ on it. We say that
+$(V,H)$ is of \emph{$(F,n)$-Weil type} if $p_{\tau}=q_{\tau}=n$ for every
+$\tau$, and we call the class of $\det H$ in
+$F_{0}^{\times}/\Nm_{F/F_{0}}(F^{\times})$ its discriminant $\delta$. A
+polarised abelian variety $(A,\iota,E)$ of dimension $2mn$ with
+$\iota\colon F\to\End^{0}(A)$ and $H^{1}(A,\QQ)\cong V$ as $F$-modules with
+polarisation $E$ is of $(F,n,\delta)$-Weil type when $(V,H)$ is; as in
+\Cref{lem:Kspace} we work throughout with $V=H^{1}$, a complex structure on
+$V_{\RR}$ being the same datum as one on the tangent space. The Weil
+classes of $A$ are
+\[
+  W_{F}(A)=\textstyle\bigwedge^{2n}_{F}V\;\subseteq\;\bigwedge^{2n}_{\QQ}V
+  =H^{2n}(A,\QQ),
+\]
+the $\QQ$-subspace whose complexification is
+$\bigoplus_{\sigma}\bigwedge^{2n}V_{\sigma}$, where $V_{\sigma}=V\otimes_{F,\sigma}\CC$
+runs over the $2m$ eigenspaces of $F$ on $V_{\CC}$; it is a one-dimensional
+$F$-vector space, of dimension $2m$ over $\QQ$. Write
+\begin{quote}
+$\mathbf{W}(F,n,\delta)$: every abelian variety of $(F,n,\delta)$-Weil type
+has algebraic Weil classes.
+\end{quote}
+The period domain $\cD_{F}$ is the set of complex structures $J$ on
+$V_{\RR}$ commuting with $F$ and polarised by $E$; $G_{F}=\Res_{F_{0}/\QQ}\SU(V,H)$
+acts on it; $\Gamma\subset G_{F}(\QQ)$ is an arithmetic subgroup,
+$\cS_{F}=\Gamma\backslash\cD_{F}$ the quotient with $p\colon\cD_{F}\to\cS_{F}$,
+$\pi\colon\cA\to\cS_{F}$ the universal family, and
+$\Sigma_{F}\subseteq\cD_{F}$ the set of $s$ at which $W_{F}(A_{s})$ is
+algebraic. For $m=1$ this is \Cref{setup:family} and \Cref{setup:shimura},
+with $\omega_{s}$ a generator of the line.
+\end{setupenv}
+
+\begin{remark}[Every such abelian variety is a member]\label{rem:cmmember}
+If $A$ is any abelian variety with a CM field $F\subseteq\End^{0}(A)$ such
+that $\dim_{F}H^{1}(A,\QQ)=2n$ and $\dim V_{\sigma}^{1,0}=n$ for every
+embedding $\sigma$, then $A$ is of $(F,n,\delta)$-Weil type for some
+$\delta$: the Rosati involution of any polarisation restricts to a positive
+involution of $F$, hence to conjugation, and the argument of
+\Cref{lem:hermform} writes the polarisation as $\Tr_{F/\QQ}(\xi H)$ for a
+unique hermitian $H$, whose signatures are then forced by the Hodge numbers
+as in \Cref{prop:cmweil}(i). These are exactly the abelian varieties whose
+Weil classes for $F$ are Hodge classes, in the sense of \cite{MZ99}, so
+$\mathbf{W}(F,n,\delta)$ over all $(F,n,\delta)$ is the statement that all
+Weil classes of all CM fields are algebraic.
+\end{remark}
+
+\begin{proposition}[The Weil classes of a CM field]\label{prop:cmweil}
+Keep \Cref{setup:cmfield}, with $(V,H)$ of $(F,n)$-Weil type.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item A polarised complex structure $J$ is the same as an $H_{\tau}$-orthogonal
+  decomposition $V_{\tau}=V_{\tau}^{+}\oplus V_{\tau}^{-}$ for every $\tau$,
+  with $H_{\tau}$ definite of the sign of $\mathrm{Im}\,\sigma_{\tau}(\xi)$ on
+  $V_{\tau}^{+}$ and of the opposite sign on $V_{\tau}^{-}$; then
+  $\dim V^{1,0}_{\sigma_{\tau}}=\dim V_{\tau}^{+}=n$ and
+  $\dim V^{1,0}_{\bbar\sigma_{\tau}}=\dim V_{\tau}^{-}=n$, so every class in
+  $W_{F}(A_{J})$ is of type $(n,n)$. $W_{F}$ is a flat subsystem of
+  $R^{2n}\pi_{*}\QQ$ of rank $2m$ on which $G_{F}$ acts trivially, and
+  $\cD_{F}\cong\prod_{\tau}\cD_{n,n}$ is connected of dimension $mn^{2}$.
+\item If one nonzero element of $W_{F}(A)$ is algebraic, every element is.
+\item If $\Hg(A_{s})=G_{F}$, the Hodge ring of $A_{s}$ is generated by
+  $\NS(A_{s})_{\QQ}$ and by $W_{F}$; so the Hodge conjecture for $A_{s}$ in
+  every degree is the algebraicity of $W_{F}$. For $n\ge2$ the space
+  $\NS(A_{s})_{\QQ}$ is the $m$-dimensional space of classes
+  $\eta_{t}=[E(t\,\cdot,\cdot)]$, $t\in F_{0}$.
+\item Two members of $(F,n,\delta)$-Weil type have isomorphic $(V,H)$, so
+  every one of them is a fibre of $\pi$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) A complex structure commuting with $F$ preserves each $V_{\tau}$, since
+$F_{0}\otimes\RR$ acts diagonally, and is $\CC$-linear on it for the
+structure $F\otimes_{F_{0},\tau}\RR\cong\CC$, so it is $\pm\sqrt{-1}$ on two
+complementary $\CC$-subspaces $V_{\tau}^{\pm}$. Write
+$\sigma_{\tau}(\xi)=\sqrt{-1}\,r_{\tau}$ with $r_{\tau}\in\RR^{\times}$. For
+$x\in V^{\epsilon}_{\tau}$ and $y\in V^{\epsilon'}_{\tau}$ one has
+$H_{\tau}(Jx,Jy)=\epsilon\epsilon'H_{\tau}(x,y)$, so
+$E(Jx,Jy)=E(x,y)$ forces $E(x,y)=0$ for $\epsilon\ne\epsilon'$, and replacing
+$x$ by $\sqrt{-1}\,x$ then forces $H_{\tau}(x,y)=0$: the decomposition is
+orthogonal. And $E(x,Jx)=2\,\mathrm{Re}\bigl(\sqrt{-1}\,r_{\tau}\,
+\overline{\epsilon\sqrt{-1}}\,H_{\tau}(x,x)\bigr)=2\epsilon r_{\tau}H_{\tau}(x,x)$,
+so positivity is the sign condition stated. Conversely such a decomposition
+defines a polarised $J$. Under $V_{\tau}\otimes_{\RR}\CC=V_{\sigma_{\tau}}
+\oplus V_{\bbar\sigma_{\tau}}$ the space $V^{1,0}$, the $\sqrt{-1}$-eigenspace
+of $J$ on $V_{\CC}$, meets $V_{\sigma_{\tau}}$ in the image of $V_{\tau}^{+}$
+and $V_{\bbar\sigma_{\tau}}$ in the conjugate of the image of $V_{\tau}^{-}$,
+which gives the dimensions; since $H_{\tau}$ has signature $(n,n)$ the two
+spaces have dimension $n$. A generator $\alpha_{\sigma}$ of
+$\bigwedge^{2n}V_{\sigma}$ is then of type $(n,n)$. The subspace
+$\bigwedge^{2n}_{F}V$ of $H^{2n}(A_{s},\QQ)$ is defined by the action of $F$
+on the lattice and does not depend on $s$, so it is flat; $\SU(V,H)$ acts on
+$\bigwedge^{2n}_{F}V$ by the $F$-determinant, which is $1$. Finally the
+choice of $V_{\tau}^{+}$ is a point of the bounded symmetric domain of
+$\SU(V_{\tau},H_{\tau})\cong\SU(n,n)$, of dimension $n^{2}$, and $\cD_{F}$ is
+the product over $\tau$.
+
+(ii) For $\alpha\in\cO_{F}$ the endomorphism $\iota(\alpha)$ acts on
+$\bigwedge^{2n}_{F}V$ by $\alpha^{2n}$, through an algebraic correspondence,
+so the algebraic classes in $W_{F}$ form a $\QQ$-subspace stable under
+multiplication by every $\alpha^{2n}$. In characteristic zero the $2n$-th
+powers of the elements of a field span, over the prime field, the whole
+image of the $2n$-fold multiplication map, which is the field itself; so the
+$\QQ$-span of $\{\alpha^{2n}w\}$ is $Fw=W_{F}$ for every $w\ne0$.
+
+(iii) Hodge classes are the invariants of the Hodge group. Over $\CC$ the
+group is $\prod_{\tau}\SL(U_{\tau})$ with $U_{\tau}=V_{\sigma_{\tau}}$, and
+$H$ identifies $V_{\bbar\sigma_{\tau}}$ with $U_{\tau}^{\vee}$, so
+$\bigwedge^{*}V_{\CC}=\bigotimes_{\tau}\bigwedge^{*}(U_{\tau}\oplus U_{\tau}^{\vee})$
+with the $\tau$-th factor of the group acting on the $\tau$-th tensor factor
+alone. The invariants of a product group in a tensor product of
+representations are the tensor product of the invariants, and the invariants
+of $\SL(U)$ in $\bigwedge^{*}(U\oplus U^{\vee})$ are generated by the pairing
+$\psi\in U\otimes U^{\vee}$ and the two determinants, by the computation of
+\Cref{thm:hdgcount}. The classes $\eta_{t}$ are Hodge classes, being
+polarisations of the abelian variety $A_{s}$ with the $F_{0}$-twisted form
+$E_{t}=\Tr(\xi tH)$, their complexification is $\bigoplus_{\tau}\CC\psi_{\tau}$,
+and the complexification of $W_{F}$ contains all the determinants. So the
+$\QQ$-algebra generated by $\NS_{\QQ}$ and $W_{F}$ has complexification equal
+to the ring of invariants, hence equals $\Hdg^{*}(A_{s})$. Divisor classes
+being algebraic, the conjecture reduces to $W_{F}$, and by (ii) to one class.
+For the last sentence, the invariants in $\bigwedge^{2}V_{\CC}$ are
+$\bigoplus_{\tau}\CC\psi_{\tau}$ when $n\ge2$: a summand
+$\bigwedge^{2}U_{\tau}$ or $\bigwedge^{2}U_{\tau}^{\vee}$ has an
+$\SL(U_{\tau})$-invariant only if $\dim U_{\tau}=2n$ equals $2$, and a summand
+mixing two different $\tau$ has none.
+
+(iv) Two hermitian forms over $F/F_{0}$ of the same rank, the same
+discriminant and the same signature at every real place of $F_{0}$ are
+isomorphic \cite[Ch.~10, \S6]{Sch85}. So the datum $(F,n,\delta)$ determines
+$(V,H)$ up to isomorphism, and the Hodge structure of any member is, by (i), a
+polarised complex structure on that $V_{\RR}$, that is a point of $\cD_{F}$.
+\end{proof}
+
+\subsection{A base point in every family}
+
+\begin{theorem}[A base point in every family, for every CM field]
+\label{thm:cmbasepoint}
+Let $(V,H)$ be of $(F,n)$-Weil type with discriminant $\delta$. Then $\cD_{F}$
+contains a point $s_{0}$ with the following properties.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item $A_{s_{0}}$ is isogenous to $B_{\Phi}^{\,n}\times B_{\bbar\Phi}^{\,n}$,
+  where $B_{\Phi}$ is an abelian $m$-fold with complex multiplication by $F$
+  of type $\Phi=\{\sigma:\mathrm{Im}\,\sigma(\xi)>0\}$ and $B_{\bbar\Phi}$ its
+  conjugate; there is an $H$-orthogonal basis $e_{1},\dots,e_{2n}$ of $V$
+  with $H(e_{i},e_{i})$ totally positive for $i\le n$ and totally negative
+  for $i>n$, and $Fe_{i}=H^{1}(B_{\Phi},\QQ)$ for $i\le n$,
+  $Fe_{i}=H^{1}(B_{\bbar\Phi},\QQ)$ for $i>n$.
+\item For $i\le n$ put $i'=i+n$ and let $D_{ii'}\subseteq H^{2}(A_{s_{0}},\QQ)$
+  be the $F$-balanced part of $Fe_{i}\wedge Fe_{i'}$, spanned by the classes
+  \[
+    \delta_{i}(f)=\sum_{k}\,(\omega_{k}f\,e_{i})\wedge(\omega_{k}^{*}\,e_{i'}),
+    \qquad f\in F,
+  \]
+  for dual $\QQ$-bases $(\omega_{k})$, $(\omega_{k}^{*})$ of $F$ with respect
+  to the trace form. Every $\delta_{i}(f)$ is a Hodge class of type $(1,1)$,
+  hence a divisor class, and $D_{ii'}$ is a one-dimensional $F$-vector space
+  with $\alpha\cdot\delta_{i}(f)=\delta_{i}(\alpha f)$.
+\item The Weil classes are the products
+  \[
+    w(f)=\sum_{k_{1},\dots,k_{n-1}}
+      \delta_{1}(\omega_{k_{1}}f)\cdot\delta_{2}(\omega_{k_{1}}^{*}\omega_{k_{2}})
+      \cdots\delta_{n-1}(\omega_{k_{n-2}}^{*}\omega_{k_{n-1}})\cdot
+      \delta_{n}(\omega_{k_{n-1}}^{*}),\qquad f\in F,
+  \]
+  which lie in $W_{F}(A_{s_{0}})$, span it as $f$ runs over $F$, and are
+  polynomials with rational coefficients in divisor classes. In particular
+  $W_{F}(A_{s_{0}})$ is algebraic, and $\Sigma_{F}\ne\emptyset$ for every $F$,
+  every $n\ge1$ and every $\delta$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) Since $H_{\tau}$ has signature $(n,n)$ at every $\tau$, the discriminant
+$\det H$ has sign $(-1)^{n}$ at every real place, so $b=(-1)^{n}\det H$ is
+totally positive, and the diagonal form $H'=\mathrm{diag}(b,1,\dots,1,-1,\dots,-1)$
+with $n$ positive and $n$ negative entries has the same dimension, the same
+discriminant and the same signatures as $H$. Hermitian forms over $F/F_{0}$
+are classified by these invariants \cite[Ch.~10, \S6]{Sch85}, so
+$(V,H)\cong(F^{2n},H')$ and the standard basis is the required orthogonal
+basis $e_{i}$, with $a_{i}=H(e_{i},e_{i})$. Write $\sigma_{\tau}(\xi)=\sqrt{-1}\,r_{\tau}$
+and define $J$ on $V_{\tau}=\bigoplus_{i}\CC e_{i}$ to be
+$\epsilon_{i,\tau}\sqrt{-1}$ on $\CC e_{i}$, with
+$\epsilon_{i,\tau}=\mathrm{sign}(r_{\tau})\,\mathrm{sign}(\tau(a_{i}))$. The
+decomposition $V_{\tau}^{+}=\bigoplus_{\epsilon_{i,\tau}=+}\CC e_{i}$,
+$V_{\tau}^{-}=\bigoplus_{\epsilon_{i,\tau}=-}\CC e_{i}$ is $H_{\tau}$-orthogonal
+with $H_{\tau}$ of sign $\mathrm{sign}(r_{\tau})$ on $V_{\tau}^{+}$, so
+\Cref{prop:cmweil}(i) makes $J$ a point $s_{0}$ of $\cD_{F}$. On
+$Fe_{i}\otimes\RR=\prod_{\tau}\CC e_{i}$ the structure $J$ is multiplication by
+the element $(\epsilon_{i,\tau}\sqrt{-1})_{\tau}$ of $F\otimes_{\QQ}\RR$, so
+each $Fe_{i}$ is a rational sub-Hodge structure of weight one with
+$F$-action, that is the $H^{1}$ of an abelian $m$-fold with complex
+multiplication by $F$, of CM type
+$\Phi_{i}=\{\sigma:(Fe_{i})_{\sigma}\subseteq V^{1,0}\}$, which by the
+computation in \Cref{prop:cmweil}(i) is
+$\{\sigma_{\tau}^{\epsilon_{i,\tau}}\}$, where $\sigma^{+}=\sigma$ and
+$\sigma^{-}=\bbar\sigma$. For $i\le n$ the $a_{i}$ are totally positive, so
+$\epsilon_{i,\tau}=\mathrm{sign}(r_{\tau})$ and
+$\Phi_{i}=\{\sigma:\mathrm{Im}\,\sigma(\xi)>0\}=\Phi$; for $i>n$ the signs are
+reversed and $\Phi_{i}=\bbar\Phi$. So $V=\bigoplus_{i}Fe_{i}$ splits
+$A_{s_{0}}$ up to isogeny as stated.
+
+(ii) Write $L_{i,\sigma}=(Fe_{i})_{\sigma}$, a line, so that
+$V_{\CC}=\bigoplus_{i,\sigma}L_{i,\sigma}$ and $L_{i,\sigma}$ has type $(1,0)$
+exactly when $\sigma\in\Phi_{i}$. For dual bases,
+$\sum_{k}\sigma(\omega_{k})\sigma'(\omega_{k}^{*})=1$ if $\sigma=\sigma'$ and
+$0$ otherwise, because the matrices $(\sigma(\omega_{k}))$ and
+$(\sigma(\omega_{k}^{*}))$ are inverse transposes by the definition of the
+trace form. Hence in $Fe_{i}\otimes Fe_{i'}\otimes\CC
+=\bigoplus_{\sigma,\sigma'}L_{i,\sigma}\otimes L_{i',\sigma'}$ the class
+$\delta_{i}(f)$ has component $\sigma(f)\,\ell_{i,\sigma}\wedge\ell_{i',\sigma}$
+on the diagonal $\sigma=\sigma'$ and zero off it, for suitable generators
+$\ell$; it is $F$-balanced in the sense that $(\alpha e_{i})\wedge e_{i'}$ and
+$e_{i}\wedge(\alpha e_{i'})$ agree on it, which is the identity
+$\alpha\cdot\delta_{i}(f)=\delta_{i}(\alpha f)$. Since $\Phi_{i'}=\bbar\Phi_{i}$,
+exactly one of $L_{i,\sigma}$, $L_{i',\sigma}$ has type $(1,0)$, so every
+component, hence $\delta_{i}(f)$, has type $(1,1)$; and $\delta_{i}(f)$ is
+rational, being a sum of wedges of rational vectors. By the Lefschetz theorem
+on $(1,1)$ classes it is a divisor class. As $f$ varies the components
+$\sigma(f)$ vary independently, so $D_{ii'}\otimes\CC=\bigoplus_{\sigma}
+L_{i,\sigma}\otimes L_{i',\sigma}$ and $D_{ii'}\cong F$.
+
+(iii) The complexification of $W_{F}$ is spanned by
+$\alpha_{\sigma}=\pm\prod_{i\le n}\ell_{i,\sigma}\wedge\ell_{i',\sigma}$, a
+generator of $\bigwedge^{2n}V_{\sigma}=\bigwedge^{2n}\bigl(\bigoplus_{i}L_{i,\sigma}\bigr)$.
+In the product $w(f)$, the component indexed by $(\sigma_{1},\dots,\sigma_{n})$,
+with $\sigma_{i}$ the embedding chosen in the $i$-th factor, carries the
+coefficient
+$\sigma_{1}(f)\prod_{j=1}^{n-1}\sum_{k_{j}}\sigma_{j}(\omega_{k_{j}})\sigma_{j+1}(\omega_{k_{j}}^{*})$,
+which vanishes unless $\sigma_{1}=\dots=\sigma_{n}$ and then equals
+$\sigma_{1}(f)$. So $w(f)=\sum_{\sigma}\sigma(f)\,\alpha_{\sigma}$ up to the
+sign of the reordering, an element of $W_{F}\otimes\CC$ which is rational
+because it is a rational polynomial in rational classes; as $f$ runs over
+$F$ the vectors $(\sigma(f))_{\sigma}$ span $\CC^{2m}$, so the $w(f)$ span
+$W_{F}$. Each $w(f)$ is a rational combination of $n$-fold products of the
+divisor classes $\delta_{i}(\cdot)$, and a product of divisor classes is
+algebraic. Item (XXXVI) of \Cref{sec:verification} carries out every step of (i), (ii)
+and (iii) in exact arithmetic for six pairs $(F,n)$, with $F$ one of
+$\QQ(\zeta_{5})$, $\QQ(\zeta_{7})$, $\QQ(\zeta_{8})$, $\QQ(\zeta_{9})$, so
+$m=2$ and $m=3$, and $n=1,2,3$; for $F=\QQ(\zeta_{5})$, a cyclic quartic CM
+field with no imaginary quadratic subfield, at $n=2$ it also computes the
+space of rational $(1,1)$ classes, of dimension $32$, and records that the
+balanced sum is necessary: the plain product $\delta_{1}(1)\delta_{2}(1)$ is
+not a Weil class.
+\end{proof}
+
+\begin{remark}[The base point for a quadratic field]\label{rem:cmquadratic}
+For $m=1$ the point $s_{0}$ is a member isogenous to $E^{2n}$ for an elliptic
+curve $E$ with complex multiplication by $K$, at which the whole Hodge ring
+is generated by divisor classes, since the Hodge group is a one-dimensional
+torus. It is a second base point in every family of \Cref{sec:construction},
+beside the quaternionic one of \Cref{thm:everyfamily}, and it lies in the
+product locus of \Cref{thm:everyn}. The formula in (iii) is then the explicit
+form of the class at that point.
+\end{remark}
+
+\subsection{The reduction and the propagation}
+
+\begin{theorem}[The reduction and the propagation, for every CM field]
+\label{thm:cmpropagation}
+Fix $(F,n,\delta)$ with $n\ge2$ and keep \Cref{setup:cmfield}, and let
+$\omega_{s}$ denote a generator of $W_{F}(A_{s})$ chosen flatly.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item $\mathbf{W}(F,n,\delta)$ holds if and only if $\omega_{s}$ is algebraic
+  for every $s\in\cD_{F}$, and then the Hodge conjecture holds in every
+  degree for every member of the family with $\Hg(A_{s})=G_{F}$.
+\item $\Sigma_{F}$ is stable under $G_{F}(\QQ)$, every $G_{F}(\QQ)$-orbit in
+  $\cD_{F}$ is dense, and $\Sigma_{F}$ is dense.
+\item $\Sigma_{F}=p^{-1}\bigl(\bigcup_{\underline{P},\underline{q}}
+  \Sigma_{\underline{P},\underline{q}}\bigr)$ with each
+  $\Sigma_{\underline{P},\underline{q}}$ Zariski closed in $\cS_{F}$, the
+  union countable; either $\Sigma_{F}=\cD_{F}$, or $\Sigma_{F}$ is meagre and
+  the conjecture fails on a dense $G_{\delta}$.
+\item If the Hilbert data of the cycle of \Cref{thm:cmbasepoint}, transported
+  along the orbit $G_{F}(\QQ)\cdot s_{0}$, takes finitely many values, then
+  $\Sigma_{F}=\cD_{F}$.
+\item If some perfect complex $E$ on $A_{s_{0}}$ with $\ch(E)=N\omega_{s_{0}}$,
+  $N\ne0$, concentrated in degree $n$, has injective semiregularity map, then
+  $\Sigma_{F}=\cD_{F}$; such complexes exist.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) is \Cref{prop:cmweil}(ii) and (iii): each member has its Hodge structure
+at some point of $\cD_{F}$, by (i) of that proposition, so the statement
+$\mathbf{W}(F,n,\delta)$ is the algebraicity of $W_{F}$ at every point, which
+by (ii) is that of one generator, and by (iii) it gives the conjecture at the
+members with full Hodge group.
+
+(ii) The stability is the argument of \Cref{lem:Ginvariance}: $g\in G_{F}(\QQ)$
+carries $J$ to $gJg^{-1}$ and induces, after clearing denominators, an isogeny
+$A_{J}\to A_{gJ}$ whose graph transports algebraic classes to algebraic
+classes, and $g$ fixes $W_{F}$ pointwise by \Cref{prop:cmweil}(i). For the
+density we show that the closure of $G_{F}(\QQ)$ in $G_{F}(\RR)
+=\prod_{\tau}\SU(V_{\tau},H_{\tau})$ contains the identity component, which
+acts transitively on $\cD_{F}$. The form $H$ is isotropic over $F_{0}$: it is
+indefinite at every real place, its signature being $(n,n)$; at every finite
+place $v$ its trace form is a quadratic form in $4n\ge8$ variables over the
+local field $F_{0,v}$, hence isotropic, and a hermitian form is isotropic as
+soon as its trace form is \cite[Ch.~10, \S1]{Sch85}; and hermitian forms over
+the quadratic extension $F/F_{0}$ satisfy the Hasse principle
+\cite[Ch.~10, \S6]{Sch85}. Let
+$X=\{v\in V:H(v,v)=0\}$, the cone of isotropic vectors, a quadric cone in
+the $4n$-dimensional $F_{0}$-space $V$ with a nonzero $F_{0}$-point; the
+projective quadric of its lines is $F_{0}$-rational, by projection from that
+point, so it is $F_{0}$-birational to a projective space and therefore
+satisfies weak approximation at the archimedean places, $F_{0}$ being dense
+in $F_{0}\otimes\RR=\prod_{\tau}\RR$. Hence the $F_{0}$-points of $X$ are
+dense in its points over $F_{0}\otimes\RR$, which are the products
+$\prod_{\tau}X_{\tau}$ of the isotropic cones of the $H_{\tau}$. For an isotropic vector $v\in V$ let $U_{v}\subseteq\SU(V,H)$ be
+the unipotent radical of the stabiliser of the line $Fv$, a unipotent
+$F_{0}$-group; the exponential identifies $U_{v}(F_{0})$ with an
+$F_{0}$-vector space and $U_{v}(F_{0}\otimes\RR)=\prod_{\tau}U_{v,\tau}(\RR)$
+with the corresponding real space, so $U_{v}(\QQ)=U_{v}(F_{0})$ is dense in
+$\prod_{\tau}U_{v,\tau}(\RR)$. Hence the closure $L$ of $G_{F}(\QQ)$ contains
+$\prod_{\tau}U_{v,\tau}(\RR)$ for every rational isotropic $v$, in particular
+the factor $U_{v,\tau}(\RR)$ for each $\tau$ separately, and its Lie algebra
+$\mathfrak{l}$ contains $\mathfrak{u}_{v,\tau}$ for every $\tau$ and every
+rational isotropic $v$. The map $v\mapsto\mathfrak{u}_{v,\tau}$ is continuous
+on the cone $X_{\tau}\setminus0$ and rational $v$ are dense in
+$\prod_{\tau}X_{\tau}$, so the closed subspace
+$\mathfrak{l}\cap\mathfrak{su}(V_{\tau},H_{\tau})$ contains
+$\mathfrak{u}_{v,\tau}$ for every isotropic $v\in V_{\tau}$. The span of these
+is stable under the adjoint action of $\SU(V_{\tau},H_{\tau})$, which permutes
+the isotropic lines, so it is a nonzero ideal of the simple Lie algebra
+$\mathfrak{su}(n,n)$, hence everything. Thus
+$\mathfrak{l}\supseteq\bigoplus_{\tau}\mathfrak{su}(V_{\tau},H_{\tau})$, and
+$L\supseteq G_{F}(\RR)^{+}$. Since $\Sigma_{F}\ne\emptyset$ by
+\Cref{thm:cmbasepoint} and is $G_{F}(\QQ)$-stable, it contains a dense orbit.
+
+(iii) The proofs of \Cref{thm:closedlocus} and \Cref{cor:allornothing} use
+only that $\cS_{F}$ is a quasi-projective variety, which is Baily and Borel
+\cite{BB66}, that the relative Hilbert schemes of $\cA/\cS_{F}$ are
+projective over it \cite{Gro61}, and that $W_{F}$ is a flat subsystem
+consisting of Hodge classes, which is \Cref{prop:cmweil}(i); they apply
+verbatim.
+
+(iv) is the proof of \Cref{thm:degreebound}: the orbit is dense by (ii), a
+finite union of the closed sets of (iii) covering it forces one of them to be
+dense and closed, hence everything; then (i).
+
+(v) The existence is the proof of \Cref{prop:ktheory}, using the algebraic
+cycle of \Cref{thm:cmbasepoint} and the isomorphism
+$K_{0}(A)_{\QQ}\cong\CH^{*}(A)_{\QQ}$ \cite{Ful98}; the deformation argument
+is the proof of \Cref{thm:semiregclosure}, whose only inputs are the flatness
+of $\ch(E)$ as a section of Hodge classes over $\cD_{F}$, which is (i) of
+\Cref{prop:cmweil}, the theorem of Buchweitz and Flenner, and (iii).
+\end{proof}
+
+\begin{remark}[What is and is not new here]\label{rem:cmwhatisnew}
+The propagation statements (iv) and (v) are exactly the two forms (P1) and
+(P2) of \Cref{rem:tworemain}, with $F$ in place of $K$. What this section
+proves is that they are the whole of the problem for every CM field, and
+that their hypothesis is never vacuous: the base point exists, its cycle is
+written down, and the orbit through it is dense. The theorem of
+\Cref{thm:p2forces} on what (v) forces transfers as well, with the
+annihilator of a class in $W_{F}$ computed over the $2m$ eigenspaces in place
+of two, and we do not repeat it. Nothing above depends on Question 11.4 of
+\cite{Mar25b} or on any secant construction; the route through Weil
+restriction and CM points is independent of the route through secant sheaves,
+and reaches every field at once.
+\end{remark}
+
+\begin{proposition}[Composite fields]\label{prop:composite}
+Let $F=KF_{0}$ with $K$ imaginary quadratic, and let $A$ be of
+$(F,n,\delta)$-Weil type. Then $A$ is of $(K,-1,mn)$-Weil type for the
+restricted action, its Weil classes $W_{K}(A)\subseteq H^{2mn}(A,\QQ)$ lie in
+the $\QQ$-span of the $m$-fold products of elements of $W_{F}(A)$, and
+$W_{K}(A)$ is algebraic whenever $W_{F}(A)$ is. In particular
+$\mathbf{W}(F,n,\delta)$ implies the algebraicity of the $K$-Weil classes on
+every member of the $F$-family, a closed subvariety of dimension $mn^{2}$ of
+the $K$-family of dimension $m^{2}n^{2}$; the converse implication is not
+available, and \Cref{thm:cmbasepoint} is not a consequence of
+\Cref{thm:everyfamily}.
+\end{proposition}
+
+\begin{proof}
+The eigenspace $V_{\tau_{K}}$ of $K$ on $V_{\CC}$ for the embedding
+$\tau_{K}$ is $\bigoplus_{\sigma|\tau_{K}}V_{\sigma}$, of dimension $2mn$
+with $\dim V_{\tau_{K}}^{1,0}=mn$ by \Cref{prop:cmweil}(i), so $A$ is of
+$K$-Weil type with balanced signature, and
+$\bigwedge^{2mn}V_{\tau_{K}}=\bigotimes_{\sigma|\tau_{K}}\bigwedge^{2n}V_{\sigma}$
+is spanned by $\prod_{\sigma|\tau_{K}}\alpha_{\sigma}$. So
+$W_{K}\otimes\CC$ is contained in the complexification of the $\QQ$-span $P$ of
+the $m$-fold products of elements of $W_{F}$, and a rational subspace whose
+complexification lies in that of $P$ lies in $P$. Products of algebraic
+classes are algebraic. Item (XXXVI) checks the identity for $F=\QQ(\zeta_{8})$
+and $K=\QQ(\sqrt{-1})$. The final sentence is dimension count: for $m\ge2$ the
+$F$-family is a proper subvariety, and the $K$-Weil classes on it are products
+that carry no information about their factors.
+\end{proof}

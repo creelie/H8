@@ -1,0 +1,191 @@
+\section{The hyperplane obstruction}\label{sec:hyperplane}
+
+We turn to the second attack, induction on the dimension of the variety
+through hyperplane sections.%
+\footnote{Lefschetz's theorem on hyperplane sections is quoted here in its topological form. The proof by Morse theory, due to Andreotti and Frankel, gives it for any smooth affine variety and is the shortest route; the statement we use is the consequence that $H^{k}(X,\QQ)\to H^{k}(Y,\QQ)$ is an isomorphism for $k<\dim Y$ and injective for $k=\dim Y$.} The ingredients used in such arguments are all
+theorems: the Lefschetz hyperplane theorem, hard Lefschetz, the algebraicity
+of the Hodge locus \cite{CDK95}, and the properness of relative Hilbert
+schemes. The question is whether they compose into an induction, and this
+section shows that they do not, for a reason that is elementary and that
+applies to every argument of the shape, independently of how the family is
+chosen.
+
+Throughout, $X$ is a smooth complex projective variety of dimension $d$,
+$j\colon Y\hookrightarrow X$ is a smooth hypersurface in the linear system of
+an ample divisor, and $L=c_{1}(\cO_{X}(Y))\in H^{2}(X,\QQ)$.
+
+\subsection{Two classical inputs}
+
+\begin{theorem}[Lefschetz hyperplane theorem]\label{thm:LHT}
+The restriction $j^{*}\colon H^{k}(X,\QQ)\to H^{k}(Y,\QQ)$ is an isomorphism
+for $k\le d-2$ and is injective for $k=d-1$.
+\end{theorem}
+
+\begin{lemma}[Gysin and restriction]\label{lem:gysinrestrict}
+For every $k$ and every $x\in H^{k}(X,\QQ)$,
+\[
+  j_{*}j^{*}x=x\cup L .
+\]
+Moreover $j_{*}\colon H^{k}(Y,\QQ)\to H^{k+2}(X,\QQ)$ is injective for
+$k\ge d$.
+\end{lemma}
+
+\begin{proof}
+The first identity is the projection formula together with
+$j_{*}1=[Y]=L$. For the second, Poincar\'e duality on $X$ and on $Y$
+identifies $j_{*}\colon H^{k}(Y)\to H^{k+2}(X)$ with the dual of
+\[
+  j^{*}\colon H^{2d-k-2}(X)\longrightarrow H^{2(d-1)-k}(Y)=H^{2d-k-2}(Y),
+\]
+so $j_{*}$ is injective on $H^{k}(Y)$ exactly when this $j^{*}$ is surjective.
+By \Cref{thm:LHT} that $j^{*}$ is surjective whenever $2d-k-2\le d-2$, that is
+whenever $k\ge d$.
+\end{proof}
+
+\subsection{The middle degree}
+
+\begin{proof}[Proof of \Cref{thm:hyperplane}]
+Let $d=2p$ and let $\alpha\in H^{2p}(X,\QQ)$ be primitive, which in the middle
+degree means $L\alpha=0$, since
+$H^{d}_{\mathrm{prim}}(X,\QQ)=\ker\bigl(L\colon H^{d}(X,\QQ)\to H^{d+2}(X,\QQ)\bigr)$.
+By \Cref{lem:gysinrestrict},
+\[
+  j_{*}\bigl(j^{*}\alpha\bigr)=\alpha\cup L=0 .
+\]
+The class $j^{*}\alpha$ lies in $H^{d}(Y,\QQ)$ and $d\ge d$, so
+\Cref{lem:gysinrestrict} says that $j_{*}$ is injective there. Hence
+$j^{*}\alpha=0$.
+\end{proof}
+
+\begin{corollary}[Blindness in the middle degree]\label{cor:blind}
+Let $d=2p$ and let $\alpha,\beta\in H^{2p}(X,\QQ)$ be primitive Hodge classes.
+Then $j^{*}\alpha=j^{*}\beta=0$ for every smooth ample hypersurface $Y$. In
+particular no property of the restricted classes distinguishes $\alpha$ from
+$\beta$, and no statement about Hodge classes on hypersurfaces of $X$, however
+strong, carries any information about the primitive middle cohomology of $X$.
+\end{corollary}
+
+\begin{remark}[The size of what is lost]\label{rem:sizeofloss}
+The primitive middle cohomology is not a small correction term. For a smooth
+hypersurface of degree $m$ in $\PP^{d+1}$ its dimension grows like $m^{d+1}$,
+and for a general such hypersurface with $d=2p$ the Hodge classes in it are
+exactly what the Hodge conjecture is about. \Cref{cor:blind} says that the
+whole of it is invisible to hyperplane restriction.
+\end{remark}
+
+\subsection{Below the middle degree}
+
+Below the middle degree the restriction map is injective, indeed an
+isomorphism, so one can transport the class downwards. The difficulty moves to
+the return trip.
+
+\begin{definition}[Lefschetz standard conjecture]\label{def:Bconj}
+For a smooth projective variety $X$ of dimension $d$ with ample class $L$,
+hard Lefschetz gives isomorphisms
+$L^{d-k}\colon H^{k}(X,\QQ)\to H^{2d-k}(X,\QQ)$, and makes $H^{*}(X,\QQ)$
+a representation of $\mathfrak{sl}_{2}$ in which $L$ raises the degree by
+$2$ and $H$ acts on $H^{k}$ by $k-d$. Let $\Lambda$ denote the unique
+endomorphism of degree $-2$ with $[L,\Lambda]=H$. The Lefschetz standard
+conjecture $B(X)$ asserts that $\Lambda$ is induced by an algebraic cycle on
+$X\times X$; this is equivalent to Kleiman's formulations \cite{Kle68,Kle94}.
+\end{definition}
+
+\begin{lemma}[$\Lambda$ undoes $L$ on primitive classes]\label{lem:LambdaL}
+Let $\alpha\in H^{k}(X,\QQ)$ be primitive with $k\le d$. Then
+$\Lambda L\alpha=(d-k)\,\alpha$.
+\end{lemma}
+
+\begin{proof}
+This is the $\mathfrak{sl}_{2}$ relation $[L,\Lambda]=H$ of Hodge theory,
+where $H$ acts on $H^{k}$ by the scalar $k-d$, together with
+$\Lambda\alpha=0$ for $\alpha$ primitive. Explicitly,
+$\Lambda L\alpha=L\Lambda\alpha-[L,\Lambda]\alpha=0-(k-d)\alpha
+=(d-k)\alpha$.
+\end{proof}
+
+\begin{proof}[Proof of \Cref{thm:returntrip}]
+Let $2p\le d-2$, so $j^{*}\colon H^{2p}(X,\QQ)\to H^{2p}(Y,\QQ)$ is an
+isomorphism by \Cref{thm:LHT}. If $j^{*}\alpha=\cl(W)$ for some
+$W\in\CH^{p}(Y)_{\QQ}$, then $j_{*}W\in\CH^{p+1}(X)_{\QQ}$ and
+\[
+  \cl(j_{*}W)=j_{*}j^{*}\alpha=L\alpha
+\]
+by \Cref{lem:gysinrestrict}, so $L\alpha$ is algebraic.
+
+For the second statement, suppose $B(X)$ holds and $\alpha$ is primitive of
+degree $2p<d$. Then $\Lambda$ is induced by an algebraic correspondence, hence
+carries algebraic classes to algebraic classes, and
+$\alpha=(d-2p)^{-1}\Lambda(L\alpha)$ by \Cref{lem:LambdaL}, so $\alpha$ is
+algebraic. Conversely, suppose that for every smooth projective $X$ and every
+Hodge class $\alpha$ the algebraicity of $L\alpha$ implies that of $\alpha$.
+Applying this in every degree gives that $\Lambda$ preserves the subspace of
+algebraic classes in every degree, which by the standard equivalences for the
+Lefschetz conjecture, as set out by Kleiman \cite{Kle68,Kle94}, is $B(X)$.
+\end{proof}
+
+\begin{proof}[Proof of \Cref{cor:noinduction}]
+Suppose the argument uses only $j^{*}$ and $j_{*}$ to relate classes on $X$ to
+classes on smooth ample hypersurfaces $Y\subset X$. If $2p=d$ and $\alpha$ is
+primitive, then $j^{*}\alpha=0$ by \Cref{thm:hyperplane}, and $j_{*}$ applied
+to any cycle on $Y$ produces a class in the image of $j_{*}$, which by
+\Cref{lem:gysinrestrict} and $L\alpha=0$ cannot be $\alpha$ unless $\alpha=0$;
+so no conclusion about $\alpha$ is available. Otherwise the best that
+$j_{*}j^{*}$ produces is $L\alpha$, and \Cref{thm:returntrip} identifies the
+passage from $L\alpha$ to $\alpha$ with $B(X)$.
+\end{proof}
+
+\subsection{Diagnosis of a specific inductive scheme}
+
+We record where an induction of this shape breaks in practice,
+because the break is usually not where one expects and is easy to miss.
+
+\begin{remark}[The dimension bookkeeping]\label{rem:dimensionbookkeeping}
+A common formulation asks the reader to place $X$ in a Lefschetz pencil by
+choosing a generic pencil $\{X_{t}\}_{t\in\PP^{1}}$ of hyperplane sections
+\emph{of $X$} and then to set $X=X_{t_{0}}$ for some $t_{0}$. The two
+requirements are incompatible: the members of a pencil of hyperplane sections
+of $X$ have dimension $d-1$, so none of them is $X$. An induction that reads
+$\dim X_{t}=d-1<d$ in its inductive step, and $X_{t_{0}}=X$ when it transports
+the resulting cycle back, is using both readings of the same symbol.
+
+Resolving the ambiguity in either direction is what
+\Cref{thm:hyperplane,thm:returntrip} address. If one insists that $X$ be a
+member of the pencil, then the pencil lives in an ambient variety of dimension
+$d+1$ and every member has dimension $d$; the inductive parameter does not
+decrease and the induction is circular. If instead one keeps
+$\dim X_{t}=d-1$, then the class $\alpha$ lives on $X$ and not on the members,
+the only available transports are $j^{*}$ and $j_{*}$, and
+\Cref{cor:noinduction} applies.
+\end{remark}
+
+\begin{remark}[Pointwise existence is not a family]\label{rem:pointwise}
+A second gap appears in arguments that produce cycles fibrewise and then
+assemble them. Suppose an inductive hypothesis furnishes, for each $t$ in the
+base $S$ of a family, a cycle $Z_{t}$ with a prescribed class. It is not
+legitimate to conclude that the Hilbert polynomial $t\mapsto P_{Z_{t}}$ is
+constructible, or semicontinuous, or takes finitely many values. Those are
+theorems about a flat family, and the input here is a bare existence statement
+at each point with no coherence between points. Without constructibility there
+is no section of a relative Hilbert scheme over a dense open subset, and
+therefore nothing for the valuative criterion of properness to extend. The
+relative Hilbert scheme is indeed proper over $S$, and that is exactly why the
+step looks safe; properness extends a section that exists over a punctured
+curve, and supplies no section where none is given.
+\end{remark}
+
+\begin{figure}[htbp]
+\centering
+  \includegraphics[width=\textwidth]{fig_ladder}
+\caption{The Betti numbers $\binom{8}{k}$ of an abelian fourfold, drawn as
+prisms, each split into the image of the Lefschetz operator, in slate, and the
+primitive part above it, with the hard Lefschetz isomorphisms
+$L^{4-k}\colon H^{k}\to H^{8-k}$ drawn as arcs at increasing depth. Below the middle
+degree the map $j^{*}$ to a smooth ample hypersurface is injective and the
+class descends, but the return trip $j_{*}j^{*}$ multiplies by $L$, so
+recovering the class is the Lefschetz standard conjecture. Above the middle
+one is reduced to the lower half by an arc. The clay block is the primitive
+middle cohomology, of dimension $70-28=42$; it is where the Hodge conjecture
+lives, it is annihilated outright by \Cref{thm:hyperplane}, and it is the one
+place no arc and no restriction reaches.}
+\label{fig:ladder}
+\end{figure}

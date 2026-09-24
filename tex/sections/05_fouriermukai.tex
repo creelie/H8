@@ -1,0 +1,205 @@
+\section{The cohomological Fourier--Mukai transform}\label{sec:fm}
+
+The divisor obstruction rests on one computation: the cohomological
+Fourier--Mukai transform sends each power of the polarisation class to a
+rational multiple of a power of the polarisation class on the other side, and
+to nothing else.%
+\footnote{The Todd class of an abelian variety is trivial, since the tangent bundle is trivial, so Grothendieck--Riemann--Roch for a morphism of abelian varieties reduces to the statement that the Chern character commutes with pushforward. That is the one simplification which makes the closed form below a finite computation rather than an estimate, and it is the reason this paper can be precise where the general case would not be.} We prove this in closed form. The computation is universal,
+in the sense that it takes place in a cohomology ring whose isomorphism type
+is determined by the dimension alone, so a single calculation settles it for
+every principally polarised abelian variety at once.
+
+\subsection{Grothendieck--Riemann--Roch on an abelian variety}
+
+\begin{proposition}\label{prop:grr}
+Let $A$ be an abelian variety of dimension $g$ and $\cG$ an object of
+$D^{b}(\Av)$. Then
+\[
+  \ch\bigl(\Phi_{\cP}(\cG)\bigr)=\Phi_{\cP}\bigl(\ch(\cG)\bigr),
+\]
+where the transform on the right is the cohomological one,
+$\Phi_{\cP}(x)=p_{*}\bigl(q^{*}x\cdot\ch(\cP)\bigr)$.
+\end{proposition}
+
+\begin{proof}
+Grothendieck--Riemann--Roch for the proper morphism
+$p\colon A\times\Av\to A$ reads
+\[
+  \ch\bigl(Rp_{*}\cK\bigr)\cdot\td(T_{A})
+  =p_{*}\bigl(\ch(\cK)\cdot\td(T_{A\times\Av})\bigr)
+\]
+for $\cK\in D^{b}(A\times\Av)$. The tangent bundle of an abelian variety is
+trivial, so $\td(T_{A})=1$ and $\td(T_{A\times\Av})=1$. Taking
+$\cK=Lq^{*}\cG\otimes^{L}\cP$ and using multiplicativity of the Chern
+character together with $\ch(Lq^{*}\cG)=q^{*}\ch(\cG)$ gives the statement.
+\end{proof}
+
+\subsection{The universal model}
+
+\begin{notation}\label{not:model}
+Let $A$ be a principally polarised abelian variety of dimension $g$ with
+polarisation class $\theta$, and put $V=H^{1}(A,\QQ)$, a $\QQ$-vector space of
+dimension $2g$ carrying the symplectic form attached to $\theta$. Choose a
+symplectic basis $e_{1},\dots,e_{2g}$ of $V$, so that
+\begin{equation}\label{eq:thetamodel}
+  \theta=\sum_{j=1}^{g}e_{j}\wedge e_{g+j}.
+\end{equation}
+The principal polarisation identifies $\Av$ with $A$ and
+$H^{1}(\Av,\QQ)$ with the dual $V^{\vee}$; let $f_{1},\dots,f_{2g}$ be the
+basis dual to $e_{1},\dots,e_{2g}$, so that
+\begin{equation}\label{eq:thetapmodel}
+  \theta'=\sum_{j=1}^{g}f_{j}\wedge f_{g+j}.
+\end{equation}
+Then $H^{*}(A\times\Av,\QQ)=\bigwedge^{*}(V\oplus V^{\vee})$.
+\end{notation}
+
+\begin{lemma}[The Poincar\'e class]\label{lem:poincare}
+In the model of \Cref{not:model},
+\begin{equation}\label{eq:ell}
+  \ell\coloneqq c_{1}(\cP)=\sum_{i=1}^{2g}e_{i}\wedge f_{i}
+  \;\in\;V\otimes V^{\vee}\subset\textstyle\bigwedge^{2}(V\oplus V^{\vee}),
+\end{equation}
+the canonical element of $V\otimes V^{\vee}=\Hom(V,V)$ corresponding to the
+identity, and $\ch(\cP)=e^{\ell}$.
+\end{lemma}
+
+\begin{proof}
+The Poincar\'e bundle is normalised to be trivial on $A\times\{0\}$ and on
+$\{0\}\times\Av$, so $c_{1}(\cP)$ has no component in
+$\bigwedge^{2}V$ or in $\bigwedge^{2}V^{\vee}$ and lies in the middle summand
+$V\otimes V^{\vee}$ of
+$\bigwedge^{2}(V\oplus V^{\vee})=\bigwedge^{2}V\oplus(V\otimes V^{\vee})\oplus\bigwedge^{2}V^{\vee}$.
+The defining property of $\cP$ is that its restriction to $A\times\{\lambda\}$
+is the line bundle $\lambda$; on cohomology this says that the induced map
+$H^{1}(\Av,\QQ)\to H^{1}(A,\QQ)^{\vee}$ obtained by contracting $c_{1}(\cP)$ is
+the canonical identification. That is exactly the statement that the element
+of $\Hom(V,V)$ determined by $c_{1}(\cP)$ is the identity, which is
+\eqref{eq:ell}. Since $\cP$ is a line bundle, $\ch(\cP)=e^{c_{1}(\cP)}$.
+\end{proof}
+
+\begin{remark}\label{rem:universal}
+Every principally polarised abelian variety of dimension $g$ gives the same
+data in \Cref{not:model}: a symplectic space of dimension $2g$ over $\QQ$, its
+dual, the symplectic form, and the canonical element. The constants computed
+below therefore depend only on $g$ and $k$ and not on $A$. This is why a
+single computation suffices.
+\end{remark}
+
+\subsection{The closed form}
+
+\begin{theorem}[Transform of the polarisation powers]\label{thm:fmtheta}
+Let $A$ be a principally polarised abelian variety of dimension $g$. Then for
+every $0\le k\le g$,
+\begin{equation}\label{eq:fmtheta}
+  \Phi_{\cP}\bigl(\theta'^{\,k}\bigr)
+  \;=\;(-1)^{\,g(g+1)/2\,+\,k}\,\frac{k!}{(g-k)!}\;\theta^{\,g-k},
+\end{equation}
+and $\Phi_{\cP}(\theta'^{\,k})=0$ for $k>g$. In particular
+$\Phi_{\cP}\bigl(\QQ[\theta']\bigr)=\QQ[\theta]$.
+\end{theorem}
+
+\begin{proof}
+Work in the model of \Cref{not:model}. By definition
+$\Phi_{\cP}(x)=p_{*}(q^{*}x\cdot e^{\ell})$, and $p_{*}$ is the operation of
+extracting the coefficient of the top exterior form
+$f_{1}\wedge\cdots\wedge f_{2g}$ in the $V^{\vee}$ variables.
+
+The classes $e_{i}\wedge f_{i}$ have even degree, so they commute, and they
+have square zero. Hence for every $m$,
+\begin{equation}\label{eq:ellpower}
+  \frac{\ell^{m}}{m!}
+  =\sum_{\substack{S\subseteq\{1,\dots,2g\}\\ |S|=m}}\ \prod_{i\in S}e_{i}\wedge f_{i},
+\end{equation}
+the product being taken in increasing order of $i$. Likewise, from
+\eqref{eq:thetapmodel},
+\begin{equation}\label{eq:thetappower}
+  \frac{\theta'^{\,k}}{k!}
+  =\sum_{\substack{T\subseteq\{1,\dots,g\}\\ |T|=k}}\ \prod_{j\in T}f_{j}\wedge f_{g+j},
+  \qquad
+  \frac{\theta^{\,g-k}}{(g-k)!}
+  =\sum_{\substack{U\subseteq\{1,\dots,g\}\\ |U|=g-k}}\ \prod_{j\in U}e_{j}\wedge e_{g+j}.
+\end{equation}
+
+Fix $k$. In the product $\theta'^{\,k}\cdot e^{\ell}$, the terms that survive
+$p_{*}$ are those of total degree $2g$ in the $f$ variables. A term of
+\eqref{eq:thetappower} indexed by $T$ carries the $2k$ variables
+$\{f_{j},f_{g+j}:j\in T\}$, and a term of \eqref{eq:ellpower} indexed by $S$
+carries the $|S|$ variables $\{f_{i}:i\in S\}$. For the product to be nonzero
+the two index sets must be disjoint, and for the total $f$-degree to be $2g$
+we need
+\[
+  S=\{1,\dots,2g\}\setminus\bigl(T\cup(g+T)\bigr),
+  \qquad |S|=2g-2k .
+\]
+So $S$ is determined by $T$, only the term $\ell^{2g-2k}/(2g-2k)!$ of
+$e^{\ell}$ contributes, and the surviving terms are in bijection with the
+$k$-subsets $T$ of $\{1,\dots,g\}$. Writing $U=\{1,\dots,g\}\setminus T$ we
+have $S=U\cup(g+U)$, so the $V$-part of the term indexed by $T$ is
+$\prod_{i\in U\cup(g+U)}e_{i}$, which up to sign is the term of
+\eqref{eq:thetappower} indexed by $U$. The bijection $T\leftrightarrow U$ is
+exactly the one between the terms of $\theta'^{\,k}/k!$ and those of
+$\theta^{\,g-k}/(g-k)!$.
+
+It remains to compute the sign $\sigma$ with which each term contributes, and
+to check that it is the same for all $T$. Both are permutation computations in
+the ordered word
+\[
+  \Bigl(\prod_{j\in T}f_{j}f_{g+j}\Bigr)\cdot\Bigl(\prod_{i\in S}e_{i}f_{i}\Bigr)
+\]
+against the target word
+$\bigl(\prod_{j\in U}e_{j}e_{g+j}\bigr)\cdot\bigl(f_{1}\cdots f_{2g}\bigr)$.
+Both words use the same multiset of generators, and the permutation relating
+them is a product of transpositions whose parity depends only on the
+cardinalities $|T|=k$ and $|U|=g-k$, not on which elements $T$ contains,
+because relabelling the $g$ symplectic pairs by a permutation $\pi$ of
+$\{1,\dots,g\}$ carries the word for $T$ to the word for $\pi(T)$ and
+multiplies both words by the same sign. Hence $\sigma=\sigma(g,k)$, and
+evaluating it at $T=\{1,\dots,k\}$ gives
+\begin{equation}\label{eq:sign}
+  \sigma(g,k)=(-1)^{\,g(g+1)/2\,+\,k}.
+\end{equation}
+Assembling, and accounting for the factorials in \eqref{eq:thetappower},
+\[
+  \Phi_{\cP}(\theta'^{\,k})
+  =k!\cdot\sigma(g,k)\cdot\frac{\theta^{\,g-k}}{(g-k)!},
+\]
+which is \eqref{eq:fmtheta}. For $k>g$ we have $\theta'^{\,k}=0$ because
+$\theta'$ is a symplectic form on a space of dimension $2g$. The last assertion
+follows since the constants in \eqref{eq:fmtheta} are nonzero for every
+$0\le k\le g$.
+\end{proof}
+
+\begin{remark}[On the sign]\label{rem:signcheck}
+The identity \eqref{eq:sign} is a finite permutation count for each pair
+$(g,k)$. It is verified independently, together with the uniformity of the
+sign over all $T$, for every $g\le12$ and every $k$ in
+\Cref{app:scripts}; the full expansion of the exterior algebra, which is the
+more expensive check and confirms the whole of \eqref{eq:fmtheta} including
+the factorials, is carried out there for $g\le4$. For even $g=2n$, which is
+the case relevant to Weil type, \eqref{eq:sign} reads
+$\sigma(2n,k)=(-1)^{n+k}$.
+\end{remark}
+
+\begin{corollary}[Stability of the divisor line]\label{cor:stability}
+Let $A$ be a principally polarised abelian variety and let
+$x\in H^{*}(\Av,\QQ)$ lie in the subring $\QQ[\theta']$ generated by $\theta'$.
+Then $\Phi_{\cP}(x)\in\QQ[\theta]$.
+\end{corollary}
+
+\begin{proof}
+$\QQ[\theta']$ is spanned by the powers $\theta'^{\,k}$, and
+\Cref{thm:fmtheta} sends each to a multiple of a power of $\theta$; extend by
+linearity.
+\end{proof}
+
+\begin{remark}[Non-principal polarisations]\label{rem:nonprincipal}
+If $\theta$ is a polarisation of degree $\delta^{2}$ rather than a principal
+one, the isogeny $\phi_{\theta}\colon A\to\Av$ has degree $\delta^{2}$ and one
+has $\phi_{\theta}^{*}\theta'=\delta\theta$ for a suitable normalisation of
+$\theta'$. The argument of \Cref{thm:fmtheta} goes through with $\theta$
+replaced by $\delta^{-1}\phi_{\theta}^{*}\theta'$ and the constants changed by
+powers of $\delta$, all of which are nonzero rationals. Since all statements
+below concern only membership in $\QQ[\theta]$, and not the values of the
+constants, nothing changes. We therefore state the results for principal
+polarisations and use them in general.
+\end{remark}

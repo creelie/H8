@@ -1,0 +1,907 @@
+\enlargethispage{4pt}
+\section{Verification}\label{sec:verification}
+
+Every numerical assertion in this paper is checked by exact arithmetic.%
+\footnote{Exact arithmetic is not a scruple here. Several of the quantities are differences of large binomial coefficients, and at $n=7$ the semiregularity target exceeds $10^{11}$; in double precision the comparison in item (V) would be meaningless. Everything uses Python's \texttt{fractions} module or integers, and nothing converts to a float.} The
+scripts are described in \Cref{app:scripts}. They use the standard library of
+Python, together with \texttt{sympy} for exact symbolic linear algebra in two
+of them and \texttt{numpy} for integer arrays in one; they work over $\QQ$ and
+its finite extensions with the \texttt{fractions} module or exact symbolic
+arithmetic, and they perform no floating-point operation; items (XXIX), (XXXI) and (XL) are $\Ext$
+computations over a polynomial ring, carried out in Macaulay2. We describe what is checked.
+
+\begin{enumerate}[label=\textup{(\Roman*)},leftmargin=*]
+\item \emph{The Fourier--Mukai transform on powers of the polarisation.}
+  The exterior algebra $\bigwedge^{*}(V\oplus V^{\vee})$ of
+  \Cref{not:model} is constructed explicitly for $g\le4$, with basis elements
+  indexed by bit masks and structure constants computed from the shuffle sign.
+  The class $\ell$ of \eqref{eq:ell}, the forms $\theta$ and $\theta'$ of
+  \eqref{eq:thetamodel} and \eqref{eq:thetapmodel}, and the exponential
+  $e^{\ell}$ are formed, and $\Phi_{\cP}(\theta'^{\,k})$ is computed by
+  extracting the coefficient of the top form in the dual variables. The output
+  is checked to be an exact rational multiple of $\theta^{\,g-k}$ with no
+  other component, and the multiple is compared with \eqref{eq:fmtheta}. All
+  values agree.
+
+\item \emph{The sign.} The uniformity of the sign $\sigma(g,k)$ over the
+  index sets $T$, which is the step in the proof of \Cref{thm:fmtheta} that
+  the reader may wish to see confirmed, is checked as a permutation
+  computation for every $g\le12$ and every $0\le k\le g$, together with the
+  closed form \eqref{eq:sign}. All values agree.
+
+\item \emph{The character separation.} The grading \eqref{eq:grading} is
+  formed for $n\le4$ and the positions of the Weil line and of $\eta^{n}$ are
+  computed, confirming \Cref{lem:NSchar}, \Cref{lem:weilchar} and the
+  disjointness of \Cref{thm:character}.
+
+\item \emph{The numerical comparison.} The values of $2n^{2}+2n$, $2^{2n}$
+  and $3^{2n}$ are tabulated for $2\le n\le8$, confirming
+  \Cref{lem:chicompare}; the script also records, as a counterexample to the
+  inference that \Cref{rem:retract} retracts, the types $(1,3)$ and $(1,5)$ on
+  an abelian surface with their Euler characteristics $3$ and $5$.
+
+\item \emph{The semiregularity target.} The identity
+  $\sum_{q}\binom{2n}{q}\binom{2n}{q+2}=\binom{4n}{2n-2}$ of
+  \Cref{prop:target} is verified for $2\le n\le7$, with the growth rates of
+  \Cref{cor:countnotbind}.
+
+\item \emph{The coordinate model.} The script \texttt{explicit\_weil.py}
+  builds the model of \Cref{setup:model} over $\QQ(\sqrt{-d})$ for
+  $(n,d)$ in a table covering $n\le3$ and $d\in\{1,2,3,5,7\}$, and checks
+  eight things for each: that the $u^{s}_{j}$ of \eqref{eq:eigenvec} are
+  eigenvectors of $S$; that $\omega_{+}+\omega_{-}$ and
+  $(\omega_{+}-\omega_{-})/\delta$ are rational and agree with the closed form
+  \eqref{eq:omegagens}; that $\iota(\tau)^{*}$ multiplies $\omega_{\pm}$ by
+  $\tau^{2n}$ and $\bbar{\tau}^{\,2n}$ at five values of $\tau$; that
+  $\omega_{\pm}$ is of Hodge type $(n,n)$ for the balanced structure and of
+  type $(p,2n-p)$ for every other one, which is \Cref{prop:signatureforced};
+  that $\eta$ is rational, of type $(1,1)$ and a norm eigenclass; that the two
+  Riemann relations hold with the sign vector of \Cref{setup:model}; that
+  $\eta^{2n}\ne0$; and that the supports of $\omega_{1},\omega_{2}$ and
+  $\eta^{n}$ are disjoint, which is \Cref{prop:disjoint}.
+
+\item \emph{The Hodge class count.} The script \texttt{hodge\_invariants.py}
+  computes, for $n\le4$ and every $(r,s)$, the dimension of the space of
+  $\mathfrak{sl}_{2n}$-invariants in
+  $\bigwedge^{r}V_{+}\otimes\bigwedge^{s}V_{+}^{\vee}$, as the kernel of the
+  raising operators on the weight-zero subspace, in exact rational arithmetic.
+  It confirms $\dim\Hdg^{n}=3$ and $\dim\Hdg^{k}=1$ for $k\ne n$, which is
+  \Cref{thm:hdgcount}, and the codimension count of \Cref{prop:weildomain}.
+
+\item \emph{The Clifford algebra.} The script \texttt{kugasatake.py} builds
+  $C(T,q)$ for forms of signature $(3,b-3)$ with $b\le8$, checks the Clifford
+  relations and $v^{2}=q(v)$ for a general $v$, checks $J^{2}=-1$ and that
+  left multiplication by $J$ squares to $-\id$ on $C^{+}$, which is
+  \Cref{lem:cliffJ}, checks $C^{-}C^{+}C^{-}\subseteq C^{+}$, which is what
+  makes $\Psi$ of \Cref{prop:ksembed} land where it should, and tabulates the
+  Hodge numbers of \Cref{prop:h2pieces} together with the solution $n=1$ of
+  \Cref{prop:normpart}.
+
+\item \emph{The family and the secant plane.} The scripts
+  \texttt{weiltype\_family.py} and \texttt{secant\_plane.py} verify
+  \Cref{thm:explicitweil} symbolically for $n\le5$ and several $d$, and
+  derive the closed forms of \Cref{thm:plane} and
+  \Cref{thm:secantinvariants}.
+
+\item \emph{The split member.} The script \texttt{split\_locus.py} builds
+  $A=X\times\widehat{X}$ with the action \eqref{eq:Mdef} in coordinates and
+  does two independent things. First it solves, by exact rational Gaussian
+  elimination, for an expression of each of $\omega_{1},\omega_{2}$ as a
+  rational combination of the degree $2n$ monomials in
+  $\beta,\widehat{\beta},\ell$, and prints the solution; it succeeds for
+  $n\le3$ and $d\in\{1,2,3,7\}$. Second it verifies
+  \Cref{thm:splitclosed} directly: that $\gamma\mp\sqrt{-d}\,\ell$ is an
+  eigenclass for $\tau^{2}$ respectively $\bbar{\tau}^{\,2}$, and that
+  \eqref{eq:splitclosed} holds on the nose, for $n\le5$ and several $d$.
+
+\item \emph{The reach of the base case.} The script
+  \texttt{split\_geometry.py} settles the four assertions of
+  \Cref{prop:splitgeom}. It verifies $M^{2}=-d$ and $M^{\top}Q+QM=0$ entry by
+  entry for the block form $Q=\beta\oplus(\widehat\beta/d)$ on
+  $H_{1}(A,\QQ)$, for $n\le4$, and checks that the action induced on
+  $H^{2}(A,\QQ)$ multiplies $d\beta+\widehat\beta$ by $d$, multiplies
+  $\gamma$ and $\ell$ by $-d$, and has $\beta+d\widehat\beta$ as an eigenclass
+  only when $d=1$, for six pairs $(n,d)$; it
+  computes $\det H=(-d)^{n}(d_{1}\cdots d_{n})^{2}$ for ten choices of
+  $(n,d,\beta)$ including non-principal $\beta$, and certifies in each case
+  that $(-1)^{n}\det H$ is a norm from $K$, together with the two facts the
+  proof uses, that $\det B$ is a square and that $d$ is a norm; it checks the
+  codimension formula $n^{2}-n(n+1)/2=n(n-1)/2$ for $n\le10$; and it computes
+  both the dimension of the space of $\mathrm{Sp}$-invariants and the rank of
+  the set of monomials $\beta^{i}\widehat{\beta}^{j}\ell^{k}$ in degree $2n$,
+  finding rank three in degree two for $n\le4$ and agreement in the middle
+  degree for $n\le3$.
+
+\item \emph{Quaternionic multiplication.} The script \texttt{quaternionic.py}
+  builds $B=(-d,b)$ and the module $B^{n}$ in coordinates and verifies
+  \Cref{thm:quatweil} for nine choices of $(n,d,b,a)$ with $n\le3$: the
+  relations $i^{2}=-d$, $j^{2}=b$, $ij=-ji$; that $E$ of \eqref{eq:quatE} is
+  alternating and nondegenerate with $i$ anti-self-adjoint and $j$
+  self-adjoint; that the hermitian form on the $K$-basis is
+  $\mathrm{diag}(2a_{k}d,-2a_{k}bd)$ with signature $(n,n)$; the determinant
+  formula and hence the class $b^{n}$; and that $g(x,y)=E(jx,y)$ is
+  alternating, $K$-bilinear and nondegenerate, which is the hypothesis of
+  \Cref{thm:divcriterion}. It then checks \Cref{thm:everyfamily} numerically:
+  for each of several fields, every nontrivial class in the tested range is
+  realised in every dimension $n\le8$ with signature $(n,n)$, by a single
+  factor when $n$ is odd and by the product of \Cref{lem:products} when $n$ is
+  even. Last it records the two dimensions behind \Cref{rem:ntwo}: the
+  quaternionic locus has dimension $n(n+1)/2$ inside a period domain of
+  dimension $n^{2}$, so its codimension is $n(n-1)/2$, which is checked for
+  $n\le10$ and is $1$ exactly at $n=2$.
+
+\item \emph{The semiregularity map of a sum of line bundles.} The script
+  \texttt{semiregularity.py} builds the split member with $X=E_{i}^{n}$, so
+  that the Hodge decomposition is defined over $\QQ(i)$ and every step is
+  exact, and verifies: that the six degree four monomials in
+  $\beta,\widehat\beta,\ell$ are independent for $n\le4$, which is
+  \Cref{lem:sixmonomials}; that $\theta^{+}\theta^{-}$ is never a multiple
+  of $\eta^{2}$, for six pairs $(n,d)$, which is \Cref{lem:tensorrank}; that the coefficient of $\theta^{+}\theta^{-}$
+  in $\ch_{2}$ is $\sum_{i}m_{i}\Nm(u_{i})$, which is the identity behind
+  \Cref{thm:positivity}; that no multiset with positive multiplicities
+  satisfies the resulting equations with some $u_{i}$ nonzero, for five pairs
+  $(n,d)$; that the map $\Phi$ of \Cref{lem:splitsemireg}(iii) is injective
+  at $n=2$ for $s\le3$ and of rank $22$ rather than $24$ at $s=4$; that
+  an exhaustive search over the classes $a\beta+b\widehat\beta+c\ell$ with
+  $|a|,|b|,|c|\le3$ and $d\in\{1,2\}$ produces no signed tuple of at most
+  three line bundles with a flat Chern character and a nonzero Weil component;
+  and that every signed tuple of at most four in the same box with a flat
+  Chern character and a nonzero Weil component has exactly four terms and a
+  map $\Phi$ with nonzero kernel, of dimension $2$, $3$, $4$ or $6$ at $d=1$
+  and $3$ or $6$ at $d=2$. It then turns
+  to $n=3$: it finds the Prouhet--Tarry--Escott pair of \Cref{lem:pte} on the
+  norm circle $\Nm=4$ of $\QQ(\sqrt{-3})$ by exhaustive search, verifies that
+  the six line bundles of \Cref{prop:explicitobject} have
+  $\ch_{k}=0$ for $k\ne3$ and $\ch_{3}=12\,\omega_{1}$, and verifies that
+  every difference of the six classes is nondegenerate of index three. The
+  companion \texttt{semireg\_fast.py} repeats the rank computations modulo a
+  prime congruent to $1$ mod $4$, which reaches $n=3$: it reproduces the $n=2$
+  ranks exactly, finds $\Phi$ injective at $n=3$ for a general choice of up to
+  ten classes, and finds rank $75$ of $90$ for the explicit object.
+
+\item \emph{The annihilator and the rank-zero obstruction.} The script
+  \texttt{weil\_annihilator.py} computes, modulo the same prime, the
+  dimension of the annihilator of each rational generator of the Weil line
+  in $H^{0,2}$ at $n=2,3,4$ and finds $n^{2}$ in every case, which is
+  \Cref{lem:annihilator}; splits the semiregularity map of the explicit
+  object of \Cref{sec:construction} by parity and finds an odd kernel of
+  dimension $9=n^{2}$ equal to the annihilator, an even kernel of dimension
+  $6$, and a total of $15$, against $0$ for a generic triple, which is
+  \Cref{cor:pteobstructed}; and runs the semiregularity rank over every
+  configuration $s_{i}\gamma+c_{i}\ell$ with $\sum s_{i}=\sum c_{i}=0$ in a
+  box of side $7$ whose virtual Chern character lies on the Weil line,
+  finding eighteen configurations and rank $75$ of $90$ for all of them,
+  which is \Cref{rem:familyuniform}.
+
+\item \emph{The Weil class under products.} The script
+  \texttt{weil\_product.py} verifies, in exact arithmetic over
+  $\QQ(\sqrt{-d})$, the two identities \eqref{eq:weilmult} for every pair
+  $n_{1},n_{2}\le3$; their $K$-valued form
+  $\omega(A_{1})\omega(A_{2})=2\,\omega(A_{1}\times A_{2})$ over the same
+  range; the $k$-factor identity with constant $2^{k-1}$ for six partitions
+  with $k=3$ and $k=4$; that the Weil class lies in $H^{2n}$, so that at
+  $n=1$ it is a divisor class, which is \Cref{lem:basecase}; and the
+  dimension comparison of \Cref{rem:prodscope}, that the product locus has
+  dimension $n$ inside a family of dimension $n^{2}$ and is smaller than the
+  quaternionic locus for every $n\ge2$.
+
+\item \emph{The annihilator as the tangent space.} The script
+  \texttt{weil\_tangent.py} builds a polarised Hodge structure of
+  $(K,-1,n)$-Weil type from scratch over the Gaussian rationals, with no
+  reduction modulo a prime and no floating point anywhere, and checks five
+  things at $n=2,3,4$. That the construction is what it claims to be: the
+  polarisation has exactly two nonzero blocks on $V_{+}\times V_{-}$, each a
+  perfect pairing of $n$-dimensional spaces, and the two rational generators
+  of the Weil line are real of type $(n,n)$. That the annihilator of each
+  generator in $H^{0,2}$ has dimension exactly $n^{2}$, which is
+  \Cref{lem:annihilator} again, now in a model built independently of the one
+  used in item (XIV). That the polarisation-preserving first-order
+  deformations have dimension $n(2n+1)=\dim\cA_{2n}$ and those commuting with
+  $K$ have dimension $n^{2}=\dim\cD_{n,n}$. That a polarised deformation
+  contracts the whole Weil line to zero exactly on that $n^{2}$-dimensional
+  subspace, and that one generator already cuts it out, which is
+  \Cref{prop:firstorder}. And that the map of \Cref{thm:anntangent} is
+  injective, independent of the basis of $V_{+}^{1,0}$ used to write it, and
+  has image exactly the annihilator. The five statements are then rerun for
+  eight distinct choices of the $n$-plane $V_{+}^{1,0}$ at $n=2$ and at $n=3$,
+  and hold in all sixteen.
+
+\item \emph{The quaternionic locus as a Lagrangian Grassmannian.} The script
+  \texttt{lagrangian\_\allowbreak locus.py} verifies, over $\QQ$ in exact arithmetic and
+  for $2\le n\le5$, the three statements of \Cref{prop:lagrangian}. That the
+  form $\omega_{\psi}(x,y)=E(x,\psi y)$ attached to a Rosati-symmetric $\psi$
+  is alternating on $V_{+}$, which is the identity $E(\psi x,y)=E(x,\psi y)$
+  read twice. That the graph of a symmetric form is isotropic and the graph of
+  a form that is not symmetric is not, so the chart of
+  $\mathrm{LG}(n,2n)$ by symmetric forms is exactly right and not merely
+  contained in the locus. That the chart has dimension $n(n+1)/2$, computed as
+  the rank of the symmetric basis rather than quoted, and that the codimension
+  in $\cD_{n,n}$ is therefore $n(n-1)/2$; at $n=4$ these are $10$ and $6$. And
+  that a random $n$-plane, completed to a basis of $V_{+}$, is Lagrangian for
+  the form that is standard in that basis, which is the construction behind
+  \Cref{rem:onlyrational}: over the reals the loci sweep the whole family, and
+  only the rationality of $\psi$ prevents them from covering it.
+
+\item \emph{The size forced on an object carrying the class.} The script
+  \texttt{object\_\allowbreak size.py} verifies, in the exterior algebra over $\QQ$ for
+  $1\le n\le4$, that $\alpha_{\pm}^{2}=0$ and hence
+  $\omega_{1}^{2}=2\alpha_{+}\alpha_{-}$, that $\int\omega_{1}^{2}\ne0$, and
+  that $\chi(E,E)=(-1)^{n}N^{2}\int\omega^{2}$ for every rank $r$ and every
+  multiplicity $N$ in the ranges tested, the rank cancelling out of the
+  identity. That is \Cref{prop:objectsize}, and with it the lower bound
+  $\sum_{i}\dim\Ext^{i}(E,E)\ge N^{2}|\int\omega^{2}|$. The script also records
+  that the constant is not dimension-free, since it depends on the
+  normalisation of $\omega$ against $\eta$, so that no growth rate in $n$
+  should be read off it; what the bound needs, and all that it needs, is that
+  the Weil class is not isotropic.
+
+\item \emph{Infinitesimal rigidity of divisor classes.} The script
+  \texttt{rigidity.py} builds the four blocks of $H^{1,1}$ and the tangent
+  space of $\cD_{n,n}$ over $\QQ(i)$ and verifies, for $n=2,3,4$, the three
+  parts of \Cref{prop:rigidity}. That the real span of the classes killed by
+  contraction has dimension exactly one and is the polarisation, checked
+  against the full real space of $(1,1)$ classes, of dimension $4n^{2}$,
+  which is $16$ at $n=2$ and $64$ at $n=4$. That the kernel attached to a
+  norm-character class with block $a$ has dimension $n(n-\operatorname{rank}a)$
+  for every rank; at $n=4$ the four values are $12$, $8$, $4$, $0$. And that a
+  class drawn at random has kernel zero, so it rigidifies the family to a
+  point. The dimension $n^{2}$ of the tangent space is recovered in the same
+  computation rather than assumed.
+
+\item \emph{The invariants of the required object.} The script
+  \texttt{integrality.py} computes, for $1\le n\le8$, every squarefree
+  $d\le11$ and every rank and twist in a range, the Chern classes of the
+  Chern character $au+bv$ by Newton's identities, and finds every one of them
+  integral; it also confirms the closed form
+  $\Delta=a^{2}d+b^{2}$ of \Cref{thm:secantinvariants} and its positivity.
+  That is \Cref{prop:notforbidden}: nothing numerical forbids the object the
+  construction needs, in any dimension tested.
+
+\item \emph{A sheaf with the required Chern character exists.} The script
+  \texttt{secant\_\allowbreak exists.py} carries out, exactly over $\QQ$ and for
+  $1\le n\le10$, the computation behind \Cref{thm:secantexists}. For every
+  squarefree $d\le11$ and every rank and twist in a range it solves the
+  Vandermonde system that expresses the rational point $au_{t}+bv_{t}$ of the
+  secant plane as a rational combination of the Chern characters
+  $e^{jt}=\ch(\cO_{X}(jt))$, clears denominators to obtain the least positive
+  multiple $M$ and the integer witness \eqref{eq:lbwitness}, and then verifies
+  that witness by recomputing every moment $\sum_{j}n_{j}j^{k}$ and comparing
+  it with $Mc_{k}$, rather than trusting the solve. It checks that the rank
+  $\sum_{j}n_{j}$ of the witness equals $Ma$, which is the positive rank
+  hypothesis of \Cref{lem:posrank}, and it records the least $M$ in each case:
+  $6$ at $n=4$ with $d=3$ and $a=b=1$, at most $2016$ over the whole range at
+  $n=8$, and never $1$ once $n\ge7$, which is \Cref{rem:themultiple}. Finally
+  it expands $\theta^{k}/k!$ in the exterior algebra of a symplectic lattice
+  and finds every coefficient integral, which is why the coordinates $c_{k}$
+  are integers and hence why the problem is a lattice problem at all.
+
+\item \emph{Which split objects can be semiregular.} The script
+  \texttt{pte\_\allowbreak search.py} settles \Cref{thm:pterange} in exact integer
+  arithmetic. It enumerates the norms represented by $\cO_{K}$ below a bound,
+  forms for every set of $n+1$ of them the forced level sums
+  \eqref{eq:levelsums} and the least integral scale, and tests them against
+  the supply $r_{K}(N_{j})$ of elements of that norm; at $n+2$ norms the
+  solution space is two dimensional and its integer points in the same box are
+  swept coordinate by coordinate. For $4\le n\le8$ and $d\le19$ nothing
+  survives, with norms to $110$ at $n=4$ and to $30$ at $n=8$. At $n=3$ and
+  norms to $200$ exactly eleven sets survive, all at $d=1$ or $d=2$, of the
+  three shapes recorded in \Cref{thm:pterange}(iii). The script then runs the
+  whole system \eqref{eq:pteconditions} on those sets: for each it enumerates
+  every assignment of signs to the elements of $\cO_{K}$ at those norms with
+  the prescribed level sums, splitting the four levels into a tabulated half
+  and a streamed half so that the enumeration is complete, and finds no
+  solution for eight of them. The companion script
+  \texttt{pte\_\allowbreak remaining.py} settles the other three, $d=1$ at
+  $(13,52,117,130)$, $(17,68,153,170)$ and $(25,50,100,125)$, whose largest
+  level has sixteen elements: it streams three levels against the fourth
+  through a linear hash of the ten off-diagonal coordinates, re-checks every
+  match exactly, and finds no solution. It also reruns two of the eight as a
+  control. The largest search covers $4.29\times10^{14}$ sign patterns.
+\item \emph{The quaternionic Weil cycle.} The script
+  \texttt{quaternionic\_\allowbreak divisibility.py} checks
+  \Cref{prop:quatdivisible} on the lattice $\cO_{b}^{2}$. It confirms the
+  ratios $-b/3$ and $4b^{2}/3$ and the value $1/12$ for $d\in\{1,3\}$, two
+  weight vectors and fifteen values of $b$ up to $101$; the decomposition
+  $E_{b}=E_{u}+bE_{v}$, $g_{b}=bg_{1}$, $\lambda_{b}=b\lambda_{1}$ with $g_{1}$
+  and $\lambda_{1}$ integral; the equalities $Z_{b}=b^{2}Z_{1}$ and
+  $Z'_{b}=b^{2}Z'_{1}$ in $\wedge^{4}\Lambda^{*}$; the growth
+  $\int\eta_{b}^{4}=b^{2}\int\eta_{1}^{4}$; and the effect of replacing $j$ by
+  $\alpha j$. It then computes the saturation of the Weil plane in
+  $\wedge^{4}\Lambda^{*}$ and the sublattice spanned by products of two
+  integral divisor classes, for $d\in\{1,2,3,7\}$, three weight vectors and
+  seven values of $b$, and finds Gram matrix $\mathrm{diag}(8d,8d^{2})$ and
+  index $2(a_{1}a_{2})^{2}$ throughout.
+\item \emph{The divisor route on a fixed lattice.} The script
+  \texttt{divisor\_\allowbreak route.py} checks \Cref{prop:pencil} on
+  $\Lambda=\cO^{2}$ with $j^{2}=1$, for $d\in\{1,3\}$. It computes the
+  lattice of $K$-bilinear classes, of rank $12$, checks $t(x)=0$ on it and the
+  identity $-\int xy\,\eta^{2}\big/\!\int\eta^{4}=\mathrm{tr}(\phi_{x}\phi_{y})/24$
+  on all $78$ pairs of basis vectors, and finds signature $(8,4)$ for $I$. It
+  verifies that $\phi_{x}^{2}$, $\phi_{y}^{2}$ and
+  $\phi_{x}\phi_{y}+\phi_{y}\phi_{x}$ are scalar for the pencil, and
+  rechecks $\phi_{x+ky}^{2}=\beta(k)$ and $I(x+ky)=\beta(k)\int\eta^{4}/3$
+  directly at eight values of $k$. For $0\le k\le10$ it saturates
+  $\QQ\eta+\QQ x_{k}+\QQ x_{k}(i\cdot,\cdot)$ in $H^{2}(\Lambda,\ZZ)$,
+  checks that $I$ is positive definite on the result, and computes the
+  minimum $\mu_{k}$ of $I$ off $\QQ\eta$ by an exhaustive search in a box
+  derived from the inverse Gram matrix. For the bound valid at every $k$ it
+  forms the $2\times2$ minors of the matrix with rows $x_{k}$ and
+  $x_{k}(i\cdot,\cdot)$ as polynomials in $k$, computes resultants of pairs of
+  them, and obtains $N_{1}=2$ and $N_{3}=4$; it checks directly that the gcd of
+  the minors divides $N_{d}$ for $|k|\le200$. Finally, for $0\le k\le4$ it
+  computes the centraliser of $i$ and $\phi_{x_{k}}$ in $\mathfrak{sp}(V,E)$,
+  of dimension $10$, and its invariants in $\bigwedge^{2}V^{*}$, of dimension
+  $3$; and at the one value of $k$ in $[-6,6]$ for each $d$ at which
+  $\beta(k)$ is a rational square it constructs a rational complex structure
+  $J_{0}$ on the pencil member, commuting with $i$ and $\phi_{x_{k}}$ and
+  compatible with $E$, and checks that $[\mathfrak{c},J_{0}]$ has dimension
+  $6$ and that $[\mathfrak{c},J_{0}]$ together with its brackets spans all of
+  $\mathfrak{c}$, which is the Lie algebra step in the proof of
+  \Cref{prop:pencil}(iv).
+\item \emph{The obstruction map of a split object.} The script
+  \texttt{split\_\allowbreak obstruction.py} works in the model of item
+  (XIII), modulo the same prime, and checks \Cref{prop:splitobstruction}.
+  For $(n,d)=(2,1),(2,3),(3,3)$ it computes the space $T$ of first-order
+  deformations killing $\eta$ and both generators of the Weil line and
+  finds dimension $n^{2}$; computes the space $T_{\mathrm{spl}}$ of
+  deformations keeping $\beta,\widehat\beta,\ell$ of type $(1,1)$ and finds
+  dimension $n(n+1)/2$ and $T_{\mathrm{spl}}\subseteq T$; as a control,
+  replaces $\eta$ by $\beta+d\widehat\beta$ and finds that $T$ collapses to
+  dimension $n(n+1)/2$ for $d>1$, which is the mismatch of conventions
+  described in the footnote to \Cref{setup:construction}; and for three
+  classes spanning $\NS(A_{0})_{\QQ}$ together with $\eta$ computes the
+  obstruction map $v\mapsto(v\lrcorner\lambda_{i})_{i}$ on $T$, finding
+  kernel exactly $T_{\mathrm{spl}}$ and rank $n(n-1)/2$; it also finds that
+  each of the seven single classes $\gamma$, $\ell$, $\gamma+\ell$,
+  $\gamma+2\ell$, $\beta$, $\widehat\beta$, $\beta+\ell$ already has
+  $\{v\in T:v\lrcorner\theta=0\}=T_{\mathrm{spl}}$, and that each of $150$
+  random rational classes off $\QQ\eta$ is contracted nontrivially by some
+  vector of $T$ while $\eta$ and $3\eta$ are contracted to zero by all of
+  $T$, which is the mechanism of \Cref{thm:linebundle}. For the six line
+  bundles of \Cref{prop:explicitobject} at $n=3$ it finds kernel
+  $T_{\mathrm{spl}}$ of dimension $6$ and rank $3$; checks that
+  $\sigma_{E}$ kills the image; computes the annihilator of $\omega_{1}$ in
+  $H^{0,2}$, of dimension $9$, and checks that $\sigma_{E}$ kills
+  $z\cdot\id_{E}$ for $z$ in it; finds that the sum of that
+  nine-dimensional space and the three-dimensional image has dimension
+  $12$; recomputes the kernel of $\sigma_{E}$ as $15$; and checks that the
+  components of every obstruction vector on $L_{i}$ and on $L_{i}^{-1}[3]$
+  are negatives of each other.
+\item \emph{The evaluation map.} The script
+  \texttt{evaluation\_\allowbreak map.py} rewrites the model of item (XIII)
+  in its Hodge basis and checks \Cref{prop:evaluation} for the explicit
+  object at $n=3$. It builds a basis of $HT^{2}$, of dimension
+  $15+36+15=66$, implements the three actions of \eqref{eq:HT2} as
+  multiplication, a derivation and a double interior product, and verifies
+  the identity $\sigma_{E}(\operatorname{ev}_{E}(x))=x\lrcorner\ch(E)$ on
+  every basis vector and on random elements; confirms that $\ch(E)$ is
+  concentrated in degree six and proportional to $\omega_{1}$; computes the
+  rank of $\operatorname{ev}_{E}$, which is $45$, against
+  $\dim\Ext^{2}(E,E)=90$; computes the three kernels of contraction with
+  $\ch(E)$, of dimensions $9$, $18$ and $9$; finds that their images under
+  $\operatorname{ev}_{E}$ have dimensions $9$, $6$ and $9$, that the first and
+  third coincide, that the first and second meet in zero, and that the sum of
+  all three has dimension $15$, equal to the dimension of $\ker\sigma_{E}$,
+  which it recomputes; and repeats the last comparison for every one of the
+  eighteen configurations of item (XIV), finding $\dim\ker\sigma_{E}=15$ and
+  $\dim(\ker\sigma_{E}\cap\image\operatorname{ev}_{E})=15$ in every case.
+\item \emph{Markman's candidate in dimension eight.} The script
+  \texttt{markman\_\allowbreak candidate.py} works in
+  $\QQ[\Theta]/(\Theta^{5})$ with $\int\Theta^{4}=24$ and checks
+  \Cref{prop:markman8} for every odd squarefree $d\le101$: the Euler
+  characteristics $14$, $-36$ and $24$ from the Koszul complexes; the count
+  $12N(N-5)=(d+9)(3d-3)$ of isolated points and its comparison with the
+  $(d+9)(2d-1)$ normalised; $\chi(\cO_{\widetilde Z})=(d+9)(27-d)$ from the
+  Mayer--Vietoris complex; the equality $\ch(\cF)=u_{t}+3v_{t}$ degree by
+  degree for the twist $3\Theta$, and the failure by $-4\Theta^{2}$ in
+  degree two for the twist $\Theta$; $\Nm(3+\sqrt{-d})=2N$ and the
+  discriminant $(d+9)\Theta^{2}$; and the ranks $8d(d-9)$ and $8d(d+9)$ of
+  the two transforms, with the threefold control $-8q$ that reproduces
+  Markman's rank at $n=3$.
+\item \emph{The classes preserving a secant Chern character.} The script
+  \texttt{secant\_\allowbreak kernel.py} works in the Hodge algebra of an
+  abelian $n$-fold with $t=\sum_{a}p_{a}\wedge q_{a}$, modulo a large prime,
+  and checks \Cref{thm:factor}(i), (ii) and \Cref{lem:bfield}(i) for
+  $(n,d,a,b)$ equal to $(3,3,1,1)$, $(3,3,1,3)$, $(4,3,1,3)$, $(4,5,1,3)$,
+  $(4,7,2,1)$ and $(5,3,1,3)$, the third being Markman's candidate. It builds
+  $\ch(F)=au_{t}+bv_{t}$, implements the actions of $HT^{1}$ and $HT^{2}$ as
+  multiplication, interior product, derivation and double interior product,
+  and finds: that the kernel of $y\mapsto y\lrcorner\ch(F)$ on $HT^{1}$, of
+  dimension $2n$, is zero in every case; that the kernel on $HT^{2}$ has
+  dimension exactly $n^{2}$, contains the $n(n+1)/2$ polarised deformations
+  and the $n(n-1)/2$ classes $(\tfrac d2\,\pi\lrcorner t^{2},0,\pi)$, and is
+  spanned by them; and, as controls, that the bare classes $(0,0,\pi)$ and
+  the classes $(-\tfrac d2\,\pi\lrcorner t^{2},0,\pi)$ with the compensation
+  of the wrong sign all act nontrivially on $\ch(F)$. It then verifies the
+  identity $x\lrcorner(we^{B})=((e^{B}x)\lrcorner w)e^{B}$ of
+  \eqref{eq:bfield} on random even classes $w$, random $x\in HT^{2}$ and
+  $B=kt$ for $n=3,4$, and the count $n(n+1)/2+n(n-1)/2=n^{2}$ for $n<40$.
+\item \emph{The local products at a double point.} The Macaulay2 script
+  \texttt{m2/local\_\allowbreak products.m2} recomputes
+  \Cref{lem:localproducts} over $\QQ[x_{1},\dots,x_{4}]$. For each of the
+  two local models, the ideal $I=(x_{1},x_{2})\cap(x_{3},x_{4})$ and the
+  complex $K=[R\to R/(x_{1},x_{2})\oplus R/(x_{3},x_{4})]$, resolved by the
+  cone of the lifted map, it builds the jet chain maps $-\partial_{a}(d)$ on
+  the free resolution, checks that they anticommute with the differential
+  and are not null homotopic, and for every pair $(a,b)$ decides whether the
+  composite is null homotopic. It finds $\Ext^{2}=k^{4}$ for $I$, with the
+  four mixed products nonzero and spanning it and the same-plane products
+  zero; $\Ext^{2}=k^{2}$ for $K$, with the two same-plane products nonzero
+  and spanning it and the mixed products zero; anticommutation
+  $a_{a}a_{b}+a_{b}a_{a}=0$ in both models; and, for $I$, the same vanishing
+  pattern from the jet modules and \texttt{yonedaProduct}. This item needs
+  Macaulay2 (version 1.22 with the package \texttt{Complexes}) and is not
+  part of \texttt{verify\_all.py}; its transcript
+  \texttt{m2/local\_products.txt} is included with the code.
+
+\item \emph{A rank one secant object with smooth support.} The script
+  \texttt{smooth\_\allowbreak support.py} expands $\ch(\cO_{S})=1-\ch(\cF)e^{-b\Theta}$
+  from scratch in $\QQ[\Theta]/(\Theta^{5})$, for every $b\le6$ and every
+  squarefree $d<60$, and reads off the class $N\Theta^{2}$ with
+  $N=\Nm_{K/\QQ}(b+\sqrt{-d})/2$, the pushforward
+  $\iota_{*}K_{S}=(4bN/3)\Theta^{3}$ and the Euler characteristic
+  $\chi(\cO_{S})=4N(2b^{2}-N)$, checking each against the closed form rather
+  than quoting it. It then verifies that Noether's formula and the
+  self-intersection formula together give $K_{S}^{2}=12N(4b^{2}-N)$ and
+  $e(S)=12N(4b^{2}-3N)$, that the Hodge index bound $9N\ge4b^{2}$ is implied
+  by $d>0$ and so never binds, that $e(S)\ge0$ is $d\le\tfrac53b^{2}$ and that
+  $3e(S)-K_{S}^{2}=24(b^{4}-d^{2})\ge0$ is $d\le b^{2}$, and that equality in
+  the Hodge index would need $9N=4b^{2}$, which no admissible pair reaches.
+  At $b=3$ it prints the six surviving discriminants, the four of them with
+  $N$ an integer, and \Cref{tab:smoothsupport}. That is
+  \Cref{thm:smoothinvariants} and \Cref{cor:fourdiscriminants}.
+
+\item \emph{Where the local obstruction lives.} The Macaulay2 script
+  \texttt{m2/lci\_\allowbreak products.m2} computes, for ten codimension two germs in
+  $\CC^{4}$, the number of minimal generators, the projective dimension of
+  $R/I$, the ranks of a minimal free resolution, and
+  $\cE xt^{1}$, $\cE xt^{2}$ and $\cE xt^{3}$ of the ideal against itself; for
+  the germs with $\cE xt^{2}\ne0$ it also decides, by null homotopy of the
+  composite of the two jet chain maps, which products of translation classes
+  are nonzero. The seven Cohen--Macaulay germs, namely the smooth one, two
+  and three planes meeting along a line, the double plane, the quadric cone,
+  the fat plane and the cone over the twisted cubic, all have
+  $\cE xt^{2}=0$, the last two despite needing three generators in codimension
+  two. The three that are not Cohen--Macaulay, namely two planes meeting at a
+  point, three planes meeting pairwise at a point and a plane with an embedded
+  point, have $\cE xt^{2}\ne0$ and nonzero products. That is
+  \Cref{thm:cmvanishing} and \Cref{rem:cmsharp}. The script runs separately
+  from \texttt{verify\_all.py} because it needs Macaulay2; its transcript is
+  distributed with it.
+
+\item \emph{Cohen--Macaulay supports with a split resolution.} The script
+  \texttt{hilbert\_\allowbreak burch.py} reads the coefficients
+  $(1,b,-d,-db,d^{2})$ off $u_{\Theta}+bv_{\Theta}$ rather than quoting them,
+  confirms the three identities $c_{k+2}+dc_{k}=0$ that make the weighted
+  measures of \Cref{thm:noci} share mass, mean and variance, and checks that
+  the quadratic of that theorem has discriminant $-\tfrac29b^{2}-2d<0$ for
+  every $b\le11$ and every squarefree $d<200$, so that no complete
+  intersection can occur. It then enumerates \eqref{eq:burchsystem} exactly,
+  by meet in the middle on the four moments, over every multiset of twists in
+  the boxes of \Cref{tab:burch}, imposing the two conditions of
+  \Cref{lem:burchmoments}. Nothing survives at $r=2$ or $r=3$, for $b=3$ and
+  every squarefree $d<24$ and also for every $b\le6$ over seven fields; at
+  $r=4,5,6$ only $d=15$ and $d=23$ survive, and the first candidate at each
+  rank is printed. The script also records that the moment system alone is not
+  enough: at $r=4$, $d=23$ it has the solution $p=(-8,-5,0,1,2)$,
+  $q=(-7,-6,-4,4)$, which only the injectivity of $\varphi$ removes.
+
+\item \emph{The closure graph.} The script \texttt{closure\_\allowbreak graph.py}
+  carries the rule set of \Cref{setup:rules} as data: thirty-six statements,
+  each marked proved here, quoted, or open, and fifteen rules, each carrying
+  the label of the theorem that proves it. It checks that every statement
+  named in a rule is declared and every declared statement is used, that the
+  rule set is acyclic, and that every one of the thirteen theorem labels it
+  names, for its rules and for the consequences of $\mathbf{HC}$ it records,
+  is a label of this paper, against the list of all $521$ labels generated
+  from the sources and distributed with the script as
+  \texttt{paper\_\allowbreak labels.txt}. It then computes the forward closure
+  by iterating the one step map to a fixed point, and verifies that no
+  statement marked proved rests at any depth on an open one, that
+  $\mathbf{HC}$ is not in the closure of the proved and quoted statements,
+  and, by exhaustive search over all $2^{12}$ subsets of the twelve open
+  statements, that there are exactly the four minimal sufficient sets of
+  \Cref{thm:closure}(ii), that no single open statement suffices, that the
+  route through this paper is the only one with three elements and the only
+  one whose derivation uses a statement proved here, that each element of
+  each set is necessary, that every set contains (F3) or \textup{(M)}, and
+  that every element of every set other than (P2) is recorded as a
+  consequence of $\mathbf{HC}$. It confirms that \textup{(V)} alone gives the
+  conjecture for abelian varieties and not $\mathbf{HC}$, and that
+  \textup{(L)} gives \textup{(V)}. It confirms that the six open demands of
+  the secant route lie outside every minimal set, that granting the two of
+  them that matter reaches $\mathbf{W}(K,n,\delta_{0})$ and not the rest, that
+  the propagation statement reaches all of it and also the Weil classes of
+  every CM field, so that those are not open, and that the bounded criterion
+  is absent from the rule set, being equivalent to its own conclusion.
+  Finally it checks that the numbering under which the same graph is carried
+  into Section 24 of the Lean certificate maps these rules onto those. The
+  full derivation of $\mathbf{HC}$ from the proved and quoted statements and
+  each minimal sufficient set is printed, one rule per line. That is
+  \Cref{thm:closure} and \Cref{cor:fourremain}.
+\item \emph{No split resolution runs the criterion.} The script
+  \texttt{split\_\allowbreak resolution.py} records the data behind
+  \Cref{thm:nosplit}: that the scalar $(e^{2}+d)/2$ by which the compensated
+  Poisson class acts on $\cO(e\Theta)$ is nonzero for every twist and every
+  $d>0$ in a range; the vanishing pattern $H^{2}(\cO(m\Theta))=0$ for $m\ne0$
+  on an $n$-fold with $3\le n\le6$, from the index theorem; that the three
+  split resolutions of \Cref{tab:burch} have no twist in common between
+  $E_{0}$ and $E_{1}$ and satisfy the moment identities \eqref{eq:burchsystem},
+  so that the theorem removes them as they stand; and, as a control, that no
+  Koszul resolution of a complete intersection, twisted by any $b\in[-6,12]$,
+  is secant for $d<30$, which is \Cref{thm:noci} in that range.
+\item \emph{The two statements that are not reductions, and what the rank
+  forces.} The script \texttt{exceptional\_\allowbreak classes.py} has three
+  parts. For an abelian fourfold $X$ of Mumford type it decomposes every
+  $\bigwedge^{k}V$, $V=V_{1}\otimes V_{2}\otimes V_{3}$, under
+  $\mathrm{SL}_{2}^{3}$ by peeling highest weights, finds one invariant in
+  $\bigwedge^{2}V$ and one in $\bigwedge^{4}V$, counts eight invariants in
+  $\bigwedge^{4}(V\oplus V)$ distributed $1,1,4,1,1$ over the K\"unneth
+  summands and three in $\bigwedge^{2}(V\oplus V)$, multiplies the three
+  divisor classes $\psi_{11},\psi_{12},\psi_{22}$ in the exterior algebra of
+  $V\oplus V$ and finds their six products independent, and counts the
+  $\Sp_{8}$-invariants of $\bigwedge^{4}(V\oplus V)$ by the Weyl character
+  formula over the $384$ signed permutations, finding six. That is
+  \Cref{prop:mumfordproduct}. For the quintic threefold it computes the
+  Hodge numbers $(1,101,101,1)$ from the Jacobian ring of the Fermat quintic,
+  checks in a four-dimensional model that the map from the $(0,3)$ part to
+  the $(3,0)$ part is symplectic of adjoint weight $3$, and lists the adjoint
+  weights, $\{-1,0,1\}$ in weight one against $\{-3,\dots,3\}$ here. That
+  is \Cref{prop:noabeliantype}. For $n=2$ and $n=3$ it builds
+  $H^{*}(A,\CC)$ with the eigenspace decomposition, the Weil class
+  $\alpha_{+}+\alpha_{-}$, and the action of all of $HT^{2}$ on it, finds the
+  annihilator of dimension $4n^{2}$ spanned by the mixed block, the $K$-linear
+  deformations and the mixed bivectors with the remaining classes acting
+  injectively, computes the ideal generated by the mixed block in the exterior
+  algebra on $2n$ generators, of codimension $2^{n+1}-1$ with quotient of
+  dimension $2\binom{n}{k}$ in degree $k\ge1$, and checks over $\mathbb{F}_{3}$ in
+  dimensions two and three that two subspaces spanning the space with all
+  mixed wedge products zero cannot both be nonzero. That is
+  \Cref{thm:p2forces}.
+\item \emph{The Weil classes of a CM field of degree four and six.} The
+  script \texttt{cm\_\allowbreak fields.py} builds the cyclotomic fields
+  $\QQ(\zeta_{5})$, $\QQ(\zeta_{7})$, $\QQ(\zeta_{8})$ and $\QQ(\zeta_{9})$
+  exactly, as $\QQ[x]/(p)$ with elements stored as rational coordinate
+  vectors, and carries out the construction of \Cref{thm:cmbasepoint} for six
+  pairs $(F,n)$, with $m=2$ and $m=3$ and $n=1,2,3$. For each it checks that
+  the CM type and its conjugate partition the embeddings, that
+  $\zeta-\zeta^{-1}$ is totally imaginary, that the trace-dual bases satisfy
+  $\sum_{k}\sigma(\omega_{k})\sigma'(\omega^{*}_{k})=\delta_{\sigma\sigma'}$
+  over every pair of embeddings, that $V^{1,0}$ is half-dimensional and
+  isotropic for $E=\Tr(\xi H)$ so that the point lies in the period domain,
+  that every eigenspace meets $V^{1,0}$ in dimension $n$ so that the Weil
+  classes are of type $(n,n)$, that
+  $\delta_{i}(f)=\sum_{\sigma}\sigma(f)\,u_{i,\sigma}\wedge u_{i',\sigma}$
+  and is therefore of type $(1,1)$, that every $\alpha_{\sigma}$ is nonzero,
+  and that the balanced $n$-fold product of the $\delta_{i}$ is
+  $w(f)=\sum_{\sigma}\sigma(f)\alpha_{\sigma}$, rational, spanning $W_{F}$.
+  For $F=\QQ(\zeta_{5})$ at $n=2$ it also computes, in the exterior algebra of
+  the sixteen-dimensional space, the space of rational $(1,1)$ classes, of
+  dimension $32$, and records that the balanced sum is necessary: the plain
+  product $\delta_{1}(1)\delta_{2}(1)$ is not a Weil class. Finally, for
+  $F=\QQ(\zeta_{8})\supset K=\QQ(\sqrt{-1})$ it checks that each $K$-Weil class
+  is the product of the two $F$-Weil classes above it and that $W_{K}$ lies in
+  the span of the products of pairs from $W_{F}$, which is
+  \Cref{prop:composite}.
+\item \emph{What the transport does along the orbit.} The script
+  \texttt{transport\_\allowbreak growth.py} works on the lattice
+  $\Lambda=\ZZ^{2G}$ with the standard alternating form. For a sample of
+  rational symplectic elements drawn from the unipotent radical of the
+  stabiliser of an isotropic line, with denominators up to $29$, it verifies
+  the three scaling identities of \Cref{lem:transport}, namely
+  $\det\varphi=c^{2G}$, $\varphi^{*}E=c^{2}E$ and
+  $\bigwedge^{k}\varphi=c^{k}\bigwedge^{k}g$, the last on the exterior
+  algebra for $G=2,3,4$, and records that the denominators are unbounded. It
+  then takes two sublattices of rank $2n=4$ in an abelian fourfold, one
+  preserved by the sample elements and one not, computes the multiplicity
+  $m=[\varphi^{-1}(\Lambda)\cap W:\Lambda_{W}]$ by Smith normal form and the
+  degrees as Pfaffians, and checks
+  $\deg\varphi(B)=c^{2n}\deg(B)/m$ in every case. The two cases separate: for
+  the preserved subtorus $m=c^{2n}$ exactly and the image degree is constant,
+  while for the other $m=c^{2n-1}$ and the image degree grows linearly in $c$.
+  Finally it tabulates the bound $c^{2n}\deg(Z)/|G(Z)|$ of
+  \Cref{thm:p1forces}(ii) for stabilisers of order $1$, $2$ and $4$, which is
+  strictly increasing and unbounded. That is \Cref{lem:transport},
+  \Cref{lem:multiplicity} and \Cref{thm:p1forces}.
+\item \emph{The annihilator of a Weil class in Hochschild cohomology.} The
+  script \texttt{hochschild\_\allowbreak annihilator.py} builds
+  $HH^{*}(A)=\bigwedge^{*}\bigl(H^{0,1}\oplus H^{0}(T_{A})\bigr)$, of
+  dimension $2^{4n}$, as an exterior algebra on $4n$ operators indexed by bit
+  masks, acting on $H^{*}(A,\CC)$ by wedging and contracting, and computes the
+  annihilator of $\omega=a\alpha_{+}+b\alpha_{-}$ in every degree by exact
+  rational elimination. It confirms that $P=V_{+}^{0,1}\oplus T_{-}$ is
+  exactly the annihilator of $\alpha_{+}$ in degree one and
+  $Q=V_{-}^{0,1}\oplus T_{+}$ that of $\alpha_{-}$, that
+  $\Ann_{HH^{1}}(\omega)=0$, that $\Ann_{HH^{2}}(\omega)=P\wedge Q$ of
+  dimension $4n^{2}$, that
+  $\dim\Ann_{HH^{k}}(\omega)=\binom{4n}{k}-2\binom{2n}{k}+\delta_{k,2n}$
+  in every degree, that the ideal generated by $P\wedge Q$ consists of the
+  monomials meeting both halves and has codimension $2^{2n+1}-1$, that
+  contraction with $\alpha_{-}$ is injective on $\bigwedge^{*}P$ and with
+  $\alpha_{+}$ on $\bigwedge^{*}Q$ with the two images meeting in exactly one
+  line in degree $2n$, and that
+  $\dim HH^{2}-\dim\Ann_{HH^{2}}=2n(2n-1)$. The computation is run in every
+  degree for $n=1$, where degree two is the exceptional degree $2n$ and the
+  annihilator is one larger, and for $n=2$ with two choices of $(a,b)$, and in
+  degrees up to three for $n=3$. That is \Cref{thm:hhsplitting} and
+  \Cref{cor:hhfactor}.
+
+\item \emph{The criterion as a number, and the support of an object meeting
+  it.} The script \texttt{p2\_\allowbreak support.py} checks the finite
+  linear algebra of \Cref{thm:p2numerical}, \Cref{lem:finiteproduct} and
+  \Cref{thm:p2support} in five parts. (A) In the exterior algebra of
+  $H^{*}(A,\CC)$ with $HH^{1}$ acting by wedging and contracting, the map
+  $\xi\mapsto\xi\lrcorner\,\omega$ on $HH^{2}$ has rank exactly $2n(2n-1)$
+  for $n=2$ and $n=3$, that is $12$ and $30$, and it is injective on
+  $\bigwedge^{2}P\oplus\bigwedge^{2}Q$; and
+  $\binom{4n}{2}-4n^{2}=2\binom{2n}{2}=2n(2n-1)$ for every $n\le60$. (B) On a
+  torus of dimension $c$, for $2\le c\le6$, the class of a point contracted
+  with $a\wedge b$ is nonzero for all coordinate pairs and for twenty-five
+  random rational pairs of independent vectors, and zero for twenty-five
+  dependent pairs. (C) For $n=2,3,4$ and random subspaces $W$ of
+  $T_{+}\oplus T_{-}$ of codimension at least two, together with the boundary
+  cases where $W$ contains $T_{+}$ or $T_{-}$, the images of $T_{+}$ and
+  $T_{-}$ in the quotient have all mixed wedges zero exactly when $W$
+  contains $T_{+}$ or $T_{-}$; this is the dichotomy used in the proof of
+  \Cref{thm:p2support}(i). (D) In an explicit rational model of $\RR^{4n}$
+  with complex structure $J$ and an action $M$ of $\QQ(i)$ of signature
+  $(n,n)$, scrambled by a random rational change of basis, the forms
+  vanishing on $\ker(J-M)$, the real form of $T_{+}$, are exactly
+  $V_{-}^{1,0}\oplus V_{+}^{0,1}$, computed over the Gaussian rationals for
+  $n=1,2$. (E) For $2\le n\le6$ neither $\alpha_{+}$ nor $\alpha_{-}$ is a
+  monomial of $\bigwedge^{*}(V_{-}^{1,0}\oplus V_{+}^{0,1})$ or of
+  $\bigwedge^{*}(V_{+}^{1,0}\oplus V_{-}^{0,1})$, so the Weil line meets the
+  sum of the two subrings in zero.
+
+\item \emph{Two jet classes on a complex of finite length.} The Macaulay2
+  script \texttt{m2/finite\_\allowbreak length\_\allowbreak products.m2}
+  builds, for a bounded complex $M$ of free modules over $\QQ[x_{1},x_{2}]$ or
+  $\QQ[x_{1},x_{2},x_{3}]$ with finite length cohomology, the jet chain maps
+  $-\sum_{i}a_{i}\partial_{i}(d)$ and decides whether the composite of two of
+  them is null homotopic. It first confirms that each input has finite
+  length, and then tests every pair of coordinate directions and a random
+  pair of independent rational directions on eighteen modules: in two
+  variables the residue field, $R/\mathfrak{m}^{2}$, $R/\mathfrak{m}^{3}$,
+  four monomial ideals, the complete intersection
+  $(x_{1}^{2}+x_{2}^{2},x_{1}x_{2})$, the ideal
+  $(x_{1}^{3}-x_{2}^{3},x_{1}^{2}x_{2},x_{1}x_{2}^{2})$, the non-cyclic
+  modules $\mathfrak{m}/\mathfrak{m}^{3}$ and the cokernel of
+  $\left(\begin{smallmatrix}x_{1}&x_{2}&0\\0&x_{1}&x_{2}\end{smallmatrix}\right)$,
+  and $k\oplus R/\mathfrak{m}^{2}$; in three variables the residue field,
+  $R/\mathfrak{m}^{2}$, two monomial complete intersections, a monomial
+  ideal of colength five and the Gorenstein algebra
+  $R/(y_{1}^{2}-y_{2}^{2},y_{2}^{2}-y_{3}^{2},y_{1}y_{2},y_{2}y_{3},y_{1}y_{3})$;
+  and three complexes with several cohomology modules. In every case the
+  Euler characteristic is nonzero and every product of two independent jet
+  classes is nonzero, which is \Cref{lem:finiteproduct}. It then builds the
+  cone $C$ of $J(\partial_{2})J(\partial_{1})\colon K\to K[2]$ on the Koszul
+  complex $K$ of the residue field in two variables, checks that $C$ is a
+  complex with cohomology of lengths $1$ and $1$ and Euler characteristic
+  zero, and that $J(\partial_{2})J(\partial_{1})$ is null homotopic on $C$,
+  while on $k\oplus k[1]$, also of Euler characteristic zero, it is not. That
+  is the sharpness of the lemma. The transcript
+  \texttt{m2/finite\_\allowbreak length\_\allowbreak products.txt} is
+  distributed with the script.
+
+\item \emph{The two classes on a Mumford fourfold, and the K3 surface that
+  would carry them.} The script \texttt{mumford\_\allowbreak rm.py} works on
+  the split model $V=V_{1}\otimes V_{2}\otimes V_{3}$ of
+  \Cref{setup:mumford}, with $\mathfrak{sl}_{2}^{3}$ acting through its nine
+  generators and $\psi=\epsilon\otimes\epsilon\otimes\epsilon$, in five parts.
+  (A) The commutant of $\mathfrak{sl}_{2}^{3}$ in $\End\bigwedge^{2}V$,
+  computed as the null space of a linear system in $784$ unknowns, has
+  dimension four, and the four projections built from the three Casimir
+  operators are orthogonal idempotents of ranks $1$, $9$, $9$, $9$ that sum to
+  the identity, commute with the action and span the commutant. (B) The Hodge
+  numbers are $(6,16,6)$ on $H^{2}$, $(0,9,0)$ on $U_{12}$, $(3,3,3)$ on
+  $U_{13}$ and $U_{23}$, and $(1,7,1)$ on $T(-1)$. (C) The product map $\mu$ of
+  \Cref{lem:mumfordmu} carries $T_{i}\otimes T_{j}$ onto $U_{ij}$ with rank nine
+  for $i\ne j$ and $T_{i}\otimes T_{i}$ onto the line of $\theta$, and its
+  image is all of $H^{2}$. (D) The Lefschetz pairing
+  $\int\alpha\beta\theta^{2}$ is nondegenerate on $H^{2}$; $\mu\mu^{\dagger}$
+  acts on the three $U_{ij}$ by one and the same nonzero rational number
+  $\nu$, which is $-1$ in the normalisation of the script; for three choices of
+  the conjugates of $e$ and $\lambda$, $\mu_{e}\mu_{e}^{\dagger}$ acts on
+  $U_{ij}$ by $\nu\sigma_{i}(g)\sigma_{j}(g)$ with $g=e^{2}/\lambda$ and
+  preserves the line of $\theta$; the algebra it generates on $U$ is spanned by
+  the three projections when the conjugates of $g$ are distinct and is the
+  scalars when they coincide; and $\kappa^{\dagger}\kappa$, for the trace form
+  on $\End(V)$, is multiplication by $4e^{2}/\lambda$. (E) In the Clifford
+  algebra of $T$ with the form $\sum_{i}l_{i}\operatorname{tr}(x_{i}y_{i})$,
+  $(l_{1},l_{2},l_{3})=(1,2,5)$, built on bit masks of an orthogonal basis,
+  the spin lifts of the three copies of $\mathfrak{sl}_{2}$ act on $C^{+}(T)$,
+  of dimension $256$; the vectors of highest weight $(1,1,1)$ span $32$
+  dimensions and lowering them gives a basis, so $C^{+}(T)\cong V^{\oplus32}$.
+  In that basis the map $\Psi(v)x=vxv_{0}$ of \Cref{prop:ksembed} is
+  $v\otimes N_{i}$ for $v\in T_{i}$, the three matrices $N_{i}$ anticommute
+  pairwise, square to the scalars $4$, $8$, $20$, proportional to the $l_{i}$,
+  and are linearly independent. That is \Cref{prop:mumfordrm},
+  \Cref{lem:mumfordmu} and the shape of the Kuga--Satake map used in the proof
+  of \Cref{thm:mumfordks}.
+
+\item \emph{The Lefschetz operator of an abelian scheme over a curve.} The
+  script \texttt{lefschetz\_\allowbreak family.py} works in exact exterior
+  algebra over $\QQ$ and assumes no sign convention. (A) On ten abelian
+  varieties with $g\le4$ and polarisation types from $(1)$ to $(1,2,4)$ and
+  $(1,1,2,2)$, the contraction by the dual bivector satisfies
+  $[L,\Lambda]=H$, and the Pontryagin product, computed from
+  $x\star y=\mu_{*}(p_{1}^{*}x\cup p_{2}^{*}y)$ with $\mu_{*}$ defined against
+  $\mu^{*}$ by the projection formula, gives $D^{-1}(x\star\gamma)=\Lambda x$
+  in every degree, with $\ell\star\gamma=gD$; without the factor $D^{-1}$ the
+  identity fails at type $(1,2)$. (B) On four product families $E\times A$
+  over an elliptic curve, where every class is invariant, the operator
+  $D^{-1}T+\Lambda_{C}$ of the proof of \Cref{thm:lefschetzfamily}, with
+  $\Lambda_{C}$ built from bases of invariant classes and the inverse of their
+  pairing matrix, satisfies $[L_{W},\Lambda]=H$, and the cross relations
+  $[L_{\mathrm{rel}},\Lambda_{C}]=0$ and $[L_{C},T]=0$ hold. (C) The invariants
+  of $\mathfrak{sl}_{2}^{3}$ in $\bigwedge^{q}(V_{1}\otimes V_{2}\otimes V_{3})$,
+  computed as the joint kernel of the six generators, have dimensions
+  $1,0,1,0,1,0,1,0,1$. That is \Cref{prop:pontryaginlambda}, the algebra of
+  \Cref{thm:lefschetzfamily} and the count in \Cref{cor:mumfordlefschetz}.
+
+\item \emph{The two remaining targets, reduced.} The script
+  \texttt{targets\_\allowbreak reduction.py} works in the split model
+  $H^{*}(X\times X)=\bigwedge^{*}(V\oplus V)$, sixteen generators, with
+  exact rational arithmetic where a space is determined and ranks modulo the
+  prime $1000003$ of integer vectors where a span is to be shown full, a rank
+  modulo a prime being a lower bound for the rank over $\QQ$. (A) The
+  invariants of $\mathfrak{sl}_{2}^{3}$ in $\bigwedge^{k}(V\oplus V)$ have
+  dimensions $1,0,3,0,8,0,16,0,28,0,16,0,8,0,3,0,1$; in degree four the
+  products of divisor classes give six, so two are exceptional; and the ring
+  of invariants is generated in degrees two and four. (B) At a CM point the
+  Hodge classes of $X_{c}$ number $1,0,4,0,8,0,4,0,1$ and those of
+  $X_{c}\times X_{c}$ number $1,0,16,0,132,0,432,0,648,\dots$; the divisor
+  classes of $X_{c}\times X_{c}$ span only $100$ of the $132$ in degree four,
+  while the ring generated by them and by the pull-backs of the Hodge classes of
+  $X_{c}$ along $(\varphi,\psi)\colon X_{c}\times X_{c}\to X_{c}$ spans every
+  Hodge class in every degree. (C) On an abelian $2n$-fold of Weil type,
+  $n=1,2,3$, the classes of type $(p,p)$ annihilated by $Q\wedge HH^{1}$, by
+  $P\wedge HH^{1}$ and by $HH^{1}\wedge HH^{1}$ are $\CC\alpha_{-}$,
+  $\CC\alpha_{+}$ and $0$. That is \Cref{thm:mumfordcm}, the ring structure
+  used in \Cref{cor:mumfordequiv}, and the annihilators in the proof of
+  \Cref{thm:nosum}.
+
+\item \emph{The exceptional classes of a Mumford square are rigid.} The
+  script \texttt{mumford\_\allowbreak rigidity.py} works in the model of
+  \Cref{setup:omegaa} at a point of the Mumford curve, with $V^{1,0}$ the
+  vectors of third weight $+1$, and in exact rational arithmetic with the
+  coefficients $a_{0},\dots,a_{3}$ as symbols. (A) The Casimir operators
+  split ${\textstyle\bigwedge^{2}}V$ as $1+9+9+9$ and the four tensors $\pi$ are invariant.
+  (B) $\mathfrak{sp}^{-1,1}$ has dimension $36$ and splits into nine weight
+  blocks of dimensions $3,4,3,4,8,4,3,4,3$; the generic kernel of contraction
+  into $\omega_{a}$ is one vector, independent of $a$; every Gram determinant
+  is a positive constant times a product of $P_{1},P_{2},Q_{1},\dots,Q_{4},R$;
+  each is a sum of squares whose zeros force two of $a_{1},a_{2},a_{3}$ to
+  coincide; the tangent dimensions at $(3,5,-7,11)$, $(3,5,5,5)$ and
+  $(1,1,1,1)$ are $1$, $10$ and $20$. (C) $HT^{2}=28+64+28$ splits into $46$
+  blocks by type, weight and exchange parity, $\omega_{a}$ being exchange
+  invariant; every Gram determinant is a positive constant times a product of
+  the forms of (B), $S_{1},\dots,S_{4}$, $Z_{1},\dots,Z_{6}$, $a_{2}$, $a_{3}$
+  and four further linear forms; the only block with a kernel at a generic
+  point is the even block of weight zero in $H^{1}(T)$, and its kernel is the
+  lowering derivation of the third factor on both copies; $L_{0}$ divides only
+  the nine odd bivector blocks. (D) Certificates: each $S$ is a sum of squares
+  whose zeros force a coincidence or a zero among $a_{1},a_{2},a_{3}$, each
+  $Z$ is a positive combination of four independent squares, and the linear
+  factors other than $L_{0}$ have unequal coefficients on $a_{1},a_{2},a_{3}$.
+  (E) As a cross-check, the annihilator in $HT^{2}$ has dimension one at forty
+  random admissible points, $36$ at $(1,1,1,1)$, $7$ at $a_{2}=0$, $4$ on the
+  hyperplane $a_{0}-3a_{1}-3a_{2}+a_{3}=0$, and $10$ at three points of
+  $L_{0}=0$. That is \Cref{thm:mumfordrigid}, \Cref{rem:rigidcompare} and
+  the annihilator used in \Cref{thm:mumfordnumerical}.
+
+\item \emph{What an object with an exceptional Chern character must look
+  like.} The script \texttt{mumford\_\allowbreak object.py} works in the same
+  model. (A) At $a=(3,5,-7,11)$ the ranks of contraction into $\omega_{a}$ on
+  $HT^{k}$, computed exactly over $\QQ$ block by block, are
+  $1,16,119,328,560,328,119,16,1$ for $k=0,\dots,8$ and $0$ above. (B) The
+  same ranks hold modulo the prime $1000133$, at which the minimal polynomial
+  of $\zeta_{7}+\zeta_{7}^{-1}$ splits, at $a_{0}=2$ and the three conjugates
+  in each of the six orders; at a point of $L_{0}=0$ they are
+  $1,16,110,328,548,328,110,16,1$. (C) For a random class with components of
+  types $(0,0)$ to $(3,3)$ the ranks are palindromic and vanish above degree
+  eight. (D) The alternating sum of the ranks is $112$ and
+  $2\cdot1+2\cdot119+560=800$. (E) At a CM point there are $16$ divisor
+  classes and $132$ Hodge classes in degree four; products of divisor classes
+  span $100$, and meet the span of the four $\pi$ exactly where
+  $a_{1}=a_{2}=a_{3}$. (F) At a CM point $X_{c}$ has $8$ Hodge classes in
+  degree four, of which products of divisor classes span $6$. That is
+  \Cref{lem:rankduality}, \Cref{thm:mumfordprofile} and
+  \Cref{prop:mumforddivisor}.
+
+\item \emph{What line bundles generate on a Mumford square.} The script
+  \texttt{lefschetz\_\allowbreak closure.py} works in the same model, with
+  $\mathfrak{sp}(V,\psi)$ spanned by the $36$ maps $x\mapsto\psi(u,x)v+
+  \psi(v,x)u$ and the torus of diagonal matrices in $\Sp(V,\psi)$, of rank
+  four. (A) The $36$ maps and the Lie algebra of $G$ lie in
+  $\mathfrak{sp}(V,\psi)$. (B) The $\Sp(V,\psi)$-invariants of
+  ${\textstyle\bigwedge^{k}}(V\oplus V)$ have dimension at most $1,3,6,10,15,10,6,3,1$ for
+  $k=0,2,\dots,16$, as a kernel modulo $1000003$, and products of the three
+  invariant divisor classes span spaces of exactly these dimensions. (C) The
+  $G$-invariants have dimension $1,3,8,16,28,16,8,3,1$, by weight
+  multiplicities and as a kernel, so the Hodge classes that are not
+  Lefschetz classes number $0,0,2,6,13,6,2,0,0$, twenty-nine in all. (D) At
+  a CM point the monomials of weight zero for the diagonal torus number
+  $1,16,100,304,454,304,100,16,1$, the coefficients of $(1+4y+y^{2})^{4}$;
+  each is a product of the $16$ divisor classes, and those products span
+  exactly them; the Hodge classes number $1,16,132,432,648,432,132,16,1$. (E)
+  $\pi_{0}$ and $\pi_{12}+\pi_{13}+\pi_{23}$ are $\Sp(V,\psi)$-invariant and
+  $\pi_{12}$ is not; the components of $\pi_{12},\pi_{13},\pi_{23}$ of
+  nonzero weight for the diagonal torus have rank two over $\QQ$, with the
+  relation $(1,1,1)$ only. (F) The modules generated by $\pi_{12}-\pi_{13}$
+  and by $\pi_{13}-\pi_{23}$ have dimension $308$ and highest weight
+  $(2,2,0,0)$, and Weyl's formula gives $1,27,42,308$ for the highest weights
+  $0,\varpi_{2},\varpi_{4},2\varpi_{2}$, with sum $378$. (G) The module meets
+  the span of the four $\pi$ in a plane. That is
+  \Cref{thm:lefschetzclosure}.
+
+\item \emph{The Hodge locus of an exceptional class among all complex tori.}
+  The script \texttt{twistor\_\allowbreak locus.py} realises $V_{\RR}$ as the
+  fixed space in $V_{1}\otimes V_{2}\otimes V_{3}$ of the real structure that
+  is quaternionic on the first two factors and real on the third, in exact
+  Gaussian integer arithmetic. (A) It is a real structure, $V_{\RR}$ has
+  dimension $8$, and $\psi$ is real and alternating on it. (B) The complex
+  structures $1\otimes1\otimes j_{3}$ of the Mumford family and
+  $j\otimes1\otimes1$, $1\otimes j\otimes1$ of the compact factors preserve
+  $V_{\RR}$, and $\psi(x,Jy)$ has signature $(0,8)$ for the first and $(4,4)$
+  for the other two. The unit quaternion $k\otimes1\otimes1$ with $kj=-jk$
+  preserves $V_{\RR}$ and $\psi$ and carries $\psi(x,Jy)$, for
+  $J=j\otimes1\otimes1$, to its negative, so every form $\psi\otimes s$ on
+  $V_{\RR}\oplus V_{\RR}$ with $s\ne0$ is congruent to its negative and
+  indefinite. (C) At $j\otimes1\otimes1$
+  the tensors $\pi$ have type $(2,2)$ and the annihilator of $\omega_{a}$ in
+  $H^{1}(T)$, of dimension $64$, is spanned by the lowering derivation of the
+  first factor; for the Mumford family it is spanned by that of the third,
+  as in item (XLIV). (D) The exchange of the first and third factors carries
+  $\pi_{12}$ to $\pi_{23}$ and fixes $\pi_{0}$ and $\pi_{13}$. That is
+  \Cref{prop:notwistor}.
+
+\item \emph{The square as a holomorphic symplectic variety.} The script
+  \texttt{hk\_\allowbreak pullback.py} works in the same split model, with
+  $\iota(x)=(x\otimes1)\Psi$ for $x$ in $T=\bigoplus_{i}\mathfrak{sl}(V_{i})$.
+  (A) $\iota(x)$ is symmetric and $\iota$ is equivariant, for all pairs of the
+  nine generators. (B) The three Casimir operators split
+  $\bigwedge^{2}(V\oplus V)$, of dimension $120$, into isotypic pieces of
+  highest weights $(0,0,0)$, $(2,2,0)$, $(2,0,2)$, $(0,2,2)$, $(2,2,2)$,
+  $(2,0,0)$, $(0,2,0)$, $(0,0,2)$ and dimensions $3,27,27,27,27,3,3,3$, with
+  parts of type $(2,0)$ of dimensions $0,0,9,9,9,0,0,1$; the last three pieces
+  are spanned by $\iota(T_{1})$, $\iota(T_{2})$, $\iota(T_{3})$. (C) The form
+  $\sigma_{0}=\iota(E_{3})$ is of type $(2,0)$ and pairs the vectors of type
+  $(1,0)$ of the two copies through an invertible $4\times4$ block. (D)
+  $\iota_{2}(C_{1})=3\pi_{0}-\pi_{12}-\pi_{13}+3\pi_{23}$ and cyclically,
+  exactly, and hence the formula for $\iota_{2}(\sum s_{i}C_{i})$ with symbolic
+  $s_{i}$. (E) $\det(x_{1}\otimes1\otimes1+1\otimes x_{2}\otimes1+
+  1\otimes1\otimes x_{3})=\Delta(N_{1},N_{2},N_{3})^{2}$ as a polynomial
+  identity in the nine coordinates. (F) $\iota(x)^{8}=8!\det(x)$ times the
+  volume form at three random integral points. (G) $\Delta$ is a
+  nondegenerate ternary form, of Gram determinant $-4$, and irreducible. That
+  is \Cref{prop:hksquare}.
+
+\item \emph{Which of the open routes to the Mumford target are needed.} The
+  script \texttt{mumford\_\allowbreak routes.py} carries the implications into
+  and out of the Mumford target as data, in the manner of item (XXXIII):
+  sixteen statements, one of them proved (the Hodge conjecture at the CM
+  points), and twenty Horn rules, each labelled by the theorem that proves it;
+  unlike that rule set this one contains equivalences. (A) Its ten labels are
+  labels of the paper and its statements are all used. (B) The target is not
+  in the closure of what is proved. (C) The statements equivalent to the
+  target over what is proved are exactly the target, algebraicity at
+  uncountably many points, $B(W\times_{C}W)$, bounded data at infinitely many
+  points, and bounded data modulo $p$. (D) The minimal sets of open statements
+  that yield the target, found by exhaustive search, number eleven and each
+  has one element. (E) The target yields neither the complex with
+  $\dim\Ext^{2}=119$ nor the two Kuga--Satake statements. (F) \textup{(L)}
+  and \textup{(V)} each yield the target. (G) The Hodge conjecture and (F2)
+  yield the target, and the target yields none of the Hodge conjecture, (F1),
+  (F2), (F3), \textup{(L)}, \textup{(V)}, \textup{(M)}. That is
+  \Cref{cor:mumfordone} and \Cref{rem:mumfordneeded}.
+\end{enumerate}
+
+Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (XLIX) are the ones
+on which theorems depend. Items (IV) and (V) support statements that no
+obstruction exists, and a failure there would strengthen rather than weaken
+the paper, so they are included for completeness rather than for safety.
+Running \texttt{verify\_all.py} executes the forty-four Python items and
+prints \texttt{823 checks passed, 0 failed}; items (XXIX), (XXXI) and
+(XL) need Macaulay2 and are run separately, and their transcripts are
+distributed with the scripts.

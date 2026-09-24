@@ -1,0 +1,78 @@
+'HodgeObstruction.qnorm_mul_check' does not depend on any axioms
+'HodgeObstruction.qmul_conj' does not depend on any axioms
+'HodgeObstruction.characters_differ' does not depend on any axioms
+'HodgeObstruction.characters_differ'' does not depend on any axioms
+'HodgeObstruction.bad_witness' does not depend on any axioms
+'HodgeObstruction.bad_witness_exceptions' does not depend on any axioms
+'HodgeObstruction.ratio_not_root_of_unity' does not depend on any axioms
+'HodgeObstruction.sign_uniform_and_closed' does not depend on any axioms
+'HodgeObstruction.subsets_count' does not depend on any axioms
+'HodgeObstruction.semiregularity_target' does not depend on any axioms
+'HodgeObstruction.secant_count_below_thresholds' does not depend on any axioms
+'HodgeObstruction.thresholds_not_necessary' does not depend on any axioms
+'HodgeObstruction.grading_positions_differ' does not depend on any axioms
+'HodgeObstruction.weil_delta_parity' does not depend on any axioms
+'HodgeObstruction.weil_delta_closed_even' does not depend on any axioms
+'HodgeObstruction.weil_delta_closed_odd' does not depend on any axioms
+'HodgeObstruction.weil_term_counts' does not depend on any axioms
+'HodgeObstruction.supports_disjoint' does not depend on any axioms
+'HodgeObstruction.hodge_dim_count' does not depend on any axioms
+'HodgeObstruction.weil_line_hodge_type' does not depend on any axioms
+'HodgeObstruction.clifford_dimensions' does not depend on any axioms
+'HodgeObstruction.k3_type_only_at_one' does not depend on any axioms
+'HodgeObstruction.moduli_codimension' does not depend on any axioms
+'HodgeObstruction.discriminant_is_a_norm' does not depend on any axioms
+'HodgeObstruction.split_codimension' does not depend on any axioms
+'HodgeObstruction.quat_class_odd' does not depend on any axioms
+'HodgeObstruction.quat_class_even' does not depend on any axioms
+'HodgeObstruction.quat_product_class' does not depend on any axioms
+'HodgeObstruction.quat_locus_codimension' does not depend on any axioms
+'HodgeObstruction.quat_locus_divisor_at_two' does not depend on any axioms
+'HodgeObstruction.irrational_witness_exists' does not depend on any axioms
+'HodgeObstruction.weil_line_spanned' does not depend on any axioms
+'HodgeObstruction.norm_form_positive' does not depend on any axioms
+'HodgeObstruction.norm_sum_forces_zero' does not depend on any axioms
+'HodgeObstruction.semiregularity_source_target' does not depend on any axioms
+'HodgeObstruction.tensor_rank_gap' does not depend on any axioms
+'HodgeObstruction.secant_witness_at_n_four' depends on axioms: [propext]
+'HodgeObstruction.secant_witness_rank' does not depend on any axioms
+'HodgeObstruction.vandermonde_nodes_distinct' does not depend on any axioms
+'HodgeObstruction.level_sums_forced' depends on axioms: [propext]
+'HodgeObstruction.level_sums_totals' does not depend on any axioms
+'HodgeObstruction.level_matrix_nonsingular' depends on axioms: [propext]
+'HodgeObstruction.gauss_norm_counts' does not depend on any axioms
+'HodgeObstruction.norm_supply_blocks_small_case' does not depend on any axioms
+'HodgeObstruction.pencil_index_d1' does not depend on any axioms
+'HodgeObstruction.pencil_index_d3' depends on axioms: [propext]
+'HodgeObstruction.pencil_beta_positive' does not depend on any axioms
+'HodgeObstruction.pencil_square_members' does not depend on any axioms
+'HodgeObstruction.split_obstruction_rank' does not depend on any axioms
+'HodgeObstruction.split_obstruction_count' does not depend on any axioms
+'HodgeObstruction.evaluation_not_surjective' does not depend on any axioms
+'HodgeObstruction.markman_candidate_identities' does not depend on any axioms
+'HodgeObstruction.secant_kernel_arithmetic' does not depend on any axioms
+'HodgeObstruction.candidate_unnormalised_points' does not depend on any axioms
+'HodgeObstruction.smooth_invariants' does not depend on any axioms
+'HodgeObstruction.smooth_bmy_defect' does not depend on any axioms
+'HodgeObstruction.smooth_bmy_is_d_le_bsq' does not depend on any axioms
+'HodgeObstruction.smooth_index_vacuous' does not depend on any axioms
+'HodgeObstruction.smooth_four_discriminants' does not depend on any axioms
+'HodgeObstruction.smooth_table' does not depend on any axioms
+'HodgeObstruction.burch_weight_identities' does not depend on any axioms
+'HodgeObstruction.burch_rank_one_discriminant' does not depend on any axioms
+'HodgeObstruction.burch_rank_four_witness' does not depend on any axioms
+'HodgeObstruction.closure_omits_conjecture' does not depend on any axioms
+'HodgeObstruction.frontier_suffices' does not depend on any axioms
+'HodgeObstruction.frontier_minimal' does not depend on any axioms
+'HodgeObstruction.frontier_smallest' does not depend on any axioms
+'HodgeObstruction.variational_gives_abelian' does not depend on any axioms
+'HodgeObstruction.lefschetz_gives_abelian' does not depend on any axioms
+'HodgeObstruction.secant_route_stops' does not depend on any axioms
+'HodgeObstruction.propagation_closes' does not depend on any axioms
+'HodgeObstruction.p2_minimal_count' does not depend on any axioms
+'HodgeObstruction.weil_monomials_separated' depends on axioms: [propext]
+'HodgeObstruction.mumford_invariants' depends on axioms: [propext]
+'HodgeObstruction.two_branch_annihilator' depends on axioms: [propext]
+'HodgeObstruction.mumford_rigidity_sos' does not depend on any axioms
+'HodgeObstruction.mumford_ext_profile' depends on axioms: [propext]
+'HodgeObstruction.lefschetz_counts' depends on axioms: [propext]

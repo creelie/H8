@@ -1,0 +1,108 @@
+\section{The numerical count gives no obstruction}\label{sec:numerology}
+
+An earlier version of part of this material asserted a numerical obstruction
+to secant constructions, on the ground that the Euler characteristic which the
+dimension count demands lies below the value at which a linear system on an
+abelian variety becomes free of base points.%
+\footnote{The content of this section was asserted in the opposite direction in the earlier version cited on the title page, where the two thresholds were presented as necessary conditions and used to rule out a range of constructions. They are sufficient and not necessary, and the two counterexamples below are elementary. We have kept the section rather than deleting it, because an error that was believed is worth printing next to its correction.} That assertion is wrong, and
+since it is the kind of error that is easy to repeat we set it out and correct
+it here. The corrected conclusion is that the numerical count obstructs
+nothing; the obstructions in this paper are the two of
+\Cref{thm:divisor,thm:character}, and neither uses any count.
+
+\subsection{The count}
+
+\begin{setupenv}[The secant numerology]\label{setup:numerology}
+Let $A$ be of $(K,-1,n)$-Weil type, so $\dim A=\dim\Av=2n$. Suppose $\Av$ is
+embedded in $\PP^{N-1}$ by a complete linear system $|M|$ with $M$ ample, so
+that $N=h^{0}(M)=\chi(M)$. The $n$-th secant variety of a nondegenerate
+$2n$-fold has expected dimension
+\[
+  \dim\Sec^{n}(\Av)=n(2n+1)-1=2n^{2}+n-1,
+\]
+and a construction that intersects $\Sec^{n}(\Av)$ with $\Av$ in the expected
+dimension inside $\PP^{N-1}$ obtains
+\[
+  \dim\bigl(\Sec^{n}(\Av)\cap\Av\bigr)
+  =\bigl(2n^{2}+n-1\bigr)+2n-\bigl(N-1\bigr)
+  =2n^{2}+3n-N .
+\]
+Asking for this to equal $n$, which is what produces a class of the required
+codimension, forces
+\begin{equation}\label{eq:chirequired}
+  N=\chi(M)=2n^{2}+2n .
+\end{equation}
+\end{setupenv}
+
+\begin{lemma}\label{lem:chicompare}
+For every $n\ge2$,
+\[
+  2n^{2}+2n<2^{2n}<3^{2n},
+\]
+and the ratio $2^{2n}/(2n^{2}+2n)$ tends to infinity.
+\end{lemma}
+
+\begin{proof}
+At $n=2$ the left inequality reads $12<16$. For $n\ge2$ the function
+$4^{n}/(2n^{2}+2n)$ has ratio of consecutive terms
+$4(2n^{2}+2n)/(2(n+1)^{2}+2(n+1))=4n/(n+2)>1$ for $n>2/3$, so the quotient is
+increasing from a value exceeding $1$ at $n=2$; both claims follow.
+\end{proof}
+
+\subsection{Why this is not an obstruction}
+
+The theorem of Lefschetz says that for $M$ ample on an abelian variety,
+$M^{\otimes2}$ is free of base points and $M^{\otimes3}$ is very ample. If
+$M=P^{\otimes2}$ with $P$ ample on a variety of dimension $m$, then
+$\chi(M)=2^{m}\chi(P)\ge2^{m}$, and similarly $\chi\ge3^{m}$ in the very ample
+case. It is tempting to read these as thresholds: no base-point-free system
+below $2^{m}$, no very ample system below $3^{m}$. Both readings invert a
+sufficient condition into a necessary one, and both are false already for
+abelian surfaces.
+
+\begin{proposition}[The thresholds are not necessary]\label{prop:thresholds}
+Let $S$ be a general complex abelian surface, so $m=2$.
+\begin{enumerate}[label=\textup{(\roman*)},nosep]
+\item A polarisation of type $(1,3)$ on $S$ has $\chi=3<4=2^{2}$ and its
+  complete linear system is free of base points; the associated morphism
+  $S\to\PP^{2}$ is a six-sheeted covering.
+\item A polarisation of type $(1,5)$ on $S$ has $\chi=5<9=3^{2}$ and is very
+  ample; the image is a Horrocks--Mumford abelian surface of degree $10$ in
+  $\PP^{4}$ \textup{\cite{HM73}}.
+\end{enumerate}
+In particular neither $2^{m}$ nor $3^{m}$ is a lower bound for the Euler
+characteristic of a base-point-free, respectively very ample, ample line
+bundle on an abelian variety of dimension $m$.
+\end{proposition}
+
+\begin{proof}
+Both statements are in the classification of $(1,d)$-polarised abelian
+surfaces; see Gross and Popescu \cite[\S1.2]{GP98}, where the base locus of
+$|L|$ is determined for each $d$: it is empty for $d\ge3$, consists of four
+points for $d=2$, and $|L|$ is very ample for $d\ge5$ on a general surface,
+the case $d=5$ being the Horrocks--Mumford embedding of \cite{HM73}. The Euler
+characteristics are $\chi=d$ by Riemann--Roch on an abelian surface.
+\end{proof}
+
+\begin{corollary}\label{cor:nonumerical}
+\Cref{setup:numerology} imposes no contradiction. The requirement
+$\chi(M)=2n^{2}+2n$ of \eqref{eq:chirequired} is compatible with $M$ being
+very ample for all $n$ for which a polarisation of that Euler characteristic
+and suitable type exists on a $2n$-dimensional abelian variety; at $n=2$ the
+requirement $\chi=12$ on an abelian fourfold is met by polarisations of type
+$(1,1,2,6)$ and $(1,1,1,12)$, and nothing in the numerology excludes very
+ampleness for either.
+\end{corollary}
+
+\begin{remark}[What we retract]\label{rem:retract}
+The claim withdrawn here is the assertion that the polarisation required by
+\eqref{eq:chirequired} admits no base-point-free linear system. It appeared in
+the supplementary material of the earlier version cited on the title page,
+together with a table of values of $2n^{2}+2n$, $2^{2n}$ and $3^{2n}$. The
+table is arithmetically correct and \Cref{lem:chicompare} reproduces it; the
+inference drawn from it is not. We are grateful to have found this before it
+propagated, and we note that the obstructions this paper does prove,
+\Cref{thm:divisor,thm:character}, are of a different character: they bound
+where a class can lie in a decomposition of cohomology, and no choice of
+polarisation, ambient space or object affects them.
+\end{remark}

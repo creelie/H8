@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Verification code and figure sources for Explicit Base Points and Numerical Propagation for Weil Classes on Abelian Varieties"
+abstract: "Exact-arithmetic verification code, a kernel-checked Lean 4 certificate of the finite arithmetic, and the TikZ sources of every figure accompanying the paper of the same name."
+type: software
+license: MIT
+authors:
+  - family-names: Bhattacharjee
+    given-names: Deep
+    orcid: "https://orcid.org/0000-0003-0466-750X"
+  - family-names: Bhattacharya
+    given-names: Ushashi
+    orcid: "https://orcid.org/0009-0002-2254-3914"
+keywords:
+  - Hodge conjecture
+  - Weil classes
+  - semiregularity
+  - secant sheaves
+  - abelian varieties
+  - Cohen-Macaulay supports
+  - Lean 4
+version: "1.0.0"

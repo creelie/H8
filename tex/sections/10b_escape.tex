@@ -1,0 +1,248 @@
+\section{What a construction must break, and how Markman breaks it}
+\label{sec:escape}
+
+\Cref{thm:character} says that a $\Kx$-eigenclass for the norm character has no
+component along the Weil line.%
+\footnote{The three hypotheses below are not independent in spirit. A construction that imports its input from projective space will normally be equivariant for whatever acts on the input, and an equivariant construction will normally return a single eigenclass, so the three tend to hold or fail together. What \Cref{prop:whichescaped} records is that Markman's construction fails all three at once, and that no two of them can be dropped in isolation.} It is natural to ask what the contrapositive
+demands of a construction that does reach the Weil line, and the answer is
+sharper than one might expect: the demand is not on the size of the object, nor
+on the ambient geometry, nor on any dimension count, but on the way the object
+transforms. This section states that demand, and then shows that the one
+construction known to meet it, Markman's, meets it in a specific and
+reproducible way. The section is the most useful one in the paper for anybody
+who wants to build something new, so we have tried to make the requirement
+concrete rather than merely negative.
+
+\subsection{The orbit criterion}
+
+\begin{proposition}[Weil classes generate a plane]\label{prop:orbitplane}
+Let $(A,\iota,\eta)$ be of $(K,-1,n)$-Weil type and let $\alpha\in\HW(A)$ be
+nonzero. Then
+\[
+  \mathrm{span}_{\QQ}\bigl\{\iota(\tau)^{*}\alpha\;:\;\tau\in\Kx\bigr\}
+  \;=\;\HW(A),
+\]
+a two-dimensional $\QQ$-vector space, and as a representation of $\Kx$ it is
+irreducible over $\QQ$.
+\end{proposition}
+
+\begin{proof}
+By \Cref{prop:weilline}(i) the space $\HW(A)$ is free of rank one over $K$, and
+$\iota(\tau)^{*}$ acts on it as multiplication by the scalar $\tau^{2n}\in K$.
+Hence the span in question is $S\cdot\alpha$, where
+$S=\mathrm{span}_{\QQ}\{\tau^{2n}:\tau\in\Kx\}\subseteq K$. Taking $\tau=1$
+shows $1\in S$. By the argument in the proof of \Cref{lem:charsdiffer} the map
+$c(\tau)=\tau/\bbar{\tau}$ has infinite image while $\mu(K)$ is finite, so there
+is $\tau_{0}$ with $(\tau_{0}/\bbar{\tau_{0}})^{2n}\ne1$, that is with
+$\tau_{0}^{2n}\ne\bbar{\tau_{0}}^{\,2n}$, that is with $\tau_{0}^{2n}\notin\QQ$.
+Then $S\supseteq\QQ+\QQ\tau_{0}^{2n}=K$, so $S=K$ and the span is
+$K\alpha=\HW(A)$.
+
+Irreducibility: a proper nonzero $\Kx$-stable $\QQ$-subspace would be a line,
+on which $\Kx$ would act by a $\QQ$-valued character, forcing
+$\tau^{2n}\in\QQ$ for all $\tau$, which we have just excluded.
+\end{proof}
+
+\begin{corollary}[The orbit criterion]\label{cor:orbitcriterion}
+Let $\cE$ be an object of $D^{b}(A)$, or $Z$ a cycle in $\CH^{n}(A)_{\QQ}$,
+whose class $\ch_{n}(\cE)$, respectively $\cl(Z)$, is a nonzero Weil class.
+Then there is no function $\chi\colon\Kx\to\QQ$ with
+\[
+  \iota(\tau)^{*}\ch_{n}(\cE)=\chi(\tau)\,\ch_{n}(\cE)
+  \qquad\text{for all }\tau\in\Kx .
+\]
+Equivalently, the $\Kx$-orbit of the class spans a plane and not a line.
+\end{corollary}
+
+\begin{proof}
+Such a $\chi$ would make $\QQ\cdot\ch_{n}(\cE)$ a $\Kx$-stable line inside
+$\HW(A)$, contradicting \Cref{prop:orbitplane}.
+\end{proof}
+
+\Cref{cor:orbitcriterion} is the precise sense in which a construction must
+break equivariance. Here is what it forbids. Suppose a
+construction assigns to the data $(A,\iota,\eta)$ an object $\cE(A,\iota,\eta)$
+in a way that is natural, meaning that an isomorphism of the data induces an
+isomorphism of the objects. The endomorphism $\iota(\tau)$ is, for $\tau$ in
+the order, an isogeny of $A$ commuting with $\iota$ and multiplying $\eta$ by
+$\Nm(\tau)$; naturality then forces
+$\iota(\tau)^{*}\cE\cong\cE$ up to the normalisation that the polarisation
+change imposes, and the induced relation on $\ch_{n}$ is precisely of the
+forbidden form $\chi(\tau)\ch_{n}(\cE)$ with $\chi$ a power of the norm. So:
+
+\begin{quote}
+\emph{No construction that is natural in the $K$-action, taken alone, can
+produce a Weil class. The construction must depend on a choice that
+$\Gal(K/\QQ)$ moves.}
+\end{quote}
+
+The rest of this section shows what such a choice looks like in practice.
+
+\subsection{The two conjugate isotropic subspaces}
+
+The choice that $\Gal(K/\QQ)$ moves is visible already in \Cref{sec:characters}
+and we name it here. The splitting
+$V_{\CC}=V_{+}\oplus V_{-}$ of \eqref{eq:Vsplit} is defined over $K$ and not
+over $\QQ$: conjugation interchanges the two summands. Consequently
+$\bigwedge^{2n}V_{+}$ and $\bigwedge^{2n}V_{-}$ are individually defined over
+$K$, and only their sum is rational. A class in $\HW(A)$ is of the form
+$w+\bbar{w}$ with $w\in\bigwedge^{2n}V_{+}$, and the two summands are the two
+conjugate halves.
+
+\begin{definition}[Conjugate pair data]\label{def:conjpair}
+By \emph{conjugate pair data} for $(A,\iota,\eta)$ we mean an ordered choice of
+one of the two summands $V_{\pm}$, equivalently an ordered choice of one of the
+two embeddings $K\hookrightarrow\CC$, equivalently a choice of one of the two
+points of a $\Gal(K/\QQ)$-orbit of size two attached to the $K$-structure.
+\end{definition}
+
+\begin{proposition}[Corestriction produces the plane]\label{prop:corestriction}
+Let $w\in\bigwedge^{2n}V_{+}$ be nonzero. Then $w+\bbar{w}$ and
+$\sqrt{-d}\,(w-\bbar{w})$ lie in $\HW(A)$ and span it over $\QQ$. In
+particular, a rational class in the Weil line is exactly a
+$\Gal(K/\QQ)$-corestriction of a class in one conjugate half, and any
+construction producing such a class must produce, in effect, a pair of
+conjugate inputs and combine them.
+\end{proposition}
+
+\begin{proof}
+Both displayed elements are fixed by conjugation, hence rational, and both lie
+in $\bigwedge^{2n}V_{+}\oplus\bigwedge^{2n}V_{-}$ by construction, hence in
+$\HW(A)$ by \Cref{def:weilline}. They are linearly independent over $\QQ$
+because $w$ and $\bbar{w}$ are linearly independent over $\CC$, and $\HW(A)$ has
+dimension two by \Cref{prop:weilline}(i).
+\end{proof}
+
+This is the design principle. A construction reaching the Weil line has to be,
+in a suitable sense, \emph{bilinear in the two conjugate halves}: it must take
+one input attached to $V_{+}$ and one attached to $V_{-}$ and pair them. A
+construction fed a single $K$-invariant input cannot do this, which is
+\Cref{cor:orbitcriterion} again.
+
+\subsection{How Markman's construction meets the criterion}
+
+Markman's work \cite{Mar25a,Mar25b} is the only construction we know of that
+produces Weil classes, and it meets the criterion exactly in the manner just
+described. We set out the relevant structure; the details are in
+\cite{Mar25b}, and we claim no part of them.
+
+The construction does not begin on $A$ or on $\Av$. It begins on an abelian
+$n$-fold $X$, that is, on a variety of half the dimension of $A$. Inside
+$H^{\mathrm{ev}}(X,\QQ)$ one selects a plane $P$ spanned by Hodge classes, and
+one requires that $P$ meet the spinor variety of even pure spinors in two
+points. Those two points are conjugate over the imaginary quadratic field $K$;
+they correspond to two maximal isotropic subspaces $W_{1}$ and $W_{2}$ that are
+interchanged by $\Gal(K/\QQ)$. This is the conjugate pair data of
+\Cref{def:conjpair}, realised concretely.
+
+To each of the two points one attaches a \emph{secant sheaf} on $X$: a coherent
+sheaf whose Chern character is the corresponding point of $P$. In the worked
+case where $X$ is the Jacobian of a curve of genus three, the secant sheaf is
+$\mathcal{I}_{\cup C_{i}}(\Theta)$, the twist by the theta bundle of the ideal
+sheaf of a union of translates of the Abel--Jacobi image of the curve. Call the
+two sheaves $\cF_{1}$ and $\cF_{2}$.
+
+The abelian variety of Weil type is then $A=X\times\widehat{X}$, of dimension
+$2n$, with its $K$-action and polarisation inherited from $P$. The object that
+carries the Weil class is
+\begin{equation}\label{eq:markmanobject}
+  E=\Phi\bigl(\cF_{1}^{\vee}\boxtimes\cF_{2}\bigr),
+\end{equation}
+where $\Phi\colon D^{b}(X\times X)\to D^{b}(X\times\widehat{X})$ is Orlov's
+derived equivalence. One then shows that the characteristic class $\kappa(E)$
+remains of Hodge type under every deformation of $X\times\widehat{X}$ as a
+polarised abelian $2n$-fold of Weil type, which is what makes the class
+algebraic on the whole family. The conclusion in \cite{Mar25b} is the
+algebraicity of the Weil classes for abelian sixfolds of Weil type of
+discriminant $-1$, and, through Schoen's degeneration argument, for all abelian
+fourfolds of Weil type, whence the Hodge conjecture for abelian fourfolds.
+
+\begin{proposition}[Which hypotheses are escaped]\label{prop:whichescaped}
+The object \eqref{eq:markmanobject} satisfies none of the hypotheses of
+\Cref{thm:divisor} and does not satisfy the hypothesis of
+\Cref{thm:equivsuffices}. Specifically:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \emph{The source is not a projective space.} The input
+  $\cF_{1}^{\vee}\boxtimes\cF_{2}$ lives on $X\times X$, an abelian variety.
+  The proof of \Cref{thm:divisor} used that $H^{*}(\PP^{N-1},\QQ)$ is generated
+  in degree two, so that $\ch$ of any object is a polynomial in the hyperplane
+  class. The cohomology of $X\times X$ is not generated in degree two: it
+  contains K\"unneth classes of every degree, and $\ch(\cF_{1}^{\vee}\boxtimes\cF_{2})$
+  is not confined to any divisor subring.
+\item \emph{The transform is not $\Phi_{\cP}$ on $A\times\Av$.} The relevant
+  equivalence is between $D^{b}(X\times X)$ and $D^{b}(X\times\widehat{X})$,
+  and \Cref{thm:fmtheta}, which computes the transform with Poincar\'e kernel
+  on powers of the polarisation of $A$, says nothing about it.
+\item \emph{The construction is not $K$-equivariant.} The two tensor factors
+  of \eqref{eq:markmanobject} carry the two conjugate points of
+  $P\cap(\text{spinor variety})$, one each. Interchanging them is the action of
+  the nontrivial element of $\Gal(K/\QQ)$, and it exchanges $E$ with a
+  different object. Hence $\ch_{n}(E)$ is not a $\Kx$-eigenclass for the norm,
+  and \Cref{cor:orbitcriterion} is satisfied rather than violated.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) and (ii) are a comparison of hypotheses and require no argument beyond
+reading \eqref{eq:markmanobject}. For (iii), if $\ch_{n}(E)$ were an eigenclass
+for the norm then by \Cref{cor:equivariant} it would have zero component along
+the Weil line, whereas Markman establishes that it spans one \cite{Mar25b}.
+\end{proof}
+
+\begin{remark}[The lesson for the secant idea]\label{rem:secantlesson}
+We are explicit here, because the point is easy to miss and is the reason
+this section exists. The idea of using secant geometry to produce Weil classes
+is not what fails. Markman's construction is a secant construction, and it
+works. What fails is siting the secant geometry on the dual $\Av$ of the
+$2n$-fold inside an ambient projective space, and transporting by the
+Poincar\'e kernel. That siting has three defects at once, by
+\Cref{prop:whichescaped}: it puts the input where the cohomology is generated
+by a divisor, it uses the transform for which \Cref{thm:fmtheta} applies, and
+it feeds the construction $K$-invariant data, since a secant variety of a
+$K$-invariant subvariety is $K$-invariant. Moving the secant geometry down to
+an abelian $n$-fold repairs all three, and it does so because the halving of
+the dimension is what makes room for the two conjugate inputs.
+\end{remark}
+
+\subsection{What would be needed above the known range}
+
+We can now state precisely what a construction for the cases that remain open
+would have to supply. The known range is $n=2$, all discriminants, and $n=3$
+with discriminant $-1$; see \cite{Mar25b} and, for a different route at
+discriminant $1$, \cite{FF26}.
+
+\begin{question}\label{q:higher}
+Fix $n\ge4$ and an imaginary quadratic field $K$. Does there exist an abelian
+$n$-fold $X$, a plane $P\subset H^{\mathrm{ev}}(X,\QQ)$ spanned by Hodge
+classes meeting the spinor variety in two points conjugate over $K$, secant
+sheaves $\cF_{1},\cF_{2}$ on $X$ realising those two points, and a deformation
+argument showing that $\kappa\bigl(\Phi(\cF_{1}^{\vee}\boxtimes\cF_{2})\bigr)$
+remains of Hodge type across the moduli of polarised abelian $2n$-folds of
+Weil type with multiplication by $K$?
+\end{question}
+
+Each of the four ingredients is a concrete demand and none is obviously out of
+reach; what is absent at present is the analogue of the genus three Jacobian,
+namely a family of abelian $n$-folds in which the plane $P$ and the two secant
+sheaves can be written down. By \Cref{cor:orbitcriterion} any successful answer
+must, however it is phrased, be bilinear in a pair of conjugate inputs, because
+that is the only way a rational class can acquire a $\Kx$-orbit of dimension
+two. We offer \Cref{q:higher} as the sharpest form we can give of what is left
+on the abelian side, and we note that it is a question about writing down one
+sheaf on one abelian variety, not a question about a general mechanism.
+
+\begin{figure}[htbp]
+\centering
+  \includegraphics[width=0.97\textwidth]{fig_escape}
+\caption{The eight positions a secant construction can occupy, drawn as the
+Boolean lattice of subsets of the three hypotheses isolated in
+\Cref{prop:whichescaped}: (H1) the Chern character of the input lies in the
+subring generated by divisor classes, (H2) the output is a $\Kx$-eigenclass,
+(H3) the output spans a single line rather than a plane. A construction
+satisfying all three sits at the top vertex, where \Cref{thm:divisor} and
+\Cref{thm:character} both apply; the shaded face is where (H1) alone already
+binds. Markman's construction sits at the bottom vertex, satisfying none of
+the three, which is why nothing here bears on it, and the Weil line needs a
+plane by \Cref{prop:orbitplane}.}
+\label{fig:escape}
+\end{figure}

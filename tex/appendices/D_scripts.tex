@@ -1,0 +1,455 @@
+\section{The verification script}\label{app:scripts}
+
+The output below is the first part of a run of \texttt{verify\_all.py}, and
+covers items (I) to (V) of \Cref{sec:verification}; the remaining items are
+carried by the companion scripts named there, and the whole run ends with the
+line \texttt{823 checks passed, 0 failed}. Everything requires the standard library of Python~3,
+together with \texttt{sympy} for \texttt{secant\_plane.py} and
+\texttt{weiltype\_family.py}, where it does exact symbolic linear algebra over
+$\QQ(\sqrt{-d})$, for \texttt{mumford\_rigidity.py}, where it factors
+Gram determinants over $\QQ[a_{0},\dots,a_{3}]$, and for
+\texttt{mumford\_object.py}, \texttt{lefschetz\_closure.py},
+\texttt{twistor\_locus.py} and \texttt{hk\_pullback.py}, where it computes
+exact ranks, null spaces, determinants and characteristic polynomials, and
+\texttt{numpy} for \texttt{pte\_remaining.py}, where it
+holds integer arrays; no step uses floating point.
+
+\begin{small}
+\begin{verbatim}
+(I) the Fourier-Mukai transform on powers of the polarisation
+  [PASS] g=1: every image is a pure multiple of theta^(g-k)
+  [PASS] g=2: every image is a pure multiple of theta^(g-k)
+         k=0: -1/2  k=1: 1  k=2: -2
+  [PASS] g=3: multiples agree with the closed form
+         k=0: 1/6  k=1: -1/2  k=2: 2  k=3: -6
+  [PASS] g=4: multiples agree with the closed form
+         k=0: 1/24  k=1: -1/6  k=2: 1  k=3: -6  k=4: 24
+
+(II) the sign sigma(g,k), uniform over index sets
+  [PASS] sign is the same for every index set T, all g <= 12
+  [PASS] sign equals (-1)^(g(g+1)/2 + k), all g <= 12
+
+(III) the character grading: Weil line against eta^n
+  [PASS] Weil line and eta^n occupy different summands, 1 <= n <= 4
+         n=2: Weil line at (r,s) = [(4,0), (0,4)],  eta^2 at (2,2)
+         n=3: Weil line at (r,s) = [(6,0), (0,6)],  eta^3 at (3,3)
+  [PASS] the characters tau^(2n) and N^n are never equal for n >= 1
+
+(IV) the secant count against the Lefschetz thresholds
+  [PASS] 2n^2+2n < 2^(2n) < 3^(2n) for 2 <= n <= 8
+         n=2: chi required 12,  2^(2n) 16,  3^(2n) 81
+         n=3: chi required 24,  2^(2n) 64,  3^(2n) 729
+  [PASS] counterexample: (1,3) is base point free with chi = 3 < 4
+  [PASS] counterexample: (1,5) is very ample with chi = 5 < 9
+  [PASS] so neither threshold is a necessary condition
+
+(V) the semiregularity target
+  [PASS] sum_q h^(q,q+2) = C(4n,2n-2) for 2 <= n <= 7
+         n=2: 28    n=3: 495   n=4: 8008   n=5: 125970
+  [PASS] the target grows by a factor above 10 at each step
+
+  18 checks passed, 0 failed
+  overall: PASS
+\end{verbatim}
+\end{small}
+
+Item (XXI), the existence of a sheaf with the required Chern character, is the
+one item whose output is an explicit witness rather than a verdict, so we
+reproduce the dimension four block of \texttt{secant\_exists.py} as well.
+
+\begin{small}
+\begin{verbatim}
+  == n = 4 ==
+       d=3, a=1, b=1:  M = 6,
+       alpha = -23[O(0t)] + 66[O(1t)] - 54[O(2t)] + 20[O(3t)] - 3[O(4t)]
+       rank alpha = 6 = M a
+  [PASS] n=4: the Vandermonde system is solvable for every (d,a,b)
+  [PASS] n=4: every witness reproduces M c_k in every degree
+  [PASS] n=4: every witness has rank exactly M a > 0
+  [PASS] n=4: the multiple M is bounded over the whole range
+         largest M = 12, and M = 1 in 4 of 72 cases
+  [PASS] n=4: theta^k/k! has integer coefficients in a symplectic basis
+\end{verbatim}
+\end{small}
+
+Item (XXXIII), the closure graph, is the other item whose output is worth
+reading rather than merely passing, since it is the statement of what is left.
+The block below is the frontier it computes, over the rules of this paper and
+those of \Cref{ssec:bullseye}, followed by the derivation it prints for each
+minimal sufficient set.
+
+\begin{small}
+\begin{verbatim}
+  [PASS] the minimal sufficient sets are enumerated exhaustively
+         4 of them, over the 12 open statements, from 4096 subsets
+  [PASS] the minimal sufficient sets are exactly four
+         {lef_B, mot}, {lef_B, red_ab}, {red_ab, vhc} and {P2, red_ab,
+         red_weil}
+  [PASS] no single open statement suffices
+         the smallest sufficient sets have 2 elements, and there are 3 of
+         them
+  [PASS] the route through this paper is the only minimal sufficient set
+         with more than two elements
+         it needs one statement more than each route of the literature
+
+       the minimal sufficient sets:
+            {lef_B, mot}
+            {lef_B, red_ab}
+            {red_ab, vhc}
+            {P2, red_ab, red_weil}
+       with
+            P2         the semiregularity map of a complex with the Weil
+                       Chern character at a base point is injective, in
+                       every Weil family of every CM field; it forces the
+                       evaluation map to vanish on the annihilator of the
+                       Weil class
+            lef_B      the Lefschetz standard conjecture B(X) for every
+                       smooth complex projective variety X
+            mot        every Hodge class on every smooth complex
+                       projective variety is motivated in the sense of
+                       Andre
+            red_ab     the Hodge conjecture for every smooth projective
+                       variety that is not an abelian variety; not a
+                       reduction, since the H^3 of a very general quintic
+                       threefold is not of abelian type
+            red_weil   every Hodge class on an abelian variety outside the
+                       subring generated by divisor classes and Weil
+                       classes of quotients is algebraic; not a reduction,
+                       since the self-product of a Mumford fourfold
+                       carries two such classes
+            vhc        a global section of R^{2p} f_* Q for a smooth
+                       projective family over a smooth connected base that
+                       is algebraic at one point is algebraic at every
+                       point
+
+  [PASS] every member of a minimal sufficient set other than P2 is a
+         consequence of the conjecture
+         lef_B by thm:equivalence, vhc and mot by the propositions of
+         ssec:bullseye, red_ab and red_weil directly; no implication from
+         the conjecture to P2 is known
+  [PASS] the route {lef_B, mot} is an equivalence with the conjecture
+         it suffices, and both members follow from the conjecture
+  [PASS] every minimal sufficient set contains red_ab or mot
+         the varieties that are not abelian are reached only through the
+         conjecture for them or through motivated classes
+  [PASS] the variational statement alone gives the conjecture for abelian
+         varieties and not the conjecture
+         so it covers the Weil classes of every CM field and the classes
+         beyond the Weil lines at once
+  [PASS] the Lefschetz standard conjecture gives the variational statement
+         through the deformation theorem for motivated classes
+  [PASS] only the route through this paper uses a statement proved in it
+         the three routes of the literature rest on open statements and
+         quoted theorems alone
+  [PASS] each element of a minimal sufficient set is necessary to it
+         removing any one of them leaves the conjecture underivable
+  [PASS] the secant route lies in no minimal sufficient set
+         granting all six of its open demands does not put it on a path to
+         the conjecture
+  [PASS] the secant route, fully granted, reaches the trivial discriminant
+         and stops
+         every base point it produces is a split member, and a split
+         member has trivial discriminant
+  [PASS] the trivial discriminant alone does not close the imaginary
+         quadratic case
+         the families of nontrivial discriminant are a separate problem
+  [PASS] the propagation statement closes the imaginary quadratic case
+         outright
+         a base point exists in every family, so the propagation is
+         uniform in K, in n and in the discriminant
+  [PASS] the propagation statement closes the Weil classes of every CM
+         field outright
+         the CM base point of every family of every CM field makes the
+         higher fields the same propagation problem
+  [PASS] the bounded criterion (P1) is not in the rule set
+         it is equivalent to the conjecture for the family, so it is a
+         restatement and not a premise
+  [PASS] the Weil classes of the higher CM fields are derived, not open
+
+       the conjecture from the proved and quoted statements and lef_B, mot
+            HC            from lef_B, mot
+                                                             [prop:lefmot]
+
+       the conjecture from the proved and quoted statements and lef_B,
+         red_ab
+            vhc           from lef_B, mot_def
+                                                             [prop:lefvhc]
+            HC_ab         from vhc, acc_ab
+                                                               [thm:vhcab]
+            HC            from HC_ab, red_ab
+                                                         [ssec:closuremap]
+
+       the conjecture from the proved and quoted statements and red_ab,
+         vhc
+            HC_ab         from vhc, acc_ab
+                                                               [thm:vhcab]
+            HC            from HC_ab, red_ab
+                                                         [ssec:closuremap]
+
+       the conjecture from the proved and quoted statements and P2,
+         red_ab, red_weil
+            weil_triv     from base_point, reduction, orbit_dense, P2
+                                                      [thm:semiregclosure]
+            weil_nontriv  from base_point, reduction, orbit_dense, P2
+                                                      [thm:semiregclosure]
+            weil_cm       from base_point_cm, reduction_cm,
+                               orbit_dense_cm, P2
+                                                       [thm:cmpropagation]
+            weil_iq       from weil_triv, weil_nontriv
+                                                           [prop:separate]
+            weil_all      from weil_iq, weil_cm
+                                                              [app:albert]
+            HC_ab         from weil_all, red_weil
+                                                         [ssec:closuremap]
+            HC            from HC_ab, red_ab
+                                                         [ssec:closuremap]
+\end{verbatim}
+\end{small}
+
+Item (XLI) prints the numbers on which \Cref{thm:mumfordks} turns: the
+scalar $\nu$, the transport of the real multiplication, and the shape of the
+Kuga--Satake map on the explicit Clifford algebra.
+
+\begin{small}
+\begin{verbatim}
+  [PASS] mu mu^dagger acts on each U_ij by one and the same nonzero
+         rational nu
+         nu = -1 on U_12, U_13, U_23; 27/2 on the line of theta
+  [PASS] with kappa = e and the form q_lambda, mu mu^dagger acts on U_ij
+         by nu g_i g_j, where g = e^2/lambda
+         e = (2, -1, 5), lambda = (3, 7, 2): on U_ij by nu g_i g_j,
+         g = (4/3, 1/7, 25/2)
+  [PASS] kappa^dagger kappa, for the trace form on End(V), is
+         multiplication by 4 e^2/lambda
+  [PASS] C^+(T) has dimension 256 and is V^{32}: the vectors of highest
+         weight (1,1,1) span 32 dimensions, and lowering them gives a basis
+         dim C^+ = 256, highest weight vectors 32
+  [PASS] N_1, N_2, N_3 anticommute pairwise and each squares to a nonzero
+         scalar, proportional to the conjugate of lambda
+         N_i^2 = 4, 8, 20 for lambda = (1, 2, 5)
+\end{verbatim}
+\end{small}
+
+Item (XLIV) prints the checks behind \Cref{thm:mumfordrigid} and
+\Cref{thm:mumfordnumerical}: the weight blocks, the factors of their Gram
+determinants, the one kernel vector, and the certificates.
+
+\begin{small}
+\begin{verbatim}
+  [PASS] wedge^2 V splits as 1 + 9 + 9 + 9 and the four tensors pi are
+         invariant
+         dimensions {'0': 1, '12': 9, '13': 9, '23': 9}
+  [PASS] sp^{-1,1} has dimension 36, split into nine weight blocks
+         block dimensions {(-2, -2): 3, (-2, 0): 4, (-2, 2): 3, (0,
+         -2): 4, (0, 0): 8, (0, 2): 4, (2, -2): 3, (2, 0): 4, (2, 2):
+         3}
+  [PASS] the generic kernel is one vector, in the block of weight (0,0),
+         and it does not depend on a
+         the tangent direction of the Mumford curve
+  [PASS] every Gram determinant is a positive constant times a product of
+         P1, P2, Q1, Q2, Q3, Q4 and a2^2 + a3^2
+  [PASS] each of the seven forms is a sum of squares of rational linear
+         forms with positive coefficients
+  [PASS] the common zeros of the squared linear forms of each form have
+         two of a1, a2, a3 equal
+         so for pairwise distinct a1, a2, a3 every block has full rank
+         and the tangent space is one dimensional
+  [PASS] tangent dimensions: 1 for distinct coefficients, 10 for a1 = a2
+         = a3, 20 for a0 = a1 = a2 = a3
+         computed 1, 10, 20
+  [PASS] the annihilator in HH^2 (dimension 120) of an exceptional class
+         is one dimensional at forty random admissible points, and 36
+         dimensional for the class with equal coefficients
+         so on a nonempty Zariski open set of classes, which contains
+         rational ones, the least dimension of Ext^2 is 119
+  [PASS] the annihilator does jump on special loci, which contain no
+         rational exceptional class
+         dimension 7 at a2 = 0 and 4 on the hyperplane a0 - 3 a1 - 3 a2
+         + a3 = 0
+  [PASS] HH^2 = H^{0,2} + H^1(T) + H^0(wedge^2 T) splits into blocks by
+         type, weight and exchange parity, and omega_a is exchange
+         invariant
+         dimensions {'pi': 28, 'v': 64, 'z': 28}
+  [PASS] every block Gram determinant is a positive constant times a
+         product of P1, P2, Q1..Q4, R, S1..S4, Z1..Z6, a2, a3, L0, L1,
+         L2, L3
+  [PASS] the only block with a kernel at a generic point is the exchange
+         even block of weight (0,0) of H^1(T), its kernel is independent
+         of a and is the derivation of the Mumford curve
+  [PASS] L0 = a0 + a1 + a2 + a3 divides only the Gram determinants of the
+         exchange odd blocks of bivectors
+         9 blocks
+  [PASS] S1..S4 are sums of squares whose zeros force two of a1, a2, a3
+         to coincide or one to vanish; Z1..Z6 are positive definite, as
+         sums of four squares of independent forms with positive
+         coefficients
+  [PASS] every linear factor other than L0 has unequal coefficients on
+         a1, a2, a3
+         so it does not vanish at the conjugates of an irrational
+         element of a cubic field, whatever the rational a0
+  [PASS] on the hyperplane L0 = 0 the annihilator has dimension 10
+         at three sample points: [10, 10, 10]
+\end{verbatim}
+\end{small}
+
+Item (XLV) prints the checks behind \Cref{thm:mumfordprofile} and
+\Cref{prop:mumforddivisor}.
+
+\begin{small}
+\begin{verbatim}
+  [PASS] the ranks of contraction into omega at (3,5,-7,11), exact over
+         Q, are 1,16,119,328,560,328,119,16,1 in degrees 0..8
+         computed [1, 16, 119, 328, 560, 328, 119, 16, 1]
+  [PASS] they vanish in degrees above eight
+  [PASS] the same ranks, modulo p = 1000133, at a0 = 2 and the conjugates
+         of 2cos(2pi/7) in each of the six orders
+         a rational exceptional class for the cubic subfield of
+         Q(zeta_7)
+  [PASS] on the hyperplane a0 + a1 + a2 + a3 = 0 the ranks drop to
+         1,16,110,328,548,328,110,16,1
+         computed [1, 16, 110, 328, 548, 328, 110, 16, 1]
+  [PASS] for a random class with components of types (0,0) to (3,3) the
+         ranks are palindromic, r_k = r_{8-k}, and zero above eight
+         computed [1, 16, 104, 322, 474, 322, 104, 16, 1, 0, 0]
+  [PASS] the alternating sum of the ranks is 112, and 2r_0 + 2r_2 + r_4 =
+         800
+         so chi(E,E) = 0 forces Ext^1 + Ext^3 >= 400 when Ext^{<0} = 0
+  [PASS] at a CM point: 16 divisor classes, 132 Hodge classes in degree
+         four, products of divisor classes spanning 100
+  [PASS] the combinations of the pi in that span are exactly those with
+         a1 = a2 = a3
+         so no rational exceptional class is a polynomial in divisor
+         classes at any point
+  [PASS] at a CM point X_c has 4 divisor classes and 8 Hodge classes in
+         degree four, of which products of divisors span 6
+         the other two are not products of divisor classes
+\end{verbatim}
+\end{small}
+
+Item (XLVI) prints the checks behind \Cref{thm:lefschetzclosure}.
+
+\begin{small}
+\begin{verbatim}
+  [PASS] the 36 maps lie in sp(V, psi), there are 32 root vectors, and
+         the Lie algebra of G lies in sp(V, psi)
+  [PASS] the Sp(V, psi)-invariants of wedge^k(V+V) have dimension
+         1,3,6,10,15,10,6,3,1, and the products of the three invariant
+         divisor classes span them
+         upper [1, 3, 6, 10, 15, 10, 6, 3, 1],
+         lower [1, 3, 6, 10, 15, 10, 6, 3, 1]
+  [PASS] the G-invariants have dimension 1,3,8,16,28,16,8,3,1 (by
+         weight multiplicities, and as the kernel modulo p), so the
+         Hodge classes that are not Lefschetz number 0,0,2,6,13,6,2,0,0,
+         29 in all
+         computed [1, 3, 8, 16, 28, 16, 8, 3, 1]
+  [PASS] at a CM point the T_Sp-invariant monomials number
+         1,16,100,304,454,304,100,16,1 = coefficients of (1+4y+y^2)^4,
+         each a product of the 16 divisor classes, which span exactly
+         them
+         Hodge classes [1, 16, 132, 432, 648, 432, 132, 16, 1]
+  [PASS] at a CM point the Hodge classes number
+         1,16,132,432,648,432,132,16,1
+  [PASS] pi_0 and pi_12 + pi_13 + pi_23 are Sp-invariant and pi_12 is
+         not; omega_a is T_Sp-invariant exactly when a1 = a2 = a3
+         12 monomials of nonzero T_Sp-weight, exact rank 2
+  [PASS] the module generated by pi_12 - pi_13, and the one generated by
+         pi_13 - pi_23, has dimension 308 and highest weight (2,2,0,0)
+         dimensions [308, 308]
+  [PASS] Weyl's formula for Sp_8: dimensions 1, 27, 42, 308 for 0, w_2,
+         w_4, 2w_2, and 1 + 27 + 42 + 308 = 378 = 27*28/2
+  [PASS] that module meets the span of the four pi in a plane: the
+         exceptional plane
+         computed [2, 2]
+\end{verbatim}
+\end{small}
+
+Item (XLVII) prints the checks behind \Cref{prop:notwistor}.
+
+\begin{small}
+\begin{verbatim}
+  [PASS] s = s_1 (x) s_2 (x) s_3 is a real structure, V_R has real
+         dimension 8, and psi is real and alternating on V_R
+  [PASS] J_3, J_1, J_2 preserve V_R and square to -1; psi(x, Jy) is real
+         symmetric of signature (0,8) for J_3 and (4,4) for J_1 and J_2
+         signatures {'J_3': (0, 8, 0), 'J_1': (4, 4, 0),
+         'J_2': (4, 4, 0)}
+  [PASS] at J_1 the quaternion k = s_1 (x) 1 (x) 1 preserves V_R and
+         psi, anticommutes with J_1 and carries psi(x, J_1 y) to its
+         negative; so psi (x) S is congruent to its negative, hence
+         indefinite, for every nonzero real symmetric 2 x 2 matrix S: no
+         invariant class of degree two polarises the square
+         signature (m,m) confirmed directly on 6 matrices S
+  [PASS] at J_1 the tensors pi have type (2,2) and the annihilator of
+         omega_a in H^1(T) (dimension 64) is spanned by the lowering
+         derivation of the first factor on both copies
+         dimension 64, kernel 1
+  [PASS] at J_3, the Mumford family, it is spanned by the lowering
+         derivation of the third factor, as in item (XLIV)
+         dimension 64, kernel 1
+  [PASS] the exchange of the first and third factors carries pi_12 to
+         pi_23 and fixes pi_0 and pi_13
+\end{verbatim}
+\end{small}
+
+Item (XLVIII) prints the checks behind \Cref{prop:hksquare}.
+
+\begin{small}
+\begin{verbatim}
+  [PASS] iota(x) = (x (x) 1) Psi is symmetric for the nine generators of
+         T, and y.iota(x) = iota([y, x]) for all pairs of generators
+  [PASS] the Casimirs split H^2 of the square (dimension 120) into
+         isotypic pieces of dimensions 3, 27, 27, 27, 27, 3, 3, 3 with
+         (2,0)-parts 0, 0, 9, 9, 9, 0, 0, 1; the pieces of types
+         (2,0,0), (0,2,0), (0,0,2) are iota(T_1), iota(T_2), iota(T_3),
+         and only the Galois orbit of T has h^{2,0} = 1
+         dims [3, 27, 27, 27, 27, 3, 3, 3]
+  [PASS] sigma_0 = iota(E_3) is of type (2,0) and pairs the
+         (1,0)-vectors of the two copies through an invertible 4 x 4
+         block, so it is a holomorphic symplectic form on the square
+         det of the block 1
+  [PASS] iota_2(C_1) = 3 pi_0 - pi_12 - pi_13 + 3 pi_23 and cyclically;
+         so iota_2(sum s_i C_i) = omega_a with a_0 = 3 sum s_i and
+         a_ij = 4 s_k - sum s_i
+  [PASS] det(x_1 + x_2 + x_3 on V) = Delta(N_1, N_2, N_3)^2 with N_i =
+         -det(x_i), as a polynomial identity in nine variables
+  [PASS] iota(x)^8 = +- 8! det(x) vol at sample points, with one sign
+         ratios [1, 1, 1]
+  [PASS] Delta is a nondegenerate ternary quadratic form (Gram
+         determinant -4) and irreducible, so Delta(N)^2 is not a
+         constant multiple of the fourth power of a linear form
+         Gram determinant -4
+\end{verbatim}
+\end{small}
+
+Item (XLIX) prints the checks behind \Cref{cor:mumfordone} and
+\Cref{rem:mumfordneeded}.
+
+\begin{small}
+\begin{verbatim}
+  [PASS] every theorem label in the rule set is a label of the paper,
+         and every statement named in a rule is declared
+         20 rules, 10 labels
+  [PASS] the target is not in the closure of the proved statements
+  [PASS] the statements equivalent to the target over the proved ones
+         are exactly TARGET, UNCOUNT, B_WW, BOUND and MODP
+         ['BOUND', 'B_WW', 'MODP', 'TARGET', 'UNCOUNT']
+  [PASS] every minimal set of open statements yielding the target has
+         one element, so one route suffices
+         11 minimal sets: BOUND, B_WW, EXT119, F2, HC, HK_U, KS_U, L,
+         MODP, UNCOUNT, V
+  [PASS] the target yields none of EXT119, KS_U, HK_U: those routes are
+         stronger than the target, not forms of it
+  [PASS] L and V each yield the target, so on the routes to the
+         conjecture through them the target is not an input
+  [PASS] HC and F2 yield the target, and the target yields none of HC,
+         F1, F2, F3, L, V, M
+\end{verbatim}
+\end{small}
+
+The source is distributed with the paper as \texttt{verify\_all.py}. Its four
+substantive routines are an exterior algebra over $\QQ$ with basis elements
+indexed by bit masks and the shuffle sign \eqref{eq:shufflesign}; the
+transform $\Phi_{\cP}$ implemented as multiplication by $e^{\ell}$ followed by
+extraction of the coefficient of the top form in the dual variables; the
+permutation sign of \Cref{lem:appsign}; and the binomial identities of
+\Cref{prop:target}. No step uses floating point.

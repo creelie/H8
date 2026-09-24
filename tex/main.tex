@@ -1,0 +1,112 @@
+\documentclass[11pt,reqno]{amsart}
+\input{preamble}
+\graphicspath{{figures/}}
+
+\title[Base points and propagation for Weil classes]
+      {Explicit Base Points and Numerical Propagation for Weil Classes on
+       Abelian Varieties}
+
+\author{Deep Bhattacharjee}
+\address{Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL),
+  Bhubaneswar, Odisha 751030, India}
+\email{d.bhattacharjee@erl-forschung.de}
+\email{itsdeep@live.com}
+\urladdr{\textnormal{ORCID
+  \href{https://orcid.org/0000-0003-0466-750X}{0000-0003-0466-750X}}}
+
+\author{Ushashi Bhattacharya}
+\address{Formerly, National Taiwan University, Taipei 106319, Taiwan}
+\email{rai.bhattacharya.in@gmail.com}
+\urladdr{\textnormal{ORCID
+  \href{https://orcid.org/0009-0002-2254-3914}{0009-0002-2254-3914}}}
+
+\thanks{Deep Bhattacharjee is the corresponding author, at
+\texttt{d.bhattacharjee@erl-forschung.de} and \texttt{itsdeep@live.com}.}
+
+\thanks{Every numerical assertion in this paper is reproduced by the scripts
+of \Cref{sec:verification}, which use exact rational, integer or exterior
+algebra over $\QQ$ and no floating point at any step, and the finite
+arithmetic on which the two main theorems turn is separately checked by the
+Lean~4 kernel as described in \Cref{sec:lean}. Both are distributed with the
+paper.}
+
+\thanks{An earlier and substantially different version of part of this
+material was posted by the authors on Preprints.org, on 5 August 2026, as
+\emph{Relative Secant Cycles and Hodge Classes},
+\href{https://doi.org/10.20944/preprints202602.0462.v5}%
+{\texttt{doi:10.20944/preprints202602.0462.v5}}.
+That version proposed a construction of algebraic representatives for Weil
+classes. \Cref{thm:divisor,thm:character} below show that no construction of
+that shape can produce a Weil class, and the present paper supersedes it. We
+thank the referees of that version for pressing on the identification step,
+which is where the obstruction lives.}
+
+\date{\today}
+
+\subjclass[2020]{Primary 14C30, 14K05;
+  Secondary 14C25, 14D07, 14F08, 14J28, 11G10, 13D07, 32G20}
+
+\keywords{Hodge conjecture, Weil classes, semiregularity}
+
+\begin{document}
+
+\begin{abstract}
+Every family of abelian varieties of Weil type, of any field, dimension and
+discriminant, contains a member whose Weil classes are explicit
+polynomials in divisor classes, and its Hodge conjecture is the algebraicity
+of one class on one connected period domain. Propagation from that member
+follows once a perfect complex with the Weil Chern character has $\Ext^{2}$ of minimal
+dimension $2n(2n-1)$, which no complex supported in codimension $n$ attains.
+Fourteen routes are closed. By machine-checked computation this route needs
+three further statements, and routes through the Lefschetz standard or
+variational Hodge conjecture need two. The Lefschetz standard conjecture holds
+for the total space of every Mumford family. The first classes beyond the
+Weil lines, on the square of a Mumford fourfold, are algebraic at every CM
+point, rigid along the base curve, and represented by cycles at every closed
+point of every reduction modulo a prime; they propagate to every member
+exactly when it holds for one ninefold, or when those cycles have bounded
+degree on a dense set, and once one complex has $\Ext^{2}$ of dimension
+$119$.
+\end{abstract}
+
+\maketitle
+
+\setcounter{tocdepth}{1}
+\vspace*{-15pt}
+\begingroup
+\setlength{\parskip}{0pt}
+\tableofcontents
+\endgroup
+\vspace*{-4pt}
+
+\input{sections/01_introduction}
+\input{sections/02_conventions}
+\input{sections/03_weiltype}
+\input{sections/03b_explicit_weil}
+\input{sections/04_characters}
+\input{sections/05_fouriermukai}
+\input{sections/06_divisor_obstruction}
+\input{sections/07_numerology}
+\input{sections/08_semiregularity}
+\input{sections/09_hyperplane}
+\input{sections/09b_kugasatake}
+\input{sections/10_reduction}
+\input{sections/10b_escape}
+\input{sections/10c_construction}
+\input{sections/10d_cmfields}
+\input{sections/11_scope}
+\input{sections/14_closure}
+\input{sections/12_verification}
+\input{sections/13_lean}
+
+\appendix
+\input{appendices/A_exterior}
+\input{appendices/B_cdk}
+\input{appendices/C_albert}
+\input{appendices/D_scripts}
+
+\input{declarations}
+
+\input{bibliography}
+
+\end{document}

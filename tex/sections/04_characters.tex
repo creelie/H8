@@ -1,0 +1,228 @@
+\section{The character grading and the position of the Weil line}
+\label{sec:characters}
+
+This section proves \Cref{thm:character}. The content is a single observation
+made precise: the group $\Kx$ acts on $H^{2n}(A,\QQ)$ through the endomorphisms
+$\iota(\tau)$, this action grades the cohomology, and the two objects whose
+relation is at issue, the Weil line and the power $\eta^{n}$ of the
+polarisation, sit at different places in the grading. Once the grading is
+written down the obstruction is a two-line argument. What takes work is
+writing the grading down correctly, because the natural first guess, that the
+Weil line is where $\Kx$ acts through the norm, is wrong, and it is wrong in
+exactly the way that makes a construction look as if it should succeed.
+
+\subsection{The grading}
+
+Throughout the section $(A,\iota,\eta)$ is of $(K,-1,n)$-Weil type,
+$V=H^{1}(A,\QQ)$, and $V_{\CC}=V_{+}\oplus V_{-}$ is the splitting of
+\Cref{not:eigen}.
+
+\begin{proposition}[Character grading]\label{prop:grading}
+For every $k\ge0$,
+\begin{equation}\label{eq:grading}
+  H^{k}(A,\CC)\;=\;\bigoplus_{r+s=k}
+    \Bigl(\textstyle\bigwedge^{r}V_{+}\otimes\bigwedge^{s}V_{-}\Bigr),
+\end{equation}
+and $\iota(\tau)^{*}$ acts on the summand indexed by $(r,s)$ by the scalar
+$\tau^{r}\bbar{\tau}^{\,s}$. The summands are the isotypic components for the
+action of $\Kx$, and the characters $\tau\mapsto\tau^{r}\bbar{\tau}^{\,s}$ for
+distinct pairs $(r,s)$ with $r+s=k$ are pairwise distinct.%
+\footnote{Distinctness is a statement about characters of the torus
+$\Res_{K/\QQ}\mathbb{G}_{m}$, not about their values at one element. At a
+fixed $\tau$ two of the values agree exactly when $\tau/\bbar\tau$ is a root of
+unity of order dividing $r-r'$, and for $K=\QQ(\sqrt{-1})$ or
+$K=\QQ(\sqrt{-3})$ this happens for the obvious choice $\tau=1+\sqrt{-d}$;
+\Cref{sec:lean} records both failures.}
+\end{proposition}
+
+\begin{proof}
+By \eqref{eq:wedge} we have $H^{k}(A,\CC)=\bigwedge^{k}V_{\CC}$, and the
+exterior power of a direct sum decomposes as
+$\bigwedge^{k}(V_{+}\oplus V_{-})=\bigoplus_{r+s=k}\bigwedge^{r}V_{+}\otimes\bigwedge^{s}V_{-}$,
+which is \eqref{eq:grading}. By \Cref{not:eigen} the operator
+$\iota(\tau)^{*}$ acts on $V_{+}$ by $\tau$ and on $V_{-}$ by $\bbar{\tau}$, so
+on $\bigwedge^{r}V_{+}\otimes\bigwedge^{s}V_{-}$ it acts by
+$\tau^{r}\bbar{\tau}^{\,s}$, as claimed, since it is an algebra map for the
+wedge product.
+
+For the last statement, suppose $\tau^{r}\bbar{\tau}^{\,s}=\tau^{r'}\bbar{\tau}^{\,s'}$
+for all $\tau\in\Kx$, with $r+s=r'+s'=k$. Dividing, $(\tau/\bbar{\tau})^{r-r'}=1$
+for every $\tau\in\Kx$. If $r\ne r'$ this says that the image of the map
+$c(\tau)=\tau/\bbar{\tau}$ lies in the group of $(r-r')$-th roots of unity of
+$K$, which is finite because $K$ is an imaginary quadratic field and its group
+of roots of unity has order $2$, $4$ or $6$. But $c$ has infinite image: two
+elements have the same image exactly when their ratio lies in $\QQ^{\times}$,
+and the elements $m+\sqrt{-d}$ for $m\in\ZZ$ are pairwise non-proportional over
+$\QQ$. Hence $r=r'$ and so $s=s'$.
+\end{proof}
+
+\begin{lemma}[The polarisation sits in the middle]\label{lem:NSchar}
+Let $(A,\iota,\eta)$ be of $(K,-1,n)$-Weil type. Then
+\[
+  \iota(\tau)^{*}\eta=\Nm_{K/\QQ}(\tau)\,\eta\qquad\text{for all }\tau\in\Kx,
+\]
+so $\eta$ lies in the summand $(r,s)=(1,1)$ of \eqref{eq:grading} and
+$\eta^{n}$ lies in the summand $(r,s)=(n,n)$, on which $\Kx$ acts by $\Nm^{n}$.
+\end{lemma}
+
+\begin{proof}
+Let $E$ be the alternating form on $H_{1}(A,\QQ)$ attached to $\eta$. Condition
+(iii) of \Cref{def:weiltype} says that the Rosati involution $\dagger$ of
+$\eta$ satisfies $\iota(\tau)^{\dagger}=\iota(\bbar{\tau})$, and by the
+defining property of the Rosati involution,
+\[
+  E\bigl(\iota(\tau)x,\,y\bigr)=E\bigl(x,\,\iota(\tau)^{\dagger}y\bigr)
+  =E\bigl(x,\,\iota(\bbar{\tau})y\bigr)
+  \qquad\text{for all }x,y .
+\]
+Therefore
+\begin{align*}
+  \bigl(\iota(\tau)^{*}E\bigr)(x,y)
+  &=E\bigl(\iota(\tau)x,\iota(\tau)y\bigr)
+   =E\bigl(x,\iota(\bbar{\tau})\iota(\tau)y\bigr)\\
+  &=E\bigl(x,\iota(\Nm(\tau))y\bigr)=\Nm(\tau)\,E(x,y),
+\end{align*}
+using $\bbar{\tau}\tau=\Nm(\tau)\in\QQ$ and the $\QQ$-linearity of $\iota$.
+This is the displayed identity. By \Cref{prop:grading} the character $\Nm$ on
+$H^{2}$ is $\tau\bbar{\tau}$, which is the summand $(r,s)=(1,1)$; and since
+$\iota(\tau)^{*}$ is a ring map, $\iota(\tau)^{*}\eta^{n}=\Nm(\tau)^{n}\eta^{n}$,
+placing $\eta^{n}$ in the summand $(n,n)$.
+\end{proof}
+
+\begin{lemma}[The Weil line sits at the ends]\label{lem:weilchar}
+Let $(A,\iota,\eta)$ be of $(K,-1,n)$-Weil type. Then
+\[
+  \HW(A)\otimes_{\QQ}\CC
+  =\Bigl(\textstyle\bigwedge^{2n}V_{+}\Bigr)\oplus
+   \Bigl(\textstyle\bigwedge^{2n}V_{-}\Bigr),
+\]
+the summands $(r,s)=(2n,0)$ and $(0,2n)$ of \eqref{eq:grading} in degree $2n$,
+on which $\Kx$ acts by $\tau\mapsto\tau^{2n}$ and $\tau\mapsto\bbar{\tau}^{\,2n}$.
+\end{lemma}
+
+\begin{proof}
+This is \Cref{def:weilline} together with \Cref{prop:weilline}(i), which says
+that $\HW(A)$ is the $\QQ$-structure on that pair of lines; the characters are
+read off from \Cref{prop:grading} with $(r,s)=(2n,0)$ and $(0,2n)$.
+\end{proof}
+
+\begin{lemma}[The two characters differ]\label{lem:charsdiffer}
+For every $n\ge1$ the characters $\tau\mapsto\tau^{2n}$ and
+$\tau\mapsto\Nm_{K/\QQ}(\tau)^{n}=(\tau\bbar{\tau})^{n}$ of $\Kx$ are distinct,
+as are $\tau\mapsto\bbar{\tau}^{\,2n}$ and $\Nm^{n}$.
+\end{lemma}
+
+\begin{proof}
+The two characters agree if and only if $(\tau/\bbar{\tau})^{n}=1$ for every
+$\tau\in\Kx$, since $\tau^{2n}=(\tau\bbar{\tau})^{n}$ is equivalent to
+$(\tau/\bbar{\tau})^{n}=1$ for $\tau\ne0$.
+
+Consider the map $c\colon\Kx\to\Kx$, $c(\tau)=\tau/\bbar{\tau}$. Two elements
+have the same image exactly when their ratio is fixed by conjugation, that is
+when it lies in $\QQ^{\times}$. The elements $m+\sqrt{-d}$ for $m\in\ZZ$ are
+pairwise non-proportional over $\QQ$, so $c$ takes infinitely many values.
+
+On the other hand $\{\zeta\in K:\zeta^{n}=1\}$ is contained in the group
+$\mu(K)$ of roots of unity of $K$, and for an imaginary quadratic field
+$\mu(K)$ is finite: it has order $4$ for $d=1$, order $6$ for $d=3$, and order
+$2$ otherwise. An infinite set cannot be contained in a finite one, so some
+$\tau\in\Kx$ has $(\tau/\bbar{\tau})^{n}\ne1$, and the characters differ. The
+second pair is the image of the first under conjugation.
+\end{proof}
+
+\begin{remark}[The witness has to be chosen]\label{rem:witness}
+The proof just given is non-constructive on purpose, for the following
+reason. One is tempted to fix a convenient $\tau$ once and for all, and the
+convenient choice $\tau=1+\sqrt{-d}$ fails: for $d=1$ the ratio
+$\tau/\bbar{\tau}$ equals $\sqrt{-1}$, a primitive fourth root of unity, so the
+two characters do agree at that single $\tau$ whenever $4\mid n$; and for $d=3$
+the ratio is $(-1+\sqrt{-3})/2$, a primitive cube root of unity, so they agree
+whenever $3\mid n$. The choice $\tau=3+\sqrt{-d}$ fails as well, at $d=3$ with
+$6\mid n$. These are not counterexamples to the lemma, which quantifies over
+all $\tau$; they are counterexamples to the shortcut. We found them by
+formalising the statement, and both are recorded as machine-checked facts in
+\Cref{sec:lean}, theorems \texttt{bad\_witness} and
+\texttt{bad\_witness\_exceptions}. The choices $\tau=2+\sqrt{-d}$,
+$\tau=4+\sqrt{-d}$ and $\tau=3+2\sqrt{-d}$ do work for every $d$ and every
+$n\le12$ tested, but the finiteness argument above is what proves the lemma.
+\end{remark}
+
+\subsection{The obstruction}
+
+\begin{proof}[Proof of \Cref{thm:character}]
+The grading \eqref{eq:grading} and the action on its summands are
+\Cref{prop:grading}. The placement of $\HW(A)$ is \Cref{lem:weilchar} and the
+placement of $\eta^{n}$ is \Cref{lem:NSchar}. For the last assertion, write
+$H^{2n}(A,\QQ)^{\Nm^{n}}$ for the space of $x$ with
+$\iota(\tau)^{*}x=\Nm(\tau)^{n}x$ for all $\tau$. After $\otimes\CC$ this is
+the isotypic component of the character $\Nm^{n}$, which by
+\Cref{prop:grading} is the single summand $(r,s)=(n,n)$. By
+\Cref{lem:charsdiffer} the characters $\tau^{2n}$ and $\bbar{\tau}^{\,2n}$ are
+different from $\Nm^{n}$, so by \Cref{lem:weilchar} the space
+$\HW(A)\otimes\CC$ meets the $(n,n)$ summand in zero. Intersecting with the
+rational structure gives $\HW(A)\cap H^{2n}(A,\QQ)^{\Nm^{n}}=0$.
+\end{proof}
+
+\begin{corollary}[What an equivariant construction can produce]%
+\label{cor:equivariant}
+Let $x\in H^{2n}(A,\QQ)$ satisfy $\iota(\tau)^{*}x=\Nm(\tau)^{n}x$ for all
+$\tau\in\Kx$. Then the component of $x$ along $\HW(A)$ in any $\Kx$-stable
+complement is zero. In particular $x$ is a Weil class only if $x=0$.
+\end{corollary}
+
+\begin{proof}
+Immediate from \Cref{thm:character}, since the isotypic decomposition is a
+direct sum decomposition into $\Kx$-stable subspaces and $x$ lies in a single
+summand that meets $\HW(A)$ in zero.
+\end{proof}
+
+\Cref{cor:equivariant} is the statement that applies to constructions. A
+construction that is natural in the $K$-action produces an eigenclass, and the
+computation of which character it produces is usually easy, because it is
+determined by how the input transforms. The point of
+\Cref{lem:NSchar,lem:charsdiffer} together is that the norm character, which
+is the one a $\QQ$-rational construction naturally produces, is the character
+already occupied by the polarisation.
+
+\begin{remark}[Which character a construction would need]\label{rem:rightcharacter}
+To land on the Weil line a construction must produce an eigenclass for
+$\tau\mapsto\tau^{2n}$ or for $\tau\mapsto\bbar{\tau}^{\,2n}$. Neither character
+is $\QQ$-valued: $\tau^{2n}\in K$ and is not fixed by $\Gal(K/\QQ)$ unless it
+is real. A correspondence defined over $\QQ$ acts on $H^{*}(A,\QQ)$ by a
+$\QQ$-linear map that commutes with the $\QQ$-structure, so any eigenvalue
+attached to it in this setting is $\Gal(K/\QQ)$-stable as a function of $\tau$,
+which forces the norm character or a power of it. The way out of this is not
+to make the construction more clever but to break the naturality: one must
+produce a class whose $\Kx$-orbit is two-dimensional, spanning the pair
+$\tau^{2n}$ and $\bbar{\tau}^{\,2n}$ together, rather than an eigenclass. Both
+$\HW(A)$ and its $\QQ$-structure are of that shape, and this is precisely what
+makes the Weil line hard to reach: it is the one place in the grading that no
+single $\QQ$-rational eigenvalue condition can isolate.
+\end{remark}
+
+\begin{remark}[A remark on the failure mode]\label{rem:failuremode}
+It is easy to arrive at the opposite conclusion by a plausible sequence of
+words. The Weil line is $\bigwedge^{2n}_{K}V$, a rank-one free $K$-module; a
+rank-one free $K$-module is two-dimensional over $\QQ$; and $\Kx$ acts on a
+two-dimensional $\QQ$-space by matrices of determinant $\Nm(\tau)$. The last
+clause is true and irrelevant: the determinant of the action is the norm, but
+the action itself is multiplication by $\tau^{2n}$, and a space on which $\Kx$
+acts by multiplication by $\tau^{2n}$ is not the same as a space on which it
+acts by the scalar $\Nm(\tau)^{n}$. The first is a $K$-line, the second is a
+$\QQ$-eigenspace; they agree only when $\tau^{n}=\bbar{\tau}^{\,n}$ for all
+$\tau$, which never happens. \Cref{fig:charactergrid} is drawn to make the
+distinction visible.
+\end{remark}
+
+\begin{figure}[htbp]
+\centering
+  \includegraphics[width=\textwidth]{fig_charactergrid}
+\caption{The $\Kx$-grading of $H^{2n}(A,\CC)$ at $n=3$, with each summand
+$\bigwedge^{r}V_{+}\otimes\bigwedge^{s}V_{-}$ of \eqref{eq:grading} drawn at
+its true dimension $\binom{2n}{r}\binom{2n}{s}$; the seven bars sum to
+$\binom{12}{6}=924$. The two extreme cells, $(2n,0)$ and $(0,2n)$, are where
+the Weil line sits, and the middle cell $(n,n)$ is where $\eta^{n}$ sits. They
+are different cells, which is the whole of \Cref{thm:character}: no
+equivariant construction can move a class from the one to the other.}
+\label{fig:charactergrid}
+\end{figure}
