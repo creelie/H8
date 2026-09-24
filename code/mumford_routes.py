@@ -52,7 +52,11 @@ What is checked:
   (F) L and V each yield TARGET, so on the routes to the conjecture through
       them the target is not an input;
   (G) HC and F2 yield TARGET, and TARGET yields neither, nor any of F1, F3,
-      L, V, M.
+      L, V, M;
+  (H) F3 is equivalent to HC (prop:f3ishc: the conjecture for the varieties
+      that are not abelian covers A x P^1 and so gives the conjecture for A),
+      so F3 is one more one-element route to TARGET, twelve in all, and
+      TARGET is an input to no minimal route to HC.
 
 Run:  python3 mumford_routes.py
 """
@@ -97,6 +101,8 @@ RULES = [
     (("F1", "F2", "F3"), "HC", "cor:fourremain"),
     (("F2",), "TARGET", "cor:fourremain"),
     (("HC",), "F2", "cor:fourremain"),
+    (("F3",), "HC", "prop:f3ishc"),
+    (("HC",), "F3", "prop:f3ishc"),
 ]
 
 
@@ -154,7 +160,7 @@ def run():
     sizes = sorted({len(m) for m in minimal})
     check("every minimal set of open statements yielding the target has one "
           "element, so one route suffices",
-          sizes == [1],
+          sizes == [1] and len(minimal) == 12,
           "%d minimal sets: %s" % (len(minimal),
                                    ", ".join(m[0] for m in minimal)))
 
@@ -177,6 +183,28 @@ def run():
           "TARGET" in closure({"HC"}) and "TARGET" in closure({"F2"})
           and all(s not in fwd for s in ["HC", "F1", "F2", "F3", "L", "V",
                                           "M"]))
+
+    # (H)
+    f3 = closure(proved | {"F3"})
+    hc = closure(proved | {"HC"})
+    check("F3 is equivalent to HC and is itself a one-element route to the "
+          "target",
+          "HC" in f3 and "F3" in hc and "TARGET" in f3
+          and ("F3",) in minimal,
+          "by prop:f3ishc; so the three statements of cor:fourremain are not "
+          "three obligations either")
+    need = []
+    for k in range(1, len(cands) + 1):
+        for S in itertools.combinations(cands, k):
+            if any(set(m) <= set(S) for m in need):
+                continue
+            if "HC" in closure(proved | set(S)):
+                need.append(S)
+    check("the minimal sets of open statements yielding HC in this rule set "
+          "are {HC}, {F3} and {L, M}, and none contains the target",
+          sorted(need) == sorted([("HC",), ("F3",), ("L", "M")])
+          and all("TARGET" not in m for m in need),
+          "%s" % ", ".join("{" + ", ".join(m) + "}" for m in need))
 
 
 if __name__ == "__main__":

@@ -488,37 +488,44 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
 
 \item \emph{The closure graph.} The script \texttt{closure\_\allowbreak graph.py}
   carries the rule set of \Cref{setup:rules} as data: thirty-six statements,
-  each marked proved here, quoted, or open, and fifteen rules, each carrying
+  each marked proved here, quoted, or open, and sixteen rules, each carrying
   the label of the theorem that proves it. It checks that every statement
   named in a rule is declared and every declared statement is used, that the
-  rule set is acyclic, and that every one of the thirteen theorem labels it
+  rule set is acyclic, and that every one of the fourteen theorem labels it
   names, for its rules and for the consequences of $\mathbf{HC}$ it records,
-  is a label of this paper, against the list of all $521$ labels generated
+  is a label of this paper, against the list of all $523$ labels generated
   from the sources and distributed with the script as
   \texttt{paper\_\allowbreak labels.txt}. It then computes the forward closure
   by iterating the one step map to a fixed point, and verifies that no
   statement marked proved rests at any depth on an open one, that
   $\mathbf{HC}$ is not in the closure of the proved and quoted statements,
   and, by exhaustive search over all $2^{12}$ subsets of the twelve open
-  statements, that there are exactly the four minimal sufficient sets of
-  \Cref{thm:closure}(ii), that no single open statement suffices, that the
-  route through this paper is the only one with three elements and the only
-  one whose derivation uses a statement proved here, that each element of
-  each set is necessary, that every set contains (F3) or \textup{(M)}, and
-  that every element of every set other than (P2) is recorded as a
-  consequence of $\mathbf{HC}$. It confirms that \textup{(V)} alone gives the
+  statements, that there are exactly the two minimal sufficient sets of
+  \Cref{thm:closure}(ii), $\{\mathrm{F3}\}$ and $\{\mathrm{L},\mathrm{M}\}$,
+  that (F3) is the one open statement that suffices alone, that the route
+  through this paper and the sets $\{\mathrm{L},\mathrm{F3}\}$ and
+  $\{\mathrm{V},\mathrm{F3}\}$ suffice and are not minimal, that neither
+  minimal set uses a statement proved here, that each element of each set
+  is necessary, that every set contains (F3) or \textup{(M)}, and that every
+  element of every set is recorded as a consequence of $\mathbf{HC}$, so that
+  each set is equivalent to it. It confirms that \textup{(V)} alone gives the
   conjecture for abelian varieties and not $\mathbf{HC}$, and that
   \textup{(L)} gives \textup{(V)}. It confirms that the six open demands of
   the secant route lie outside every minimal set, that granting the two of
   them that matter reaches $\mathbf{W}(K,n,\delta_{0})$ and not the rest, that
   the propagation statement reaches all of it and also the Weil classes of
   every CM field, so that those are not open, and that the bounded criterion
-  is absent from the rule set, being equivalent to its own conclusion.
+  is absent from the rule set, being equivalent to its own conclusion. It
+  then removes the one rule of \Cref{prop:f3ishc} and repeats the search,
+  which returns the four sets of the earlier version of this paper,
+  $\{\mathrm{L},\mathrm{M}\}$, $\{\mathrm{L},\mathrm{F3}\}$,
+  $\{\mathrm{V},\mathrm{F3}\}$ and $\{\mathrm{P2},\mathrm{F2},\mathrm{F3}\}$;
+  so the change in the answer is that rule and nothing else.
   Finally it checks that the numbering under which the same graph is carried
   into Section 24 of the Lean certificate maps these rules onto those. The
   full derivation of $\mathbf{HC}$ from the proved and quoted statements and
   each minimal sufficient set is printed, one rule per line. That is
-  \Cref{thm:closure} and \Cref{cor:fourremain}.
+  \Cref{thm:closure}, \Cref{prop:f3ishc} and \Cref{cor:fourremain}.
 \item \emph{No split resolution runs the criterion.} The script
   \texttt{split\_\allowbreak resolution.py} records the data behind
   \Cref{thm:nosplit}: that the scalar $(e^{2}+d)/2$ by which the compensated
@@ -881,20 +888,25 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   script \texttt{mumford\_\allowbreak routes.py} carries the implications into
   and out of the Mumford target as data, in the manner of item (XXXIII):
   sixteen statements, one of them proved (the Hodge conjecture at the CM
-  points), and twenty Horn rules, each labelled by the theorem that proves it;
-  unlike that rule set this one contains equivalences. (A) Its ten labels are
-  labels of the paper and its statements are all used. (B) The target is not
+  points), and twenty-two Horn rules, each labelled by the theorem that proves
+  it; unlike that rule set this one contains equivalences. (A) Its eleven
+  labels are labels of the paper and its statements are all used. (B) The target is not
   in the closure of what is proved. (C) The statements equivalent to the
   target over what is proved are exactly the target, algebraicity at
   uncountably many points, $B(W\times_{C}W)$, bounded data at infinitely many
   points, and bounded data modulo $p$. (D) The minimal sets of open statements
-  that yield the target, found by exhaustive search, number eleven and each
+  that yield the target, found by exhaustive search, number twelve and each
   has one element. (E) The target yields neither the complex with
   $\dim\Ext^{2}=119$ nor the two Kuga--Satake statements. (F) \textup{(L)}
   and \textup{(V)} each yield the target. (G) The Hodge conjecture and (F2)
   yield the target, and the target yields none of the Hodge conjecture, (F1),
-  (F2), (F3), \textup{(L)}, \textup{(V)}, \textup{(M)}. That is
-  \Cref{cor:mumfordone} and \Cref{rem:mumfordneeded}.
+  (F2), (F3), \textup{(L)}, \textup{(V)}, \textup{(M)}. (H) (F3) is
+  equivalent to the Hodge conjecture by \Cref{prop:f3ishc}, so it is the
+  twelfth one-element route to the target, and the minimal sets of open
+  statements that yield the Hodge conjecture in this rule set are the
+  conjecture itself, (F3), and \textup{(L)} with \textup{(M)}, none of which
+  contains the target. That is \Cref{cor:mumfordone} and
+  \Cref{rem:mumfordneeded}.
 \end{enumerate}
 
 Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (XLIX) are the ones
@@ -902,6 +914,6 @@ on which theorems depend. Items (IV) and (V) support statements that no
 obstruction exists, and a failure there would strengthen rather than weaken
 the paper, so they are included for completeness rather than for safety.
 Running \texttt{verify\_all.py} executes the forty-four Python items and
-prints \texttt{823 checks passed, 0 failed}; items (XXIX), (XXXI) and
+prints \texttt{827 checks passed, 0 failed}; items (XXIX), (XXXI) and
 (XL) need Macaulay2 and are run separately, and their transcripts are
 distributed with the scripts.

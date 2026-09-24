@@ -630,23 +630,30 @@ this from the conjecture, and \Cref{ssec:closure} decides which parts of it
 matter. The implications proved here, together with those the literature
 supplies, form a finite rule set, and taking consequences in that rule set is
 a computation rather than a judgement. The conjecture is not among the
-consequences, which is the machine statement that nothing here proves it, and
-exactly four minimal sets of open statements would yield it. The one that
-passes through this paper has three elements: a propagation statement, the
-one established in \Cref{thm:semiregclosure} and carried to every CM field in
-\Cref{thm:cmpropagation}, together with the Hodge classes on abelian
-varieties that divisor and Weil classes do not generate, and the conjecture
-for the varieties that are not abelian (\Cref{thm:closure},
-\Cref{cor:fourremain}). The other three have two elements each and use no
-theorem of this paper: the Lefschetz standard conjecture for every variety
-together with the motivatedness of every Hodge class, which together are
-equivalent to the conjecture (\Cref{prop:lefmot}), and the Lefschetz standard
-conjecture, or the variational Hodge conjecture for algebraic classes that it
-implies, together with the conjecture for varieties that are not abelian
-(\Cref{prop:lefvhc}, \Cref{thm:vhcab}). Every statement in the four sets
-except the propagation statement is itself a consequence of the conjecture,
-and the Lefschetz standard conjecture, which lies in two of them and gives the
-whole abelian half, is the target at the centre (\Cref{rem:bullseye}). None
+consequences, which is the machine statement that nothing here proves it.
+The route that passes through this paper needs three open statements: a
+propagation statement, the one established in \Cref{thm:semiregclosure} and
+carried to every CM field in \Cref{thm:cmpropagation}, together with the
+Hodge classes on abelian varieties that divisor and Weil classes do not
+generate, and the conjecture for the varieties that are not abelian
+(\Cref{cor:fourremain}). The last of the three is not a remainder: the
+varieties that are not abelian include $A\times\PP^{1}$ for every abelian
+variety $A$, and the conjecture for $A\times\PP^{1}$ gives it for $A$, so
+that statement is equivalent to the whole conjecture (\Cref{prop:f3ishc}).
+Once this elementary implication is in the rule set there are exactly two
+minimal sets of open statements that yield the conjecture: that statement
+alone, and the Lefschetz standard conjecture for every variety together with
+the motivatedness of every Hodge class, which together are also equivalent to
+the conjecture (\Cref{thm:closure}, \Cref{prop:lefmot}). Neither uses a
+theorem of this paper, and the three statements of this route, like the
+Lefschetz standard conjecture or the variational Hodge conjecture for
+algebraic classes taken with the conjecture for varieties that are not
+abelian (\Cref{prop:lefvhc}, \Cref{thm:vhcab}), are sufficient and not
+minimal. So within the rule set the conjecture is reached only through sets
+of open statements that are, taken together, equivalent to it, and this paper
+does not change that. Every statement in the two
+minimal sets is a consequence of the conjecture, and the propagation
+statement is in neither (\Cref{rem:bullseye}). None
 of these statements is proved here in general. One new case of the Lefschetz
 standard conjecture is: for an abelian scheme over a curve whose invariant
 cycles are algebraic, the operator $\Lambda$ is the sum of a relative
@@ -736,7 +743,8 @@ other forms and two imply it, so any one would suffice
 (\Cref{cor:mumfordone}). And the target is only the first case of the Hodge
 classes that divisor and Weil classes do not generate, so a proof of it would
 leave open the propagation statement, the other such classes, and the
-conjecture for the varieties that are not abelian (\Cref{rem:mumfordneeded}).
+conjecture for the varieties that are not abelian, which is the whole
+conjecture (\Cref{rem:mumfordneeded}, \Cref{prop:f3ishc}).
 
 The propagation statement itself is constrained from several sides, and the
 constraints describe the object it asks for closely. Its semiregularity form
@@ -785,9 +793,10 @@ every family for every field and every discriminant, one criterion for
 propagation, which is a number, and one that restates the conjecture, the
 fourteen routes that are closed and the structural reason each of them fails,
 the same criterion for every CM field, and the three statements that remain
-along this route, two of them shown not to be reductions and the smallest case
-of one brought down to a single Kuga--Satake class, beside the shorter routes
-of the literature. \Cref{sec:scope} delimits all of it,
+along this route, the last of them the conjecture itself, the second shown not
+to be a reduction and its smallest case brought down to a single
+Kuga--Satake class, beside the one other minimal route, through the Lefschetz
+standard conjecture and motivated classes. \Cref{sec:scope} delimits all of it,
 \Cref{sec:verification} describes
 the verification and \Cref{sec:lean} the Lean certificate.
 \Cref{app:exterior} carries the coordinate computation behind the transform,

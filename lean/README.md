@@ -97,9 +97,9 @@ axiom.
 | `burch_rank_one_discriminant` | nine times the discriminant of the rank one quadratic is `-2b^2 - 18d`, always negative |
 | `burch_rank_four_witness` | the rank four candidate at `d = 23` solves the moment system and is removed only by injectivity |
 | `closure_omits_conjecture` | the Hodge conjecture is not in the forward closure of what the paper proves and quotes |
-| `frontier_suffices` | it is in the closure once the three open statements of the closure corollary, (P2), (F2) and (F3), are adjoined, and once any of the pairs {Lefschetz standard conjecture, every Hodge class motivated}, {Lefschetz standard conjecture, (F3)} and {variational statement for algebraic classes, (F3)} is adjoined |
-| `frontier_minimal` | in each of these four sets every element is necessary: dropping any one leaves the conjecture underivable |
-| `frontier_smallest` | no single open statement suffices, and of the sixty-six pairs of the twelve open statements exactly the three pairs above suffice |
+| `frontier_suffices` | it is in the closure once (F3) alone is adjoined, the conjecture for the varieties that are not abelian, which covers A x P^1 and so is the conjecture itself; once the pair {Lefschetz standard conjecture, every Hodge class motivated} is adjoined; and, not minimally, once (P2), (F2), (F3) or {Lefschetz standard conjecture, (F3)} or {variational statement for algebraic classes, (F3)} is |
+| `frontier_minimal` | in each of the two minimal sets, {(F3)} and {Lefschetz standard conjecture, every Hodge class motivated}, every element is necessary: dropping any one leaves the conjecture underivable |
+| `frontier_smallest` | of the twelve open statements exactly one, (F3), suffices alone, and of the sixty-six pairs exactly those containing (F3) and the pair {Lefschetz standard conjecture, every Hodge class motivated} suffice |
 | `variational_gives_abelian` | the variational statement for algebraic classes alone puts the conjecture for abelian varieties in the closure, and not the conjecture |
 | `lefschetz_gives_abelian` | the Lefschetz standard conjecture gives the variational statement, hence the conjecture for abelian varieties, and not the conjecture |
 | `secant_route_stops` | granting both open demands of the secant route reaches the trivial discriminant and neither the rest nor the whole case |

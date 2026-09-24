@@ -1046,7 +1046,7 @@ theorem burch_rank_four_witness :
 
 Item (XXXIII) of the verification section carries the logical skeleton of the
 paper as data: thirty-six statements, each proved here, quoted from the
-literature, or open, and fifteen inference rules, each of which is one
+literature, or open, and sixteen inference rules, each of which is one
 theorem of the paper or of the literature it quotes.  This section repeats
 that computation in the kernel.
 
@@ -1080,6 +1080,12 @@ reach the fixed point.
 The bounded criterion is absent from the rules: it is equivalent to the
 conclusion it would imply, so it is a restatement and not a premise.
 
+The second rule, `[9]` gives 1, is the proposition that the conjecture for
+the varieties that are not abelian is the conjecture: it covers `A x P^1` for
+every abelian variety `A`, and the conjecture for `A x P^1` gives it for `A`
+(pull back along the projection, cup with the class of `A x {0}`, push
+forward).  An earlier version of this rule set omitted it.
+
 The last three rules are the routes of the literature through motivated
 classes.  Under the Lefschetz standard conjecture 31 for every variety the
 Lefschetz involution is algebraic and every motivated class is algebraic, so
@@ -1091,11 +1097,12 @@ reached from algebraic classes by pull-back and deformation, so `[33, 35]`
 gives 1, the conjecture for abelian varieties.
 
 What is checked.  The conjecture is not a consequence of what is proved here.
-It is a consequence once the three statements 9, 10 and 12 are adjoined, and
-once any of the pairs `[31, 32]`, `[31, 9]` and `[33, 9]` is adjoined; in each
-of the four sets every element is necessary.  No single open statement
-suffices, and among all sixty-six pairs of the twelve open statements exactly
-those three pairs suffice.  Statement 33 alone gives the conjecture for
+It is a consequence once statement 9 alone is adjoined, and once the pair
+`[31, 32]` is; in each of these two sets every element is necessary.  The
+sets `[9, 10, 12]`, `[31, 9]` and `[33, 9]` also suffice and are not minimal,
+since they contain `[9]`.  Among the twelve open statements exactly one, 9,
+suffices alone, and among all sixty-six pairs exactly those containing 9 and
+the pair `[31, 32]` suffice.  Statement 33 alone gives the conjecture for
 abelian varieties and not the conjecture, and statement 31 gives 33.  And the secant route, granted both of its open
 demands, yields the trivial discriminant families and not the others, while
 the propagation statement yields the Weil classes of every CM field.
@@ -1103,7 +1110,7 @@ the propagation statement yields the Weil classes of every CM field.
 
 /-- the rules, as pairs of a premise list and a conclusion. -/
 def hcRules : List (List Nat × Nat) :=
-  [([1, 9], 0), ([2, 10], 1), ([3, 11], 2), ([4, 5], 3),
+  [([1, 9], 0), ([9], 1), ([2, 10], 1), ([3, 11], 2), ([4, 5], 3),
    ([12, 19, 20, 21], 4), ([12, 19, 20, 21], 5),
    ([13, 14, 20, 22, 23, 25], 4),
    ([15, 16, 24], 6), ([17, 18, 24], 6), ([6, 14, 22, 23], 7),
@@ -1137,34 +1144,32 @@ in the closure of what is proved here and quoted from the literature. -/
 theorem closure_omits_conjecture :
     (hcClose hcBase 32).contains 0 = false := by decide
 
-/-- **Four sufficient sets.**  The route through this paper: the two
-statements `9` and `10` about the classes that no Weil line reaches (the
-conjecture for varieties that are not abelian, and for the Hodge classes on
-abelian varieties outside the subring of divisor and Weil classes; neither is
-a reduction) and the propagation statement `12`, read for every CM field.  The
-routes of the literature: the Lefschetz standard conjecture `31` together
-with either the motivatedness of every Hodge class `32` or the statement `9`,
-and the variational statement `33` together with `9`. -/
+/-- **Two minimal sufficient sets, and three that are not minimal.**  The
+statement `9` alone, the conjecture for the varieties that are not abelian,
+which is the conjecture itself; and the Lefschetz standard conjecture `31`
+together with the motivatedness of every Hodge class `32`.  The route through
+this paper, `9`, `10` and the propagation statement `12`, and the routes
+`[31, 9]` and `[33, 9]` suffice as well, and each contains `[9]`. -/
 theorem frontier_suffices :
-    (hcSuff [9, 10, 12] && hcSuff [31, 32] && hcSuff [31, 9]
+    (hcSuff [9] && hcSuff [31, 32] && hcSuff [9, 10, 12] && hcSuff [31, 9]
       && hcSuff [33, 9]) = true := by
   decide
 
-/-- **Each element of each of the four sets is necessary.**  Dropping any one
-of them leaves the conjecture underivable. -/
+/-- **Each element of each of the two minimal sets is necessary.**  Dropping
+any one of them leaves the conjecture underivable. -/
 theorem frontier_minimal :
-    (([[9, 10, 12], [31, 32], [31, 9], [33, 9]] : List (List Nat)).all
+    (([[9], [31, 32]] : List (List Nat)).all
         fun t => t.all fun f => !hcSuff (t.erase f)) = true := by decide
 
-/-- **No single statement suffices, and exactly three pairs do.**  Over the
-twelve open statements, no one of them suffices, and of the sixty-six pairs
-exactly `[9, 31]`, `[31, 32]` and `[9, 33]` suffice. -/
+/-- **Exactly one statement suffices alone, and the pairs that suffice are
+those containing it and one more.**  Over the twelve open statements, `9` and
+no other suffices alone, and of the sixty-six pairs exactly those containing
+`9` and the pair `[31, 32]` suffice. -/
 theorem frontier_smallest :
-    (hcOpen.all (fun a => !hcSuff [a])
+    (hcOpen.all (fun a => hcSuff [a] == (a == 9))
       && hcOpen.all (fun a => hcOpen.all (fun b =>
           !(a < b) || (hcSuff [a, b] ==
-            ((a == 9 && b == 31) || (a == 31 && b == 32)
-              || (a == 9 && b == 33)))))) = true := by
+            ((a == 9 || b == 9) || (a == 31 && b == 32)))))) = true := by
   decide
 
 /-- **The variational statement alone gives the conjecture for abelian

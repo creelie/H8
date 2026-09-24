@@ -230,6 +230,7 @@ prop:divfails
 prop:divroute
 prop:evaluation
 prop:explicitobject
+prop:f3ishc
 prop:firstorder
 prop:genus3
 prop:grading
@@ -292,6 +293,7 @@ rem:deformation
 rem:dimensionbookkeeping
 rem:dimfour
 rem:divroute
+rem:f3collapse
 rem:factorclosed
 rem:failuremode
 rem:familyuniform
