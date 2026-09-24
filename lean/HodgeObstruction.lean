@@ -1045,8 +1045,8 @@ theorem burch_rank_four_witness :
 /-! ## 24.  The closure graph: what is left, as a Horn system
 
 Item (XXXIII) of the verification section carries the logical skeleton of the
-paper as data: thirty-six statements, each proved here, quoted from the
-literature, or open, and sixteen inference rules, each of which is one
+paper as data: thirty-seven statements, each proved here, quoted from the
+literature, or open, and seventeen inference rules, each of which is one
 theorem of the paper or of the literature it quotes.  This section repeats
 that computation in the kernel.
 
@@ -1070,9 +1070,10 @@ The statements are numbered
    15  smooth_exists                                 33  vhc     (variational)
    16  smooth_vanish                                 34  mot_def (Andre)
    17  sing_exists                                   35  acc_ab  (Deligne, Andre)
+                                                     36  red_ab_mod (F3')
 
-with 19 to 30, 34 and 35 proved here or quoted, 9, 10, 12 to 18 and 31 to 33
-open, and the rest derived.  The consequence operator is monotone and each rule has
+with 19 to 30, 34 and 35 proved here or quoted, 9, 10, 12 to 18, 31 to 33
+and 36 open, and the rest derived.  The consequence operator is monotone and each rule has
 one conclusion, so a pass that changes the set adds a conclusion not present
 before; there are fewer than thirty-two conclusions, so thirty-two passes
 reach the fixed point.
@@ -1084,7 +1085,9 @@ The second rule, `[9]` gives 1, is the proposition that the conjecture for
 the varieties that are not abelian is the conjecture: it covers `A x P^1` for
 every abelian variety `A`, and the conjecture for `A x P^1` gives it for `A`
 (pull back along the projection, cup with the class of `A x {0}`, push
-forward).  An earlier version of this rule set omitted it.
+forward).  An earlier version of this rule set omitted it.  The last rule,
+`[1, 36]` gives 0, is the weaker statement 36, the conjecture modulo abelian
+varieties, taken with the conjecture for abelian varieties.
 
 The last three rules are the routes of the literature through motivated
 classes.  Under the Lefschetz standard conjecture 31 for every variety the
@@ -1097,12 +1100,13 @@ reached from algebraic classes by pull-back and deformation, so `[33, 35]`
 gives 1, the conjecture for abelian varieties.
 
 What is checked.  The conjecture is not a consequence of what is proved here.
-It is a consequence once statement 9 alone is adjoined, and once the pair
-`[31, 32]` is; in each of these two sets every element is necessary.  The
-sets `[9, 10, 12]`, `[31, 9]` and `[33, 9]` also suffice and are not minimal,
-since they contain `[9]`.  Among the twelve open statements exactly one, 9,
-suffices alone, and among all sixty-six pairs exactly those containing 9 and
-the pair `[31, 32]` suffice.  Statement 33 alone gives the conjecture for
+It is a consequence once statement 9 alone is adjoined, and once any of
+`[31, 32]`, `[31, 36]`, `[33, 36]` and `[36, 10, 12]` is; in each of these
+five sets every element is necessary.  The sets `[9, 10, 12]`, `[31, 9]` and
+`[33, 9]` also suffice and are not minimal, since they contain `[9]`.  Among
+the thirteen open statements exactly one, 9, suffices alone, and among all
+seventy-eight pairs exactly those containing 9 and the pairs `[31, 32]`,
+`[31, 36]` and `[33, 36]` suffice.  Statement 33 alone gives the conjecture for
 abelian varieties and not the conjecture, and statement 31 gives 33.  And the secant route, granted both of its open
 demands, yields the trivial discriminant families and not the others, while
 the propagation statement yields the Weil classes of every CM field.
@@ -1116,14 +1120,14 @@ def hcRules : List (List Nat × Nat) :=
    ([15, 16, 24], 6), ([17, 18, 24], 6), ([6, 14, 22, 23], 7),
    ([26, 27], 8),
    ([12, 28, 29, 30], 11),
-   ([31, 32], 0), ([31, 34], 33), ([33, 35], 1)]
+   ([31, 32], 0), ([31, 34], 33), ([33, 35], 1), ([1, 36], 0)]
 
 /-- what the paper proves or quotes. -/
 def hcBase : List Nat :=
   [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 34, 35]
 
 /-- the open statements. -/
-def hcOpen : List Nat := [9, 10, 12, 13, 14, 15, 16, 17, 18, 31, 32, 33]
+def hcOpen : List Nat := [9, 10, 12, 13, 14, 15, 16, 17, 18, 31, 32, 33, 36]
 
 /-- one pass of the consequence operator. -/
 def hcStep (s : List Nat) : List Nat :=
@@ -1144,32 +1148,38 @@ in the closure of what is proved here and quoted from the literature. -/
 theorem closure_omits_conjecture :
     (hcClose hcBase 32).contains 0 = false := by decide
 
-/-- **Two minimal sufficient sets, and three that are not minimal.**  The
+/-- **Five minimal sufficient sets, and three that are not minimal.**  The
 statement `9` alone, the conjecture for the varieties that are not abelian,
-which is the conjecture itself; and the Lefschetz standard conjecture `31`
-together with the motivatedness of every Hodge class `32`.  The route through
-this paper, `9`, `10` and the propagation statement `12`, and the routes
-`[31, 9]` and `[33, 9]` suffice as well, and each contains `[9]`. -/
+which is the conjecture itself; the Lefschetz standard conjecture `31`
+together with the motivatedness of every Hodge class `32`; and the weaker
+statement `36`, the conjecture modulo abelian varieties, together with `31`,
+with the variational statement `33`, or with `10` and the propagation
+statement `12`, which is the route through this paper.  The sets
+`[9, 10, 12]`, `[31, 9]` and `[33, 9]` suffice as well, and each contains
+`[9]`. -/
 theorem frontier_suffices :
-    (hcSuff [9] && hcSuff [31, 32] && hcSuff [9, 10, 12] && hcSuff [31, 9]
+    (hcSuff [9] && hcSuff [31, 32] && hcSuff [31, 36] && hcSuff [33, 36]
+      && hcSuff [36, 10, 12] && hcSuff [9, 10, 12] && hcSuff [31, 9]
       && hcSuff [33, 9]) = true := by
   decide
 
-/-- **Each element of each of the two minimal sets is necessary.**  Dropping
+/-- **Each element of each of the five minimal sets is necessary.**  Dropping
 any one of them leaves the conjecture underivable. -/
 theorem frontier_minimal :
-    (([[9], [31, 32]] : List (List Nat)).all
+    (([[9], [31, 32], [31, 36], [33, 36], [36, 10, 12]] : List (List Nat)).all
         fun t => t.all fun f => !hcSuff (t.erase f)) = true := by decide
 
 /-- **Exactly one statement suffices alone, and the pairs that suffice are
-those containing it and one more.**  Over the twelve open statements, `9` and
-no other suffices alone, and of the sixty-six pairs exactly those containing
-`9` and the pair `[31, 32]` suffice. -/
+those containing it and three more.**  Over the thirteen open statements,
+`9` and no other suffices alone, and of the seventy-eight pairs exactly those
+containing `9` and the pairs `[31, 32]`, `[31, 36]` and `[33, 36]`
+suffice. -/
 theorem frontier_smallest :
     (hcOpen.all (fun a => hcSuff [a] == (a == 9))
       && hcOpen.all (fun a => hcOpen.all (fun b =>
           !(a < b) || (hcSuff [a, b] ==
-            ((a == 9 || b == 9) || (a == 31 && b == 32)))))) = true := by
+            ((a == 9 || b == 9) || (a == 31 && b == 32)
+              || (a == 31 && b == 36) || (a == 33 && b == 36)))))) = true := by
   decide
 
 /-- **The variational statement alone gives the conjecture for abelian

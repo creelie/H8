@@ -1110,9 +1110,157 @@ converse is immediate: the displayed statement is a special case of
 $\mathbf{HC}$.
 \end{proof}
 
+Since the conjecture for the varieties that are not abelian is the whole
+conjecture, the statement that belongs on a frontier is weaker: it asks for
+algebraicity only modulo what abelian varieties supply.
+
+\begin{definition}[The conjecture modulo abelian varieties]
+\label{def:f3prime}
+For a smooth complex projective variety $X$ and $p\ge0$ let
+$\mathrm{Ab}^{p}(X)\subseteq H^{2p}(X,\QQ)$ be the span of the classes
+$\Gamma_{*}\gamma=\mathrm{pr}_{X*}\bigl([\Gamma]\cup\mathrm{pr}_{B}^{*}\gamma\bigr)$
+of degree $2p$, where $B$ runs over the complex abelian varieties, the point
+included, $\gamma$ over the Hodge classes on $B$, and $\Gamma$ over the
+algebraic cycles on $B\times X$ with rational coefficients. The statement
+\textup{(F3$'$)} is: for every $X$ and every $p$,
+\[
+  \Hdg^{p}(X)=\mathrm{Ab}^{p}(X).
+\]
+\end{definition}
+
+Each $\Gamma_{*}\gamma$ is a Hodge class, since cup product with an
+algebraic class and push-forward preserve Hodge classes, so
+$\mathrm{Ab}^{p}(X)\subseteq\Hdg^{p}(X)$; and taking $B$ a point shows that
+$\mathrm{Ab}^{p}(X)$ contains every algebraic class. So \textup{(F3$'$)} says
+that every Hodge class is algebraic modulo the images of Hodge classes of
+abelian varieties under algebraic correspondences, which is the form of (F3)
+that \Cref{rem:f3collapse} asks for.
+
+\begin{proposition}[What is known of \textup{(F3$'$)}]\label{prop:f3prime}
+\leavevmode
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em]
+\item $\mathbf{HC}$ implies \textup{(F3$'$)}, and \textup{(F3$'$)} together
+  with the conjecture for abelian varieties implies $\mathbf{HC}$.
+\item \textup{(F3$'$)} holds on every abelian variety and on every product
+  $A\times\PP^{1}$ with $A$ abelian; the argument of \Cref{prop:f3ishc} gives
+  nothing for it.
+\item Let $\mathcal{A}$ be the class of smooth complex projective varieties
+  $X$ for which $H^{*}(X,\QQ)$ is spanned by classes $\Gamma_{*}y$ with $B$
+  abelian, $\Gamma$ an algebraic cycle on $B\times X$ and
+  $y\in H^{*}(B,\QQ)$. Every $X\in\mathcal{A}$ satisfies \textup{(F3$'$)}.
+  The class $\mathcal{A}$ contains every abelian variety and every smooth
+  projective curve, and it is closed under products and under images of
+  surjective morphisms. So it contains every product of curves, every
+  symmetric product of a curve, and every smooth projective variety onto
+  which a product of curves or an abelian variety maps surjectively.
+\item Every $X$ of dimension $n$ satisfies \textup{(F3$'$)} in the degrees
+  $2p$ with $p\in\{0,1,n-1,n\}$, so every $X$ of dimension at most three
+  satisfies it in every degree.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) If $\mathbf{HC}$ holds, then $\Hdg^{p}(X)$ consists of algebraic classes,
+which lie in $\mathrm{Ab}^{p}(X)$. Conversely, if the conjecture holds for
+abelian varieties, every $\gamma$ in \Cref{def:f3prime} is algebraic, so
+every $\Gamma_{*}\gamma$ is, since composition with a correspondence carries
+algebraic classes to algebraic classes \cite[Chapter~16]{Ful98}; then
+\textup{(F3$'$)} says that every Hodge class is algebraic.
+
+(ii) On an abelian variety $A$ take $B=A$ and $\Gamma$ the diagonal. On
+$X=A\times\PP^{1}$ the K\"unneth formula gives
+$H^{*}(X,\QQ)=\mathrm{pr}^{*}H^{*}(A,\QQ)\oplus
+\mathrm{pr}^{*}H^{*}(A,\QQ)\cup\eta$, with $\eta$ the class of a point of
+$\PP^{1}$ pulled back to $X$, which is algebraic. The first summand is
+$\Gamma_{*}H^{*}(A,\QQ)$ for $\Gamma$ the transpose of the graph of
+$\mathrm{pr}$, and the second is $\Gamma'_{*}H^{*}(A,\QQ)$ for
+$\Gamma'=\Gamma\cdot\mathrm{pr}_{X}^{*}\eta$. So $X\in\mathcal{A}$, and
+(iii) applies.
+
+(iii) Let $X\in\mathcal{A}$ and fix $p$. Since $H^{2p}(X,\QQ)$ is finite
+dimensional, finitely many classes $\Gamma_{j*}y_{j}$ span it, and we may
+take each $\Gamma_{j}$ of pure codimension $c_{j}$ on $B_{j}\times X$ and each
+$y_{j}$ of pure degree $k_{j}$, with $k_{j}+2c_{j}-2\dim B_{j}=2p$. Then
+$\Gamma_{j*}\colon H^{k_{j}}(B_{j},\QQ)\to H^{2p}(X,\QQ)$ is a morphism of
+Hodge structures up to a Tate twist, and the sum of these maps is a
+surjective morphism of polarisable Hodge structures onto $H^{2p}(X,\QQ)$.
+Polarisable Hodge structures are semisimple, so its kernel has a complement
+that is a sub-Hodge structure and maps isomorphically onto $H^{2p}(X,\QQ)$;
+hence every Hodge class of degree $2p$ is the image of a Hodge class, that is
+$\sum_{j}\Gamma_{j*}\gamma_{j}$ with each $\gamma_{j}$ a Hodge class on
+$B_{j}$. So $\Hdg^{p}(X)=\mathrm{Ab}^{p}(X)$.
+
+An abelian variety lies in $\mathcal{A}$ through its diagonal. A curve $C$
+of genus $g\ge1$ lies in $\mathcal{A}$ through an Abel--Jacobi embedding
+$\iota\colon C\to J(C)$: the transpose of its graph induces $\iota^{*}$,
+which is an isomorphism on $H^{0}$ and $H^{1}$ and sends the class of the
+theta divisor to $g$ times the class of a point, so it is surjective; the
+projective line is the image of an elliptic curve under a double cover, and
+is covered by the last closure property. For products, if $H^{*}(X_{i},\QQ)$
+is spanned by the $\Gamma_{i*}y$, then by the K\"unneth formula
+$H^{*}(X_{1}\times X_{2},\QQ)$ is spanned by the
+$(\Gamma_{1}\times\Gamma_{2})_{*}(y_{1}\otimes y_{2})$, with
+$\Gamma_{1}\times\Gamma_{2}$ an algebraic cycle on
+$(B_{1}\times B_{2})\times(X_{1}\times X_{2})$. For images, let
+$f\colon Y\to X$ be a surjective morphism with $Y\in\mathcal{A}$, let
+$r=\dim Y-\dim X$ and let $h$ be an ample class on $Y$. The correspondence
+$\Psi=[\Gamma_{f}]\cdot\mathrm{pr}_{Y}^{*}h^{r}$ on $Y\times X$ induces
+$\Psi_{*}y=f_{*}(y\cup h^{r})$, and
+$\Psi_{*}f^{*}x=x\cup f_{*}h^{r}=c\,x$ with $c>0$ the degree of $h^{r}$ on a
+general fibre. So $\Psi_{*}$ is surjective, and $H^{*}(X,\QQ)$ is spanned by
+the classes $(\Psi\circ\Gamma)_{*}y$, with $\Psi\circ\Gamma$ algebraic
+\cite[Chapter~16]{Ful98}. A symmetric product of a curve is the image of a
+power of it.
+
+(iv) Every class of degree $0$ or $2n$ is algebraic, and every Hodge class of
+degree $2$ is algebraic by the Lefschetz theorem on $(1,1)$ classes. For
+$n\ge2$, the hard Lefschetz theorem makes cup product with $h^{n-2}$, for $h$
+an ample class, an isomorphism $H^{2}(X,\QQ)\to H^{2n-2}(X,\QQ)$ of Hodge
+structures up to a Tate twist, so every Hodge class of degree $2n-2$ is
+$h^{n-2}$ times a Hodge class of degree $2$, and is algebraic. Algebraic
+classes lie in $\mathrm{Ab}^{p}(X)$. When $n\le3$ every $p$ between $0$ and
+$n$ is one of $0,1,n-1,n$.
+\end{proof}
+
+\begin{remark}[Why \textup{(F3$'$)} is not closed here]\label{rem:f3primeopen}
+\textup{(F3$'$)} is the statement that the Hodge conjecture reduces to
+abelian varieties along algebraic correspondences, and
+\Cref{prop:f3prime} records what is known of such a reduction: the
+varieties of $\mathcal{A}$, whose whole cohomology is reached from abelian
+varieties by algebraic correspondences, and the degrees in which the
+conjecture itself is known. The first degree in which it is not known in
+general is degree four on fourfolds, for fourfolds not known to lie in
+$\mathcal{A}$. The square $S\times S$ of a K3 surface is the standard
+example. Its Hodge classes in $H^{2}(S)\otimes H^{2}(S)$ include the classes
+that induce the Hodge endomorphisms of the transcendental lattice $T(S)$, and
+$S\times S$ lies in $\mathcal{A}$ as soon as the Kuga--Satake embedding of
+$T(S)$ is induced by an algebraic cycle, the Kuga--Satake Hodge conjecture for
+$S$, which is not known in general: the transpose of such a cycle maps the
+cohomology of the Kuga--Satake variety onto $T(S)$, and the rest of
+$H^{*}(S,\QQ)$ is algebraic. The rational Hodge isometries are algebraic
+\cite{Bus19}, but a real multiplication is not an isometry, and
+\Cref{rem:mumfordks} meets exactly this obstacle for the surfaces
+$S_{\lambda}$.
+
+For varieties whose cohomology is not of abelian type the position is
+starker. By \Cref{prop:noabeliantype} no correspondence moves the $H^{3}$ of a
+very general quintic threefold into the cohomology of an abelian variety, so
+such a variety does not lie in $\mathcal{A}$. That is no obstruction to
+\textup{(F3$'$)} itself, since a Hodge class spans a Hodge structure of Tate
+type, which is of abelian type, and nothing in Hodge theory forbids it from
+lying in $\mathrm{Ab}^{p}(X)$. Nor is it a route: to put a Hodge class into
+$\mathrm{Ab}^{p}(X)$ one must construct an algebraic cycle on $B\times X$
+whose class carries it, which is the kind of construction the Hodge
+conjecture asks for, now on $B\times X$ instead of on $X$. The methods of
+this paper construct cycles on abelian varieties of Weil type and on nothing
+else, so they give no case of \textup{(F3$'$)} outside $\mathcal{A}$. We
+therefore leave it open, and \Cref{thm:closure} treats it as an open
+statement.
+\end{remark}
+
 \begin{setupenv}[The rule set]\label{setup:rules}
-Item (XXXIII) of \Cref{sec:verification} carries thirty-six statements and
-sixteen rules. Each statement is marked proved in this paper, quoted from the
+Item (XXXIII) of \Cref{sec:verification} carries thirty-seven statements and
+seventeen rules. Each statement is marked proved in this paper, quoted from the
 literature, or open. Each rule is a finite set of premises together with one
 conclusion, and carries the label of the theorem of this paper that proves it;
 \Cref{tab:rules} lists the rules whose conclusion is derived rather than
@@ -1138,6 +1286,8 @@ the conjecture for abelian varieties, (F3)
   & $\mathbf{HC}$ & \Cref{ssec:closuremap} \\
 (F3)
   & abelian varieties & \Cref{prop:f3ishc} \\
+the conjecture for abelian varieties, (F3$'$)
+  & $\mathbf{HC}$ & \Cref{prop:f3prime} \\
 the Weil classes of every CM field, (F2)
   & abelian varieties & \Cref{ssec:closuremap} \\
 $K$ imaginary quadratic, the fields of degree at least four
@@ -1166,7 +1316,9 @@ one secant object, Question 11.4
 \caption{The rules of \Cref{setup:rules} whose conclusion is derived, with the
 theorem that proves each; the rows for (P2) and for the Cohen--Macaulay
 support each stand for two rules, the second row is \Cref{prop:f3ishc},
-which an earlier version of the set omitted, the last three rows are the rules of
+which an earlier version of the set omitted, the third is
+\Cref{prop:f3prime}(i) for the weaker statement (F3$'$) of
+\Cref{def:f3prime}, the last three rows are the rules of
 \Cref{ssec:bullseye}, one of whose conclusions, (V), is itself open, and the
 one remaining rule records what the literature supplies on Weil classes. The
 bounded criterion (P1) is absent: by
@@ -1182,19 +1334,23 @@ With the notation of \Cref{setup:rules}:
 \begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em]
 \item $\mathbf{HC}\notin\Cn(\mathbf{T})$. Nothing in this paper, combined with the
   theorems it quotes, implies the Hodge conjecture.
-\item There are exactly two minimal sufficient sets:
+\item There are exactly five minimal sufficient sets:
   \[
-    \{\mathrm{F3}\},\qquad\{\mathrm{L},\mathrm{M}\},
+    \{\mathrm{F3}\},\quad\{\mathrm{L},\mathrm{M}\},\quad
+    \{\mathrm{L},\mathrm{F3}'\},\quad\{\mathrm{V},\mathrm{F3}'\},\quad
+    \{\mathrm{P2},\mathrm{F2},\mathrm{F3}'\},
   \]
-  with \textup{(L)}, \textup{(M)} as in \Cref{def:lmv} and \textup{(F3)}
-  as in \Cref{cor:fourremain}. The single open statement (F3) is sufficient,
-  and it is equivalent to $\mathbf{HC}$ (\Cref{prop:f3ishc}). The sets
-  $\{\mathrm{L},\mathrm{F3}\}$, $\{\mathrm{V},\mathrm{F3}\}$ and
-  $\{\mathrm{P2},\mathrm{F2},\mathrm{F3}\}$, with \textup{(P2)} read for
-  every CM field at once, are sufficient and not minimal. The derivation of
-  $\mathbf{HC}$ from either minimal set uses no statement proved in this
+  with \textup{(L)}, \textup{(M)}, \textup{(V)} as in \Cref{def:lmv},
+  \textup{(F2)}, \textup{(F3)} as in \Cref{cor:fourremain}, (F3$'$) as in
+  \Cref{def:f3prime}, and \textup{(P2)} read for every CM field at once.
+  The single open statement (F3) is sufficient, and it is equivalent to
+  $\mathbf{HC}$ (\Cref{prop:f3ishc}); no other single open statement is.
+  The sets $\{\mathrm{L},\mathrm{F3}\}$, $\{\mathrm{V},\mathrm{F3}\}$ and
+  $\{\mathrm{P2},\mathrm{F2},\mathrm{F3}\}$ are sufficient and not
+  minimal. The last of the five is the only one with three elements and the
+  only one whose derivation of $\mathbf{HC}$ uses a statement proved in this
   paper.
-\item In each of the two, every element is necessary: removing any one
+\item In each of the five, every element is necessary: removing any one
   leaves $\mathbf{HC}$ outside the closure.
 \item The secant route lies in no minimal sufficient set. Granting both of its
   open demands, a secant object satisfying \eqref{eq:heisenberg} in every
@@ -1203,10 +1359,10 @@ With the notation of \Cref{setup:rules}:
   $\mathbf{W}(K,n,\delta)$ for $\delta\ne\delta_{0}$ outside it.
 \item No statement proved in this paper rests, at any depth, on an open one,
   and the rule set is acyclic.
-\item Every element of a minimal sufficient set is a consequence of
-  $\mathbf{HC}$, and the two sets are each equivalent to it. \textup{(P2)}
-  lies in no minimal sufficient set, and no implication from $\mathbf{HC}$ to
-  \textup{(P2)} is known.
+\item Every element of a minimal sufficient set other than \textup{(P2)}
+  is a consequence of $\mathbf{HC}$, and $\{\mathrm{F3}\}$ and
+  $\{\mathrm{L},\mathrm{M}\}$ are each equivalent to it; no implication from
+  $\mathbf{HC}$ to \textup{(P2)} is known.
 \end{enumerate}
 \end{theorem}
 
@@ -1218,17 +1374,20 @@ statements is finite. Item (XXXIII) of
 over all $2^{12}$ subsets of the twelve open statements in exact arithmetic,
 and Section 24 of the Lean certificate repeats (i), (ii), (iii) and (iv) in
 the kernel, over the same rule set under the numbering recorded there,
-checking in particular all twelve single open statements and all sixty-six
-pairs. The content of the statement is the rule set itself, and every rule is
+checking in particular all thirteen single open statements and all
+seventy-eight pairs. The content of the statement is the rule set itself, and every rule is
 one of the theorems named in \Cref{tab:rules}. The sufficiency of (F3)
 alone is the chain $\mathrm{(F3)}\Rightarrow$ abelian varieties by
 \Cref{prop:f3ishc}, then abelian varieties $\wedge\,\mathrm{(F3)}
 \Rightarrow\mathbf{HC}$; every sufficient set that contains (F3) and has
 another element is therefore not minimal, and a sufficient set without
-(F3) must reach the varieties that are not abelian through the one other rule
-with conclusion $\mathbf{HC}$, which is \Cref{prop:lefmot}. For (vi):
+(F3) must reach $\mathbf{HC}$ through one of the two other rules with that
+conclusion, \Cref{prop:lefmot} or \Cref{prop:f3prime}(i), the second of
+which needs the conjecture for abelian varieties, reached by \textup{(V)},
+by \textup{(L)} through \textup{(V)}, or by (P2) with (F2). For (vi):
 \textup{(L)} follows from $\mathbf{HC}$ by \Cref{thm:equivalence},
-\textup{(M)} by \Cref{prop:lefmot}, and (F3) is a special case of
+\textup{(M)} by \Cref{prop:lefmot}, \textup{(V)} by \Cref{prop:lefvhc},
+(F3$'$) by \Cref{prop:f3prime}(i), and (F2) and (F3) are special cases of
 $\mathbf{HC}$.
 
 The one step that is not read off a theorem of this paper is the parenthetical
@@ -1246,7 +1405,11 @@ following three statements. No rule of \Cref{setup:rules} derives it from
 (F1) and (F2) together, and it follows from (F3) alone, which is equivalent
 to it
 (\Cref{prop:f3ishc}); so the list is not a reduction of the conjecture to
-three smaller problems.
+three smaller problems. With (F3) replaced by the weaker statement
+\textup{(F3$'$)} of \Cref{def:f3prime}, the conjecture modulo abelian
+varieties, the three statements (F1), (F2), \textup{(F3$'$)} still suffice,
+and no rule of \Cref{setup:rules} derives the conjecture from a proper
+subset of them.
 \begin{enumerate}[label=\textup{(F\arabic*)},leftmargin=3.0em,itemsep=4pt]
 \item \emph{One propagation statement, for every CM field.} \textup{(P2)}:
   at one base point of each Weil family of each CM field some perfect complex
@@ -1301,7 +1464,9 @@ three smaller problems.
 The three together are sufficient by the derivation of \Cref{thm:closure},
 and (F3) alone by \Cref{prop:f3ishc}. That (F1) and (F2) together are not
 sufficient in the rule set is \Cref{thm:closure}(ii), since every minimal
-sufficient set contains (F3) or \textup{(M)}. The Weil classes of the CM
+sufficient set contains (F3), \textup{(F3$'$)} or \textup{(M)}; the
+statement about (F1), (F2), \textup{(F3$'$)} is \Cref{thm:closure}(ii) and
+(iii) for the last of the five minimal sets. The Weil classes of the CM
 fields of degree at least four are not a fourth statement: they are derived
 from (F1) by \Cref{thm:cmpropagation}. Nor is the bounded criterion a
 premise, since by \Cref{thm:p1equivalent} it is a restatement of its own
@@ -1333,16 +1498,10 @@ nothing depends on it: the rule set does not use such an implication, and
 adding it would not change \Cref{thm:closure}(ii), since (F3) alone is
 already sufficient.
 
-A form of (F3) that is not the conjecture itself asks only for algebraicity
-modulo classes coming from abelian varieties: for every variety $X$ and every
-$p$, every Hodge class of degree $2p$ on $X$ is the sum of an algebraic class
-and a linear combination of classes $\Gamma_{*}\gamma$, with $\gamma$ a
-Hodge class on an abelian variety $B$ and $\Gamma$ an algebraic
-correspondence from $B$ to $X$. The conjecture implies this form, and this
-form together with the conjecture for abelian varieties implies the
-conjecture; on an abelian variety it holds trivially, and on $A\times\PP^{1}$ it
-asks nothing of $\mathrm{pr}^{*}\alpha$. It is open, this paper proves no
-case of it, and \Cref{thm:closure} does not use it.
+The form of (F3) that is not the conjecture itself asks only for
+algebraicity modulo classes coming from abelian varieties. It is
+\textup{(F3$'$)} of \Cref{def:f3prime}; \Cref{prop:f3prime} says what is
+known of it, and \Cref{rem:f3primeopen} why it is not closed.
 \end{remark}
 
 \begin{figure}[tbp]
@@ -1351,49 +1510,54 @@ case of it, and \Cref{thm:closure} does not use it.
 \caption{The rule set of \Cref{setup:rules} with the rules of
 \Cref{ssec:bullseye}, drawn as a hypergraph. A rule with several premises is
 a junction marked $\wedge$, with arrows from its premises and one arrow to its
-conclusion; each rule carries the result that proves it, and the two
-junctions marked \S16.5 are the closure map of \Cref{ssec:closuremap}. Clay
-marks an open statement, grass what this paper proves, indigo a derived
-statement, and the tag $\Leftarrow\mathbf{HC}$ an open statement that the
-conjecture implies: every clay node except (P2). The arrow from (F3) to the
-conjecture for abelian varieties is \Cref{prop:f3ishc}. The two minimal
-sufficient sets of \Cref{thm:closure}(ii) are drawn as ribbons under the
-arrows they use and listed in the cards below: (F3) alone, through the
-abelian varieties and back; and (L) with (M). The route of this paper, (P2)
-with (F2) and (F3), and the routes (L) through (V) with (F3) and (V) with
-(F3) are sufficient and not minimal, and are listed in the third card. The
-secant route, which reaches the trivial discriminant only, is drawn in
-\Cref{fig:closure}.}
+conclusion; each rule carries the result that proves it, and the junction
+marked \S16.5 is the closure map of \Cref{ssec:closuremap}. Clay marks an
+open statement, grass what this paper proves, indigo a derived statement,
+and the tag $\Leftarrow\mathbf{HC}$ an open statement that the conjecture
+implies: every clay node except (P2). The arrow from (F3) to the conjecture
+is \Cref{prop:f3ishc}, and the junction above the conjecture for abelian
+varieties is \Cref{prop:f3prime}(i). The five minimal sufficient sets of
+\Cref{thm:closure}(ii) are drawn as nested ribbons under the arrows they
+use, widest first, and listed in the cards below: (F3) alone; (L) with (M);
+(L) through (V) with \textup{(F3$'$)}; (V) with \textup{(F3$'$)}; and, on
+the left, (P2) with (F2) and \textup{(F3$'$)}. A shared arrow shows the
+bands of every route through it. The secant route, which reaches the trivial
+discriminant only, is drawn in \Cref{fig:closure}.}
 \label{fig:frontier}
 \end{figure}
 
 \begin{remark}[The target, and what it would take]\label{rem:bullseye}
-With the rules of \Cref{ssec:bullseye} and \Cref{prop:f3ishc} in place,
-\Cref{thm:closure} changes the reading of \Cref{cor:fourremain} in three
-ways. First, the route through this paper is not a route in its own right.
-Its last statement (F3) is the conjecture (\Cref{prop:f3ishc}), so (F1) and
-(F2), and everything this paper proves about Weil classes, drop out of every
-minimal derivation; the same is true of \textup{(L)} and \textup{(V)} on the
-routes $\{\mathrm{L},\mathrm{F3}\}$ and $\{\mathrm{V},\mathrm{F3}\}$.
-Second, every element of both minimal sufficient sets is a consequence of the
-conjecture (\Cref{thm:closure}(vi)), and each set is equivalent to it:
-(F3) by \Cref{prop:f3ishc}, and \textup{(L)} and \textup{(M)} together by
-\Cref{prop:lefmot}. So neither is a reduction of the conjecture to something
-smaller. (P2) is a statement about semiregularity maps, lies in no minimal
-set, and a proof of the conjecture need not prove it. Third, every minimal
-sufficient set contains (F3) or \textup{(M)}: the varieties that are not
+With the rules of \Cref{ssec:bullseye}, \Cref{prop:f3ishc} and
+\Cref{prop:f3prime} in place, \Cref{thm:closure} changes the reading of
+\Cref{cor:fourremain} in three ways. First, the route through this paper is
+a route only with (F3) replaced by \textup{(F3$'$)}. As stated, its last
+statement (F3) is the conjecture (\Cref{prop:f3ishc}), so (F1) and (F2), and
+everything this paper proves about Weil classes, drop out of every minimal
+derivation that uses (F3). With \textup{(F3$'$)} in its place the route
+$\{\mathrm{P2},\mathrm{F2},\mathrm{F3}'\}$ is minimal, and it is not the
+shortest: (F1) and (F2), which between them give the conjecture for abelian
+varieties along this route, are replaced on the routes of the literature by
+the single statement \textup{(V)}, or by \textup{(L)}, which implies it
+(\Cref{thm:vhcab}). Second, every element of every minimal sufficient set
+except (P2) is a consequence of the conjecture (\Cref{thm:closure}(vi)), and
+two of the sets, $\{\mathrm{F3}\}$ and $\{\mathrm{L},\mathrm{M}\}$, are
+each equivalent to it. (P2) is a statement about semiregularity maps, and a
+proof of the conjecture need not prove it. Third, every minimal sufficient set
+contains (F3), \textup{(F3$'$)} or \textup{(M)}: the varieties that are not
 abelian are reached only through the conjecture for them, which is the whole
-conjecture, or through motivated classes.
+conjecture, through the conjecture modulo abelian varieties, which is open
+(\Cref{rem:f3primeopen}), or through motivated classes.
 
-So the only minimal route that is not the conjecture restated in one line
-passes through \textup{(L)} and \textup{(M)}. \textup{(L)} gives
-\textup{(V)} and with it the whole abelian half, the conjecture implies it,
-and with \textup{(M)} it is the conjecture. For each $X$ it asks for one
-explicit Hodge class on $X\times X$ to be algebraic, the class inducing
-$\Lambda$. It is open, as are \textup{(M)} and \textup{(V)}, and this paper
-proves none of them in general: \Cref{cor:mumfordlefschetz} adds the total
-spaces of Mumford families to the known cases of \textup{(L)}, and the short
-routes use no other theorem of this paper.
+So the target at the centre is \textup{(L)}. It lies in two of the five
+minimal sets, it gives \textup{(V)} and with it the whole abelian half, the
+conjecture implies it, and with \textup{(M)} it is the conjecture. For each
+$X$ it asks for one explicit Hodge class on $X\times X$ to be algebraic, the
+class inducing $\Lambda$. It is open, as are \textup{(M)}, \textup{(V)}
+and \textup{(F3$'$)}, and this paper proves none of them in general:
+\Cref{cor:mumfordlefschetz} adds the total spaces of Mumford families to the
+known cases of \textup{(L)}, \Cref{prop:f3prime} records the known cases of
+\textup{(F3$'$)}, and the routes of the literature use no other theorem of
+this paper.
 \end{remark}
 
 \subsubsection*{Two of the three are not reductions}
@@ -1572,8 +1736,9 @@ are drawn in \Cref{fig:frontier}. The spine in indigo runs from the Weil familie
 the conjecture at the top. The two statements (F2) and (F3) enter in clay from
 the right, each at the level where it is needed; (F2) is the conjecture for a
 class of Hodge classes that no Weil line reaches, not a reduction, and (F3) is
-the whole conjecture (\Cref{prop:f3ishc}), so the route drawn is sufficient
-and not minimal. From below,
+the whole conjecture (\Cref{prop:f3ishc}), so the route drawn is minimal
+only with (F3) replaced by \textup{(F3$'$)} of \Cref{def:f3prime}. From
+below,
 the propagation statement (P2) in grass reaches the two discriminant cases of
 the quadratic fields and the fields of higher degree alike, because
 \Cref{thm:everyfamily} and \Cref{thm:cmbasepoint} put a base point in every
@@ -3489,13 +3654,15 @@ special case of the conjecture, and so it is needed in the sense that every
 proof of the conjecture proves it. But it is only the first case of (F2), and
 a proof of it leaves (F1), every other case of (F2), and (F3) open. The last
 of these is not a remainder of the conjecture but the conjecture itself
-(\Cref{prop:f3ishc}), so the target is an input to no minimal route: by
-\Cref{thm:closure}(ii) the minimal sufficient sets are $\{\mathrm{F3}\}$ and
-$\{\mathrm{L},\mathrm{M}\}$, and on the second \textup{(L)} implies
-\textup{(V)} (\Cref{prop:lefvhc}), which carries the algebraicity at the CM
-points of \Cref{thm:mumfordcm} to every member. Item (XLIX) checks both: that
-(F3), being equivalent to the conjecture, yields the target, and that
-\textup{(L)} and \textup{(V)} do.
+(\Cref{prop:f3ishc}); its weaker form \textup{(F3$'$)} is open as well
+(\Cref{rem:f3primeopen}). Of the five minimal sufficient sets of
+\Cref{thm:closure}(ii), only the route through this paper,
+$\{\mathrm{P2},\mathrm{F2},\mathrm{F3}'\}$, has the target as an input,
+as the first case of (F2). On the other four it is not an input: (F3) is the
+conjecture, and \textup{(L)} implies \textup{(V)} (\Cref{prop:lefvhc}),
+which carries the algebraicity at the CM points of \Cref{thm:mumfordcm} to
+every member. Item (XLIX) checks both: that (F3), being equivalent to the
+conjecture, yields the target, and that \textup{(L)} and \textup{(V)} do.
 \end{remark}
 
 \subsection{Summary}
@@ -3661,12 +3828,21 @@ The Weil classes of every CM field
     \Cref{thm:cmbasepoint}, \Cref{thm:cmpropagation}
   & (P2) not proved for any field \\
 What is left, as a whole
-  & two minimal sets of open statements, $\{\mathrm{F3}\}$ and
-    $\{\mathrm{L},\mathrm{M}\}$, each equivalent to the conjecture; the
-    three statements along this route are sufficient and not minimal, since
-    (F3) is the conjecture, \Cref{thm:closure}, \Cref{prop:f3ishc},
-    \Cref{cor:fourremain}, \Cref{rem:bullseye}
-  & the conjecture itself, in either form; the Lefschetz standard
-    conjecture, (M), (V), (F2), all open \\
+  & five minimal sets of open statements: $\{\mathrm{F3}\}$ and
+    $\{\mathrm{L},\mathrm{M}\}$, each equivalent to the conjecture, and
+    three through the conjecture modulo abelian varieties,
+    $\{\mathrm{L},\mathrm{F3}'\}$, $\{\mathrm{V},\mathrm{F3}'\}$ and this
+    route, $\{\mathrm{P2},\mathrm{F2},\mathrm{F3}'\}$,
+    \Cref{thm:closure}, \Cref{prop:f3ishc}, \Cref{cor:fourremain},
+    \Cref{rem:bullseye}
+  & the Lefschetz standard conjecture, (M), (V), (F2), (F3$'$), all open \\
+The conjecture modulo abelian varieties, (F3$'$)
+  & holds on the class $\mathcal{A}$ of varieties whose cohomology is
+    reached from abelian varieties by algebraic correspondences (curves,
+    abelian varieties, products, surjective images), in degrees $0$, $2$,
+    $2n-2$, $2n$, and in dimension at most three, \Cref{prop:f3prime}
+  & degree four on fourfolds outside $\mathcal{A}$ and beyond, for
+    instance squares of K3 surfaces without an algebraic Kuga--Satake
+    correspondence, \Cref{rem:f3primeopen} \\
 \end{longtable}
 \endgroup

@@ -8,11 +8,11 @@ the Mumford target.
   fig_frontier       the rule set of the closure theorem with the rules of the
                      literature added, drawn as a hypergraph: a rule with
                      several premises is a junction marked with a wedge, and
-                     each arrow carries the result that proves it.  The two
-                     minimal sufficient sets, {F3} and {L, M}, are drawn as
-                     ribbons under the arrows they use and listed as route
-                     cards below, with a third card for the sets that suffice
-                     and are not minimal.
+                     each arrow carries the result that proves it.  The five
+                     minimal sufficient sets, {F3}, {L, M}, {L, F3'},
+                     {V, F3'} and {P2, F2, F3'}, are drawn as nested ribbons
+                     under the arrows they use and listed as route cards
+                     below.
                      Clay marks an open statement, grass what the paper
                      proves, indigo a derived statement; a small indigo tag
                      marks every open statement that the conjecture implies.
@@ -72,6 +72,8 @@ TAIL = r"""\end{tikzpicture}
 TIP = r"-{Stealth[length=5pt,width=4pt]}"
 # the number the paper gives the proposition that (F3) is the conjecture
 F3REF = "16.31"
+# and the one that (F3') with the abelian case gives the conjecture
+F3PREF = "16.33"
 
 
 def box(x, y, text, fill, draw, w=None, lw=0.6, h=None, font=None,
@@ -157,14 +159,16 @@ def frontier():
     OPEN, OPENF = "PClay", "WClay"
     DER, DERF = "PIndigo", "WBlue"
     PRO, PROF = "PGrass", "WTeal"
-    # route colours: the two minimal sufficient sets
-    RC = {1: "PAmber!36", 2: "PMag!22"}
-    RD = {1: "PAmber", 2: "PMag"}
-    RW = {1: 11.0, 2: 8.0}
+    # route colours: the five minimal sufficient sets
+    RC = {1: "POchre!40", 2: "PMag!22", 3: "PAmber!36", 4: "PTeal!30",
+          5: "PViolet!24"}
+    RD = {1: "POchre", 2: "PMag", 3: "PAmber", 4: "PTeal", 5: "PViolet"}
+    RW = {5: 15.0, 4: 11.0, 3: 6.5, 2: 8.0, 1: 8.0}
 
     HC = (0.00, 7.70)
     AV = (-3.40, 5.70)
-    F3 = (1.80, 5.70)
+    F3P = (1.80, 5.70)
+    F3 = (-5.60, 7.70)
     M = (5.40, 5.70)
     WE = (-5.70, 3.70)
     F2 = (-2.30, 3.70)
@@ -172,7 +176,7 @@ def frontier():
     L = (5.40, 1.50)
     P2 = (-6.70, 1.50)
     BA = (-3.60, 1.50)
-    J1 = (-0.85, 6.70)       # AV and F3 give HC
+    J1 = (-0.85, 6.70)       # AV and F3' give HC
     J2 = (3.70, 7.70)        # L and M give HC
     J3 = (-4.05, 4.75)       # Weil classes and F2 give AV
     J6 = (-5.25, 2.60)       # base points and P2 give the Weil classes
@@ -180,8 +184,9 @@ def frontier():
     # every edge once, as a path; the ribbons and the arrows share it
     E = {
         "AV-J1": ((AV[0] + 0.55, AV[1] + 0.40), (J1[0] - 0.16, J1[1] - 0.09)),
-        "F3-J1": ((F3[0] - 0.55, F3[1] + 0.40), (J1[0] + 0.16, J1[1] - 0.08)),
-        "F3-AV": ((F3[0] - 1.00, F3[1] - 0.02), (AV[0] + 1.22, AV[1] - 0.02)),
+        "F3P-J1": ((F3P[0] - 0.55, F3P[1] + 0.40), (J1[0] + 0.16,
+                                                    J1[1] - 0.08)),
+        "F3-HC": ((F3[0] + 1.02, F3[1]), (HC[0] - 2.05, HC[1])),
         "J1-HC": ((J1[0] + 0.10, J1[1] + 0.16), (HC[0] - 0.50, HC[1] - 0.42)),
         "M-J2": ((M[0] - 0.35, M[1] + 0.40), (M[0] - 0.60, 7.10),
                  (J2[0] + 0.45, 7.45), (J2[0] + 0.14, J2[1] - 0.10)),
@@ -199,11 +204,15 @@ def frontier():
         "J6-WE": ((J6[0] - 0.06, J6[1] + 0.17), (WE[0] + 0.25, WE[1] - 0.42)),
     }
     ROUTES = {
-        1: ["F3-AV", "AV-J1", "F3-J1", "J1-HC"],
+        5: ["P2-J6", "BA-J6", "J6-WE", "WE-J3", "F2-J3", "J3-AV", "AV-J1",
+            "F3P-J1", "J1-HC"],
+        4: ["V-AV", "AV-J1", "F3P-J1", "J1-HC"],
+        3: ["L-V", "V-AV", "AV-J1", "F3P-J1", "J1-HC"],
         2: ["L-J2", "M-J2", "J2-HC"],
+        1: ["F3-HC"],
     }
     # ribbons, widest first, so that a shared edge shows nested bands
-    for r in (1, 2):
+    for r in (5, 4, 3, 2, 1):
         for e in ROUTES[r]:
             out.append(r"  \draw[%s,line width=%.1fpt,line cap=round] %s;"
                        % (RC[r], RW[r], seg(E[e])) + "\n")
@@ -216,6 +225,8 @@ def frontier():
                    DERF, DER))
     out.append(box(F3[0], F3[1], r"(F3)\hcimp\\{\scriptsize $X$ not abelian}",
                    OPENF, OPEN))
+    out.append(box(F3P[0], F3P[1], r"(F3$'$)\hcimp\\{\scriptsize "
+                   r"modulo abelian}", OPENF, OPEN))
     out.append(box(M[0], M[1], r"(M)\hcimp\\{\scriptsize Hodge $=$ motivated}",
                    OPENF, OPEN))
     out.append(box(WE[0], WE[1], r"Weil classes\\{\scriptsize "
@@ -233,7 +244,7 @@ def frontier():
                    PROF, PRO))
 
     # arrows
-    col = {"AV-J1": DER, "F3-J1": OPEN, "F3-AV": OPEN, "J1-HC": DER,
+    col = {"AV-J1": DER, "F3P-J1": OPEN, "F3-HC": OPEN, "J1-HC": DER,
            "M-J2": OPEN,
            "L-J2": OPEN, "J2-HC": DER, "WE-J3": DER, "F2-J3": OPEN,
            "J3-AV": DER, "V-AV": OPEN, "L-V": OPEN, "P2-J6": OPEN,
@@ -246,30 +257,30 @@ def frontier():
         out.append(junction(j[0], j[1], DER))
 
     # rule labels, each naming the result that proves the rule
-    out.append(label(J1[0] - 0.42, J1[1] + 0.20, r"\S16.5", DER,
+    out.append(label(J1[0] - 0.42, J1[1] + 0.20, r"Prop.~%s" % F3PREF, DER,
                      anchor="east"))
     out.append(label(J3[0] - 0.42, J3[1] + 0.12, r"\S16.5", DER,
                      anchor="east"))
     out.append(label(J2[0], J2[1] + 0.62, r"Prop.~16.16\\Andr\'e", DER))
-    out.append(label(1.60, 4.78, r"Thm.~16.18\\Deligne, Andr\'e", DER))
+    out.append(label(-0.64, 5.45, r"Thm.~16.18\\Deligne, Andr\'e", DER))
     out.append(label(4.35, 2.85, r"Prop.~16.17\\Andr\'e", DER))
     out.append(label(-6.75, 2.85, r"Thm.~14.81\\Thm.~15.6", PRO))
-    out.append(label(-0.30, 5.36, r"Prop.~%s" % F3REF, OPEN))
+    out.append(label(-3.33, 7.93, r"Prop.~%s" % F3REF, OPEN))
 
     # route cards
-    cards = [(-5.00, 1, r"$\{$F3$\}$",
-              r"(F3)$\Rightarrow$ab.$\wedge$(F3)$\Rightarrow\mathbf{HC}$"),
-             (-1.30, 2, r"$\{$L, M$\}$",
-              r"(L)$\wedge$(M)$\Rightarrow\mathbf{HC}$")]
+    cards = [(-5.84, 1, r"$\{$F3$\}$", r"(F3)$\Leftrightarrow\mathbf{HC}$"),
+             (-2.92, 2, r"$\{$L, M$\}$",
+              r"(L)$\wedge$(M)$\Rightarrow\mathbf{HC}$"),
+             (0.00, 3, r"$\{$L, F3$'$$\}$", r"(L)$\Rightarrow$(V)$\Rightarrow$ab."),
+             (2.92, 4, r"$\{$V, F3$'$$\}$", r"(V)$\Rightarrow$ab."),
+             (5.84, 5, r"$\{$P2, F2, F3$'$$\}$", r"this paper")]
     for x, r, head, sub in cards:
         out.append(box(x, -0.35, r"\textbf{%d}\enspace%s\\{\scriptsize %s}"
-                       % (r, head, sub), RC[r], RD[r], w=3.30, lw=0.8))
-    out.append(box(3.55, -0.35, r"sufficient, not minimal\\{\scriptsize "
-                   r"$\{$P2, F2, F3$\}$, $\{$L, F3$\}$, $\{$V, F3$\}$}",
-                   "white", "PSlate", w=4.60, lw=0.6))
-    out.append(label(0.00, -1.25, r"the two minimal sufficient sets of the "
-                     r"closure theorem, drawn as ribbons above; each is "
-                     r"equivalent to $\mathbf{HC}$", "PInk"))
+                       % (r, head, sub), RC[r], RD[r], w=2.70, lw=0.8))
+    out.append(label(0.00, -1.25, r"the five minimal sufficient sets of the "
+                     r"closure theorem, drawn as nested ribbons above; "
+                     r"routes 3 to 5 end with ab.$\wedge$(F3$'$)"
+                     r"$\Rightarrow\mathbf{HC}$", "PInk"))
 
     # legend
     out.append(box(-6.20, -2.05, r"open", OPENF, OPEN, w=1.3))
@@ -704,7 +715,7 @@ def write(name, blurb, body):
 
 if __name__ == "__main__":
     write("fig_frontier",
-          "The rule set with the routes of the literature: two minimal "
+          "The rule set with the routes of the literature: five minimal "
           "sufficient sets.", frontier())
     write("fig_propagation",
           "Propagation of algebraicity along a compact Shimura curve under the "

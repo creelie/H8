@@ -487,28 +487,34 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   $q=(-7,-6,-4,4)$, which only the injectivity of $\varphi$ removes.
 
 \item \emph{The closure graph.} The script \texttt{closure\_\allowbreak graph.py}
-  carries the rule set of \Cref{setup:rules} as data: thirty-six statements,
-  each marked proved here, quoted, or open, and sixteen rules, each carrying
+  carries the rule set of \Cref{setup:rules} as data: thirty-seven statements,
+  each marked proved here, quoted, or open, and seventeen rules, each carrying
   the label of the theorem that proves it. It checks that every statement
   named in a rule is declared and every declared statement is used, that the
-  rule set is acyclic, and that every one of the fourteen theorem labels it
+  rule set is acyclic, and that every one of the fifteen theorem labels it
   names, for its rules and for the consequences of $\mathbf{HC}$ it records,
-  is a label of this paper, against the list of all $523$ labels generated
+  is a label of this paper, against the list of all $526$ labels generated
   from the sources and distributed with the script as
   \texttt{paper\_\allowbreak labels.txt}. It then computes the forward closure
   by iterating the one step map to a fixed point, and verifies that no
   statement marked proved rests at any depth on an open one, that
   $\mathbf{HC}$ is not in the closure of the proved and quoted statements,
-  and, by exhaustive search over all $2^{12}$ subsets of the twelve open
-  statements, that there are exactly the two minimal sufficient sets of
-  \Cref{thm:closure}(ii), $\{\mathrm{F3}\}$ and $\{\mathrm{L},\mathrm{M}\}$,
-  that (F3) is the one open statement that suffices alone, that the route
-  through this paper and the sets $\{\mathrm{L},\mathrm{F3}\}$ and
-  $\{\mathrm{V},\mathrm{F3}\}$ suffice and are not minimal, that neither
-  minimal set uses a statement proved here, that each element of each set
-  is necessary, that every set contains (F3) or \textup{(M)}, and that every
-  element of every set is recorded as a consequence of $\mathbf{HC}$, so that
-  each set is equivalent to it. It confirms that \textup{(V)} alone gives the
+  and, by exhaustive search over all $2^{13}$ subsets of the thirteen open
+  statements, that there are exactly the five minimal sufficient sets of
+  \Cref{thm:closure}(ii), $\{\mathrm{F3}\}$, $\{\mathrm{L},\mathrm{M}\}$,
+  $\{\mathrm{L},\mathrm{F3}'\}$, $\{\mathrm{V},\mathrm{F3}'\}$ and
+  $\{\mathrm{P2},\mathrm{F2},\mathrm{F3}'\}$, that (F3) is the one open
+  statement that suffices alone, that \textup{(F3$'$)} alone gives neither
+  the conjecture for abelian varieties nor $\mathbf{HC}$, that the sets
+  $\{\mathrm{P2},\mathrm{F2},\mathrm{F3}\}$, $\{\mathrm{L},\mathrm{F3}\}$
+  and $\{\mathrm{V},\mathrm{F3}\}$ suffice and are not minimal, that the
+  route through this paper is the only minimal set with three elements and
+  the only one whose derivation uses a statement proved here, that each
+  element of each set is necessary, that every set contains (F3),
+  \textup{(F3$'$)} or \textup{(M)}, that every element of every set other
+  than (P2) is recorded as a consequence of $\mathbf{HC}$, and that
+  $\{\mathrm{F3}\}$ and $\{\mathrm{L},\mathrm{M}\}$ are each equivalent
+  to it. It confirms that \textup{(V)} alone gives the
   conjecture for abelian varieties and not $\mathbf{HC}$, and that
   \textup{(L)} gives \textup{(V)}. It confirms that the six open demands of
   the secant route lie outside every minimal set, that granting the two of
@@ -516,16 +522,18 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   the propagation statement reaches all of it and also the Weil classes of
   every CM field, so that those are not open, and that the bounded criterion
   is absent from the rule set, being equivalent to its own conclusion. It
-  then removes the one rule of \Cref{prop:f3ishc} and repeats the search,
-  which returns the four sets of the earlier version of this paper,
+  then removes the rule of \Cref{prop:f3ishc} and the statement
+  \textup{(F3$'$)} with its rule and repeats the search, which returns the
+  four sets of the earlier version of this paper,
   $\{\mathrm{L},\mathrm{M}\}$, $\{\mathrm{L},\mathrm{F3}\}$,
   $\{\mathrm{V},\mathrm{F3}\}$ and $\{\mathrm{P2},\mathrm{F2},\mathrm{F3}\}$;
-  so the change in the answer is that rule and nothing else.
+  so the change in the answer is those two additions and nothing else.
   Finally it checks that the numbering under which the same graph is carried
   into Section 24 of the Lean certificate maps these rules onto those. The
   full derivation of $\mathbf{HC}$ from the proved and quoted statements and
   each minimal sufficient set is printed, one rule per line. That is
-  \Cref{thm:closure}, \Cref{prop:f3ishc} and \Cref{cor:fourremain}.
+  \Cref{thm:closure}, \Cref{prop:f3ishc}, \Cref{prop:f3prime} and
+  \Cref{cor:fourremain}.
 \item \emph{No split resolution runs the criterion.} The script
   \texttt{split\_\allowbreak resolution.py} records the data behind
   \Cref{thm:nosplit}: that the scalar $(e^{2}+d)/2$ by which the compensated
@@ -914,6 +922,6 @@ on which theorems depend. Items (IV) and (V) support statements that no
 obstruction exists, and a failure there would strengthen rather than weaken
 the paper, so they are included for completeness rather than for safety.
 Running \texttt{verify\_all.py} executes the forty-four Python items and
-prints \texttt{827 checks passed, 0 failed}; items (XXIX), (XXXI) and
+prints \texttt{829 checks passed, 0 failed}; items (XXIX), (XXXI) and
 (XL) need Macaulay2 and are run separately, and their transcripts are
 distributed with the scripts.

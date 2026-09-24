@@ -58,5 +58,5 @@ jobs:
         working-directory: code
         run: |
           python3 verify_all.py | tee ../checks.txt
-          grep -q "827 checks passed, 0 failed" ../checks.txt
+          grep -q "829 checks passed, 0 failed" ../checks.txt
           grep -q "overall: PASS" ../checks.txt

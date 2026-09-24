@@ -28,7 +28,7 @@ Lean check:
 
 The last lines are
 
-    827 checks passed, 0 failed
+    829 checks passed, 0 failed
     overall: PASS
 
 and the exit status is zero. The driver runs five self-contained checks and
@@ -58,7 +58,7 @@ then calls the companion scripts in the same directory:
 | `pte_search.py` | which split objects supported on R can be semiregular: the level sums, the level sets that survive them at n = 3, and the exhaustive search that removes them |
 | `smooth_support.py` | the invariants a smooth support must have, read off the Chern character, and the Bogomolov-Miyaoka-Yau bound that leaves four discriminants |
 | `hilbert_burch.py` | Cohen-Macaulay supports with a split resolution: the complete intersections are excluded outright, ranks two and three are empty, and the candidates at higher rank are printed |
-| `closure_graph.py` | the logical skeleton of the paper and of the literature it quotes as a rule set: the conjecture is not in the closure of what is proved; with the elementary rule that the conjecture for varieties that are not abelian gives it for every abelian variety A through A x P^1, there are exactly two minimal sufficient sets, {(F3)} and {Lefschetz standard conjecture B, every Hodge class motivated}, each equivalent to the conjecture; the route of the paper {(P2), (F2), (F3)}, {B, (F3)} and {variational Hodge conjecture for algebraic classes, (F3)} suffice and are not minimal; without that one rule the search returns the four sets of the earlier version; and the secant route lies in no minimal set |
+| `closure_graph.py` | the logical skeleton of the paper and of the literature it quotes as a rule set: the conjecture is not in the closure of what is proved; the conjecture for varieties that are not abelian, (F3), gives it for every abelian variety A through A x P^1 and so is the conjecture itself; with (F3'), the conjecture modulo abelian varieties, added, there are exactly five minimal sufficient sets, {(F3)}, {Lefschetz standard conjecture B, every Hodge class motivated}, {B, (F3')}, {variational Hodge conjecture for algebraic classes, (F3')} and the route of the paper {(P2), (F2), (F3')}; (F3') alone gives nothing on abelian varieties; without the two additions the search returns the four sets of the earlier version; and the secant route lies in no minimal set |
 | `hochschild_annihilator.py` | the annihilator of a Weil class in the whole exterior algebra HH^*(A) of dimension 2^{4n}: that HH^1 splits as P + Q with P and Q the annihilators of the two conjugate pieces of the class, each of dimension 2n; that the degree-two annihilator is exactly P ^ Q, of dimension 4n^2; the dimension binom(4n,k) - 2 binom(2n,k) in every degree with one extra class at k = 2n; the codimension 2^{2n+1} - 1 of the ideal generated; and the unconditional lower bound dim Ext^2(E,E) >= 2n(2n-1) |
 | `p2_support.py` | the finite linear algebra of the numerical form of the semiregularity criterion and of the support theorem: the rank 2n(2n-1) of contraction into the Weil class on HH^2 and its injectivity on wedge^2 P + wedge^2 Q, the class of a point on a torus contracted with a ^ b, the dichotomy in the normal space, the eigenspace bookkeeping in an explicit rational model over Q(i), and the separation of the Weil line from the classes pulled back from quotients by abelian subvarieties tangent to an eigenspace |
 | `lefschetz_family.py` | the Lefschetz standard conjecture for the total space of an abelian scheme over a curve with algebraic invariant cycles: on abelian varieties with g <= 4 the operator Lambda equals D^{-1} times the Pontryagin product with l^{g-1}/(g-1)!, computed from mu_* and mu^*; on product families the operator assembled from the relative and base parts satisfies [L, Lambda] = H; and the invariants of the Mumford group in wedge^q V are 1,0,1,0,1,0,1,0,1 |
@@ -144,7 +144,7 @@ Their unedited transcripts are the `.txt` files beside them, and
     python3 make_closure.py     # the closure graph
     python3 make_support.py     # the support theorem
     python3 make_mumford.py     # a Mumford fourfold and its K3 surface
-    python3 make_frontier.py    # the two minimal sufficient sets as ribbons,
+    python3 make_frontier.py    # the five minimal sufficient sets as ribbons,
                                 # propagation along a compact Shimura curve,
                                 # the Leray summands of an abelian scheme over
                                 # a curve with the four operators of the proof,
@@ -211,9 +211,17 @@ not abelian include A x P^1 for every abelian variety A, and the conjecture
 for A x P^1 gives it for A (pull back along the projection, cup with the
 class of A x {0}, push forward), so it alone implies the conjecture for
 abelian varieties and then the whole conjecture (Proposition prop:f3ishc of
-the paper, `closure_graph.py`, and Section 24 of the Lean file). An earlier
-version said the conjecture follows from no two of the three; that rested on a
-rule set that omitted this implication, and it was wrong. The second and
+the paper). An earlier version said the conjecture follows from no two of the
+three; that rested on a rule set that omitted this implication, and it was
+wrong. The statement that belongs in its place, (F3'), asks for every Hodge
+class to be algebraic modulo images of Hodge classes of abelian varieties
+under algebraic correspondences. It holds on every variety whose cohomology
+is reached from abelian varieties in that way (curves, abelian varieties,
+products, surjective images), in degrees 0, 2, 2n-2, 2n, and in dimension at
+most three; beyond that it is open, and nothing here closes it (Proposition
+prop:f3prime and Remark rem:f3primeopen). With (F3') the three statements are
+a minimal route again (`closure_graph.py`, and Section 24 of the Lean file).
+The second and
 third are not reductions: the self-product of a
 Mumford fourfold carries two Hodge classes outside the subring of divisor and
 Weil classes, and the H^3 of a very general quintic threefold is not of
@@ -224,13 +232,14 @@ one of the K3 surfaces of Picard number thirteen attached to the fourfold is
 algebraic (`mumford_rm.py`). That Kuga-Satake class is
 not known to be algebraic.
 
-With the implications of the literature added, the rule set has exactly two
+With the implications of the literature added, the rule set has exactly five
 minimal sufficient sets: the conjecture for varieties that are not abelian
-alone, and the Lefschetz standard conjecture (L) with the motivatedness of
-every Hodge class (M). Each is equivalent to the conjecture, neither uses
-anything proved in the paper, and the three statements above, like (L) or the
-variational Hodge conjecture for algebraic classes (V) taken with the
-conjecture for varieties that are not abelian, suffice without being minimal
+alone; the Lefschetz standard conjecture (L) with the motivatedness of every
+Hodge class (M), which together are also equivalent to the conjecture; and
+(F3') with (L), with the variational Hodge conjecture for algebraic classes
+(V), or with the propagation statement and (F2), the route of the paper, which
+is the only one that uses anything proved here. Every member except the
+propagation statement is a consequence of the conjecture
 (`closure_graph.py`, Section 24 of the Lean file). One new case of
 (L) is proved: for an abelian scheme over a curve whose invariant cycles are
 algebraic, the Lefschetz operator is a relative Pontryagin product with

@@ -48,6 +48,7 @@ def:clifford
 def:conjpair
 def:disc
 def:divisorsubring
+def:f3prime
 def:hodgelocus
 def:ksvariety
 def:lmv
@@ -231,6 +232,7 @@ prop:divroute
 prop:evaluation
 prop:explicitobject
 prop:f3ishc
+prop:f3prime
 prop:firstorder
 prop:genus3
 prop:grading
@@ -294,6 +296,7 @@ rem:dimensionbookkeeping
 rem:dimfour
 rem:divroute
 rem:f3collapse
+rem:f3primeopen
 rem:factorclosed
 rem:failuremode
 rem:familyuniform

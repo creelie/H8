@@ -17,7 +17,8 @@ Always hand the user all four of these together:
    branch the work was pushed to.
 
 `N` is the round number (round 5 was the correction that (F3) is equivalent
-to the Hodge conjecture).
+to the Hodge conjecture; round 6 added its weaker form (F3') and what is known
+of it).
 
 ## Checks before delivering
 

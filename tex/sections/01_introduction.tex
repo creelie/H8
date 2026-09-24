@@ -640,20 +640,29 @@ generate, and the conjecture for the varieties that are not abelian
 varieties that are not abelian include $A\times\PP^{1}$ for every abelian
 variety $A$, and the conjecture for $A\times\PP^{1}$ gives it for $A$, so
 that statement is equivalent to the whole conjecture (\Cref{prop:f3ishc}).
-Once this elementary implication is in the rule set there are exactly two
-minimal sets of open statements that yield the conjecture: that statement
+The statement that belongs in its place is weaker: every Hodge class is
+algebraic modulo the images of Hodge classes of abelian varieties under
+algebraic correspondences (\Cref{def:f3prime}). It holds on every variety
+whose cohomology is reached from abelian varieties in that way, a class
+containing curves and abelian varieties and closed under products and
+surjective images, in degrees $0$, $2$, $2n-2$ and $2n$, and in dimension at
+most three (\Cref{prop:f3prime}); beyond that it is open, and its standard
+open case, the square of a K3 surface, turns on the same Kuga--Satake
+correspondence as the Mumford classes below (\Cref{rem:f3primeopen}). With
+both statements in the rule set there are exactly five minimal sets of open
+statements that yield the conjecture (\Cref{thm:closure}). Two are the
+conjecture restated: the conjecture for the varieties that are not abelian
 alone, and the Lefschetz standard conjecture for every variety together with
-the motivatedness of every Hodge class, which together are also equivalent to
-the conjecture (\Cref{thm:closure}, \Cref{prop:lefmot}). Neither uses a
-theorem of this paper, and the three statements of this route, like the
-Lefschetz standard conjecture or the variational Hodge conjecture for
-algebraic classes taken with the conjecture for varieties that are not
-abelian (\Cref{prop:lefvhc}, \Cref{thm:vhcab}), are sufficient and not
-minimal. So within the rule set the conjecture is reached only through sets
-of open statements that are, taken together, equivalent to it, and this paper
-does not change that. Every statement in the two
-minimal sets is a consequence of the conjecture, and the propagation
-statement is in neither (\Cref{rem:bullseye}). None
+the motivatedness of every Hodge class (\Cref{prop:lefmot}). The other three
+use the weaker statement, together with the Lefschetz standard conjecture,
+with the variational Hodge conjecture for algebraic classes that it implies
+(\Cref{prop:lefvhc}, \Cref{thm:vhcab}), or, along the route of this paper,
+with the propagation statement and the classes that divisor and Weil classes
+do not generate. Only that last route uses a theorem of this paper. Every
+statement in the five except the propagation statement is a consequence of
+the conjecture, and the Lefschetz standard conjecture, which lies in two of
+them and gives the whole abelian half, is the target at the centre
+(\Cref{rem:bullseye}). None
 of these statements is proved here in general. One new case of the Lefschetz
 standard conjecture is: for an abelian scheme over a curve whose invariant
 cycles are algebraic, the operator $\Lambda$ is the sum of a relative
@@ -793,10 +802,9 @@ every family for every field and every discriminant, one criterion for
 propagation, which is a number, and one that restates the conjecture, the
 fourteen routes that are closed and the structural reason each of them fails,
 the same criterion for every CM field, and the three statements that remain
-along this route, the last of them the conjecture itself, the second shown not
-to be a reduction and its smallest case brought down to a single
-Kuga--Satake class, beside the one other minimal route, through the Lefschetz
-standard conjecture and motivated classes. \Cref{sec:scope} delimits all of it,
+along this route, the last of them the conjecture itself and its weaker form
+open, the second not a reduction and its smallest case brought down to a
+single Kuga--Satake class, beside the other minimal routes. \Cref{sec:scope} delimits all of it,
 \Cref{sec:verification} describes
 the verification and \Cref{sec:lean} the Lean certificate.
 \Cref{app:exterior} carries the coordinate computation behind the transform,
