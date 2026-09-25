@@ -59,7 +59,20 @@ Put mu_m = m! c_m and let rho be the rank of the (2n-1) x 3 Hankel matrix
       normalisation int theta^{2n} = (2n)!, with Q(c) = sum_k (-1)^k c_k
       c_{2n-k}, for n = 2, 3; and in the rational model of explicit_weil.py
       at n = 2, int omega_1^2 = 8 d^2 and int eta^4 = 24, so the exceptional
-      ratio of (E) is c_2 = +-dN/2 for the class N omega_1 + c_2 eta^2.
+      ratio of (E) is c_2 = +-dN/2 for the class N omega_1 + c_2 eta^2;
+
+  (G) the exceptional ratio at n = 2: the stabiliser of gamma = omega +
+      c_2 theta^2 in gl(H^1) has dimension 21 at |u| = 4|c_2|, with Hodge
+      pieces 5, 11, 5 (the 5 is the Hodge locus of (E)), commutant on H^1
+      the scalars, and a real form whose trace form has signature (12, 9),
+      so it is so(4,3) acting on H^1 by its spin representation; its
+      invariants in wedge^k H^1 have dimensions 1,0,0,0,1,0,0,0,1, so a very
+      general member of the Hodge locus has no divisor classes.  At an
+      ordinary ratio the stabiliser is su(2,2), of dimension 15, with
+      invariants 1,0,1,0,3,0,1,0,1.  At the exceptional ratio
+      int gamma kappa_h^2 = (sigma_2(h) + 4 Re det h[01,23]) / 6 for the
+      Kaehler class of a positive hermitian h (c_2 = 1), which has constant
+      sign on the Kaehler cone; at R = 3/16 it changes sign.
 
 With --extreme the closed form is checked further, exactly over Q(i), for
 n = 5, ..., 9 (or up to --nmax=N) on five shapes.  All ranks are computed by
@@ -572,6 +585,232 @@ def item_F(F, rng):
           ok, "\n".join(rows))
 
 
+# --------------------------------------- (G) the exceptional ratio at n = 2
+def conj_gq(x):
+    return GQ(x.a, -x.b)
+
+
+def der_apply(ab, vec, F):
+    """the derivation of the exterior algebra extending E_ab : x_b -> x_a"""
+    a, b = ab
+    out = {}
+    for mask, c in vec.items():
+        if not mask >> b & 1:
+            continue
+        if a == b:
+            k = mask
+        else:
+            if mask >> a & 1:
+                continue
+            k = (mask ^ (1 << b)) | (1 << a)
+            lo, hi = min(a, b), max(a, b)
+            between = mask & (((1 << hi) - 1) ^ ((1 << (lo + 1)) - 1))
+            if bin(between).count("1") & 1:
+                c = F.neg(c)
+        out = vadd(out, {k: c}, F)
+    return out
+
+
+def op_apply_mat(X, vec, F):
+    out = {}
+    for ab, x in X.items():
+        out = vadd(out, der_apply(ab, vec, F), F, x)
+    return out
+
+
+def mat_mul_trace(X, Y, F):
+    t = F.num(0)
+    for (a, b), x in X.items():
+        y = Y.get((b, a))
+        if y is not None:
+            t = F.add(t, F.mul(x, y))
+    return t
+
+
+def congruence_signature(G):
+    """signature (p, q) of a real symmetric rational matrix, by congruence"""
+    G = [[Fr(x) for x in row] for row in G]
+    n, p, q = len(G), 0, 0
+    idx = list(range(n))
+    while idx:
+        piv = next((i for i in idx if G[i][i] != 0), None)
+        if piv is None:
+            pair = next(((i, j) for i in idx for j in idx if i < j and G[i][j] != 0), None)
+            if pair is None:
+                break
+            i, j = pair                     # replace row/col i by i + j
+            for k in range(n):
+                G[i][k] += G[j][k]
+            for k in range(n):
+                G[k][i] += G[k][j]
+            piv = i
+        d = G[piv][piv]
+        p, q = (p + 1, q) if d > 0 else (p, q + 1)
+        idx.remove(piv)
+        for i in idx:
+            f = G[i][piv] / d
+            if f:
+                for k in range(n):
+                    G[i][k] -= f * G[piv][k]
+                for k in range(n):
+                    G[k][i] -= f * G[k][piv]
+    return p, q
+
+
+def stabiliser(M, gamma, F):
+    g2 = 2 * M.g
+    basis = [(a, b) for a in range(g2) for b in range(g2)]
+    cols = [der_apply(ab, gamma, F) for ab in basis]
+    _, ker = rank_and_kernel(cols, F, want_kernel=True)
+    return [{basis[j]: v for j, v in vec.items()} for vec in ker], basis
+
+
+def item_G(F):
+    M = Model(2)
+    pw = M.theta_powers(F)
+    g2 = 2 * M.g
+    h10 = {M.e(j) for j in range(M.n)} | {M.f(j) for j in range(M.n, M.g)}
+    swap = {x: (x + M.g) % g2 for x in range(g2)}
+
+    def hodge_type(ab):
+        a, b = ab
+        if b in h10 and a not in h10:
+            return -1
+        if b not in h10 and a in h10:
+            return 1
+        return 0
+
+    def invariants(stab):
+        dims = []
+        for k in range(g2 + 1):
+            masks = [m for m in range(1 << g2) if bin(m).count("1") == k]
+            cols = []
+            for m in masks:
+                col = {}
+                for x, X in enumerate(stab):
+                    for mm, v in op_apply_mat(X, {m: F.num(1)}, F).items():
+                        col[x * (1 << g2) + mm] = v
+                cols.append(col)
+            r, _ = rank_and_kernel(cols, F)
+            dims.append(len(masks) - r)
+        return dims
+
+    for label, u, want_dim, want_inv in (
+            ("exceptional, |u| = 4|c_2|", (4, 0), 21, [1, 0, 0, 0, 1, 0, 0, 0, 1]),
+            ("ordinary, |u| = 3|c_2|", (3, 0), 15, [1, 0, 1, 0, 3, 0, 1, 0, 1])):
+        gamma = M.ch([0, 0, 1, 0, 0], u, F, pw)
+        stab, basis = stabiliser(M, gamma, F)
+        # graded pieces for the Hodge grading of gl(H^1)
+        pieces = []
+        for t in (-1, 0, 1):
+            sub = [ab for ab in basis if hodge_type(ab) == t]
+            cols = [der_apply(ab, gamma, F) for ab in sub]
+            r, _ = rank_and_kernel(cols, F)
+            pieces.append(len(sub) - r)
+        inv = invariants(stab)
+        detail = "dim = %d, Hodge pieces %s, invariants in wedge^k H^1: %s" % (
+            len(stab), pieces, inv)
+        ok = len(stab) == want_dim and sum(pieces) == want_dim and inv == want_inv
+        if want_dim == 21:
+            # irreducible on H^1: the commutant is the scalars
+            cols = []
+            for (a, b) in basis:
+                col = {}
+                for x, X in enumerate(stab):
+                    for (i, j), v in X.items():
+                        if i == b:                      # (E_ab X)_{a j} = X_{b j}
+                            col[(x, a, j)] = F.add(col.get((x, a, j), F.num(0)), v)
+                        if j == a:                      # (X E_ab)_{i b} = X_{i a}
+                            col[(x, i, b)] = F.add(col.get((x, i, b), F.num(0)), F.neg(v))
+                cols.append({k: v for k, v in col.items() if not F.zero(v)})
+            rc, _ = rank_and_kernel(cols, F)
+            commutant = len(basis) - rc
+            # a real basis: X + conj X and i(X - conj X), conj E_ab = E_{a'b'}
+            real = []
+            for X in stab:
+                cX = {(swap[a], swap[b]): conj_gq(v) for (a, b), v in X.items()}
+                real.append(vadd(X, cX, F))
+                real.append({k: F.mul(F.num(0, 1), v) for k, v in vadd(X, cX, F, F.num(-1)).items()})
+            keep, cols = [], []
+            for Y in real:
+                trial = cols + [{basis.index(k): v for k, v in Y.items()}]
+                if rank_and_kernel(trial, F)[0] == len(trial):
+                    keep.append(Y)
+                    cols = trial
+            gram = [[mat_mul_trace(Y1, Y2, F) for Y2 in keep] for Y1 in keep]
+            real_ok = all(x.b == 0 for row in gram for x in row)
+            sig = congruence_signature([[x.a for x in row] for row in gram])
+            detail += ("\ncommutant on H^1: %d; real form of dimension %d with trace "
+                       "form of signature %s" % (commutant, len(keep), sig))
+            ok = ok and pieces == [5, 11, 5] and commutant == 1 and len(keep) == 21 \
+                and real_ok and sig == (12, 9)
+        check("n=2, gamma = omega + c_2 theta^2, %s: the stabiliser of gamma in "
+              "gl(H^1) has dimension %d and its invariants are as stated"
+              % (label, want_dim), ok, detail)
+    # the Kaehler classes kappa_h = i sum h_jk z_j ^ zbar_k, h positive definite
+    top = (1 << g2) - 1
+    z = [M.e(j) for j in range(M.n)] + [M.f(j) for j in range(M.n, M.g)]
+    zb = [swap[x] for x in z]
+    vol = pw[4][top]
+
+    def wedge(x, y):
+        out = {}
+        for m1, c1 in x.items():
+            for m2, c2 in y.items():
+                if not m1 & m2:
+                    out = vadd(out, {m1 | m2: F.mul(F.mul(c1, c2),
+                                                    F.num(merge_sign(m1, m2)))}, F)
+        return out
+
+    def integral(gamma, h):
+        k = {}
+        for j in range(4):
+            for l in range(4):
+                k = vadd(k, wedge({1 << z[j]: F.num(1)}, {1 << zb[l]: F.num(1)}),
+                         F, F.mul(F.num(0, 1), h[j][l]))
+        v = wedge(wedge(gamma, k), k).get(top, F.num(0))
+        return F.mul(v, F.inv(vol))
+
+    rng = random.Random(77)
+
+    def rand_pd(rank, eps):
+        h = [[GQ(eps if i == j else 0) for j in range(4)] for i in range(4)]
+        for _ in range(rank):
+            r = [GQ(rng.randint(-3, 3), rng.randint(-3, 3)) for _ in range(4)]
+            for i in range(4):
+                for j in range(4):
+                    h[i][j] = h[i][j] + r[i] * conj_gq(r[j])
+        return h
+
+    gamma = M.ch([0, 0, 1, 0, 0], (4, 0), F, pw)
+    ok = True
+    for _ in range(8):
+        h = rand_pd(4, Fr(1))
+        s2 = GQ(0)
+        for i in range(4):
+            for j in range(i + 1, 4):
+                s2 = s2 + h[i][i] * h[j][j] - h[i][j] * h[j][i]
+        S = h[0][2] * h[1][3] - h[0][3] * h[1][2]
+        q = integral(gamma, h)
+        ok = ok and q.b == 0 and q.a == (s2.a + 4 * S.a) / 6
+    check("n=2, exceptional ratio, c_2 = 1: int gamma kappa_h^2 = (sigma_2(h) + 4 Re "
+          "det h[01,23]) / 6 at eight random h, as a multiple of int theta^4", ok)
+    signs = {}
+    for label, u, c2 in (("R = 3/4, c_2 > 0", (4, 0), Fr(1)),
+                         ("R = 3/4, c_2 < 0", (4, 0), Fr(-1)),
+                         ("R = 3/16", (4, 0), Fr(1, 2))):
+        gam = M.ch([0, 0, c2, 0, 0], u, F, pw)
+        found = set()
+        for _ in range(150):
+            q = integral(gam, rand_pd(rng.choice([1, 2, 2, 3, 4]), Fr(1, rng.randint(1, 50))))
+            found.add((q.a > 0) - (q.a < 0))
+        signs[label] = sorted(found)
+    check("n=2: at the exceptional ratio int gamma kappa^2 has the sign of c_2 at 150 "
+          "random Kaehler classes, while at R = 3/16 both signs occur",
+          signs == {"R = 3/4, c_2 > 0": [1], "R = 3/4, c_2 < 0": [-1],
+                    "R = 3/16": [-1, 1]}, "%s" % signs)
+
+
 # ------------------------------------------------------------ --extreme
 def extreme(nlist):
     """exact over Q(i), by blocks of torus weight, for larger n"""
@@ -605,6 +844,8 @@ def main():
     item_E(E, rng)
     print("  (F) the Euler characteristic and the rational model")
     item_F(E, rng)
+    print("  (G) the exceptional ratio at n = 2")
+    item_G(E)
     if "--extreme" in sys.argv:
         nmax = 9
         for a in sys.argv:

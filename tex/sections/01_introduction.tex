@@ -665,13 +665,21 @@ statement in the five except the propagation statement is a consequence of
 the conjecture, and the Lefschetz standard conjecture, which lies in two of
 them and gives the whole abelian half, is the target at the centre
 (\Cref{rem:bullseye}). None
-of these statements is proved here in general. One new case of the Lefschetz
-standard conjecture is: for an abelian scheme over a curve whose invariant
+of these statements is proved here in general. One case of the Lefschetz
+standard conjecture, by a mechanism going back to Tankeev \cite{Tan03}, is:
+for an abelian scheme over a curve whose invariant
 cycles are algebraic, the operator $\Lambda$ is the sum of a relative
 Pontryagin product with $\ell^{g-1}/(g-1)!$ and an operator along the base
 built from the invariant cycles, so it is algebraic; this covers the total
 space of every Mumford family (\Cref{prop:pontryaginlambda},
-\Cref{thm:lefschetzfamily}, \Cref{cor:mumfordlefschetz}). The same
+\Cref{thm:lefschetzfamily}, \Cref{cor:mumfordlefschetz}). With Markman's
+theorem it gives the same for every abelian scheme over a curve of relative
+dimension at most four whose invariant classes are Hodge, and for every fibre
+power of a family of Weil fourfolds with connected monodromy $\SU(V,H)$
+(\Cref{cor:lefschetzsmall}, which uses the Hodge conjecture for all powers of
+such fourfolds, \Cref{prop:powers}); and over its Shimura curve the total space
+of a Mumford family satisfies the Hodge conjecture
+(\Cref{prop:mumfordfivefold}). The same
 decomposition shows that, for such a total space, the Lefschetz standard
 conjecture is exactly the statement that algebraicity propagates along the
 curve (\Cref{thm:lefschetzpropagation}). With the base points of this paper
@@ -809,18 +817,23 @@ Hermite--Einstein metrics of Bando and Siu gives it in every dimension
 and the results that describe its object are vacuous. What survives is the
 corrected statement in which the complex may also carry powers of the
 polarisation, which are Hodge on the polarised family and not beyond it; the
-propagation theorem holds for it unchanged and it escapes the obstruction;
-the semiregular objects in Markman's proofs are not of the pure form either
+propagation theorem holds for it unchanged and, except for the shapes below,
+it escapes the obstruction; the semiregular objects in Markman's proofs are not of the pure form either
 (\Cref{rem:p2prime}). Its numerical form is computed in
 \Cref{thm:p2primenumber}: for a Chern character $N\omega+\sum_{k}c_{k}\theta^{k}$
 the annihilator in $HT^{2}$ has dimension $n^{2}(4-\rho)$ for $n\ge3$, with $\rho\le3$ the
 rank of the Hankel matrix of the numbers $k!\,c_{k}$, and for a general shape
 it is exactly the tangent space of the polarised Weil family; so one complex
 with $\dim\Ext^{2}(E,E)=7n^{2}-2n$ at one base point would close the family,
-$24$ at $n=2$ and $57$ at $n=3$. Of the shapes with $\rho\le1$, a top power
-of $\theta$ and a single exponential $e^{t\theta}$ with $t\theta$ the class of
-a line bundle are excluded, by a twist and \Cref{thm:p2false}, and the whole Hochschild profile of
-a corrected character is in \Cref{prop:p2primeprofile}. The
+$24$ at $n=2$ and $57$ at $n=3$. The shapes $Ae^{t\theta}+B\theta^{2n}$ with
+$t\theta$ the class of a line bundle, of Hankel rank at most two, are
+excluded, by a twist and \Cref{thm:p2false}; for every other shape the Hodge
+locus of the character is, for $n\ge3$, the polarised family itself, so the
+argument through non-algebraic tori has nothing to act on
+(\Cref{prop:p2primelocus}); and a weaker, flatness form of the criterion,
+which tolerates an object obstructed to first order, also suffices
+(\Cref{prop:p2flat}). The whole Hochschild profile of a corrected character
+is in \Cref{prop:p2primeprofile}. The
 Mumford classes escape the obstruction for a different reason: they are
 rigid, and their Hodge locus is the Mumford curve.
 

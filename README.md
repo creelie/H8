@@ -77,7 +77,7 @@ then calls the companion scripts in the same directory:
 | `mumford_routes.py` | which of the open routes to the Mumford target are needed: sixteen statements and twenty-two Horn rules, each labelled by the theorem that proves it and checked against paper_labels.txt; the target is not in the closure of what is proved; the statements equivalent to it are exactly algebraicity at uncountably many points, B(W x_C W), bounded data at infinitely many points and bounded data modulo p; every minimal set of open statements yielding it has one element, twelve in all; the complex with dim Ext^2 = 119 and the Kuga-Satake statements are stronger than it; (L) and (V) yield it; it yields neither the Hodge conjecture nor (F1), (F2), (F3); and (F3) is equivalent to the Hodge conjecture, so the target is an input to no minimal route to the conjecture |
 | `criterion_shape.py` | what an object meeting the numerical criterion must look like: the rational Weil classes are primitive and the intersection form on the Weil plane is (-1)^n-definite (Gram matrices diag(8d^2, 8d) at n = 2 and diag(-32d^3, -32d^2) at n = 3), so chi(E,E) > 0 by Hodge-Riemann; the Hodge classes killed by P ^ Q are exactly the Weil line in every degree, so an indecomposable summand carries the class; the top traces c_P, c_Q are nonzero; and at n = 2, and at n = 3 granting the degree-three compatibility that the paper's corollary on the Hochschild action already grants, the Euler characteristic forces dim End(E) >= 2 + chi/2 >= 3, with the smallest admissible profiles listed, while at n = 4, 5 it does not |
 | `weil_tori.py` | the Hodge classes of a very general Weil torus, the input of the theorem that no complex whose Chern character is exactly a Weil class is semiregular: the Weil classes stay of type (n,n) on the whole 2n^2-dimensional K-linear family; at explicit members off the polarised family no rational class of degree 2k, 0 < k < n, is of Hodge type and in degree 2n only the Weil plane is (checked for n = 2 with d = 1, 3 and for n = 3 with d = 2, ranks modulo a prime with both conjugate conditions imposed); and a Kaehler form in V_+ (x) V_- has zero degree against every Weil class |
-| `p2prime.py` | the corrected criterion (P2') as a number: for a Chern character N omega + sum c_k theta^k the annihilator in HT^2 has dimension n^2(4 - rho), rho the rank of the Hankel matrix of the k! c_k, so dim Ext^2(E,E) >= (4 + rho) n^2 - 2n with equality forcing injective semiregularity; for a general shape the annihilator is exactly the tangent space of the polarised Weil family; the n = 2 formula with its two exceptional ratios; the first-order Hodge locus; chi(E,E); exact over Q(i) by torus-weight blocks, to n = 4 by default and n = 9 with --extreme |
+| `p2prime.py` | the corrected criterion (P2') as a number: for a Chern character N omega + sum c_k theta^k the annihilator in HT^2 has dimension n^2(4 - rho), rho the rank of the Hankel matrix of the k! c_k, so dim Ext^2(E,E) >= (4 + rho) n^2 - 2n with equality forcing injective semiregularity; for a general shape the annihilator is exactly the tangent space of the polarised Weil family; the n = 2 formula with its two exceptional ratios; the first-order Hodge locus; chi(E,E); at the exceptional n = 2 ratio, the stabiliser so(4,3) of the character (dimension 21, trace-form signature (12,9), invariants 1, 0, 0, 0, 1, 0, 0, 0, 1) and the constant sign of int gamma kappa^2 on the Kaehler cone; exact over Q(i) by torus-weight blocks, to n = 4 by default and n = 9 with --extreme |
 | `p2prime_profile.py` | the whole Hochschild profile of such a character: the ranks of contraction on every HT^k equal 2 binom(2n,k) + M_k min(k+1, 2n+1-k, r) - [k=n] d, their symmetry, the middle degeneracy, and the parity of chi(E,E), which makes the numerical criterion unattainable at the n = 2 points with rho_2 = 23 |
 | `descent.py` | descent and scalar extension for Weil classes: the correspondence pr_{B*}(x . pr_Y^*(eta_Y^{2m-2} y')) maps the Weil classes of B x Y onto those of B, so W(F,n+1,delta'') gives W(F,n,delta) for every discriminant; and W(F,n,iota(delta)) gives W(K,n,delta) for K in F; exact over seven CM fields |
 | `transport_growth.py` | the transport of the base cycle along the rational orbit: det(phi) = c^{2G}, phi^* E = c^2 E and phi^* omega = c^{2n} omega on an explicit sample of rational symplectic elements with denominators to 29; the multiplicity of a component as the order of the stabiliser its kernel meets, computed as a lattice index by Smith normal form, against the image degree computed as a Pfaffian; and the contrast between a subtorus the isogeny preserves, where the image degree is constant, and one it does not, where it grows |
@@ -223,15 +223,19 @@ argument through Bando-Siu Hermite-Einstein metrics in every dimension). So no
 complex meets the Ext^2 criterion (`weil_tori.py` checks the Hodge-theoretic
 input). The statement survives in a corrected form, in which the Chern
 character may also carry powers of the polarisation; the propagation theorem
-holds for it unchanged. For that form the rank of contraction from HT^2 into
+holds for it unchanged, and so does a weaker flatness form of it, which
+tolerates an object obstructed to first order. For that form the rank of contraction from HT^2 into
 the Chern character is (4 + rho) n^2 - 2n for n >= 3, where rho <= 3 is the
 rank of a Hankel matrix of the coefficients of the polynomial, and a complex
 whose Ext^2 has exactly that dimension meets the criterion; for a general
 polynomial the annihilator is exactly the tangent space of the polarised
 family. At n = 2 the rank takes the values 12, 16, 18, 20, 22, 23 and 24, and
-23 is excluded by parity. The shapes c theta^{2n}, and c e^{t theta} with
-t theta the class of a line bundle, which have rho <= 1, are excluded as the
-pure form was (`p2prime.py`, `p2prime_profile.py`, exact to n = 9, and to
+23 is excluded by parity. The shapes A e^{t theta} + B theta^{2n}, with
+t theta the class of a line bundle, which have rho <= 2, are excluded as the
+pure form was; for every other shape and n >= 3 the Hodge locus of the Chern
+character is the polarised family itself, so that obstruction does not
+extend, and at n = 2 one exceptional ratio gives a five-dimensional locus
+whose stabiliser is so(4,3) (`p2prime.py`, `p2prime_profile.py`, exact to n = 9, and to
 n = 10 in `code/extreme/`). This is a number an object would have to reach;
 nothing here constructs one or decides whether one exists.
 
@@ -288,7 +292,15 @@ degree, so it remains outside every minimal set. One new case of
 algebraic, the Lefschetz operator is a relative Pontryagin product with
 l^{g-1}/(g-1)! plus an operator along the base built from the invariant
 cycles, so it is algebraic; this covers the total space of every Mumford
-family (`lefschetz_family.py`, `mumford_invariants` in the Lean file).
+family (`lefschetz_family.py`, `mumford_invariants` in the Lean file). The
+mechanism goes back to Tankeev (Izv. Math. 67 (2003)). With Markman's theorem
+it gives the Lefschetz standard conjecture for every abelian scheme over a
+curve of relative dimension at most four whose invariant classes are Hodge,
+and for every fibre power of a family of Weil fourfolds with connected
+monodromy SU(V,H), through the Hodge conjecture for all powers of such a
+fourfold, which is known (Milne, arXiv:2112.12815) and is reproved in the
+paper from the first fundamental theorem for SL. Over its Shimura curve the
+total space of a Mumford family satisfies the Hodge conjecture.
 For such a total space (L) is exactly propagation of algebraicity along the
 curve, so each remaining target becomes one case of (L): one Weil family is
 equivalent to (L) for the total space of the family over a curve through a

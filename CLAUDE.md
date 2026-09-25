@@ -31,8 +31,11 @@ criterion (P2') in closed form (`thm:p2primenumber`, `prop:p2primeprofile`,
 `code/p2prime_profile.py`), proved the descent and scalar extension lemma
 `prop:descent` (item (LIV), `code/descent.py`), which corrects
 `prop:separate` and splits (P2) in the closure graph so that only (P2) for the
-split families of the CM fields of degree at least four is needed, and added
-the long runs of `code/extreme/`).
+split families of the CM fields of degree at least four is needed, added
+the flatness form `prop:p2flat` of the criterion, the exceptional n = 2 ratio
+`rem:p2primeexceptional`, `prop:powers`, `cor:lefschetzsmall` and
+`prop:mumfordfivefold` (with attributions to Milne and Tankeev), and the long
+runs of `code/extreme/`).
 
 Release v1.0.0 (tag `v1.0.0`, commit `ef15bce`) is archived on Zenodo under
 DOI 10.5281/zenodo.22950276, recorded in the macro `\zenodoDOI` at the top of

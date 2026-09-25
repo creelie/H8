@@ -493,7 +493,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   named in a rule is declared and every declared statement is used, that the
   rule set is acyclic, and that every one of the seventeen theorem labels it
   names, for its rules and for the consequences of $\mathbf{HC}$ it records,
-  is a label of this paper, against the list of all $534$ labels generated
+  is a label of this paper, against the list of all $546$ labels generated
   from the sources and distributed with the script as
   \texttt{paper\_\allowbreak labels.txt}. It then computes the forward closure
   by iterating the one step map to a fixed point, and verifies that no
@@ -1006,7 +1006,19 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   $\int\ch^{\vee}\ch=(2n)!\,Q(c)+2|u|^{2}$ in the normalisation
   $\int\theta^{2n}=(2n)!$ for $n=2,3$, and in the rational model of
   \texttt{explicit\_weil.py} at $n=2$, $\int\omega_{1}^{2}=8d^{2}$ and
-  $\int\eta^{4}=24$ for $d=1,2,3,5,7$. With \texttt{--extreme} the closed form
+  $\int\eta^{4}=24$ for $d=1,2,3,5,7$. (G) At $n=2$ and the exceptional
+  ratio $|u|=4|c_{2}|$, the stabiliser of $\omega+c_{2}\theta^{2}$ in
+  $\mathfrak{gl}(H^{1})$ has dimension $21$, Hodge pieces $5$, $11$, $5$,
+  commutant on $H^{1}$ the scalars, a real form whose trace form has
+  signature $(12,9)$, and invariants of dimensions $1,0,0,0,1,0,0,0,1$ in
+  $\bigwedge^{k}H^{1}$; at an ordinary ratio the stabiliser has dimension $15$
+  and invariants $1,0,1,0,3,0,1,0,1$; at the exceptional ratio
+  $\int\gamma\,\kappa_{h}^{2}=\frac16(\sigma_{2}(h)+4\operatorname{Re}\det
+  h_{01,23})\int\theta^{4}$ at eight random $h$, and the sign of
+  $\int\gamma\,\kappa^{2}$ is that of $c_{2}$ at $150$ random K\"ahler
+  classes, while at the ratio $R=3/16$ both signs occur. That is
+  \Cref{prop:p2primelocus} and \Cref{rem:p2primeexceptional}. With
+  \texttt{--extreme} the closed form
   of (A) is checked exactly for $n=5,\dots,9$ on five shapes; at $n=9$ the
   space $HT^{2}$ has dimension $630$ and $\gamma$ has $2^{18}+2$ terms. That is
   \Cref{thm:p2primenumber}.
