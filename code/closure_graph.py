@@ -168,10 +168,11 @@ STATEMENTS = {
                 "the Weil classes of abelian varieties with multiplication by "
                 "a CM field of degree at least four are algebraic"),
     "P2": ("open",
-           "the semiregularity map of a complex with the Weil Chern character "
-           "at a base point is injective, in every Weil family of every CM "
-           "field; it forces the evaluation map to vanish on the annihilator "
-           "of the Weil class"),
+           "at a base point of every Weil family of every CM field, a "
+           "complex whose Chern character is a nonzero Weil class plus a "
+           "polynomial in the polarisation has injective semiregularity map "
+           "(rem:p2prime); the first form, with Chern character exactly a "
+           "Weil class, is false by thm:p2false"),
     "secant_all": ("open",
                    "a secant object satisfying the Heisenberg identity exists "
                    "on an abelian n-fold for every n"),

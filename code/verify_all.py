@@ -132,6 +132,10 @@ Contents
          Hodge-Riemann sign of the Euler characteristic, the classes killed by
          P ^ Q, the top traces, and the bound dim End(E) >= 3 at n = 2, 3
          [criterion_shape.py]
+  (LI)   the Hodge classes of a very general Weil torus: the Weil classes are
+         Hodge on the whole K-linear family, and at members off the polarised
+         family no other rational class of degree below the middle is Hodge;
+         the input of the refutation of the pure form of (P2) [weil_tori.py]
 """
 
 import os
@@ -519,6 +523,9 @@ def main():
 
     head("(L) what an object meeting the numerical criterion must look like")
     run_module("L", "criterion_shape.py")
+
+    head("(LI) the Hodge classes of a very general Weil torus")
+    run_module("LI", "weil_tori.py")
 
     print()
     print("=" * 70)

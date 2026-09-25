@@ -11,7 +11,7 @@ licence, or a package other than those named below.
     code/       exact-arithmetic verification in Python 3 (sympy for secant_plane.py,
                 weiltype_family.py, mumford_rigidity.py, mumford_object.py,
                 lefschetz_closure.py, twistor_locus.py and hk_pullback.py, numpy
-                integer arrays for pte_remaining.py)
+                integer arrays for pte_remaining.py and weil_tori.py)
     verify.ps1  the whole verification on Windows, Python suite then Lean
     lean/       a kernel-checked certificate of the finite arithmetic, Lean 4
     figures/    the generators and TikZ sources of every figure in the paper
@@ -28,7 +28,7 @@ Lean check:
 
 The last lines are
 
-    853 checks passed, 0 failed
+    865 checks passed, 0 failed
     overall: PASS
 
 and the exit status is zero. The driver runs five self-contained checks and
@@ -70,6 +70,7 @@ then calls the companion scripts in the same directory:
 | `hk_pullback.py` | the square of a Mumford fourfold as a holomorphic symplectic variety: iota(x) = (x (x) 1) Psi embeds T = Lie G in H^1 (x) H^1; the Casimirs split H^2 (dimension 120) into pieces of dimensions 3, 27, 27, 27, 27, 3, 3, 3 with (2,0)-parts 0, 0, 9, 9, 9, 0, 0, 1, so iota(T) is the only sub-Hodge structure with h^{2,0} = 1; its (2,0)-form is symplectic; iota_2(C_1) = 3 pi_0 - pi_12 - pi_13 + 3 pi_23 and cyclically, so the exceptional classes are the twisted dual forms of iota(T); det(x_1 + x_2 + x_3) = Delta(N)^2 and iota(x)^8 = 8! det(x) vol, which with the Fujiki relation rules out hyperkaehler eightfolds |
 | `mumford_routes.py` | which of the open routes to the Mumford target are needed: sixteen statements and twenty-two Horn rules, each labelled by the theorem that proves it and checked against paper_labels.txt; the target is not in the closure of what is proved; the statements equivalent to it are exactly algebraicity at uncountably many points, B(W x_C W), bounded data at infinitely many points and bounded data modulo p; every minimal set of open statements yielding it has one element, twelve in all; the complex with dim Ext^2 = 119 and the Kuga-Satake statements are stronger than it; (L) and (V) yield it; it yields neither the Hodge conjecture nor (F1), (F2), (F3); and (F3) is equivalent to the Hodge conjecture, so the target is an input to no minimal route to the conjecture |
 | `criterion_shape.py` | what an object meeting the numerical criterion must look like: the rational Weil classes are primitive and the intersection form on the Weil plane is (-1)^n-definite (Gram matrices diag(8d^2, 8d) at n = 2 and diag(-32d^3, -32d^2) at n = 3), so chi(E,E) > 0 by Hodge-Riemann; the Hodge classes killed by P ^ Q are exactly the Weil line in every degree, so an indecomposable summand carries the class; the top traces c_P, c_Q are nonzero; and at n = 2, and at n = 3 granting the degree-three compatibility that the paper's corollary on the Hochschild action already grants, the Euler characteristic forces dim End(E) >= 2 + chi/2 >= 3, with the smallest admissible profiles listed, while at n = 4, 5 it does not |
+| `weil_tori.py` | the Hodge classes of a very general Weil torus, the input of the theorem that no complex whose Chern character is exactly a Weil class is semiregular: the Weil classes stay of type (n,n) on the whole 2n^2-dimensional K-linear family; at explicit members off the polarised family no rational class of degree 2k, 0 < k < n, is of Hodge type and in degree 2n only the Weil plane is (checked for n = 2 with d = 1, 3 and for n = 3 with d = 2, ranks modulo a prime with both conjugate conditions imposed); and a Kaehler form in V_+ (x) V_- has zero degree against every Weil class |
 | `transport_growth.py` | the transport of the base cycle along the rational orbit: det(phi) = c^{2G}, phi^* E = c^2 E and phi^* omega = c^{2n} omega on an explicit sample of rational symplectic elements with denominators to 29; the multiplicity of a component as the order of the stabiliser its kernel meets, computed as a lattice index by Smith normal form, against the image degree computed as a Pfaffian; and the contrast between a subtorus the isogeny preserves, where the image degree is constant, and one it does not, where it grows |
 | `cm_fields.py` | the Weil classes of a CM field of degree four and six: the CM base point of every family, the balanced divisor classes delta_i(f), the identity that the balanced n-fold product of them is the Weil class w(f) = sum_sigma sigma(f) alpha_sigma, checked for six pairs (F, n) with m = 2, 3 and n = 1, 2, 3, and the identity that the Weil classes of a composite field generate those of its imaginary quadratic subfield |
 | `exceptional_classes.py` | the exceptional Hodge classes on the self-product of a Mumford fourfold (eight invariants against six divisor products), the Hodge numbers and adjoint weights that keep the H^3 of a quintic threefold outside abelian type, and the 4n^2-dimensional annihilator of the Weil class in Hochschild cohomology with the two linear-algebra lemmas behind the theorem on the semiregularity form of propagation |
@@ -202,7 +203,18 @@ as soon as the complex has Ext^2 of dimension 2n(2n-1), the least the
 Hochschild computation allows, and that such a complex cannot be supported in
 codimension n, so it cannot be carried by any cycle representing the class
 (`hochschild_annihilator.py`, `p2_support.py`,
-`m2/finite_length_products.m2`). No such complex is known.
+`m2/finite_length_products.m2`). In that form the statement is false, in every
+dimension: a complex whose Chern character is exactly a Weil class and whose
+semiregularity map is injective would deform along every K-linear deformation
+of the abelian variety, hence to very general non-algebraic Weil tori; on those
+the only Hodge classes below the top degree are the Weil classes, there are no
+subvarieties but points, and every coherent sheaf has vanishing Chern character
+in degrees 1 to 2n-1 (Voisin's theorem in dimension four, and the same
+argument through Bando-Siu Hermite-Einstein metrics in every dimension). So no
+complex meets the Ext^2 criterion (`weil_tori.py` checks the Hodge-theoretic
+input). The statement survives in a corrected form, in which the Chern
+character may also carry powers of the polarisation; the propagation theorem
+holds for it unchanged, and nothing here analyses it.
 
 The Hodge conjecture follows from that statement together with two more, the
 algebraicity of the Hodge classes on abelian varieties that divisor and Weil

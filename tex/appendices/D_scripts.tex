@@ -3,7 +3,7 @@
 The output below is the first part of a run of \texttt{verify\_all.py}, and
 covers items (I) to (V) of \Cref{sec:verification}; the remaining items are
 carried by the companion scripts named there, and the whole run ends with the
-line \texttt{823 checks passed, 0 failed}. Everything requires the standard library of Python~3,
+line \texttt{865 checks passed, 0 failed}. Everything requires the standard library of Python~3,
 together with \texttt{sympy} for \texttt{secant\_plane.py} and
 \texttt{weiltype\_family.py}, where it does exact symbolic linear algebra over
 $\QQ(\sqrt{-d})$, for \texttt{mumford\_rigidity.py}, where it factors
@@ -11,8 +11,9 @@ Gram determinants over $\QQ[a_{0},\dots,a_{3}]$, and for
 \texttt{mumford\_object.py}, \texttt{lefschetz\_closure.py},
 \texttt{twistor\_locus.py} and \texttt{hk\_pullback.py}, where it computes
 exact ranks, null spaces, determinants and characteristic polynomials, and
-\texttt{numpy} for \texttt{pte\_remaining.py}, where it
-holds integer arrays; no step uses floating point.
+\texttt{numpy} for \texttt{pte\_remaining.py} and \texttt{weil\_tori.py},
+where it holds integer arrays and reduces them modulo a prime; no step uses
+floating point.
 
 \begin{small}
 \begin{verbatim}
@@ -109,11 +110,13 @@ minimal sufficient set.
             {red_ab_mod, vhc}
             {P2, red_ab_mod, red_weil}
        with
-            P2             the semiregularity map of a complex with the
-                           Weil Chern character at a base point is
-                           injective, in every Weil family of every CM
-                           field; it forces the evaluation map to vanish
-                           on the annihilator of the Weil class
+            P2             at a base point of every Weil family of every
+                           CM field, a complex whose Chern character is
+                           a nonzero Weil class plus a polynomial in the
+                           polarisation has injective semiregularity map
+                           (rem:p2prime); the first form, with Chern
+                           character exactly a Weil class, is false by
+                           thm:p2false
             lef_B          the Lefschetz standard conjecture B(X) for
                            every smooth complex projective variety X
             mot            every Hodge class on every smooth complex

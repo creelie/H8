@@ -207,7 +207,7 @@ def fig_closure():
           side="L")
     P.add(pos("P2"), r"(P2) the semiregularity criterion", "text=PGrass",
           side="L")
-    P.add(ptops[0], r"$\dim\mathrm{Ext}^{2}=2n(2n-1)$ suffices", "text=PTeal",
+    P.add(ptops[0], r"$\dim\mathrm{Ext}^{2}=2n(2n-1)$: never met", "text=PTeal",
           side="L")
     P.add(ptops[1], r"support of codimension $<n$", "text=PAmber", side="L")
     P.add(ptops[2], r"action through $\wedge^{*}P\oplus\wedge^{*}Q$",

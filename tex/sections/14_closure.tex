@@ -13,7 +13,11 @@ by Moonen and Zarhin \cite{MZ99}, Markman's theorems on abelian varieties of
 Weil type \cite{Mar25a,Mar25b}, and, in the last clause, the theorems of
 Deligne, Andr\'e and Milne recorded in \Cref{ssec:bullseye}
 \cite{Del71,And96b,Mil20} and Li's theorem on the powers of abelian
-fourfolds over finite fields \cite{Li26}. \emph{Unconditionally} in \Cref{thm:final}
+fourfolds over finite fields \cite{Li26}, and, for the refutation in
+clause (iv), the theorem of Bando and Siu on stable reflexive sheaves
+\cite{BS94}, Kuranishi's theorem in the form of Goldman and Millson
+\cite{Kur65,GM88}, Grivaux's Chern classes of coherent sheaves \cite{Gri10},
+and Voisin's theorem on Weil tori \cite{Voi02b}. \emph{Unconditionally} in \Cref{thm:final}
 means that no open statement is assumed anywhere in it; in particular none of
 the statements named in its last clause is.} Taken together they fix the boundary of the subject as this
 paper leaves it, and the fixing is what we mean by closure: not that the
@@ -44,19 +48,22 @@ hold unconditionally.
   (\Cref{thm:quatweil}, \Cref{thm:everyfamily}). The hypothesis of
   nonemptiness in (ii) is therefore never the obstacle, for any field, any
   dimension or any discriminant.
-\item \emph{One finite sufficient condition, and one criterion that turns
-  out to be a restatement.} If the semiregularity map of a perfect complex
-  with the Weil Chern character at $s_{0}$ is injective, then
-  $\Sigma=\cD_{n,n}$ and the Hodge conjecture holds in every degree for every
-  member of the triple with full Hodge group (\Cref{thm:semiregclosure}).
-  Every perfect complex with that Chern character, semiregular or not, has
-  $\dim\Ext^{2}(E,E)\ge2n(2n-1)$ (\Cref{cor:hhfactor}(i)), and equality is
-  already enough: a single such complex at a single base point with
-  $\dim\Ext^{2}(E,E)=2n(2n-1)$ closes the family (\Cref{thm:p2numerical}).
-  Such a complex may be taken indecomposable, and at $n=2$ it has at least
-  three independent endomorphisms, so no simple object serves; at $n=3$ the
-  same holds granting the compatibility of \Cref{cor:hhfactor}(iii)
-  (\Cref{thm:p2endo}). The
+\item \emph{One finite sufficient condition, false in its first form, and
+  one criterion that turns out to be a restatement.} If at $s_{0}$ the
+  semiregularity map of a perfect complex whose Chern character is a nonzero
+  multiple of a rational Weil class plus a polynomial in the polarisation is
+  injective, then $\Sigma=\cD_{n,n}$ and the Hodge conjecture holds in every
+  degree for every member of the triple with full Hodge group
+  (\Cref{thm:semiregclosure}, \Cref{rem:p2prime}). When the Chern character
+  is exactly a multiple of the Weil class, no complex at any member of any
+  family has injective semiregularity map (\Cref{thm:p2false}): it would
+  deform to very general non-algebraic Weil tori, on which every coherent
+  sheaf has vanishing Chern character in degrees $1$ to $2n-1$
+  (\Cref{prop:weiltorussheaves}). So the numerical form of that criterion,
+  $\dim\Ext^{2}(E,E)=2n(2n-1)$, which would suffice
+  (\Cref{thm:p2numerical}) and is the least value possible
+  (\Cref{cor:hhfactor}(i)), is attained by no complex, and the shape it
+  would force (\Cref{thm:p2endo}) is the shape of nothing. The
   other criterion, that $\omega$ be represented along the orbit by cycles of
   bounded Hilbert data, implies the same conclusion
   (\Cref{thm:degreebound}) and is implied by it
@@ -224,9 +231,12 @@ dimension. For (iii), \Cref{thm:quatweil}(v) supplies the cycle at a
 quaternionic point and \Cref{thm:everyfamily} places such a point in every
 family, by the discriminant computation of \Cref{thm:quatweil}(iv) together
 with \Cref{lem:products}. For (iv), the sufficient condition is
-\Cref{thm:semiregclosure}, the lower bound is \Cref{cor:hhfactor}(i), and the
-sufficiency of the minimum is \Cref{thm:p2numerical}(iii), with the shape
-of the object in \Cref{thm:p2endo}; the bounded
+\Cref{thm:semiregclosure} with \Cref{rem:p2prime}, the refutation of its
+first form is \Cref{thm:p2false}, which rests on \Cref{lem:weiltorushodge},
+\Cref{lem:weiltorussubsets} and \Cref{prop:weiltorussheaves} and on item
+(LI), the lower bound is \Cref{cor:hhfactor}(i), and the sufficiency of the
+minimum is \Cref{thm:p2numerical}(iii), with the shape of the object in
+\Cref{thm:p2endo}; the bounded
 criterion implies the conclusion by \Cref{thm:degreebound}, is implied by it
 by \Cref{thm:p1equivalent}, and fails on the transported cycle by
 \Cref{thm:p1forces}. For (v), each item is the statement of the theorem
@@ -275,13 +285,15 @@ and every discriminant, and the cycle is a polynomial in two divisor classes
 rather than an existence statement. What separates a base point from the
 family is propagation.
 
-Propagation has one criterion, and it is a number. The bounded criterion is
-equivalent to its own conclusion, so it restates the problem rather than
-reducing it, and the semiregularity criterion is met as soon as one perfect
-complex at one base point has $\Ext^{2}$ of dimension $2n(2n-1)$. Where such a
-complex could live is known: not on any cycle of codimension $n$, so not on a
-cycle representing the class, and, at a general member, with alternating
-length zero along every component of codimension at least two.
+Propagation has one criterion, and in its first form it cannot be met. The
+bounded criterion is equivalent to its own conclusion, so it restates the
+problem rather than reducing it. The semiregularity criterion would be met by
+one perfect complex at one base point with $\Ext^{2}$ of dimension
+$2n(2n-1)$, but no complex whose Chern character is exactly a Weil class is
+semiregular at all, because semiregularity would carry it to non-algebraic
+Weil tori, where the Weil class is Hodge and the Chern class of nothing. The
+criterion survives only with powers of the polarisation added to the Chern
+character, a form this paper does not analyse.
 
 The ways that do not work are known, and they are known for a reason rather
 than by exhaustion. Each item of (v) fails for an identifiable structural

@@ -19,7 +19,10 @@ Always hand the user all four of these together:
 `N` is the round number (round 5 was the correction that (F3) is equivalent
 to the Hodge conjecture; round 6 added its weaker form (F3') and what is known
 of it; round 7 added the shape theorem for an object meeting the (P2)
-criterion).
+criterion; round 8 proved that criterion false in its pure form, with Chern
+character exactly a Weil class, via very general non-algebraic Weil tori
+(`thm:p2false`, item (LI), `code/weil_tori.py`), and restated (P2) in the
+corrected form of `rem:p2prime`).
 
 ## Checks before delivering
 
@@ -31,4 +34,8 @@ criterion).
 - `cd tex && latexmk -pdf main.tex`: 0 errors, 0 overfull or underfull boxes,
   no undefined references.
 - Regenerate `code/paper_labels.txt` from the `\label`s in `tex/` whenever
-  labels change.
+  labels change, and update the label count quoted in
+  `tex/sections/12_verification.tex`.
+- When a figure generator in `figures/` changes, rerun it, rebuild its PDF and
+  its PNG at 200 dpi, run `python3 figures/checkfigs.py`, and copy the files
+  to `tex/figures/`.

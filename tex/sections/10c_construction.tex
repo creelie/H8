@@ -3702,14 +3702,227 @@ For $n\ge4$ the same count only asks for an excess in some even degree other
 than $2$ and $2n-2$ (item (L)), and the bound on $\End$ disappears.
 \end{remark}
 
+\subsubsection*{The pure form of the criterion is never met}
+
+So far $\ch(E)=N\omega$ exactly. If $\sigma_{E}$ were injective, $E$ would
+extend along every $K$-linear deformation of $A$ (\Cref{thm:p2forces}(ii)).
+These reach non-algebraic tori, on which the Weil class is Hodge and the Chern
+class of nothing. That settles the pure form of the criterion, negatively, in
+every dimension.
+
+\begin{setupenv}[Weil tori]\label{setup:weiltori}
+Let $A$ be an abelian $2n$-fold of $(K,-1,n)$-Weil type, $V=H^{1}(A,\QQ)$ with
+its action of $K$, and $V\otimes\CC=V_{+}\oplus V_{-}$ the two eigenspaces,
+each of dimension $2n$. For complementary $n$-dimensional subspaces
+$X,Y\subset V_{+}$ the subspace $X\oplus\bbar{Y}$ of $V\otimes\CC$ is the
+space of holomorphic $1$-forms of a complex structure on the real torus
+underlying $A$; call the resulting complex torus $T_{X,Y}$. On $T_{X,Y}$ the
+field $K$ acts with signature $(n,n)$, so $T_{X,Y}$ is a Weil torus in the
+sense of \cite{Voi02b}, and every complex structure on that real torus
+commuting with $K$ and of signature $(n,n)$ arises in this way. The pairs
+$(X,Y)$ form a connected complex manifold $S$ of dimension $2n^{2}$,
+containing the point of $A$; the polarised Weil family is the submanifold of
+dimension $n^{2}$ on which the polarisation of $A$ is of type $(1,1)$, and the
+tangent space of $S$ is the space $\Hom_{K}(H^{1,0},H^{0,1})$ of $K$-linear
+first order deformations in \Cref{thm:p2forces}(i). Since
+$\alpha_{+}$ spans $\bigwedge^{2n}V_{+}=\bigwedge^{n}X\otimes\bigwedge^{n}Y$
+and $X$ is holomorphic while $Y$ is antiholomorphic, the Weil classes are of
+type $(n,n)$ on every $T_{X,Y}$. We say that a property holds for a very
+general member of $S$ if it holds outside a countable union of proper
+analytic subsets.
+\end{setupenv}
+
+\begin{lemma}[The Hodge classes of a very general Weil torus]
+\label{lem:weiltorushodge}
+For a very general member $T$ of $S$, $\Hdg^{k}(T)=0$ for
+$1\le k\le2n-1$, $k\ne n$, and $\Hdg^{n}(T)$ is the rational Weil plane.
+\end{lemma}
+
+\begin{proof}
+A rational class that is of Hodge type at a very general member is of Hodge
+type on all of $S$, because its Hodge locus is analytic and $S$ is connected.
+Let $G=\Res_{K/\QQ}\mathrm{GL}_{2n}$ be the group of $K$-linear automorphisms
+of $V$. Its real points act transitively on $S$, since
+$\mathrm{GL}(V_{+})$ acts transitively on pairs of complementary subspaces.
+The Mumford--Tate group $M$ of a very general member lies in $G$, since $K$
+acts by endomorphisms of every member, and it contains the Mumford--Tate group
+of every member, whose Hodge classes include those of the very general one.
+So the real Lie algebra of $M$ contains the complex structure $J_{s}$ of every
+member, the derivative of its Hodge cocharacter, and therefore contains the $\mathrm{Ad}\,G(\RR)$-span of one $J_{s}$, which is an ideal of
+$\mathfrak{g}_{\RR}=\mathfrak{gl}_{2n}(\CC)$ containing a non-central
+element, $J_{s}$ acting on $V_{+}$ by $i$ on $X$ and $-i$ on $Y$; hence it
+contains $\mathfrak{sl}_{2n}(\CC)$, and $M$ contains
+$G^{\mathrm{der}}=\Res_{K/\QQ}\mathrm{SL}_{2n}$. Over $\CC$ this is
+$\mathrm{SL}(V_{+})\times\mathrm{SL}(V_{-})$ acting on
+$\bigwedge^{*}(V_{+}\oplus V_{-})=\bigwedge^{*}V_{+}\otimes\bigwedge^{*}V_{-}$,
+whose invariants are spanned by $1$, $\alpha_{+}$, $\alpha_{-}$ and
+$\alpha_{+}\alpha_{-}$. Hodge classes are invariant under $M$, which gives
+the statement. Item (LI) of \Cref{sec:verification} confirms it for $n=2$
+and $n=3$ by exhibiting explicit members at which no other rational class of
+those degrees is of Hodge type.
+\end{proof}
+
+\begin{lemma}[A very general Weil torus has no subvarieties]
+\label{lem:weiltorussubsets}
+A very general member $T$ of $S$ has no analytic subsets other than finite
+sets and $T$ itself.
+\end{lemma}
+
+\begin{proof}
+Let $Z\subset T$ be an irreducible analytic subset of codimension $c$ with
+$0<c<2n$. For every K\"ahler class $\kappa$ the class $[Z]$ satisfies
+$\int_{T}[Z]\,\kappa^{2n-c}=\int_{Z}\kappa^{2n-c}>0$, so $[Z]$ is a nonzero
+Hodge class of degree $2c$. By \Cref{lem:weiltorushodge} this forces $c=n$ and
+$[Z]$ into the Weil plane. Take for $\kappa_{0}$ the class of a positive
+definite hermitian form that is block diagonal for the splitting
+$H^{1,0}=X\oplus\bbar{Y}$. Its blocks lie in $X\otimes\bbar{X}$ and
+$\bbar{Y}\otimes Y$, both inside $V_{+}\otimes V_{-}$, so every power of
+$\kappa_{0}$ has a factor from $V_{+}$ and a factor from $V_{-}$ in each term,
+and $\alpha_{\pm}\wedge\kappa_{0}^{n}=0$ because $\alpha_{\pm}$ spans the top
+exterior power of $V_{\pm}$ (item (LI)). So
+$\int_{T}[Z]\,\kappa_{0}^{n}=0$, which is impossible.
+\end{proof}
+
+\begin{proposition}[Coherent sheaves on a very general Weil torus]
+\label{prop:weiltorussheaves}
+Let $n\ge2$ and let $T$ be a very general member of $S$. Every coherent
+analytic sheaf $F$ on $T$ has $\ch_{k}(F)=0$ in $H^{2k}(T,\QQ)$ for
+$1\le k\le2n-1$. For $n=2$ this is Voisin's theorem that every coherent sheaf
+on a general Weil torus of dimension four has $c_{2}(F)=0$
+\cite[Theorem~10]{Voi02b}, whose proof we follow.
+\end{proposition}
+
+\begin{proof}
+Chern classes of coherent sheaves on $T$ exist in rational Deligne
+cohomology, extend those of bundles and are additive \cite{Gri10}, so they
+are Hodge classes. By \Cref{lem:weiltorussubsets} the torsion of $F$, the locus where the
+torsion-free quotient is not locally free, and the cokernel of the map from
+that quotient to its reflexive hull are all supported on finite sets, and a
+sheaf supported on a finite set has Chern character in the top degree only. So
+it suffices to treat a reflexive sheaf $G$. Every coherent sheaf on $T$ has
+$c_{1}=0$, since $\Hdg^{1}(T)=0$ (\Cref{lem:weiltorushodge}); so every
+torsion-free sheaf has slope zero for every K\"ahler class, and a torsion-free
+sheaf is stable for one K\"ahler class exactly when it has no saturated
+subsheaf of intermediate rank, which does not depend on the class. A
+Jordan--H\"older filtration of $G$ therefore has stable torsion-free factors
+$Q_{j}$, stable for every K\"ahler class, and $\ch(G)=\sum_{j}\ch(Q_{j})$.
+By the theorem of Bando and Siu \cite{BS94} the stable reflexive sheaf
+$Q_{j}^{**}$ carries an admissible Hermite--Einstein metric for every K\"ahler
+class $\kappa$ and satisfies
+$\int_{T}\bigl(2rc_{2}-(r-1)c_{1}^{2}\bigr)(Q_{j}^{**})\,\kappa^{2n-2}\ge0$,
+with equality exactly when $Q_{j}^{**}$ is a projectively flat vector bundle.
+Here $c_{1}=0$ and $c_{2}(Q_{j}^{**})\in\Hdg^{2}(T)$. For $n\ge3$ that group is
+zero; for $n=2$ it is the Weil plane, and then
+$\int_{T}c_{2}(Q_{j}^{**})\,\kappa_{0}^{2}=0$ for the class $\kappa_{0}$ of
+the proof of \Cref{lem:weiltorussubsets}. In either case equality holds for
+some $\kappa$, so $Q_{j}^{**}$ is a projectively flat bundle with $c_{1}=0$,
+hence flat, and its rational Chern classes of positive degree vanish.
+$Q_{j}$ and $Q_{j}^{**}$ differ on a finite set, so $\ch_{k}(Q_{j})=0$ for
+$1\le k\le2n-1$, and the same holds for $G$ and for $F$.
+\end{proof}
+
+\begin{theorem}[The pure form of the criterion is never met]
+\label{thm:p2false}
+Let $n\ge2$, let $A$ be an abelian $2n$-fold of $(K,-1,n)$-Weil type, $\omega$
+a nonzero rational Weil class, and $E$ a perfect complex on $A$ with
+$\ch(E)=N\omega$, $N\ne0$, and no other component. Then $\sigma_{E}$ is not
+injective. In particular $\dim\Ext^{2}(E,E)>2n(2n-1)$, the hypotheses of
+\Cref{thm:semiregclosure} and \Cref{thm:p2numerical}(iii) are satisfied by no
+object at any member of any Weil family of an imaginary quadratic field, and
+the propagation statement \textup{(P2)} of \Cref{rem:tworemain}, in the form
+stated there, is false.
+\end{theorem}
+
+\begin{proof}
+Suppose $\sigma_{E}$ injective. Since $A$ is projective, $E$ is isomorphic to
+a bounded complex $E^{\bullet}$ of holomorphic vector bundles. The class
+$N\omega$ is of Hodge type on every member of $S$ (\Cref{setup:weiltori}), so
+by the theorem of Buchweitz and Flenner, which holds for perfect complexes on
+complex spaces \cite{BF03}, every obstruction to extending $E$ along an
+Artinian deformation of $A$ inside $S$ vanishes, exactly as in the proof of
+\Cref{thm:semiregclosure}. The deformations of the complex structure inside
+$S$ together with those of the holomorphic structures and differentials of
+$E^{\bullet}$ are governed by a differential graded Lie algebra of Dolbeault
+type with finite dimensional cohomology, and Kuranishi's method
+\cite{Kur65}, in the form of \cite[Sections~2--3]{GM88}, gives an analytic
+germ $(M,m_{0})$ with a morphism $\pi\colon(M,m_{0})\to(S,s_{0})$ and a
+complex of holomorphic vector bundles on the pulled back family of tori
+deforming $E^{\bullet}$, whose completion is a hull of the formal deformation
+functor. The vanishing of the obstructions says that $\pi$ is formally
+smooth, hence smooth, so its image contains a neighbourhood $U$ of $s_{0}$.
+Thus every member $T_{s}$ with $s\in U$ carries a bounded complex of
+holomorphic vector bundles $E_{s}^{\bullet}$ whose Chern character is the
+parallel transport of $N\omega$. Choose $s\in U$ very general. By
+\Cref{prop:weiltorussheaves},
+$\ch_{n}(E_{s})=\sum_{i}(-1)^{i}\ch_{n}(E_{s}^{i})=0$, while it is the
+transport of $N\omega$, which is not zero. This contradiction proves that
+$\sigma_{E}$ is not injective. The argument uses only that $\ch(E)$ is of
+Hodge type on every member of $S$, so it applies verbatim when $\ch(E)-N\omega$
+has components in degrees $0$ and $4n$ as well. The remaining statements
+follow, since $\dim\Ext^{2}(E,E)\ge2n(2n-1)$ by \Cref{cor:hhfactor}(i),
+and equality forces $\sigma_{E}$ to be injective by
+\Cref{thm:p2numerical}(i).
+\end{proof}
+
+\begin{remark}[What survives, and the corrected statement]\label{rem:p2prime}
+\Cref{thm:p2false} turns \Cref{thm:p2forces}(ii) from a constraint into a
+contradiction: an object that extends along every $K$-linear deformation of
+$A$ lands on non-algebraic tori, where the Weil class is Hodge and is the
+Chern class of nothing. The results of this part that describe the object,
+\Cref{thm:p2forces}, \Cref{cor:hhfactor}(ii)--(iii), \Cref{thm:p2numerical},
+\Cref{thm:p2support}, \Cref{thm:nosum} and \Cref{thm:p2endo}, remain true as
+implications, and they are vacuous: no object satisfies their hypotheses. They
+are kept as the record of what the pure form asked for.
+
+The obstruction disappears as soon as the Chern character is allowed a
+component that is Hodge on the polarised family and not beyond it. Call
+\textup{(P2$'$)} the statement that at one base point of each Weil family
+some perfect complex $E$ with
+\[
+  \ch(E)=N\omega_{1}+\sum_{k}c_{k}\,\theta^{k},\qquad N\ne0,\ c_{k}\in\QQ,
+\]
+$\theta$ the polarisation, has injective semiregularity map. The proof of
+\Cref{thm:semiregclosure} applies to it word for word, with the deformation
+taken over the polarised family, along which $\ch(E)$ stays of Hodge type:
+at a member $A_{s}$ it produces $\ch_{n}(E_{s})=N\omega_{1}+c_{n}\theta^{n}$
+algebraic, and $\theta^{n}$ is algebraic, so $\omega_{1}$ is. The same proof
+allows any further components in the subring generated by $\theta$ and the
+Weil classes, such as $\theta^{j}\omega_{1}$, since they stay of Hodge type
+along the polarised family and do not enter $\ch_{n}$; we state the simplest
+form. What is excluded is only a Chern character that remains of Hodge type
+on all of $S$, and by \Cref{lem:weiltorushodge} such a character is a
+multiple of the Weil class plus terms in degrees $0$ and $4n$. Off the
+polarised family the components $c_{k}\theta^{k}$ with $c_{k}\ne0$ stop being
+of Hodge type, so nothing forces $E$ onto non-algebraic tori, and the argument
+of \Cref{thm:p2false} does not apply. The semiregular objects in Markman's
+proofs for abelian fourfolds and for the sixfolds of trivial discriminant
+\cite{Mar25a,Mar25b} are not of the pure form either: their Chern characters
+are not multiples of a Weil class, and they are deformed only along families
+on which those characters stay of Hodge type. We have not checked that they
+have exactly the form above, and nothing below depends on it. From here on, in
+\Cref{cor:fourremain}, \Cref{thm:closure} and the frontier, \textup{(P2)} is
+read in this corrected form. Nothing in this paper analyses it: the annihilator
+computations above depend on $\ch(E)$ being a pure Weil class and have to be
+redone for a Chern character with components in every even degree.
+
+The same obstruction does not reach the Mumford target of
+\Cref{ssec:mumfordrigid}. The exceptional classes there are rigid: their Hodge
+locus among all complex tori is the Mumford curve (\Cref{thm:mumfordrigid},
+\Cref{prop:notwistor}), so a semiregular complex with Chern character
+$N\omega$ on the square of a Mumford fourfold would only have to deform along
+the curve, whose members are all algebraic.
+\end{remark}
+
 \begin{remark}[The two finite statements, and what each of them is]
 \label{rem:tworemain}
 After \Cref{thm:degreebound} and \Cref{thm:semiregclosure} the Hodge
 conjecture for abelian varieties of Weil type follows from either of the
 following, each of which is a statement about explicit finite data and neither
-of which mentions a general point. Only the second is a criterion. The first
-is settled by \Cref{thm:p1equivalent}, and we record it because it is the
-form in which the question first presents itself.
+of which mentions a general point. The first is settled by
+\Cref{thm:p1equivalent}, and we record it because it is the form in which the
+question first presents itself. The second is settled by \Cref{thm:p2false}
+in the form stated here, and remains open only in the corrected form of
+\Cref{rem:p2prime}.
 
 \begin{enumerate}[label=\textup{(P\arabic*)},leftmargin=*]
 \item \emph{A bound.} At every point of the orbit $G(\QQ)\cdot s_{0}$ the
@@ -3722,7 +3935,11 @@ form in which the question first presents itself.
   reformulation of the conjecture for the family, and we record it as such
   rather than as a criterion.
 \item \emph{A rank.} The semiregularity map of a perfect complex with the
-  Chern character of \Cref{prop:ktheory} at one base point is injective. Its
+  Chern character of \Cref{prop:ktheory} at one base point is injective.
+  In this form the statement is false (\Cref{thm:p2false}), and it survives
+  only in the corrected form of \Cref{rem:p2prime}, where the Chern
+  character may carry powers of the polarisation; what follows records what
+  the first form asked for. Its
   source is $\Ext^{2}(E,E)$ for a single object, and its target has dimension
   $\sum_{q}h^{q,q+2}(A_{0})=\binom{4n}{2n-2}$, computed in
   \Cref{prop:target} and verified in item (V) of

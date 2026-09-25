@@ -214,6 +214,8 @@ lem:tensorrank
 lem:totallyreal
 lem:transport
 lem:weilchar
+lem:weiltorushodge
+lem:weiltorussubsets
 not:eigen
 not:model
 not:splitcoords
@@ -272,6 +274,7 @@ prop:target
 prop:thresholds
 prop:weildomain
 prop:weilline
+prop:weiltorussheaves
 prop:whichescaped
 prop:whichtypes
 q:higher
@@ -343,6 +346,7 @@ rem:othermethods
 rem:p1collapse
 rem:p1meaning
 rem:p2endo
+rem:p2prime
 rem:p2search
 rem:pointwise
 rem:positiverankscope
@@ -425,6 +429,7 @@ setup:pte
 setup:quat
 setup:rules
 setup:shimura
+setup:weiltori
 ssec:bullseye
 ssec:cdknot
 ssec:closure
@@ -507,6 +512,7 @@ thm:nosum
 thm:p1equivalent
 thm:p1forces
 thm:p2endo
+thm:p2false
 thm:p2forces
 thm:p2numerical
 thm:p2support

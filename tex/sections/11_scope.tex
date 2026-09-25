@@ -1342,7 +1342,8 @@ With the notation of \Cref{setup:rules}:
   \]
   with \textup{(L)}, \textup{(M)}, \textup{(V)} as in \Cref{def:lmv},
   \textup{(F2)}, \textup{(F3)} as in \Cref{cor:fourremain}, (F3$'$) as in
-  \Cref{def:f3prime}, and \textup{(P2)} read for every CM field at once.
+  \Cref{def:f3prime}, and \textup{(P2)} read in the corrected form of
+  \Cref{rem:p2prime}, for every CM field at once.
   The single open statement (F3) is sufficient, and it is equivalent to
   $\mathbf{HC}$ (\Cref{prop:f3ishc}); no other single open statement is.
   The sets $\{\mathrm{L},\mathrm{F3}\}$, $\{\mathrm{V},\mathrm{F3}\}$ and
@@ -1411,9 +1412,16 @@ varieties, the three statements (F1), (F2), \textup{(F3$'$)} still suffice,
 and no rule of \Cref{setup:rules} derives the conjecture from a proper
 subset of them.
 \begin{enumerate}[label=\textup{(F\arabic*)},leftmargin=3.0em,itemsep=4pt]
-\item \emph{One propagation statement, for every CM field.} \textup{(P2)}:
-  at one base point of each Weil family of each CM field some perfect complex
-  with the Weil Chern character has injective semiregularity map. It closes
+\item \emph{One propagation statement, for every CM field.} \textup{(P2)},
+  in the corrected form of \Cref{rem:p2prime}: at one base point of each
+  Weil family of each CM field some perfect complex whose Chern character is
+  a nonzero multiple of a rational Weil class plus a polynomial in the
+  polarisation has injective semiregularity map. Its first form, with Chern
+  character exactly a multiple of the Weil class, is false for every
+  imaginary quadratic field and every $n\ge2$ (\Cref{thm:p2false}): such a
+  complex would have to deform to non-algebraic Weil tori, whose coherent
+  sheaves have no Chern character below the top degree. The corrected form
+  closes
   $\mathbf{W}(K,n,\delta)$
   for every imaginary quadratic $K$, every $n$ and every $\delta$ at once, by
   \Cref{thm:semiregclosure}, and
@@ -1422,9 +1430,10 @@ subset of them.
   Weil class is algebraic at every member of the family and not only at the
   general one, and because \Cref{thm:everyfamily} and \Cref{thm:cmbasepoint}
   supply the base point in every one of those families.
-  \Cref{rem:tworemain} says what it asks for, \Cref{thm:p2forces} and
-  \Cref{thm:p2support} and \Cref{thm:nosum} what it forces, and
-  \Cref{thm:p2numerical} how a candidate can be tested; for one family its
+  \Cref{thm:p2forces}, \Cref{thm:p2support}, \Cref{thm:nosum},
+  \Cref{thm:p2numerical} and \Cref{thm:p2endo} describe the object of the
+  first form and are vacuous by \Cref{thm:p2false}; nothing in this paper
+  analyses the corrected form. For one family its
   conclusion is equivalent to the Lefschetz standard conjecture for one
   variety (\Cref{cor:weilequiv}). The bounded criterion \textup{(P1)} is not a
   second form of the same demand: by
@@ -1542,7 +1551,9 @@ the single statement \textup{(V)}, or by \textup{(L)}, which implies it
 except (P2) is a consequence of the conjecture (\Cref{thm:closure}(vi)), and
 two of the sets, $\{\mathrm{F3}\}$ and $\{\mathrm{L},\mathrm{M}\}$, are
 each equivalent to it. (P2) is a statement about semiregularity maps, and a
-proof of the conjecture need not prove it. Third, every minimal sufficient set
+proof of the conjecture need not prove it; in its first form, with a Chern
+character that is exactly a Weil class, it is false (\Cref{thm:p2false}), and
+the route runs through the corrected form of \Cref{rem:p2prime}. Third, every minimal sufficient set
 contains (F3), \textup{(F3$'$)} or \textup{(M)}: the varieties that are not
 abelian are reached only through the conjecture for them, which is the whole
 conjecture, through the conjecture modulo abelian varieties, which is open
@@ -1742,9 +1753,12 @@ below,
 the propagation statement (P2) in grass reaches the two discriminant cases of
 the quadratic fields and the fields of higher degree alike, because
 \Cref{thm:everyfamily} and \Cref{thm:cmbasepoint} put a base point in every
-family; the three constraints on it proved in \Cref{thm:p2numerical},
-\Cref{thm:p2support} and \Cref{cor:hhfactor} are drawn as the pillars under
-the grass node. The secant route in clay
+family; it is read in the corrected form of \Cref{rem:p2prime}. The three
+pillars under the grass node are the results of \Cref{thm:p2numerical},
+\Cref{thm:p2support} and \Cref{cor:hhfactor} on the first form, in which the
+Chern character is exactly a Weil class; by \Cref{thm:p2false} that form is
+never met, so the number on the first pillar is attained by no complex. The
+secant route in clay
 reaches the trivial discriminant and stops there, since the member it is built
 on is split; the crossed edge is the one implication it would need and does
 not have. The bounded criterion (P1) is drawn apart, in slate, closed on
@@ -2835,7 +2849,10 @@ $u$, and $Nu$ is the class of a perfect complex for a suitable $N$.
 
 Part (iii) is the Mumford analogue of \Cref{thm:p2numerical}(iii): one object,
 at one point, and one number, which is $119$ here and $2n(2n-1)$ for a Weil
-family. The objects of (iv) exist, and the only open question is whether one
+family. For a Weil family that number is attained by no object
+(\Cref{thm:p2false}), because an object attaining it would have to deform to
+non-algebraic tori; the classes here are rigid, so that argument does not
+apply (\Cref{rem:p2prime}). The objects of (iv) exist, and the only open question is whether one
 of them, or another representative of the same class in $K_{0}$, attains the
 bound of (i). We have not found one, and we do not claim that one exists. The
 rigidity of \Cref{thm:mumfordrigid} is not an obstacle to it: semiregularity
@@ -3699,7 +3716,8 @@ Semiregularity dimension count
   & no obstruction, \Cref{cor:countnotbind}
   & none \\
 Semiregularity of an object whose Chern character sits on the Weil line
-  & closed by \Cref{thm:rankzero} and \Cref{cor:kernelfamily}
+  & closed by \Cref{thm:rankzero} and \Cref{cor:kernelfamily} for direct
+    sums, and for every object by \Cref{thm:p2false}
   & objects of positive rank; the weaker hypothesis of
     \cite[Question 11.4]{Mar25b} \\
 Induction through hyperplane sections
@@ -3765,9 +3783,10 @@ The semiregularity form (P2), for a given representative
   & representatives that are genuine complexes along every such component;
     members with an abelian subvariety tangent to an eigenspace \\
 The same form, tested by a number
-  & $\dim\Ext^{2}(E,E)=2n(2n-1)$ at one base point suffices,
-    \Cref{thm:p2numerical}
-  & whether any representative attains the minimum \\
+  & $\dim\Ext^{2}(E,E)=2n(2n-1)$ at one base point would suffice,
+    \Cref{thm:p2numerical}, and no representative attains it,
+    \Cref{thm:p2false}
+  & nothing \\
 The same form, for a representative in codimension $n$
   & closed at every member of every family: the support must have a
     component of codimension less than $n$, and at a general member every
@@ -3785,7 +3804,14 @@ The shape of such a representative
     granting the compatibility of \Cref{cor:hhfactor}(iii), its
     endomorphism algebra has dimension at least three, so no simple object
     serves, \Cref{thm:p2endo}
-  & whether an object of that shape exists, \Cref{rem:p2endo} \\
+  & nothing: no object of any shape meets the pure form, \Cref{thm:p2false} \\
+The pure form of (P2), Chern character exactly a Weil class
+  & false for every imaginary quadratic field and every $n\ge2$: a
+    semiregular such complex would deform to very general non-algebraic Weil
+    tori, whose coherent sheaves have no Chern character below the top
+    degree, \Cref{prop:weiltorussheaves}, \Cref{thm:p2false}
+  & the corrected form (P2), with powers of the polarisation allowed in the
+    Chern character, \Cref{rem:p2prime} \\
 The reduction to Weil classes, and to abelian varieties
   & false as a statement about Hodge rings in dimension eight,
     \Cref{prop:mumfordproduct}; impossible Hodge-theoretically,

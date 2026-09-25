@@ -42,6 +42,11 @@ object:
       is special to n <= 3; and for the Mumford square the same identity with
       chi = 0 returns the 800 odd self-extensions of item (XLV).
 
+By the theorem that the pure form of the criterion is never met
+(thm:p2false, item (LI)), no object satisfies these hypotheses: the checks
+here are the finite ingredients of a theorem whose hypotheses are empty, kept
+as the record of what the pure form asked for.
+
 Run:  python3 criterion_shape.py
 """
 from fractions import Fraction as Fr

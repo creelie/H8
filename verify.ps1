@@ -6,7 +6,7 @@
 # check: `lake build` of the package when lake is on the path, then the
 # axiom report of `lean HodgeObstruction.lean` (about a minute each once the
 # toolchain is installed).  Python 3 must
-# be on the path as `python` or `python3`; numpy is needed by one script.  For
+# be on the path as `python` or `python3`; numpy is needed by two scripts.  For
 # the Lean step install elan from https://github.com/leanprover/elan and the
 # toolchain named in lean\lean-toolchain; if `lean` is not on the path the
 # step is skipped and reported.

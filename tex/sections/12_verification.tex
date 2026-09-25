@@ -4,8 +4,8 @@
 Every numerical assertion in this paper is checked by exact arithmetic.%
 \footnote{Exact arithmetic is not a scruple here. Several of the quantities are differences of large binomial coefficients, and at $n=7$ the semiregularity target exceeds $10^{11}$; in double precision the comparison in item (V) would be meaningless. Everything uses Python's \texttt{fractions} module or integers, and nothing converts to a float.} The
 scripts are described in \Cref{app:scripts}. They use the standard library of
-Python, together with \texttt{sympy} for exact symbolic linear algebra in two
-of them and \texttt{numpy} for integer arrays in one; they work over $\QQ$ and
+Python, together with \texttt{sympy} for exact symbolic linear algebra in
+several of them and \texttt{numpy} for integer arrays in two; they work over $\QQ$ and
 its finite extensions with the \texttt{fractions} module or exact symbolic
 arithmetic, and they perform no floating-point operation; items (XXIX), (XXXI) and (XL) are $\Ext$
 computations over a polynomial ring, carried out in Macaulay2. We describe what is checked.
@@ -493,7 +493,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   named in a rule is declared and every declared statement is used, that the
   rule set is acyclic, and that every one of the fifteen theorem labels it
   names, for its rules and for the consequences of $\mathbf{HC}$ it records,
-  is a label of this paper, against the list of all $528$ labels generated
+  is a label of this paper, against the list of all $534$ labels generated
   from the sources and distributed with the script as
   \texttt{paper\_\allowbreak labels.txt}. It then computes the forward closure
   by iterating the one step map to a fixed point, and verifies that no
@@ -940,13 +940,39 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   $n=5$ a profile with $e_{0}=1$ satisfies the same constraints, so the bound
   on $\End$ is special to $n\le3$; and the same identity with $\chi=0$ on the
   Mumford square returns the $800$ odd self-extensions of item (XLV).
+\item \emph{The Hodge classes of a very general Weil torus.} The script
+  \texttt{weil\_\allowbreak tori.py} checks the finite inputs of
+  \Cref{lem:weiltorushodge}, \Cref{lem:weiltorussubsets} and
+  \Cref{thm:p2false}, in the coordinate model of \Cref{sec:explicit}, for
+  $n=2$ with $d=1,3$ and for $n=3$ with $d=2$. The members of the family $S$
+  of \Cref{setup:weiltori} used are $T_{X,Y}$ with $X$ and $Y$ spanned by
+  explicit $K$-rational combinations of the eigenvectors, three of them for
+  $n=2$ and five for $n=3$. (A) The rational Weil classes $\omega_{1}$,
+  $\omega_{2}$ are of type $(n,n)$ at every member used. (B) The
+  polarisation $\eta$ is of type $(1,1)$ at the balanced member and at none of
+  the members used, which therefore lie off the polarised family. (C) The
+  rational classes of degree $2k$, $1\le k\le n$, that are of type $(k,k)$
+  at all the members used form a space of dimension $0$ for $k<n$ and $2$ for
+  $k=n$, the Weil plane. A class of degree $2k$ is of type $(k,k)$ exactly
+  when its product with every product of $2n-k+1$ holomorphic $1$-forms
+  vanishes; the ranks are computed modulo a prime $q<2^{31}$ in which $-d$ is
+  a square, with $\sqrt{-d}$ sent to both square roots so that the conjugate
+  conditions are imposed as well, and since reduction can only lower a rank
+  the dimensions found are upper bounds, attained by the Weil classes. Degrees above
+  $2n$ are not checked; the proof of the lemma covers them. (D) For an
+  element $\kappa$ of $V_{+}\otimes V_{-}$ with random coefficients,
+  $\alpha_{+}\wedge\kappa^{n}=\alpha_{-}\wedge\kappa^{n}=0$, and both
+  products become nonzero once a component $\beta\in\bigwedge^{2}V_{-}$
+  with $\beta^{n}\ne0$ is added, so the vanishing used for the block
+  diagonal K\"ahler class $\kappa_{0}$ is a property of $V_{+}\otimes V_{-}$
+  and not of the coordinates.
 \end{enumerate}
 
-Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (L) are the ones
+Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LI) are the ones
 on which theorems depend. Items (IV) and (V) support statements that no
 obstruction exists, and a failure there would strengthen rather than weaken
 the paper, so they are included for completeness rather than for safety.
-Running \texttt{verify\_all.py} executes the forty-five Python items and
-prints \texttt{853 checks passed, 0 failed}; items (XXIX), (XXXI) and
+Running \texttt{verify\_all.py} executes the forty-six Python items and
+prints \texttt{865 checks passed, 0 failed}; items (XXIX), (XXXI) and
 (XL) need Macaulay2 and are run separately, and their transcripts are
 distributed with the scripts.
