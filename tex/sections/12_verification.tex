@@ -1019,9 +1019,10 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   classes, while at the ratio $R=3/16$ both signs occur. That is
   \Cref{prop:p2primelocus} and \Cref{rem:p2primeexceptional}. With
   \texttt{--extreme} the closed form
-  of (A) is checked exactly for $n=5,\dots,9$ on five shapes; at $n=9$ the
-  space $HT^{2}$ has dimension $630$ and $\gamma$ has $2^{18}+2$ terms. That is
-  \Cref{thm:p2primenumber}.
+  of (A) is checked exactly for $n=5,\dots,9$ on five shapes, and with
+  \texttt{--nmax=10} also at $n=10$, where $HT^{2}$ has dimension $780$ and
+  $\gamma$ has $2^{20}+2$ terms; that run takes $142$ minutes and its
+  transcript is in \texttt{code/extreme}. That is \Cref{thm:p2primenumber}.
 
 \item \emph{The Hochschild profile of a corrected character.} The script
   \texttt{p2prime\_\allowbreak profile.py} computes, in the same model and by

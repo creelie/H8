@@ -19,7 +19,12 @@ directory above:
     python3 ../descent.py --extreme             # (LIV), seven CM fields
 
 Their transcripts are `transcripts/p2prime_extreme.log`,
-`transcripts/profile_extreme.log` and `transcripts/descent_extreme.log`.
+`transcripts/profile_extreme.log` and `transcripts/descent_extreme.log`, with
+run times of 142 minutes, 4.5 minutes and 1.5 minutes. The first reaches
+`n = 10` on all five shapes, where HT^2 has dimension 780 and the Chern
+character has 2^20 + 2 terms; it was made before item (G) was added to
+`p2prime.py`, so its default part shows 35 checks where the script now runs
+39, and the extreme part is unchanged.
 
 | script | extends | what it checks | largest case |
 | --- | --- | --- | --- |
