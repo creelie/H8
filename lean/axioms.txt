@@ -76,3 +76,5 @@
 'HodgeObstruction.mumford_rigidity_sos' does not depend on any axioms
 'HodgeObstruction.mumford_ext_profile' depends on axioms: [propext]
 'HodgeObstruction.lefschetz_counts' depends on axioms: [propext]
+'HodgeObstruction.criterion_endomorphisms_n2' depends on axioms: [propext]
+'HodgeObstruction.criterion_endomorphisms_n3' depends on axioms: [propext]

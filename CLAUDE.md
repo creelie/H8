@@ -18,14 +18,15 @@ Always hand the user all four of these together:
 
 `N` is the round number (round 5 was the correction that (F3) is equivalent
 to the Hodge conjecture; round 6 added its weaker form (F3') and what is known
-of it).
+of it; round 7 added the shape theorem for an object meeting the (P2)
+criterion).
 
 ## Checks before delivering
 
 - `cd code && python3 verify_all.py` ends with `N checks passed, 0 failed`;
   keep the count in `README.md`, `.zenodo.json`, `.github/workflows/lean.yml`
   and `tex/sections/12_verification.tex` in step.
-- `cd lean && lean HodgeObstruction.lean`: 78 theorems, each axiom-free or
+- `cd lean && lean HodgeObstruction.lean`: 80 theorems, each axiom-free or
   depending on `propext` only.
 - `cd tex && latexmk -pdf main.tex`: 0 errors, 0 overfull or underfull boxes,
   no undefined references.

@@ -3518,6 +3518,190 @@ of the objects in the literature or in this paper has it. We record it as the
 form the search now takes, and not as a claim that such an object exists.
 \end{remark}
 
+\subsubsection*{What the dimension forces on the object}
+
+The numerical criterion of \Cref{thm:p2numerical} fixes one number,
+$\dim\Ext^{2}(E,E)$. Together with Serre duality, the lower bounds of
+\Cref{cor:hhfactor} in the other degrees and the Hodge--Riemann relations for
+the Weil class, it fixes a good deal more: the object that carries the class
+can be taken indecomposable, and in the first open case it has more than one
+endomorphism. This is where a search has to look.
+
+\begin{theorem}[The shape of an object meeting the criterion]
+\label{thm:p2endo}
+Let $A$, $\omega$ and $E$ be as in \Cref{thm:p2numerical}, so that
+$\ch(E)=N\omega$ with $N\ne0$ and no other component, and suppose that
+$\dim\Ext^{2}(E,E)=2n(2n-1)$. Write $e_{k}=\dim\Ext^{k}(E,E)$.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item $\chi(E,E)=\sum_{k}(-1)^{k}e_{k}=(-1)^{n}N^{2}\int_{A}\omega^{2}$, and
+  this number is positive.
+\item $E\cong E_{0}\oplus E'$ with $E_{0}$ indecomposable,
+  $\ch(E_{0})=\ch(E)$, $\dim\Ext^{2}(E_{0},E_{0})=2n(2n-1)$, $\ch(E')=0$ and
+  $\Ext^{2}(E_{0},E')=\Ext^{2}(E',E_{0})=\Ext^{2}(E',E')=0$. So $E_{0}$ meets
+  the criterion as well.
+\item If $E$ is indecomposable, then $\End(E)=\CC\cdot\id\oplus J$ with $J$
+  the nilpotent radical, every $f\in J$ annihilates $\Ext^{2}(E,E)$ and
+  $\Ext^{2n-2}(E,E)$ under the Yoneda product, and
+  $\operatorname{ev}_{E}(\bigwedge^{2n}P)=\operatorname{ev}_{E}(\bigwedge^{2n}Q)$
+  is a single line in $\Ext^{2n}(E,E)$. If moreover $e_{1}=4n$, then $J$
+  annihilates $\Ext^{1}(E,E)$ as well.
+\item If $n=2$ or $n=3$, then
+  \[
+    \dim\End(E)\;\ge\;2+\tfrac12\,\chi(E,E)\;>\;2,
+  \]
+  so $E$ has at least three linearly independent endomorphisms, and at
+  $n=3$ also $e_{1}\le e_{0}+9$. In particular no simple object meets the
+  criterion: no stable sheaf, no complex with $\End=\CC$, and no image of one
+  under an autoequivalence of $D^{b}(A)$; and an indecomposable object that
+  meets it has a nonzero nilpotent endomorphism. The smallest profiles
+  $(e_{0},\dots,e_{2n})$ that the constraints allow are $(3,8,12,8,3)$ at
+  $n=2$, with $\chi=2$, and $(3,12,30,40,30,12,3)$ and $(3,12,30,41,30,12,3)$
+  at $n=3$, with $\chi=2$ and $\chi=1$.
+\end{enumerate}
+Parts (i) and (ii), and part (iv) at $n=2$, use the compatibility
+$\sigma_{E}\circ\operatorname{ev}_{E}=(\,\cdot\,)\lrcorner\ch(E)$ of
+\Cref{setup:hh} in degree two only, as \Cref{thm:p2numerical} does. Part
+(iii), and part (iv) at $n=3$, use it in the further degrees in which
+\Cref{cor:hhfactor}(iii) grants it: $2n-2$ and $2n$ for (iii), and three for
+(iv).
+\end{theorem}
+
+\begin{proof}
+(i) The Todd class of $A$ is trivial, so the Riemann--Roch theorem gives
+$\chi(E,E)=\int_{A}\ch(E)^{\vee}\ch(E)$, and $\ch(E)^{\vee}=(-1)^{n}N\omega$
+since $\omega$ has degree $2n$. The polarisation pairs $V_{+}$ only with
+$V_{-}$ (\Cref{fig:tangent}), so its class $\theta$ lies in
+$V_{+}\otimes V_{-}$ and $\theta\wedge\alpha_{\pm}=0$, because $\alpha_{\pm}$
+spans the top exterior power of $V_{\pm}$. So $\omega$ is a nonzero rational
+primitive class of type $(n,n)$ in the middle degree, and the Hodge--Riemann
+relations give $(-1)^{n(2n-1)}\int_{A}\omega^{2}>0$, where
+$(-1)^{n(2n-1)}=(-1)^{n}$. Item (L) of \Cref{sec:verification} checks the
+primitivity and the sign of the intersection form on the whole rational Weil
+plane in the coordinate model, for $n=2,3$ and several discriminants.
+
+(ii) The category $D^{b}(A)$ has finite dimensional morphism spaces and split
+idempotents, so $E=\bigoplus_{i}E_{i}$ with each $E_{i}$ indecomposable. The
+evaluation map and the semiregularity map are compatible with direct sums,
+and by \Cref{thm:p2numerical}(i) the kernel of $\operatorname{ev}_{E}$ in
+degree two is $P\wedge Q$; so $\operatorname{ev}_{E_{i}}(P\wedge Q)=0$ and,
+composing with $\sigma_{E_{i}}$, $(P\wedge Q)\lrcorner\ch(E_{i})=0$ for every
+$i$. We claim that the only classes of Hodge type killed by $P\wedge Q$ are
+those of $\CC\alpha_{+}\oplus\CC\alpha_{-}$. Write
+$H^{*}(A,\CC)=\bigwedge^{*}(A_{+}\oplus B_{+}\oplus A_{-}\oplus B_{-})$ with
+$A_{\pm}=V_{\pm}^{1,0}$ and $B_{\pm}=V_{\pm}^{0,1}$, and grade it by the four
+degrees $(i,j,k,l)$. As in \Cref{setup:hh}, $P$ acts by wedging with $B_{+}$
+and contracting $A_{-}$, and $Q$ by wedging with $B_{-}$ and contracting
+$A_{+}$, so $P\wedge Q$ is spanned by four kinds of operators, each of which
+shifts the four degrees by a fixed amount: wedging with $b_{+}\wedge b_{-}$
+kills a component of degree $(i,j,k,l)$ for all choices exactly when $j=n$ or
+$l=n$; wedging with $b_{+}$ after contracting $a_{+}$, exactly when $i=0$ or
+$j=n$; contracting $a_{-}$ and wedging with $b_{-}$, exactly when $k=0$ or
+$l=n$; and contracting $a_{-}$ and $a_{+}$, exactly when $i=0$ or $k=0$. Each
+of these is a statement about a tensor product of maps that are injective
+unless the degree in question is extreme. A class of type $(p,p)$ has
+$i+k=j+l=p$ in every component. If $j=n$, then $l=n$ would force $i=k=n$,
+against the fourth condition, so $k=0$, hence $i=n+l$, so $i=n$, $l=0$: the
+component lies in $\bigwedge^{n}A_{+}\otimes\bigwedge^{n}B_{+}=\CC\alpha_{+}$.
+If $j<n$, then $l=n$ and $i=0$, hence $k=n$ and $j=0$: the component lies in
+$\CC\alpha_{-}$. This proves the claim, which item (L) also checks in every
+degree for $n=2,3$. Since $\ch(E_{i})$ is rational, it lies on the rational
+Weil plane, and when it is nonzero \Cref{cor:hhfactor}(i) gives
+$\dim\Ext^{2}(E_{i},E_{i})\ge2n(2n-1)$, a nonzero rational Weil class having
+both coefficients $a$ and $b$ nonzero. As
+$\Ext^{2}(E,E)=\bigoplus_{i,j}\Ext^{2}(E_{i},E_{j})$ has dimension
+$2n(2n-1)$ and $\sum_{i}\ch(E_{i})=N\omega\ne0$, exactly one summand $E_{0}$
+has nonzero Chern character and every other block of $\Ext^{2}$ vanishes.
+
+(iii) An indecomposable object of a category with finite dimensional
+morphism spaces and split idempotents has a local endomorphism ring, so
+$\End(E)=\CC\cdot\id\oplus J$ with $J$ nilpotent. By
+\Cref{thm:p2numerical}(i), $\operatorname{ev}_{E}$ maps
+$\bigwedge^{2}P\oplus\bigwedge^{2}Q$ isomorphically onto $\Ext^{2}(E,E)$.
+By Serre duality $e_{2n-2}=e_{2}$, and contraction with $\omega$ is injective
+on $\bigwedge^{2n-2}P\oplus\bigwedge^{2n-2}Q$ (item (L)), so, with the
+compatibility in degree $2n-2$, $\operatorname{ev}_{E}$ maps that space
+isomorphically onto $\Ext^{2n-2}(E,E)$. In degree $2n$ the semiregularity map is the trace, since
+$H^{q+2n}(\Omega^{q}_{A})=0$ for $q>0$, so
+$\operatorname{tr}\operatorname{ev}_{E}(\xi)$ is the $H^{0,2n}$ component of
+$\xi\lrcorner\ch(E)$; for the generators $\pi_{P}$, $\pi_{Q}$ of
+$\bigwedge^{2n}P$ and $\bigwedge^{2n}Q$ it is $Nc_{P}$ and $Nc_{Q}$ with
+$c_{P}c_{Q}\ne0$ (item (L)). For $f\in\End(E)$ and
+$x\in\bigwedge^{2}P\oplus\bigwedge^{2}Q$ write
+$f\cdot\operatorname{ev}_{E}(x)=\operatorname{ev}_{E}(\varphi_{f}(x))$; then
+$f\mapsto\varphi_{f}$ is a homomorphism of algebras. Let $x\in\bigwedge^{2}P$
+and $y\in\bigwedge^{2n-2}P$, and write $x\wedge y=\beta(x,y)\pi_{P}$. Since
+$\operatorname{ev}_{E}$ is a ring map that kills the ideal generated by
+$P\wedge Q$,
+\[
+  \beta(x,y)\operatorname{tr}\bigl(f\operatorname{ev}_{E}(\pi_{P})\bigr)
+  =\operatorname{tr}\bigl(f\operatorname{ev}_{E}(x)\operatorname{ev}_{E}(y)\bigr)
+  =\operatorname{tr}\operatorname{ev}_{E}\bigl(\varphi_{f}(x)\wedge y\bigr)
+  =Nc_{P}\,\beta\bigl(\varphi_{f}(x)_{P},y\bigr),
+\]
+and the pairing $\beta$ is perfect, so $\varphi_{f}(x)_{P}=\mu_{f}x$ with
+$\mu_{f}=\operatorname{tr}(f\operatorname{ev}_{E}(\pi_{P}))/Nc_{P}$. The same
+computation with $y\in\bigwedge^{2n-2}Q$, where $x\wedge y=0$ in the quotient,
+gives $\varphi_{f}(x)_{Q}=0$. So $f$ acts on
+$\operatorname{ev}_{E}(\bigwedge^{2}P)$ by a scalar $\mu_{f}$, and in the same
+way on $\operatorname{ev}_{E}(\bigwedge^{2}Q)$ by a scalar $\nu_{f}$; $\mu$ and
+$\nu$ are characters of $\End(E)$ and vanish on $J$. So $J$ kills
+$\Ext^{2}(E,E)$, on both sides because $\operatorname{ev}_{E}$ lands in the
+graded centre, and the same argument with the roles of the two degrees
+exchanged shows that it kills $\Ext^{2n-2}(E,E)$. In particular
+$\operatorname{tr}(f\operatorname{ev}_{E}(\pi_{P}))=\mu_{f}Nc_{P}=0$ for
+$f\in J$, so $\operatorname{ev}_{E}(\pi_{P})$ and, likewise,
+$\operatorname{ev}_{E}(\pi_{Q})$ lie in the annihilator of $J$ under the
+perfect pairing of $\End(E)$ with $\Ext^{2n}(E,E)$. That annihilator is a
+line, $J$ having codimension one, and both elements are nonzero, their traces
+being $Nc_{P}$ and $Nc_{Q}$; so they span the same line. Finally, if
+$e_{1}=4n$ then $\Ext^{1}(E,E)=\operatorname{ev}_{E}(HH^{1})$, because
+$\operatorname{ev}_{E}$ is injective on $HH^{1}$, as shown in (iv). For
+$f\in J$ and $h\in HH^{1}$ write $f\operatorname{ev}_{E}(h)=
+\operatorname{ev}_{E}(h')$; then
+$\operatorname{ev}_{E}(h'\wedge h'')=f\operatorname{ev}_{E}(h\wedge h'')=0$ for
+every $h''\in HH^{1}$, so $h'\wedge HH^{1}\subseteq P\wedge Q$, which forces
+$h'=0$ since $\dim P=\dim Q\ge2$.
+
+(iv) By Serre duality $e_{k}=e_{2n-k}$. The map $\operatorname{ev}_{E}$ is
+injective on $HH^{1}$ using degree two alone: if $\operatorname{ev}_{E}(h)=0$
+then $\operatorname{ev}_{E}(h\wedge h')=0$ for every $h'$, so
+$h\wedge HH^{1}\subseteq\Ann_{HH^{2}}(\omega)=P\wedge Q$, and $h=0$ as in
+(iii). So $e_{1}\ge4n$, and \Cref{cor:hhfactor}(iii) gives
+$e_{3}\ge2\binom{6}{3}=40$ at $n=3$. At $n=2$ the Euler
+characteristic is $2e_{0}-2e_{1}+12$, and at $n=3$ it is
+$2e_{0}-2e_{1}+60-e_{3}$. So $2e_{0}=\chi+2e_{1}-12\ge\chi+4$ at $n=2$, and
+$2e_{0}=\chi+2e_{1}+e_{3}-60\ge\chi+4$ at $n=3$, where also
+$e_{1}=e_{0}+30-\frac12(\chi+e_{3})\le e_{0}+9$. With (i) this gives the
+bound. An autoequivalence preserves $\End$, and a stable sheaf is simple.
+An indecomposable object with $\dim\End\ge3$ has $J\ne0$. The smallest
+profiles are those with $e_{0}=3$, which item (L) lists by exhaustive search
+over the admissible values, and Section 31 of the Lean certificate checks the
+inequality $e_{0}\ge3$ for all natural numbers.
+\end{proof}
+
+\begin{remark}[What the shape does to the search]\label{rem:p2endo}
+\Cref{thm:p2endo} is a necessary condition and nothing more; it does not say
+that an object meeting the criterion exists. What it does is remove from the
+search every object that anyone would construct first. Line bundles,
+semi-homogeneous bundles, skyscraper sheaves, stable sheaves and their
+Fourier--Mukai transforms are simple, and direct sums of them are excluded by
+(ii) together with \Cref{thm:nosum}. At $n=3$, the first open case, what
+remains is an indecomposable object with a local endomorphism algebra of
+dimension at least three whose radical kills $\Ext^{2}$ and $\Ext^{4}$ and
+pairs to zero with the line $\operatorname{ev}_{E}(\bigwedge^{6}P)$,
+granting the compatibility of \Cref{cor:hhfactor}(iii); the smallest
+conceivable one has $\Hom(E,E)$ of dimension three, $\Ext^{1}(E,E)$
+equal to the image of $HH^{1}(A)$, of dimension twelve and killed by the
+radical, and $\Ext^{3}(E,E)$ of dimension forty or forty-one. Iterated
+self-extensions and thickenings are the natural objects with nilpotent
+endomorphisms; an extension of a simple object $F$ by itself has
+$\ch=2\ch(F)$, so $F$ would have to carry the class already, and the question
+returns one level down. Nothing in this paper produces an object of the
+required shape, and the remark is recorded as the form the search now takes.
+For $n\ge4$ the same count only asks for an excess in some even degree other
+than $2$ and $2n-2$ (item (L)), and the bound on $\End$ disappears.
+\end{remark}
+
 \begin{remark}[The two finite statements, and what each of them is]
 \label{rem:tworemain}
 After \Cref{thm:degreebound} and \Cref{thm:semiregclosure} the Hodge
@@ -3565,6 +3749,10 @@ form in which the question first presents itself.
   member it has a component of codimension less than $n$, so no complex
   carried by a cycle representing $\omega$ can serve, and at a general member
   every component of codimension at least two has multiplicity zero.
+  \Cref{thm:p2endo} fixes its shape: an indecomposable summand carries the
+  class and meets the criterion alone, and at $n=2$, and at $n=3$ granting
+  the compatibility of \Cref{cor:hhfactor}(iii), it has at least three
+  independent endomorphisms, so no simple object serves.
 \end{enumerate}
 
 Two remarks on what these are not. Neither is the variational Hodge

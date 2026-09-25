@@ -50,7 +50,7 @@ $free  = @($out | Where-Object { $_ -match "does not depend on any axioms" }).Co
 $prop  = @($out | Where-Object { $_ -match "\[propext\]" }).Count
 $sorry = @($out | Where-Object { $_ -match "sorryAx" }).Count
 Write-Host ("theorems: {0}  axiom-free: {1}  propext only: {2}  sorryAx: {3}" -f $lines.Count, $free, $prop, $sorry)
-if ($lines.Count -ne 78 -or ($free + $prop) -ne 78 -or $sorry -ne 0) {
-  Write-Error "the Lean report does not match the expected 78 theorems."; exit 1
+if ($lines.Count -ne 80 -or ($free + $prop) -ne 80 -or $sorry -ne 0) {
+  Write-Error "the Lean report does not match the expected 80 theorems."; exit 1
 }
 Write-Host "overall: PASS"

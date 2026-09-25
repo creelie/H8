@@ -1492,6 +1492,44 @@ theorem lefschetz_counts :
     /\ 1 + 27 + 42 + 308 = 27 * 28 / 2 := by
   decide
 
+/-! ## 31.  The endomorphisms of an object meeting the numerical criterion
+
+Item (L) of the verification section and the theorem on the shape of such an
+object.  Write `e_k = dim Ext^k(E,E)` for a perfect complex `E` with
+`ch(E) = N omega` on an abelian `2n`-fold of Weil type.  Serre duality gives
+`e_k = e_{2n-k}`, the Hochschild action gives `e_1 >= 4n` and, at `n = 3`
+and granting its compatibility with contraction in degree three, `e_3 >= 40`,
+the criterion is `e_2 = 2n(2n-1)`, and the Hodge-Riemann
+relations make `chi = sum (-1)^k e_k` positive.  At `n = 2` this reads
+`2 e_0 + 12 = chi + 2 e_1`, at `n = 3` it reads
+`2 e_0 + 60 = chi + 2 e_1 + e_3`, and in both cases `e_0 >= 3`: the object has
+at least three linearly independent endomorphisms.  The geometry is in the
+paper; what is checked here is the arithmetic, for all natural numbers.
+-/
+
+/-- **At `n = 2` the criterion forces three endomorphisms.** -/
+theorem criterion_endomorphisms_n2 (e0 e1 chi : Nat)
+    (h1 : 8 ≤ e1) (hc : 1 ≤ chi)
+    (hchi : 2 * e0 + 12 = chi + 2 * e1) : 3 ≤ e0 := by
+  have h2 : 2 * 8 ≤ 2 * e1 := Nat.mul_le_mul_left 2 h1
+  have hs : 1 + 2 * 8 ≤ chi + 2 * e1 := Nat.add_le_add hc h2
+  have h17 : 5 + 12 ≤ 2 * e0 + 12 := hchi ▸ hs
+  have h5 : 5 ≤ 2 * e0 := Nat.le_of_add_le_add_right h17
+  exact Nat.lt_of_not_le fun h =>
+    absurd (Nat.le_trans h5 (Nat.mul_le_mul_left 2 h)) (by decide)
+
+/-- **At `n = 3` the criterion forces three endomorphisms.** -/
+theorem criterion_endomorphisms_n3 (e0 e1 e3 chi : Nat)
+    (h1 : 12 ≤ e1) (h3 : 40 ≤ e3) (hc : 1 ≤ chi)
+    (hchi : 2 * e0 + 60 = chi + 2 * e1 + e3) : 3 ≤ e0 := by
+  have h2 : 2 * 12 ≤ 2 * e1 := Nat.mul_le_mul_left 2 h1
+  have hs : 1 + 2 * 12 + 40 ≤ chi + 2 * e1 + e3 :=
+    Nat.add_le_add (Nat.add_le_add hc h2) h3
+  have h65 : 5 + 60 ≤ 2 * e0 + 60 := hchi ▸ hs
+  have h5 : 5 ≤ 2 * e0 := Nat.le_of_add_le_add_right h65
+  exact Nat.lt_of_not_le fun h =>
+    absurd (Nat.le_trans h5 (Nat.mul_le_mul_left 2 h)) (by decide)
+
 end HodgeObstruction
 
 /-! ## The axioms each theorem depends on
@@ -1579,3 +1617,5 @@ propositional extensionality enters through `decide`, and in no case
 #print axioms HodgeObstruction.mumford_rigidity_sos
 #print axioms HodgeObstruction.mumford_ext_profile
 #print axioms HodgeObstruction.lefschetz_counts
+#print axioms HodgeObstruction.criterion_endomorphisms_n2
+#print axioms HodgeObstruction.criterion_endomorphisms_n3

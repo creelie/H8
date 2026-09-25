@@ -128,6 +128,10 @@ Contents
          implications into and out of the target as Horn rules, the
          statements equivalent to it, and the minimal sufficient sets, each
          of one element  [mumford_routes.py]
+  (L)    what an object meeting the numerical criterion must look like: the
+         Hodge-Riemann sign of the Euler characteristic, the classes killed by
+         P ^ Q, the top traces, and the bound dim End(E) >= 3 at n = 2, 3
+         [criterion_shape.py]
 """
 
 import os
@@ -512,6 +516,9 @@ def main():
 
     head("(XLIX) which of the open routes to the Mumford target are needed")
     run_module("XLIX", "mumford_routes.py")
+
+    head("(L) what an object meeting the numerical criterion must look like")
+    run_module("L", "criterion_shape.py")
 
     print()
     print("=" * 70)

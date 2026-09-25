@@ -25,12 +25,12 @@ prints the axiom report. Each takes about a minute. Silence from the elaborator 
 accepted every theorem; the block at the foot of the file then prints one line
 per theorem. Every line must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
-through `decide`, and none may mention `sorryAx`. The GitHub workflow in
+through `decide` or the core lemmas on natural numbers, and none may mention `sorryAx`. The GitHub workflow in
 `.github/workflows/lean.yml` enforces all three, and fails the build if the
-number of theorems is not seventy-eight or if any of them reaches for a further
+number of theorems is not eighty or if any of them reaches for a further
 axiom.
 
-## The seventy-eight theorems
+## The eighty theorems
 
 | theorem | statement |
 | --- | --- |
@@ -110,6 +110,8 @@ axiom.
 | `mumford_rigidity_sos` | a positive multiple of each of the seventeen forms P1, P2, Q1..Q4, R, S1..S4, Z1..Z6 is a sum of squares of integral linear forms with positive coefficients, checked on `{0,1,2}^4`, which suffices for polynomials of degree at most two in each variable: the certificates behind the rigidity of the exceptional classes of a Mumford square |
 | `mumford_ext_profile` | the lower bounds `1, 16, 119, 328, 560, 328, 119, 16, 1` for the self-extensions of an object with the Chern character of an exceptional class are palindromic, have alternating sum 112 and sum 1488, and give 800 in even degrees against a Hochschild bound of 688 in odd degrees, so chi(E,E) = 0 forces Ext^1 + Ext^3 >= 400 |
 | `lefschetz_counts` | the Sp_8-invariants of wedge^*(V+V) number `1, 3, 6, 10, 15, 10, 6, 3, 1` by the decomposition of each wedge^i V into fundamental modules, the Hodge classes of the Mumford square that are not Lefschetz number `0, 0, 2, 6, 13, 6, 2, 0, 0` (twenty-nine), the Lefschetz classes at a CM point are counted by the coefficients `1, 16, 100, 304, 454, ...` of `(1 + 4y + y^2)^4`, and Weyl's formula for Sp_8 gives `27, 42, 308` for `varpi_2, varpi_4, 2 varpi_2`, with `1 + 27 + 42 + 308 = 378` |
+| `criterion_endomorphisms_n2` | for all natural numbers, `2 e0 + 12 = chi + 2 e1` with `e1 >= 8` and `chi >= 1` gives `e0 >= 3`: an object meeting the numerical criterion at n = 2 has at least three endomorphisms |
+| `criterion_endomorphisms_n3` | for all natural numbers, `2 e0 + 60 = chi + 2 e1 + e3` with `e1 >= 12`, `e3 >= 40` and `chi >= 1` gives `e0 >= 3`: the same at n = 3 |
 | `weil_monomials_separated` | neither Weil monomial lies in the exterior algebra on `V_-^{1,0} + V_+^{0,1}` or on `V_+^{1,0} + V_-^{0,1}`, for `n <= 12`: the Weil line misses every class pulled back from a quotient by an abelian subvariety tangent to an eigenspace |
 
 
@@ -139,7 +141,7 @@ algebra computations that Lean does not carry, and prints
 ## Transcript
 
 `axioms.txt` is the unedited output of `lean HodgeObstruction.lean` under
-Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): seventy-eight lines, one per
-theorem, sixty-nine reading `does not depend on any axioms` and nine reading
+Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): eighty lines, one per
+theorem, sixty-nine reading `does not depend on any axioms` and eleven reading
 `depends on axioms: [propext]`, exit status 0, no `sorryAx`. `lake build`
 completes with the same report. Each run takes about two minutes.

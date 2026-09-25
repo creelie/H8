@@ -342,6 +342,7 @@ rem:otherambient
 rem:othermethods
 rem:p1collapse
 rem:p1meaning
+rem:p2endo
 rem:p2search
 rem:pointwise
 rem:positiverankscope
@@ -505,6 +506,7 @@ thm:nosplit
 thm:nosum
 thm:p1equivalent
 thm:p1forces
+thm:p2endo
 thm:p2forces
 thm:p2numerical
 thm:p2support

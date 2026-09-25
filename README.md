@@ -28,7 +28,7 @@ Lean check:
 
 The last lines are
 
-    829 checks passed, 0 failed
+    853 checks passed, 0 failed
     overall: PASS
 
 and the exit status is zero. The driver runs five self-contained checks and
@@ -69,6 +69,7 @@ then calls the companion scripts in the same directory:
 | `twistor_locus.py` | the Hodge locus of an exceptional class among all complex tori: V_R as the fixed space of the real structure that is quaternionic on the two compact factors and real on the third; psi(x, Jy) has signature (0,8) for the complex structures of the Mumford family and (4,4) for a unit quaternion j of a compact factor; the quaternion k with kj = -jk carries psi(x, Jy) to its negative, so no invariant class of degree two polarises a member of the twistor line; the annihilator of omega_a in H^1(T) (dimension 64) is one dimensional at both kinds of point, the direction of the curve and the direction of the twistor sphere; and the exchange of the first and third factors relates the two computations |
 | `hk_pullback.py` | the square of a Mumford fourfold as a holomorphic symplectic variety: iota(x) = (x (x) 1) Psi embeds T = Lie G in H^1 (x) H^1; the Casimirs split H^2 (dimension 120) into pieces of dimensions 3, 27, 27, 27, 27, 3, 3, 3 with (2,0)-parts 0, 0, 9, 9, 9, 0, 0, 1, so iota(T) is the only sub-Hodge structure with h^{2,0} = 1; its (2,0)-form is symplectic; iota_2(C_1) = 3 pi_0 - pi_12 - pi_13 + 3 pi_23 and cyclically, so the exceptional classes are the twisted dual forms of iota(T); det(x_1 + x_2 + x_3) = Delta(N)^2 and iota(x)^8 = 8! det(x) vol, which with the Fujiki relation rules out hyperkaehler eightfolds |
 | `mumford_routes.py` | which of the open routes to the Mumford target are needed: sixteen statements and twenty-two Horn rules, each labelled by the theorem that proves it and checked against paper_labels.txt; the target is not in the closure of what is proved; the statements equivalent to it are exactly algebraicity at uncountably many points, B(W x_C W), bounded data at infinitely many points and bounded data modulo p; every minimal set of open statements yielding it has one element, twelve in all; the complex with dim Ext^2 = 119 and the Kuga-Satake statements are stronger than it; (L) and (V) yield it; it yields neither the Hodge conjecture nor (F1), (F2), (F3); and (F3) is equivalent to the Hodge conjecture, so the target is an input to no minimal route to the conjecture |
+| `criterion_shape.py` | what an object meeting the numerical criterion must look like: the rational Weil classes are primitive and the intersection form on the Weil plane is (-1)^n-definite (Gram matrices diag(8d^2, 8d) at n = 2 and diag(-32d^3, -32d^2) at n = 3), so chi(E,E) > 0 by Hodge-Riemann; the Hodge classes killed by P ^ Q are exactly the Weil line in every degree, so an indecomposable summand carries the class; the top traces c_P, c_Q are nonzero; and at n = 2, and at n = 3 granting the degree-three compatibility that the paper's corollary on the Hochschild action already grants, the Euler characteristic forces dim End(E) >= 2 + chi/2 >= 3, with the smallest admissible profiles listed, while at n = 4, 5 it does not |
 | `transport_growth.py` | the transport of the base cycle along the rational orbit: det(phi) = c^{2G}, phi^* E = c^2 E and phi^* omega = c^{2n} omega on an explicit sample of rational symplectic elements with denominators to 29; the multiplicity of a component as the order of the stabiliser its kernel meets, computed as a lattice index by Smith normal form, against the image degree computed as a Pfaffian; and the contrast between a subtorus the isogeny preserves, where the image degree is constant, and one it does not, where it grows |
 | `cm_fields.py` | the Weil classes of a CM field of degree four and six: the CM base point of every family, the balanced divisor classes delta_i(f), the identity that the balanced n-fold product of them is the Weil class w(f) = sum_sigma sigma(f) alpha_sigma, checked for six pairs (F, n) with m = 2, 3 and n = 1, 2, 3, and the identity that the Weil classes of a composite field generate those of its imaginary quadratic subfield |
 | `exceptional_classes.py` | the exceptional Hodge classes on the self-product of a Mumford fourfold (eight invariants against six divisor products), the Hodge numbers and adjoint weights that keep the H^3 of a quintic threefold outside abelian type, and the 4n^2-dimensional annihilator of the Weil class in Hochschild cohomology with the two linear-algebra lemmas behind the theorem on the semiregularity form of propagation |
@@ -101,10 +102,10 @@ reduction at all.
 No Mathlib and no dependencies. The file ends with one `#print axioms` line
 per theorem; every one must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
-through `decide`, and none may mention `sorryAx`. There are seventy-eight theorems. `lean/README.md` lists them
+through `decide`, and none may mention `sorryAx`. There are eighty theorems. `lean/README.md` lists them
 and says what each one does and does not establish. The workflow in
 `.github/workflows/lean.yml` runs the check on every push and fails if the
-number of theorems is not seventy-eight, or if any of them depends on an axiom other than propext.
+number of theorems is not eighty, or if any of them depends on an axiom other than propext.
 
 ## The Macaulay2 items
 

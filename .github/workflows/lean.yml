@@ -38,8 +38,8 @@ jobs:
           if [ "$bad" -ne "$m" ]; then
             echo "a theorem depends on an axiom other than propext"; exit 1
           fi
-          if [ "$((n + m))" -ne 78 ]; then
-            echo "expected 78 theorems, found $((n + m))"; exit 1
+          if [ "$((n + m))" -ne 80 ]; then
+            echo "expected 80 theorems, found $((n + m))"; exit 1
           fi
 
   scripts:
@@ -58,5 +58,5 @@ jobs:
         working-directory: code
         run: |
           python3 verify_all.py | tee ../checks.txt
-          grep -q "829 checks passed, 0 failed" ../checks.txt
+          grep -q "853 checks passed, 0 failed" ../checks.txt
           grep -q "overall: PASS" ../checks.txt

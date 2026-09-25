@@ -493,7 +493,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   named in a rule is declared and every declared statement is used, that the
   rule set is acyclic, and that every one of the fifteen theorem labels it
   names, for its rules and for the consequences of $\mathbf{HC}$ it records,
-  is a label of this paper, against the list of all $526$ labels generated
+  is a label of this paper, against the list of all $528$ labels generated
   from the sources and distributed with the script as
   \texttt{paper\_\allowbreak labels.txt}. It then computes the forward closure
   by iterating the one step map to a fixed point, and verifies that no
@@ -915,13 +915,38 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   conjecture itself, (F3), and \textup{(L)} with \textup{(M)}, none of which
   contains the target. That is \Cref{cor:mumfordone} and
   \Cref{rem:mumfordneeded}.
+\item \emph{What an object meeting the numerical criterion must look like.}
+  The script \texttt{criterion\_\allowbreak shape.py} checks the finite
+  ingredients of \Cref{thm:p2endo}. (A) In the coordinate model of
+  \Cref{sec:explicit}, for $n=2$ with $d=1,2,3,5,7$ and for $n=3$ with
+  $d=1,2,3$, the rational Weil classes $\omega_{1}$, $\omega_{2}$ satisfy
+  $\eta\wedge\omega_{1}=\eta\wedge\omega_{2}=0$, and in the orientation in
+  which $\eta^{2n}$ is positive the intersection form on the rational Weil
+  plane is positive definite at $n=2$ and negative definite at $n=3$, as the
+  Hodge--Riemann relations require; its Gram matrix in the basis
+  $\omega_{1},\omega_{2}$ is $\mathrm{diag}(8d^{2},8d)$ at $n=2$ and
+  $\mathrm{diag}(-32d^{3},-32d^{2})$ at $n=3$. (B) In the model of item
+  (XXXVIII), for $n=2$ and $n=3$ and in every degree, the classes of type
+  $(p,p)$ killed by all $4n^{2}$ monomials of $P\wedge Q$ are exactly
+  $\CC\alpha_{+}\oplus\CC\alpha_{-}$. (C) The generators of
+  $\bigwedge^{2n}P$ and $\bigwedge^{2n}Q$ contract $\omega$ to nonzero
+  multiples of the generator of $H^{0,2n}$; contraction with $\omega$ is
+  injective on $\bigwedge^{2n-2}P\oplus\bigwedge^{2n-2}Q$; and the pairing
+  $\bigwedge^{2}P\times\bigwedge^{2n-2}P\to\bigwedge^{2n}P$ is perfect.
+  (D) The alternating sum of the lower bounds $1,2\binom{2n}{1},\dots,1$ is
+  $-2$ for every $n\le60$; at $n=2$ and $n=3$, exhaustive search over the
+  admissible profiles shows $2e_{0}\ge\chi+4$, hence $e_{0}\ge3$, lists the
+  smallest profiles, and gives $e_{1}\le e_{0}+9$ at $n=3$; at $n=4$ and
+  $n=5$ a profile with $e_{0}=1$ satisfies the same constraints, so the bound
+  on $\End$ is special to $n\le3$; and the same identity with $\chi=0$ on the
+  Mumford square returns the $800$ odd self-extensions of item (XLV).
 \end{enumerate}
 
-Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (XLIX) are the ones
+Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (L) are the ones
 on which theorems depend. Items (IV) and (V) support statements that no
 obstruction exists, and a failure there would strengthen rather than weaken
 the paper, so they are included for completeness rather than for safety.
-Running \texttt{verify\_all.py} executes the forty-four Python items and
-prints \texttt{829 checks passed, 0 failed}; items (XXIX), (XXXI) and
+Running \texttt{verify\_all.py} executes the forty-five Python items and
+prints \texttt{853 checks passed, 0 failed}; items (XXIX), (XXXI) and
 (XL) need Macaulay2 and are run separately, and their transcripts are
 distributed with the scripts.
