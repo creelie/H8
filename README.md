@@ -34,7 +34,7 @@ Lean check:
 
 The last lines are
 
-    865 checks passed, 0 failed
+    947 checks passed, 0 failed
     overall: PASS
 
 and the exit status is zero. The driver runs five self-contained checks and
