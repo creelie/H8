@@ -22,13 +22,22 @@ of it; round 7 added the shape theorem for an object meeting the (P2)
 criterion; round 8 proved that criterion false in its pure form, with Chern
 character exactly a Weil class, via very general non-algebraic Weil tori
 (`thm:p2false`, item (LI), `code/weil_tori.py`), and restated (P2) in the
-corrected form of `rem:p2prime`).
+corrected form of `rem:p2prime`; round 9 retitled the paper "Explicit Base
+Points and Obstructions to Propagation for Weil Classes on Abelian Varieties"
+and added a Data availability section to `tex/declarations.tex`).
+
+The Zenodo DOI of the archived GitHub release goes in the macro `\zenodoDOI`
+at the top of `tex/declarations.tex`; until it is minted the macro holds a
+bracketed placeholder. There is no separate AI declaration: the use of Claude
+for the Python and Lean computations is stated in the Data availability
+section.
 
 ## Checks before delivering
 
 - `cd code && python3 verify_all.py` ends with `N checks passed, 0 failed`;
-  keep the count in `README.md`, `.zenodo.json`, `.github/workflows/lean.yml`
-  and `tex/sections/12_verification.tex` in step.
+  keep the count in `README.md`, `.zenodo.json`, `.github/workflows/lean.yml`,
+  `tex/sections/12_verification.tex`, `tex/appendices/D_scripts.tex` and
+  `tex/declarations.tex` in step.
 - `cd lean && lean HodgeObstruction.lean`: 80 theorems, each axiom-free or
   depending on `propext` only.
 - `cd tex && latexmk -pdf main.tex`: 0 errors, 0 overfull or underfull boxes,

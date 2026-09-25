@@ -2,7 +2,7 @@
 HodgeObstruction.lean
 
 A machine check, by Lean 4's kernel, of the finite arithmetic behind the
-results of "Explicit Base Points and Numerical Propagation for Weil Classes on Abelian Varieties".
+results of "Explicit Base Points and Obstructions to Propagation for Weil Classes on Abelian Varieties".
 
 The two theorems are statements of algebraic geometry and are not formalised
 here; what is formalised is the arithmetic on which each of them turns, and in

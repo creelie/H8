@@ -1,4 +1,4 @@
-# Machine verification for *Explicit Base Points and Numerical Propagation for Weil Classes on Abelian Varieties*
+# Machine verification for *Explicit Base Points and Obstructions to Propagation for Weil Classes on Abelian Varieties*
 
 `HodgeObstruction.lean` is a certificate, checked by the Lean 4 kernel, of the
 finite arithmetic on which the results of the paper turn.

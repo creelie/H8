@@ -1,7 +1,7 @@
-# Explicit Base Points and Numerical Propagation for Weil Classes on Abelian Varieties
+# Explicit Base Points and Obstructions to Propagation for Weil Classes on Abelian Varieties
 
 Verification code and figure sources for the paper *Explicit Base Points and
-Numerical Propagation for Weil Classes on Abelian Varieties*, by Deep Bhattacharjee and Ushashi Bhattacharya.
+Obstructions to Propagation for Weil Classes on Abelian Varieties*, by Deep Bhattacharjee and Ushashi Bhattacharya.
 
 Everything here is self-contained. Nothing needs a network connection, a
 licence, or a package other than those named below.

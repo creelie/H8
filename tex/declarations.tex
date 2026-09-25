@@ -1,3 +1,7 @@
+% The DOI that Zenodo mints for the archived GitHub release; replace the
+% bracketed text with it once the release is published.
+\newcommand{\zenodoDOI}{[to be inserted once Zenodo mints it]}
+
 \section*{Declarations}
 
 \subsection*{Funding}
@@ -5,3 +9,25 @@ None.
 
 \subsection*{Competing interests}
 None.
+
+\subsection*{Data availability}
+All code and data supporting the results of this paper are openly available.
+The verification package comprises the Python scripts of
+\Cref{sec:verification}, the Lean~4 certificate of \Cref{sec:lean}, the
+Macaulay2 computations of local $\Ext$ algebras with their transcripts, and the
+generators and TikZ sources of every figure. It is held in the public GitHub
+repository
+\begin{center}
+\url{https://github.com/creelie/H8}
+\end{center}
+The version that accompanies this paper is release v1.0.0 of that repository.
+It is archived on Zenodo, which mints a DOI for it, under
+DOI~\zenodoDOI. Running \texttt{python3 code/verify\_all.py} prints
+\texttt{865 checks passed, 0 failed}. Running
+\texttt{lean HodgeObstruction.lean} checks eighty theorems, each of which uses
+no axiom or propositional extensionality alone. The Python computations and the
+Lean formalisation were carried out with the assistance of Claude, an AI system
+developed by Anthropic. Every result they certify is reproduced from the
+repository by the scripts and by the Lean kernel, and the mathematical
+statements and their proofs are the responsibility of the authors. No other
+data were generated or analysed.
