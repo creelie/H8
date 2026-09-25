@@ -795,6 +795,21 @@ def item_G(F):
         ok = ok and q.b == 0 and q.a == (s2.a + 4 * S.a) / 6
     check("n=2, exceptional ratio, c_2 = 1: int gamma kappa_h^2 = (sigma_2(h) + 4 Re "
           "det h[01,23]) / 6 at eight random h, as a multiple of int theta^4", ok)
+    # the identity is linear in gamma: at |u| = 2 (R = 3) the coefficient is 2
+    gamma3 = M.ch([0, 0, 1, 0, 0], (2, 0), F, pw)
+    ok = True
+    for _ in range(6):
+        h = rand_pd(4, Fr(1))
+        s2 = GQ(0)
+        for i in range(4):
+            for j in range(i + 1, 4):
+                s2 = s2 + h[i][i] * h[j][j] - h[i][j] * h[j][i]
+        S = h[0][2] * h[1][3] - h[0][3] * h[1][2]
+        q = integral(gamma3, h)
+        ok = ok and q.b == 0 and q.a == (s2.a + 2 * S.a) / 6
+    check("n=2, c_2 = 1, |u| = 2 (R = 3): int gamma kappa_h^2 = (sigma_2(h) + 2 Re "
+          "det h[01,23]) / 6 at six random h, so the identity is (c sigma_2 + |u| "
+          "Re det) / 6", ok)
     signs = {}
     for label, u, c2 in (("R = 3/4, c_2 > 0", (4, 0), Fr(1)),
                          ("R = 3/4, c_2 < 0", (4, 0), Fr(-1)),

@@ -162,6 +162,9 @@ Their unedited transcripts are the `.txt` files beside them, and
                                 # the rigidity of the Mumford classes, the
                                 # audit of the bypass mechanisms, and the
                                 # self-extension bounds for the Mumford object
+    python3 make_round11.py     # the web of Weil families under descent,
+                                # the corrected criterion as a number, and
+                                # the Kaehler sign at the exceptional ratio
     for f in fig_*.tex; do pdflatex -interaction=nonstopmode "$f"; done
     python3 checkfigs.py        # must print 0 overlapping label pairs
 

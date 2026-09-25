@@ -2804,9 +2804,12 @@ self-extensions on the fibres of $f\colon\cA\to\cS$. It is algebraic and
 locally of finite presentation over $\cS$ \cite{Lie06}, and at a point $[E]$
 over $s_{0}$ its deformation theory relative to $\cS$ has tangent space
 $\Ext^{1}(E,E)$ and obstruction space $\Ext^{2}(E,E)$. If
-$\Ext^{<0}(E,E)\ne0$, which that stack excludes, use instead the analytic
-Kuranishi germ of pairs of the proof of \Cref{thm:p2false}, with the same
-tangent and obstruction spaces; the argument below then gives a nonempty
+$\Ext^{<0}(E,E)\ne0$, which that stack excludes,\footnote{Lieblich's
+stack parametrises the complexes he calls universally gluable, those with
+$\Ext^{<0}(E,E)=0$; without that condition a complex can have automorphisms
+of negative degree, and the natural moduli object is the derived stack of
+To\"en and Vaqui\'e.} use instead the analytic Kuranishi germ of pairs of the
+proof of \Cref{thm:p2false}, with the same tangent and obstruction spaces; the argument below then gives a nonempty
 analytic open set in place of a Zariski open one, which is all that
 \Cref{cor:allornothing} needs.
 
@@ -4035,7 +4038,13 @@ For complex numbers $c_{0},\dots,c_{2n}$ put
   \gamma=\omega+p(\theta),\qquad \mu_{m}=m!\,c_{m},
 \]
 and let $\rho\in\{0,1,2,3\}$ be the rank of the $(2n-1)\times3$ Hankel matrix
-$H=[\mu_{j+i}]$, $0\le j\le2n-2$, $0\le i\le2$. Write $r(\gamma)$ for the
+$H=[\mu_{j+i}]$, $0\le j\le2n-2$, $0\le i\le2$.\footnote{$H$ is a
+catalecticant of the moment sequence $\mu_{m}=m!\,c_{m}$. A nonzero vector
+$(x,\lambda,w)$ in its kernel is a linear recurrence
+$x\mu_{j}+\lambda\mu_{j+1}+w\mu_{j+2}=0$ of order at most two, so $\rho\le2$
+says that the moments satisfy one, and the shapes of
+\Cref{thm:p2primenumber}(ii) are its solutions, read off from the roots of
+$wT^{2}+\lambda T+x$.} Write $r(\gamma)$ for the
 rank of contraction $HT^{2}(A)\to H^{*}(A,\CC)$, $\xi\mapsto\xi\lrcorner\gamma$.
 For $a<n\le b$, in the basis of \Cref{thm:hhsplitting} adapted to an
 eigenbasis $e_{j}$ of $V_{+}$ and $f_{j}$ of $V_{-}$ with $e_{j},f_{j}$ of
@@ -4166,6 +4175,22 @@ $c_{k}\theta^{k}$, and it is paid in the right place: every direction of
 $HT^{2}$ other than the $n^{2}$ directions of the family moves $\gamma$ off
 the Hodge classes, so an object meeting the bound has $\operatorname{ev}_{E}$
 injective on a complement of $T_{[A]}\cD_{n,n}$.
+\Cref{fig:hankel} plots the number against $n$ for the four Hankel ranks.
+
+\begin{figure}[tbp]
+\centering
+  \includegraphics[width=0.86\textwidth]{fig_hankel}
+\caption{The dimension $r(\gamma)=(4+\rho)n^{2}-2n$ that
+$\Ext^{2}(E,E)$ must have for a complex with Chern character
+$\gamma=N\omega_{1}+\sum_{k}c_{k}\theta^{k}$ to meet the corrected criterion,
+for the four Hankel ranks $\rho$ of \Cref{thm:p2primenumber}; the dots are the
+values computed exactly over $\QQ(i)$ by item (LII), through $n=10$, where
+$HT^{2}$ has dimension $780$. The pure form, $\rho=0$, is the bottom curve
+$2n(2n-1)$, which no complex attains (\Cref{thm:p2false}); a general shape
+lies on the top curve $7n^{2}-2n$. At $n=2$ the weight argument fails for one
+pair of weights and seven values occur.}
+\label{fig:hankel}
+\end{figure}
 
 \begin{proposition}[The Hochschild profile of a corrected character]
 \label{prop:p2primeprofile}
@@ -4266,7 +4291,13 @@ automorphisms and fixes $\theta^{k}$, so the path $t\mapsto t_{J}\theta$ lies in
 $\{y\in\bigwedge^{2}H^{1}(A,\RR):y^{k}=\theta^{k}\}$. At a nondegenerate $y$
 the differential $h\mapsto k\,y^{k-1}h$ of $y\mapsto y^{k}$ is injective on
 $\bigwedge^{2}$ when $2+(k-1)\le2n$, by the linear hard Lefschetz theorem for
-the symplectic form $y$ on a space of dimension $4n$, so near $\theta$ that set
+the symplectic form $y$ on a space of dimension $4n$,\footnote{For a
+nondegenerate $y\in\bigwedge^{2}U^{\vee}$ on a real space $U$ of dimension
+$2m$, multiplication by $y^{j}$ is injective from $\bigwedge^{p}$ to
+$\bigwedge^{p+2j}$ whenever $p+j\le m$, because $y$ generates an
+$\mathfrak{sl}_{2}$-action on $\bigwedge^{*}U^{\vee}$ in which $\bigwedge^{p}$
+has weight $p-m$. Here $m=2n$, $p=2$ and $j=k-1$. The bound is sharp:
+$\theta^{2n}$ is a multiple of the volume form for every complex structure.} so near $\theta$ that set
 is discrete, the path is constant, and $\theta$ is of type $(1,1)$. (iii) By
 (i), applied to each homogeneous component, the Hodge locus of $\gamma$ in the
 chart is $\Ann_{H^{1}(T_{A})}(\gamma)$, the part of $\Ann_{HT^{2}}(\gamma)$ in
@@ -4331,7 +4362,12 @@ of dimension $8$, its spin representation; among its real forms only
 $\mathfrak{so}(4,3)$ has a trace form of signature $(12,9)$. Its invariants in
 $\bigwedge^{*}H^{1}$ are spanned by $1$, $\gamma_{2}$ and the class of a point,
 so $\gamma_{2}$ is the invariant $4$-form of $\mathrm{Spin}(4,3)$, a split form
-of the Cayley form. The Hodge locus of $\gamma$ near $A$ is the orbit of $A$
+of the Cayley form.\footnote{In the compact case the stabiliser in
+$\GL(8,\RR)$ of the Cayley $4$-form is $\mathrm{Spin}(7)$, acting on $\RR^{8}$
+by its spin representation; here the same happens for the real form of
+signature $(4,3)$. We know of no earlier appearance of this form among the
+Hodge classes of abelian fourfolds, but we have not searched the literature on
+Hodge loci for it systematically.} The Hodge locus of $\gamma$ near $A$ is the orbit of $A$
 under the connected real group $G$ of $\mathfrak{g}$, since that orbit has
 dimension $\dim\mathfrak{g}^{-1,1}=5$ and lies in the locus; the Hodge group
 of a very general member $T$ has Lie algebra an ideal of $\mathfrak{g}$, hence
@@ -4364,6 +4400,22 @@ and the constancy of the sign at random K\"ahler classes, against a change of
 sign at $R=3/16$. At $n=2$ Markman's theorem settles every Weil fourfold, so
 this is a statement about the shape of (P2$'$), not about the conjecture.
 \end{remark}
+
+\begin{figure}[tbp]
+\centering
+  \includegraphics[width=0.86\textwidth]{fig_kahlersign}
+\caption{The exceptional ratio of \Cref{rem:p2primeexceptional}. By the
+identity displayed there, which is linear in $\gamma$, the infimum over the
+K\"ahler cone of $6\int\gamma\kappa^{2}\big/\bigl(|c|\,\sigma_{2}(h)\int
+\theta^{4}\bigr)$ is $m(R)=1-\sqrt{3/(4R)}$, approached at the boundary of the
+cone by a positive hermitian form of rank two whose Pl\"ucker coordinates
+satisfy $|\xi_{01}\xi_{23}|=\frac14$. It is negative exactly for $R<3/4$, and
+$R=3/4$ is also where the Hodge locus of $\gamma$ jumps from dimension $4$ to
+$5$ and its stabiliser becomes $\mathfrak{so}(4,3)$, with $r(\gamma)=23$; at
+$R=3$ the annihilator has dimension $6$ and $r(\gamma)=22$. Items (LII)(D),
+(E) and (G) check these values.}
+\label{fig:kahlersign}
+\end{figure}
 
 \begin{remark}[Which obstructions survive the correction]
 \label{rem:p2primesurvive}
@@ -4462,7 +4514,10 @@ $\dim K_{E}=e-k$, the dimension inequality for a local homomorphism
 \cite[Theorem~15.1]{Mat86} gives $\dim P/J\le n^{2}+e-k$, so equality holds, $J$
 has height $k$ and is generated by a regular sequence, $P/J$ is
 Cohen--Macaulay, and it is flat over $R$ by miracle flatness
-\cite[Theorem~23.1]{Mat86}. The analytic Kuranishi germ of pairs, as in the
+\cite[Theorem~23.1]{Mat86}.\footnote{A local homomorphism from a regular local
+ring to a Cohen--Macaulay local ring is flat exactly when the dimension of the
+target is the dimension of the source plus that of the fibre; here both sides
+equal $n^{2}+e-k$.} The analytic Kuranishi germ of pairs, as in the
 proof of \Cref{thm:p2false}, has $P/J$ as its completion, so it is flat over
 the germ of $\cD_{n,n}$ at $s_{0}$ and therefore open onto a neighbourhood
 $U$ of $s_{0}$. Every $A_{s}$ with $s\in U$ then carries a bounded complex of
