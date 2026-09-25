@@ -26,9 +26,10 @@ corrected form of `rem:p2prime`; round 9 retitled the paper "Explicit Base
 Points and Obstructions to Propagation for Weil Classes on Abelian Varieties"
 and added a Data availability section to `tex/declarations.tex`).
 
-The Zenodo DOI of the archived GitHub release goes in the macro `\zenodoDOI`
-at the top of `tex/declarations.tex`; until it is minted the macro holds a
-bracketed placeholder. There is no separate AI declaration: the use of Claude
+Release v1.0.0 (tag `v1.0.0`, commit `ef15bce`) is archived on Zenodo under
+DOI 10.5281/zenodo.22950276, recorded in the macro `\zenodoDOI` at the top of
+`tex/declarations.tex`, in `CITATION.cff` and in `README.md`. A later GitHub
+release gets a new version DOI from Zenodo; update all three places then. There is no separate AI declaration: the use of Claude
 for the Python and Lean computations is stated in the Data availability
 section.
 

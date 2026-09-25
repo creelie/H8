@@ -1,7 +1,13 @@
 # Explicit Base Points and Obstructions to Propagation for Weil Classes on Abelian Varieties
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22950276.svg)](https://doi.org/10.5281/zenodo.22950276)
+
 Verification code and figure sources for the paper *Explicit Base Points and
 Obstructions to Propagation for Weil Classes on Abelian Varieties*, by Deep Bhattacharjee and Ushashi Bhattacharya.
+
+Release v1.0.0 (https://github.com/creelie/H8/releases/tag/v1.0.0) is
+archived on Zenodo under DOI 10.5281/zenodo.22950276
+(https://doi.org/10.5281/zenodo.22950276); cite that DOI for the code.
 
 Everything here is self-contained. Nothing needs a network connection, a
 licence, or a package other than those named below.
