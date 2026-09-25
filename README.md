@@ -18,7 +18,11 @@ licence, or a package other than those named below.
     code/       exact-arithmetic verification in Python 3 (sympy for secant_plane.py,
                 weiltype_family.py, mumford_rigidity.py, mumford_object.py,
                 lefschetz_closure.py, twistor_locus.py and hk_pullback.py, numpy
-                integer arrays for pte_remaining.py and weil_tori.py)
+                integer arrays for pte_remaining.py and weil_tori.py, and
+                python-flint exact rational matrices for attack_checks.py)
+    code/attack/  the round-12 attack scripts, with their verifiers' scripts
+                and transcripts (item (LV))
+    code/extreme/ longer runs of several items, with transcripts
     verify.ps1  the whole verification on Windows, Python suite then Lean
     lean/       a kernel-checked certificate of the finite arithmetic, Lean 4
     figures/    the generators and TikZ sources of every figure in the paper

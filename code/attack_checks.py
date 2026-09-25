@@ -17,7 +17,7 @@ conjecture.
 This script runs a fast subset of the packaged scripts, each in its own
 subprocess with bytecode writing switched off (python3 -B), reads the numbers
 they print and turns them into checks.  Where a script is run on part of its
-cases only, a two-line driver imports it and calls its own functions.  The
+cases only, a short driver imports it and calls its own functions.  The
 long runs are not repeated here; their transcripts are in
 attack/*/transcripts/.
 
@@ -71,9 +71,9 @@ Run with
 
     python3 -B attack_checks.py
 
-from any directory.  It takes about two and a half minutes on one core; the
-last line is 'N checks passed, M failed', and the exit status is nonzero if a
-check fails.
+from the directory containing it, or with its path from any other.  It takes
+about two and a half minutes on one core; the last line is 'N checks passed,
+M failed', and the exit status is nonzero if a check fails.
 """
 
 import os
@@ -158,6 +158,7 @@ def track_T1():
           "su(V,H) has Q-dimension 30, W_F has Q-dimension 4 and is killed "
           "by su(V,H); 20 checks passed, 0 failed",
           summary_ok(out, st, 20) and count(r"found 30\b", out) == 2
+          and count(r"\[PASS\] dim_Q su\(V,H\) = 30", out) == 2
           and count(r"\[PASS\] dim_Q W_F = 4", out) == 2
           and count(r"\[PASS\] W_F killed by su\(V,H\)", out) == 2)
     check("Hodge classes in H^2: exactly 2 at a member with Hodge group "
@@ -293,10 +294,13 @@ def track_T2():
           and "PASS no V(2,0,0)-type summand in any wedge^k V" in out
           and ("multiplicity of T_1 = V(2,0,0) in H^n(X x X), n = 0..16: "
                + mult) in out)
-    check("the 12-dimensional unitary model: T occurs in H^2 with Hodge "
-          "numbers (1,7,1), so the smallest abelian carrier of T can have "
-          "dimension 6",
+    check("the 12-dimensional unitary Hodge structure of weight one: the "
+          "character-trivial part of its wedge^2 is T_1 + T_2 + T_3 plus 3 "
+          "trivial summands, and T has Hodge numbers (1,7,1) there (the "
+          "Hodge-theoretic attainment of the bound dim >= 6)",
           "-> T: {2: 1, 1: 7, 0: 1}" in out
+          and "PASS it is T_1 + T_2 + T_3 + 3 copies of the trivial "
+              "representation" in out
           and "PASS T inside H^2(Z) has Hodge numbers (1,7,1)" in out)
 
     out, st = run(w + "/verify", "v1_weights.py")
@@ -341,6 +345,8 @@ def track_T2():
           "dimension 5 and are spanned by the S_6-orbit of eps^(x)3",
           summary_ok(out, st, 7)
           and "PASS (a) E(x)F + F(x)E + H(x)H/2 = P - I/2" in out
+          and all("(b) dim image of Q[S_%d] on (Q^2)^(x)%d: %d" % (k, k, v)
+                  in out for k, v in ((2, 2), (3, 5), (4, 14)))
           and "dim End_G(V(x)V) = 2^3 = 8, dim End_G(V^(x)3) = 5^3 = 125"
           in out
           and "PASS (c) the S_6-orbit of eps^(x)3 spans the 5-dim invariant "
@@ -349,10 +355,10 @@ def track_T2():
     out, st = run(w + "/verify", "v3_cm_hilbert.py")
     irr = re.findall(r"^\s+\(([01, ]+)\) support", out, re.M)
     sizes = sorted(sum(int(x) for x in v.split(",")) for v in irr)
-    check("the CM points (v3_cm_hilbert.py): the zero-sum multisets of the "
-          "eight weights {+-1}^3 have exactly 6 irreducible elements in the "
-          "box, the four pairs {w,-w} and two quadruples, none with a "
-          "repeated weight",
+    check("the CM points (the verifier's v3_cm_hilbert.py): the zero-sum "
+          "multisets of the eight weights {+-1}^3 with multiplicities at "
+          "most 5 have exactly 6 irreducible elements, the four pairs "
+          "{w,-w} and two quadruples, none with a repeated weight",
           summary_ok(out, st, 4) and "irreducible elements: 6" in out
           and sizes == [2, 2, 2, 2, 4, 4],
           "sizes of the irreducible zero-sum sets: %s" % sizes)
@@ -559,12 +565,17 @@ def track_T4():
     check("the minimal support theorem on examples: eight points on one "
           "conic through l_W give a pure relation, while seven points, and "
           "the splits 4+4, 5+3, 6+2, 6+1+1, 7+1, 3+3+2 over several conics, "
-          "give none",
+          "and random sets of eight (four line bundles and four subtori, or "
+          "eight line bundles) give none",
           len(good) == 2 and len(bad) == 11
           and all(v == "[(True, True), (True, True), (True, True)]"
                   for c, v in r4 if c in good)
           and all(v == "[(False, False), (False, False), (False, False)]"
-                  for c, v in r4 if c in bad))
+                  for c, v in r4 if c in bad)
+          and "(R4) 4 random line bundles + 4 subtori: relation over 3 "
+              "draws: [False, False, False]" in out
+          and "(R4) 8 random line bundles: relation over 3 draws: [False, "
+              "False, False]" in out)
 
     out, st = run(w + "/verify", "v2_lattice.py")
     idx = re.findall(r"H=(\d+): rank 9, Smith invariants \[1, 1, 1, 2, 6, 6, "
@@ -584,9 +595,9 @@ def track_T4():
     check("it meets the Weil plane in Z(3/2 W1) + Z(7/2 W2) for d = 1, "
           "Z(5/6 W1) + Z(35/6 W2) for d = 2 and Z(5/4 W1) + Z(5/4 W2) for "
           "d = 3",
-          all(("d=%s: Lambda cap Weil plane basis" % d) in out
-              and ("in W=24w coords: %s ; members check True" % v) in out
-              for d, v in inter.items())
+          all(len(lines_with(out, "d=%s: Lambda cap Weil plane basis" % d,
+                             "in W=24w coords: %s ; members check True"
+                             % v)) == 1 for d, v in inter.items())
           and "i.e. in terms of W1 = 24 w1, W2 = 24 w2: %s" % inter["1"]
           in out2)
 

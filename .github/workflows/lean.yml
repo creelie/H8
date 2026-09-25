@@ -51,8 +51,8 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: install sympy and numpy
-        run: python3 -m pip install sympy numpy
+      - name: install sympy, numpy and python-flint
+        run: python3 -m pip install sympy numpy python-flint
 
       - name: run the exact-arithmetic verification
         working-directory: code

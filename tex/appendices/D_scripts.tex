@@ -11,9 +11,11 @@ Gram determinants over $\QQ[a_{0},\dots,a_{3}]$, and for
 \texttt{mumford\_object.py}, \texttt{lefschetz\_closure.py},
 \texttt{twistor\_locus.py} and \texttt{hk\_pullback.py}, where it computes
 exact ranks, null spaces, determinants and characteristic polynomials, and
-\texttt{numpy} for \texttt{pte\_remaining.py} and \texttt{weil\_tori.py},
-where it holds integer arrays and reduces them modulo a prime; no step uses
-floating point.
+\texttt{numpy} for \texttt{pte\_remaining.py}, \texttt{weil\_tori.py} and
+some of the scripts that item (LV) runs, where it holds integer arrays and
+reduces them modulo a prime, and \texttt{python-flint} for item (LV), where its
+\texttt{fmpq\_mat} computes exact ranks over $\QQ$; no step uses floating
+point.
 
 \begin{small}
 \begin{verbatim}

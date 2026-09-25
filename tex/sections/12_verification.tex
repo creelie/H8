@@ -5,7 +5,8 @@ Every numerical assertion in this paper is checked by exact arithmetic.%
 \footnote{Exact arithmetic is not a scruple here. Several of the quantities are differences of large binomial coefficients, and at $n=7$ the semiregularity target exceeds $10^{11}$; in double precision the comparison in item (V) would be meaningless. Everything uses Python's \texttt{fractions} module or integers, and nothing converts to a float.} The
 scripts are described in \Cref{app:scripts}. They use the standard library of
 Python, together with \texttt{sympy} for exact symbolic linear algebra in
-several of them and \texttt{numpy} for integer arrays in two; they work over $\QQ$ and
+several of them, \texttt{numpy} for integer arrays in a few and
+\texttt{python-flint} for exact rational matrices in item (LV); they work over $\QQ$ and
 its finite extensions with the \texttt{fractions} module or exact symbolic
 arithmetic, and they perform no floating-point operation; items (XXIX), (XXXI) and (XL) are $\Ext$
 computations over a polynomial ring, carried out in Macaulay2. We describe what is checked.
