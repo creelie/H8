@@ -7,6 +7,10 @@ XIII): every signed tuple of <= 4 line bundles a beta + b betahat + c ell,
 Prediction (s >= 2n): no tuple with < 4 Lagrangians off C_theta.  Also
 recorded: whether the 4 Pluecker points span a plane through l_W (conic
 through L_+-), and whether the Chern character is a pure Weil class.
+
+Usage: t4_n2_cross.py [box [d ...]].  The default, box 3 and d = 1, 2, is the
+run of transcripts/n2_cross.log (about four minutes); attack_checks.py runs
+the smaller box 2 (about half a minute).
 """
 import sys, os
 sys.dont_write_bytecode = True
@@ -18,9 +22,12 @@ from fractions import Fraction as Fr
 from ext import Split, exp_class, add, scale, power, Echelon, wedge
 from lg import L_S
 
-for d in (1, 2):
+BOX = int(sys.argv[1]) if len(sys.argv) > 1 else 3
+DS = [int(a) for a in sys.argv[2:]] or [1, 2]
+
+for d in DS:
     with contextlib.redirect_stdout(io.StringIO()):
-        mod, eta, w1, w2, found = SR.signed_search(2, d, box=3, smax=4, verbose=False, cap=2000000)
+        mod, eta, w1, w2, found = SR.signed_search(2, d, box=BOX, smax=4, verbose=False, cap=2000000)
     weil = []
     for c in found:
         wp = SR.signed_weil_part(mod, eta, w1, w2, c)
@@ -58,6 +65,7 @@ for d in (1, 2):
         if not others and not E4.reduce(deg4):
             pure += 1
         sizes[len(c)] = sizes.get(len(c), 0) + 1
-    print("n=2 d=%d: %d Weil tuples, sizes %s; all four Lagrangians off C_theta: %d;"
+    tag = "n=2 d=%d" % d if BOX == 3 else "n=2 d=%d (box %d)" % (d, BOX)
+    print("%s: %d Weil tuples, sizes %s; all four Lagrangians off C_theta: %d;"
           " on a conic through l_W: %d; pure Weil character: %d"
-          % (d, len(weil), sizes, offCtheta, onconic, pure))
+          % (tag, len(weil), sizes, offCtheta, onconic, pure))

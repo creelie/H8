@@ -14,3 +14,4 @@ __pycache__/
 
 # unedited transcripts of the long runs
 !code/extreme/transcripts/*.log
+!code/attack/*/transcripts/*.log
