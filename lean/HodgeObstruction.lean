@@ -1045,8 +1045,8 @@ theorem burch_rank_four_witness :
 /-! ## 24.  The closure graph: what is left, as a Horn system
 
 Item (XXXIII) of the verification section carries the logical skeleton of the
-paper as data: thirty-seven statements, each proved here, quoted from the
-literature, or open, and seventeen inference rules, each of which is one
+paper as data: forty-two statements, each proved here, quoted from the
+literature, or open, and twenty-two inference rules, each of which is one
 theorem of the paper or of the literature it quotes.  This section repeats
 that computation in the kernel.
 
@@ -1064,16 +1064,26 @@ The statements are numbered
     9  red_ab                                        27  mar3
    10  red_weil                                      28  base_point_cm
    11  weil_cm  (derived: every CM field)            29  reduction_cm
-   12  P2       (every CM field)                     30  orbit_dense_cm
+   12  P2_iq_s  ((P2), split, quadratic)             30  orbit_dense_cm
    13  secant_all                                    31  lef_B   (Lefschetz B)
    14  Q114                                          32  mot     (all motivated)
    15  smooth_exists                                 33  vhc     (variational)
    16  smooth_vanish                                 34  mot_def (Andre)
    17  sing_exists                                   35  acc_ab  (Deligne, Andre)
                                                      36  red_ab_mod (F3')
+   37  P2_iq_ns ((P2), other discriminants)          40  weil_cm_triv
+   38  P2_cm_s  ((P2), split, degree >= 4)           41  weil_cm_nontriv
+   39  P2_cm_ns ((P2), the rest, degree >= 4)
 
 with 19 to 30, 34 and 35 proved here or quoted, 9, 10, 12 to 18, 31 to 33
-and 36 open, and the rest derived.  The consequence operator is monotone and each rule has
+and 36 to 39 open, and the rest derived.  The propagation statement (P2) is
+carried family by family.  The rules `[4]` gives 5 and `[40]` gives 41 are
+descent: `B x Y`, with `Y` of `(F,1)`-Weil type of any discriminant, and a
+push-forward against the Weil class of `Y`, which lies in `H^2`, carry the
+Weil classes of one family onto those of every family of lower dimension and
+every discriminant.  The rule `[40]` gives 4 is scalar extension,
+`B -> B (x) O_F`, from the split families of a field of degree at least four
+to those of the imaginary quadratic fields it contains.  The consequence operator is monotone and each rule has
 one conclusion, so a pass that changes the set adds a conclusion not present
 before; there are fewer than thirty-two conclusions, so thirty-two passes
 reach the fixed point.
@@ -1101,25 +1111,28 @@ gives 1, the conjecture for abelian varieties.
 
 What is checked.  The conjecture is not a consequence of what is proved here.
 It is a consequence once statement 9 alone is adjoined, and once any of
-`[31, 32]`, `[31, 36]`, `[33, 36]` and `[36, 10, 12]` is; in each of these
-five sets every element is necessary.  The sets `[9, 10, 12]`, `[31, 9]` and
+`[31, 32]`, `[31, 36]`, `[33, 36]` and `[36, 10, 38]` is; in each of these
+five sets every element is necessary.  The sets `[9, 10, 38]`, `[31, 9]` and
 `[33, 9]` also suffice and are not minimal, since they contain `[9]`.  Among
-the thirteen open statements exactly one, 9, suffices alone, and among all
-seventy-eight pairs exactly those containing 9 and the pairs `[31, 32]`,
-`[31, 36]` and `[33, 36]` suffice.  Statement 33 alone gives the conjecture for
+the sixteen open statements exactly one, 9, suffices alone, and among all
+one hundred and twenty pairs exactly those containing 9 and the pairs
+`[31, 32]`, `[31, 36]` and `[33, 36]` suffice.  Statement 33 alone gives the conjecture for
 abelian varieties and not the conjecture, and statement 31 gives 33.  And the secant route, granted both of its open
-demands, yields the trivial discriminant families and not the others, while
-the propagation statement yields the Weil classes of every CM field.
+demands, yields the trivial discriminant families and, by descent, every
+imaginary quadratic family, and not the fields of higher degree; and the
+propagation statement for the split families of the fields of degree at
+least four, 38, yields the Weil classes of every CM field.
 -/
 
 /-- the rules, as pairs of a premise list and a conclusion. -/
 def hcRules : List (List Nat × Nat) :=
   [([1, 9], 0), ([9], 1), ([2, 10], 1), ([3, 11], 2), ([4, 5], 3),
-   ([12, 19, 20, 21], 4), ([12, 19, 20, 21], 5),
+   ([12, 19, 20, 21], 4), ([37, 19, 20, 21], 5),
+   ([38, 28, 29, 30], 40), ([39, 28, 29, 30], 41), ([40, 41], 11),
+   ([4], 5), ([40], 41), ([40], 4),
    ([13, 14, 20, 22, 23, 25], 4),
    ([15, 16, 24], 6), ([17, 18, 24], 6), ([6, 14, 22, 23], 7),
    ([26, 27], 8),
-   ([12, 28, 29, 30], 11),
    ([31, 32], 0), ([31, 34], 33), ([33, 35], 1), ([1, 36], 0)]
 
 /-- what the paper proves or quotes. -/
@@ -1127,7 +1140,8 @@ def hcBase : List Nat :=
   [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 34, 35]
 
 /-- the open statements. -/
-def hcOpen : List Nat := [9, 10, 12, 13, 14, 15, 16, 17, 18, 31, 32, 33, 36]
+def hcOpen : List Nat :=
+  [9, 10, 12, 13, 14, 15, 16, 17, 18, 31, 32, 33, 36, 37, 38, 39]
 
 /-- one pass of the consequence operator. -/
 def hcStep (s : List Nat) : List Nat :=
@@ -1154,26 +1168,29 @@ which is the conjecture itself; the Lefschetz standard conjecture `31`
 together with the motivatedness of every Hodge class `32`; and the weaker
 statement `36`, the conjecture modulo abelian varieties, together with `31`,
 with the variational statement `33`, or with `10` and the propagation
-statement `12`, which is the route through this paper.  The sets
-`[9, 10, 12]`, `[31, 9]` and `[33, 9]` suffice as well, and each contains
-`[9]`. -/
+statement `38` for the split families of the fields of degree at least four,
+which is the route through this paper.  The sets `[9, 10, 38]`, `[31, 9]` and
+`[33, 9]` suffice as well, and each contains `[9]`. -/
 theorem frontier_suffices :
     (hcSuff [9] && hcSuff [31, 32] && hcSuff [31, 36] && hcSuff [33, 36]
-      && hcSuff [36, 10, 12] && hcSuff [9, 10, 12] && hcSuff [31, 9]
+      && hcSuff [36, 10, 38] && hcSuff [9, 10, 38] && hcSuff [31, 9]
       && hcSuff [33, 9]) = true := by
   decide
 
 /-- **Each element of each of the five minimal sets is necessary.**  Dropping
 any one of them leaves the conjecture underivable. -/
 theorem frontier_minimal :
-    (([[9], [31, 32], [31, 36], [33, 36], [36, 10, 12]] : List (List Nat)).all
+    (([[9], [31, 32], [31, 36], [33, 36], [36, 10, 38]] : List (List Nat)).all
         fun t => t.all fun f => !hcSuff (t.erase f)) = true := by decide
 
+set_option maxHeartbeats 2000000 in
 /-- **Exactly one statement suffices alone, and the pairs that suffice are
-those containing it and three more.**  Over the thirteen open statements,
-`9` and no other suffices alone, and of the seventy-eight pairs exactly those
-containing `9` and the pairs `[31, 32]`, `[31, 36]` and `[33, 36]`
-suffice. -/
+those containing it and three more.**  Over the sixteen open statements,
+`9` and no other suffices alone, and of the one hundred and twenty pairs
+exactly those containing `9` and the pairs `[31, 32]`, `[31, 36]` and
+`[33, 36]` suffice.  The kernel evaluates one hundred and thirty-six
+closures here, so the heartbeat limit is raised for this one theorem; that
+adds no axiom. -/
 theorem frontier_smallest :
     (hcOpen.all (fun a => hcSuff [a] == (a == 9))
       && hcOpen.all (fun a => hcOpen.all (fun b =>
@@ -1197,19 +1214,25 @@ theorem lefschetz_gives_abelian :
       && (hcClose (hcBase ++ [31]) 32).contains 1 && !hcSuff [31]) = true := by
   decide
 
-/-- **The secant route stops at the trivial discriminant.**  Granting both of
-its open demands, `13` and `14`, puts `4` in the closure and leaves `5` and
-`3` out of it. -/
-theorem secant_route_stops :
+/-- **The secant route descends and stops at the quadratic fields.**  Granting
+both of its open demands, `13` and `14`, puts the trivial discriminant `4` in
+the closure, and by descent `5` and the whole imaginary quadratic case `3`,
+and leaves the fields of higher degree `11` and the conjecture `0` out of
+it. -/
+theorem secant_route_descends :
     ((hcClose (hcBase ++ [13, 14]) 32).contains 4
-      && !(hcClose (hcBase ++ [13, 14]) 32).contains 5
-      && !(hcClose (hcBase ++ [13, 14]) 32).contains 3) = true := by decide
+      && (hcClose (hcBase ++ [13, 14]) 32).contains 5
+      && (hcClose (hcBase ++ [13, 14]) 32).contains 3
+      && !(hcClose (hcBase ++ [13, 14]) 32).contains 11
+      && !(hcClose (hcBase ++ [13, 14]) 32).contains 0) = true := by decide
 
-/-- **The propagation statement closes the imaginary quadratic case, and the
-Weil classes of every CM field.** -/
+/-- **The propagation statement for the split families closes the imaginary
+quadratic case, and for the split families of the fields of degree at least
+four it closes the Weil classes of every CM field.** -/
 theorem propagation_closes :
     ((hcClose (hcBase ++ [12]) 32).contains 3
-      && (hcClose (hcBase ++ [12]) 32).contains 2) = true := by decide
+      && (hcClose (hcBase ++ [38]) 32).contains 3
+      && (hcClose (hcBase ++ [38]) 32).contains 2) = true := by decide
 
 /-! ## 25.  The numerical criterion and the support of a semiregular object
 
@@ -1608,7 +1631,7 @@ propositional extensionality enters through `decide`, and in no case
 #print axioms HodgeObstruction.frontier_smallest
 #print axioms HodgeObstruction.variational_gives_abelian
 #print axioms HodgeObstruction.lefschetz_gives_abelian
-#print axioms HodgeObstruction.secant_route_stops
+#print axioms HodgeObstruction.secant_route_descends
 #print axioms HodgeObstruction.propagation_closes
 #print axioms HodgeObstruction.p2_minimal_count
 #print axioms HodgeObstruction.weil_monomials_separated

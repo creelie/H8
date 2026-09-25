@@ -17,14 +17,18 @@ One plate for the closure theorem.
                  quadratic fields and the fields of higher degree, fed by the
                  base points of every family.  Under (P2) stand three pillars,
                  the three constraints proved on any object that meets it.
-                 The secant route reaches the trivial discriminant and is
-                 crossed out before the other; the bounded criterion (P1) is
-                 drawn apart, closed on itself, because it is equivalent to
-                 its own conclusion.
+                 The secant route reaches the trivial discriminant; the two
+                 lemmas of prop:descent are drawn as the two edges inside the
+                 levels, descent from the trivial discriminant to the others
+                 and scalar extension from the fields of degree at least four
+                 to the quadratic fields; the bounded criterion (P1) is drawn
+                 apart, closed on itself, because it is equivalent to its own
+                 conclusion.
 
-The nodes, the levels and the edges are those of the rule set that
-closure_graph.py carries; the level of a node is its height in the
-topological order of that rule set.
+The nodes and the edges are those of the rule set that closure_graph.py
+carries, with (P2) drawn once for its four family-by-family forms; the level
+of a node is its height in the topological order of the propagation
+derivation, and the two edges of prop:descent run inside the levels.
 """
 import math
 import os
@@ -72,6 +76,7 @@ EDGES = [
     ("base", "triv", "base"), ("base", "nontriv", "base"),
     ("base", "weil_cm", "base"),
     ("secant", "triv", "stop"),
+    ("triv", "nontriv", "descent"), ("weil_cm", "weil_iq", "descent"),
 ]
 
 COL = {"d": "PIndigo", "o": "PClay", "p": "PGrass", "s": "PSlate"}
@@ -140,6 +145,7 @@ def fig_closure():
         "prop": "PGrass,line width=1.30pt",
         "base": "PGrass!70!PSlate,line width=0.70pt,dash pattern=on 1.4pt off 1.6pt",
         "stop": "PClay,line width=1.10pt,dash pattern=on 3pt off 2pt",
+        "descent": "PIndigo!80!PGrass,line width=1.05pt",
     }
     for a, b, kind in EDGES:
         pa, pb = top(a), pos(b)
@@ -178,16 +184,13 @@ def fig_closure():
                     "%s,line width=0.60pt" % colr, priority=2)
         ptops.append((c[0], c[1], c[2] - h / 2.0))
 
-    # the edge the secant route does not have
-    pa, pb = top("secant"), pos("nontriv")
-    stop = tuple(pa[k] + 0.55 * (pb[k] - pa[k]) for k in range(3))
-    sc.polyline([pa, stop],
-                "PClay!55,line width=1.0pt,dash pattern=on 1.6pt off 2.4pt",
-                priority=4)
-    for sx, sy in ((-1, -1), (-1, 1)):
-        sc.polyline([(stop[0] + 0.19 * sx, stop[1] + 0.19 * sy, stop[2]),
-                     (stop[0] - 0.19 * sx, stop[1] - 0.19 * sy, stop[2])],
-                    "PClay,line width=1.5pt", priority=5)
+    # the midpoints of the two edges of prop:descent, for their labels
+    def midpoint(a, b):
+        pa, pb = top(a), pos(b)
+        return (0.5 * (pa[0] + pb[0]), 0.5 * (pa[1] + pb[1]),
+                0.5 * (pa[2] + pb[2]) + 0.14)
+    m_desc = midpoint("triv", "nontriv")
+    m_scal = midpoint("weil_cm", "weil_iq")
 
     # the bounded criterion, closed on itself: a loop in a vertical plane
     qx, qy, qz = pos("P1")
@@ -219,7 +222,8 @@ def fig_closure():
     P.add(pos("weil_cm"), r"fields of degree $\ge4$", "text=PIndigo",
           side="R")
     P.add(pos("nontriv"), r"$\delta\ne\delta_{0}$", "text=PIndigo", side="R")
-    P.add(stop, r"never reached", "text=PClay", side="R")
+    P.add(m_desc, r"descent", "text=PIndigo", side="L")
+    P.add(m_scal, r"scalar extension", "text=PIndigo", side="R")
     P.add(pos("secant"), r"the secant route", "text=PClay", side="R")
     P.add((qx + 0.30, qy, qz + 0.42), r"(P1): equivalent to its conclusion",
           "text=PSlate", side="R")

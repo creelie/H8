@@ -487,11 +487,11 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   $q=(-7,-6,-4,4)$, which only the injectivity of $\varphi$ removes.
 
 \item \emph{The closure graph.} The script \texttt{closure\_\allowbreak graph.py}
-  carries the rule set of \Cref{setup:rules} as data: thirty-seven statements,
-  each marked proved here, quoted, or open, and seventeen rules, each carrying
+  carries the rule set of \Cref{setup:rules} as data: forty-two statements,
+  each marked proved here, quoted, open or derived, and twenty-two rules, each carrying
   the label of the theorem that proves it. It checks that every statement
   named in a rule is declared and every declared statement is used, that the
-  rule set is acyclic, and that every one of the fifteen theorem labels it
+  rule set is acyclic, and that every one of the seventeen theorem labels it
   names, for its rules and for the consequences of $\mathbf{HC}$ it records,
   is a label of this paper, against the list of all $534$ labels generated
   from the sources and distributed with the script as
@@ -499,34 +499,43 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   by iterating the one step map to a fixed point, and verifies that no
   statement marked proved rests at any depth on an open one, that
   $\mathbf{HC}$ is not in the closure of the proved and quoted statements,
-  and, by exhaustive search over all $2^{13}$ subsets of the thirteen open
+  and, by exhaustive search over all $2^{16}$ subsets of the sixteen open
   statements, that there are exactly the five minimal sufficient sets of
   \Cref{thm:closure}(ii), $\{\mathrm{F3}\}$, $\{\mathrm{L},\mathrm{M}\}$,
   $\{\mathrm{L},\mathrm{F3}'\}$, $\{\mathrm{V},\mathrm{F3}'\}$ and
-  $\{\mathrm{P2},\mathrm{F2},\mathrm{F3}'\}$, that (F3) is the one open
+  $\{\mathrm{P2}_{\mathrm{split}},\mathrm{F2},\mathrm{F3}'\}$, with
+  $\mathrm{P2}_{\mathrm{split}}$ the propagation statement for the split
+  families of the CM fields of degree at least four, that (F3) is the one open
   statement that suffices alone, that \textup{(F3$'$)} alone gives neither
   the conjecture for abelian varieties nor $\mathbf{HC}$, that the sets
-  $\{\mathrm{P2},\mathrm{F2},\mathrm{F3}\}$, $\{\mathrm{L},\mathrm{F3}\}$
+  $\{\mathrm{P2}_{\mathrm{split}},\mathrm{F2},\mathrm{F3}\}$, $\{\mathrm{L},\mathrm{F3}\}$
   and $\{\mathrm{V},\mathrm{F3}\}$ suffice and are not minimal, that the
   route through this paper is the only minimal set with three elements and
   the only one whose derivation uses a statement proved here, that each
   element of each set is necessary, that every set contains (F3),
   \textup{(F3$'$)} or \textup{(M)}, that every element of every set other
-  than (P2) is recorded as a consequence of $\mathbf{HC}$, and that
+  than $\mathrm{P2}_{\mathrm{split}}$ is recorded as a consequence of $\mathbf{HC}$, and that
   $\{\mathrm{F3}\}$ and $\{\mathrm{L},\mathrm{M}\}$ are each equivalent
   to it. It confirms that \textup{(V)} alone gives the
   conjecture for abelian varieties and not $\mathbf{HC}$, and that
   \textup{(L)} gives \textup{(V)}. It confirms that the six open demands of
   the secant route lie outside every minimal set, that granting the two of
-  them that matter reaches $\mathbf{W}(K,n,\delta_{0})$ and not the rest, that
-  the propagation statement reaches all of it and also the Weil classes of
-  every CM field, so that those are not open, and that the bounded criterion
+  them that matter reaches $\mathbf{W}(K,n,\delta_{0})$ and, through the
+  descent rule of \Cref{prop:descent}, $\mathbf{W}(K,n,\delta)$ for every
+  $\delta$, but not the Weil classes of the fields of degree at least four;
+  that the trivial discriminant closes the imaginary quadratic case and the
+  split families of the fields of degree at least four close it as well; that
+  the propagation statement for the split imaginary quadratic families
+  reaches all of that case, and for the split families of the higher fields
+  the Weil classes of every CM field, so that those are not open; that no
+  minimal set contains a propagation statement for a family of nontrivial
+  discriminant or for an imaginary quadratic field; and that the bounded criterion
   is absent from the rule set, being equivalent to its own conclusion. It
   then removes the rule of \Cref{prop:f3ishc} and the statement
   \textup{(F3$'$)} with its rule and repeats the search, which returns the
   four sets of the earlier version of this paper,
   $\{\mathrm{L},\mathrm{M}\}$, $\{\mathrm{L},\mathrm{F3}\}$,
-  $\{\mathrm{V},\mathrm{F3}\}$ and $\{\mathrm{P2},\mathrm{F2},\mathrm{F3}\}$;
+  $\{\mathrm{V},\mathrm{F3}\}$ and $\{\mathrm{P2}_{\mathrm{split}},\mathrm{F2},\mathrm{F3}\}$;
   so the change in the answer is those two additions and nothing else.
   Finally it checks that the numbering under which the same graph is carried
   into Section 24 of the Lean certificate maps these rules onto those. The
@@ -630,7 +639,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   $\Ann_{HH^{1}}(\omega)=0$, that $\Ann_{HH^{2}}(\omega)=P\wedge Q$ of
   dimension $4n^{2}$, that
   $\dim\Ann_{HH^{k}}(\omega)=\binom{4n}{k}-2\binom{2n}{k}+\delta_{k,2n}$
-  in every degree, that the ideal generated by $P\wedge Q$ consists of the
+  in every degree $k\ge1$ (and $0$ in degree $0$), that the ideal generated by $P\wedge Q$ consists of the
   monomials meeting both halves and has codimension $2^{2n+1}-1$, that
   contraction with $\alpha_{-}$ is injective on $\bigwedge^{*}P$ and with
   $\alpha_{+}$ on $\bigwedge^{*}Q$ with the two images meeting in exactly one
@@ -961,18 +970,91 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   the dimensions found are upper bounds, attained by the Weil classes. Degrees above
   $2n$ are not checked; the proof of the lemma covers them. (D) For an
   element $\kappa$ of $V_{+}\otimes V_{-}$ with random coefficients,
-  $\alpha_{+}\wedge\kappa^{n}=\alpha_{-}\wedge\kappa^{n}=0$, and both
-  products become nonzero once a component $\beta\in\bigwedge^{2}V_{-}$
-  with $\beta^{n}\ne0$ is added, so the vanishing used for the block
-  diagonal K\"ahler class $\kappa_{0}$ is a property of $V_{+}\otimes V_{-}$
-  and not of the coordinates.
+  $\alpha_{+}\wedge\kappa^{n}=\alpha_{-}\wedge\kappa^{n}=0$, and
+  $\alpha_{+}\wedge(\kappa+\beta)^{n}=\alpha_{+}\wedge\beta^{n}$ becomes
+  nonzero once a component $\beta\in\bigwedge^{2}V_{-}$ with $\beta^{n}\ne0$
+  is added (while $\alpha_{-}\wedge(\kappa+\beta)^{n}$ stays zero, every term
+  having a factor from $V_{-}$; symmetrically for $\beta'\in\bigwedge^{2}V_{+}$
+  and $\alpha_{-}$), so the vanishing used for the block diagonal K\"ahler
+  class $\kappa_{0}$ is a property of $V_{+}\otimes V_{-}$ and not of the
+  coordinates.
+
+\item \emph{The corrected criterion as a number.} The script
+  \texttt{p2prime.py} works in the eigenbasis model of item (XXXVIII), with
+  $\theta=i\sum_{j}s_{j}e_{j}\wedge f_{j}$ and
+  $\gamma=\sum_{k}c_{k}\theta^{k}+u\alpha_{+}+\bbar u\alpha_{-}$, builds the
+  image $\xi\lrcorner\gamma$ of every element of a basis of $HT^{2}$, and
+  computes ranks exactly over $\QQ(i)$ by blocks of torus weight, which is
+  legitimate because contraction is equivariant for the torus of
+  \Cref{thm:p2primenumber} and elements whose weights differ by other than a
+  multiple of $(1,\dots,1)$ have images in different weight spaces; nothing
+  else about the structure is used. (A) For $n=3,4$, ten shapes (pure, $c_{0}$
+  only, $c_{2n}$ only, $e^{\theta}$, $c_{1}$ only, $c_{0}$ and $c_{1}$, $c_{0}$
+  and $c_{2n}$, two exponentials, $c_{n}$ only, and random rational
+  coefficients) and two values of $u$: $\dim\Ann_{HT^{2}}(\gamma)=n^{2}(4-\rho)$
+  and $r=(4+\rho)n^{2}-2n$, with $\rho$ computed separately as the rank of the
+  Hankel matrix. (B) For $n=2,3,4$ and a general shape, the annihilator is
+  spanned by the $n^{2}$ vectors $v^{1}_{ab}+v^{2}_{ab}$, lies in $H^{1}(T_{A})$,
+  and these vectors kill $\gamma$. (C) $\rho=1$ on $\CC e^{t\theta}$ and
+  $\CC\theta^{2n}$, and multiplying $\gamma$ by $e^{t\theta}$ changes neither
+  $\rho$ nor $r$. (D) At $n=2$, $\dim\Ann=4(4-\rho)+\dim\ker((HK)^{2}-|u|^{2})$
+  on six values of $|u|$ for $\theta^{2}+\omega$ and on four random shapes, and
+  $r=24$, $22$ and $23$ at $|u|^{2}=1,4,16$. (E) The first-order Hodge locus
+  $\Ann_{H^{1}(T_{A})}(\gamma)$ has dimension $n^{2}$ or, when
+  $c_{1}=\dots=c_{2n-1}=0$, $2n^{2}$, for $n=3,4$ and all ten shapes; at $n=2$
+  it is $5$ exactly at $c_{1}=c_{3}=0$, $|u|=4|c_{2}|$. (F)
+  $\int\ch^{\vee}\ch=(2n)!\,Q(c)+2|u|^{2}$ in the normalisation
+  $\int\theta^{2n}=(2n)!$ for $n=2,3$, and in the rational model of
+  \texttt{explicit\_weil.py} at $n=2$, $\int\omega_{1}^{2}=8d^{2}$ and
+  $\int\eta^{4}=24$ for $d=1,2,3,5,7$. With \texttt{--extreme} the closed form
+  of (A) is checked exactly for $n=5,\dots,9$ on five shapes; at $n=9$ the
+  space $HT^{2}$ has dimension $630$ and $\gamma$ has $2^{18}+2$ terms. That is
+  \Cref{thm:p2primenumber}.
+
+\item \emph{The Hochschild profile of a corrected character.} The script
+  \texttt{p2prime\_\allowbreak profile.py} computes, in the same model and by
+  the same torus blocks, the rank $\rho_{k}$ of contraction into $\gamma$ on
+  every $HT^{k}$, exactly over $\QQ(i)$. (A) For $n=2,3$, in every degree
+  $0\le k\le4n$, on eight shapes and two values of $u$, the ranks equal
+  $2\binom{2n}{k}+M_{k}\min(k+1,2n+1-k,r')-[k=n]\,d$ for $1\le k\le2n-1$, with
+  $\rho_{0}=\rho_{2n}=1$ and $\rho_{k}=0$ above $2n$; the general profiles are
+  $(1,8,24,8,1)$ and $(1,12,57,112,57,12,1)$, and the pure case gives
+  $2\binom{2n}{k}$. (B) $\rho_{k}=\rho_{2n-k}$ on every shape. (C) For
+  $c_{n}\theta^{n}$ alone the middle rank drops by $d$ exactly at
+  $|u|=\binom{n}{a}n!|c_{n}|$ and in no other degree. (D) On
+  $\bigwedge^{2n}\ZZ^{4n}$, $n\le3$, the form $\int x\wedge y$ pairs each
+  monomial only with its complement, so $\int x^{2}$ is even; at $n=2$ the
+  point $|u|=4|c_{2}|$ of $\theta^{2}+\omega$ has $\rho_{2}=23$. With
+  \texttt{--extreme} (A) is run for $n=4$ in every degree, where $HT^{8}$ has
+  dimension $12870$, and for $n=5$ up to degree three. That is
+  \Cref{prop:p2primeprofile}.
+
+\item \emph{Descent and scalar extension.} The script \texttt{descent.py}
+  models the cohomology of an abelian variety of $(F,n)$-Weil type, $F$ a CM
+  field of degree $2m$, by alternating $\QQ$-multilinear forms on
+  $H_{1}=F^{N}$, its Weil classes by the forms $\Tr_{F/\QQ}(a\det_{F})$ and its
+  polarisation by $\Tr_{F/\QQ}(\xi H)$. (A) For $F=\QQ(i)$, $\QQ(\sqrt{-2})$,
+  $\QQ(\sqrt{-3})$, $\QQ(\zeta_{5})$ and $\QQ(\zeta_{8})$, and $n=1,2$ (and
+  $n=3$ over $\QQ(i)$), the correspondence
+  $P(x)=pr_{B*}(x\cdot pr_{Y}^{*}(\eta_{Y}^{2m-2}y'))$ maps the $2m$-dimensional
+  space $W_{F}(B\times Y)$ onto $W_{F}(B)$, and it kills $W_{F}(B\times Y)$
+  when the Weil class $y'$ of $Y$ is replaced by $\eta_{Y}$. (B) For
+  $H_{Y}=\mathrm{diag}(1,-t)$ the form $H_{B}\oplus H_{Y}$ has signature
+  $(n+1,n+1)$ and normalised discriminant $t$ times that of $H_{B}$. (C) For
+  $\QQ(i)\subset\QQ(\zeta_{8})$, $\QQ(\sqrt{-7})\subset\QQ(\zeta_{7})$ and
+  $\QQ(\sqrt{-3})\subset\QQ(\zeta_{9})$, and $n=1,2$, the pull-back
+  $j^{*}W_{F}(B_{F})$ is all of $W_{K}(B)$. With \texttt{--extreme}, (A) is
+  run up to $n=5$ over $\QQ(i)$, up to $n=4$ over $\QQ(\sqrt{-2})$ and
+  $\QQ(\sqrt{-3})$, up to $n=3$ over $\QQ(\sqrt{-5})$, $\QQ(\zeta_{5})$ and
+  $\QQ(\zeta_{8})$, and up to $n=2$ over the sextic field $\QQ(\zeta_{7})$, and
+  (C) up to $n=3$. That is \Cref{prop:descent}.
 \end{enumerate}
 
-Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LI) are the ones
+Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LIV) are the ones
 on which theorems depend. Items (IV) and (V) support statements that no
 obstruction exists, and a failure there would strengthen rather than weaken
 the paper, so they are included for completeness rather than for safety.
-Running \texttt{verify\_all.py} executes the forty-six Python items and
+Running \texttt{verify\_all.py} executes the forty-nine Python items and
 prints \texttt{865 checks passed, 0 failed}; items (XXIX), (XXXI) and
 (XL) need Macaulay2 and are run separately, and their transcripts are
 distributed with the scripts.

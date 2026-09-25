@@ -24,7 +24,15 @@ character exactly a Weil class, via very general non-algebraic Weil tori
 (`thm:p2false`, item (LI), `code/weil_tori.py`), and restated (P2) in the
 corrected form of `rem:p2prime`; round 9 retitled the paper "Explicit Base
 Points and Obstructions to Propagation for Weil Classes on Abelian Varieties"
-and added a Data availability section to `tex/declarations.tex`).
+and added a Data availability section to `tex/declarations.tex`; round 10
+recorded the Zenodo DOI of release v1.0.0; round 11 computed the corrected
+criterion (P2') in closed form (`thm:p2primenumber`, `prop:p2primeprofile`,
+`prop:p2primelocus`, items (LII), (LIII), `code/p2prime.py`,
+`code/p2prime_profile.py`), proved the descent and scalar extension lemma
+`prop:descent` (item (LIV), `code/descent.py`), which corrects
+`prop:separate` and splits (P2) in the closure graph so that only (P2) for the
+split families of the CM fields of degree at least four is needed, and added
+the long runs of `code/extreme/`).
 
 Release v1.0.0 (tag `v1.0.0`, commit `ef15bce`) is archived on Zenodo under
 DOI 10.5281/zenodo.22950276, recorded in the macro `\zenodoDOI` at the top of

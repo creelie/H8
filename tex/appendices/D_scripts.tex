@@ -82,10 +82,10 @@ minimal sufficient set.
 \begin{small}
 \begin{verbatim}
   [PASS] the minimal sufficient sets are enumerated exhaustively
-         5 of them, over the 13 open statements, from 8192 subsets
+         5 of them, over the 16 open statements, from 65536 subsets
   [PASS] the minimal sufficient sets are exactly five
          {red_ab}, {lef_B, mot}, {lef_B, red_ab_mod}, {red_ab_mod, vhc}
-         and {P2, red_ab_mod, red_weil}
+         and {P2_cm_s, red_ab_mod, red_weil}
   [PASS] exactly one single open statement suffices, and it is red_ab
          the conjecture for the varieties that are not abelian gives the
          conjecture for abelian varieties through A x P^1, and then the
@@ -108,15 +108,10 @@ minimal sufficient set.
             {lef_B, mot}
             {lef_B, red_ab_mod}
             {red_ab_mod, vhc}
-            {P2, red_ab_mod, red_weil}
+            {P2_cm_s, red_ab_mod, red_weil}
        with
-            P2             at a base point of every Weil family of every
-                           CM field, a complex whose Chern character is
-                           a nonzero Weil class plus a polynomial in the
-                           polarisation has injective semiregularity map
-                           (rem:p2prime); the first form, with Chern
-                           character exactly a Weil class, is false by
-                           thm:p2false
+            P2_cm_s        (P2) for the split Weil families of the CM
+                           fields of degree at least four
             lef_B          the Lefschetz standard conjecture B(X) for
                            every smooth complex projective variety X
             mot            every Hodge class on every smooth complex
@@ -143,8 +138,8 @@ minimal sufficient set.
                            base that is algebraic at one point is
                            algebraic at every point
 
-  [PASS] every member of a minimal sufficient set other than P2 is a
-         consequence of the conjecture
+  [PASS] every member of a minimal sufficient set other than P2_cm_s is
+         a consequence of the conjecture
          lef_B by thm:equivalence, mot by prop:lefmot, vhc by
          prop:lefvhc, red_ab_mod by prop:f3prime, red_ab and red_weil
          directly; no implication from the conjecture to P2 is known
@@ -169,29 +164,40 @@ minimal sufficient set.
   [PASS] the secant route lies in no minimal sufficient set
          granting all six of its open demands does not put it on a path
          to the conjecture
-  [PASS] the secant route, fully granted, reaches the trivial
-         discriminant and stops
-         every base point it produces is a split member, and a split
-         member has trivial discriminant
-  [PASS] the trivial discriminant alone does not close the imaginary
-         quadratic case
-         the families of nontrivial discriminant are a separate problem
-  [PASS] the propagation statement closes the imaginary quadratic case
-         outright
-         a base point exists in every family, so the propagation is
-         uniform in K, in n and in the discriminant
-  [PASS] the propagation statement closes the Weil classes of every CM
-         field outright
-         the CM base point of every family of every CM field makes the
-         higher fields the same propagation problem
+  [PASS] the secant route, fully granted, reaches every imaginary
+         quadratic family and stops short of the fields of higher degree
+         its base points are split members, of trivial discriminant, and
+         descent (prop:descent) carries the trivial discriminant to
+         every other; it has no base point over a field of degree at
+         least four
+  [PASS] the trivial discriminant closes the imaginary quadratic case
+         by descent: B x Y, with Y a Weil surface of any discriminant,
+         and a push-forward against the Weil class of Y
+  [PASS] the split families of the fields of degree at least four close
+         the imaginary quadratic case as well
+         by scalar extension B -> B (x) O_F, every K lying in K(sqrt 2)
+  [PASS] the propagation statement for the split imaginary quadratic
+         families closes the imaginary quadratic case outright
+         a base point exists in every split family, and descent does the
+         rest
+  [PASS] the propagation statement for the split families of the fields
+         of degree at least four closes the Weil classes of every CM
+         field
+         descent within each field, and scalar extension down to the
+         imaginary quadratic fields
+  [PASS] the families of nontrivial discriminant need no propagation
+         statement of their own
+         no minimal sufficient set contains (P2) for a family of
+         nontrivial discriminant or for an imaginary quadratic field
   [PASS] the bounded criterion (P1) is not in the rule set
          it is equivalent to the conjecture for the family, so it is a
          restatement and not a premise
   [PASS] the Weil classes of the higher CM fields are derived, not open
   [PASS] without prop:f3ishc and red_ab_mod the search returns the four
          sets of the earlier version
-         {lef_B, mot}, {lef_B, red_ab}, {red_ab, vhc}, {P2, red_ab,
-         red_weil}: the change is those two additions and nothing else
+         {lef_B, mot}, {lef_B, red_ab}, {red_ab, vhc}, {P2_cm_s, red_ab,
+         red_weil}: the change is those two additions, with (P2) read on
+         the split families of the higher fields
   [PASS] the rule of prop:f3ishc has red_ab as its only premise
          and the conjecture for abelian varieties as its conclusion: the
          conjecture for A x P^1 gives it for A
@@ -223,15 +229,19 @@ minimal sufficient set.
             HC            from HC_ab, red_ab_mod
                                                             [prop:f3prime]
 
-       the conjecture from the proved and quoted statements and P2,
+       the conjecture from the proved and quoted statements and P2_cm_s,
          red_ab_mod, red_weil
-            weil_triv     from base_point, reduction, orbit_dense, P2
-                                                      [thm:semiregclosure]
-            weil_nontriv  from base_point, reduction, orbit_dense, P2
-                                                      [thm:semiregclosure]
-            weil_cm       from base_point_cm, reduction_cm,
-                               orbit_dense_cm, P2
+            weil_cm_triv  from base_point_cm, reduction_cm,
+                               orbit_dense_cm, P2_cm_s
                                                        [thm:cmpropagation]
+            weil_cm_nontriv from weil_cm_triv
+                                                            [prop:descent]
+            weil_triv     from weil_cm_triv
+                                                            [prop:descent]
+            weil_cm       from weil_cm_triv, weil_cm_nontriv
+                                                             [prop:cmweil]
+            weil_nontriv  from weil_triv
+                                                            [prop:descent]
             weil_iq       from weil_triv, weil_nontriv
                                                            [prop:separate]
             weil_all      from weil_iq, weil_cm

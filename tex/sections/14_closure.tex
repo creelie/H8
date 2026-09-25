@@ -6,7 +6,9 @@ clause below is proved in the body, none of them depends on a hypothesis that
 is not itself proved here or quoted with a reference, and the last clause is
 checked by machine.%
 \footnote{The quoted results are theorems and are used as such: the
-semiregularity theorem of Buchweitz and Flenner \cite{BF08}, the theorem of
+semiregularity theorem of Buchweitz and Flenner \cite{BF03}, in the form
+for perfect complexes on a deforming variety with every obstruction
+annihilated that Pridham proves \cite{Pri24}, the theorem of
 Cattani, Deligne and Kaplan on the locus of Hodge classes \cite{CDK95}, the
 description of the Hodge rings of abelian varieties of dimension at most five
 by Moonen and Zarhin \cite{MZ99}, Markman's theorems on abelian varieties of
@@ -63,7 +65,13 @@ hold unconditionally.
   $\dim\Ext^{2}(E,E)=2n(2n-1)$, which would suffice
   (\Cref{thm:p2numerical}) and is the least value possible
   (\Cref{cor:hhfactor}(i)), is attained by no complex, and the shape it
-  would force (\Cref{thm:p2endo}) is the shape of nothing. The
+  would force (\Cref{thm:p2endo}) is the shape of nothing. In the corrected
+  form, with powers of the polarisation added, the number becomes
+  $(4+\rho)n^{2}-2n$ for $n\ge3$, with $\rho\le3$ the rank of a Hankel matrix
+  of the coefficients; an object attaining it satisfies the criterion, and
+  the shapes $c\,\theta^{2n}$ and $c\,e^{t\theta}$ with $t\theta$ the class of
+  a line bundle, of Hankel rank at most one, are excluded as the pure form
+  was (\Cref{thm:p2primenumber}). The
   other criterion, that $\omega$ be represented along the orbit by cycles of
   bounded Hilbert data, implies the same conclusion
   (\Cref{thm:degreebound}) and is implied by it
@@ -153,11 +161,16 @@ hold unconditionally.
   criteria of (iv) closes the whole family (\Cref{thm:cmpropagation}). So the
   Weil classes of the higher CM fields are not a separate problem: they are
   the same propagation statement, with the base case supplied
-  (\Cref{prop:cmweil}, \Cref{prop:composite}).
+  (\Cref{prop:cmweil}, \Cref{prop:composite}). The families are linked as
+  well: for each CM field the split families in infinitely many dimensions
+  give all of its families, and the fields of degree at least four give the
+  imaginary quadratic ones (\Cref{prop:descent}).
 \item \emph{What is left, and that it is exactly that.} The Hodge conjecture
   follows from the results of this paper together with three further
-  statements, namely the propagation statement of (iv), read for every CM
-  field at once, the algebraicity of the Hodge classes
+  statements, namely the propagation statement of (iv), read for the split
+  families of the CM fields of degree at least four, which by
+  \Cref{prop:descent} carry every imaginary quadratic family with them, the
+  algebraicity of the Hodge classes
   on abelian varieties that divisor classes and Weil classes do not generate,
   and the conjecture for the varieties that are not abelian. The last of
   these is the conjecture itself, since it covers $A\times\PP^{1}$ for every
@@ -278,12 +291,14 @@ domain, and the reduction loses nothing, since the converse holds as well. No
 smaller statement is equivalent to it, because the equivalence is already an
 equivalence.
 
-The base case is not the difficulty. The treatments of these families in the
-literature have a base point only at the split locus, hence only at trivial
-discriminant. By (iii) every family has one, for every field, every dimension
-and every discriminant, and the cycle is a polynomial in two divisor classes
-rather than an existence statement. What separates a base point from the
-family is propagation.
+The base case is not the difficulty. By (iii) every family has a base point,
+for every field, every dimension and every discriminant, and the cycle is a
+polynomial in two divisor classes rather than an existence statement. Nor is
+the discriminant: by \Cref{prop:descent} the split families in all dimensions
+give every discriminant, and the fields of degree at least four give the
+imaginary quadratic ones, so neither the base points of nontrivial
+discriminant nor those of the quadratic fields carry weight in any minimal
+derivation. What separates a base point from the family is propagation.
 
 Propagation has one criterion, and in its first form it cannot be met. The
 bounded criterion is equivalent to its own conclusion, so it restates the
@@ -293,7 +308,11 @@ $2n(2n-1)$, but no complex whose Chern character is exactly a Weil class is
 semiregular at all, because semiregularity would carry it to non-algebraic
 Weil tori, where the Weil class is Hodge and the Chern class of nothing. The
 criterion survives only with powers of the polarisation added to the Chern
-character, a form this paper does not analyse.
+character, and in that form it is again one number:
+\Cref{thm:p2primenumber} computes the rank that $\dim\Ext^{2}(E,E)$ must
+reach, $(4+\rho)n^{2}-2n$ with $\rho$ the rank of a Hankel matrix of the
+coefficients, and shows that an object reaching it satisfies the criterion.
+What it cannot say is whether such an object exists.
 
 The ways that do not work are known, and they are known for a reason rather
 than by exhaustion. Each item of (v) fails for an identifiable structural

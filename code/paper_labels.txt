@@ -228,6 +228,7 @@ prop:composite
 prop:concentrated
 prop:corestriction
 prop:densealg
+prop:descent
 prop:disjoint
 prop:divfails
 prop:divroute
@@ -261,6 +262,7 @@ prop:notpoly
 prop:notwistor
 prop:objectsize
 prop:orbitplane
+prop:p2primeprofile
 prop:pencil
 prop:pontryaginlambda
 prop:quatdivisible
@@ -425,6 +427,7 @@ setup:model
 setup:mumford
 setup:numerology
 setup:omegaa
+setup:p2prime
 setup:pte
 setup:quat
 setup:rules
@@ -515,6 +518,7 @@ thm:p2endo
 thm:p2false
 thm:p2forces
 thm:p2numerical
+thm:p2primenumber
 thm:p2support
 thm:plane
 thm:positivity

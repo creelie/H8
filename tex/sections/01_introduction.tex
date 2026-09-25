@@ -20,8 +20,8 @@ finitely many exceptional classes in middle degree, the Weil classes of
 \footnote{Weil introduced them to show that the Hodge ring of an abelian variety is not always generated in degree one, which at the time was an open possibility. He did not conjecture that they are algebraic and did not claim they are not; the examples were offered as a warning, and they have been the standard test case ever since.} Divisor classes are algebraic, so for these varieties the whole
 question is whether the Weil classes are algebraic. Markman
 \cite{Mar25a,Mar25b} settled this for abelian sixfolds of Weil type of
-discriminant $-1$ and for sixfolds of split Weil type, for every imaginary
-quadratic field, and deduced it for all abelian fourfolds of Weil type, for
+discriminant $-1$, which are the sixfolds of split Weil type, for every
+imaginary quadratic field, and deduced it for all abelian fourfolds of Weil type, for
 every discriminant and every field, using a degeneration argument of Schoen
 that he quotes; the Hodge conjecture for abelian varieties of dimension at
 most five follows. The sheaf he produces has positive rank, is built from the
@@ -633,7 +633,9 @@ a computation rather than a judgement. The conjecture is not among the
 consequences, which is the machine statement that nothing here proves it.
 The route that passes through this paper needs three open statements: a
 propagation statement, the one established in \Cref{thm:semiregclosure} and
-carried to every CM field in \Cref{thm:cmpropagation}, together with the
+carried to every CM field in \Cref{thm:cmpropagation}, and by
+\Cref{prop:descent} needed only for the split families of the CM fields of
+degree at least four, together with the
 Hodge classes on abelian varieties that divisor and Weil classes do not
 generate, and the conjecture for the varieties that are not abelian
 (\Cref{cor:fourremain}). The last of the three is not a remainder: the
@@ -809,15 +811,34 @@ corrected statement in which the complex may also carry powers of the
 polarisation, which are Hodge on the polarised family and not beyond it; the
 propagation theorem holds for it unchanged and it escapes the obstruction;
 the semiregular objects in Markman's proofs are not of the pure form either
-(\Cref{rem:p2prime}). The
+(\Cref{rem:p2prime}). Its numerical form is computed in
+\Cref{thm:p2primenumber}: for a Chern character $N\omega+\sum_{k}c_{k}\theta^{k}$
+the annihilator in $HT^{2}$ has dimension $n^{2}(4-\rho)$ for $n\ge3$, with $\rho\le3$ the
+rank of the Hankel matrix of the numbers $k!\,c_{k}$, and for a general shape
+it is exactly the tangent space of the polarised Weil family; so one complex
+with $\dim\Ext^{2}(E,E)=7n^{2}-2n$ at one base point would close the family,
+$24$ at $n=2$ and $57$ at $n=3$. Of the shapes with $\rho\le1$, a top power
+of $\theta$ and a single exponential $e^{t\theta}$ with $t\theta$ the class of
+a line bundle are excluded, by a twist and \Cref{thm:p2false}, and the whole Hochschild profile of
+a corrected character is in \Cref{prop:p2primeprofile}. The
 Mumford classes escape the obstruction for a different reason: they are
 rigid, and their Hodge locus is the Mumford curve.
 
 The secant route, the one this paper spends most of its length narrowing,
 lies outside every minimal set: granted every demand it makes, it reaches the
-families of trivial discriminant and stops there, because the member it is
-built on is a product and a product has trivial discriminant
-(\Cref{rem:secantplace}). The computation behind the frontier is item
+families of trivial discriminant, because the member it is built on is a
+product and a product has trivial discriminant, and through descent every
+imaginary quadratic family, but no CM field of higher degree
+(\Cref{rem:secantplace}). Descent is the one link between the Weil families
+(\Cref{prop:descent}): a product with a Weil surface of any discriminant and
+a push-forward against its Weil class, which is a divisor class, carry the
+Weil classes of one family onto those of every family of lower dimension and
+every discriminant, and a scalar extension carries those of a CM field of
+degree at least four onto those of the imaginary quadratic fields it
+contains. So along the route of this paper the propagation statement is
+needed only for the split families of the CM fields of degree at least four,
+and the base points of nontrivial discriminant, though they exist, are not
+needed on any route. The computation behind the frontier is item
 (XXXIII) of \Cref{sec:verification}, repeated in the Lean kernel.
 \Cref{sec:final} then states the closure itself, as a single theorem in seven
 clauses, every one of them unconditional: the reduction to one class on one
