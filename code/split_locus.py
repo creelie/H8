@@ -294,6 +294,32 @@ def closed_form(n, d):
     return ok
 
 
+def example_check(n, d):
+    """The displayed formulas of ex:splitsmall lie in the Weil plane:
+    n = 2: d ell^2 - gamma^2 and 2 gamma ell;
+    n = 3: d gamma ell^2 - gamma^3/3 and gamma^2 ell - d ell^3/3."""
+    sp = Split(n, d)
+    beta, bh, ell = sp.beta(), sp.betahat(), sp.ell()
+    gamma = eadd(escale(F(d), beta), escale(F(-1), bh))
+    if n == 2:
+        cands = [eadd(escale(F(d), epow(ell, 2, d)),
+                      escale(F(-1), epow(gamma, 2, d))),
+                 escale(F(2), wedge(gamma, ell, d))]
+    else:
+        cands = [eadd(escale(F(d), wedge(gamma, epow(ell, 2, d), d)),
+                      escale(F(-1, 3), epow(gamma, 3, d))),
+                 eadd(wedge(epow(gamma, 2, d), ell, d),
+                      escale(F(-d, 3), epow(ell, 3, d)))]
+    w1, w2 = rational_pair(sp)
+    ok = True
+    for c in cands:
+        c = {k: v for k, v in c.items() if not iszero(v)}
+        keys = set(w1) | set(w2) | set(c)
+        coeff = solve([w1, w2], c, keys)
+        ok = ok and coeff is not None and any(x != 0 for x in coeff)
+    return ok
+
+
 def divisor_check_closed(n, d):
     """gamma +- delta ell lies in wedge^2 V_-+ : verify by checking that
     iota(sqrt(-d))^* multiplies it by -d, which is tau^2 at tau = sqrt(-d)."""
@@ -359,6 +385,14 @@ if __name__ == "__main__":
               % ("PASS" if ok1 else "FAIL", n, d))
         npass += (1 if ok1 else 0) + (1 if ok2 else 0)
         nfail += (0 if ok1 else 1) + (0 if ok2 else 1)
+
+    print("  the displayed formulas of ex:splitsmall at n = 2, 3")
+    for (n, d) in [(2, 1), (2, 2), (2, 3), (3, 1), (3, 2), (3, 3), (3, 7)]:
+        ok = example_check(n, d)
+        print("    [%s] n=%d, d=%d: both displayed classes lie in the Weil plane"
+              % ("PASS" if ok else "FAIL", n, d))
+        npass += 1 if ok else 0
+        nfail += 0 if ok else 1
 
     print()
     print("  %d checks passed, %d failed" % (npass, nfail))

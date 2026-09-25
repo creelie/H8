@@ -165,6 +165,9 @@ Their unedited transcripts are the `.txt` files beside them, and
     python3 make_round11.py     # the web of Weil families under descent,
                                 # the corrected criterion as a number, and
                                 # the Kaehler sign at the exceptional ratio
+    python3 make_round12.py     # minimal support at n = 4, and the loci
+                                # where quartic CM Weil classes are known
+                                # to be algebraic
     for f in fig_*.tex; do pdflatex -interaction=nonstopmode "$f"; done
     python3 checkfigs.py        # must print 0 overlapping label pairs
 
