@@ -10,7 +10,8 @@ through L_+-), and whether the Chern character is a pure Weil class.
 """
 import sys, os
 sys.dont_write_bytecode = True
-sys.path.insert(0, '/home/user/H8/code')
+# the repository's code/ directory, two levels above this file
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 import io, contextlib
 import semiregularity as SR
 from fractions import Fraction as Fr

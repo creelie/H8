@@ -12,10 +12,10 @@ t4_contr.py -- contraction checks at n = 4 on the split member (tau = iI), mod p
        rank rho = 0,1,2,3 against (4+rho) 16 - 8 = 56, 72, 88, 104
   (K5) dim Ann_T(ch F) for natural F: line bundles, subtori, theta-bundles
 """
-import sys, time
+import sys, os, time
 import numpy as np
 from fractions import Fraction as Fr
-sys.path.insert(0, '.')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ext import *
 from contraction import *
 

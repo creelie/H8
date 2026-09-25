@@ -21,7 +21,7 @@ Printed:
   (E6) the flatness form: e - k against the dimension 8 * sum|m_i| of the
        locus of split deformations inside K_E
 """
-import sys, time
+import sys, os, time
 from fractions import Fraction as Fr
 from math import factorial, gcd
 from ext import *
@@ -173,7 +173,7 @@ print("(E4) dim Ext^2(E,E) = 28 * sum m^2 = %d  vs  r(gamma) = %d  (excess %d)"
 print("     dim Ext^1(E,E) = 8 * sum m^2 = %d" % ext1)
 
 # (E5) kappa and the rank of sigma on trace parts, mod p
-sys.path.insert(0, '.')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import contraction as C
 import numpy as np
 from tspace import compute_T, T_apply
