@@ -49,10 +49,12 @@ What is checked:
       in any minimal sufficient set.  Granting its two open demands, a secant
       object satisfying the Heisenberg identity in every dimension and an
       affirmative answer to Markman's Question 11.4, yields the Weil classes
-      of trivial discriminant and no others, because every base point that
-      route produces is a split member and a split member has trivial
-      discriminant.  The other half of the imaginary quadratic case is reached
-      only by the propagation statement (P2);
+      of trivial discriminant, because every base point that route produces
+      is a split member, and through descent (prop:descent) it then yields
+      every imaginary quadratic family; it yields nothing over the CM fields
+      of degree at least four.  An earlier version of this rule set lacked the
+      descent rules and reported that the route stops at the trivial
+      discriminant; that was an omission of the rule set, not a fact;
 
   (g) the derivation of the Hodge conjecture from the proved statements
       together with each minimal sufficient set is printed in full, one rule
@@ -68,12 +70,18 @@ What is checked:
       and with the weaker statement red_ab_mod of def:f3prime, the
       conjecture modulo abelian varieties, the minimal sufficient sets are
       exactly five: {red_ab}, {lef_B, mot}, {lef_B, red_ab_mod},
-      {red_ab_mod, vhc} and {P2, red_ab_mod, red_weil}.  The sets
-      {lef_B, red_ab}, {red_ab, vhc} and {P2, red_ab, red_weil} suffice and
-      are not minimal; only the route through this paper uses anything proved
-      here; every member of a minimal set except P2 is itself a consequence
-      of the Hodge conjecture, recorded with the result that proves it; and
-      {red_ab} and {lef_B, mot} are each equivalent to the conjecture;
+      {red_ab_mod, vhc} and {P2_cm_s, red_ab_mod, red_weil}.  The sets
+      {lef_B, red_ab}, {red_ab, vhc} and {P2_cm_s, red_ab, red_weil}
+      suffice and are not minimal; only the route through this paper uses
+      anything proved here; every member of a minimal set except P2_cm_s is
+      itself a consequence of the Hodge conjecture, recorded with the result
+      that proves it; and {red_ab} and {lef_B, mot} are each equivalent to
+      the conjecture.  The propagation statement (P2) is carried family by
+      family, as P2_iq_s, P2_iq_ns, P2_cm_s and P2_cm_ns, and the rules of
+      prop:descent (descent within a field, scalar extension from a field of
+      degree at least four to the imaginary quadratic fields it contains)
+      show that only P2_cm_s, (P2) for the split families of the fields of
+      degree at least four, is needed on any minimal route;
 
   (i) the rule set contains the elementary implication red_ab => HC_ab of
       prop:f3ishc: the Hodge conjecture for the varieties that are not
@@ -91,10 +99,12 @@ What is checked:
 The point of (f) deserves to be said plainly, because a list of open problems
 invites the opposite reading.  The demand for one secant object on one
 abelian fourfold is not a sub-conjecture whose proof would close the Hodge
-conjecture, nor a step on a path to closing it.  Even
-granted in every dimension, and granted together with an affirmative answer to
-a question that is open, it closes the trivial discriminant families and
-leaves the rest exactly as they were.
+conjecture, nor a step on a path to closing it.  Granted in every dimension,
+and granted together with an affirmative answer to a question that is open,
+it closes the imaginary quadratic families, the trivial discriminant directly
+and the others by descent, and leaves the CM fields of higher degree, the
+classes beyond the Weil lines and the varieties that are not abelian exactly
+as they were.
 
 The point of (h) and (i) is the same one made about the whole paper.  Two
 of the minimal routes to the conjecture are the conjecture restated: the
@@ -167,12 +177,27 @@ STATEMENTS = {
     "weil_cm": ("derived",
                 "the Weil classes of abelian varieties with multiplication by "
                 "a CM field of degree at least four are algebraic"),
-    "P2": ("open",
-           "at a base point of every Weil family of every CM field, a "
-           "complex whose Chern character is a nonzero Weil class plus a "
-           "polynomial in the polarisation has injective semiregularity map "
-           "(rem:p2prime); the first form, with Chern character exactly a "
-           "Weil class, is false by thm:p2false"),
+    "weil_cm_triv": ("derived",
+                     "the same for the split families of those fields"),
+    "weil_cm_nontriv": ("derived",
+                        "the same for their families of nontrivial "
+                        "discriminant"),
+    # the propagation statement (P2) of rem:p2prime, read family by family:
+    # at a base point of the family, a complex whose Chern character is a
+    # nonzero Weil class plus a polynomial in the polarisation has injective
+    # semiregularity map; the first form, with Chern character exactly a Weil
+    # class, is false by thm:p2false
+    "P2_iq_s": ("open",
+                "(P2) for the Weil families of trivial discriminant of the "
+                "imaginary quadratic fields"),
+    "P2_iq_ns": ("open",
+                 "(P2) for the Weil families of nontrivial discriminant of "
+                 "the imaginary quadratic fields"),
+    "P2_cm_s": ("open",
+                "(P2) for the split Weil families of the CM fields of degree "
+                "at least four"),
+    "P2_cm_ns": ("open",
+                 "(P2) for the other Weil families of those fields"),
     "secant_all": ("open",
                    "a secant object satisfying the Heisenberg identity exists "
                    "on an abelian n-fold for every n"),
@@ -267,16 +292,30 @@ RULES = [
     (("weil_iq", "weil_cm"), "weil_all", "app:albert"),
     (("weil_triv", "weil_nontriv"), "weil_iq", "prop:separate"),
 
-    # the two propagation routes, each uniform in K, n and the discriminant
-    (("base_point", "reduction", "orbit_dense", "P2"), "weil_triv",
+    # propagation, family by family: the base point is supplied in every
+    # family, so the propagation statement closes each family it is granted on
+    (("base_point", "reduction", "orbit_dense", "P2_iq_s"), "weil_triv",
      "thm:semiregclosure"),
-    (("base_point", "reduction", "orbit_dense", "P2"), "weil_nontriv",
+    (("base_point", "reduction", "orbit_dense", "P2_iq_ns"), "weil_nontriv",
      "thm:semiregclosure"),
 
-    # the same two routes for every CM field of degree at least four: the
-    # base point is a CM point and the propagation statement is the same one
-    (("base_point_cm", "reduction_cm", "orbit_dense_cm", "P2"), "weil_cm",
-     "thm:cmpropagation"),
+    # the same for every CM field of degree at least four: the base point is
+    # a CM point and the propagation statement is the same one
+    (("base_point_cm", "reduction_cm", "orbit_dense_cm", "P2_cm_s"),
+     "weil_cm_triv", "thm:cmpropagation"),
+    (("base_point_cm", "reduction_cm", "orbit_dense_cm", "P2_cm_ns"),
+     "weil_cm_nontriv", "thm:cmpropagation"),
+    (("weil_cm_triv", "weil_cm_nontriv"), "weil_cm", "prop:cmweil"),
+
+    # descent: B x Y with Y of (F,1)-Weil type, and pr_{B*}( . pr_Y^* y'),
+    # carries the Weil classes of one family onto those of every family of
+    # lower dimension and every discriminant; and scalar extension B -> B (x)
+    # O_F carries those of the split families of a CM field F of degree at
+    # least four onto the split families of the imaginary quadratic fields
+    # K in F (every K lies in K(sqrt 2))
+    (("weil_triv",), "weil_nontriv", "prop:descent"),
+    (("weil_cm_triv",), "weil_cm_nontriv", "prop:descent"),
+    (("weil_cm_triv",), "weil_triv", "prop:descent"),
 
     # the secant route: it reaches the split members, which are exactly the
     # members of trivial discriminant
@@ -325,20 +364,22 @@ LABELS = sorted({r[2] for r in RULES} | set(IMPLIED_BY_HC.values()))
 # HodgeObstruction.lean.
 LEAN_ORDER = [
     "HC", "HC_ab", "weil_all", "weil_iq", "weil_triv", "weil_nontriv",
-    "s1", "w4triv", "known", "red_ab", "red_weil", "weil_cm", "P2",
+    "s1", "w4triv", "known", "red_ab", "red_weil", "weil_cm", "P2_iq_s",
     "secant_all", "Q114", "smooth_exists", "smooth_vanish", "sing_exists",
     "sing_vanish", "base_point", "reduction", "orbit_dense", "factor",
     "class_cond", "cm_line", "ingredients", "mar2", "mar3",
     "base_point_cm", "reduction_cm", "orbit_dense_cm",
     "lef_B", "mot", "vhc", "mot_def", "acc_ab", "red_ab_mod",
+    "P2_iq_ns", "P2_cm_s", "P2_cm_ns", "weil_cm_triv", "weil_cm_nontriv",
 ]
 LEAN_RULES = [
     ([1, 9], 0), ([9], 1), ([2, 10], 1), ([3, 11], 2), ([4, 5], 3),
-    ([12, 19, 20, 21], 4), ([12, 19, 20, 21], 5),
+    ([12, 19, 20, 21], 4), ([37, 19, 20, 21], 5),
+    ([38, 28, 29, 30], 40), ([39, 28, 29, 30], 41), ([40, 41], 11),
+    ([4], 5), ([40], 41), ([40], 4),
     ([13, 14, 20, 22, 23, 25], 4),
     ([15, 16, 24], 6), ([17, 18, 24], 6), ([6, 14, 22, 23], 7),
     ([26, 27], 8),
-    ([12, 28, 29, 30], 11),
     ([31, 32], 0), ([31, 34], 33), ([33, 35], 1),
     ([1, 36], 0),
 ]
@@ -471,11 +512,11 @@ def run():
           % (len(sufficient), len(LEAVES), 2 ** len(LEAVES)))
     expected = sorted([("red_ab",), ("lef_B", "mot"),
                        ("lef_B", "red_ab_mod"), ("red_ab_mod", "vhc"),
-                       ("P2", "red_ab_mod", "red_weil")])
+                       ("P2_cm_s", "red_ab_mod", "red_weil")])
     check("the minimal sufficient sets are exactly five",
           sorted(sufficient) == expected,
           "{red_ab}, {lef_B, mot}, {lef_B, red_ab_mod}, {red_ab_mod, vhc} "
-          "and {P2, red_ab_mod, red_weil}"
+          "and {P2_cm_s, red_ab_mod, red_weil}"
           if sorted(sufficient) == expected else str(sufficient))
 
     singles = [S for S in sufficient if len(S) == 1]
@@ -484,7 +525,7 @@ def run():
           "the conjecture for the varieties that are not abelian gives the "
           "conjecture for abelian varieties through A x P^1, and then the "
           "conjecture")
-    older = [("P2", "red_ab", "red_weil"), ("lef_B", "red_ab"),
+    older = [("P2_cm_s", "red_ab", "red_weil"), ("lef_B", "red_ab"),
              ("red_ab", "vhc")]
     check("the route through this paper and the two routes of the literature "
           "with red_ab suffice and are not minimal",
@@ -501,7 +542,7 @@ def run():
     three = [S for S in sufficient if len(S) > 2]
     check("the route through this paper, with red_ab_mod, is the only "
           "minimal sufficient set with three elements",
-          three == [("P2", "red_ab_mod", "red_weil")],
+          three == [("P2_cm_s", "red_ab_mod", "red_weil")],
           "it needs one statement more than each route of the literature "
           "through red_ab_mod")
 
@@ -517,13 +558,13 @@ def run():
     # which members of the minimal sets any proof of the conjecture proves
     in_sets = sorted(set().union(*[set(S) for S in sufficient]))
     not_implied = [s for s in in_sets if s not in IMPLIED_BY_HC]
-    check("every member of a minimal sufficient set other than P2 is a "
+    check("every member of a minimal sufficient set other than P2_cm_s is a "
           "consequence of the conjecture",
-          not_implied == ["P2"],
+          not_implied == ["P2_cm_s"],
           "lef_B by thm:equivalence, mot by prop:lefmot, vhc by "
           "prop:lefvhc, red_ab_mod by prop:f3prime, red_ab and red_weil "
           "directly; no implication from the conjecture to P2 is known"
-          if not_implied == ["P2"] else str(not_implied))
+          if not_implied == ["P2_cm_s"] else str(not_implied))
     equiv = [S for S in sufficient
              if all(s in IMPLIED_BY_HC for s in S)
              and not any(s in ("vhc", "red_weil", "red_ab_mod") for s in S)]
@@ -556,7 +597,7 @@ def run():
         uses[S] = bool(used & proved_here)
     check("only the route through this paper uses a statement proved in it",
           [S for S in sufficient if uses[S]]
-          == [("P2", "red_ab_mod", "red_weil")],
+          == [("P2_cm_s", "red_ab_mod", "red_weil")],
           "the four other minimal sets rest on open statements and quoted "
           "theorems alone")
 
@@ -574,29 +615,43 @@ def run():
           "the conjecture")
 
     granted = closure(BASE | {"secant_all", "Q114"})
-    check("the secant route, fully granted, reaches the trivial discriminant "
-          "and stops",
-          "weil_triv" in granted and "weil_nontriv" not in granted
-          and "weil_iq" not in granted,
-          "every base point it produces is a split member, and a split member "
-          "has trivial discriminant")
+    check("the secant route, fully granted, reaches every imaginary quadratic "
+          "family and stops short of the fields of higher degree",
+          "weil_triv" in granted and "weil_nontriv" in granted
+          and "weil_iq" in granted and "weil_cm" not in granted
+          and TARGET not in granted,
+          "its base points are split members, of trivial discriminant, and "
+          "descent (prop:descent) carries the trivial discriminant to every "
+          "other; it has no base point over a field of degree at least four")
 
-    check("the trivial discriminant alone does not close the imaginary "
-          "quadratic case",
-          "weil_iq" not in closure(BASE | {"weil_triv"}),
-          "the families of nontrivial discriminant are a separate problem")
+    check("the trivial discriminant closes the imaginary quadratic case",
+          "weil_iq" in closure(BASE | {"weil_triv"}),
+          "by descent: B x Y, with Y a Weil surface of any discriminant, and "
+          "a push-forward against the Weil class of Y")
 
-    check("the propagation statement closes the imaginary quadratic case "
-          "outright",
-          "weil_iq" in closure(BASE | {"P2"}),
-          "a base point exists in every family, so the propagation is uniform "
-          "in K, in n and in the discriminant")
+    check("the split families of the fields of degree at least four close "
+          "the imaginary quadratic case as well",
+          "weil_iq" in closure(BASE | {"weil_cm_triv"}),
+          "by scalar extension B -> B (x) O_F, every K lying in K(sqrt 2)")
 
-    check("the propagation statement closes the Weil classes of every CM "
-          "field outright",
-          "weil_all" in closure(BASE | {"P2"}),
-          "the CM base point of every family of every CM field makes the "
-          "higher fields the same propagation problem")
+    check("the propagation statement for the split imaginary quadratic "
+          "families closes the imaginary quadratic case outright",
+          "weil_iq" in closure(BASE | {"P2_iq_s"}),
+          "a base point exists in every split family, and descent does the "
+          "rest")
+
+    check("the propagation statement for the split families of the fields of "
+          "degree at least four closes the Weil classes of every CM field",
+          "weil_all" in closure(BASE | {"P2_cm_s"}),
+          "descent within each field, and scalar extension down to the "
+          "imaginary quadratic fields")
+
+    check("the families of nontrivial discriminant need no propagation "
+          "statement of their own",
+          all(not ({"P2_iq_ns", "P2_cm_ns"} & set(S)) for S in sufficient)
+          and all(not ({"P2_iq_s", "P2_iq_ns"} & set(S)) for S in sufficient),
+          "no minimal sufficient set contains (P2) for a family of nontrivial "
+          "discriminant or for an imaginary quadratic field")
 
     check("the bounded criterion (P1) is not in the rule set",
           "P1" not in STATEMENTS,
@@ -624,9 +679,10 @@ def run():
           "sets of the earlier version",
           sorted(was) == sorted([("lef_B", "mot"), ("lef_B", "red_ab"),
                                  ("red_ab", "vhc"),
-                                 ("P2", "red_ab", "red_weil")]),
-          "{lef_B, mot}, {lef_B, red_ab}, {red_ab, vhc}, {P2, red_ab, "
-          "red_weil}: the change is those two additions and nothing else")
+                                 ("P2_cm_s", "red_ab", "red_weil")]),
+          "{lef_B, mot}, {lef_B, red_ab}, {red_ab, vhc}, {P2_cm_s, red_ab, "
+          "red_weil}: the change is those two additions, with (P2) read on "
+          "the split families of the higher fields")
     check("the rule of prop:f3ishc has red_ab as its only premise",
           [r for r in full if r[2] == "prop:f3ishc"]
           == [(("red_ab",), "HC_ab", "prop:f3ishc")],

@@ -13,8 +13,10 @@ with t a principal polarisation, so that t^k / k! is an integral class for
 every k.  Two things could in principle forbid such a sheaf before any
 geometry is attempted:
 
-  (1) integrality.  The Chern character of an actual perfect complex is not
-      itself integral, but its Chern classes c_1, ..., c_n are.  If the c_i
+  (1) integrality.  On a general variety the Chern character of a perfect
+      complex is not itself integral, but its Chern classes c_1, ..., c_n
+      are; on a complex torus the Chern character is integral as well, so
+      the test below is the weaker of the two.  If the c_i
       computed from this ch by Newton's identities failed to be integral
       combinations of the classes t^k / k!, no sheaf could have this Chern
       character, in any dimension, and the secant route would be dead on

@@ -11,3 +11,6 @@ __pycache__/
 *.synctex.gz
 *.bbl
 *.blg
+
+# unedited transcripts of the long runs
+!code/extreme/transcripts/*.log

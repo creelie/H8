@@ -136,6 +136,17 @@ Contents
          Hodge on the whole K-linear family, and at members off the polarised
          family no other rational class of degree below the middle is Hodge;
          the input of the refutation of the pure form of (P2) [weil_tori.py]
+  (LII)  the corrected criterion (P2') as a number: the annihilator in HT^2
+         of N omega + sum c_k theta^k has dimension n^2(4 - rho), rho the
+         rank of the Hankel matrix of the k! c_k, and is the polarised Weil
+         tangent space for a general shape; the n = 2 formula, the first-order
+         Hodge locus, chi(E,E)  [p2prime.py]
+  (LIII) the Hochschild profile of such a character in every degree, its
+         symmetry, the middle degeneracy and the parity of chi(E,E)
+         [p2prime_profile.py]
+  (LIV)  descent and scalar extension: W(F,n+1,delta'') gives W(F,n,delta)
+         for every delta, and W(F,n,iota(delta)) gives W(K,n,delta) for
+         K in F  [descent.py]
 """
 
 import os
@@ -526,6 +537,15 @@ def main():
 
     head("(LI) the Hodge classes of a very general Weil torus")
     run_module("LI", "weil_tori.py")
+
+    head("(LII) the corrected criterion (P2') as a number")
+    run_module("LII", "p2prime.py")
+
+    head("(LIII) the Hochschild profile of a (P2') Chern character")
+    run_module("LIII", "p2prime_profile.py")
+
+    head("(LIV) descent and scalar extension for Weil classes")
+    run_module("LIV", "descent.py")
 
     print()
     print("=" * 70)

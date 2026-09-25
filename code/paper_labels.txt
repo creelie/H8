@@ -15,6 +15,7 @@ cor:fourremain
 cor:hhfactor
 cor:kernelfamily
 cor:ksboundary
+cor:lefschetzsmall
 cor:localobstruction
 cor:markmancondition
 cor:meagre
@@ -228,6 +229,7 @@ prop:composite
 prop:concentrated
 prop:corestriction
 prop:densealg
+prop:descent
 prop:disjoint
 prop:divfails
 prop:divroute
@@ -252,6 +254,7 @@ prop:lefvhc
 prop:markman8
 prop:modp
 prop:mumforddivisor
+prop:mumfordfivefold
 prop:mumfordproduct
 prop:mumfordrm
 prop:noabeliantype
@@ -261,10 +264,15 @@ prop:notpoly
 prop:notwistor
 prop:objectsize
 prop:orbitplane
+prop:p2flat
+prop:p2primelocus
+prop:p2primeprofile
 prop:pencil
 prop:pontryaginlambda
+prop:powers
 prop:quatdivisible
 prop:rigidity
+prop:scalaratiyah
 prop:separate
 prop:signatureforced
 prop:smoothlocal
@@ -347,6 +355,8 @@ rem:p1collapse
 rem:p1meaning
 rem:p2endo
 rem:p2prime
+rem:p2primeexceptional
+rem:p2primesurvive
 rem:p2search
 rem:pointwise
 rem:positiverankscope
@@ -425,6 +435,7 @@ setup:model
 setup:mumford
 setup:numerology
 setup:omegaa
+setup:p2prime
 setup:pte
 setup:quat
 setup:rules
@@ -515,6 +526,7 @@ thm:p2endo
 thm:p2false
 thm:p2forces
 thm:p2numerical
+thm:p2primenumber
 thm:p2support
 thm:plane
 thm:positivity
