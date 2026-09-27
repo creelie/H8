@@ -1,32 +1,37 @@
 \section{The algebraic locus and the propagation criteria}\label{sec:propagation}
 
-\subsection{The algebraic locus is closed, and what that costs}
+The results of \Cref{sec:basepoints} are pointwise: a class, a criterion and
+a cycle at a point, and in \Cref{cor:exactform} an implication to be proved
+at every point. This section studies the set of points at which the Weil class
+is algebraic. Properness of the Hilbert scheme makes it a countable union of
+closed subvarieties (\Cref{thm:closedlocus}), and rational isogenies make it
+dense (\Cref{prop:densealg}); together these turn the propagation question
+into a dichotomy (\Cref{cor:allornothing}). Two criteria for propagation
+follow, a bound along one orbit (\Cref{thm:degreebound}) and a rank at one
+point (\Cref{thm:semiregclosure}). We treat the first here, together with the
+transport of cycles along isogenies, which decides one of its two readings.
+
+\subsection{The algebraic locus}
 \label{ssec:properness}
 
-Everything so far has been pointwise: a class at a point, a criterion at a
-point, a cycle at a point, and in \Cref{cor:exactform} an implication to be
-proved at every point. The propagation question of \Cref{q:residual} is about
-the set
+\Cref{q:residual} is a question about the set
 \[
   \Sigma \;=\; \bigl\{\,s\in\cD_{n,n} \;:\;
-    \omega_{s}\ \text{is algebraic on}\ A_{s}\,\bigr\},
+    \omega_{s}\ \text{is algebraic on}\ A_{s}\,\bigr\}.
 \]
-and nothing has yet been said about what kind of set that is. It turns out to
-be a very restricted kind, and the restriction changes the shape of the
-remaining problem: instead of a class to construct at every point, one is left
-with a bound to prove along one orbit, or a rank to compute at one point.
-The mechanism is that the Hilbert scheme is proper, so each piece of $\Sigma$
-cut out by bounded data is Zariski closed.\footnote{The mechanism is not new.
-That the locus where a fixed Hodge class becomes algebraic is a countable
-union of closed subvarieties is the standard companion to the statement that
-the Hodge locus itself is a countable union of closed subvarieties, for which
-see \cite[Chapter~5]{Voi03} and, in the form we use in \Cref{thm:cdk},
-\cite{CDK95}. What is specific to the present situation is that the class
-whose algebraic locus is being described has been pinned down completely by
-\Cref{thm:hdgcount} and written out by \Cref{thm:explicitgens}, that the locus
-is known to be nonempty in every family by \Cref{thm:everyfamily}, and that
-the group acting has been identified. Those three inputs are what turn a soft
-statement into a criterion one can try to verify.}
+This set is of a very restricted kind, and the restriction changes the shape
+of the remaining problem: instead of a class to construct at every point, one
+is left with a bound to prove along one orbit, or a rank to compute at one
+point. The mechanism is that the Hilbert scheme is proper, so each piece of
+$\Sigma$ cut out by bounded data is Zariski closed.\footnote{The mechanism is
+standard: the locus where a fixed Hodge class becomes algebraic is a countable
+union of closed subvarieties, the companion of the statement that the Hodge
+locus itself is one; see \cite[Chapter~5]{Voi03} and, in the form used in
+\Cref{thm:cdk}, \cite{CDK95}. Specific to the present situation are that the
+class has been determined by \Cref{thm:hdgcount} and written out by
+\Cref{thm:explicitgens}, that its algebraic locus is nonempty in every family
+by \Cref{thm:everyfamily}, and that the group acting on the family has been
+identified.}
 
 \begin{setupenv}[The quotient, and the universal family]\label{setup:shimura}
 Keep \Cref{setup:family}. Fix an integer $N\ge3$ and let $\Gamma$ be the
@@ -47,8 +52,7 @@ Write $G=\SU(V,H)$, an algebraic group over $\QQ$, so that
 $G(\RR)$ acts transitively on $\cD_{n,n}$ and $\Gamma\subset G(\QQ)$.
 \end{setupenv}
 
-Two small facts have to be recorded before the main one, because both are used
-without comment later and neither is quite automatic.
+We first record two facts that are used repeatedly below.
 
 \begin{lemma}[The section descends]\label{lem:omegadescends}
 The section $\omega$ of \Cref{setup:family} is $\Gamma$-invariant, hence
@@ -71,11 +75,11 @@ $\iota(\cO_{K})\subseteq\End(A)$, and let $\HW\subset H^{2n}(A,\QQ)$ be its
 Weil line. If one nonzero element of $\HW$ is algebraic, every element of
 $\HW$ is algebraic.\footnote{This is the step compressed into the last
 sentence of the proof of \Cref{cor:whatisleft}, written out because the
-witness $\tau$ has to be chosen and because the choice is the same one the
-Lean theorem \texttt{irrational\_witness\_exists} certifies. The determinant
-that makes the two classes independent is $b(w_{1}^{2}+dw_{2}^{2})$ for
-$\tau^{2n}=a+b\sqrt{-d}$ and $w=w_{1}+w_{2}\sqrt{-d}$, and that is the content
-of \texttt{weil\_line\_spanned}.}
+witness $\tau$ has to be chosen. For $\tau^{2n}=a+b\sqrt{-d}$ and
+$w=w_{1}+w_{2}\sqrt{-d}$ the determinant of the pair $w,\tau^{2n}w$ in the
+basis $1,\sqrt{-d}$ is $b(w_{1}^{2}+dw_{2}^{2})$, which is nonzero when $b\ne0$
+and $w\ne0$. This identity, and the existence of the witness for small $n$,
+are among the statements certified in \Cref{sec:lean}.}
 \end{lemma}
 
 \begin{proof}
@@ -85,14 +89,11 @@ $\tau_{m}\bbar{\tau}_{m'}$ is rational only when $m=m'$. The group of roots of
 unity in an imaginary quadratic field has order $2$, $4$ or $6$, so some $m$
 in that range has $\tau=\tau_{m}$ with $\tau/\bbar\tau$ not a root of unity,
 and then $\tau^{2n}\ne\bbar{\tau}^{2n}$, that is $\tau^{2n}\notin\QQ$, for
-every $n\ge1$.\footnote{The exceptional witnesses are real and are the reason
-the argument names a range rather than taking $m=1$: for $d=1$ the ratio
-attached to $1+\sqrt{-1}$ is a primitive fourth root of unity and for $d=3$
-the ratio attached to $1+\sqrt{-3}$ is a primitive sixth root of unity, so at
-those two values of $d$ the naive witness fails for the divisible $n$. The
-Lean theorems \texttt{bad\_witness} and \texttt{bad\_witness\_exceptions} of
-\Cref{sec:lean} record exactly which pairs fail and that no others do in the
-range searched.}
+every $n\ge1$.\footnote{A range is needed, since the witness $m=1$ fails for
+two fields. For $d=1$ the ratio attached to $1+\sqrt{-1}$ is a primitive
+fourth root of unity, and for $d=3$ the ratio attached to $1+\sqrt{-3}$ is a
+primitive cube root of unity, so $(1+\sqrt{-d})^{2n}$ is rational when $d=1$
+and $n$ is even, and when $d=3$ and $3\mid n$.}
 
 Since $\tau\in\cO_{K}$, the element $\iota(\tau)$ is an endomorphism of $A$,
 so $\iota(\tau)^{*}$ on $H^{2n}(A,\QQ)$ is induced by the graph
@@ -120,18 +121,15 @@ Keep \Cref{setup:shimura}. For a finite tuple $\underline{P}=(P_{1},\dots
   \;\subseteq\;\cS .
 \end{align*}
 Then each $\Sigma_{\underline{P},\underline{q}}$ is Zariski closed in
-$\cS$,\footnote{The bound on the Hilbert polynomials is what the statement
-lives on, and it cannot be dropped. Without it one is looking at the image of
-an infinite disjoint union, and an infinite union of closed sets need be
-neither closed nor constructible; indeed the whole difficulty of the Hodge
-conjecture in families is that $\Sigma$ itself is not known to be either. The
-relative Chow variety of effective $n$-cycles of bounded degree would serve
-equally well in place of the Hilbert schemes, with the same proof, and the
-choice between them is immaterial here because all that is used is properness
-over the base together with the local constancy of the cycle class. What is
-used later, and what forces the bookkeeping with tuples rather than a single
-subscheme, is that a rational cycle is a rational combination of several
-integral ones and the several may have different Hilbert polynomials.} and
+$\cS$,\footnote{The bound on the Hilbert polynomials cannot be dropped:
+without it one takes the image of an infinite disjoint union, and an infinite
+union of closed sets need be neither closed nor constructible; $\Sigma$
+itself is not known to be either. The relative Chow variety of effective
+$n$-cycles of bounded degree would serve equally well, with the same proof,
+since only properness over the base and local constancy of the cycle class
+are used. Tuples are needed because a rational cycle is a rational
+combination of several integral ones, which may have different Hilbert
+polynomials.} and
 \[
   p^{-1}\Bigl(\,\bigcup_{\underline{P},\underline{q}}
     \Sigma_{\underline{P},\underline{q}}\Bigr)\;=\;\Sigma ,
@@ -171,7 +169,7 @@ clear: a Hilbert polynomial is determined by its finitely many integer
 coordinates in the binomial basis, and $\QQ$ is countable.
 \end{proof}
 
-\begin{corollary}[All, or almost nothing]\label{cor:allornothing}
+\begin{corollary}[The dichotomy]\label{cor:allornothing}
 Exactly one of the following holds.
 \begin{enumerate}[label=\textup{(\alph*)},nosep]
 \item $\Sigma=\cD_{n,n}$, and the Hodge conjecture holds in every degree for
@@ -208,19 +206,19 @@ again gives that this intersection is dense.
 $\Sigma_{\underline{P},\underline{q}}$ is Zariski closed by
 \Cref{thm:closedlocus}, and there are countably many of them; the base point
 $s_{0}$ of \Cref{thm:everyfamily} lies on one. By \Cref{prop:densealg} the
-union of the strata is dense, so a point $s$ off all of them is squeezed
-between strata however small a neighbourhood is taken. The conjecture for the
-family is the assertion that no such $s$ exists, and by
-\Cref{cor:allornothing} it is enough that one stratum has nonempty interior.}
+union of the strata is dense, so every neighbourhood of a point $s$ lying
+off all of them meets infinitely many strata. The conjecture for the family
+is the assertion that no such $s$ exists, and by \Cref{cor:allornothing} it
+is enough that one stratum has nonempty interior.}
 \label{fig:properness}
 \end{figure}
 
-The next fact says that case (b) of \Cref{cor:allornothing}, if it occurs,
-occurs in an uncomfortable way: the algebraic locus is always dense, so the
-two sets in the dichotomy would both be dense and the distinction between them
-would be entirely one of measure rather than of position.
+If case (b) of \Cref{cor:allornothing} occurs, then $\Sigma$ and its
+complement are both dense, since the algebraic locus is always dense
+(\Cref{prop:densealg}); the two sets are then distinguished by Baire category
+and not by position.
 
-\begin{lemma}[Algebraicity is a rational invariant]\label{lem:Ginvariance}
+\begin{lemma}[Invariance under rational isogenies]\label{lem:Ginvariance}
 $\Sigma$ is stable under the action of $G(\QQ)$ on $\cD_{n,n}$.
 \end{lemma}
 
@@ -238,18 +236,16 @@ $\omega_{gJ}$.
 
 \begin{proposition}[The algebraic locus is dense]\label{prop:densealg}
 Let $n\ge2$. Then $\Sigma$ is dense in $\cD_{n,n}$ in the analytic topology,
-and its image in $\cS$ is dense.\footnote{We should be clear about which
-of the two standard density statements this is, because they behave in
-opposite ways. For a class that is not flat, the locus where it stays Hodge is
-a countable union of proper closed subvarieties, and the content of
-\Cref{thm:cdk} is that each of them is algebraic; density there would be a
-statement about how special points distribute. For the class $\omega$ of
-\Cref{setup:family} the Hodge locus is the whole family by
-\Cref{prop:weilline}(ii), so \Cref{thm:cdk} says nothing at all, and the set
-that carries information is the algebraic locus instead. The proposition below
-is a statement about that set, and its proof uses no Hodge theory: the
+and its image in $\cS$ is dense.\footnote{Two density statements should be
+distinguished. For a class that is not flat, the locus where it stays Hodge is
+a countable union of proper closed subvarieties, each algebraic by
+\Cref{thm:cdk}, and density there concerns the distribution of special
+points. For the class $\omega$ of \Cref{setup:family} the Hodge locus is the
+whole family by \Cref{prop:weilline}(ii), so \Cref{thm:cdk} gives no
+information, and the set that carries information is the algebraic locus.
+The proposition concerns that set, and its proof uses no Hodge theory: the
 algebraic locus is a union of orbits of a group whose rational points are
-dense in its real points, and the density is inherited from the group.}
+dense in its real points.}
 \end{proposition}
 
 \begin{proof}
@@ -274,28 +270,32 @@ By \Cref{thm:everyfamily} the set $\Sigma$ is nonempty, and by
 The projection $p$ is open and surjective, so the image is dense.
 \end{proof}
 
-\begin{corollary}[The conjecture for Weil type is a non-meagreness
-statement]\label{cor:meagre}
+\begin{corollary}[A Baire category criterion]\label{cor:meagre}
 Let $n\ge2$. The Hodge conjecture holds for every abelian $2n$-fold of
-$(K,-1,n)$-Weil type in the family of \Cref{setup:family} if and only if
-$\Sigma$ is non-meagre in $\cD_{n,n}$, and if and only if $\Sigma$ has
-nonempty interior.
+$(K,-1,n)$-Weil type with $\Hg(A)=\SU(V,H)$ in the family of
+\Cref{setup:family} if and only if $\Sigma$ is non-meagre in $\cD_{n,n}$, and
+if and only if $\Sigma$ has nonempty interior.
 \end{corollary}
 
 \begin{proof}
-If $\Sigma=\cD_{n,n}$ both conditions hold. If not, \Cref{cor:allornothing}(b)
-says $\Sigma$ is a countable union of closed sets with empty interior, hence
-meagre, and \Cref{thm:residual}(b) says the conjecture fails.
+If $\Sigma=\cD_{n,n}$, both conditions hold, and so does the conjecture, by
+\Cref{thm:residual}(a). If not, \Cref{cor:allornothing}(b) shows that $\Sigma$
+has empty interior; it is then the countable union of the closed sets
+$p^{-1}(\Sigma_{\underline{P},\underline{q}})$, each with empty interior, and
+so it is meagre. The points $s$ with $\Hg(A_{s})=\SU(V,H)$ form the complement
+of a countable union of proper closed analytic subsets of $\cD_{n,n}$, by
+Weil's theorem \cite{Weil77} recalled before \Cref{thm:hdgcount}, so by Baire
+they are not all contained in the meagre set $\Sigma$. At a point of this
+kind outside $\Sigma$ the Hodge conjecture fails for $A_{s}$.
 \end{proof}
 
 \subsection{The first criterion: a bound along one orbit}
 
 The proof of \Cref{prop:densealg} produces the dense algebraic locus by moving
-one cycle around by rational isogenies, and an isogeny multiplies degrees. So
-the dense set it produces is stratified by unbounded data, which is exactly
-what stops \Cref{cor:allornothing} from applying. Reversing this gives a
-criterion, and it is the sharpest consequence of \Cref{thm:closedlocus} we
-know how to state.
+one cycle around by rational isogenies, and an isogeny multiplies degrees. The
+dense set so obtained is therefore stratified by unbounded data, and this is
+what prevents \Cref{cor:allornothing} from applying to it. A bound on the data
+along one orbit removes the difficulty.
 
 \begin{theorem}[A bound along the orbit closes the family]\label{thm:degreebound}
 Let $n\ge2$ and let $s_{0}\in\Sigma$ be one of the base points supplied by
@@ -307,32 +307,35 @@ degree for every abelian $2n$-fold of $(K,-1,n)$-Weil type with
 $\Hg(A)=\SU(V,H)$ in that family.
 \end{theorem}
 
-\begin{remark}[The cycle is chosen, not transported]\label{rem:chosencycle}
-The hypothesis quantifies over representing cycles at each point of the orbit
-and asks only that one of them, at each point, be of bounded complexity. An
-earlier form of this statement fixed the cycle, taking at $g\cdot s_{0}$ the
-transport of the cycle at $s_{0}$ along the isogeny of
-\Cref{lem:Ginvariance}. That form is stronger, and \Cref{thm:p1forces} below
-shows that it is too strong to be usable: for a base cycle with a component of
-finite stabiliser the transported data is unbounded, so its hypothesis is never
-satisfied. The proof below uses only the weaker hypothesis, which is what the
-covering argument needs.
-\end{remark}
-
 \begin{proof}
 The orbit $G(\QQ)\cdot s_{0}$ is dense by the proof of \Cref{prop:densealg},
 and by hypothesis it is the union of the finitely many sets
 $G(\QQ)\cdot s_{0}\cap p^{-1}(\Sigma_{\underline{P},\underline{q}})$ with
-$(\underline{P},\underline{q})\in\mathcal{T}$. A finite
-union of closed sets is dense only if one of them is, so one
-$p^{-1}(\Sigma_{\underline{P},\underline{q}})$ is dense; it is closed in the
-analytic topology, hence equals $\cD_{n,n}$. Now apply
-\Cref{thm:residual}(a).
+$(\underline{P},\underline{q})\in\mathcal{T}$. The union of the finitely
+many closed sets $p^{-1}(\Sigma_{\underline{P},\underline{q}})$,
+$(\underline{P},\underline{q})\in\mathcal{T}$, therefore contains a dense set,
+and so it is all of $\cD_{n,n}$. Each $\Sigma_{\underline{P},\underline{q}}$
+is Zariski closed in the irreducible variety $\cS$, hence either equal to
+$\cS$ or nowhere dense, and a finite union of nowhere dense sets is nowhere
+dense. So one $\Sigma_{\underline{P},\underline{q}}$ equals $\cS$, and
+$\Sigma=\cD_{n,n}$. Now apply \Cref{thm:residual}(a).
 \end{proof}
 
-The hypothesis of \Cref{thm:degreebound} can be sharpened, and the sharpening
-says which half of the Hilbert data is at issue. The leading coefficient is
-not.
+\begin{remark}[Choice of the representing cycle]\label{rem:chosencycle}
+We call the hypothesis of \Cref{thm:degreebound} the bounded criterion
+\textup{(P1)}; \Cref{rem:tworemain} lists it beside the rank criterion
+\textup{(P2)} of \Cref{thm:semiregclosure}. It quantifies over representing
+cycles at each point of the orbit and asks only that, at each point, one of
+them have bounded complexity. A stronger hypothesis would fix the cycle,
+taking at $g\cdot s_{0}$ the transport of the cycle at $s_{0}$ along the
+isogeny of \Cref{lem:Ginvariance}. \Cref{thm:p1forces} below shows that this
+stronger form is never satisfied by a base cycle with a component of finite
+stabiliser, since the transported data is then unbounded. The proof above
+uses only the weaker hypothesis, which is what the covering argument needs.
+\end{remark}
+
+The hypothesis of \Cref{thm:degreebound} can be sharpened by locating the
+part of the Hilbert data that is at issue. The leading coefficient is not.
 
 \begin{proposition}[The leading coefficient is constant on the orbit]
 \label{prop:leadingconstant}
@@ -358,46 +361,48 @@ Hirzebruch--Riemann--Roch on $A$, the higher coefficients involving the
 structure sheaf of the cycle and not only its class.
 \end{proof}
 
-\begin{remark}[Where the unboundedness can only come from]
+\begin{remark}[The source of unboundedness]
 \label{rem:whereunbounded}
-Write a representing cycle at a point of the orbit, the transported cycle
-or any other, as a difference $\xi^{+}-\xi^{-}$ of effective cycles. By \Cref{prop:leadingconstant} the difference of their degrees is
-constant along the orbit, and by the boundedness of the Chow variety of
+Write a representing cycle at a point of the orbit, the transported cycle or
+any other, as a difference $\xi^{+}-\xi^{-}$ of effective cycles. By
+\Cref{prop:leadingconstant} the difference of their degrees is constant along
+the orbit, and by the boundedness of the Chow variety of
 effective cycles of bounded degree in a fixed polarised variety, if
 $\deg\xi^{+}$ were bounded along the orbit then only finitely many tuples
 $(\underline{P},\underline{q})$ could occur and \Cref{thm:degreebound} would
 apply. So the hypothesis of that theorem is equivalent to a bound on the
 effective part alone.
 
-That is not a formality, and the mechanism that threatens it is visible. The
-transport at $g$ is by the isogeny obtained from $g$ by clearing denominators;
-if $g$ has denominator $m$ on the reference lattice, which has rank $4n$, the
-isogeny has degree a divisor of $m^{4n}$, and pushing a cycle forward along it
-multiplies the multiplicities by factors of that order. The rational points of
-$G$ are dense precisely because their denominators are unbounded, so along any
-orbit dense enough to be useful the isogeny degrees are unbounded as well.
-What \Cref{thm:degreebound} asks is that the cycles nevertheless simplify: that
-at each point of the orbit the class $\omega$, whose degree has not changed,
-admits an effective representation no more complicated than before. For the
-transported cycle itself the answer is negative (\Cref{thm:p1forces} below),
-and for a cycle chosen at each point the bound is equivalent to the conclusion
-(\Cref{thm:p1equivalent}), so it cannot be decided before the conclusion is.
-The content of the present remark is only that the question has been reduced from the whole
-Hilbert datum to the degree of the effective part, and that the part of the
-datum which is determined by cohomology is already constant.
+This bound is a genuine condition, and the mechanism that threatens it can
+be seen directly. The transport at $g$ is by the isogeny obtained from $g$ by
+clearing denominators; if $g$ has denominator $m$ on the reference lattice,
+which has rank $4n$, the isogeny has degree dividing $m^{4n}$, and pushing a
+cycle forward along it multiplies the multiplicities by factors of that
+order. Elements of $G(\QQ)$ of bounded denominator form a discrete subset of
+$G(\RR)$, so along a dense orbit the denominators, and with them the isogeny
+degrees, are unbounded. What \Cref{thm:degreebound} asks is that the cycles
+nevertheless simplify: that at each point of the orbit the class $\omega$,
+whose degree has not changed, admits an effective representation no more
+complicated than before. For the transported cycle itself the answer is
+negative (\Cref{thm:p1forces} below), and for a cycle chosen at each point
+the bound is equivalent to the conclusion (\Cref{thm:p1equivalent}). The
+present remark shows only that the question reduces from the whole Hilbert
+datum to the degree of the effective part, and that the part of the datum
+determined by cohomology is constant.
 \end{remark}
 
-\subsection{What the transport does, exactly}
+\subsection{Transport along isogenies}
 
-The mechanism of \Cref{rem:whereunbounded} can be computed rather than
-described, and computing it decides one of the two readings of (P1). Write
-$\Lambda$ for the reference lattice, of rank $4n$ over $\ZZ$, and $E$ for the
-alternating form of the polarisation, so that a point $s$ of $\cD_{n,n}$ is a
-complex structure on $\Lambda\otimes\RR$ and $A_{s}=(\Lambda\otimes\RR)/\Lambda$.
-Throughout, $G=\dim A_{s}=2n$ and a component of a cycle representing
-$\omega_{s}$ has dimension $n$.
+The mechanism of \Cref{rem:whereunbounded} can be computed, and the
+computation settles one of the two readings of \textup{(P1)}: the reading in
+which the cycle at $s_{0}$ is transported along the orbit rather than chosen
+afresh at each point. Write $\Lambda$ for the reference lattice, of rank $4n$
+over $\ZZ$, and $E$ for the alternating form of the polarisation, so that a
+point $s$ of $\cD_{n,n}$ is a complex structure on $\Lambda\otimes\RR$ and
+$A_{s}=(\Lambda\otimes\RR)/\Lambda$. Throughout, $\dim A_{s}=2n$, and a
+component of a cycle representing $\omega_{s}$ has dimension $n$.
 
-\begin{lemma}[The transport, in coordinates]\label{lem:transport}
+\begin{lemma}[The transport in coordinates]\label{lem:transport}
 Let $g\in G(\QQ)$ and let $c=c(g)$ be the least positive integer with
 $cg\Lambda\subseteq\Lambda$. Then $\varphi_{g}:=cg$ induces an isogeny
 $A_{s_{0}}\to A_{g\cdot s_{0}}$ with
@@ -406,7 +411,7 @@ $A_{s_{0}}\to A_{g\cdot s_{0}}$ with
 \item $\varphi_{g}^{*}\eta_{g\cdot s_{0}}=c^{2}\eta_{s_{0}}$ and
   $\varphi_{g}^{*}\omega_{g\cdot s_{0}}=c^{2n}\omega_{s_{0}}$;
 \item the transported cycle representing $\omega_{g\cdot s_{0}}$ is
-  $c^{2n-4n}\,\varphi_{g*}(Z)$, where $Z$ represents $\omega_{s_{0}}$.
+  $c^{-2n}\,\varphi_{g*}(Z)$, where $Z$ represents $\omega_{s_{0}}$.
 \end{enumerate}
 Moreover $\sup_{g\in G(\QQ)}c(g)=\infty$.
 \end{lemma}
@@ -424,7 +429,8 @@ the Weil line pointwise by \Cref{lem:omegadescends}.
 (iii) $\varphi_{g*}\varphi_{g}^{*}=\deg\varphi_{g}$, so
 $\omega_{g\cdot s_{0}}=(\deg\varphi_{g})^{-1}\varphi_{g*}
 \varphi_{g}^{*}\omega_{g\cdot s_{0}}
-=c^{2n-4n}\varphi_{g*}\omega_{s_{0}}$ by (i) and (ii).
+=c^{-4n}\,c^{2n}\varphi_{g*}\omega_{s_{0}}=c^{-2n}\varphi_{g*}\omega_{s_{0}}$
+by (i) and (ii).
 
 For the last sentence, $G$ is $\QQ$-isotropic by the proof of
 \Cref{prop:densealg}, so it has a proper parabolic $\QQ$-subgroup whose
@@ -435,7 +441,7 @@ verifies (i) and (ii) on an explicit sample of such $u$ with $c$ up to $29$,
 for $2n=4,6,8$.
 \end{proof}
 
-\begin{lemma}[The multiplicity is the stabiliser met by the kernel]
+\begin{lemma}[Push-forward along an isogeny]
 \label{lem:multiplicity}
 Let $\varphi\colon A\to A'$ be an isogeny of abelian varieties and $Z\subseteq A$
 an integral closed subvariety. Put
@@ -468,19 +474,20 @@ For the degree, the projection formula gives
   =\int[Z]\cdot\frac{(\varphi^{*}\eta')^{n}}{n!}
   =c^{2n}\int[Z]\cdot\frac{\eta^{n}}{n!}=c^{2n}\deg_{\eta}Z .
 \]
-Item (XXXVII) verifies both identities for subtori of an abelian fourfold,
+Item (XXXVII) of \Cref{sec:verification} verifies both identities for
+subtori of an abelian fourfold,
 with $m$ computed as a lattice index by Smith normal form and the degrees as
 Pfaffians; there the two cases are visible side by side, a subtorus preserved
 by $\varphi$ having $m=c^{2n}$ and image degree constant, and one not
 preserved having $m=c^{2n-1}$ and image degree growing linearly in $c$.
 \end{proof}
 
-\begin{theorem}[What \textup{(P1)} forces on the base cycle]\label{thm:p1forces}
+\begin{theorem}[The transported cycle]\label{thm:p1forces}
 Let $s_{0}\in\Sigma$ and let $Z=\sum_{i}q_{i}Z_{i}$, with $q_{i}\ne0$ and the
 $Z_{i}$ integral of dimension $n$, represent $\omega_{s_{0}}$.
 \begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
 \item For $g\in G(\QQ)$ the transported cycle is
-  $\sum_{i}c(g)^{2n-4n}m_{i}(g)\,q_{i}\,[\varphi_{g}(Z_{i})]$ with
+  $\sum_{i}c(g)^{-2n}m_{i}(g)\,q_{i}\,[\varphi_{g}(Z_{i})]$ with
   $m_{i}(g)=|\ker\varphi_{g}\cap G(Z_{i})|$, and the $i$-th component has
   degree $c(g)^{2n}\deg_{\eta}(Z_{i})/m_{i}(g)$.
 \item If some $Z_{i}$ has finite stabiliser $G(Z_{i})$, then
@@ -508,42 +515,42 @@ subgroup of positive dimension in an abelian variety has an abelian subvariety
 of positive dimension as its identity component.
 \end{proof}
 
-\begin{remark}[What this settles and what it leaves]\label{rem:p1meaning}
-Three things follow, and we separate them.
+\begin{remark}[The two readings of \textup{(P1)}]\label{rem:p1meaning}
+Three consequences should be kept apart.
 
-The statement (P1) has two readings, and one of them is now closed. Read with
-the cycle fixed at $s_{0}$ and transported, it fails for every base cycle this
-paper writes down: those cycles are intersections of divisors, and an
-intersection of $n$ divisors on an abelian $2n$-fold has finite stabiliser
-unless the divisors are pulled back from a quotient, which the ones here are
-not. Read with the cycle chosen afresh at each point of the orbit, which is
-the form \Cref{thm:degreebound} now takes, it is untouched by
-\Cref{thm:p1forces} and remains open.
+First, \textup{(P1)} has two readings, and \Cref{thm:p1forces} settles one of
+them. Read with the cycle fixed at $s_{0}$ and transported, it fails for every
+base cycle written down in this paper: those cycles are intersections of
+divisors, and an intersection of $n$ divisors on an abelian $2n$-fold has
+finite stabiliser unless the divisors are pulled back from a quotient, which
+the ones here are not. Read with the cycle chosen afresh at each point of the
+orbit, which is the form of the hypothesis of \Cref{thm:degreebound}, it is
+not affected by \Cref{thm:p1forces}.
 
-The two readings are different, and the difference is the content of
+Second, the difference between the two readings is the content of
 \Cref{lem:multiplicity}. The class $\omega_{g\cdot s_{0}}$ has constant degree
 along the orbit, by \Cref{prop:leadingconstant}; what grows is the complexity
-of the particular representative the transport produces, and it grows because
-the isogeny spreads each component out by the factor $c^{2n}/m_{i}$. A
-representative of bounded complexity may well exist at every point; the
-transport does not find it.
+of the particular representative that the transport produces, because the
+isogeny spreads each component out by the factor $c^{2n}/m_{i}$. The
+transport does not produce a representative of bounded complexity, whether or
+not one exists.
 
-The third is a demand on any future attempt at (P1). It must either produce a
-base cycle supported on subvarieties with positive-dimensional stabiliser,
-which for a Weil class is a strong and possibly impossible requirement, or
-abandon the transport and bound instead the minimal complexity of a
-representative, which is a statement about the Chow variety of the family and
-not about any one cycle. We do not know how to do either.
+Third, an approach to \textup{(P1)} must either produce a base cycle supported
+on subvarieties with positive-dimensional stabiliser, a strong requirement for
+a Weil class, or abandon the transport and bound instead the minimal
+complexity of a representative, which is a statement about the Chow variety of
+the family and not about any one cycle. Neither is achieved here.
 \end{remark}
 
-The bound on the minimal complexity is the form in
-which \Cref{thm:degreebound} now stands. It is the weakest hypothesis under
-which the covering argument runs, and it is therefore the form in which (P1)
-would have to be attacked. The next theorem decides it, and the answer is that
-there is nothing there to attack: the hypothesis is not a sufficient condition
-for the conjecture on the family but another way of writing it.
+The bound on the minimal complexity of a representative is the hypothesis of
+\Cref{thm:degreebound}, and it is the weakest hypothesis under which the
+covering argument runs. The next theorem shows that it is equivalent to the
+conclusion. Write $\mathbf{W}(K,n,\delta)$ for the statement that every
+abelian $2n$-fold of $(K,-1,n)$-Weil type with discriminant $\delta$
+(\Cref{def:disc}) has algebraic Weil classes, $\delta$ being the discriminant
+of the family of \Cref{setup:family}.
 
-\begin{theorem}[The bounded form is the conjecture itself]\label{thm:p1equivalent}
+\begin{theorem}[Equivalence of the bounded criterion]\label{thm:p1equivalent}
 Let $n\ge2$, let $s_{0}\in\Sigma$ and keep \Cref{setup:family}. The following
 are equivalent.
 \begin{enumerate}[label=\textup{(\alph*)},leftmargin=2.6em,itemsep=2pt]
@@ -568,7 +575,9 @@ same holds for every CM field, with \Cref{thm:cmpropagation}(iv) in place of
 \begin{proof}
 (a) implies (c) is \Cref{thm:degreebound}. (b) implies (a) is immediate, the
 orbit being contained in $\cD_{n,n}$ and $\mathcal{T}$ being the one pair.
-(c) is equivalent to (d) by \Cref{thm:residual}(a) and (b).
+(d) implies (c) trivially, and (c) implies (d) because the algebraicity of
+$\omega_{s}$ makes the whole Weil line of $A_{s}$ algebraic, by the argument
+of \Cref{cor:whatisleft}.
 
 It remains to deduce (b) from (c). If $\Sigma=\cD_{n,n}$ then $\Sigma$ has
 nonempty interior, and the first paragraph of the proof of
@@ -588,32 +597,25 @@ For a CM field the same argument applies verbatim, using
 \Cref{cor:allornothing}.
 \end{proof}
 
-\begin{remark}[What is left of the first criterion]\label{rem:p1collapse}
-\Cref{thm:p1equivalent} removes (P1) from the list of things that would close
-the family, and we should be exact about what it does and does not say.
+\begin{remark}[Status of the first criterion]\label{rem:p1collapse}
+\Cref{thm:p1equivalent} removes \textup{(P1)} from the list of statements
+that would close the family. \Cref{thm:degreebound} remains a correct
+implication, and its covering argument is the only place in the paper where
+density of the rational orbit is converted into a global statement; but the
+implication has a converse, so verifying its hypothesis for a family is as
+hard as proving the conclusion for that family. The boundedness is
+nevertheless a concrete finiteness statement about the Chow variety of the
+universal family, and a reformulation of $\mathbf{W}(K,n,\delta)$ that
+mentions neither Hodge theory nor deformation theory.
 
-It does not say that \Cref{thm:degreebound} is false or that its proof is
-defective. The implication it proves is correct, and the covering argument is
-the only place in this paper where density of the rational orbit is converted
-into a global statement. What the theorem says is that the implication has a
-converse, so that the hypothesis is no weaker than the conclusion. A criterion
-of that kind cannot be used: verifying it at one family is exactly as hard as
-proving the conjecture for that family, no more and no less.
-
-Nor does it say that the boundedness is uninteresting. It is a concrete
-finiteness statement about the Chow variety of the universal family, and it is
-the only reformulation of $\mathbf{W}(K,n,\delta)$ we know that mentions
-neither Hodge theory nor deformation theory. What it is not is a step.
-
-The two forms of the propagation statement are therefore not on the same
-footing, and we had them on the same footing until now. (P2) remains a genuine
-sufficient condition: injectivity of one semiregularity map at one point
-implies the conjecture for the whole family, and nothing here shows the
-converse, nor do we see how it could, since $\Sigma=\cD_{n,n}$ says nothing
-about the deformation theory of any particular perfect complex. So the
-propagation half of the frontier is the single statement (P2), and the
-constraints \Cref{thm:p2forces} and \Cref{cor:p2shape} place on it are the
-constraints on the whole of that half.
+The two propagation criteria are therefore not on the same footing. The rank
+criterion \textup{(P2)} of \Cref{thm:semiregclosure} is a sufficient
+condition with no evident converse: injectivity of one semiregularity map at
+one point implies the conjecture for the whole family, while
+$\Sigma=\cD_{n,n}$ carries no information about the deformation theory of any
+particular perfect complex. In its pure form, with Chern character a Weil
+class, it is never satisfied (\Cref{thm:p2false}); it survives in the
+corrected form \textup{(P2$'$)} of \Cref{rem:p2prime}, which is open.
 \end{remark}
 
 At the quaternionic points of \Cref{setup:quat} the mechanism of
@@ -631,7 +633,7 @@ $Z_{b},Z'_{b}$ span the Weil plane. Write $x\in\cO_{b}$ as $x=u+vj$ with
 $u,v\in\ZZ[i]$; the pair $(\Lambda_{b},i)$ is then the same $\ZZ[i]$-module
 $\ZZ[i]^{4}$ for every $b$, and we use this identification throughout.
 
-\begin{proposition}[The quaternionic Weil cycle is a square multiple]
+\begin{proposition}[Divisibility of the quaternionic Weil cycle]
 \label{prop:quatdivisible}
 With these data, for every $b\in\ZZ_{>0}$:
 \begin{enumerate}[label=\textup{(\roman*)},nosep]
@@ -695,7 +697,7 @@ $d\in\{1,2,3,7\}$, three weight vectors and seven values of $b$, the Gram
 matrix of $\HW_{\ZZ}$ is $\mathrm{diag}(8d,8d^{2})$ and the index is
 $2(a_{1}a_{2})^{2}$, both independent of $b$.
 
-\begin{remark}[The multiple sits in the polarisation]\label{rem:quatdivisible}
+\begin{remark}[Growth of the polarisation]\label{rem:quatdivisible}
 At these points the Weil class carries no multiple that grows with $b$ once
 it is written in integral terms: by \Cref{prop:quatdivisible}(ii) it is
 $b^{2}Z_{1}$, with $Z_{1}$ one integral algebraic cycle built from the two
@@ -706,15 +708,15 @@ $\int\eta_{b}^{4}=b^{2}\int\eta_{1}^{4}$, so the points $A_{b}$ carry
 polarisations of unbounded degree, and an isogeny carrying $\eta_{b}$ to the
 polarisation of one fixed family has degree $\int\eta_{b}^{4}/\int\eta^{4}$,
 which grows like $b^{2}$. This is the unbounded isogeny degree of
-\Cref{rem:whereunbounded}, located at an explicit family of points, and it is
-untouched by the integrality of $Z_{1}$.
+\Cref{rem:whereunbounded}, located at an explicit family of points, and the
+integrality of $Z_{1}$ does not affect it.
 \end{remark}
 
 The base points of \Cref{thm:everyfamily}, and every algebraicity statement
 for Weil classes proved in this paper, represent $\omega$ through products of
-divisor classes. The next result says that a representation of that kind can
-hold with bounded degrees only on a nowhere dense set, so the bound asked for
-in \Cref{thm:degreebound} has to come from cycles that are not products of
+divisor classes. The next result shows that a representation of that kind
+can hold with bounded degrees only on a nowhere dense set, so the bound asked
+for in \Cref{thm:degreebound} has to come from cycles that are not products of
 divisors. For a class $x\in H^{2}(A_{s},\RR)$ put
 \[
   t(x)=\frac{\int x\,\eta^{2n-1}}{\int\eta^{2n}},\qquad
@@ -784,22 +786,24 @@ analytic subsets. Their union is closed with empty interior in the connected
 manifold $\cD_{n,n}$, and it contains $\Sigma_{C}$.
 \end{proof}
 
-\begin{remark}[What the proposition closes]\label{rem:divroute}
+\begin{remark}[Divisorial representatives]\label{rem:divroute}
 The loci on which this paper proves $\omega$ algebraic are the split,
 quaternionic and product loci and their translates under $G(\QQ)$, and on
 each of them $\omega$ is a rational polynomial in divisor classes, since an
-isogeny carries $\NS\otimes\QQ$ isomorphically. \Cref{prop:divroute} shows that no
-bounded family of such cycles covers a dense set, so the finiteness in
-\Cref{thm:degreebound} cannot be obtained by bounding the divisors that
-produce $\omega$ at the points where it is known to be algebraic. It has to
-come from the transported cycles of \Cref{lem:Ginvariance} themselves, which
-are push-forwards along isogenies and not products of divisors on the target.
-That is the unbounded isogeny degree of \Cref{rem:whereunbounded} and
-\Cref{rem:quatdivisible}, now shown to be unavoidable for the divisorial
-constructions. The argument uses nothing about $\omega$ beyond the fact that it
-is not a multiple of $\eta^{n}$, and nothing about the family beyond the
-generic Picard number, so it applies equally to any variational argument that
-feeds on divisor products.
+isogeny carries $\NS\otimes\QQ$ isomorphically. \Cref{prop:divroute} shows
+that no bounded family of such cycles covers a dense set, so the finiteness
+in \Cref{thm:degreebound} cannot be obtained by bounding the divisors that
+produce $\omega$ at the points where it is known to be algebraic. It would
+have to come from representatives of another kind, such as the transported
+cycles of \Cref{lem:Ginvariance}, which are push-forwards along isogenies
+rather than products of divisors on the target; and by \Cref{thm:p1forces}
+their data is unbounded as soon as a component of the base cycle has finite
+stabiliser. The unbounded isogeny degree of \Cref{rem:whereunbounded} and
+\Cref{rem:quatdivisible} is thus unavoidable for divisorial constructions.
+The argument uses nothing about $\omega$ beyond the fact that it is not a
+multiple of $\eta^{n}$, and nothing about the family beyond the generic
+Picard number, so it applies equally to any variational argument that rests
+on products of divisors.
 \end{remark}
 
 At $n=2$ the phenomenon can be exhibited on one fixed polarised lattice. Take
@@ -878,17 +882,16 @@ $[\mathfrak{k},\mathfrak{p}]\subseteq\mathfrak{p}$ and
 $[\mathfrak{p},\mathfrak{p}]\subseteq\mathfrak{k}$, so
 $\mathfrak{p}+[\mathfrak{p},\mathfrak{p}]$ is an ideal of $\mathfrak{c}$;
 it is nonzero, and $\mathfrak{sp}_{4}(\RR)$ is simple, so it is all of
-$\mathfrak{c}$.\footnote{Simplicity of $\mathfrak{sp}_{4}(\RR)$ is the one
-fact from Lie theory used here, and it is elementary: the complexification
+$\mathfrak{c}$.\footnote{The only fact from Lie theory used here is the
+simplicity of $\mathfrak{sp}_{4}(\RR)$. Its complexification
 $\mathfrak{sp}_{4}(\CC)$ has the irreducible root system $C_{2}$, a complex
-semisimple Lie algebra with irreducible root system is simple, and an ideal of a
-real form is an ideal of the complexification after tensoring with $\CC$, so
-a real form of a simple complex Lie algebra is simple. Nothing finer than this
-is needed, in particular no statement about the abstract group
-$\mathrm{PSp}_{4}(\RR)$; and the conclusion
-$\mathfrak{p}+[\mathfrak{p},\mathfrak{p}]=\mathfrak{c}$ is also checked by
-direct computation in item (XXIV), at the two members of the pencil that carry
-a rational point.} Hence $z$ is annihilated by $\mathfrak{c}$ and, since
+semisimple Lie algebra with irreducible root system is simple, and an ideal of
+a real form becomes an ideal of the complexification after tensoring with
+$\CC$, so a real form of a simple complex Lie algebra is simple. No statement
+about the abstract group $\mathrm{PSp}_{4}(\RR)$ is needed. The conclusion
+$\mathfrak{p}+[\mathfrak{p},\mathfrak{p}]=\mathfrak{c}$ is also checked
+directly in item (XXIV) of \Cref{sec:verification}, at the two members of the
+pencil, one for each $d$, at which a rational point is written down.} Hence $z$ is annihilated by $\mathfrak{c}$ and, since
 $\Sp(V_{+})$ is connected, invariant under all of $\mathcal{C}_{k}$.
 So the classes of type $(1,1)$ at every point of $S_{k}$ are the invariants of
 $\Sp(V_{+})$ in $\bigwedge^{2}(V_{+}\otimes\RR^{2})
@@ -897,7 +900,7 @@ $\Sp(V_{+})$ in $\bigwedge^{2}(V_{+}\otimes\RR^{2})
 $3$ spanned by $\eta$, $x_{k}$ and $x_{k}(i\cdot,\cdot)$. Item (XXIV)
 confirms both steps over $\QQ$: for $0\le k\le4$ the centraliser of $i$ and
 $\phi$ in $\mathfrak{sp}(V,E)$ has dimension $10$ and exactly three invariants
-in $\bigwedge^{2}V^{*}$; and at the values of $k$ where $\beta(k)$ is a
+in $\bigwedge^{2}V^{*}$; and at one value of $k$ at which $\beta(k)$ is a
 rational square, $k=-1$ for $d=1$ and $k=-2$ for $d=3$, a rational point
 $J_{0}$ of $S_{k}$ is written down, $\mathfrak{p}=[\mathfrak{c},J_{0}]$ has
 dimension $6$, and $\mathfrak{p}+[\mathfrak{p},\mathfrak{p}]$ has dimension
@@ -926,12 +929,11 @@ The bound in (iv) is far from sharp. The exact values computed in item (XXIV)
 for $0\le k\le10$ are $\mu_{k}=\beta(k)\int\eta^{4}/3$ or half of it for
 $d=1$, and $\mu_{k}=\beta(k)\int\eta^{4}/12$ for $d=3$; the proof loses the
 factor $(\int\eta^{4})^{2}$ in passing from $y$ to its primitive part, and
-only the growth in $k$ matters here. Each
-locus of the pencil carries algebraic Weil classes, by the divisorial
-criterion, and on the $k$-th of them the divisors that produce those classes
-have degree growing like $k$. This is \Cref{prop:divroute} seen on explicit
-quaternionic loci in one fixed polarised lattice; \Cref{fig:pencil} draws
-it.
+only the growth in $k$ matters here. Each locus of the pencil carries
+algebraic Weil classes, by the divisorial criterion, and on the $k$-th of them
+the divisors that produce those classes have degree growing like $k$. This is
+\Cref{prop:divroute} seen on explicit quaternionic loci in one fixed
+polarised lattice, and \Cref{fig:pencil} illustrates it.
 
 \begin{figure}[t]
 \centering
@@ -946,7 +948,7 @@ $k$. The class does not change; the divisors that produce it must.}
 \label{fig:pencil}
 \end{figure}
 
-\begin{remark}[At $n=2$ the hypothesis is weaker still]\label{rem:ntwo}
+\begin{remark}[The case $n=2$]\label{rem:ntwo}
 Let $n=2$, so $\dim\cS=n^{2}=4$. The quaternionic locus of
 \Cref{setup:quat} is the symmetric space of $\Sp(4,\RR)$ inside
 $\cD_{2,2}$,\footnote{Left multiplication by the quaternion algebra
@@ -955,9 +957,9 @@ $b>0$, so Morita equivalence writes $V_{\RR}$ as $W\otimes_{\RR}\RR^{2}$ with
 $W$ symplectic of dimension $2n$. The complex structures commuting with $B$
 are then the complex structures on $W$, that is the points of the Siegel
 space $\mathfrak{H}_{n}$, of dimension $n(n+1)/2$. The codimension in
-$\cD_{n,n}$ is $n^{2}-n(n+1)/2=n(n-1)/2$, which is the count verified in
-item (XII) of \Cref{sec:verification} for $n\le10$ and in
-\texttt{quat\_locus\_codimension} of \Cref{sec:lean}.} of dimension
+$\cD_{n,n}$ is $n^{2}-n(n+1)/2=n(n-1)/2$; this count is checked in item
+(XII) of \Cref{sec:verification} for $n\le10$ and certified in
+\Cref{sec:lean}.} of dimension
 $n(n+1)/2=3$, so it is a divisor. Its $G(\QQ)$-translates are infinitely many
 pairwise distinct irreducible closed subvarieties of $\cS$ of dimension $3$,
 since a finite union of proper closed analytic subsets cannot be dense. If
@@ -970,8 +972,7 @@ $n=2$, only infinitude. Combined with the theorem of Moonen and Zarhin
 \cite{MZ99} that every Hodge class on an abelian fourfold lies in the
 subalgebra generated by divisor classes and Weil classes, the conclusion would
 be the Hodge conjecture for all abelian fourfolds of Weil type, hence for all
-abelian fourfolds. That conclusion is now Markman's theorem
-\cite[Corollary 1.6.1]{Mar25a}, reached by a different route; at $n=2$ the
-argument above would be a second proof, and it is at $n\ge3$ that it has
-something to add.
+abelian fourfolds. That conclusion is a theorem of Markman
+\cite[Corollary~1.6.1]{Mar25a}, proved by a different route, so at $n=2$ the
+argument above would give a second proof; its interest lies in $n\ge3$.
 \end{remark}
