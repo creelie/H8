@@ -123,6 +123,74 @@ and says what each one does and does not establish. The workflow in
 `.github/workflows/lean.yml` runs the check on every push and fails if the
 number of theorems is not eighty, or if any of them depends on an axiom other than propext.
 
+## The computations of Appendix D, item by item
+
+Appendix D of the paper describes its computations as items (I) to (LV). The
+programs that carry them out are:
+
+| item | program |
+| --- | --- |
+| (I) | `code/verify_all.py` (built in) |
+| (II) | `code/verify_all.py` (built in) |
+| (III) | `code/verify_all.py` (built in) |
+| (IV) | `code/verify_all.py` (built in) |
+| (V) | `code/verify_all.py` (built in) |
+| (VI) | `code/explicit_weil.py` |
+| (VII) | `code/hodge_invariants.py` |
+| (VIII) | `code/kugasatake.py` |
+| (IX) | `code/weiltype_family.py`, `code/secant_plane.py` |
+| (X) | `code/split_locus.py` |
+| (XI) | `code/split_geometry.py` |
+| (XII) | `code/quaternionic.py` |
+| (XIII) | `code/semiregularity.py`, `code/semireg_fast.py` |
+| (XIV) | `code/weil_annihilator.py` |
+| (XV) | `code/weil_product.py` |
+| (XVI) | `code/weil_tangent.py` |
+| (XVII) | `code/lagrangian_locus.py` |
+| (XVIII) | `code/object_size.py` |
+| (XIX) | `code/rigidity.py` |
+| (XX) | `code/integrality.py` |
+| (XXI) | `code/secant_exists.py` |
+| (XXII) | `code/pte_search.py`, `code/pte_remaining.py` |
+| (XXIII) | `code/quaternionic_divisibility.py` |
+| (XXIV) | `code/divisor_route.py` |
+| (XXV) | `code/split_obstruction.py` |
+| (XXVI) | `code/evaluation_map.py` |
+| (XXVII) | `code/markman_candidate.py` |
+| (XXVIII) | `code/secant_kernel.py` |
+| (XXIX) | `m2/local_products.m2` |
+| (XXX) | `code/smooth_support.py` |
+| (XXXI) | `m2/lci_products.m2` |
+| (XXXII) | `code/hilbert_burch.py` |
+| (XXXIII) | `code/closure_graph.py` |
+| (XXXIV) | `code/split_resolution.py` |
+| (XXXV) | `code/exceptional_classes.py` |
+| (XXXVI) | `code/cm_fields.py` |
+| (XXXVII) | `code/transport_growth.py` |
+| (XXXVIII) | `code/hochschild_annihilator.py` |
+| (XXXIX) | `code/p2_support.py` |
+| (XL) | `m2/finite_length_products.m2` |
+| (XLI) | `code/mumford_rm.py` |
+| (XLII) | `code/lefschetz_family.py` |
+| (XLIII) | `code/targets_reduction.py` |
+| (XLIV) | `code/mumford_rigidity.py` |
+| (XLV) | `code/mumford_object.py` |
+| (XLVI) | `code/lefschetz_closure.py` |
+| (XLVII) | `code/twistor_locus.py` |
+| (XLVIII) | `code/hk_pullback.py` |
+| (XLIX) | `code/mumford_routes.py` |
+| (L) | `code/criterion_shape.py` |
+| (LI) | `code/weil_tori.py` |
+| (LII) | `code/p2prime.py` |
+| (LIII) | `code/p2prime_profile.py` |
+| (LIV) | `code/descent.py` |
+| (LV) | `code/attack_checks.py` |
+
+Items (I) to (V) are computed inside `code/verify_all.py` itself; items
+(XXIX), (XXXI) and (XL) are the Macaulay2 computations described below; item
+(LV) runs a fast subset of the programs in `code/attack/`, whose README states
+each of their results with its status.
+
 ## The Macaulay2 items
 
 Three items of the paper are Ext computations over a polynomial ring and are

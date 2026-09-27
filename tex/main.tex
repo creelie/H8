@@ -33,12 +33,11 @@ authors: Deep Bhattacharjee\textsuperscript{\dag}, at
 \texttt{d.bhattacharjee@erl-forschung.de} and \texttt{itsdeep@live.com}, and
 Priyabrata Mandal\textsuperscript{\ddag}, at \texttt{priyabrata@manit.ac.in}.}
 
-\thanks{Every numerical assertion in this paper is reproduced by the scripts
-of \Cref{sec:verification}, which use exact arithmetic, over $\QQ$, over its
-finite extensions or modulo a prime, and no floating point at any step, and
-the finite arithmetic on which many of the paper's theorems turn is
-separately checked by the Lean~4 kernel as described in \Cref{sec:lean}. Both are distributed with the
-paper.}
+\thanks{Every numerical assertion in this paper is checked in exact
+arithmetic (\Cref{sec:verification}), and the finite arithmetic on which
+several of the theorems turn is certified by the Lean~4 kernel
+(\Cref{sec:lean}); both are available as described in the statement on data
+availability.}
 
 \thanks{An earlier and substantially different version of part of this
 material was posted on Preprints.org, the preprint server of MDPI, on
@@ -65,37 +64,14 @@ corresponding author.}
 \begin{document}
 
 \begin{abstract}
-Every family of abelian varieties of Weil type, of any field, dimension and
-discriminant, contains a member whose Weil classes are explicit
-polynomials in divisor classes, and its Hodge conjecture is the algebraicity
-of one class on one connected period domain. Propagation from that member
-would follow from a semiregular perfect complex carrying the Weil class. We
-show that no complex whose Chern character is exactly a Weil class is
-semiregular, in any dimension: it would deform to non-algebraic Weil tori,
-where, extending a theorem of Voisin, coherent sheaves have no Chern character
-strictly between degree zero and the top degree. The complex must also carry classes, such as powers of
-the polarisation, that are Hodge only on the polarised family; for such a
-complex we compute in closed form the dimension that $\Ext^{2}$ must reach,
-and one complex reaching it suffices. By a descent lemma, the split families
-of the CM fields of degree at least four, in infinitely many dimensions, give
-every Weil family; for a quartic field at $n=2$, the smallest of them, divisor
-classes reach the Weil classes exactly on a Noether--Lefschetz locus, of
-codimension two when the discriminant is trivial, and one complex must reach
-$\dim\Ext^{2}=112$. Fourteen
-further routes are closed. This route needs three further statements. The
-last, the conjecture for varieties that are not abelian, is the whole
-conjecture through $A\times\PP^{1}$; its form modulo abelian varieties holds
-for varieties reached from abelian ones by correspondences and is open
-beyond, and with it the route is one of five minimal routes found by
-machine-checked computation. The Lefschetz standard conjecture holds
-for the total space of every Mumford family. The first classes beyond the
-Weil lines, on the square of a Mumford fourfold, are algebraic at every CM
-point, rigid along the base curve, and represented by cycles at every closed
-point of every reduction modulo a prime; they propagate to every member
-exactly when it holds for one ninefold, or when those cycles have bounded
-degree on a dense set, and once one complex has $\Ext^{2}$ of dimension
-$119$; if they are algebraic, so is every Hodge class on every power of the
-fourfold.
+Every family of abelian varieties of Weil type, of every CM field, dimension
+and discriminant, contains an explicit member on which the Weil classes are
+polynomials in divisor classes; the Hodge conjecture for the family becomes
+the propagation of one class over one connected period domain. We prove that
+no complex whose Chern character is exactly a Weil class is semiregular,
+compute in closed form the dimension a corrected complex must reach, and
+reduce the Hodge conjecture to three explicit statements, analysed here for
+quartic CM fields and Mumford fourfolds.
 \end{abstract}
 
 \maketitle
