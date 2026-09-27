@@ -99,7 +99,8 @@ proves it.
    (non-Galois, `D_4` closure), with `H = diag(1,1,-1,-1)`, `diag(1,1,-1,-3)`
    and `diag(1,2+s,-1,-(3+s))`: lower bounds by explicit exact invariants,
    upper bounds by kernels modulo `p = 1000003`.
-2. *Proved.* `T = wedge^2_F H^1`, inside `H^2(B,Q)`, has `Q`-dimension 24.
+2. *Proved.* `T = wedge^2_F H^1` (written `R_F` in the paper, Section `ssec:quartic`),
+   inside `H^2(B,Q)`, has `Q`-dimension 24.
    Write `x ^_F y = q(x,y) Omega` and let `h` be the hermitian form induced by
    `H`. The `F`-semilinear `phi` with `q(x,y) = h(x, phi y)` satisfies
    `phi^2 = (det H)^{-1}` and commutes with `SU(V,H)`, but not with `U(V,H)`:

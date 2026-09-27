@@ -10,25 +10,27 @@ Two plates for the results of round twelve.
                       and their Fourier-Mukai images) are the Veronese images
                       of the rational points of a quadric threefold Q, those
                       of the powers of the polarisation are the points of one
-                      conic C_theta, and the Weil line is spanned by the two
+                      conic C_eta, and the Weil line is spanned by the two
                       conjugate points L_+ and L_- in which the line l_W meets
                       Q.  A combination of natural characters with a nonzero
                       Weil part needs at least eight rational points off
-                      C_theta, and eight suffice only on a smooth conic cut
+                      C_eta, and eight suffice only on a smooth conic cut
                       out by a plane through l_W; the eight graph subtori of
                       the explicit relation are drawn on it.
 
   fig_quarticloci     where the Weil classes of an abelian eightfold of
                       (F,2,delta)-Weil type, F a quartic CM field, are known to
                       be algebraic: the whole family has dimension 8; the
-                      Noether-Lefschetz locus of T = wedge^2_F H^1 has
+                      Noether-Lefschetz locus of R_F = wedge^2_F H^1 has
                       components of dimension exactly 6 when delta is trivial
                       and at most 4 otherwise, and the Weil classes are
                       products of divisor classes on it; for F biquadratic the
                       scalar extensions of Weil fourfolds form a locus of
-                      dimension 4 on which Markman's theorem applies; the CM
-                      points carry the base points of thm:cmbasepoint.  The
-                      Hodge-generic member is open.
+                      dimension 4 on which Markman's theorem applies, which
+                      is not contained in NL(R_F) but meets it at products of
+                      two (F,1)-fourfolds (ringed); the CM points carry the
+                      base points of thm:cmbasepoint, and the base point s_0
+                      lies on NL(R_F).  The Hodge-generic member is open.
 
 Every label is written as  \\node[...] at (x,y) {...};  so that checkfigs.py
 can read it back and test it for overlaps.
@@ -106,13 +108,13 @@ def minimalsupport():
     for p in ((-1.2, -1.6), (-2.9, -0.75), (0.2, 1.75)):
         out.append(dot(p[0], p[1], "PSlate", r=1.8))
     # labels, outside the ink
-    out.append(label(-6.35, 1.55, r"$C_{\theta}$: the powers of $\theta$,"
-                     r"\\a conic spanning $\QQ[\theta]$", "PTeal",
+    out.append(label(-6.35, 1.55, r"$C_{\eta}$: the powers of $\eta$,"
+                     r"\\a conic spanning $\QQ[\eta]$", "PTeal",
                      anchor="west"))
-    out.append(label(4.55, 2.35, r"$\ell_{W}$: the Weil line, meeting $Q$ in"
+    out.append(label(4.55, 2.35, r"$l_{W}$: the Weil line, meeting $Q$ in"
                      r"\\the conjugate points $L_{\pm}$", "PMag",
                      anchor="west"))
-    out.append(label(4.55, -1.55, r"a plane through $\ell_{W}$ cuts a smooth"
+    out.append(label(4.55, -1.55, r"a plane through $l_{W}$ cuts a smooth"
                      r"\\conic: eight graph subtori $B_{i}$ on it,"
                      r"\\$\sum m_{i}[B_{i}]=14\,W_{2}$ at $d=1$", "PIndigo",
                      anchor="west"))
@@ -120,7 +122,7 @@ def minimalsupport():
                      r" natural\\objects are its\\rational points",
                      "PSlate", anchor="west"))
     out.append(label(0.0, -3.35, r"a nonzero Weil part needs at least eight "
-                     r"rational points off $C_{\theta}$, and eight suffice only "
+                     r"rational points off $C_{\eta}$, and eight suffice only "
                      r"on such a conic", "PInk"))
     out.append(label(0.0, 3.25, r"minimal support at $n=4$, "
                      r"$X$ very general", "PInk", size=r"\small"))
@@ -139,7 +141,7 @@ def quarticloci():
                  r"(%.2f,%.2f) rectangle (%.2f,%.2f);"
                  % (x0, 0.0, x0 + 5.4, 4.2) + "\n")
         o.append(label(x0 + 2.7, 4.55, title, "PInk", size=r"\small"))
-        # NL(T) components
+        # NL(R_F) components
         if trivial:
             for k, (cx, cy) in enumerate(((x0 + 1.55, 2.75), (x0 + 3.05, 2.35))):
                 o.append(r"  \fill[WTeal,opacity=0.9] (%.2f,%.2f) ellipse "
@@ -154,13 +156,21 @@ def quarticloci():
                 o.append(r"  \draw[PGrass,line width=0.8pt] (%.2f,%.2f) "
                          r"ellipse (%.2f and %.2f);" % (cx, cy, 0.62, 0.30)
                          + "\n")
-        # scalar-extension locus, dimension 4 (biquadratic F)
-        sx0, sy0 = x0 + 0.55, 0.95
-        o.append(line([(sx0, sy0), (sx0 + 1.5, sy0 + 0.55), (sx0 + 3.2, sy0 + 0.1),
-                       (sx0 + 4.25, sy0 + 0.6)], "POchre", lw=1.3))
-        # CM points
-        for p in ((x0 + 0.75, 3.55), (x0 + 2.35, 1.95), (x0 + 4.55, 3.4),
-                  (x0 + 4.1, 0.45), (x0 + 1.3, 0.45)):
+        # scalar-extension locus, dimension 4 (biquadratic F); it meets
+        # NL(R_F) where the Weil fourfold is a product of Weil surfaces
+        if trivial:
+            meet = (x0 + 3.05, 2.35 - 0.62)
+        else:
+            meet = (x0 + 3.35, 2.65 - 0.30)
+        o.append(line([(x0 + 0.55, 0.95), (x0 + 1.9, 1.3), meet,
+                       (x0 + 4.85, 1.15)], "POchre", lw=1.3))
+        o.append(r"  \draw[PInk,line width=0.7pt,fill=white] (%.2f,%.2f) "
+                 r"circle (2.6pt);" % meet + "\n")
+        # CM points; the first is the base point s_0, on NL(R_F)
+        s0 = (x0 + 1.3, 2.85) if trivial else (x0 + 1.35, 2.85)
+        o.append(dot(s0[0], s0[1], "PIndigo", r=1.8))
+        for p in ((x0 + 0.6, 3.75), (x0 + 4.75, 3.7), (x0 + 2.3, 0.45),
+                  (x0 + 4.4, 0.45)):
             o.append(dot(p[0], p[1], "PIndigo", r=1.8))
         return o
 
@@ -170,14 +180,17 @@ def quarticloci():
     rows = [
         (r"clay: the family $\cD_{F}$, of dimension $8$; the Hodge-generic "
          r"member is open", "PClay"),
-        (r"grass: the Noether--Lefschetz locus of $T=\bigwedge^{2}_{F}H^{1}$, "
+        (r"grass: the Noether--Lefschetz locus of $R_{F}=\bigwedge^{2}_{F}H^{1}$, "
          r"of dimension exactly $6$ ($\delta$ trivial) or at most $4$", "PGrass"),
         (r"\phantom{grass: }on it $W_{F}$ is a sum of products of divisor "
          r"classes", "PGrass"),
         (r"ochre: scalar extensions of Weil fourfolds, dimension $4$ ($F$ "
          r"biquadratic), where Markman's theorem applies", "POchre"),
-        (r"indigo: CM points, the base points of the paper", "PIndigo"),
-        (r"the quaternion algebra $(F/F_{0},\det H^{-1})$ of $T$ splits "
+        (r"\phantom{ochre: }it meets the grass (ring) where the fourfold is "
+         r"a product of Weil surfaces", "POchre"),
+        (r"indigo: CM points; the base point $s_{0}$ of the paper lies on the "
+         r"grass", "PIndigo"),
+        (r"the quaternion algebra $(F/F_{0},\det H^{-1})$ of $R_{F}$ splits "
          r"exactly when $\delta$ is trivial", "PInk"),
     ]
     for k, (txt, col) in enumerate(rows):

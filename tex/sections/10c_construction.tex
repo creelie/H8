@@ -927,9 +927,10 @@ factors. Each $\omega_{j}(A_{i})$ is a divisor class by
 \end{proof}
 
 \begin{remark}[What this locus is, and what it is not]\label{rem:prodscope}
-\Cref{thm:everyn} is unconditional and holds at every $n$, and it is the only
-statement in this paper that produces an algebraic Weil class in every
-dimension without quoting anything. It should not be mistaken for more than it
+\Cref{thm:everyn} is unconditional and holds at every $n$, and like
+\Cref{cor:splitalgebraic} and \Cref{thm:everyfamily} it produces an algebraic
+Weil class in every dimension while quoting nothing beyond the Lefschetz
+theorem on $(1,1)$ classes. It should not be mistaken for more than it
 is. The family of polarised abelian $2n$-folds of $(K,-1,n)$-Weil type has
 dimension $n^{2}$, and the locus of products of $n$ surfaces has dimension
 $n$, so for $n\ge2$ it is a proper closed subvariety, and a smaller one than
@@ -2093,8 +2094,8 @@ structure sheaf of the cycle and not only its class.
 
 \begin{remark}[Where the unboundedness can only come from]
 \label{rem:whereunbounded}
-Write the transported cycle as a difference $\xi^{+}-\xi^{-}$ of effective
-cycles. By \Cref{prop:leadingconstant} the difference of their degrees is
+Write a representing cycle at a point of the orbit, the transported cycle
+or any other, as a difference $\xi^{+}-\xi^{-}$ of effective cycles. By \Cref{prop:leadingconstant} the difference of their degrees is
 constant along the orbit, and by the boundedness of the Chow variety of
 effective cycles of bounded degree in a fixed polarised variety, if
 $\deg\xi^{+}$ were bounded along the orbit then only finitely many tuples
@@ -2110,10 +2111,12 @@ multiplies the multiplicities by factors of that order. The rational points of
 $G$ are dense precisely because their denominators are unbounded, so along any
 orbit dense enough to be useful the isogeny degrees are unbounded as well.
 What \Cref{thm:degreebound} asks is that the cycles nevertheless simplify: that
-after each transport the class $\omega$, whose degree has not changed, admits
-an effective representation no more complicated than before. Nothing in this
-paper decides that, and we do not know how to decide it. The content of the
-present remark is only that the question has been reduced from the whole
+at each point of the orbit the class $\omega$, whose degree has not changed,
+admits an effective representation no more complicated than before. For the
+transported cycle itself the answer is negative (\Cref{thm:p1forces} below),
+and for a cycle chosen at each point the bound is equivalent to the conclusion
+(\Cref{thm:p1equivalent}), so it cannot be decided before the conclusion is.
+The content of the present remark is only that the question has been reduced from the whole
 Hilbert datum to the degree of the effective part, and that the part of the
 datum which is determined by cohomology is already constant.
 \end{remark}
@@ -4012,8 +4015,10 @@ supplied by \Cref{thm:closedlocus}, which is what \Cref{rem:variational} said
 was missing. And neither is implied by the results of
 \Cref{ssec:everyfamily}: the base points are there, the cycles are there, and
 both (P1) and (P2) are questions about those same cycles that the construction
-does not answer. We have not settled either, and we do not claim the
-conjecture.
+does not answer. Both are settled in the forms stated here, and neither
+closes anything: (P1) is equivalent to its conclusion, and (P2) is false and
+survives only in the corrected form of \Cref{rem:p2prime}, which we have not
+settled. We do not claim the conjecture.
 \end{remark}
 
 \subsubsection*{The corrected criterion, computed}
@@ -4446,7 +4451,8 @@ the polarisation line and a Chern character effective in the exponential
 basis, and nothing else; \Cref{prop:scalaratiyah} below extends the first to
 summands with a scalar Atiyah class. An object with no such summand, whose
 Chern character is not effective, and with $\dim\Ext^{2}(E,E)=7n^{2}-2n$, is
-not excluded by anything proved here, and none is known.
+not excluded by anything proved here, and none is known; by
+\Cref{lem:p2primesummands} below it may be taken indecomposable.
 \end{remark}
 
 \begin{proposition}[Summands with a scalar Atiyah class]\label{prop:scalaratiyah}
@@ -4534,9 +4540,440 @@ $\cD_{n,n}$, which are projective, where \Cref{thm:p2false} needs
 non-projective ones.
 \end{proof}
 
-No object is known that meets (iii) with $k>0$, and none is excluded by
-anything in this paper; the proposition says only that injectivity of
-$\sigma_{E}$ is more than propagation needs.
+No object is known that meets (iii) with $k>0$. Among direct sums the
+flatness form fails for a large class, \Cref{rem:flatsums} below; for
+indecomposable objects nothing in this paper excludes it, and the proposition
+says only that injectivity of $\sigma_{E}$ is more than propagation needs.
+
+\subsubsection*{Which objects can meet the corrected criterion}
+
+The corrected criterion asks for one perfect complex. The results below say
+what such a complex can be made of, for $K$ imaginary quadratic: a direct sum
+meets the criterion only through one indecomposable summand
+(\Cref{lem:p2primesummands}); no sum of the objects whose Ext algebra is an
+exterior algebra meets it (\Cref{cor:naturalsums}); the Orlov products of
+secant objects meet its twisted form, with $\dim\Ext^{2}$ equal to the number
+of \Cref{thm:p2primenumber}, at $n=2$ and $n=3$ (\Cref{thm:twistedcert}), and
+cannot meet it at $n=4$ (\Cref{prop:orlovfour}); and at $n=4$ a combination of
+natural objects needs at least eight of them, on one conic
+(\Cref{thm:minimalsupport}). None of this is a new case of the Hodge
+conjecture: the certificates are in families where Markman's theorem already
+holds, and they are certificates for twisted objects. Item (LV) of
+\Cref{sec:verification} checks the computations; its scripts are in
+\texttt{code/\allowbreak attack/\allowbreak explicit\_\allowbreak objects} and
+\texttt{code/\allowbreak attack/\allowbreak natural\_\allowbreak objects}.
+
+\begin{lemma}[The summands of an object meeting the criterion]
+\label{lem:p2primesummands}
+Let $A$ be a member of a $(K,-1,n)$-Weil family, $K$ imaginary quadratic and
+$n\ge2$, let $T=T_{[A]}\cD_{n,n}\subseteq H^{1}(T_{A})$, and let
+$E=\bigoplus_{i}F_{i}[k_{i}]$ be a finite direct sum of perfect complexes with
+$v\lrcorner\ch(E)=0$ for every $v\in T$, as holds for every corrected character
+$N\omega_{1}+\sum_{k}c_{k}\theta^{k}$. Suppose that $\sigma_{E}$ is injective on
+$\operatorname{ev}_{E}(T)$; this holds if $\sigma_{E}$ is injective, and under
+the weakened criterion of \cite[Question 11.4]{Mar25b}.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item For every $i$ and every $v\in T$, $\operatorname{ev}_{F_{i}}(v)=0$ and
+  $v\lrcorner\ch(F_{i})=0$, and every $\ch(F_{i})$ lies in
+  $\bigoplus_{k}\QQ\theta^{k}\oplus\HW(A)$.
+\item If $\ch(E)=N\omega_{1}+\sum_{k}c_{k}\theta^{k}$ with $N\ne0$, some
+  $F_{i}$ has $\ch(F_{i})=\omega'+\sum_{k}c'_{k}\theta^{k}$ with $\omega'$ a
+  nonzero rational Weil class, and then
+  $\dim\Ext^{2}(F_{i},F_{i})\ge r(\ch F_{i})\ge2n(2n-1)$. If $\sigma_{E}$ is
+  injective, so is every $\sigma_{F_{i}}$, and that $F_{i}$ meets the corrected
+  criterion on its own.
+\end{enumerate}
+So the corrected criterion is a statement about indecomposable objects.
+\end{lemma}
+
+\begin{proof}
+For $v\in T$, $\sigma_{E}(\operatorname{ev}_{E}(v))=v\lrcorner\ch(E)=0$ by the
+commutative square of \Cref{setup:criterion}, so $\operatorname{ev}_{E}(v)=0$.
+The Atiyah class is natural, so $\operatorname{ev}_{E}(v)=v\lrcorner
+\mathrm{At}(E)$ is block diagonal with the blocks $\pm\operatorname{ev}_{F_{i}}(v)$,
+which therefore vanish, and $v\lrcorner\ch(F_{i})=\sigma_{F_{i}}
+(\operatorname{ev}_{F_{i}}(v))=0$. By \Cref{prop:p2primelocus}(i) every
+homogeneous component of $\ch(F_{i})$, a rational class of type $(k,k)$, stays
+of Hodge type on the germ of $\cD_{n,n}$ at $A$, which in the chart of that
+proposition is the linear space $T$; so it is a Hodge class at a member with
+Hodge group $\SU(V,H)$, and \Cref{thm:hdgcount} puts it in $\QQ\theta^{k}$, or
+in $\QQ\theta^{n}\oplus\HW$ for $k=n$. That is (i). For (ii), the Weil parts
+of the $\pm\ch(F_{i})$ add up to $N\omega_{1}\ne0$, so one of them is nonzero;
+\Cref{thm:p2primenumber} gives $\dim\Ext^{2}(F_{i},F_{i})\ge r(\ch F_{i})$ with
+no hypothesis on $\sigma$, and $r\ge(4+0)n^{2}-2n=2n(2n-1)$ for $n\ge3$, while
+at $n=2$ the seven values of \Cref{fig:hankel} are at least $12$. Injectivity
+passes to the summands by \Cref{lem:semiregsum}. By the Krull--Schmidt property
+of $D^{b}(A)$ the $F_{i}$ may be taken indecomposable.
+\end{proof}
+
+The Weil part $\omega'$ of the summand need not be a multiple of $\omega_{1}$;
+propagating any nonzero rational Weil class propagates the whole Weil plane,
+through the algebraic action of $K$. The lemma is the Weil-family analogue of
+\Cref{cor:mumfordsplit}(ii).
+
+\begin{corollary}[Sums of objects with exterior Ext algebras]
+\label{cor:naturalsums}
+In \Cref{lem:p2primesummands}, let every $F_{i}$ have
+$\dim\Ext^{2}(F_{i},F_{i})<2n(2n-1)$. This holds when
+$\Ext^{*}(F_{i},F_{i})\cong\bigwedge^{*}\CC^{2n}$, and so for line bundles, for
+the sheaves $\cO_{B}\otimes L$ with $B\subseteq A$ an abelian subvariety, for
+simple semi-homogeneous bundles, for skyscraper sheaves, and for the images of
+all of these under autoequivalences of $D^{b}(A)$. Then no such sum with
+$\ch(E)=N\omega_{1}+\sum_{k}c_{k}\theta^{k}$ and $N\ne0$ has $\sigma_{E}$
+injective on $\operatorname{ev}_{E}(T)$: it fails the corrected criterion and
+the weakened criterion, some $v\in T$ obstructs it to first order, and
+$\dim\Ext^{2}(E,E)>r(\ch E)$.
+\end{corollary}
+
+\begin{proof}
+The first assertion is \Cref{lem:p2primesummands}(ii), since
+$\binom{2n}{2}=n(2n-1)<2n(2n-1)$, and $\dim\Ext^{2}(E,E)\ge r(\ch E)$ with
+equality only if $\sigma_{E}$ is injective (\Cref{thm:p2primenumber}). For
+$\cO_{B}$ choose a complementary abelian subvariety $B'$; the isogeny
+$\mu\colon B\times B'\to A$ is \'etale with group $G=B\cap B'$, and
+$\mu^{*}\cO_{B}=\bigoplus_{g\in G}\cO_{B\times\{g\}}$ with $G$ permuting the
+summands simply transitively, so $\Ext_{A}(\cO_{B},\cO_{B})
+=\Ext_{B\times B'}(\cO_{B\times0},\cO_{B\times0})=\bigwedge^{*}(\CC^{\dim B}
+\oplus\CC^{\dim B'})$. For a simple semi-homogeneous bundle $V$,
+$V\otimes V^{\vee}$ is a sum of line bundles in $\Pic^{0}$ of which $\cO$ occurs
+once \cite{Muk78}, so $\Ext^{*}(V,V)=H^{*}(\cO_{A})$. Equivalences preserve
+Ext algebras.
+\end{proof}
+
+With \Cref{lem:p2primesummands} the objects that \Cref{rem:p2primesurvive}
+leaves open may be taken indecomposable, and the corollary restores, for
+corrected characters, the part of \Cref{thm:nosum} that concerns objects with
+exterior Ext algebras; it extends \Cref{prop:scalaratiyah}, whose summand has
+a scalar Atiyah class, to the subtori, the points and the Fourier--Mukai
+images. In the language of pure spinors, a summand whose
+character is a rational multiple of the pure spinor of a rational maximal
+isotropic subspace is excluded unless that character lies in $\QQ[\theta]$,
+because the rational maximal isotropic subspaces whose pure spinors are flat
+over $\cD_{n,n}$ are those with pure spinor $1$, the class of a point or
+$e^{c\theta}$.
+
+The secant objects of \Cref{sec:construction} have their own Hochschild
+profile, which \Cref{thm:factor}(i) and (ii) compute in degrees one and two.
+
+\begin{proposition}[The Hochschild profile of a secant class]
+\label{prop:secantprofile}
+Let $X$ be a principally polarised abelian $n$-fold, $n\ge2$, with
+polarisation $\theta$, let $d\ge1$, and let $v=a\,u_{\theta}+b\,v_{\theta}$
+with $(a,b)\in\QQ^{2}\setminus\{0\}$, in the notation of \eqref{eq:uv}. The
+rank of contraction $HT^{k}(X)\to H^{*}(X,\CC)$, $\xi\mapsto\xi\lrcorner v$, is
+$1$ for $k=0$ and $k=n$, $2\binom{n}{k}$ for $1\le k\le n-1$, and $0$ for
+$k>n$. A perfect complex $F$ on $X$ with $\ch(F)=v$ has
+$\dim\Ext^{k}(F,F)\ge2\binom{n}{k}$ for $k=1,2$, and
+\[
+  \chi(F,F)=\begin{cases}
+    (-1)^{n/2}\,2^{n-1}d^{\,n/2-1}(a^{2}d+b^{2}) & n\text{ even},\\
+    0 & n\text{ odd}.
+  \end{cases}
+\]
+\end{proposition}
+
+\begin{proof}
+Put $s=\sqrt{-d}$ and $w=\frac12(a-bs/d)$. By \Cref{thm:plane}(i),
+$v=w\,e^{s\theta}+\bbar w\,e^{-s\theta}$, and $w\ne0$. By
+\Cref{lem:bfield}(i), $\xi\lrcorner e^{\pm s\theta}=y_{\pm}e^{\pm s\theta}$,
+where $y_{\pm}\in H^{0,k}(X)$ is the component of $e^{\pm s\theta}\xi$ in
+$\bigwedge^{k}H^{0,1}$. The map $\xi\mapsto(y_{+},y_{-})$ is onto
+$H^{0,k}\oplus H^{0,k}$ for $k\ge1$: $\xi=z\in\bigwedge^{k}H^{0,1}$ gives
+$(z,z)$, and $\xi=z'\otimes\partial$ with $z'\in\bigwedge^{k-1}H^{0,1}$ gives
+$\pm s\,z'\wedge(\partial\lrcorner\theta)$, where $\partial\lrcorner\theta$ runs
+over $H^{0,1}$. If $w\,y_{+}e^{s\theta}+\bbar w\,y_{-}e^{-s\theta}=0$, the
+components of degrees $k$ and $k+2$ give $wy_{+}+\bbar wy_{-}=0$ and
+$(wy_{+}-\bbar wy_{-})\wedge\theta=0$, and for $k<n$ wedge product with
+$\theta=\sum_{a}p_{a}\wedge q_{a}$ is injective on $\bigwedge^{k}H^{0,1}$, so
+$y_{\pm}=0$. So the rank is $2\binom{n}{k}$ for $1\le k<n$. For $k=n$,
+$y\wedge\theta=0$ for $y\in H^{0,n}$ and the image is the line spanned by
+$wy_{+}+\bbar wy_{-}$; for $k>n$, $H^{0,k}=0$; and for $k=0$ the rank is one.
+The bounds on $\Ext^{1}$ and $\Ext^{2}$ follow, as in \Cref{thm:factor}(i)
+and (ii), from the compatibility of the characteristic morphism with
+contraction into the Chern character. Finally the Todd class
+is trivial, so $\chi(F,F)=\int_{X}\ch(F)^{\vee}\ch(F)$ with
+$\ch(F)^{\vee}=w\,e^{-s\theta}+\bbar w\,e^{s\theta}$, and
+$\int_{X}(e^{2s\theta}+e^{-2s\theta})=(2s)^{n}(1+(-1)^{n})$ because
+$\int_{X}\theta^{n}=n!$; with $|w|^{2}=(a^{2}d+b^{2})/(4d)$ this is the
+formula.
+\end{proof}
+
+At $n=4$ and $(a,b)=(1,3)$, the class of \Cref{prop:markman8}, this gives
+$\chi(\cF,\cF)=8d(d+9)$, the rank recorded there.
+
+\begin{theorem}[Twisted certificates at $n=2$ and $n=3$]
+\label{thm:twistedcert}
+Let $d\ge1$, $K=\QQ(\sqrt{-d})$, let $\Phi$ be Orlov's equivalence of
+\Cref{prop:markman8}(v), and for a perfect complex $F$ on a principally
+polarised $X$ put $E=\Phi(F\boxtimes F^{\vee})$ on $A=X\times\widehat{X}$,
+with the $K$-action of \eqref{eq:Mdef} and the classes $\eta$, $\ell$ of the
+split member.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item Let $X$ be the Jacobian of a curve $C$ of genus two, $C\subset X$ by an
+  Abel--Jacobi map, and $F=\cO_{C}(p)$ for a point $p\in C$. Then
+  $\ch(F)=v_{\theta}$, $\dim\Ext^{k}(F,F)=1,4,1$, and
+  $\dim\Ext^{k}(E,E)=1,8,18,8,1$ for $k=0,\dots,4$, which are the ranks of
+  contraction from $HT^{k}(A)$ into $\ch(E)$. So
+  $\dim\Ext^{2}(E,E)=18=r(\ch E)$ and $\sigma_{E}$ is injective.
+\item Let $X$ be the Jacobian of a non-hyperelliptic curve $C$ of genus three,
+  $i\colon C^{(2)}\to X$ the embedding of the theta divisor, $x$ the class of
+  $\{p+q:q\in C\}$ and $\theta$ the restriction of the polarisation, and let
+  $d=k(k+1)$ with $k\ge1$ and $F=i_{*}\cO_{C^{(2)}}((2k+1)x-k\theta)$. Then
+  $\ch(F)=v_{\theta}$, $\dim\Ext^{k}(F,F)=1,6,6,1$, and
+  $\dim\Ext^{k}(E,E)=1,12,48,74,48,12,1$. So $\dim\Ext^{2}(E,E)=48=r(\ch E)$
+  and $\sigma_{E}$ is injective.
+\item In both cases $\ch(E)$ is not killed by $T=T_{[A]}\cD_{n,n}$, and no
+  line bundle twist of $E$ has a character killed by $T$; the twisted
+  character $\kappa=\ch(E)e^{\ell/2}$ is killed by $T$, has the form
+  $N'\omega'+\sum_{k}c_{k}\eta^{k}$ with $\omega'$ a nonzero rational Weil
+  class, and has the same contraction ranks as $\ch(E)$. A class $B$ with
+  $\ch(E)e^{B}$ killed by $T$ is $\pm\ell/2$ modulo $\QQ\eta$. At $n=2$,
+  $\kappa$ has $c_{1}=c_{3}=0$ and lies at the exceptional ratio of
+  \Cref{rem:p2primeexceptional}, and its annihilator in $H^{1}(T_{A})$ has
+  dimension $5$; at $n=3$ that annihilator has dimension $9=n^{2}$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) By Grothendieck--Riemann--Roch $\ch(i_{*}\cO_{C}(p))=[C]+(1+1-2)[\mathrm{pt}]
+=\theta=v_{\theta}$, since $v_{\theta}=\theta$ when $n=2$. The curve has
+$\Ext^{1}(\cO_{C},\cO_{C})=H^{1}(\cO_{C})\oplus H^{0}(N_{C})$ with
+$N_{C}=K_{C}$ by adjunction, of dimension $2+2$, and $\Ext^{0}=\Ext^{2}=\CC$ by
+Serre duality; twisting by $\cO_{C}(p)$ changes nothing. The Ext algebra of
+$F^{\vee}$ is that of $F$, $\Phi$ is an equivalence, and by the K\"unneth
+formula $\Ext^{*}(E,E)=\Ext^{*}(F,F)\otimes\Ext^{*}(F^{\vee},F^{\vee})$, which
+gives $1,8,18,8,1$. By \Cref{prop:secantprofile} and the K\"unneth
+decomposition $HT^{2}(X\times X)=HT^{2}\otimes1\oplus HT^{1}\otimes HT^{1}\oplus
+1\otimes HT^{2}$ the rank of contraction into $\ch(F)\boxtimes\ch(F^{\vee})$ is
+$1+4\cdot4+1=18$, and it is transported by $\Phi$ as in the proof of
+\Cref{thm:factor}(iv). The other degrees are the same count. Equality in
+degree two forces $\sigma_{E}$ injective, as in \Cref{thm:p2primenumber}.
+(ii) On $C^{(2)}$ one has $x^{2}=1$, $x\theta=3$, $\theta^{2}=6$ and
+$K_{C^{(2)}}=\theta$, $i_{*}x=\frac12\Theta^{2}$ and $i_{*}\theta=\Theta^{2}$, so
+Riemann--Roch gives $\ch_{2}(F)=0$ and $\ch_{3}(F)=-k(k+1)[\mathrm{pt}]$, that
+is $\ch(F)=\Theta-d[\mathrm{pt}]=v_{\theta}$. The local-to-global spectral
+sequence, with $h^{p}(\cO_{C^{(2)}})=1,3,3$ and $h^{p}(K_{C^{(2)}})=3,3,1$,
+gives $\dim\Ext^{1},\dim\Ext^{2}\le6$, and \Cref{prop:secantprofile} gives
+$\ge6$; $\Ext^{0}=\CC$ and Serre duality gives $\Ext^{3}=\CC$. The rest is as
+in (i), with $r(\ch E)=6n^{2}-2n=48$ by \Cref{thm:factor}(iv). (iii) is
+computed exactly in item (LV), over the function field $\QQ(d)$ for $n\le5$
+and in all the conventions for $\Phi$; that $r(\kappa)=r(\ch E)$ is
+\Cref{lem:bfield}(i). For the uniqueness of $B$: the coefficient of the
+classes $x_{j}\xi_{j}$ in $\frac12\ell+c\eta$ is $\frac12$ for every $c$, so no
+integral class is congruent to $\pm\frac12\ell$ modulo $\QQ\eta$, on any $X$.
+\end{proof}
+
+These are the numerical form of the criterion met with equality, so the
+injectivity of $\sigma_{E}$ comes out of a dimension count and does not need
+\cite[Question 11.4]{Mar25b}. They certify the twisted object only: the
+character $\kappa$ stays of Hodge type along $\cD_{n,n}$, while $\ch(E)$ does
+so only on a locus of dimension $3$ at $n=2$ and $6$ at $n=3$, so propagation
+needs the extension of \Cref{thm:BF} to twisted objects, which Perry proves
+\cite{Per26}, and an argument extracting untwisted cycles, as in
+\cite[Section 2]{Mar25b}. The families concerned, of trivial discriminant with
+$n=2$ and $n=3$, are Markman's.
+
+\begin{proposition}[No Orlov product at $n=4$]\label{prop:orlovfour}
+Let $X$ be a principally polarised abelian fourfold, $d\ge1$, and
+$F_{1},F_{2}$ perfect complexes on $X$ with characters in the secant plane
+$P_{\theta}\setminus\{0\}$ and $\Ext^{<0}(F_{i},F_{i})=0$, for instance
+sheaves. Then $E=\Phi(F_{1}\boxtimes F_{2}^{\vee})$ has
+$\dim\Ext^{2}(E,E)>88=r(\ch E)$.
+\end{proposition}
+
+\begin{proof}
+By the K\"unneth formula $\dim\Ext^{2}(E,E)=e_{0}e_{2}'+e_{1}e_{1}'+e_{2}e_{0}'$
+with $e_{k}=\dim\Ext^{k}(F_{1},F_{1})$ and $e_{k}'$ likewise for $F_{2}$, and by
+\Cref{prop:secantprofile} $e_{0}\ge1$, $e_{1}\ge8$, $e_{2}\ge12$; so the sum is
+at least $12+64+12=88$, which is $r(\ch E)$ by \Cref{thm:factor}(iv). Equality
+would force $e_{0},e_{1},e_{2}=1,8,12$, and with Serre duality
+$\chi(F_{1},F_{1})=1-8+12-8+1=-2$, while \Cref{prop:secantprofile} gives
+$\chi(F_{1},F_{1})=8d(a^{2}d+b^{2})>0$.
+\end{proof}
+
+Without $\Ext^{<0}=0$ the count does not close, because negative Ext groups
+of $F_{i}$ contribute products $e_{-j}e_{2+j}'$ and change the Euler
+characteristic. For every $n$ the same count says what a secant object would
+have to be for its Orlov product to meet the criterion with equality: a
+complex $F$ with $\ch(F)\in P_{\theta}\setminus\{0\}$,
+$\Ext^{<0}(F,F)=0$ and $\dim\Ext^{k}(F,F)=1,2n,n(n-1)$ for $k=0,1,2$. For
+$n=4$ that is excluded above; for $n$ odd, and for even $n\ge6$, the Euler
+characteristic leaves room. If such $F$ existed for a fixed $d$ and unboundedly
+many $n$, and $\kappa=\ch(E)e^{\ell/2}$ is killed by $T$, which item (LV)
+checks for $n\le5$, then with a twisted form of \Cref{thm:semiregclosure} and
+\Cref{prop:descent} the Weil classes of every family of $\QQ(\sqrt{-d})$ would
+be algebraic. That is the secant route of (C1) and (C2) in
+\Cref{ssec:closuremap}, with the question of \cite{Mar25b} replaced by a
+dimension count, and it lies off every minimal route (\Cref{thm:closure}(iv)).
+
+\begin{remark}[Untwisting]\label{rem:untwisting}
+The template $E=\Phi(F_{1}\boxtimes F_{2}^{\vee})$ does not give an untwisted
+object meeting the corrected criterion by the obvious operations. No line
+bundle twist makes $\ch(E)$ flat (\Cref{thm:twistedcert}(iii)). At $n=2$ the
+object $S^{2}(E[1])\otimes P$, for $P$ a line bundle with $c_{1}(P)=\ell$, is
+untwisted with flat character, of rank $3$ and at the exceptional ratio after
+a twist by a multiple of $\eta$, but its number is $r=23$, which is odd, while
+Serre duality and the evenness of the Mukai pairing on an abelian variety make
+$\dim\Ext^{2}\equiv\chi(E,E)\equiv0\pmod2$; so equality is impossible.
+$\bigwedge^{2}(E[1])\otimes P$ has no Weil part. For $E\otimes V$ with $V$ a
+simple semi-homogeneous bundle of slope $\ell/2$ \cite{Muk78}, the character
+$\rk(V)\kappa$ is flat, but $\sigma_{E\otimes V}$ kills the summands
+$\Ext^{2}(E,E\otimes P_{\xi})$, $\xi\ne0$, of $\Ext^{2}(E\otimes V,E\otimes V)$
+coming from the decomposition of $V\otimes V^{\vee}$, and at $n=2$ these are
+nonzero; this last point uses the decomposition of $\End V$ and the way
+$\Phi$ intertwines $\otimes P_{\xi}$ with translations, which we recall and
+have not re-derived. None of this shows that the corrected criterion must be
+met in twisted form; it shows that this template meets it only there.
+\end{remark}
+
+At $n=4$ the natural objects of the split member can be described completely,
+and the description turns the criterion into a statement about points on a
+quadric.
+
+\begin{setupenv}[The quadric of Lagrangians]\label{setup:lagquadric}
+Let $X$ be a very general principally polarised abelian fourfold,
+$U=H^{1}(X,\QQ)$, and $A=X\times\widehat{X}$ with the $K$-action of
+\eqref{eq:Mdef}, so that $H^{1}(A,\QQ)=U\otimes\QQ^{2}$ and the rational Hodge
+ring $\mathcal{H}_{A}$ of $A$ is the ring of $\Sp(U)$-invariants in
+$\bigwedge^{*}(U\otimes\QQ^{2})$, of dimension $55$, with
+$1,3,6,10,15,10,6,3,1$ in degrees $0,2,\dots,16$. The symmetric pairing on
+$H^{1}(A,\QQ)\oplus H_{1}(A,\QQ)=U\otimes\QQ^{4}$ is the product of the
+symplectic form of $U$ and a symplectic form on $\QQ^{4}$, so the maximal
+isotropic subspaces stable under $\Sp(U)$ are the $U\otimes L$ with $L$ a
+Lagrangian plane in $\QQ^{4}$. Let $Q\subset\PP^{4}$ be the Lagrangian
+Grassmannian $\mathrm{LG}(2,4)$, a smooth quadric threefold in its
+Pl\"ucker embedding. Call a perfect complex on $A$ \emph{natural} if it is a line
+bundle, a sheaf $\cO_{B}\otimes L$ on an abelian subvariety, a point, or the
+image of one of these under an autoequivalence. Then the character of a natural
+$F$ is a multiple of the pure spinor of $U\otimes L_{F}$ for a rational point
+$L_{F}\in Q$, and there is a linear isomorphism
+$\Phi_{4}\colon H^{0}(Q,\cO(4))^{\vee}\to\mathcal{H}_{A}$ with
+$\ch(F)=\Phi_{4}(\nu_{4}(L_{F}))$ up to a rational factor, $\nu_{4}$ the
+fourth Veronese map. Under it the powers of $\eta$ span the image of a conic
+$C_{\eta}\subset Q$, and the Weil plane is the rational part of the line
+spanned by $\nu_{4}(L_{+})$ and $\nu_{4}(L_{-})$ for a conjugate pair of
+$K$-points $L_{\pm}$ of $Q$; the line $l_{W}=L_{+}L_{-}$ meets $Q$ only in
+$L_{\pm}$, and the plane of $C_{\eta}$ is its polar plane.
+\end{setupenv}
+
+The pure spinor description of the characters of natural objects is
+classical, and we recall it without re-deriving it. Item (LV) computes the
+dimensions, fits $\Phi_{4}$ exactly and checks it on line bundles of every
+slope, on the abelian subvarieties $B_{(p,q)}=\{(px,q\varphi x)\}$, with
+$\varphi\colon X\to\widehat{X}$ the polarisation, on twisted subvarieties and
+on points, and computes the positions of $C_{\eta}$, $l_{W}$ and $L_{\pm}$. On
+the conic of subvarieties the two points $L_{\pm}$ have coordinates
+$(p:q)=(1:\mp\sqrt{-d})$, so that the Weil classes are the values of the
+octic $(p,q)\mapsto[B_{(p,q)}]$ at those points.
+
+\begin{theorem}[Minimal support at $n=4$]\label{thm:minimalsupport}
+In \Cref{setup:lagquadric}, let $F_{1},\dots,F_{s}$ be natural objects whose
+points $L_{F_{i}}$ are pairwise distinct and not on $C_{\eta}$, and suppose
+that $\sum_{i}m_{i}\ch(F_{i})+P=N\omega_{1}+\sum_{k}c_{k}\eta^{k}$ with
+$m_{i}\in\QQ$, $P\in\QQ[\eta]$ and $N\ne0$. Then $s\ge8$. If $s=8$, the eight
+points lie on one smooth conic $\Pi\cap Q$ with $\Pi$ a plane containing
+$l_{W}$, the conic is disjoint from $C_{\eta}$, and
+$\sum_{i}m_{i}\ch(F_{i})=N\omega_{1}$ exactly. Conversely any eight rational
+points of such a conic carry such a relation with every $m_{i}\ne0$.
+\end{theorem}
+
+\begin{proof}
+Through $\Phi_{4}$ the relation reads
+$\sum_{i}m_{i}\nu_{4}(L_{F_{i}})+P'=c_{+}\nu_{4}(L_{+})+c_{-}\nu_{4}(L_{-})$ in
+$H^{0}(Q,\cO(4))^{\vee}$, with $P'$ in the span of $\nu_{4}(C_{\eta})$ and
+$c_{\pm}$ conjugate and nonzero because $N\ne0$. A quartic $f$ vanishing on
+$C_{\eta}$, at $L_{-}$ and at every $L_{F_{i}}$ gives $c_{+}f(L_{+})=0$; so it
+suffices to produce such an $f$ with $f(L_{+})\ne0$ unless the configuration
+is as stated. Let $h_{-}$ be the linear form $B(L_{-},\cdot)$, which vanishes on the polar
+plane of $l_{W}$, hence on $C_{\eta}$, and at $L_{-}$, but not at $L_{+}$,
+since $l_{W}\not\subset Q$. If the points split into at most three groups
+$G_{k}$ with $L_{+}$ outside the span of each, linear forms $l_{k}$ vanishing
+on $G_{k}$ and not at $L_{+}$ give the quartic $h_{-}l_{1}l_{2}l_{3}$, which
+kills everything but $c_{+}$, so $c_{+}=0$. A rational line through $L_{+}$ is
+$l_{W}$, which has no rational point on $Q$, so groups of one or two points
+never contain $L_{+}$ in their span, and a triple does only if it lies in a
+plane through $l_{W}$. For $s\le6$ split into pairs. For $s=7$, either some
+triple is not in a plane through $l_{W}$, or all seven lie in one such plane
+$\Pi$, hence on $C''=\Pi\cap Q$. That conic is smooth, since a degenerate one
+is a pair of conjugate lines with at most one rational point, and it misses
+$C_{\eta}$, since $\Pi$ meets the plane of $C_{\eta}$ in one point $z$ and
+$z\in Q$ would put the lines $zL_{\pm}$ in $Q$. The quartics vanishing on
+$C_{\eta}$ restrict onto all binary octics on $C''\cong\PP^{1}$, and nine
+distinct points impose independent conditions on octics, so $L_{\pm}$ and the
+seven points are independent. For $s=8$, if no plane through $l_{W}$ holds
+seven of the points, choose two triples not in such planes and a pair; if
+exactly seven lie in $\Pi$, modify the quartic by a multiple of one vanishing
+on $\Pi$ and at the eighth point; if all eight lie on $C''$, the ten points
+$L_{\pm},L_{F_{1}},\dots,L_{F_{8}}$ of the rational normal curve
+$\nu_{4}(C'')$ of degree eight satisfy exactly one relation, with every
+coefficient nonzero, and it is rational by Galois symmetry. Its part along the
+span of $\nu_{4}(C_{\eta})$ vanishes, because quartics restrict onto the sum of
+the octics on the two disjoint conics, so the relation is pure.
+\end{proof}
+
+\begin{figure}[tbp]
+\centering
+  \includegraphics[width=0.94\textwidth]{fig_minimalsupport}
+\caption{\Cref{thm:minimalsupport}. The quadric $Q$ of Lagrangians; the
+rational points are the Chern characters of the natural objects on the split
+member at $n=4$, up to the Veronese map $\nu_{4}$. The powers of the
+polarisation fill the conic $C_{\eta}$ (teal), and the Weil line is spanned by
+the conjugate points $L_{\pm}$ (open circles) in which the line $l_{W}$
+(dashed) meets $Q$. A combination of natural characters with a nonzero Weil
+part needs at least eight rational points off $C_{\eta}$, and with eight they
+lie on one conic cut out by a plane through $l_{W}$ (indigo), such as the
+eight graph subvarieties $B_{i}$ of \Cref{ex:fourteen}; the grey points are
+natural objects off any such conic, which no relation of this size can use.}
+\label{fig:minimalsupport}
+\end{figure}
+
+\begin{example}[Fourteen times a Weil class]\label{ex:fourteen}
+Let $d=1$ and write $(\gamma-\sqrt{-1}\,\ell)^{4}=W_{1}+\sqrt{-1}\,W_{2}$ with
+$W_{1},W_{2}$ rational, as in \Cref{thm:splitclosed}(iii). The eight
+subvarieties $B_{i}=B_{(p_{i},q_{i})}$ with
+\[
+  (p_{i},q_{i})=(1,-3),\,(1,-2),\,(1,2),\,(1,3),\,(2,-1),\,(2,1),\,(3,-1),\,(3,1)
+\]
+and $m=(-1,16,-16,1,-16,16,1,-1)$ satisfy
+\[
+  \textstyle\sum_{i}m_{i}[B_{i}]=14\,W_{2},
+\]
+with the sign of $\varphi$ for which $B_{(p,q)}$ has conormal forms
+$p\xi_{j}-qx_{n+j}$ and $p\xi_{n+j}+qx_{j}$; with the opposite sign the right
+side is $-14W_{2}$. Among the $12870$ sets of eight subvarieties with
+$|p|,|q|\le3$ this one has the least $\sum_{i}m_{i}^{2}$, namely $1028$, and
+the least $\sum_{i}|m_{i}|$, namely $68$. In
+general the coefficients of the relation of \Cref{thm:minimalsupport} for eight
+subvarieties are proportional to
+$\bigl((q_{i}^{2}+dp_{i}^{2})\prod_{j\ne i}(p_{i}q_{j}-p_{j}q_{i})\bigr)^{-1}$.
+The sum $E=\bigoplus_{i}\cO_{B_{i}}^{\oplus|m_{i}|}[k_{i}]\oplus\cO(\eta)
+\oplus\cO(2\eta)\oplus\cO(3\eta)$, with $k_{i}=0$ for $m_{i}>0$ and $1$
+otherwise, has $\ch(E)=14W_{2}+\sum_{k}c_{k}\eta^{k}$ with
+$k!\,c_{k}=1+2^{k}+3^{k}$, so $\rho=3$ and $r=104$, while
+$\dim\Ext^{2}(E,E)=28868$; by \Cref{cor:naturalsums} it is far from the
+criterion, and every direct sum of natural objects with $N\ne0$ has
+$\dim\Ext^{2}\ge8\cdot28=224$.
+\end{example}
+
+\begin{remark}[The flatness form for direct sums]\label{rem:flatsums}
+\Cref{lem:p2primesummands} does not apply to the flatness form of
+\Cref{prop:p2flat}, but a direct sum fails that form too when its
+cross-extensions cannot interact. Let $E=\bigoplus_{i}(\cO_{B_{i}}\otimes
+L_{i})^{\oplus m_{i}}[k_{i}]$ with the $B_{i}$ pairwise distinct abelian
+subvarieties of dimension $n$ meeting pairwise in finite sets, such as the
+$B_{(p,q)}$. The extensions between different summands are concentrated in
+degree $n$, so an arrow of $\Ext^{1}$ between summands raises the shift by
+$n-1$, and a chain of $a\ge1$ arrows lands in $\Ext^{2+a(n-1)}\ne\Ext^{2}$.
+Every term of the Maurer--Cartan equation that involves a cross-extension
+therefore lands in a zero group, the base $K_{E}$ is the product of the
+varieties of commuting $2n$-tuples of $m_{i}\times m_{i}$ matrices with the
+space of cross-extensions, and a count of dimensions, using the
+simultaneously diagonalisable component, gives $\dim K_{E}>e-k$; so (ii) and
+(iii) of \Cref{prop:p2flat} fail. We give this in outline only; item (LV)
+checks the counts on the sum of \Cref{ex:fourteen}. Indecomposable objects,
+among them iterated extensions of at least eight natural blocks, and sums
+whose cross-extensions compose to nonzero classes are not covered.
+\end{remark}
 
 \subsection{What the object must be, and what it cannot be}
 \label{ssec:whatobject}

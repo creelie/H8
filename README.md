@@ -318,10 +318,15 @@ curve, so each remaining target becomes one case of (L): one Weil family is
 equivalent to (L) for the total space of the family over a curve through a
 base point, and the first classes beyond the Weil lines are equivalent to (L)
 for the ninefold W x_C W of a Mumford family. Proved outright on the way: the
-Hodge conjecture for X_c x X_c at every CM point of a Mumford family, and that
-no object meeting the semiregularity criterion is a direct sum of objects with
-exterior Ext algebras (`targets_reduction.py`, `two_branch_annihilator` in the
-Lean file). The Mumford classes are rigid: the only first order deformation of
+Hodge conjecture for X_c x X_c at every CM point of a Mumford family
+(`targets_reduction.py`), and that no direct sum of objects with exterior Ext
+algebras (line bundles, sheaves on abelian subvarieties, simple
+semi-homogeneous bundles, points and their Fourier-Mukai images) meets the
+corrected semiregularity criterion, because an object meeting it does so
+through one indecomposable summand (Lemma lem:p2primesummands and Corollary
+cor:naturalsums; the version for the first form of the criterion,
+`two_branch_annihilator` in the Lean file, is vacuous since that form is
+false). The Mumford classes are rigid: the only first order deformation of
 the square keeping a rational exceptional class of Hodge type is the direction
 of the compact Mumford curve, so no degeneration or larger family reaches them;
 propagation along the curve follows from one perfect complex at one CM point
@@ -354,7 +359,35 @@ By Li's theorem (arXiv:2609.27916) the classes are represented by algebraic
 cycles at every closed point of every reduction of the curve modulo a prime,
 and the target is equivalent to a bound on the Hilbert data of those cycles on
 a Zariski dense set of closed points of the arithmetic model. No such complex
-and no such bound is known. Nothing here is a proof of the Hodge conjecture.
+and no such bound is known.
+
+Round 12 (`code/attack/`, item (LV)) examined the inputs the closure graph
+leaves open, each with an independent adversarial re-implementation. For a
+quartic CM field F at n = 2, the smallest open case of the propagation
+statement the minimal route needs, divisor classes reach the Weil classes
+exactly on a Noether-Lefschetz locus of the weight-two part R_F, of
+codimension two when the discriminant is trivial, governed by the quaternion
+algebra (F/F_0, det H^{-1}); for biquadratic F Markman's theorem reaches them
+on a locus of dimension four; the Casimir class of R_F is algebraic exactly
+when the Weil classes are; correspondences with abelian varieties of
+dimension at most seven cannot help at a Hodge-generic member; and the
+corrected criterion asks dim Ext^2 = 112 of one complex, every complex of that
+shape having dim Ext^2 >= 68. If the two exceptional classes of a Mumford
+fourfold X are algebraic on X x X, every Hodge class on every power of X is
+(one hyperdeterminant class needs a composite of correspondences); the
+Kuga-Satake route asks for that and a link besides, and no link passes
+through an abelian variety of dimension at most five. For the imaginary
+quadratic families the criterion reduces to one indecomposable object; Orlov
+products of explicit secant objects meet its twisted form with equality at
+n = 2 and n = 3 and cannot at n = 4; and at n = 4 a combination of natural
+objects with a Weil part needs at least eight of them, on one conic of the
+quadric of Lagrangians, as in the relation sum m_i [B_i] = 14 W_2 over eight
+graph subvarieties. None of this is a new case of the Hodge conjecture: the
+unconditional proof still needs the propagation statement for the split
+families of the CM fields of degree at least four, the classes beyond the Weil
+lines (F2), and the conjecture modulo abelian varieties (F3').
+
+Nothing here is a proof of the Hodge conjecture.
 
 ## Licence
 

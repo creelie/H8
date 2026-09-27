@@ -20,11 +20,17 @@ finitely many exceptional classes in middle degree, the Weil classes of
 \footnote{Weil introduced them to show that the Hodge ring of an abelian variety is not always generated in degree one, which at the time was an open possibility. He did not conjecture that they are algebraic and did not claim they are not; the examples were offered as a warning, and they have been the standard test case ever since.} Divisor classes are algebraic, so for these varieties the whole
 question is whether the Weil classes are algebraic. Markman
 \cite{Mar25a,Mar25b} settled this for abelian sixfolds of Weil type of
-discriminant $-1$, which are the sixfolds of split Weil type, for every
-imaginary quadratic field, and deduced it for all abelian fourfolds of Weil type, for
+trivial discriminant,%
+\footnote{In the normalisation of \Cref{def:disc} the discriminant is the
+class of $(-1)^{n}\det H$ in $\QQ^{\times}_{>0}/\Nm_{K/\QQ}(K^{\times})$.
+Markman uses the class of $\det H$ itself, in which the same sixfolds have
+discriminant $(-1)^{3}=-1$.} which are the sixfolds of split Weil type, for
+every imaginary quadratic field, and deduced it for all abelian fourfolds of Weil type, for
 every discriminant and every field, using a degeneration argument of Schoen
-that he quotes; the Hodge conjecture for abelian varieties of dimension at
-most five follows. The sheaf he produces has positive rank, is built from the
+that he quotes; the Hodge conjecture for abelian fourfolds follows, and
+with the description of the Hodge rings of abelian varieties of dimension at
+most five by Moonen and Zarhin \cite{MZ99} it is quoted for abelian fivefolds
+as well, a deduction we have not checked ourselves. The sheaf he produces has positive rank, is built from the
 geometry of the abelian variety itself through a pair of secant sheaves on an
 abelian threefold, and satisfies an equivariant semiregularity condition.%
 \footnote{The hypothesis he verifies is stronger than injectivity of the
@@ -327,7 +333,7 @@ exactly a Noether--Lefschetz condition on $R$; and \Cref{prop:splitgeom}
 determines what the split members supply: they have trivial discriminant,
 whatever polarisation is chosen, they form a locus of codimension
 $n(n-1)/2$, and at such a point the three classes
-$\beta,\widehat{\beta},\ell$ already exhaust both the Neron--Severi group and
+$\beta,\widehat{\beta},\ell$ already exhaust both the N\'eron--Severi group and
 the Hodge classes in the middle degree.
 
 \Cref{lem:Rendomorphism} identifies the criterion: a Hodge class in $R$ is the
@@ -365,8 +371,8 @@ holds for all abelian varieties of Weil type in the family, or $\Sigma$ has
 empty interior and the conjecture fails outside a meagre set
 (\Cref{cor:allornothing}).
 
-One further operation preserves $\Sigma$, and it is the only one that moves
-between dimensions. If $A_{1}$ and $A_{2}$ are of Weil type for the same $K$,
+One further operation preserves $\Sigma$ and moves up between dimensions;
+the descent of \Cref{prop:descent}, described below, moves down. If $A_{1}$ and $A_{2}$ are of Weil type for the same $K$,
 with parameters $n_{1}$ and $n_{2}$, then $A_{1}\times A_{2}$ is of Weil type
 with parameter $n_{1}+n_{2}$, and the Weil class of the product is a fixed
 rational combination of external products of the Weil classes of the factors
@@ -378,18 +384,18 @@ multiplicative and algebraicity passes from the factors to the product
 therefore algebraic by Lefschetz with no hypothesis at all, so taking $n$
 abelian surfaces of Weil type gives, in every dimension and for every $d$, an
 abelian $2n$-fold of Weil type whose Weil classes are written as an explicit
-integral polynomial in $2n$ divisor classes (\Cref{thm:everyn}). That is the
-only statement in this paper which produces an algebraic Weil class in every
-dimension while quoting nothing, and its reach is correspondingly small: the
+integral polynomial in $2n$ divisor classes (\Cref{thm:everyn}). Like
+\Cref{cor:splitalgebraic} and \Cref{thm:everyfamily}, it quotes nothing beyond
+the Lefschetz theorem on $(1,1)$ classes, and its reach is small: the
 locus of such products has dimension $n$ inside a family of dimension $n^{2}$,
 smaller even than the quaternionic locus, and a general member of the family
 is simple and lies on none of them (\Cref{rem:prodscope}).
 
 That is what turns the last implication into two statements of finite
-character, each about the cycles already constructed. \Cref{thm:degreebound}:
-if the Hilbert data of the cycle of \Cref{thm:everyfamily}, transported along
-one rational orbit, takes finitely many values, the conjecture follows for the
-whole family; at $n=2$, where the quaternionic locus is a divisor, infinitely
+character. \Cref{thm:degreebound}: if at every point of the rational orbit of
+a base point of \Cref{thm:everyfamily} the Weil class is represented by a
+cycle whose Hilbert data comes from one finite set, the conjecture follows for
+the whole family; at $n=2$, where the quaternionic locus is a divisor, infinitely
 many repetitions suffice rather than all but finitely many
 (\Cref{rem:ntwo}). \Cref{thm:semiregclosure}: the base point carries a perfect
 complex whose Chern character is $N\omega_{1}$ in degree $n$ and zero
@@ -401,20 +407,22 @@ semiregularity kernel of dimension at least $n^{2}$ at every base point
 constructed here, so its hypothesis fails for the object that supplies it
 (\Cref{rem:killsreduction}), and by \Cref{cor:kernelfamily} the kernel is a
 canonical copy of the tangent space to the family the deformation was to
-cross, so no choice of base point inside the family can improve it. The degree bound is untouched, and \Cref{prop:leadingconstant} sharpens
-it: the leading coefficient of the Hilbert polynomial is constant along the
-orbit, because $G(\QQ)$ preserves both the Weil class and the polarisation,
-so what has to be bounded is only the degree of the effective part of the
-transported cycle (\Cref{rem:whereunbounded}). The divisorial constructions
+cross, so no choice of base point inside the family can improve it. The degree bound is untouched by this, and \Cref{prop:leadingconstant}
+sharpens it: the leading coefficient of the Hilbert polynomial is constant
+along the orbit, because $G(\QQ)$ preserves both the Weil class and the
+polarisation, so what has to be bounded is only the degree of the effective
+part of a representing cycle (\Cref{rem:whereunbounded}). The divisorial constructions
 cannot supply that bound: products of effective divisors of bounded degree
 represent $\omega$ only on a nowhere dense set (\Cref{prop:divroute}), and
 \Cref{prop:pencil} shows the degrees growing along an explicit pencil of
 quaternionic loci in one fixed polarised lattice. Neither reduction mentions
 a general point and neither assumes the variational Hodge conjecture; the
 passage from a formal deformation at one point to cycles everywhere, which is
-the part that is usually missing, is supplied by \Cref{thm:closedlocus}. We
-have not proved either hypothesis, and \Cref{rem:tworemain} says exactly what
-each of them asks for.
+the part that is usually missing, is supplied by \Cref{thm:closedlocus}. Neither
+hypothesis is available as stated: the first is equivalent to its conclusion
+(\Cref{thm:p1equivalent}), and the second is false (\Cref{thm:p2false}) and
+survives only in the corrected form of \Cref{rem:p2prime}, both described
+below; \Cref{rem:tworemain} says what each of them asks for.
 
 \Cref{ssec:whatobject} then says what the object of the second criterion has
 to be. For a sum of line bundles the semiregularity map is computed in closed
@@ -607,7 +615,7 @@ Hilbert--Burch resolution over a bundle that is not projectively flat and a
 restriction $H^{2}(\cO_{X})\to H^{2}(\cO_{Z})$ that is injective
 (\Cref{cor:disjointroutes}). \Cref{rem:routemap} writes the two remaining
 questions in the form a construction would have to answer.
-Before that, \Cref{sec:cmfields} removes the restriction to quadratic
+After that, \Cref{sec:cmfields} removes the restriction to quadratic
 fields. The four theorems that turn the conjecture for a Weil family into a
 propagation statement, namely the reduction to one class, the closedness of
 the algebraic locus, the density of the rational orbits and the base point,
@@ -632,8 +640,9 @@ supplies, form a finite rule set, and taking consequences in that rule set is
 a computation rather than a judgement. The conjecture is not among the
 consequences, which is the machine statement that nothing here proves it.
 The route that passes through this paper needs three open statements: a
-propagation statement, the one established in \Cref{thm:semiregclosure} and
-carried to every CM field in \Cref{thm:cmpropagation}, and by
+propagation statement, the semiregularity criterion of
+\Cref{thm:semiregclosure} in the corrected form of \Cref{rem:p2prime},
+carried to every CM field in \Cref{thm:cmpropagation} and by
 \Cref{prop:descent} needed only for the split families of the CM fields of
 degree at least four, together with the
 Hodge classes on abelian varieties that divisor and Weil classes do not
@@ -691,8 +700,12 @@ equivalent to it for the ninefold $W\times_{C}W$ of a Mumford family
 (\Cref{cor:mumfordequiv}). Two statements are proved outright on the way:
 the Hodge conjecture for $X_{c}\times X_{c}$ at every CM point $c$ of a Mumford
 family, from the Hodge conjecture for abelian fourfolds (\Cref{thm:mumfordcm}),
-and the fact that no object meeting the semiregularity criterion is a direct
-sum of objects with exterior Ext algebras (\Cref{thm:nosum}). The bounded criterion, which asks that the cycles
+and the fact that no finite direct sum of shifted line bundles, or of the
+bundles $\pi_{*}L$ pushed forward along isogenies, among them the simple
+semi-homogeneous bundles, meets the semiregularity criterion in the corrected
+form described below (\Cref{prop:scalaratiyah}); the corresponding statement
+for the first form of the criterion, \Cref{thm:nosum}, is vacuous by
+\Cref{thm:p2false}. The bounded criterion, which asks that the cycles
 representing the class along the orbit have bounded complexity, might look like
 a second propagation statement, but by \Cref{thm:p1equivalent} it is
 equivalent to the conjecture for the family, a restatement and not a route;
@@ -716,6 +729,13 @@ as the Kuga--Satake class of one K3 surface of Picard number thirteen attached
 to the fourfold is; the Clifford relations of the Kuga--Satake construction
 are what bring the whole field into play (\Cref{prop:mumfordrm},
 \Cref{thm:mumfordks}, \Cref{rem:mumfordks}). That Kuga--Satake class is not known to be algebraic.
+If the two classes are algebraic, so is every Hodge class on every power of
+the fourfold (\Cref{thm:mumfordpowers}), the one class that pull-backs and
+products do not reach being obtained by composing correspondences. The
+Kuga--Satake class asks for more than the two classes: it is algebraic exactly
+when they are and some algebraic cycle links the surface to a power of the
+fourfold (\Cref{prop:mumfordkslink}), and no such link passes through an
+abelian variety of dimension at most five (\Cref{prop:mumfordcarrier}).
 The same classes are rigid: in each of the $46$ weight blocks of $HT^{2}$ of
 the square the Gram determinant of contraction into a rational exceptional
 class is a product of sums of squares and of linear forms that do not vanish
@@ -729,7 +749,8 @@ at infinitely many CM points (\Cref{thm:mumfordnumerical},
 \Cref{cor:mumfordbounded}). Such an object is heavily constrained: for a
 dense set of classes its self-extensions have dimension at least
 $1,16,119,328,560,328,119,16,1$ in degrees $0$ to $8$, the Euler
-characteristic forces at least $800$ in odd degrees, its Chern character lies
+characteristic forces at least $800$ in odd degrees when there are none in
+negative degrees, its Chern character lies
 outside the subring generated by divisor classes, and it extends along no
 Hochschild direction but that of the curve (\Cref{thm:mumfordprofile},
 \Cref{prop:mumforddivisor}, \Cref{cor:mumfordsplit}). No sequence of cones,
@@ -807,8 +828,8 @@ All of this concerns a complex whose Chern character is exactly a multiple of
 the Weil class, and no such complex is semiregular (\Cref{thm:p2false}). Its
 semiregularity would make it extend along every $K$-linear deformation of the
 abelian variety, and those reach complex tori that are not algebraic. On a very
-general such Weil torus the only Hodge classes below the top degree are the
-Weil classes, there are no subvarieties but points, and every coherent sheaf
+general such Weil torus the only Hodge classes strictly between degree zero
+and the top degree are the Weil classes, there are no subvarieties but points, and every coherent sheaf
 has vanishing Chern character in degrees $1$ to $2n-1$: this is Voisin's
 theorem in dimension four \cite{Voi02b}, and the same argument through the
 Hermite--Einstein metrics of Bando and Siu gives it in every dimension
@@ -822,7 +843,12 @@ it escapes the obstruction; the semiregular objects in Markman's proofs are not 
 (\Cref{rem:p2prime}). Its numerical form is computed in
 \Cref{thm:p2primenumber}: for a Chern character $N\omega+\sum_{k}c_{k}\theta^{k}$
 the annihilator in $HT^{2}$ has dimension $n^{2}(4-\rho)$ for $n\ge3$, with $\rho\le3$ the
-rank of the Hankel matrix of the numbers $k!\,c_{k}$, and for a general shape
+rank of the Hankel matrix of the numbers $k!\,c_{k}$,%
+\footnote{Precisely, $\rho$ is the rank of the $(2n-1)\times3$ matrix with
+entries $\mu_{i+j}$, $0\le j\le2n-2$, $0\le i\le2$, where $\mu_{k}=k!\,c_{k}$
+(\Cref{setup:p2prime}). A vector in its kernel is a linear recurrence of order
+at most two among the $\mu_{k}$, and $\rho$ does not change when the character
+is multiplied by $e^{t\theta}$.} and for a general shape
 it is exactly the tangent space of the polarised Weil family; so one complex
 with $\dim\Ext^{2}(E,E)=7n^{2}-2n$ at one base point would close the family,
 $24$ at $n=2$ and $57$ at $n=3$. The shapes $Ae^{t\theta}+B\theta^{2n}$ with
@@ -830,7 +856,13 @@ $t\theta$ the class of a line bundle, of Hankel rank at most two, are
 excluded, by a twist and \Cref{thm:p2false}; for every other shape the Hodge
 locus of the character is, for $n\ge3$, the polarised family itself, so the
 argument through non-algebraic tori has nothing to act on
-(\Cref{prop:p2primelocus}); and a weaker flatness form of the criterion
+(\Cref{prop:p2primelocus});%
+\footnote{At $n=2$ the same holds with one exception: when $c_{1}=c_{3}=0$
+and $c_{2}^{2}\int_{A}\theta^{4}=\tfrac34\int_{A}(N\omega)^{2}$ the locus has
+dimension five, its stabiliser is $\mathfrak{so}(4,3)$, and it reaches tori
+that are not algebraic; the argument of \Cref{thm:p2false} can be started
+there but does not finish (\Cref{prop:p2primelocus}(iv),
+\Cref{rem:p2primeexceptional}).} and a weaker flatness form of the criterion
 suffices (\Cref{prop:p2flat}). The Hochschild profile of a corrected
 character is \Cref{prop:p2primeprofile}. The
 Mumford classes escape the obstruction for a different reason: they are
@@ -841,7 +873,12 @@ lies outside every minimal set: granted every demand it makes, it reaches the
 families of trivial discriminant, because the member it is built on is a
 product and a product has trivial discriminant, and through descent every
 imaginary quadratic family, but no CM field of higher degree
-(\Cref{rem:secantplace}). Descent is the one link between the Weil families
+(\Cref{rem:secantplace}).\footnote{Markman has since extended the secant
+construction to CM fields of higher degree, on $X\times\widehat{X}$ for an
+abelian variety $X$ with real multiplication, with the semiregularity of the
+resulting sheaves not yet addressed \cite{Mar25c}; see (C3) in
+\Cref{ssec:closuremap}. The secant route of this paper, and of its rule set,
+is the imaginary quadratic one.} Descent is the one link between the Weil families
 (\Cref{prop:descent}): a product with a Weil surface of any discriminant and
 a push-forward against its Weil class, which is a divisor class, carry the
 Weil classes of one family onto those of every family of lower dimension and
@@ -852,6 +889,30 @@ needed only for the split families of the CM fields of degree at least four,
 and the base points of nontrivial discriminant, though they exist, are not
 needed on any route. The computation behind the frontier is item
 (XXXIII) of \Cref{sec:verification}, repeated in the Lean kernel.
+
+The smallest case of that propagation statement, a quartic CM field at $n=2$,
+is analysed in \Cref{ssec:quartic}. Divisor classes reach the Weil classes
+exactly on a Noether--Lefschetz locus, of codimension two when the
+discriminant is trivial, which is governed by a quaternion algebra over the
+real quadratic subfield; for a biquadratic field Markman's theorem reaches
+them on a further locus of dimension four; the Casimir class of the natural
+quadratic form in degree two is algebraic exactly when the Weil classes are;
+correspondences with abelian varieties of dimension at most seven cannot help
+at a member with full Hodge group; and the corrected criterion asks
+$\dim\Ext^{2}(E,E)=112$ of one complex, every complex of that shape having
+$\dim\Ext^{2}(E,E)\ge68$ (\Cref{prop:quarticnl}, \Cref{prop:quarticscalar},
+\Cref{prop:quarticcasimir}, \Cref{prop:quarticnogo},
+\Cref{thm:quarticp2prime}). For the imaginary quadratic families the
+criterion is a statement about one indecomposable object, and no sum of
+objects with exterior Ext algebras meets it (\Cref{lem:p2primesummands},
+\Cref{cor:naturalsums}); the Orlov products of explicit secant objects meet
+its twisted form with equality at $n=2$ and $n=3$, which gives the
+injectivity of the semiregularity map from a dimension count, and cannot at
+$n=4$ (\Cref{thm:twistedcert}, \Cref{prop:orlovfour}); and at $n=4$ a
+combination of natural objects with a Weil part needs at least eight of them,
+on one conic of a quadric of Lagrangians (\Cref{thm:minimalsupport}). None of
+this is a new case of the conjecture.
+
 \Cref{sec:final} then states the closure itself, as a single theorem in seven
 clauses, every one of them unconditional: the reduction to one class on one
 connected domain and its converse, a base point with an explicit cycle in
@@ -860,8 +921,8 @@ propagation, which is a number, and one that restates the conjecture, the
 fourteen routes that are closed and the structural reason each of them fails,
 the same criterion for every CM field, and the three statements that remain
 along this route, the last of them the conjecture itself and its weaker form
-open, the second not a reduction and its smallest case brought down to a
-single Kuga--Satake class, beside the other minimal routes. \Cref{sec:scope} delimits all of it,
+open, the second not a reduction and its smallest case implied by the
+algebraicity of a single Kuga--Satake class, beside the other minimal routes. \Cref{sec:scope} delimits all of it,
 \Cref{sec:verification} describes
 the verification and \Cref{sec:lean} the Lean certificate.
 \Cref{app:exterior} carries the coordinate computation behind the transform,

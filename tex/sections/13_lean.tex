@@ -1,9 +1,10 @@
 \section{Machine verification in Lean 4}\label{sec:lean}
 
 The theorems of this paper are statements of algebraic geometry and are not
-formalised. What is formalised is the arithmetic on which each of them turns,
-and in every case that arithmetic is finite and integral, so it can be settled
-by kernel computation. The file \texttt{HodgeObstruction.lean} accompanies the
+formalised. What is formalised is the finite arithmetic on which many of them
+turn, which the kernel can settle by computation; the rest of their
+computational content is checked in exact arithmetic by the scripts of
+\Cref{sec:verification}. The file \texttt{HodgeObstruction.lean} accompanies the
 paper. It compiles against a bare Lean~4 toolchain, has no \texttt{sorry}, and
 depends on no library, Mathlib included; the report at its foot states, for
 each of its eighty theorems, that it depends on no axiom whatever, or on
@@ -127,9 +128,9 @@ arithmetic modulo a prime by item (XIV) of \Cref{sec:verification}.
 \endgroup
 
 An element of $\ZZ[\sqrt{-d}]$ is a pair of integers, multiplication and
-conjugation are the evident operations, and every statement in the table is a
-closed Boolean expression evaluated by the kernel.%
-\footnote{The tactic is \texttt{decide} throughout, which asks the kernel to evaluate a closed Boolean expression by reduction. That is the strongest check available and the least flexible: it works only over finite ranges, which is why every theorem in the table carries an explicit bound, and it is also why none of them can be the general statement the paper proves.} Nothing is quoted; the
+conjugation are the evident operations, and every statement in the table but
+the last two is a closed Boolean expression evaluated by the kernel.%
+\footnote{For those the tactic is \texttt{decide}, which asks the kernel to evaluate a closed Boolean expression by reduction. That is the strongest check available and the least flexible: it works only over finite ranges, which is why each of those theorems carries an explicit bound, and it is also why none of them can be the general statement the paper proves. The last two, \texttt{criterion\_}\allowbreak\texttt{endomorphisms\_n2} and \texttt{criterion\_}\allowbreak\texttt{endomorphisms\_n3}, are stated for all natural numbers and proved from the lemmas on natural numbers in the core library, with \texttt{decide} only for a final numerical inequality.} Nothing is quoted; the
 kernel recomputes each assertion from the definitions.
 
 Two of the entries deserve a word about what they do and do not settle.

@@ -35,7 +35,17 @@ split families of the CM fields of degree at least four is needed, added
 the flatness form `prop:p2flat` of the criterion, the exceptional n = 2 ratio
 `rem:p2primeexceptional`, `prop:powers`, `cor:lefschetzsmall` and
 `prop:mumfordfivefold` (with attributions to Milne and Tankeev), and the long
-runs of `code/extreme/`).
+runs of `code/extreme/`; round 12 added Priyabrata Mandal as second and
+corresponding author (dagger on Deep Bhattacharjee, double dagger on Mandal,
+Ushashi Bhattacharya third), audited every DOI of the bibliography, and added
+the quartic CM subsection `ssec:quartic` of `tex/sections/10d_cmfields.tex`
+(`prop:quarticquat` to `rem:quarticgap`), the Mumford powers results
+`prop:mumfordwhere` to `rem:mumfordpowersopen` after `rem:mumfordks` in
+`tex/sections/11_scope.tex`, the objects results `lem:p2primesummands` to
+`rem:flatsums` after `prop:p2flat` in `tex/sections/10c_construction.tex`,
+`thm:cmpropagation` (iv), (v) restated in the chosen-cycle and corrected
+forms, item (LV) with `code/attack/` and `code/attack_checks.py`, and the
+figures of `figures/make_round12.py`).
 
 Release v1.0.0 (tag `v1.0.0`, commit `ef15bce`) is archived on Zenodo under
 DOI 10.5281/zenodo.22950276, recorded in the macro `\zenodoDOI` at the top of

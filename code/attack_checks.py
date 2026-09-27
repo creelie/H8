@@ -22,7 +22,8 @@ long runs are not repeated here; their transcripts are in
 attack/*/transcripts/.
 
   (A) quartic_cm/, track T1, the Weil classes W_F of a quartic CM field F at
-      n = 2.  At a member with Hodge group Res_{F0/Q} SU(V,H) the Hodge
+      n = 2 (the scripts write T for the space the paper calls R_F).  At a
+      member with Hodge group Res_{F0/Q} SU(V,H) the Hodge
       classes in H^2 and H^4 have dimensions 2 and 7, and W_F meets the
       products of divisor classes in 0 (t1_generic.py, two of its six
       (field, H) pairs).  The F-semilinear phi on T = wedge^2_F H^1 with

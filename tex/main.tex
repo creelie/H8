@@ -34,10 +34,10 @@ authors: Deep Bhattacharjee\textsuperscript{\dag}, at
 Priyabrata Mandal\textsuperscript{\ddag}, at \texttt{priyabrata@manit.ac.in}.}
 
 \thanks{Every numerical assertion in this paper is reproduced by the scripts
-of \Cref{sec:verification}, which use exact rational, integer or exterior
-algebra over $\QQ$ and no floating point at any step, and the finite
-arithmetic on which the two main theorems turn is separately checked by the
-Lean~4 kernel as described in \Cref{sec:lean}. Both are distributed with the
+of \Cref{sec:verification}, which use exact arithmetic, over $\QQ$, over its
+finite extensions or modulo a prime, and no floating point at any step, and
+the finite arithmetic on which many of the paper's theorems turn is
+separately checked by the Lean~4 kernel as described in \Cref{sec:lean}. Both are distributed with the
 paper.}
 
 \thanks{An earlier and substantially different version of part of this
@@ -73,12 +73,16 @@ would follow from a semiregular perfect complex carrying the Weil class. We
 show that no complex whose Chern character is exactly a Weil class is
 semiregular, in any dimension: it would deform to non-algebraic Weil tori,
 where, extending a theorem of Voisin, coherent sheaves have no Chern character
-below the top degree. The complex must also carry classes, such as powers of
+strictly between degree zero and the top degree. The complex must also carry classes, such as powers of
 the polarisation, that are Hodge only on the polarised family; for such a
 complex we compute in closed form the dimension that $\Ext^{2}$ must reach,
 and one complex reaching it suffices. By a descent lemma, the split families
 of the CM fields of degree at least four, in infinitely many dimensions, give
-every Weil family. Fourteen further routes are closed. This route needs three further statements. The
+every Weil family; for a quartic field at $n=2$, the smallest of them, divisor
+classes reach the Weil classes exactly on a Noether--Lefschetz locus, of
+codimension two when the discriminant is trivial, and one complex must reach
+$\dim\Ext^{2}=112$. Fourteen
+further routes are closed. This route needs three further statements. The
 last, the conjecture for varieties that are not abelian, is the whole
 conjecture through $A\times\PP^{1}$; its form modulo abelian varieties holds
 for varieties reached from abelian ones by correspondences and is open
@@ -90,7 +94,8 @@ point, rigid along the base curve, and represented by cycles at every closed
 point of every reduction modulo a prime; they propagate to every member
 exactly when it holds for one ninefold, or when those cycles have bounded
 degree on a dense set, and once one complex has $\Ext^{2}$ of dimension
-$119$.
+$119$; if they are algebraic, so is every Hodge class on every power of the
+fourfold.
 \end{abstract}
 
 \maketitle

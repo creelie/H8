@@ -498,7 +498,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   named in a rule is declared and every declared statement is used, that the
   rule set is acyclic, and that every one of the seventeen theorem labels it
   names, for its rules and for the consequences of $\mathbf{HC}$ it records,
-  is a label of this paper, against the list of all $546$ labels generated
+  is a label of this paper, against the list of all $584$ labels generated
   from the sources and distributed with the script as
   \texttt{paper\_\allowbreak labels.txt}. It then computes the forward closure
   by iterating the one step map to a fixed point, and verifies that no
@@ -1066,13 +1066,102 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   $\QQ(\sqrt{-3})$, up to $n=3$ over $\QQ(\sqrt{-5})$, $\QQ(\zeta_{5})$ and
   $\QQ(\zeta_{8})$, and up to $n=2$ over the sextic field $\QQ(\zeta_{7})$, and
   (C) up to $n=3$. That is \Cref{prop:descent}.
+
+\item \emph{Quartic fields, the Mumford fourfold, and the objects of the
+  criterion.} The directory \texttt{code/\allowbreak attack} holds four sets
+  of scripts, each with the scripts of an independent re-implementation in
+  \texttt{verify/} and the unedited transcripts of their runs in
+  \texttt{transcripts/}; its \texttt{README.md} states each claim with its
+  status (proved, computed, conditional or sketched). The item
+  \texttt{attack\_\allowbreak checks.py} runs a fast subset, in about two and a
+  half minutes, and turns the printed numbers into $48$ checks; the longer
+  runs are not repeated, and their transcripts are distributed. Where a space
+  of invariants is bounded above by a rank modulo a prime, which can only lower
+  a rank, the bound is matched by explicit invariants. (A)
+  \texttt{quartic\_\allowbreak cm}, where the scripts write $T$ for $R_{F}$:
+  for $F=\QQ(\zeta_{5})$ (cyclic, with no imaginary quadratic subfield),
+  $\QQ(\zeta_{8})$, $\QQ(\zeta_{12})$ (biquadratic) and
+  $\QQ(\sqrt{-(3+\sqrt2)})$ (not Galois), and six hermitian forms in all,
+  $\mathfrak{su}(V,H)$ has dimension $30$ and kills $W_{F}$, and its
+  invariants have dimension $2$ in degree two and $7$ in degree four, with
+  $W_{F}$ meeting the products of divisor classes in $0$; $\phi$ is
+  semilinear with $\phi^{2}=(\det H)^{-1}$, it commutes with $\mathfrak{su}(V,H)$
+  on $R_{F}$ and the commutant has dimension $8$, and over $\QQ(\zeta_{5})$
+  with a hermitian form that is not diagonal $\phi g=\overline{\det g}\,g\phi$
+  for an element $g$ of $\mathrm{U}(V,H)$ with $\det g\notin\QQ$;
+  \eqref{eq:quarticstar} holds, $\Delta^{*}C_{q}=6c\,\Omega$, and the
+  pull-backs of $W_{F}$ along five maps span a space of dimension $20$
+  containing $C_{q}$; on the split locus for three fields $\det H$ is a square
+  in $F_{0}$ and the polarisation of $X$ gives a Hodge class in $R_{F}$; on
+  the scalar-extension locus for three biquadratic fields and four forms the
+  pull-backs $g_{f}^{*}W_{K}(C)$ span a space of dimension $10$ containing
+  $W_{F}(B_{F})$, and the invariants of $\mathfrak{su}(V_{C},H_{C})$ in degree
+  two meet $R_{F}$ in $0$; $\dim HT^{2}=120$, the annihilator of a Weil class
+  has dimensions $0$, $16$, $24$, the eight-dimensional tangent space kills
+  $\gamma$, and $r(\gamma)=112$ for nine general $p$, in two independent
+  implementations, and at six elements of the Hodge ring; the part of the
+  contraction that no $p$ reaches has rank $68$; and on the $25$ monomials and
+  all $300$ pairs of them, with seven ratios, $r$ takes the values $80$,
+  $84$, $88$, $104$, $108$, $112$, and $92$, $96$ on pairs, with no value
+  below $80$ in about $1800$ further exact trials. That is
+  \Cref{prop:quarticquat}, \Cref{prop:quarticnl}(iii),
+  \Cref{prop:quarticscalar}, \Cref{prop:quarticcasimir} and
+  \Cref{thm:quarticp2prime}. (B) \texttt{mumford\_\allowbreak target}: by
+  peeling highest weights and, independently, by Weyl's alternating sum, no
+  $\bigwedge^{k}V$ contains a summand $S^{2}V_{i}$, the multiplicity of
+  $S^{2}V_{1}$ in $H^{n}(X\times X)$ is $1,6,16,24,16,6,1$ for
+  $n=2,4,\dots,14$ and $0$ otherwise, and the copy in $H^{2}$ lies in
+  $H^{1}\otimes H^{1}$ with Hodge numbers $(1,7,1)$, as it does in the
+  twelve-dimensional unitary model of \Cref{rem:mumfordunitary}; on the split
+  model, in the exterior algebras of $V\otimes\QQ^{m}$, the degree-four Hodge
+  classes of $X\times X$ have dimensions $1,1,4,1,1$ in the K\"unneth
+  components, $(V^{\otimes4})^{G}$ has dimension $8$, the pull-backs along $45$
+  integer homomorphisms $X^{4}\to X^{2}$ and the products of pulled-back
+  divisor classes span exactly $7$ dimensions and miss $\mathrm{Det}$, six
+  times Cayley's hyperdeterminant on the diagonal, and composites of two
+  correspondences fill all $8$; $s_{k}=\mathrm{Cas}_{k}+\frac12$, the images of
+  $\QQ[S_{2}]$, $\QQ[S_{3}]$, $\QQ[S_{4}]$ have dimensions $2$, $5$, $14$, so
+  $\End_{G}(V\otimes V)$ and $\End_{G}(V^{\otimes3})$ have dimensions $8$ and
+  $125$; and the irreducible zero-sum multisets of the weights $\{\pm1\}^{3}$
+  are the four pairs $\{w,-w\}$ and two sets of four. That is
+  \Cref{prop:mumfordwhere}, \Cref{thm:mumfordpowers}, \Cref{rem:mumforddet}
+  and \Cref{prop:mumfordcmpowers}; \Cref{cor:mumfordksproducts},
+  \Cref{prop:mumfordkslink}, \Cref{prop:mumfordcarrier} apart from its
+  computation, and \Cref{prop:mumfordsurface} are proved in the text and have
+  no script. (C) \texttt{explicit\_\allowbreak objects}: the Hochschild
+  profile of a secant class for $n=2,\dots,5$ and the Euler characteristic for
+  $n=2,\dots,6$, at values of $d$ the first run did not use; the certificates
+  of \Cref{thm:twistedcert}, with profile $(1,8,18,8,1)$ for seven values of
+  $d$ and $(1,12,48,74,\dots)$ for five; the flatness of
+  $\ch(E)e^{\ell/2}$, the recursion $\mu_{m+2}=-\mu_{m}/(4d)$ and the Weil
+  part over the function field $\QQ(d)$ for $n\le5$, the $B$-field in the
+  eight conventions for $\Phi$, and the dimensions $5$ and $9$ of the Hodge
+  loci; $r(\ch G)=18$, $48$, $88$ at $n=2,3,4$; the parity numbers of
+  \Cref{rem:untwisting}; and the correction to \Cref{ex:splitsmall} at $n=3$.
+  (D) \texttt{natural\_\allowbreak objects}: over $\QQ(i)$, exactly, $\dim T=16$,
+  $T$ kills $\eta$ and the Weil plane, and $T\lrcorner\ch F$ has rank $6$ for
+  the natural objects off $C_{\eta}$ and $0$ on it; modulo a prime,
+  $r(\gamma)=56$, $72$, $88$, $104$ for $\rho=0,\dots,3$; the Hodge ring of
+  dimension $55$, the fit of $\Phi_{4}$ and the geometry of $C_{\eta}$,
+  $l_{W}$ and $L_{\pm}$ in \Cref{setup:lagquadric}; the relation of
+  \Cref{ex:fourteen} in both sign conventions, its minimality among the
+  $12870$ eight-sets, the configurations of \Cref{thm:minimalsupport} (eight
+  points on one conic give a pure relation, and the splittings $7$, $4+4$,
+  $5+3$, $6+2$, $6+1+1$, $7+1$, $3+3+2$ give none), the lattice spanned by
+  the classes of the subvarieties, of index $2612736000$, and the intersection
+  numbers of the sum of \Cref{ex:fourteen}; and the agreement with the
+  exhaustive search of item (XIII) at $n=2$, where the Weil tuples all use
+  four points off $C_{\eta}$ and the pure ones are those on a conic through
+  $l_{W}$. \Cref{lem:p2primesummands}, \Cref{cor:naturalsums},
+  \Cref{prop:secantprofile} and \Cref{prop:orlovfour} are proved in the text
+  and checked here in examples.
 \end{enumerate}
 
-Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LIV) are the ones
+Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LV) are the ones
 on which theorems depend. Items (IV) and (V) support statements that no
 obstruction exists, and a failure there would strengthen rather than weaken
 the paper, so they are included for completeness rather than for safety.
-Running \texttt{verify\_all.py} executes the forty-nine Python items and
+Running \texttt{verify\_all.py} executes the fifty Python items and
 prints \texttt{951 checks passed, 0 failed}; items (XXIX), (XXXI) and
 (XL) need Macaulay2 and are run separately, and their transcripts are
 distributed with the scripts.
