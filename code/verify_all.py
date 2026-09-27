@@ -147,6 +147,12 @@ Contents
   (LIV)  descent and scalar extension: W(F,n+1,delta'') gives W(F,n,delta)
          for every delta, and W(F,n,iota(delta)) gives W(K,n,delta) for
          K in F  [descent.py]
+  (LV)   the round-12 attack scripts, a fast subset of their computations:
+         the Hodge classes and the criterion numbers of a quartic CM family
+         at n = 2, the pull-backs and composites on powers of a Mumford
+         fourfold, the explicit objects at a split member, and the natural
+         objects at n = 4, each track with its verifier's re-implementation
+         [attack_checks.py, running scripts in attack/]
 """
 
 import os
@@ -546,6 +552,10 @@ def main():
 
     head("(LIV) descent and scalar extension for Weil classes")
     run_module("LIV", "descent.py")
+
+    head("(LV) the round-12 attack scripts: a fast subset of their "
+         "computations")
+    run_module("LV", "attack_checks.py")
 
     print()
     print("=" * 70)

@@ -11,28 +11,23 @@ None.
 None.
 
 \subsection*{Data availability}
-All code and data supporting the results of this paper are openly available.
-The verification package comprises the Python scripts of
-\Cref{sec:verification}, the Lean~4 certificate of \Cref{sec:lean}, the
-Macaulay2 computations of local $\Ext$ algebras with their transcripts, and the
-generators and TikZ sources of every figure. It is held in the public GitHub
-repository \url{https://github.com/creelie/H8}, where it was developed on the
-branch \texttt{claude/\allowbreak hodge-\allowbreak conjecture-\allowbreak
-obstructions-\allowbreak 2z0lla}. The version that accompanies this paper is
-release v1.0.0 of that repository,
+All code and data supporting the results of this paper are openly available
+in the public GitHub repository \url{https://github.com/creelie/H8}. The
+version that accompanies this paper is release v2.0.0,
 \begin{center}
-\url{https://github.com/creelie/H8/releases/tag/v1.0.0},
+\url{https://github.com/creelie/H8/releases/tag/v2.0.0}.
 \end{center}
-which is archived on Zenodo under DOI~\zenodoDOI,
-\begin{center}
-\url{https://doi.org/10.5281/zenodo.22950276}.
-\end{center}
-Running \texttt{python3 code/verify\_all.py} prints
-\texttt{951 checks passed, 0 failed}. Running
-\texttt{lean HodgeObstruction.lean} checks eighty theorems, each of which uses
-no axiom or propositional extensionality alone. The Python computations and the
-Lean formalisation were carried out with the assistance of Claude, an AI system
-developed by Anthropic. Every result they certify is reproduced from the
-repository by the scripts and by the Lean kernel, and the mathematical
-statements and their proofs are the responsibility of the authors. No other
-data were generated or analysed.
+The first release of the repository, v1.0.0, is archived on Zenodo under
+DOI~\zenodoDOI, and each later release is archived there under its own
+version DOI. The repository contains the programs that carry out the
+computations of \Cref{sec:verification}, one for each item, with a README
+that lists them by item; the Lean~4 certificate of \Cref{sec:lean}; the
+Macaulay2 computations of local $\Ext$ algebras, with their output; the
+sources of this paper; and the generators and TikZ sources of every figure.
+The programs perform $1007$ checks, all of which pass, and the Lean kernel
+checks eighty theorems, each depending on no axiom or on propositional
+extensionality alone. The computations and the formalisation were carried out
+with the assistance of Claude, an AI system developed by Anthropic; every
+result they certify is reproduced from the repository by the programs and by
+the Lean kernel, and the mathematical statements and their proofs are the
+responsibility of the authors. No other data were generated or analysed.

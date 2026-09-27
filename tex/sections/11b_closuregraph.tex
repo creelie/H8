@@ -1,0 +1,986 @@
+\subsection{What would close it, computed rather than listed}
+\label{ssec:closure}
+
+A list of open problems invites a reading it does not deserve, that each entry
+is a step and that the steps together are a path. The implications proved
+above, together with those of \Cref{ssec:bullseye}, decide the question, so
+we settle it by computation instead of by description. The logical skeleton
+of the paper and of the literature it quotes is finite: a set of statements,
+each of them proved here, quoted from the literature, or open, and a set of
+inference rules, each of them one theorem. Consequences can then be taken.
+
+Such a computation is only as strong as its rule set. A set of statements
+the rules do not carry to the conjecture is \emph{insufficient} in the sense
+of the computation, and that means no more than that no rule derives the
+conjecture from it. An implication that is true and left out makes the
+computation report a set as necessary when it is not. One such implication
+is elementary, and it decides the shape of the answer, so we prove it first.
+
+\begin{proposition}[The conjecture for the varieties that are not abelian
+is the conjecture]\label{prop:f3ishc}
+Let $A$ be a complex abelian variety of dimension $g\ge1$ and let
+$X=A\times\PP^{1}$. Then $X$ is a smooth complex projective variety that is
+not an abelian variety, and if every Hodge class of degree $2p$ on $X$ is
+algebraic, then so is every Hodge class of degree $2p$ on $A$. Consequently
+the statement
+\begin{quote}
+the Hodge conjecture holds for every smooth complex projective variety that
+is not an abelian variety
+\end{quote}
+implies the Hodge conjecture for every abelian variety, and it is equivalent
+to $\mathbf{HC}$.
+\end{proposition}
+
+\begin{proof}
+$X$ is smooth and projective of dimension $g+1$. By the K\"unneth formula
+$h^{1,0}(X)=h^{1,0}(A)+h^{1,0}(\PP^{1})=g$, while an abelian variety of
+dimension $g+1$ has $h^{1,0}=g+1$; so $X$ is not an abelian variety. (Equally,
+$X$ contains the rational curves $\{a\}\times\PP^{1}$, and every morphism
+from $\PP^{1}$ to a complex torus is constant, since it lifts to the
+universal cover $\CC^{g+1}$ \cite[Chapter~1]{BL04}.)
+
+Let $\mathrm{pr}\colon X\to A$ be the projection and $D=A\times\{0\}$, a
+smooth divisor that $\mathrm{pr}$ maps isomorphically onto $A$, so that
+$\mathrm{pr}_{*}[D]=1$ in $H^{0}(A,\QQ)$. Let $\alpha$ be a Hodge class of
+degree $2p$ on $A$. Pull-back along a morphism is a morphism of Hodge
+structures, so $\mathrm{pr}^{*}\alpha$ is a Hodge class of degree $2p$ on
+$X$, and by hypothesis $\mathrm{pr}^{*}\alpha=[Z]$ for an algebraic cycle
+$Z$ on $X$ with rational coefficients. The projection formula gives
+\[
+  \mathrm{pr}_{*}\bigl([Z]\cup[D]\bigr)
+  =\mathrm{pr}_{*}\bigl(\mathrm{pr}^{*}\alpha\cup[D]\bigr)
+  =\alpha\cup\mathrm{pr}_{*}[D]=\alpha .
+\]
+The cycle class map is compatible with intersection products and with proper
+push-forward \cite[Chapter~19]{Ful98}, so the left side
+is the class of the cycle $\mathrm{pr}_{*}(Z\cdot D)$ and $\alpha$ is
+algebraic. A point, the abelian variety of dimension zero, satisfies the
+conjecture trivially.
+
+So the displayed statement gives the conjecture for every abelian variety,
+and with it the conjecture for every smooth complex projective variety. The
+converse is immediate: the displayed statement is a special case of
+$\mathbf{HC}$.
+\end{proof}
+
+Since the conjecture for the varieties that are not abelian is the whole
+conjecture, the statement that belongs on a frontier is weaker: it asks for
+algebraicity only modulo what abelian varieties supply.
+
+\begin{definition}[The conjecture modulo abelian varieties]
+\label{def:f3prime}
+For a smooth complex projective variety $X$ and $p\ge0$ let
+$\mathrm{Ab}^{p}(X)\subseteq H^{2p}(X,\QQ)$ be the span of the classes
+$\Gamma_{*}\gamma=\mathrm{pr}_{X*}\bigl([\Gamma]\cup\mathrm{pr}_{B}^{*}\gamma\bigr)$
+of degree $2p$, where $B$ runs over the complex abelian varieties, the point
+included, $\gamma$ over the Hodge classes on $B$, and $\Gamma$ over the
+algebraic cycles on $B\times X$ with rational coefficients. The statement
+\textup{(F3$'$)} is: for every $X$ and every $p$,
+\[
+  \Hdg^{p}(X)=\mathrm{Ab}^{p}(X).
+\]
+\end{definition}
+
+Each $\Gamma_{*}\gamma$ is a Hodge class, since cup product with an
+algebraic class and push-forward preserve Hodge classes, so
+$\mathrm{Ab}^{p}(X)\subseteq\Hdg^{p}(X)$; and taking $B$ a point shows that
+$\mathrm{Ab}^{p}(X)$ contains every algebraic class. So \textup{(F3$'$)} says
+that every Hodge class is algebraic modulo the images of Hodge classes of
+abelian varieties under algebraic correspondences, which is the form of (F3)
+that \Cref{rem:f3collapse} asks for.
+
+\begin{proposition}[What is known of \textup{(F3$'$)}]\label{prop:f3prime}
+\leavevmode
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em]
+\item $\mathbf{HC}$ implies \textup{(F3$'$)}, and \textup{(F3$'$)} together
+  with the conjecture for abelian varieties implies $\mathbf{HC}$.
+\item \textup{(F3$'$)} holds on every abelian variety and on every product
+  $A\times\PP^{1}$ with $A$ abelian; the argument of \Cref{prop:f3ishc} gives
+  nothing for it.
+\item Let $\mathcal{A}$ be the class of smooth complex projective varieties
+  $X$ for which $H^{*}(X,\QQ)$ is spanned by classes $\Gamma_{*}y$ with $B$
+  abelian, $\Gamma$ an algebraic cycle on $B\times X$ and
+  $y\in H^{*}(B,\QQ)$. Every $X\in\mathcal{A}$ satisfies \textup{(F3$'$)}.
+  The class $\mathcal{A}$ contains every abelian variety and every smooth
+  projective curve, and it is closed under products and under images of
+  surjective morphisms. So it contains every product of curves, every
+  symmetric product of a curve, and every smooth projective variety onto
+  which a product of curves or an abelian variety maps surjectively.
+\item Every $X$ of dimension $n$ satisfies \textup{(F3$'$)} in the degrees
+  $2p$ with $p\in\{0,1,n-1,n\}$, so every $X$ of dimension at most three
+  satisfies it in every degree.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) If $\mathbf{HC}$ holds, then $\Hdg^{p}(X)$ consists of algebraic classes,
+which lie in $\mathrm{Ab}^{p}(X)$. Conversely, if the conjecture holds for
+abelian varieties, every $\gamma$ in \Cref{def:f3prime} is algebraic, so
+every $\Gamma_{*}\gamma$ is, since composition with a correspondence carries
+algebraic classes to algebraic classes \cite[Chapter~16]{Ful98}; then
+\textup{(F3$'$)} says that every Hodge class is algebraic.
+
+(ii) On an abelian variety $A$ take $B=A$ and $\Gamma$ the diagonal. On
+$X=A\times\PP^{1}$ the K\"unneth formula gives
+$H^{*}(X,\QQ)=\mathrm{pr}^{*}H^{*}(A,\QQ)\oplus
+\mathrm{pr}^{*}H^{*}(A,\QQ)\cup\eta$, with $\eta$ the class of a point of
+$\PP^{1}$ pulled back to $X$, which is algebraic. The first summand is
+$\Gamma_{*}H^{*}(A,\QQ)$ for $\Gamma$ the transpose of the graph of
+$\mathrm{pr}$, and the second is $\Gamma'_{*}H^{*}(A,\QQ)$ for
+$\Gamma'=\Gamma\cdot\mathrm{pr}_{X}^{*}\eta$. So $X\in\mathcal{A}$, and
+(iii) applies.
+
+(iii) Let $X\in\mathcal{A}$ and fix $p$. Since $H^{2p}(X,\QQ)$ is finite
+dimensional, finitely many classes $\Gamma_{j*}y_{j}$ span it, and we may
+take each $\Gamma_{j}$ of pure codimension $c_{j}$ on $B_{j}\times X$ and each
+$y_{j}$ of pure degree $k_{j}$, with $k_{j}+2c_{j}-2\dim B_{j}=2p$. Then
+$\Gamma_{j*}\colon H^{k_{j}}(B_{j},\QQ)\to H^{2p}(X,\QQ)$ is a morphism of
+Hodge structures up to a Tate twist, and the sum of these maps is a
+surjective morphism of polarisable Hodge structures onto $H^{2p}(X,\QQ)$.
+Polarisable Hodge structures are semisimple, so its kernel has a complement
+that is a sub-Hodge structure and maps isomorphically onto $H^{2p}(X,\QQ)$;
+hence every Hodge class of degree $2p$ is the image of a Hodge class, that is
+$\sum_{j}\Gamma_{j*}\gamma_{j}$ with each $\gamma_{j}$ a Hodge class on
+$B_{j}$. So $\Hdg^{p}(X)=\mathrm{Ab}^{p}(X)$.
+
+An abelian variety lies in $\mathcal{A}$ through its diagonal. A curve $C$
+of genus $g\ge1$ lies in $\mathcal{A}$ through an Abel--Jacobi embedding
+$\iota\colon C\to J(C)$: the transpose of its graph induces $\iota^{*}$,
+which is an isomorphism on $H^{0}$ and $H^{1}$ and sends the class of the
+theta divisor to $g$ times the class of a point, so it is surjective; the
+projective line is the image of an elliptic curve under a double cover, and
+is covered by the last closure property. For products, if $H^{*}(X_{i},\QQ)$
+is spanned by the $\Gamma_{i*}y$, then by the K\"unneth formula
+$H^{*}(X_{1}\times X_{2},\QQ)$ is spanned by the
+$(\Gamma_{1}\times\Gamma_{2})_{*}(y_{1}\otimes y_{2})$, with
+$\Gamma_{1}\times\Gamma_{2}$ an algebraic cycle on
+$(B_{1}\times B_{2})\times(X_{1}\times X_{2})$. For images, let
+$f\colon Y\to X$ be a surjective morphism with $Y\in\mathcal{A}$, let
+$r=\dim Y-\dim X$ and let $h$ be an ample class on $Y$. The correspondence
+$\Psi=[\Gamma_{f}]\cdot\mathrm{pr}_{Y}^{*}h^{r}$ on $Y\times X$ induces
+$\Psi_{*}y=f_{*}(y\cup h^{r})$, and
+$\Psi_{*}f^{*}x=x\cup f_{*}h^{r}=c\,x$ with $c>0$ the degree of $h^{r}$ on a
+general fibre. So $\Psi_{*}$ is surjective, and $H^{*}(X,\QQ)$ is spanned by
+the classes $(\Psi\circ\Gamma)_{*}y$, with $\Psi\circ\Gamma$ algebraic
+\cite[Chapter~16]{Ful98}. A symmetric product of a curve is the image of a
+power of it.
+
+(iv) Every class of degree $0$ or $2n$ is algebraic, and every Hodge class of
+degree $2$ is algebraic by the Lefschetz theorem on $(1,1)$ classes. For
+$n\ge2$, the hard Lefschetz theorem makes cup product with $h^{n-2}$, for $h$
+an ample class, an isomorphism $H^{2}(X,\QQ)\to H^{2n-2}(X,\QQ)$ of Hodge
+structures up to a Tate twist, so every Hodge class of degree $2n-2$ is
+$h^{n-2}$ times a Hodge class of degree $2$, and is algebraic. Algebraic
+classes lie in $\mathrm{Ab}^{p}(X)$. When $n\le3$ every $p$ between $0$ and
+$n$ is one of $0,1,n-1,n$.
+\end{proof}
+
+\begin{remark}[Why \textup{(F3$'$)} is not closed here]\label{rem:f3primeopen}
+\textup{(F3$'$)} is the statement that the Hodge conjecture reduces to
+abelian varieties along algebraic correspondences, and
+\Cref{prop:f3prime} records what is known of such a reduction: the
+varieties of $\mathcal{A}$, whose whole cohomology is reached from abelian
+varieties by algebraic correspondences, and the degrees in which the
+conjecture itself is known. The first degree in which it is not known in
+general is degree four on fourfolds, for fourfolds not known to lie in
+$\mathcal{A}$. The square $S\times S$ of a K3 surface is the standard
+example. Its Hodge classes in $H^{2}(S)\otimes H^{2}(S)$ include the classes
+that induce the Hodge endomorphisms of the transcendental lattice $T(S)$, and
+$S\times S$ lies in $\mathcal{A}$ as soon as the Kuga--Satake embedding of
+$T(S)$ is induced by an algebraic cycle, the Kuga--Satake Hodge conjecture for
+$S$, which is not known in general: the transpose of such a cycle maps the
+cohomology of the Kuga--Satake variety onto $T(S)$, and the rest of
+$H^{*}(S,\QQ)$ is algebraic. The rational Hodge isometries are algebraic
+\cite{Bus19}, but a real multiplication is not an isometry, and
+\Cref{rem:mumfordks} meets exactly this obstacle for the surfaces
+$S_{\lambda}$.
+
+For varieties whose cohomology is not of abelian type the position is
+starker. By \Cref{prop:noabeliantype} no correspondence moves the $H^{3}$ of a
+very general quintic threefold into the cohomology of an abelian variety, so
+such a variety does not lie in $\mathcal{A}$. That is no obstruction to
+\textup{(F3$'$)} itself, since a Hodge class spans a Hodge structure of Tate
+type, which is of abelian type, and nothing in Hodge theory forbids it from
+lying in $\mathrm{Ab}^{p}(X)$. Nor is it a route: to put a Hodge class into
+$\mathrm{Ab}^{p}(X)$ one must construct an algebraic cycle on $B\times X$
+whose class carries it, which is the kind of construction the Hodge
+conjecture asks for, now on $B\times X$ instead of on $X$. The methods of
+this paper construct cycles on abelian varieties of Weil type and on nothing
+else, so they give no case of \textup{(F3$'$)} outside $\mathcal{A}$. We
+therefore leave it open, and \Cref{thm:closure} treats it as an open
+statement.
+\end{remark}
+
+\begin{setupenv}[The rule set]\label{setup:rules}
+Item (XXXIII) of \Cref{sec:verification} carries forty-two statements and
+twenty-two rules; the propagation statement (P2) is carried family by
+family, as (P2) for the split and for the other families of the imaginary
+quadratic fields and of the fields of degree at least four. Each statement is marked proved in this paper, quoted from the
+literature, or open. Each rule is a finite set of premises together with one
+conclusion, and carries the label of the theorem of this paper that proves it;
+\Cref{tab:rules} lists the rules whose conclusion is derived rather than
+assumed. For a set $T$ of statements write $\Cn(T)$ for the least set that
+contains $T$ and is closed under the rules, which exists because each rule has
+a single conclusion and the consequence operator is therefore monotone. Write
+$\mathbf{T}$ for the set of statements marked proved or quoted, and
+$\mathbf{HC}$ for the Hodge conjecture for every smooth complex projective
+variety. Call a set $S$ of open statements \emph{sufficient} if
+$\mathbf{HC}\in\Cn(\mathbf{T}\cup S)$, and \emph{minimal} if no proper subset
+of $S$ is sufficient.
+\end{setupenv}
+
+\begin{table}[htbp]
+\centering
+\small
+\renewcommand{\arraystretch}{1.14}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.40\linewidth}>{\raggedright\arraybackslash}p{0.27\linewidth}l@{}}
+\toprule
+premises & conclusion & by \\
+\midrule
+the conjecture for abelian varieties, (F3)
+  & $\mathbf{HC}$ & \Cref{ssec:closuremap} \\
+(F3)
+  & abelian varieties & \Cref{prop:f3ishc} \\
+the conjecture for abelian varieties, (F3$'$)
+  & $\mathbf{HC}$ & \Cref{prop:f3prime} \\
+the Weil classes of every CM field, (F2)
+  & abelian varieties & \Cref{ssec:closuremap} \\
+$K$ imaginary quadratic, the fields of degree at least four
+  & every CM field & \Cref{app:albert} \\
+$\delta=\delta_{0}$, $\delta\ne\delta_{0}$
+  & every discriminant & \Cref{prop:separate} \\
+a base point, the reduction, the orbit, (P2) for the family
+  & that family & \Cref{thm:semiregclosure} \\
+the same three for a CM field of degree at least four, (P2) for the family
+  & that family & \Cref{thm:cmpropagation} \\
+its split families, its other families
+  & the fields of degree at least four & \Cref{prop:cmweil} \\
+$\delta=\delta_{0}$
+  & $\delta\ne\delta_{0}$ & \Cref{prop:descent} \\
+the split families of the fields of degree at least four
+  & their other families; $\delta=\delta_{0}$ & \Cref{prop:descent} \\
+a secant object in every dimension, Question 11.4
+  & $\delta=\delta_{0}$ & \Cref{prop:splitgeom} \\
+a Cohen--Macaulay support, smooth or singular
+  & one secant object & \Cref{cor:disjointroutes} \\
+one secant object, Question 11.4
+  & $\mathbf{W}(K,4,\delta_{0})$ & \Cref{cor:markmancondition} \\
+\midrule
+(L), (M)
+  & $\mathbf{HC}$ & \Cref{prop:lefmot} \\
+(L), the deformation theorem for motivated classes
+  & (V) & \Cref{prop:lefvhc} \\
+(V), the accessibility of Hodge classes on abelian varieties
+  & abelian varieties & \Cref{thm:vhcab} \\
+\bottomrule
+\end{tabular}
+\caption{The rules of \Cref{setup:rules} whose conclusion is derived, with the
+theorem that proves each; the rows for (P2) and for the Cohen--Macaulay
+support each stand for two rules, the row for descent over the fields of
+degree at least four for two, descent within a field and scalar extension
+down to the imaginary quadratic fields, the second row is \Cref{prop:f3ishc},
+which an earlier version of the set omitted, the third is
+\Cref{prop:f3prime}(i) for the weaker statement (F3$'$) of
+\Cref{def:f3prime}, the last three rows are the rules of
+\Cref{ssec:bullseye}, one of whose conclusions, (V), is itself open, and the
+one remaining rule records what the literature supplies on Weil classes. The
+bounded criterion (P1) is absent: by
+\Cref{thm:p1equivalent} it is equivalent to its own conclusion, so it is a
+restatement and not a premise. Item (XXXIII) of
+\Cref{sec:verification} carries the whole set as data and checks that every
+label here is a label of this paper.}
+\label{tab:rules}
+\end{table}
+
+\begin{theorem}[The closure of what is proved here]\label{thm:closure}
+With the notation of \Cref{setup:rules}:
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em]
+\item $\mathbf{HC}\notin\Cn(\mathbf{T})$. Nothing in this paper, combined with the
+  theorems it quotes, implies the Hodge conjecture.
+\item There are exactly five minimal sufficient sets:
+  \[
+    \{\mathrm{F3}\},\quad\{\mathrm{L},\mathrm{M}\},\quad
+    \{\mathrm{L},\mathrm{F3}'\},\quad\{\mathrm{V},\mathrm{F3}'\},\quad
+    \{\mathrm{P2}_{\mathrm{split}},\mathrm{F2},\mathrm{F3}'\},
+  \]
+  with \textup{(L)}, \textup{(M)}, \textup{(V)} as in \Cref{def:lmv},
+  \textup{(F2)}, \textup{(F3)} as in \Cref{cor:fourremain}, (F3$'$) as in
+  \Cref{def:f3prime}, and $\mathrm{P2}_{\mathrm{split}}$ the propagation
+  statement \textup{(P2)}, read in the corrected form of \Cref{rem:p2prime},
+  for the split families of the CM fields of degree at least four. No
+  minimal set contains \textup{(P2)} for an imaginary quadratic field or for
+  a family of nontrivial discriminant: \Cref{prop:descent} derives those.
+  The single open statement (F3) is sufficient, and it is equivalent to
+  $\mathbf{HC}$ (\Cref{prop:f3ishc}); no other single open statement is.
+  The sets $\{\mathrm{L},\mathrm{F3}\}$, $\{\mathrm{V},\mathrm{F3}\}$ and
+  $\{\mathrm{P2}_{\mathrm{split}},\mathrm{F2},\mathrm{F3}\}$ are sufficient and
+  not minimal. The last of the five is the only one with three elements and the
+  only one whose derivation of $\mathbf{HC}$ uses a statement proved in this
+  paper.
+\item In each of the five, every element is necessary: removing any one
+  leaves $\mathbf{HC}$ outside the closure.
+\item The secant route lies in no minimal sufficient set. Granting both of its
+  open demands, a secant object satisfying \eqref{eq:heisenberg} in every
+  dimension and an affirmative answer to \cite[Question 11.4]{Mar25b}, puts
+  $\mathbf{W}(K,n,\delta_{0})$ in the closure, and with it, by
+  \Cref{prop:descent}, $\mathbf{W}(K,n,\delta)$ for every $\delta$; it leaves
+  the Weil classes of the CM fields of degree at least four outside.
+\item No statement proved in this paper rests, at any depth, on an open one,
+  and the rule set is acyclic.
+\item Every element of a minimal sufficient set other than
+  $\mathrm{P2}_{\mathrm{split}}$ is a consequence of $\mathbf{HC}$, and $\{\mathrm{F3}\}$ and
+  $\{\mathrm{L},\mathrm{M}\}$ are each equivalent to it; no implication from
+  $\mathbf{HC}$ to \textup{(P2)} is known.
+\item An earlier version of this theorem, over a rule set without
+  \Cref{prop:descent}, stated in (iv) that the secant route stops at the
+  trivial discriminant, and listed \textup{(P2)} for every family in the
+  fifth set. Both came from the omission of the rules of
+  \Cref{prop:descent}, and the five minimal sets are otherwise unchanged.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The consequence operator is monotone, so $\Cn$ is computed by iterating the
+one step map to a fixed point, and the set of subsets of the sixteen open
+statements is finite. Item (XXXIII) of
+\Cref{sec:verification} carries out the iteration and the exhaustive search
+over all $2^{16}$ subsets of the sixteen open statements in exact arithmetic,
+and Section 24 of the Lean certificate repeats (i), (ii), (iii) and (iv) in
+the kernel, over the same rule set under the numbering recorded there,
+checking in particular all sixteen single open statements and all one
+hundred and twenty pairs. The content of the statement is the rule set itself, and every rule is
+one of the theorems named in \Cref{tab:rules}. The sufficiency of (F3)
+alone is the chain $\mathrm{(F3)}\Rightarrow$ abelian varieties by
+\Cref{prop:f3ishc}, then abelian varieties $\wedge\,\mathrm{(F3)}
+\Rightarrow\mathbf{HC}$; every sufficient set that contains (F3) and has
+another element is therefore not minimal, and a sufficient set without
+(F3) must reach $\mathbf{HC}$ through one of the two other rules with that
+conclusion, \Cref{prop:lefmot} or \Cref{prop:f3prime}(i), the second of
+which needs the conjecture for abelian varieties, reached by \textup{(V)},
+by \textup{(L)} through \textup{(V)}, or by (P2) with (F2). For (vi):
+\textup{(L)} follows from $\mathbf{HC}$ by \Cref{thm:equivalence},
+\textup{(M)} by \Cref{prop:lefmot}, \textup{(V)} by \Cref{prop:lefvhc},
+(F3$'$) by \Cref{prop:f3prime}(i), and (F2) and (F3) are special cases of
+$\mathbf{HC}$.
+
+In (iv), every base point the secant route produces is a member
+$X\times\widehat{X}$, whose discriminant is trivial whatever $\beta$ is chosen
+(\Cref{prop:splitgeom}(ii)); the deformation argument stays inside the family
+of trivial discriminant, and it is \Cref{prop:descent}(i), not the
+deformation, that carries the result to the other discriminants. It has no
+base point over a field of degree at least four, so it reaches none of them.
+\end{proof}
+
+\begin{corollary}[The three statements, one of which is the
+conjecture]\label{cor:fourremain}
+The Hodge conjecture follows from the results of this paper together with the
+following three statements. No rule of \Cref{setup:rules} derives it from
+(F1) and (F2) together, and it follows from (F3) alone, which is equivalent
+to it
+(\Cref{prop:f3ishc}); so the list is not a reduction of the conjecture to
+three smaller problems. With (F3) replaced by the weaker statement
+\textup{(F3$'$)} of \Cref{def:f3prime}, the conjecture modulo abelian
+varieties, the three statements (F1), (F2), \textup{(F3$'$)} still suffice,
+and no rule of \Cref{setup:rules} derives the conjecture from a proper
+subset of them.
+\begin{enumerate}[label=\textup{(F\arabic*)},leftmargin=3.0em,itemsep=4pt]
+\item \emph{One propagation statement, for every CM field.} \textup{(P2)},
+  in the corrected form of \Cref{rem:p2prime}: at one base point of each
+  Weil family of each CM field some perfect complex whose Chern character is
+  a nonzero multiple of a rational Weil class plus a polynomial in the
+  polarisation has injective semiregularity map. Its first form, with Chern
+  character exactly a multiple of the Weil class, is false for every
+  imaginary quadratic field and every $n\ge2$ (\Cref{thm:p2false}): such a
+  complex would have to deform to non-algebraic Weil tori, whose coherent
+  sheaves have no Chern character in degrees $1$ to $2n-1$. The corrected form
+  closes
+  $\mathbf{W}(K,n,\delta)$
+  for every imaginary quadratic $K$, every $n$ and every $\delta$ at once, by
+  \Cref{thm:semiregclosure}, and
+  $\mathbf{W}(F,n,\delta)$ for every CM field $F$ of higher degree, by
+  \Cref{thm:cmpropagation}, because those theorems put $\Sigma=\cD$, so the
+  Weil class is algebraic at every member of the family and not only at the
+  general one, and because \Cref{thm:everyfamily} and \Cref{thm:cmbasepoint}
+  supply the base point in every one of those families. By
+  \Cref{prop:descent} it is enough to have it for the split families of the
+  CM fields of degree at least four, in infinitely many dimensions.
+  \Cref{thm:p2forces}, \Cref{thm:p2support}, \Cref{thm:nosum},
+  \Cref{thm:p2numerical} and \Cref{thm:p2endo} describe the object of the
+  first form and are vacuous by \Cref{thm:p2false}; for the corrected form
+  \Cref{thm:p2primenumber} computes the number that $\dim\Ext^{2}(E,E)$ has
+  to reach, $7n^{2}-2n$ for a general shape. For one family its
+  conclusion is equivalent to the Lefschetz standard conjecture for one
+  variety (\Cref{cor:weilequiv}). The bounded criterion \textup{(P1)} is not a
+  second form of the same demand: by
+  \Cref{thm:p1equivalent} it is equivalent to the conclusion it was to imply,
+  and \Cref{thm:p1forces} shows that the one cycle it could have been tested
+  on, the transport of the base cycle, does not satisfy it.
+\item \emph{The classes beyond the Weil lines.} Every Hodge class on an
+  abelian variety that lies outside the subring generated by divisor classes
+  and by Weil classes of quotients is algebraic. Through dimension five there
+  is no such class \cite{MZ99}; in dimension eight there are
+  (\Cref{prop:mumfordproduct}), so this is not a reduction of the conjecture
+  for abelian varieties to Weil classes, which is false as a statement about
+  Hodge rings: it is the conjecture for those classes. Its smallest case is
+  brought down to one Kuga--Satake class in \Cref{thm:mumfordks}; it holds at
+  every CM point (\Cref{thm:mumfordcm}), and on all members of a Mumford
+  family it is equivalent to the Lefschetz standard conjecture for one
+  ninefold (\Cref{cor:mumfordequiv}). Its classes are rigid along the base
+  curve (\Cref{thm:mumfordrigid}), and one complex at one CM point with
+  $\Ext^{2}$ of dimension $119$ would close it (\Cref{thm:mumfordnumerical}),
+  as would a bound on the cycles that represent them at the closed points of
+  the reductions of the curve modulo primes (\Cref{thm:modpdensity}).
+\item \emph{The varieties that are not abelian.} The Hodge conjecture holds
+  for every smooth complex projective variety that is not an abelian variety.
+  This is the Hodge conjecture itself. The varieties it covers include
+  $A\times\PP^{1}$ for every abelian variety $A$, and the conjecture for
+  $A\times\PP^{1}$ gives it for $A$ (\Cref{prop:f3ishc}); so (F3) implies
+  the conjecture for abelian varieties, hence (F1) and (F2), and hence
+  $\mathbf{HC}$. Nor is it a reduction to abelian varieties in the other
+  direction: no realisation of the cohomology of an arbitrary variety inside
+  that of abelian varieties exists (\Cref{prop:noabeliantype}), and
+  \Cref{thm:hyperplane} and \Cref{thm:returntrip} close the two routes
+  through hyperplane sections that would be the natural candidates for one.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+The three together are sufficient by the derivation of \Cref{thm:closure},
+and (F3) alone by \Cref{prop:f3ishc}. That (F1) and (F2) together are not
+sufficient in the rule set is \Cref{thm:closure}(ii), since every minimal
+sufficient set contains (F3), \textup{(F3$'$)} or \textup{(M)}; the
+statement about (F1), (F2), \textup{(F3$'$)} is \Cref{thm:closure}(ii) and
+(iii) for the last of the five minimal sets. The Weil classes of the CM
+fields of degree at least four are not a fourth statement: they are derived
+from (F1) by \Cref{thm:cmpropagation}. Nor is the bounded criterion a
+premise, since by \Cref{thm:p1equivalent} it is a restatement of its own
+conclusion.
+\end{proof}
+
+\begin{remark}[How the earlier count went wrong, and the wording of (F2)]
+\label{rem:f3collapse}
+An earlier version of this corollary said that the conjecture follows from
+no proper subset of the three statements. That was a statement about a rule
+set that used (F3) only through $\text{(abelian varieties)}\wedge
+\text{(F3)}\Rightarrow\mathbf{HC}$ and did not contain the elementary rule
+$\text{(F3)}\Rightarrow\text{(abelian varieties)}$ of \Cref{prop:f3ishc}.
+The rule set can show that a set suffices; it cannot show that a set is
+needed, except relative to the implications written into it.
+
+The wording of (F2) has the same feature, one degree at a time. Let
+$R(A)\subseteq H^{*}(A,\QQ)$ be the subring generated by divisor classes and
+Weil classes of quotients. Suppose some Hodge class $\beta$ of degree $2p$ on
+$A$ lies outside $R(A)$, and let $\alpha$ be any Hodge class of degree $2p$.
+If $\alpha\notin R(A)$, (F2) makes it algebraic. If $\alpha\in R(A)$, then
+$\alpha+\beta\notin R(A)$, because $R(A)$ is closed under subtraction, so
+(F2) makes $\alpha+\beta$ and $\beta$ algebraic, and with them $\alpha$.
+So in every degree in which (F2) says anything it is the whole conjecture for
+that degree: on the square of a Mumford fourfold it gives every Hodge class of
+$H^{4}$, the six products of divisor classes included. Whether (F2) alone
+gives the conjecture for every abelian variety is not decided here, and
+nothing depends on it: the rule set does not use such an implication, and
+adding it would not change \Cref{thm:closure}(ii), since (F3) alone is
+already sufficient.
+
+The form of (F3) that is not the conjecture itself asks only for
+algebraicity modulo classes coming from abelian varieties. It is
+\textup{(F3$'$)} of \Cref{def:f3prime}; \Cref{prop:f3prime} says what is
+known of it, and \Cref{rem:f3primeopen} why it is not closed.
+\end{remark}
+
+\begin{figure}[tbp]
+\centering
+  \includegraphics[width=0.92\textwidth]{fig_frontier}
+\caption{The rule set of \Cref{setup:rules} with the rules of
+\Cref{ssec:bullseye}, drawn as a hypergraph. A rule with several premises is
+a junction marked $\wedge$, with arrows from its premises and one arrow to its
+conclusion; each rule carries the result that proves it, and the junction
+marked \S16.5 is the closure map of \Cref{ssec:closuremap}. Clay marks an
+open statement, grass what this paper proves, indigo a derived statement,
+and the tag $\Leftarrow\mathbf{HC}$ an open statement that the conjecture
+implies: every clay node except (P2). The arrow from (F3) to the conjecture
+is \Cref{prop:f3ishc}, and the junction above the conjecture for abelian
+varieties is \Cref{prop:f3prime}(i). The five minimal sufficient sets of
+\Cref{thm:closure}(ii) are drawn as nested ribbons under the arrows they
+use, widest first, and listed in the cards below: (F3) alone; (L) with (M);
+(L) through (V) with \textup{(F3$'$)}; (V) with \textup{(F3$'$)}; and, on
+the left, (P2) with (F2) and \textup{(F3$'$)}. A shared arrow shows the
+bands of every route through it. The secant route, which reaches the
+imaginary quadratic families only, is drawn in \Cref{fig:closure}.}
+\label{fig:frontier}
+\end{figure}
+
+\begin{remark}[The target, and what it would take]\label{rem:bullseye}
+With the rules of \Cref{ssec:bullseye}, \Cref{prop:f3ishc} and
+\Cref{prop:f3prime} in place, \Cref{thm:closure} changes the reading of
+\Cref{cor:fourremain} in three ways. First, the route through this paper is
+a route only with (F3) replaced by \textup{(F3$'$)}. As stated, its last
+statement (F3) is the conjecture (\Cref{prop:f3ishc}), so (F1) and (F2), and
+everything this paper proves about Weil classes, drop out of every minimal
+derivation that uses (F3). With \textup{(F3$'$)} in its place the route
+$\{\mathrm{P2}_{\mathrm{split}},\mathrm{F2},\mathrm{F3}'\}$ is minimal, and it is not the
+shortest: (F1) and (F2), which between them give the conjecture for abelian
+varieties along this route, are replaced on the routes of the literature by
+the single statement \textup{(V)}, or by \textup{(L)}, which implies it
+(\Cref{thm:vhcab}). Second, every element of every minimal sufficient set
+except $\mathrm{P2}_{\mathrm{split}}$ is a consequence of the conjecture
+(\Cref{thm:closure}(vi)), and
+two of the sets, $\{\mathrm{F3}\}$ and $\{\mathrm{L},\mathrm{M}\}$, are
+each equivalent to it. (P2) is a statement about semiregularity maps, and a
+proof of the conjecture need not prove it; in its first form, with a Chern
+character that is exactly a Weil class, it is false (\Cref{thm:p2false}), and
+the route runs through the corrected form of \Cref{rem:p2prime}. Third, every minimal sufficient set
+contains (F3), \textup{(F3$'$)} or \textup{(M)}: the varieties that are not
+abelian are reached only through the conjecture for them, which is the whole
+conjecture, through the conjecture modulo abelian varieties, which is open
+(\Cref{rem:f3primeopen}), or through motivated classes.
+
+So the target at the centre is \textup{(L)}. It lies in two of the five
+minimal sets, it gives \textup{(V)} and with it the whole abelian half, the
+conjecture implies it, and with \textup{(M)} it is the conjecture. For each
+$X$ it asks for one explicit Hodge class on $X\times X$ to be algebraic, the
+class inducing $\Lambda$. It is open, as are \textup{(M)}, \textup{(V)}
+and \textup{(F3$'$)}, and this paper proves none of them in general:
+\Cref{cor:mumfordlefschetz} adds the total spaces of Mumford families to the
+known cases of \textup{(L)}, \Cref{prop:f3prime} records the known cases of
+\textup{(F3$'$)}, and the routes of the literature use no other theorem of
+this paper.
+\end{remark}
+
+\subsubsection*{Two of the three are not reductions}
+
+A reader might hope that (F2) and (F3) are reductions in the ordinary sense,
+statements to the effect that every Hodge class is carried, by some
+correspondence, to a class on a Weil type variety or on an abelian variety,
+so that the whole conjecture would follow from the Weil classes alone. Both
+hopes are refutable, and we refute them, because a frontier that contains a
+false statement is not a frontier.
+
+\begin{proposition}[The Hodge ring is not generated by divisor and Weil
+classes]\label{prop:mumfordproduct}
+Let $X$ be a complex abelian fourfold whose Hodge group is a $\QQ$-form of an
+almost direct product of three copies of $\mathrm{SL}_{2}$, acting on
+$V=H^{1}(X,\QQ)$ through the tensor product $V_{1}\otimes V_{2}\otimes V_{3}$
+of the three standard representations, with $\End^{0}(X)=\QQ$; such
+fourfolds exist and form families of dimension one, by Mumford
+\cite{Mum69}, and by \cite[2.5(i)]{MZ99} they are exactly the fourfolds
+with $\End^{0}(X)=\QQ$ and Hodge group smaller than $\Sp_{8}$. Then:
+\begin{enumerate}[label=\textup{(\roman*)},nosep,leftmargin=2.6em]
+\item the Hodge ring of $X$ is generated by the polarisation:
+  $\dim_{\QQ}\Hdg^{1}(X)=\dim_{\QQ}\Hdg^{2}(X)=1$;
+\item $\dim_{\QQ}\Hdg^{1}(X\times X)=3$ and $\dim_{\QQ}\Hdg^{2}(X\times X)=8$,
+  while the products of divisor classes span a subspace of dimension $6$
+  in $H^{4}(X\times X,\QQ)$;
+\item the two remaining classes lie in $H^{4}(X\times X,\QQ)$ and are Weil
+  classes of no CM field acting on $X\times X$, on a quotient of it, or on an
+  abelian subvariety of it.
+\end{enumerate}
+In particular the statement that every Hodge class on an abelian variety
+lies in the subring generated by divisor classes and Weil classes of
+quotients is false in dimension eight, though true through dimension five
+\cite{MZ99}.
+\end{proposition}
+
+\begin{proof}
+Hodge classes are the invariants of the Hodge group, so
+$\Hdg^{k}(Y)\otimes\CC$ is the space of $\Hg(Y)_{\CC}$-invariants in
+$\bigwedge^{2k}H^{1}(Y,\CC)$, and $\Hg(X\times X)=\Hg(X)$ acting
+diagonally on $V\oplus V$. Over $\CC$ the group is
+$\mathrm{SL}_{2}^{3}$ and the weights of $V$ under its maximal torus are the
+eight sign vectors $(\pm1,\pm1,\pm1)$. Item (XXXV) of \Cref{sec:verification}
+decomposes every $\bigwedge^{k}V$ by peeling highest weights and finds
+\begin{gather*}
+  \textstyle\bigwedge^{2}V=V(2,2,0)\oplus V(2,0,2)\oplus V(0,2,2)\oplus\mathbf{1},\\
+  \textstyle\bigwedge^{4}V=V(2,2,2)\oplus\bigoplus_{\text{cyc}}V(4,0,0)
+  \oplus\bigoplus_{\text{cyc}}V(2,2,0)\oplus\mathbf{1},
+\end{gather*}
+each with one trivial summand, which is (i). For (ii),
+$\bigwedge^{4}(V\oplus V)=\bigoplus_{a}\bigwedge^{a}V\otimes\bigwedge^{4-a}V$
+and the invariants in $\bigwedge^{a}V\otimes\bigwedge^{4-a}V$ are
+$\Hom_{\mathrm{SL}_{2}^{3}}(\bigwedge^{a}V,\bigwedge^{4-a}V)$, since every
+summand is self-dual; the counts are $1,1,4,1,1$, total $8$, the $4$ coming
+from the four distinct irreducible summands of $\bigwedge^{2}V$. Likewise the
+invariants in $\bigwedge^{2}(V\oplus V)$ number $1+1+1=3$. The divisor
+classes of $X\times X$ are the three symplectic forms $\psi_{11}$, $\psi_{12}$,
+$\psi_{22}$ on $V\oplus V$ built from the polarisation $\psi$ of $V$, and the
+same item multiplies them in the exterior algebra of $V\oplus V$ and finds
+their six pairwise products linearly independent; it also counts the
+$\Sp_{8}$-invariants of $\bigwedge^{4}(V\oplus V)$ by the Weyl character
+formula and finds six, so the six products are all the classes a Hodge group
+equal to $\Sp_{8}$ would allow. For (iii), the Weil classes of an abelian
+variety $Y$ with respect to a CM field $F\subseteq\End^{0}(Y)$ are, by
+definition, the classes in $\bigwedge^{2k}_{F}H^{1}(Y,\QQ)\subseteq
+H^{2k}(Y,\QQ)$ with $2k=\dim_{F}H^{1}(Y,\QQ)$ (\Cref{setup:cmfield}). A CM
+field acting on $X\times X$ lies in $\End^{0}(X\times X)=M_{2}(\QQ)$, so it is
+imaginary quadratic, $2k=8$, and its Weil classes lie in $H^{8}$, while the two
+classes of (ii) have degree four. Every proper
+abelian subvariety and every proper quotient of $X\times X$ is isogenous to
+$X$, because $X$ is simple, and $\End^{0}(X)=\QQ$ contains no CM field, so $X$
+carries no Weil classes at all. This is the statement of \cite[0.1(iii)]{MZ99}
+that the exceptional classes of $X\times X$ are not of Weil type. The last
+sentence is (ii) and (iii) together with the theorem of \cite{MZ99} for
+dimension at most five.
+\end{proof}
+
+\begin{proposition}[No Hodge-theoretic reduction to abelian varieties]
+\label{prop:noabeliantype}
+Let $Y$ be a very general smooth quintic threefold in $\PP^{4}$, and let
+$V=H^{3}(Y,\QQ)$ with its polarised Hodge structure of weight three. Then $V$
+is not isomorphic to a subquotient of any Hodge structure of the form
+$\bigoplus_{i}T_{i}$, where each $T_{i}$ is obtained from the $H^{1}$ of
+finitely many abelian varieties by tensor products, duals and Tate twists. In
+particular the Hodge structure $H^{*}(Y,\QQ)$ is not of abelian type, and no
+correspondence between $Y$ and an abelian variety, or a product of abelian
+varieties, induces an injection of $V$ into the cohomology of the latter.
+\end{proposition}
+
+\begin{proof}
+Write $\mathrm{MT}(W)$ for the Mumford--Tate group of a rational Hodge
+structure $W$ and $\mu_{W}\colon\mathbb{G}_{m}\to\mathrm{MT}(W)_{\CC}$ for
+its Hodge cocharacter, acting on $W^{p,q}$ by $z^{p}$. The adjoint action of
+$\mu_{W}$ on $\operatorname{Lie}\mathrm{MT}(W)_{\CC}\subseteq\End(W_{\CC})$ has weights
+among the differences $p-p'$ of two Hodge indices of $W$.
+
+If $W$ has weight one, these differences lie in $\{-1,0,1\}$. If $W'$ is a
+subquotient of a tensor construction $T$ on $W$, then $\mathrm{MT}(W')$ is the
+image of $\mathrm{MT}(W)$ acting on $W'$, and $\mu_{W'}$ is the image of
+$\mu_{W}$; so $\operatorname{Lie}\mathrm{MT}(W')$ is a quotient of $\operatorname{Lie}\mathrm{MT}(W)$
+as a representation of $\mathbb{G}_{m}$ through $\mu$, and its weights are a
+subset of $\{-1,0,1\}$. The same holds with $W=\bigoplus H^{1}(A_{i})$.
+Hence for every Hodge structure of abelian type the adjoint weights of the
+Hodge cocharacter lie in $\{-1,0,1\}$.
+
+For $V=H^{3}(Y,\QQ)$ we show that the adjoint weight $3$ occurs. The
+canonical bundle of a quintic threefold is trivial by adjunction, so
+$h^{3,0}(Y)=1$; pick $0\ne e\in H^{3,0}$. The intersection form $\psi$ on $V$
+is symplectic and pairs $H^{3,0}$ with $H^{0,3}$ perfectly, so the rank one
+endomorphism $x\mapsto\psi(x,e)\,e$ of $V_{\CC}$ is nonzero, sends $H^{0,3}$
+to $H^{3,0}$ and kills the rest, and lies in $\mathfrak{sp}(V_{\CC},\psi)$
+because $\psi(\psi(x,e)e,y)+\psi(x,\psi(y,e)e)
+=\psi(x,e)\bigl(\psi(e,y)+\psi(y,e)\bigr)=0$; its adjoint weight is
+$3-0=3$. It remains to see that $\mathfrak{sp}(V_{\CC},\psi)\subseteq
+\operatorname{Lie}\mathrm{MT}(V)_{\CC}$. Let $S$ be the parameter space of smooth quintic
+threefolds, connected and nonsingular, and $\mathbb{V}$ the polarisable
+variation of Hodge structure $R^{3}$ of the universal family. The connected
+algebraic monodromy group $G^{0}$ of $\mathbb{V}$ contains the connected
+monodromy group of any Lefschetz pencil of quintics, that is of hyperplane
+sections of the fifth Veronese image of $\PP^{4}$; for a Lefschetz pencil of
+odd fibre dimension the image of the monodromy representation on the
+$\ell$-adic vanishing cohomology $E\otimes\QQ_{\ell}$ is open in
+$\Sp(E\otimes\QQ_{\ell},\psi)$ \cite[Theorem 5.10]{Del74}, so the Zariski
+closure of the monodromy group over $\QQ$ is $\Sp(E,\psi)$; here
+$E=H^{3}(Y_{t},\QQ)$, the vanishing cohomology being the orthogonal
+complement of the image of $H^{3}(\PP^{4},\QQ)=0$. Hence $G^{0}\supseteq
+\Sp(V,\psi)$, and $G^{0}\subseteq\Sp(V,\psi)$ since the monodromy preserves
+$\psi$. At a very general
+point $Y$ the group $G^{0}$ is a normal subgroup of the derived group of
+$\mathrm{MT}(V)$ \cite[Theorem 1]{And92}, so $\Sp(V,\psi)\subseteq
+\mathrm{MT}(V)^{\mathrm{der}}\subseteq\Sp(V,\psi)$, and the adjoint weight
+$3$ occurs in $\operatorname{Lie}\mathrm{MT}(V)$. So $V$ is not of abelian type, and
+neither is any Hodge structure containing it as a subquotient, in particular
+$H^{*}(Y,\QQ)$. A correspondence inducing an injection of $V$ into the
+cohomology of an abelian variety would exhibit $V$ as a sub-Hodge structure
+of a Tate twist of that cohomology, which is of abelian type. Item (XXXV)
+records the Hodge numbers $(1,101,101,1)$ from the Jacobian ring of the
+Fermat quintic, checks the symplectic identity and the weight of the
+displayed endomorphism in a four-dimensional model with the same weights, and
+lists the adjoint weights that occur.
+\end{proof}
+
+\begin{remark}[What the two propositions do to the frontier]
+\label{rem:notreductions}
+Neither proposition changes \Cref{thm:closure}: the rule set uses (F2) and
+(F3) as implications, and an implication whose hypothesis is the conjecture
+for one class of Hodge classes and whose conclusion is the conjecture for a
+larger class is true whatever the classes are. What does change it is
+\Cref{prop:f3ishc}: the varieties of (F3) are not a class disjoint from the
+abelian ones but contain them, through products with $\PP^{1}$, so (F3) is
+the whole conjecture and not its non-abelian half. What they change is how the
+two statements may be read. Before them one could hope that (F2) and (F3) were
+structural facts awaiting proof, so that the conjecture would be a theorem
+about Weil classes and nothing else; \Cref{prop:mumfordproduct} shows that the
+Hodge classes on abelian varieties are not exhausted by divisor and Weil
+classes once the dimension reaches eight, and \Cref{prop:noabeliantype} that
+the cohomology of a general variety cannot be moved into that of abelian
+varieties at all. Each of the two is therefore the Hodge conjecture for a class
+of varieties on which the methods of this paper, which are methods about Weil
+lines, have no purchase. The product $X\times X$ is itself of
+Weil type for every imaginary quadratic $K$, through an embedding
+$K\subset M_{2}(\QQ)=\End^{0}(X\times X)$ whose Rosati involution for the
+product polarisation is conjugation, with signature $(4,4)$; its Weil classes
+lie in $H^{8}$, and its Hodge group is far smaller than $\SU(4,4)$. The two
+classes in $H^{4}$ are of a different kind, and they show that even on a
+variety of Weil type the Weil line need not be the whole of the exceptional
+cohomology once the Hodge group is small. They are the smallest instance of
+(F2), and \Cref{ssec:mumford} identifies them and says what one K3 surface
+would have to supply for them to be algebraic.
+\end{remark}
+
+\begin{figure}[tbp]
+\centering
+  \includegraphics[width=\textwidth]{fig_closure}
+\caption{The route of this paper in \Cref{thm:closure}, drawn as a stack of
+plates, one per level of the derivation; the other routes of the literature
+are drawn in \Cref{fig:frontier}. The spine in indigo runs from the Weil families at the bottom to
+the conjecture at the top. The two statements (F2) and (F3) enter in clay from
+the right, each at the level where it is needed; (F2) is the conjecture for a
+class of Hodge classes that no Weil line reaches, not a reduction, and (F3) is
+the whole conjecture (\Cref{prop:f3ishc}), so the route drawn is minimal
+only with (F3) replaced by \textup{(F3$'$)} of \Cref{def:f3prime}. From
+below,
+the propagation statement (P2) in grass reaches the two discriminant cases of
+the quadratic fields and the fields of higher degree alike, because
+\Cref{thm:everyfamily} and \Cref{thm:cmbasepoint} put a base point in every
+family; it is read in the corrected form of \Cref{rem:p2prime}. The two
+edges inside the levels are \Cref{prop:descent}: descent from the trivial
+discriminant to the others, and scalar extension from the fields of degree at
+least four to the quadratic fields; with them (P2) is needed only for the
+split families of the fields of higher degree. The three
+pillars under the grass node are the results of \Cref{thm:p2numerical},
+\Cref{thm:p2support} and \Cref{cor:hhfactor} on the first form, in which the
+Chern character is exactly a Weil class; by \Cref{thm:p2false} that form is
+never met, so the number on the first pillar is attained by no complex. The
+secant route in clay reaches the trivial discriminant, since the member it is
+built on is split, and through descent the rest of the quadratic case; it has
+no edge to the fields of higher degree. The bounded criterion (P1) is drawn apart, in slate, closed on
+itself: it is equivalent to its own conclusion.}
+\label{fig:closure}
+\end{figure}
+
+\begin{remark}[Where this leaves the secant route]\label{rem:secantplace}
+\Cref{thm:closure}(iv) is a statement about the shape of the argument, not
+about its difficulty, and we say plainly what it does and does not
+mean.
+
+It does not mean the secant route is worthless. It is the only route on which
+anything above dimension four has ever been proved, it is the route that
+settles $n=2$ at every discriminant and $n=3$ at trivial discriminant, and the
+reduction of
+\Cref{thm:factor} turns its remaining demand into one identity in the Yoneda
+algebra of a sheaf on a fourfold, which is the form in which a demand can be
+attacked. What \Cref{cor:cmdichotomy}, \Cref{thm:noci} and
+\Cref{thm:nosplit} do to that identity is narrow it to two shapes of
+support, neither resolved by sums of line bundles, and, in the smooth shape,
+to four discriminants.
+
+What it does mean is that finishing the secant route would not finish the
+problem, and would not reduce it either. Through \Cref{prop:descent} it would
+give every imaginary quadratic family, the trivial discriminant directly and
+the others by descent, which is a great deal; an earlier version of this
+remark said that it stops at the trivial discriminant, and that was an
+omission of the rule set. It would give nothing over the CM fields of degree
+at least four, whose split families need (P2) for themselves, and by
+\Cref{prop:descent}(ii) that statement gives the imaginary quadratic fields as
+well. Markman's extension of the secant construction to those split families
+\cite{Mar25c} is aimed at exactly that statement; its semiregularity step is
+open, and it is not among the rules of \Cref{setup:rules}. So the statement that would have to be proved anyway is the
+propagation statement for those split families, and once proved it subsumes
+the secant route entirely.
+
+It is tempting to read (C1) and (C2) as what remains for the imaginary
+quadratic case, and the computation shows why that reading is wrong: it puts
+the demand for a construction where a theorem about propagation belongs.
+(C1) and (C2) are demands whose satisfaction would be a considerable
+achievement, would settle the Weil classes of every imaginary quadratic field,
+and would close nothing that (P2) does not close.
+\end{remark}
+
+
+\subsection{Summary}
+
+\begingroup
+\renewcommand{\arraystretch}{1.25}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.30\linewidth}>{\raggedright\arraybackslash}p{0.30\linewidth}>{\raggedright\arraybackslash}p{0.30\linewidth}@{}}
+\caption{The routes considered, and the boundary of each result.}
+\label{tab:scope}\\
+\toprule
+\textbf{Route} & \textbf{Status here} & \textbf{Not covered} \\
+\midrule
+\endfirsthead
+\multicolumn{3}{@{}l}{\footnotesize\itshape Table \thetable, continued.}\\[2pt]
+\toprule
+\textbf{Route} & \textbf{Status here} & \textbf{Not covered} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r@{}}{\footnotesize\itshape continued on the next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+Ambient object, restricted to $\Av$, transported by $\Phi_{\cP}$
+  & closed by \Cref{thm:divisor}
+  & ambient varieties with exceptional classes \\
+Any $K$-equivariant construction with the norm character
+  & closed by \Cref{thm:character}
+  & constructions that are not eigenclasses \\
+Secant dimension count
+  & no obstruction, \Cref{cor:nonumerical}
+  & none \\
+Semiregularity dimension count
+  & no obstruction, \Cref{cor:countnotbind}
+  & none \\
+Semiregularity of an object whose Chern character sits on the Weil line
+  & closed by \Cref{thm:rankzero} and \Cref{cor:kernelfamily} for direct
+    sums, and for every object by \Cref{thm:p2false}
+  & objects of positive rank; the weaker hypothesis of
+    \cite[Question 11.4]{Mar25b} \\
+Induction through hyperplane sections
+  & closed by \Cref{thm:hyperplane}, \Cref{thm:returntrip}
+  & correspondences, degenerations, coniveau \\
+Kuga--Satake, from a weight two structure of K3 type
+  & not obstructed, \Cref{prop:ksnotrestriction}
+  & available only at $n=1$, \Cref{cor:ksboundary} \\
+Divisors, on a member with quaternionic multiplication
+  & succeeds, \Cref{thm:quatweil}
+  & fails at full Hodge group, \Cref{prop:divfails} \\
+Propagation off the base locus
+  & reduced to one bound or one rank, \Cref{thm:degreebound},
+    \Cref{thm:semiregclosure}
+  & neither hypothesis proved, \Cref{rem:tworemain} \\
+Objects with effective Chern character at a base point
+  & closed by \Cref{thm:positivity}
+  & objects indecomposable in $D^{b}$, \Cref{rem:whatitmustbe} \\
+The weakened criterion for a secant object of positive rank
+  & reduced to one identity on the factor, \Cref{thm:factor}; the identity
+    fails for Markman's candidate, \Cref{thm:candidatefails}, and at every
+    transversal double point, \Cref{cor:localobstruction}
+  & objects whose support has no such point, \Cref{rem:candidatemeaning} \\
+A secant object of rank one with smooth support
+  & invariants forced and the discriminant bounded by $9$,
+    \Cref{thm:smoothinvariants}, \Cref{cor:fourdiscriminants}
+  & existence for $d\in\{1,3,5,7\}$, and one vanishing in
+    $H^{1}(S,N_{S/X})$, \Cref{rem:smoothremains} \\
+The local part of the weakened criterion
+  & it is a condition on depth: no obstruction at a Cohen--Macaulay point,
+    \Cref{thm:cmvanishing}, \Cref{cor:cmdichotomy}
+  & Cohen--Macaulay supports, where the criterion becomes one global
+    vanishing \\
+A support that is a complete intersection
+  & closed for every $b$ and every $d$, \Cref{thm:noci}
+  & supports of higher Hilbert--Burch rank, \Cref{thm:burchsearch} \\
+A support with a Hilbert--Burch resolution by line bundles or by simple
+semi-homogeneous bundles
+  & closed for every rank, twist and $d$, \Cref{thm:nosplit},
+    \Cref{thm:noblocks}
+  & resolutions over bundles that are not projectively flat \\
+The secant route, granted every demand it makes
+  & reaches $\delta=\delta_{0}$, and every $\delta$ by \Cref{prop:descent},
+    \Cref{thm:closure}(iv)
+  & the CM fields of degree at least four, which give the quadratic ones by
+    \Cref{prop:descent}(ii) \\
+Propagation from a base point
+  & closes every imaginary quadratic family at once, \Cref{thm:degreebound},
+    \Cref{thm:semiregclosure}
+  & (P2) not proved, \Cref{cor:fourremain} \\
+The bounded form (P1), read on the transported cycle
+  & closed: the transport spreads each component by $c^{2n}/m_{i}$ and the
+    data is unbounded whenever a component has finite stabiliser,
+    \Cref{lem:multiplicity}, \Cref{thm:p1forces}
+  & nothing; the other reading is closed too \\
+The bounded form (P1), read on the minimal representative
+  & closed: equivalent to the conjecture for the family,
+    \Cref{thm:p1equivalent}
+  & nothing; it is a restatement, so it is not a route \\
+The semiregularity form (P2), for a given representative
+  & forces the evaluation map to vanish on the $4n^{2}$-dimensional
+    annihilator, and excludes every representative that is a sheaf on a
+    smooth germ of codimension two of its support, \Cref{thm:p2forces},
+    \Cref{cor:p2shape}
+  & representatives that are genuine complexes along every such component;
+    members with an abelian subvariety tangent to an eigenspace \\
+The same form, tested by a number
+  & $\dim\Ext^{2}(E,E)=2n(2n-1)$ at one base point would suffice,
+    \Cref{thm:p2numerical}, and no representative attains it,
+    \Cref{thm:p2false}
+  & nothing \\
+The same form, for a representative in codimension $n$
+  & closed at every member of every family: the support must have a
+    component of codimension less than $n$, and at a general member every
+    component of codimension at least two has multiplicity zero,
+    \Cref{lem:finiteproduct}, \Cref{thm:p2support}
+  & representatives glued along components of lower codimension with
+    alternating length zero \\
+The Hochschild action on such a representative
+  & the annihilator is the mixed part of a splitting of $HH^{1}$ and the
+    action factors through a ring of dimension $2^{2n+1}-1$ in one of
+    dimension $2^{4n}$, \Cref{thm:hhsplitting}, \Cref{cor:hhfactor}
+  & whether a complex with that action exists \\
+The shape of such a representative
+  & an indecomposable summand carries the class; at $n=2$, and at $n=3$
+    granting the compatibility of \Cref{cor:hhfactor}(iii), its
+    endomorphism algebra has dimension at least three, so no simple object
+    serves, \Cref{thm:p2endo}
+  & nothing: no object of any shape meets the pure form, \Cref{thm:p2false} \\
+The pure form of (P2), Chern character exactly a Weil class
+  & false for every imaginary quadratic field and every $n\ge2$: a
+    semiregular such complex would deform to very general non-algebraic Weil
+    tori, whose coherent sheaves have no Chern character below the top
+    degree, \Cref{prop:weiltorussheaves}, \Cref{thm:p2false}
+  & the corrected form (P2), with powers of the polarisation allowed in the
+    Chern character, \Cref{rem:p2prime} \\
+The reduction to Weil classes, and to abelian varieties
+  & false as a statement about Hodge rings in dimension eight,
+    \Cref{prop:mumfordproduct}; impossible Hodge-theoretically,
+    \Cref{prop:noabeliantype}
+  & the algebraicity of the classes beyond the Weil lines, which is (F2), and
+    (F3), which is the whole conjecture, \Cref{prop:f3ishc} \\
+The two classes on the self-product of a Mumford fourfold
+  & a real multiplication by a cubic field on the primitive part of $H^{2}$,
+    algebraic once the Kuga--Satake class of one K3 surface of Picard number
+    thirteen is, \Cref{prop:mumfordrm}, \Cref{thm:mumfordks}
+  & that Kuga--Satake class, \Cref{rem:mumfordks} \\
+Bypasses for the same two classes
+  & degeneration and larger families closed off by rigidity; semiregularity
+    reduced to $\dim\Ext^{2}=119$ at one CM point; specialisation reduced to
+    a degree bound, \Cref{thm:mumfordrigid}, \Cref{thm:mumfordnumerical},
+    \Cref{cor:mumfordbounded}
+  & an object with $\dim\Ext^{2}=119$, or the degree bound,
+    \Cref{rem:bypassaudit} \\
+Objects built from line bundles, for the same two classes
+  & closed at every point of the curve: the Chern characters stay invariant
+    under the Lefschetz group, \Cref{thm:lefschetzclosure}
+  & steps that break that symmetry, \Cref{rem:leavel} \\
+Twistor deformation of the square, for the same two classes
+  & closed: the component of the Hodge locus among all complex tori is the
+    Mumford curve, which contains no twistor line, \Cref{prop:notwistor}
+  & the Kuga--Satake class, which moves in a seven-dimensional family \\
+The five routes left open, for the same two classes
+  & one statement: three of them are equivalent to the target and two imply
+    it, and every minimal set of open statements yielding the target has one
+    element, \Cref{cor:mumfordone}, item (XLIX)
+  & the target itself, which is only the first case of (F2),
+    \Cref{rem:mumfordneeded} \\
+Pull-back from a hyperk\"ahler manifold, for the same two classes
+  & the square is holomorphic symplectic and the classes are the twisted dual
+    forms of the part of $H^{2}$ its symplectic class generates; a symplectic
+    rational map to some $S_{\mu}^{[n]}$, $n\ge5$, suffices, and no K3
+    surface or hyperk\"ahler eightfold serves, \Cref{prop:hksquare}
+  & such a map, \Cref{rem:hkroute} \\
+Reduction modulo $p$, for the same two classes
+  & represented by cycles at every closed point of every reduction; the
+    target is equivalent to a bound on their Hilbert data on a Zariski dense
+    set, \Cref{prop:modp}, \Cref{thm:modpdensity}
+  & the bound, \Cref{rem:modpremains} \\
+The Weil classes of every CM field
+  & the same propagation problem, with a CM base point in every family,
+    \Cref{thm:cmbasepoint}, \Cref{thm:cmpropagation}
+  & (P2) not proved for any field \\
+What is left, as a whole
+  & five minimal sets of open statements: $\{\mathrm{F3}\}$ and
+    $\{\mathrm{L},\mathrm{M}\}$, each equivalent to the conjecture, and
+    three through the conjecture modulo abelian varieties,
+    $\{\mathrm{L},\mathrm{F3}'\}$, $\{\mathrm{V},\mathrm{F3}'\}$ and this
+    route, $\{\mathrm{P2}_{\mathrm{split}},\mathrm{F2},\mathrm{F3}'\}$,
+    \Cref{thm:closure}, \Cref{prop:f3ishc}, \Cref{cor:fourremain},
+    \Cref{rem:bullseye}
+  & the Lefschetz standard conjecture, (M), (V), (F2), (F3$'$), all open \\
+The conjecture modulo abelian varieties, (F3$'$)
+  & holds on the class $\mathcal{A}$ of varieties whose cohomology is
+    reached from abelian varieties by algebraic correspondences (curves,
+    abelian varieties, products, surjective images), in degrees $0$, $2$,
+    $2n-2$, $2n$, and in dimension at most three, \Cref{prop:f3prime}
+  & degree four on fourfolds outside $\mathcal{A}$ and beyond, for
+    instance squares of K3 surfaces without an algebraic Kuga--Satake
+    correspondence, \Cref{rem:f3primeopen} \\
+\end{longtable}
+\endgroup

@@ -67,7 +67,7 @@
 'HodgeObstruction.frontier_smallest' does not depend on any axioms
 'HodgeObstruction.variational_gives_abelian' does not depend on any axioms
 'HodgeObstruction.lefschetz_gives_abelian' does not depend on any axioms
-'HodgeObstruction.secant_route_stops' does not depend on any axioms
+'HodgeObstruction.secant_route_descends' does not depend on any axioms
 'HodgeObstruction.propagation_closes' does not depend on any axioms
 'HodgeObstruction.p2_minimal_count' does not depend on any axioms
 'HodgeObstruction.weil_monomials_separated' depends on axioms: [propext]

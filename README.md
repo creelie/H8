@@ -3,7 +3,8 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22950276.svg)](https://doi.org/10.5281/zenodo.22950276)
 
 Verification code and figure sources for the paper *Explicit Base Points and
-Obstructions to Propagation for Weil Classes on Abelian Varieties*, by Deep Bhattacharjee and Ushashi Bhattacharya.
+Obstructions to Propagation for Weil Classes on Abelian Varieties*, by Deep
+Bhattacharjee, Priyabrata Mandal and Ushashi Bhattacharya.
 
 Release v1.0.0 (https://github.com/creelie/H8/releases/tag/v1.0.0) is
 archived on Zenodo under DOI 10.5281/zenodo.22950276
@@ -17,7 +18,11 @@ licence, or a package other than those named below.
     code/       exact-arithmetic verification in Python 3 (sympy for secant_plane.py,
                 weiltype_family.py, mumford_rigidity.py, mumford_object.py,
                 lefschetz_closure.py, twistor_locus.py and hk_pullback.py, numpy
-                integer arrays for pte_remaining.py and weil_tori.py)
+                integer arrays for pte_remaining.py and weil_tori.py, and
+                python-flint exact rational matrices for attack_checks.py)
+    code/attack/  the round-12 attack scripts, with their verifiers' scripts
+                and transcripts (item (LV))
+    code/extreme/ longer runs of several items, with transcripts
     verify.ps1  the whole verification on Windows, Python suite then Lean
     lean/       a kernel-checked certificate of the finite arithmetic, Lean 4
     figures/    the generators and TikZ sources of every figure in the paper
@@ -34,7 +39,7 @@ Lean check:
 
 The last lines are
 
-    951 checks passed, 0 failed
+    1007 checks passed, 0 failed
     overall: PASS
 
 and the exit status is zero. The driver runs five self-contained checks and
@@ -80,6 +85,7 @@ then calls the companion scripts in the same directory:
 | `p2prime.py` | the corrected criterion (P2') as a number: for a Chern character N omega + sum c_k theta^k the annihilator in HT^2 has dimension n^2(4 - rho), rho the rank of the Hankel matrix of the k! c_k, so dim Ext^2(E,E) >= (4 + rho) n^2 - 2n with equality forcing injective semiregularity; for a general shape the annihilator is exactly the tangent space of the polarised Weil family; the n = 2 formula with its two exceptional ratios; the first-order Hodge locus; chi(E,E); at the exceptional n = 2 ratio, the stabiliser so(4,3) of the character (dimension 21, trace-form signature (12,9), invariants 1, 0, 0, 0, 1, 0, 0, 0, 1) and the constant sign of int gamma kappa^2 on the Kaehler cone; exact over Q(i) by torus-weight blocks, to n = 4 by default and n = 9 with --extreme |
 | `p2prime_profile.py` | the whole Hochschild profile of such a character: the ranks of contraction on every HT^k equal 2 binom(2n,k) + M_k min(k+1, 2n+1-k, r) - [k=n] d, their symmetry, the middle degeneracy, and the parity of chi(E,E), which makes the numerical criterion unattainable at the n = 2 points with rho_2 = 23 |
 | `descent.py` | descent and scalar extension for Weil classes: the correspondence pr_{B*}(x . pr_Y^*(eta_Y^{2m-2} y')) maps the Weil classes of B x Y onto those of B, so W(F,n+1,delta'') gives W(F,n,delta) for every discriminant; and W(F,n,iota(delta)) gives W(K,n,delta) for K in F; exact over seven CM fields |
+| `attack_checks.py` | item (LV): a fast subset (about two and a half minutes) of the round-12 attack scripts in `attack/`, each track with its verifier's independent re-implementation: the Hodge classes and the criterion numbers of a quartic CM family at n = 2 (2 and 7 Hodge classes, phi^2 = (det H)^{-1}, r = 120, 80, 112 and the bound 68); pull-backs and one composite of correspondences on powers of a Mumford fourfold (7 of 8, then 8); the Hochschild profiles, the n = 2 certificate and the S^2 parity numbers of explicit objects at a split member, and the erratum to the n = 3 example; the natural objects at n = 4 (dim T = 16, rank 6, the relation giving 14 W_2, the lattice index 2612736000); needs python-flint, sympy and numpy |
 | `transport_growth.py` | the transport of the base cycle along the rational orbit: det(phi) = c^{2G}, phi^* E = c^2 E and phi^* omega = c^{2n} omega on an explicit sample of rational symplectic elements with denominators to 29; the multiplicity of a component as the order of the stabiliser its kernel meets, computed as a lattice index by Smith normal form, against the image degree computed as a Pfaffian; and the contrast between a subtorus the isogeny preserves, where the image degree is constant, and one it does not, where it grows |
 | `cm_fields.py` | the Weil classes of a CM field of degree four and six: the CM base point of every family, the balanced divisor classes delta_i(f), the identity that the balanced n-fold product of them is the Weil class w(f) = sum_sigma sigma(f) alpha_sigma, checked for six pairs (F, n) with m = 2, 3 and n = 1, 2, 3, and the identity that the Weil classes of a composite field generate those of its imaginary quadratic subfield |
 | `exceptional_classes.py` | the exceptional Hodge classes on the self-product of a Mumford fourfold (eight invariants against six divisor products), the Hodge numbers and adjoint weights that keep the H^3 of a quintic threefold outside abelian type, and the 4n^2-dimensional annihilator of the Weil class in Hochschild cohomology with the two linear-algebra lemmas behind the theorem on the semiregularity form of propagation |
@@ -116,6 +122,74 @@ through `decide`, and none may mention `sorryAx`. There are eighty theorems. `le
 and says what each one does and does not establish. The workflow in
 `.github/workflows/lean.yml` runs the check on every push and fails if the
 number of theorems is not eighty, or if any of them depends on an axiom other than propext.
+
+## The computations of Appendix D, item by item
+
+Appendix D of the paper describes its computations as items (I) to (LV). The
+programs that carry them out are:
+
+| item | program |
+| --- | --- |
+| (I) | `code/verify_all.py` (built in) |
+| (II) | `code/verify_all.py` (built in) |
+| (III) | `code/verify_all.py` (built in) |
+| (IV) | `code/verify_all.py` (built in) |
+| (V) | `code/verify_all.py` (built in) |
+| (VI) | `code/explicit_weil.py` |
+| (VII) | `code/hodge_invariants.py` |
+| (VIII) | `code/kugasatake.py` |
+| (IX) | `code/weiltype_family.py`, `code/secant_plane.py` |
+| (X) | `code/split_locus.py` |
+| (XI) | `code/split_geometry.py` |
+| (XII) | `code/quaternionic.py` |
+| (XIII) | `code/semiregularity.py`, `code/semireg_fast.py` |
+| (XIV) | `code/weil_annihilator.py` |
+| (XV) | `code/weil_product.py` |
+| (XVI) | `code/weil_tangent.py` |
+| (XVII) | `code/lagrangian_locus.py` |
+| (XVIII) | `code/object_size.py` |
+| (XIX) | `code/rigidity.py` |
+| (XX) | `code/integrality.py` |
+| (XXI) | `code/secant_exists.py` |
+| (XXII) | `code/pte_search.py`, `code/pte_remaining.py` |
+| (XXIII) | `code/quaternionic_divisibility.py` |
+| (XXIV) | `code/divisor_route.py` |
+| (XXV) | `code/split_obstruction.py` |
+| (XXVI) | `code/evaluation_map.py` |
+| (XXVII) | `code/markman_candidate.py` |
+| (XXVIII) | `code/secant_kernel.py` |
+| (XXIX) | `m2/local_products.m2` |
+| (XXX) | `code/smooth_support.py` |
+| (XXXI) | `m2/lci_products.m2` |
+| (XXXII) | `code/hilbert_burch.py` |
+| (XXXIII) | `code/closure_graph.py` |
+| (XXXIV) | `code/split_resolution.py` |
+| (XXXV) | `code/exceptional_classes.py` |
+| (XXXVI) | `code/cm_fields.py` |
+| (XXXVII) | `code/transport_growth.py` |
+| (XXXVIII) | `code/hochschild_annihilator.py` |
+| (XXXIX) | `code/p2_support.py` |
+| (XL) | `m2/finite_length_products.m2` |
+| (XLI) | `code/mumford_rm.py` |
+| (XLII) | `code/lefschetz_family.py` |
+| (XLIII) | `code/targets_reduction.py` |
+| (XLIV) | `code/mumford_rigidity.py` |
+| (XLV) | `code/mumford_object.py` |
+| (XLVI) | `code/lefschetz_closure.py` |
+| (XLVII) | `code/twistor_locus.py` |
+| (XLVIII) | `code/hk_pullback.py` |
+| (XLIX) | `code/mumford_routes.py` |
+| (L) | `code/criterion_shape.py` |
+| (LI) | `code/weil_tori.py` |
+| (LII) | `code/p2prime.py` |
+| (LIII) | `code/p2prime_profile.py` |
+| (LIV) | `code/descent.py` |
+| (LV) | `code/attack_checks.py` |
+
+Items (I) to (V) are computed inside `code/verify_all.py` itself; items
+(XXIX), (XXXI) and (XL) are the Macaulay2 computations described below; item
+(LV) runs a fast subset of the programs in `code/attack/`, whose README states
+each of their results with its status.
 
 ## The Macaulay2 items
 
@@ -162,6 +236,12 @@ Their unedited transcripts are the `.txt` files beside them, and
                                 # the rigidity of the Mumford classes, the
                                 # audit of the bypass mechanisms, and the
                                 # self-extension bounds for the Mumford object
+    python3 make_round11.py     # the web of Weil families under descent,
+                                # the corrected criterion as a number, and
+                                # the Kaehler sign at the exceptional ratio
+    python3 make_round12.py     # minimal support at n = 4, and the loci
+                                # where quartic CM Weil classes are known
+                                # to be algebraic
     for f in fig_*.tex; do pdflatex -interaction=nonstopmode "$f"; done
     python3 checkfigs.py        # must print 0 overlapping label pairs
 
@@ -306,10 +386,15 @@ curve, so each remaining target becomes one case of (L): one Weil family is
 equivalent to (L) for the total space of the family over a curve through a
 base point, and the first classes beyond the Weil lines are equivalent to (L)
 for the ninefold W x_C W of a Mumford family. Proved outright on the way: the
-Hodge conjecture for X_c x X_c at every CM point of a Mumford family, and that
-no object meeting the semiregularity criterion is a direct sum of objects with
-exterior Ext algebras (`targets_reduction.py`, `two_branch_annihilator` in the
-Lean file). The Mumford classes are rigid: the only first order deformation of
+Hodge conjecture for X_c x X_c at every CM point of a Mumford family
+(`targets_reduction.py`), and that no direct sum of objects with exterior Ext
+algebras (line bundles, sheaves on abelian subvarieties, simple
+semi-homogeneous bundles, points and their Fourier-Mukai images) meets the
+corrected semiregularity criterion, because an object meeting it does so
+through one indecomposable summand (Lemma lem:p2primesummands and Corollary
+cor:naturalsums; the version for the first form of the criterion,
+`two_branch_annihilator` in the Lean file, is vacuous since that form is
+false). The Mumford classes are rigid: the only first order deformation of
 the square keeping a rational exceptional class of Hodge type is the direction
 of the compact Mumford curve, so no degeneration or larger family reaches them;
 propagation along the curve follows from one perfect complex at one CM point
@@ -342,7 +427,35 @@ By Li's theorem (arXiv:2609.27916) the classes are represented by algebraic
 cycles at every closed point of every reduction of the curve modulo a prime,
 and the target is equivalent to a bound on the Hilbert data of those cycles on
 a Zariski dense set of closed points of the arithmetic model. No such complex
-and no such bound is known. Nothing here is a proof of the Hodge conjecture.
+and no such bound is known.
+
+Round 12 (`code/attack/`, item (LV)) examined the inputs the closure graph
+leaves open, each with an independent adversarial re-implementation. For a
+quartic CM field F at n = 2, the smallest open case of the propagation
+statement the minimal route needs, divisor classes reach the Weil classes
+exactly on a Noether-Lefschetz locus of the weight-two part R_F, of
+codimension two when the discriminant is trivial, governed by the quaternion
+algebra (F/F_0, det H^{-1}); for biquadratic F Markman's theorem reaches them
+on a locus of dimension four; the Casimir class of R_F is algebraic exactly
+when the Weil classes are; correspondences with abelian varieties of
+dimension at most seven cannot help at a Hodge-generic member; and the
+corrected criterion asks dim Ext^2 = 112 of one complex, every complex of that
+shape having dim Ext^2 >= 68. If the two exceptional classes of a Mumford
+fourfold X are algebraic on X x X, every Hodge class on every power of X is
+(one hyperdeterminant class needs a composite of correspondences); the
+Kuga-Satake route asks for that and a link besides, and no link passes
+through an abelian variety of dimension at most five. For the imaginary
+quadratic families the criterion reduces to one indecomposable object; Orlov
+products of explicit secant objects meet its twisted form with equality at
+n = 2 and n = 3 and cannot at n = 4; and at n = 4 a combination of natural
+objects with a Weil part needs at least eight of them, on one conic of the
+quadric of Lagrangians, as in the relation sum m_i [B_i] = 14 W_2 over eight
+graph subvarieties. None of this is a new case of the Hodge conjecture: the
+unconditional proof still needs the propagation statement for the split
+families of the CM fields of degree at least four, the classes beyond the Weil
+lines (F2), and the conjecture modulo abelian varieties (F3').
+
+Nothing here is a proof of the Hodge conjecture.
 
 ## Licence
 

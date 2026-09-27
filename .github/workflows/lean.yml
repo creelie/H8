@@ -51,12 +51,12 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: install sympy and numpy
-        run: python3 -m pip install sympy numpy
+      - name: install sympy, numpy and python-flint
+        run: python3 -m pip install sympy numpy python-flint
 
       - name: run the exact-arithmetic verification
         working-directory: code
         run: |
           python3 verify_all.py | tee ../checks.txt
-          grep -q "951 checks passed, 0 failed" ../checks.txt
+          grep -q "1007 checks passed, 0 failed" ../checks.txt
           grep -q "overall: PASS" ../checks.txt

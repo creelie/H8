@@ -6,7 +6,7 @@
       {Explicit Base Points and Obstructions to Propagation for Weil Classes
        on Abelian Varieties}
 
-\author{Deep Bhattacharjee}
+\author{Deep Bhattacharjee\textsuperscript{\dag}}
 \address{Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL),
   Bhubaneswar, Odisha 751030, India}
 \email{d.bhattacharjee@erl-forschung.de}
@@ -14,24 +14,34 @@
 \urladdr{\textnormal{ORCID
   \href{https://orcid.org/0000-0003-0466-750X}{0000-0003-0466-750X}}}
 
+\author{Priyabrata Mandal\textsuperscript{\ddag}}
+\address{Department of Mathematics, Bioinformatics and Computer
+  Applications, Maulana Azad National Institute of Technology Bhopal,
+  Bhopal 462003, India}
+\email{priyabrata@manit.ac.in}
+\urladdr{\textnormal{ORCID
+  \href{https://orcid.org/0000-0001-6472-6239}{0000-0001-6472-6239}}}
+
 \author{Ushashi Bhattacharya}
 \address{Formerly, National Taiwan University, Taipei 106319, Taiwan}
 \email{rai.bhattacharya.in@gmail.com}
 \urladdr{\textnormal{ORCID
   \href{https://orcid.org/0009-0002-2254-3914}{0009-0002-2254-3914}}}
 
-\thanks{Deep Bhattacharjee is the corresponding author, at
-\texttt{d.bhattacharjee@erl-forschung.de} and \texttt{itsdeep@live.com}.}
+\thanks{\textsuperscript{\dag}\,\textsuperscript{\ddag}Corresponding
+authors: Deep Bhattacharjee\textsuperscript{\dag}, at
+\texttt{d.bhattacharjee@erl-forschung.de} and \texttt{itsdeep@live.com}, and
+Priyabrata Mandal\textsuperscript{\ddag}, at \texttt{priyabrata@manit.ac.in}.}
 
-\thanks{Every numerical assertion in this paper is reproduced by the scripts
-of \Cref{sec:verification}, which use exact rational, integer or exterior
-algebra over $\QQ$ and no floating point at any step, and the finite
-arithmetic on which the two main theorems turn is separately checked by the
-Lean~4 kernel as described in \Cref{sec:lean}. Both are distributed with the
-paper.}
+\thanks{Every numerical assertion in this paper is checked in exact
+arithmetic (\Cref{sec:verification}), and the finite arithmetic on which
+several of the theorems turn is certified by the Lean~4 kernel
+(\Cref{sec:lean}); both are available as described in the statement on data
+availability.}
 
 \thanks{An earlier and substantially different version of part of this
-material was posted by the authors on Preprints.org, on 5 August 2026, as
+material was posted on Preprints.org, the preprint server of MDPI, on
+5 August 2026, as
 \emph{Relative Secant Cycles and Hodge Classes},
 \href{https://doi.org/10.20944/preprints202602.0462.v5}%
 {\texttt{doi:10.20944/preprints202602.0462.v5}}.
@@ -39,7 +49,10 @@ That version proposed a construction of algebraic representatives for Weil
 classes. \Cref{thm:divisor,thm:character} below show that no construction of
 that shape can produce a Weil class, and the present paper supersedes it. We
 thank the referees of that version for pressing on the identification step,
-which is where the obstruction lives.}
+which is where the obstruction lives. The authorship has changed since that
+MDPI preprint: Ushashi Bhattacharya, its second author, is the third author of
+this paper, and Priyabrata Mandal has been added as the second and
+corresponding author.}
 
 \date{\today}
 
@@ -51,32 +64,14 @@ which is where the obstruction lives.}
 \begin{document}
 
 \begin{abstract}
-Every family of abelian varieties of Weil type, of any field, dimension and
-discriminant, contains a member whose Weil classes are explicit
-polynomials in divisor classes, and its Hodge conjecture is the algebraicity
-of one class on one connected period domain. Propagation from that member
-would follow from a semiregular perfect complex carrying the Weil class. We
-show that no complex whose Chern character is exactly a Weil class is
-semiregular, in any dimension: it would deform to non-algebraic Weil tori,
-where, extending a theorem of Voisin, coherent sheaves have no Chern character
-below the top degree. The complex must also carry classes, such as powers of
-the polarisation, that are Hodge only on the polarised family; for such a
-complex we compute in closed form the dimension that $\Ext^{2}$ must reach,
-and one complex reaching it suffices. By a descent lemma, the split families
-of the CM fields of degree at least four, in infinitely many dimensions, give
-every Weil family. Fourteen further routes are closed. This route needs three further statements. The
-last, the conjecture for varieties that are not abelian, is the whole
-conjecture through $A\times\PP^{1}$; its form modulo abelian varieties holds
-for varieties reached from abelian ones by correspondences and is open
-beyond, and with it the route is one of five minimal routes found by
-machine-checked computation. The Lefschetz standard conjecture holds
-for the total space of every Mumford family. The first classes beyond the
-Weil lines, on the square of a Mumford fourfold, are algebraic at every CM
-point, rigid along the base curve, and represented by cycles at every closed
-point of every reduction modulo a prime; they propagate to every member
-exactly when it holds for one ninefold, or when those cycles have bounded
-degree on a dense set, and once one complex has $\Ext^{2}$ of dimension
-$119$.
+Every family of abelian varieties of Weil type, of every CM field, dimension
+and discriminant, contains an explicit member on which the Weil classes are
+polynomials in divisor classes; the Hodge conjecture for the family becomes
+the propagation of one class over one connected period domain. We prove that
+no complex whose Chern character is exactly a Weil class is semiregular,
+compute in closed form the dimension a corrected complex must reach, and
+reduce the Hodge conjecture to three explicit statements, analysed here for
+quartic CM fields and Mumford fourfolds.
 \end{abstract}
 
 \maketitle
@@ -102,18 +97,29 @@ $119$.
 \input{sections/09b_kugasatake}
 \input{sections/10_reduction}
 \input{sections/10b_escape}
-\input{sections/10c_construction}
-\input{sections/10d_cmfields}
-\input{sections/11_scope}
+\input{sections/10c1_secant}
+\input{sections/10c2_basepoints}
+\input{sections/10c3_closedlocus}
+\input{sections/10c4_rank}
+\input{sections/10c5_corrected}
+\input{sections/10c6_objects}
+\input{sections/10c7_markman}
+\input{sections/10c8_supports}
+\input{sections/10d1_cmfields}
+\input{sections/10d2_quartic}
+\input{sections/11a_scope}
+\input{sections/11b_closuregraph}
+\input{sections/11c_mumford}
+\input{sections/11d_mumfordrigid}
+\input{sections/11e_mumfordobject}
 \input{sections/14_closure}
-\input{sections/12_verification}
-\input{sections/13_lean}
 
 \appendix
 \input{appendices/A_exterior}
 \input{appendices/B_cdk}
 \input{appendices/C_albert}
-\input{appendices/D_scripts}
+\input{appendices/D_computations}
+\input{appendices/E_lean}
 
 \input{declarations}
 

@@ -1,0 +1,1095 @@
+\section{Secant objects on the split member}\label{sec:secantobjects}
+
+\subsection{What the object must be, and what it cannot be}
+\label{ssec:whatobject}
+
+\Cref{thm:semiregclosure} asks for one perfect complex at one base point.
+The cheapest candidate is a sum of line bundles on a split member, because
+there the Weil classes are already polynomials in $\beta$, $\widehat\beta$ and
+$\ell$ by \Cref{thm:splitclosed}, so the Chern character one wants is
+manifestly in reach. This subsection settles that candidate. It does not
+exist, and the obstruction is not semiregularity: it is the Chern character
+condition, and it fails because the norm form of $K$ is positive
+definite.\footnote{The norm form has now closed three different doors in this
+paper, by three different mechanisms, and they should be kept apart.
+\Cref{thm:character} uses the norm \emph{character} of $\Kx$ and an
+equivariance hypothesis. \Cref{prop:divfails} uses the fact that the part $R$
+of $H^{2}$ on which $\Kx$ acts through $\tau^{2}$ and $\bbar\tau^{\,2}$ has no
+Hodge classes at a general point, which is a statement about the Hodge group.
+\Cref{thm:positivity} below uses neither: it uses that $\Nm_{K/\QQ}$ is a
+positive definite quadratic form on $K$ and that the multiplicities of a
+filtration are positive integers. The three are independent, and only the
+third is available at a special point, which is exactly where the object of
+\Cref{prop:ktheory} has to live.}
+
+\begin{lemma}[The semiregularity map of a split object]\label{lem:splitsemireg}
+Let $Y$ be a smooth projective complex variety and let
+\[
+  E=\bigoplus_{i=1}^{s}L_{i}[p_{i}]^{\oplus m_{i}},
+  \qquad \lambda_{i}=c_{1}(L_{i}),
+\]
+with the $L_{i}$ line bundles, the $\lambda_{i}$ pairwise distinct and
+$p_{i}\in\ZZ$. Then for $\zeta=(\zeta_{ij})\in\Ext^{2}(E,E)$,
+\begin{equation}\label{eq:splitsigma}
+  \sigma_{E}(\zeta)_{q}
+  =\frac{1}{q!}\sum_{i=1}^{s}(-1)^{p_{i}}\,
+    \mathrm{tr}(\zeta_{ii})\,\lambda_{i}^{\,q},
+\end{equation}
+so $\sigma_{E}$ annihilates $\Ext^{2}(L_{i}[p_{i}],L_{j}[p_{j}])$ for $i\ne j$
+and the traceless part of each diagonal block. Consequently $\sigma_{E}$ is
+injective if and only if all three of the following hold:
+\begin{enumerate}[label=\textup{(\roman*)},nosep]
+\item $m_{i}=1$ for every $i$;
+\item $H^{\,2+p_{i}-p_{j}}\bigl(Y,L_{j}L_{i}^{-1}\bigr)=0$ for all $i\ne j$;
+\item the map
+  \[
+    \Phi\colon H^{2}(\cO_{Y})^{\oplus s}\longrightarrow H^{*}(Y,\CC),
+    \qquad
+    (\zeta_{i})\longmapsto\sum_{i}e^{\lambda_{i}}\zeta_{i},
+  \]
+  is injective.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The Atiyah class of a direct sum is the direct sum of the Atiyah classes, and
+that of a line bundle is its first Chern class, so $\mathrm{At}(E)$ is
+diagonal with entries $\lambda_{i}$ and $\mathrm{At}(E)^{q}$ is diagonal with
+entries $\lambda_{i}^{\,q}$. The matrix product $\zeta\circ\mathrm{At}(E)^{q}$
+therefore has $(i,j)$ entry $\zeta_{ij}\lambda_{i}^{\,q}$, and the trace keeps
+only the diagonal; a shift by $p$ multiplies the trace by $(-1)^{p}$. That is
+\eqref{eq:splitsigma}, and it exhibits the two spaces the map kills.
+
+For the equivalence, the off-diagonal part of $\Ext^{2}(E,E)$ is
+$\bigoplus_{i\ne j}\Ext^{2}(L_{i}[p_{i}],L_{j}[p_{j}])
+=\bigoplus_{i\ne j}H^{2+p_{i}-p_{j}}(L_{j}L_{i}^{-1})$, which must vanish,
+giving (ii); the diagonal block at $i$ is $H^{2}(\cO_{Y})\otimes
+\mathrm{End}(\CC^{m_{i}})$ and only its trace survives, so $m_{i}=1$, giving
+(i). What is left is $\bigoplus_{i}H^{2}(\cO_{Y})$, and by
+\eqref{eq:splitsigma} an element $(\zeta_{i})$ of it dies exactly when
+$\sum_{i}\lambda_{i}^{\,q}\zeta_{i}=0$ for every $q\ge0$, which is (iii) after
+absorbing the signs $(-1)^{p_{i}}$ into the $\zeta_{i}$ and the factorials
+into the grading.
+\end{proof}
+
+Condition (ii) is cheap, because the shifts $p_{i}$ are at our disposal: only
+their parities are fixed by the Chern character, and a line bundle whose first
+Chern class is nondegenerate of index $k$ has cohomology in degree $k$ alone,
+so one may choose the $p_{i}$ to avoid every index that occurs. Condition
+(iii) is a rank. Condition (i) is free. What is not free is the Chern
+character itself, and that is what the rest of this subsection is about.
+
+\begin{notation}[Coordinates on the divisor classes]\label{not:splitcoords}
+Let $A_{0}=X\times\widehat{X}$ be a split member, $n\ge2$, and keep
+$\gamma=d\beta-\widehat{\beta}$ from \Cref{not:threeclasses}. Write
+\[
+  \theta^{\pm}=\gamma\mp\sqrt{-d}\,\ell\in\textstyle\bigwedge^{2}V_{\pm},
+  \qquad
+  R_{0}=\QQ\gamma\oplus\QQ\ell\subset R .
+\]
+Every $\theta\in R_{0}$ is $\theta=u\theta^{+}+\bbar u\,\theta^{-}$ for a
+unique $u\in K$, and in coordinates $u=g+h\sqrt{-d}$ corresponds to
+$\theta=2g\gamma+2dh\,\ell$. By \Cref{prop:splitgeom}(iv) the group
+$\NS(A_{0})_{\QQ}$ at a split member with $X$ general is
+$\QQ\eta\oplus R_{0}$, so every divisor class is $e\eta+\theta$ with
+$e\in\QQ$ and $\theta\in R_{0}$, and we write $u(\lambda)\in K$ for the
+coordinate of its $R_{0}$-part.
+\end{notation}
+
+\begin{lemma}[A basis in degree four]\label{lem:sixmonomials}
+For $n\ge2$ the six products
+$\beta^{2},\widehat\beta^{2},\ell^{2},\beta\widehat\beta,\beta\ell,
+\widehat\beta\ell$
+are linearly independent in $H^{4}(A_{0},\QQ)$. Equivalently the six classes
+$\eta^{2}$, $\eta\theta^{+}$, $\eta\theta^{-}$, $(\theta^{+})^{2}$,
+$(\theta^{-})^{2}$, $\theta^{+}\theta^{-}$ are a basis of the degree four part
+of the subring generated by the divisor classes.
+\end{lemma}
+
+\begin{proof}
+Grade $H^{*}(A_{0},\QQ)=\bigwedge^{*}U\otimes\bigwedge^{*}U^{\vee}$ by
+bidegree. Then $\beta$ has bidegree $(2,0)$, $\widehat\beta$ has $(0,2)$ and
+$\ell$ has $(1,1)$, so the six products have bidegrees $(4,0)$, $(0,4)$,
+$(2,2)$, $(2,2)$, $(3,1)$, $(1,3)$. All are distinct except for the pair
+$\beta\widehat\beta$ and $\ell^{2}$, and those two are independent in
+$\bigwedge^{2}U\otimes\bigwedge^{2}U^{\vee}$ because
+$\beta\widehat\beta=\beta\otimes\widehat\beta$ is decomposable there while
+$\ell^{2}=-2\sum_{i<j}(x_{i}x_{j})\otimes(\xi_{i}\xi_{j})$ has all
+$\binom{2n}{2}$ terms and $\binom{2n}{2}>n$ for $n\ge2$. The second
+description follows because the change of basis between the two sets of six
+classes is invertible over $K$: $\eta=d\beta+\widehat\beta$ and
+$\gamma=d\beta-\widehat\beta$ span the same plane as
+$\beta$ and $\widehat\beta$ since $\det\begin{psmallmatrix}d&1\\
+d&-1\end{psmallmatrix}=-2d\ne0$, and $\theta^{\pm}$ span the same plane
+as $\gamma$ and $\ell$ over $\CC$.
+\end{proof}
+
+The next lemma says the same thing at every abelian variety of Weil type, not
+only at a split member, and it says it without coordinates. It is the fact the
+positivity argument really turns on.
+
+\begin{lemma}[$\theta^{+}\theta^{-}$ is never proportional to $\eta^{2}$]
+\label{lem:tensorrank}
+Let $(A,\iota,\eta)$ be of $(K,-1,n)$-Weil type with $n\ge2$, and let
+$0\ne\theta^{\pm}\in\bigwedge^{2}V_{\pm}$. Then $\theta^{+}\theta^{-}$ is not a
+scalar multiple of $\eta^{2}$ in $H^{4}(A,\CC)$.
+\end{lemma}
+
+\begin{proof}
+Both classes lie in the summand
+$\bigwedge^{2}V_{+}\otimes\bigwedge^{2}V_{-}$ of $H^{4}(A,\CC)$, the isotypic
+component for the character $\Nm^{2}$, so the question is one of tensor rank
+there. The polarisation class $\eta$ lies in $V_{+}\otimes V_{-}$ and is the
+hermitian form of \Cref{prop:weilline}, hence nondegenerate: in dual bases
+$\eta=\sum_{a=1}^{2n}v_{a}\wedge w_{a}$ with $v_{a}$ a basis of $V_{+}$ and
+$w_{a}$ a basis of $V_{-}$. Squaring,
+\[
+  \eta^{2}
+  =\sum_{a,b}(v_{a}\wedge w_{a})(v_{b}\wedge w_{b})
+  =-2\sum_{a<b}(v_{a}v_{b})\otimes(w_{a}w_{b}),
+\]
+which is diagonal in the induced bases of $\bigwedge^{2}V_{+}$ and
+$\bigwedge^{2}V_{-}$ and therefore has tensor rank exactly $\binom{2n}{2}$.
+The class $\theta^{+}\theta^{-}$ is, up to sign,
+$\theta^{+}\otimes\theta^{-}$, of tensor rank one. For $n\ge2$ one has
+$\binom{2n}{2}\ge6>1$, so the two cannot be proportional.
+\end{proof}
+
+\begin{theorem}[The positivity obstruction]\label{thm:positivity}
+Let $(A,\iota,\eta)$ be of $(K,-1,n)$-Weil type with $n\ge2$, and suppose that
+the only divisor classes on which $\Kx$ acts through the norm character are
+the multiples of $\eta$, that is
+\begin{equation}\label{eq:noextranorm}
+  \NS(A)_{\QQ}\cap\bigl(V_{+}\otimes V_{-}\bigr)=\QQ\,\eta .
+\end{equation}
+Let $E$ be a perfect complex on $A$ whose Chern character is effective in the
+exponential basis, meaning
+\begin{equation}\label{eq:effectivech}
+  \ch(E)=\sum_{i=1}^{s}m_{i}\,e^{\lambda_{i}},
+  \qquad m_{i}\in\QQ_{>0},\quad\lambda_{i}\in\NS(A)_{\QQ},
+\end{equation}
+and write $\lambda_{i}=e_{i}\eta+\theta_{i}$ with $\theta_{i}$ in the part $R$
+of $H^{2}(A,\QQ)$ carrying the characters $\tau^{2}$ and $\bbar\tau^{\,2}$, and
+$u_{i}\in K$ for the $\theta^{+}$-coordinate of $\theta_{i}$. If $\ch_{2}(E)$
+is a flat Hodge class, then
+\begin{equation}\label{eq:normsum}
+  \sum_{i=1}^{s}m_{i}\,\Nm_{K/\QQ}(u_{i})=0 ,
+\end{equation}
+and since $\Nm_{K/\QQ}$ is positive definite and every $m_{i}$ is positive,
+$u_{i}=0$ for every $i$. Hence every $\lambda_{i}$ is a rational multiple of
+$\eta$, and $\ch_{k}(E)\in\QQ\,\eta^{k}$ for every $k$. In particular
+$\ch_{n}(E)$ has no component on the Weil line.
+\end{theorem}
+
+\begin{proof}
+From \eqref{eq:effectivech},
+$\ch_{2}(E)=\tfrac12\sum_{i}m_{i}\lambda_{i}^{2}$. Decompose $H^{4}(A,\CC)$
+into $\Kx$-isotypic pieces and keep the one for $\Nm^{2}$, namely
+$\bigwedge^{2}V_{+}\otimes\bigwedge^{2}V_{-}$. Writing
+$\theta_{i}=u_{i}\theta^{+}+\bbar u_{i}\theta^{-}$ for a fixed choice of
+generators $\theta^{\pm}$ of $\bigwedge^{2}V_{\pm}$, one has
+\[
+  \lambda_{i}^{2}
+  =e_{i}^{2}\eta^{2}
+   +2e_{i}\eta\theta_{i}
+   +u_{i}^{2}(\theta^{+})^{2}+\bbar u_{i}^{2}(\theta^{-})^{2}
+   +2\Nm_{K/\QQ}(u_{i})\,\theta^{+}\theta^{-},
+\]
+and of these five terms only the first and the last are in the $\Nm^{2}$
+piece: $\eta\theta_{i}$ carries $\Nm\tau^{2}$ and $\Nm\bbar\tau^{\,2}$, and
+$(\theta^{\pm})^{2}$ carry $\tau^{4}$ and $\bbar\tau^{\,4}$, all four distinct
+from $\Nm^{2}$. Hypothesis \eqref{eq:noextranorm} is what makes the
+decomposition $\lambda_{i}=e_{i}\eta+\theta_{i}$ available with $e_{i}$ a
+scalar. So the $\Nm^{2}$-part of $\ch_{2}(E)$ is
+\[
+  \tfrac12\Bigl(\sum_{i}m_{i}e_{i}^{2}\Bigr)\eta^{2}
+  +\Bigl(\sum_{i}m_{i}\Nm_{K/\QQ}(u_{i})\Bigr)\theta^{+}\theta^{-}.
+\]
+
+Now compare with the flat Hodge classes of degree four. For $n\ge3$ they are
+$\QQ\eta^{2}$ by \Cref{thm:hdgcount}. For $n=2$ they are
+$\QQ\eta^{2}\oplus\HW(A)$, and $\HW(A)$ spans the summands for $\tau^{4}$ and
+$\bbar\tau^{\,4}$, which are not $\Nm^{2}$. In both cases the $\Nm^{2}$-part
+of a flat Hodge class of degree four is a multiple of $\eta^{2}$. By
+\Cref{lem:tensorrank} the class $\theta^{+}\theta^{-}$ is not such a multiple,
+so its coefficient must vanish, which is \eqref{eq:normsum}.
+
+Finally $\Nm_{K/\QQ}(g+h\sqrt{-d})=g^{2}+dh^{2}$ with $d>0$, so
+$\Nm_{K/\QQ}(u)\ge0$ with equality only at $u=0$, and a sum of nonnegative
+terms with positive weights vanishes only when every term does. Then
+$\ch_{k}(E)=\frac{1}{k!}\bigl(\sum_{i}m_{i}e_{i}^{k}\bigr)\eta^{k}$, and
+$\eta^{k}$ is not on the Weil line by \Cref{thm:hdgcount}.
+\end{proof}
+
+\begin{corollary}[The cheapest objects do not exist]\label{cor:nofiltered}
+Let $A$ satisfy \eqref{eq:noextranorm}, which holds at every split member of
+\Cref{thm:splitclosed} and at every quaternionic base point of
+\Cref{thm:quatweil}.\footnote{At a split member $\NS(A)_{\QQ}$ has rank three
+with basis $\beta,\widehat\beta,\ell$ by \Cref{prop:splitgeom}(iv), and of
+these $\eta$ spans the norm-character part while $\gamma$ and $\ell$ span
+$R$. At a quaternionic point $\NS(A)_{\QQ}$ is the space of Rosati-symmetric
+elements of $B=(-d,b)_{\QQ}$, which is spanned by $1$, $j$ and $ij$; the first
+gives $\eta$ and the other two are semilinear over $K$, hence lie in $R$. In
+both cases the norm-character part of $\NS(A)_{\QQ}$ is exactly $\QQ\eta$.}
+Then \Cref{thm:semiregclosure} cannot be applied at $A$ with any of the
+following:
+\begin{enumerate}[label=\textup{(\alph*)},nosep]
+\item a coherent sheaf admitting a filtration by line bundles, in particular
+  any direct sum of line bundles;
+\item a simple semi-homogeneous vector bundle in the sense of Mukai
+  \cite{Muk78}, since such a bundle of rank $r$ has $\ch(E)=r\,e^{c_{1}(E)/r}$;
+\item any iterated extension of the objects in (a) and (b).
+\end{enumerate}
+In each case the failure is not of the semiregularity hypothesis but of the
+Chern character hypothesis of \Cref{prop:ktheory}: no such $E$ has a Chern
+character which is a flat section of Hodge classes with a nonzero Weil
+component.
+\end{corollary}
+
+\begin{proof}
+Each of (a), (b) and (c) has a Chern character of the shape
+\eqref{eq:effectivech} with positive multiplicities, by additivity of $\ch$
+along a filtration and by Mukai's computation of the Chern character of a
+simple semi-homogeneous bundle. Apply \Cref{thm:positivity}.
+\end{proof}
+
+\begin{remark}[Where the theorem has force, and why it does not contradict
+Markman]\label{rem:markmanpositivity}
+At a very general member of the family $\NS(A)_{\QQ}=\QQ\eta$, so
+\Cref{thm:positivity} is true for the empty reason that there are no
+$\theta_{i}$ to begin with. Its content is at the special members, which is
+exactly where \Cref{thm:semiregclosure} needs its object to live and where the
+base points of \Cref{thm:everyfamily} are. That is the opposite of the usual
+situation in this paper, where the special members are the easy ones.
+
+The theorem also does not touch the objects of Markman \cite{Mar25a,Mar25b}.
+Those are sheaves whose class in $K_{0}$ is not a positive combination of
+exponentials of divisor classes, so \eqref{eq:effectivech} fails for them at
+the first step; and they live at very general points, where as just noted the
+statement is vacuous anyway. What the theorem does is remove the class of
+objects one would reach for first, and it removes it for a reason which is
+visible before any cohomology is computed.
+\end{remark}
+
+\begin{proof}
+Immediate from \Cref{thm:positivity}, since the conclusion there contradicts
+the requirement that $\ch_{n}(E)$ have a nonzero component on the Weil line.
+\end{proof}
+
+\begin{remark}[What is left of the candidate, and what it must look like]
+\label{rem:whatitmustbe}
+\Cref{thm:positivity} uses positivity of the multiplicities and nothing else,
+so it says exactly where to go next: the object must be a complex whose
+class in $K_{0}$ is not effective, that is one in which the line bundles
+appear with multiplicities of both signs. Such objects exist. Writing
+$E=F\oplus G[1]$ with $F$ and $G$ sums of line bundles, the class in $K_{0}$
+is $[F]-[G]$ and \eqref{eq:normsum} becomes
+$\sum_{L_{i}\subset F}\Nm(u_{i})=\sum_{L_{j}\subset G}\Nm(u_{j})$, which is
+satisfiable; and \Cref{lem:splitsemireg} still applies verbatim, with the
+shifts absorbing condition (ii).
+
+Two further facts, both computational, say how little room is left at $n=2$,
+and how much more there is beyond it. First, the map $\Phi$ of
+\Cref{lem:splitsemireg}(iii) is injective at $n=2$ for $s\le3$ and, for a
+general choice of $\lambda_{1},\dots,\lambda_{4}$, has rank $22$ rather than
+$24$; so at $n=2$ no more than three line bundles may occur at all. This is
+special to $n=2$: at $n=3$ the same map is injective for a general choice of
+up to ten classes, and the dimension count permits up to $33$. Second, an
+exhaustive search over the classes $a\beta+b\widehat\beta+c\ell$ with
+$|a|,|b|,|c|\le3$, for $d=1$ and $d=2$, finds no signed tuple of at most
+three line bundles whose Chern character is a flat section of Hodge classes
+with a nonzero Weil component; the tuples of at most four that do satisfy the
+Chern character condition with a nonzero Weil component, $888$ of them at
+$d=1$ and $30$ at $d=2$, all have exactly four terms, and all of them fail
+\Cref{lem:splitsemireg}(iii): the kernel has dimension $2$, $3$, $4$ or $6$
+at $d=1$ and $3$ or $6$ at $d=2$, never $0$. Item (XIII) of
+\Cref{sec:verification} carries both computations.
+
+So the object of \Cref{thm:semiregclosure}, if it exists at a split member, is
+not a sum of line bundles in any arrangement of signs and shifts: it must have
+$\Ext^{2}$ that the trace does not see, that is, it must be indecomposable in
+the derived category. That is a sharper description of the remaining
+construction than \Cref{rem:tworemain} gives, and it is as far as we have been
+able to push it.
+\end{remark}
+
+\subsection{The object, written down, and what it costs}
+\label{ssec:pte}
+
+\Cref{prop:ktheory} produced the object of \Cref{thm:semiregclosure} by an
+existence argument: the Chern character is an isomorphism onto the Chow ring
+with rational coefficients, so a $K$-theory class with the right character
+exists. That is enough for the theorem and tells one nothing about the object.
+This subsection writes it down. The answer turns the question into a
+Diophantine one, and the Diophantine problem has a classical name.
+
+\begin{setupenv}[Objects supported on $R$]\label{setup:pte}
+Let $A$ be of $(K,-1,n)$-Weil type, $n\ge2$, satisfying
+\eqref{eq:noextranorm}, and keep $\theta^{\pm}$ from
+\Cref{not:splitcoords}. For $u\in K$ with $\theta(u)=u\theta^{+}+\bbar
+u\,\theta^{-}\in\NS(A)_{\QQ}$, and for multiplicities $m_{i}\in\ZZ$, consider
+\[
+  v=\sum_{i=1}^{s}m_{i}\,e^{\theta(u_{i})},
+  \qquad
+  T_{q,r}=\sum_{i=1}^{s}m_{i}\,u_{i}^{q}\,\bbar u_{i}^{\,r}
+  \quad (q,r\ge0).
+\]
+\end{setupenv}
+
+\begin{proposition}[The Chern character in terms of the $u_{i}$]
+\label{prop:chintermsofu}
+In \Cref{setup:pte},
+\begin{equation}\label{eq:chexpansion}
+  v_{k}
+  =\sum_{\substack{q+r=k\\ 0\le q,r\le n}}
+    \frac{T_{q,r}}{q!\,r!}\,(\theta^{+})^{q}(\theta^{-})^{r},
+\end{equation}
+because $(\theta^{\pm})^{q}=0$ for $q>n$. Consequently $v$ is a flat section
+of Hodge classes with a nonzero Weil component if
+\begin{equation}\label{eq:pteconditions}
+  T_{q,r}=0\ \ \text{for all } 0\le q,r\le n \text{ with }
+  (q,r)\notin\{(0,0),(n,0),(0,n)\},
+  \qquad T_{n,0}\ne0,
+\end{equation}
+and then $v_{0}=T_{0,0}=\sum_{i}m_{i}$, $v_{k}=0$ for $0<k<2n$ with $k\ne n$,
+and
+\[
+  v_{n}=\frac{1}{n!}\Bigl(T_{n,0}(\theta^{+})^{n}
+        +\bbar{T}_{n,0}(\theta^{-})^{n}\Bigr),
+\]
+a nonzero rational multiple of a generator of the Weil line, by
+\Cref{thm:splitclosed}.
+\end{proposition}
+
+\begin{proof}
+Expand $\theta(u_{i})^{k}$ by the binomial theorem, divide by $k!$ and collect;
+the vanishing of $(\theta^{\pm})^{q}$ for $q>n$ is because
+$\theta^{\pm}\in\bigwedge^{2}V_{\pm}$ and $\dim_{\CC}V_{\pm}=2n$. Under
+\eqref{eq:pteconditions} the only surviving terms of \eqref{eq:chexpansion}
+are the ones listed, and $(\theta^{+})^{n}$ spans $\bigwedge^{2n}V_{+}$, which
+is the Weil line over $\CC$.
+\end{proof}
+
+So the search for the object of \Cref{thm:semiregclosure} is the search for a
+finitely supported integer-valued function on $\cO_{K}$ that annihilates every
+monomial $u^{q}\bbar u^{\,r}$ with $q,r\le n$ except three of them. Two things
+follow at once, and they pull in opposite directions.
+
+\begin{lemma}[Equal norms force the Prouhet--Tarry--Escott condition]
+\label{lem:pte}
+Suppose all the $u_{i}$ in \Cref{setup:pte} have the same norm
+$N=\Nm_{K/\QQ}(u_{i})>0$. Then \eqref{eq:pteconditions} holds if and only if
+\begin{equation}\label{eq:ptepure}
+  \sum_{i}m_{i}u_{i}^{\,k}=0\ \ \text{for } k=0,1,\dots,n-1,
+  \qquad
+  \sum_{i}m_{i}u_{i}^{\,n}\ne0 .
+\end{equation}
+With $m_{i}=\pm1$ this says that the $u_{i}$ split into two multisets on the
+circle $\Nm=N$ whose power sums agree through degree $n-1$ and differ at
+degree $n$: a Prouhet--Tarry--Escott pair of degree $n-1$, constrained to a
+norm circle of $\cO_{K}$.
+\end{lemma}
+
+\begin{proof}
+For $q\ge r$ one has $u^{q}\bbar u^{\,r}=N^{r}u^{q-r}$, so
+$T_{q,r}=N^{r}\sum_{i}m_{i}u_{i}^{\,q-r}$, and the pairs $(q,r)$ with
+$q,r\le n$ realise every difference $k=q-r$ from $0$ to $n$. The excluded
+pairs $(0,0)$ and $(n,0)$ are the ones with $r=0$ and $k=0$ or $k=n$; but
+$k=0$ also occurs at $(1,1),\dots,(n,n)$, which are not excluded, so
+$\sum_{i}m_{i}=0$ is required after all. The remaining differences
+$k=1,\dots,n-1$ each occur at some non-excluded pair, and $k=n$ occurs only at
+$(n,0)$.
+\end{proof}
+
+\begin{theorem}[Equal norms cannot be semiregular]\label{thm:equalnorms}
+Let $E=\bigoplus_{i}L_{i}[p_{i}]$ realise \eqref{eq:ptepure} with all norms
+equal. Then $\ch_{0}(E)=0$, and the semiregularity map $\sigma_{E}$ has a
+kernel of dimension at least $n^{2}$.
+\end{theorem}
+
+\begin{proof}
+By \Cref{lem:pte} the case $k=0$ of \eqref{eq:ptepure} gives
+$\sum_{i}m_{i}=0$, which is $\ch_{0}(E)$. For the kernel, take
+$\zeta_{i}=m_{i}\zeta$ for a single $\zeta\in H^{2}(\cO_{A})$; then by
+\Cref{lem:splitsemireg}(iii)
+\[
+  \Phi\bigl((m_{i}\zeta)_{i}\bigr)
+  =\Bigl(\sum_{i}m_{i}e^{\lambda_{i}}\Bigr)\zeta=\ch(E)\,\zeta ,
+\]
+which by \Cref{prop:chintermsofu} is a multiple of $\omega\,\zeta$ with
+$\omega$ a generator of the Weil line. Now $\HW(A)_{\CC}$ is spanned by
+$\bigwedge^{2n}V_{+}$ and $\bigwedge^{2n}V_{-}$, and the Weil type condition
+says $\dim V_{\pm}^{0,1}=n$; writing
+$H^{2}(\cO_{A})=\bigwedge^{2}(V_{+}^{0,1}\oplus V_{-}^{0,1})$, the product of
+a generator of $\bigwedge^{2n}V_{+}$ with $\zeta$ kills the components of
+$\zeta$ in $\bigwedge^{2}V_{+}^{0,1}$ and in
+$V_{+}^{0,1}\otimes V_{-}^{0,1}$, and likewise with the roles exchanged. So
+$\omega\,\zeta=0$ for every $\zeta$ in
+$V_{+}^{0,1}\otimes V_{-}^{0,1}$, a space of dimension $n^{2}$, and all of
+those lie in the kernel of $\Phi$.
+\end{proof}
+
+\begin{corollary}[At least $n+1$ norms]\label{cor:nplusone}
+If $E$ as in \Cref{setup:pte} satisfies \eqref{eq:pteconditions} and
+$\ch_{0}(E)\ne0$, then the $u_{i}$ take at least $n+1$ distinct norms.
+\end{corollary}
+
+\begin{proof}
+Let $N_{1},\dots,N_{\nu}$ be the distinct norms and $M_{j}$ the sum of the
+$m_{i}$ over the level $\Nm(u_{i})=N_{j}$. The conditions $T_{r,r}=0$ for
+$r=1,\dots,n$ read $\sum_{j}M_{j}N_{j}^{\,r}=0$ for $r=1,\dots,n$. The matrix
+$(N_{j}^{\,r})_{1\le r\le n,\,1\le j\le\nu}$ has rank $\min(n,\nu)$ because the
+$N_{j}$ are distinct and nonzero, so $\nu\le n$ forces every $M_{j}=0$ and
+hence $\ch_{0}(E)=\sum_{j}M_{j}=0$.
+\end{proof}
+
+\subsubsection*{The smallest solution, and what it does}
+
+At $n=3$ and $K=\QQ(\sqrt{-3})$ the Prouhet--Tarry--Escott condition of
+\Cref{lem:pte} has a solution of striking simplicity: the norm circle
+$\Nm=1$ carries the six roots of unity of $K$, and the two cosets of the cube
+roots of $-1$ and of $+1$ are a Prouhet--Tarry--Escott pair of degree
+two.\footnote{Explicitly, with $\zeta$ a primitive sixth root of unity, the
+cube roots of $-1$ are $\zeta,\zeta^{3},\zeta^{5}$ and those of $+1$ are
+$1,\zeta^{2},\zeta^{4}$; each triple sums to zero and has zero sum of squares,
+while the sums of cubes are $-3$ and $+3$. A search over the norm circles of
+$\cO_{K}$ with $\Nm\le200$ and $|g|,|h|\le25$, for $K=\QQ(\sqrt{-d})$ with
+$d=1,2,3,7$, finds this solution and its conjugate at $n=3$, one further pair
+at $d=1$ and $n=4$, and nothing else; item (XIII) of \Cref{sec:verification}
+records the search.}
+
+\begin{proposition}[The object at $n=3$, written out]\label{prop:explicitobject}
+Let $K=\QQ(\sqrt{-3})$, $n=3$, and let $A_{0}=X\times\widehat X$ be a split
+member. In the basis $\beta,\widehat\beta,\ell$ of $\NS(A_{0})_{\QQ}$ put
+\[
+  \lambda_{1}=(3,-1,3),\quad
+  \lambda_{2}=(-6,2,0),\quad
+  \lambda_{3}=(3,-1,-3),
+\]
+and $\lambda_{3+i}=-\lambda_{i}$ for $i=1,2,3$, with $m_{i}=+1$ for
+$i\le3$ and $m_{i}=-1$ for $i\ge4$. Then the six classes are distinct and
+integral, the perfect complex
+\[
+  E=\bigl(L_{1}\oplus L_{2}\oplus L_{3}\bigr)\ \oplus\
+    \bigl(L_{4}\oplus L_{5}\oplus L_{6}\bigr)[3]
+\]
+has
+\[
+  \ch_{k}(E)=0\ \ (k\ne3),
+  \qquad
+  \ch_{3}(E)=12\,\omega_{1},
+\]
+and every difference $\lambda_{j}-\lambda_{i}$ with $i\ne j$ is nondegenerate
+of index exactly $3$, so that conditions (i) and (ii) of
+\Cref{lem:splitsemireg} hold for this shift. Condition (iii) fails: the map
+$\Phi$ has rank $75$ instead of $90$, with kernel of dimension
+$15=\dim H^{2}(\cO_{A_{0}})$.
+\end{proposition}
+
+\begin{proof}
+Everything asserted is a finite exact computation, carried out in item (XIII)
+of \Cref{sec:verification}. The classes are the images under
+$\theta(u)=2g\gamma+2dh\,\ell$, $u=g+h\sqrt{-3}$, of the six roots of unity
+of $K$ scaled by $2$; the Chern character is \Cref{prop:chintermsofu} with the
+Prouhet--Tarry--Escott data above; the index computation and the rank of
+$\Phi$ are the two remaining items. For the shift, condition (ii) asks that
+$2+p_{i}-p_{j}\ne3$ whenever $i\ne j$, that is $p_{i}-p_{j}\ne1$; within each
+of the two blocks the difference is $0$, and between them it is $\pm3$.
+\end{proof}
+
+\begin{remark}[What this settles and what it does not]\label{rem:pteoutcome}
+Three things are settled. The object of \Cref{prop:ktheory} is not an
+abstraction: at $n=3$ over $\QQ(\sqrt{-3})$ it is six line bundles and a
+shift, and its Chern character is exactly $12$ times a Weil class with every
+other graded piece zero. The construction is completely general, and
+\Cref{lem:pte} identifies the constraint as a Prouhet--Tarry--Escott problem
+on a norm circle, which is a question of a kind that can be attacked. And
+\Cref{cor:nplusone} says what any semiregular solution must look like: the
+$u_{i}$ must take at least $n+1$ distinct norms, because otherwise the rank is
+zero and \Cref{thm:equalnorms} produces a kernel of dimension $n^{2}$.
+
+The remaining question was the existence of a solution with $n+1$ norms. The
+level sums are then forced up to scale, and they compete with the supply of
+elements of $\cO_{K}$ at each level; \Cref{thm:pterange} carries out that
+competition in a range, and \Cref{cor:noline} then shows that no solution in
+any range could have served, because a line bundle summand off the
+polarisation line is obstructed along the family whatever the norms.
+\end{remark}
+
+\subsubsection*{The obstruction classes of the explicit object}
+
+\Cref{cor:kernelfamily} and \Cref{rem:whatmeasures} say that the kernel of
+$\sigma_{E}$ contains a copy of the tangent space of the Weil family, and
+that this is a statement about where the semiregularity map is blind, not a
+statement that the object is obstructed. For the explicit object the
+obstruction classes can be written down, and they are not zero. The
+computation is elementary and we record it in general.
+
+Recall the conventions of \Cref{ssec:tangent}: a first-order deformation of
+$A$ is $v\in\Hom(H^{1,0},H^{0,1})=H^{1}(A,T_{A})$, extended by zero on
+$H^{0,1}$ and acting on $H^{*}(A,\CC)$ as a derivation $v\lrcorner$; a class
+$\xi$ of type $(p,p)$ stays of type $(p,p)$ to first order along $v$ exactly
+when $v\lrcorner\,\xi=0$. For a line bundle $L$ with $\lambda=c_{1}(L)$ the
+Atiyah class is $\lambda\in H^{1}(\Omega^{1}_{A})$, its contraction with $v$
+is $v\lrcorner\,\lambda\in H^{2}(\cO_{A})=H^{0,2}(A)$, and this is the
+obstruction to deforming $L$ along $v$; a shift does not change it. For
+$E=\bigoplus_{i}L_{i}[p_{i}]$ the Atiyah class is diagonal with entries
+$\lambda_{i}$, as in the proof of \Cref{lem:splitsemireg}, so the
+obstruction to deforming $E$ along $v$ is the diagonal element
+\begin{equation}\label{eq:obdef}
+  \ob_{E}(v)=\bigl(v\lrcorner\,\lambda_{i}\bigr)_{i}
+  \in\bigoplus_{i}H^{0,2}(A)\subset\Ext^{2}(E,E).
+\end{equation}
+
+\begin{proposition}[The obstruction map of a split object]
+\label{prop:splitobstruction}
+Let $A_{0}=X\times\widehat X$ be a split member with $\beta$ principal and
+$X$ general, so that $\NS(A_{0})_{\QQ}=\langle\beta,\widehat\beta,\ell\rangle$
+by \Cref{prop:splitgeom}(iv). Let $T=T_{[A_{0}]}\cD_{n,n}$ be the space of
+polarised first-order deformations commuting with $K$, of dimension $n^{2}$
+by \Cref{prop:firstorder}, and put
+\[
+  T_{\mathrm{spl}}
+  =\bigl\{\,v\in\Hom(H^{1,0},H^{0,1})\;:\;
+    v\lrcorner\,\beta=v\lrcorner\,\widehat\beta=v\lrcorner\,\ell=0\,\bigr\}.
+\]
+Let $E=\bigoplus_{i=1}^{s}L_{i}[p_{i}]$ with $\lambda_{i}=c_{1}(L_{i})$ and
+let $\ob_{E}\colon T\to\bigoplus_{i}H^{0,2}(A_{0})$ be the map
+\eqref{eq:obdef} restricted to $T$.
+\begin{enumerate}[label=\textup{(\roman*)},nosep]
+\item $T_{\mathrm{spl}}$ is the tangent space to the split locus: it has
+  dimension $n(n+1)/2$, it is contained in $T$, and it consists of the
+  deformations of $X\times\widehat X$ induced by the polarised deformations
+  of $(X,\beta)$.
+\item If the classes $\lambda_{i}$ together with $\eta$ span
+  $\NS(A_{0})_{\QQ}$, then $\ker\ob_{E}=T_{\mathrm{spl}}$ and
+  $\operatorname{rank}\ob_{E}=n(n-1)/2$, the codimension of the split locus
+  in $\cD_{n,n}$.
+\item If $\ch_{k}(E)\in\QQ\eta^{k}$ for $k\ne n$ and
+  $\ch_{n}(E)\in\QQ\eta^{n}\oplus\HW(A_{0})$, then
+  $\sigma_{E}\circ\ob_{E}=0$ on $T$: for every $v\in T$,
+  \begin{equation}\label{eq:sigmaob}
+    \sigma_{E}\bigl(\ob_{E}(v)\bigr)=v\lrcorner\,\ch(E)=0 .
+  \end{equation}
+\item For the object of \Cref{prop:explicitobject}, at $n=3$ and
+  $K=\QQ(\sqrt{-3})$: $\ker\ob_{E}=T_{\mathrm{spl}}$ has dimension $6$ and
+  $\ob_{E}$ has rank $3$; the image of $\ob_{E}$ lies in $\ker\sigma_{E}$;
+  the subspace $\Delta=\{z\cdot\id_{E}:z\in\Ann_{H^{0,2}}(\omega_{1})\}$ of
+  \Cref{cor:kernelfamily} has dimension $9$ and meets the image of $\ob_{E}$
+  only in zero, so that $\Delta\oplus\image\ob_{E}$ is a twelve-dimensional
+  subspace of the fifteen-dimensional kernel of $\sigma_{E}$; and
+  $\ob_{E}(v)$ has components $v\lrcorner\,\lambda_{i}$ on $L_{i}$ and
+  $-v\lrcorner\,\lambda_{i}$ on $L_{i}^{-1}[3]$, so it lies on the line of
+  vectors of the shape $(z,\dots,z)$ only when it vanishes. In particular
+  $E$ has a nonzero first-order obstruction along every $v\in T$ not tangent
+  to the split locus, and no element $z\cdot\id_{E}$ of $\Ext^{2}(E,E)$
+  cancels it.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) Let $P=H^{1,0}(X)\subset H^{1}(X,\CC)=U^{\vee}_{\CC}$ with basis
+$p_{1},\dots,p_{n}$, so that $p_{1},\dots,p_{n},\bbar p_{1},\dots,\bbar p_{n}$
+is a basis of $U^{\vee}_{\CC}$, and let $q_{a},\bbar q_{a}$ be the dual basis
+of $U_{\CC}=H^{1}(\widehat X,\CC)$; the dual of a conjugate basis is the
+conjugate of the dual basis, so the notation is consistent. The Poincar\'e
+class is the identity element of $U^{\vee}\otimes U$,
+\[
+  \ell=\sum_{a=1}^{n}\bigl(p_{a}\wedge q_{a}+\bbar p_{a}\wedge\bbar q_{a}\bigr),
+\]
+and it is of type $(1,1)$, which forces $H^{1,0}(\widehat X)=\langle\bbar
+q_{a}\rangle$ and $H^{0,1}(\widehat X)=\langle q_{a}\rangle$: the Hodge
+structure of $\widehat X$ is the dual one. Since $\beta$ is of type $(1,1)$
+and nondegenerate, $\beta=\sum_{a,b}h_{ab}\,p_{a}\wedge\bbar p_{b}$ with
+$h\in\GL_{n}(\CC)$; and since $\beta$ is principal with Gram matrix $B$ in a
+symplectic basis of $U$ and $\widehat\beta$ has Gram matrix $B=-B^{-1}$ in
+the dual basis of $U^{\vee}$, the Gram matrix of $\widehat\beta$ in the
+basis $p_{a},\bbar p_{a}$ is minus the inverse of the Gram matrix
+$\begin{psmallmatrix}0&h\\-h^{\top}&0\end{psmallmatrix}$ of $\beta$ in the
+basis $q_{a},\bbar q_{a}$, which gives
+$\widehat\beta=-\sum_{a,b}(h^{-1})_{ab}\,\bbar q_{a}\wedge q_{b}$.
+
+Now $H^{1,0}(A_{0})=\langle p_{a}\rangle\oplus\langle\bbar q_{a}\rangle$ and
+$H^{0,1}(A_{0})=\langle\bbar p_{a}\rangle\oplus\langle q_{a}\rangle$, so a
+deformation $v$ is four $n\times n$ matrices,
+\[
+  v(p_{a})=\sum_{c}\bigl(A_{ca}\,\bbar p_{c}+C_{ca}\,q_{c}\bigr),
+  \qquad
+  v(\bbar q_{a})=\sum_{c}\bigl(B_{ca}\,\bbar p_{c}+D_{ca}\,q_{c}\bigr),
+\]
+and $v$ kills $\bbar p_{a}$ and $q_{a}$. Contracting,
+\[
+  v\lrcorner\,\ell
+  =\sum_{a,c}\Bigl(A_{ca}\,\bbar p_{c}\wedge q_{a}+C_{ca}\,q_{c}\wedge q_{a}
+   +B_{ca}\,\bbar p_{a}\wedge\bbar p_{c}+D_{ca}\,\bbar p_{a}\wedge q_{c}\Bigr),
+\]
+and reading off the three kinds of monomials, $v\lrcorner\,\ell=0$ if and only
+if $D=-A^{\top}$ and $B$, $C$ are symmetric. Next
+\[
+  v\lrcorner\,\beta
+  =\sum_{a,b,c}h_{ab}\Bigl(A_{ca}\,\bbar p_{c}\wedge\bbar p_{b}
+   +C_{ca}\,q_{c}\wedge\bbar p_{b}\Bigr),
+\]
+so $v\lrcorner\,\beta=0$ if and only if $Ch=0$, that is $C=0$, and $Ah$ is
+symmetric. Likewise $v\lrcorner\,\widehat\beta=0$ if and only if $B=0$ and
+$Dh^{-1}$ is symmetric. Given $D=-A^{\top}$, the last condition reads
+$A^{\top}h^{-1}=h^{-\top}A$, which after multiplication by $h^{\top}$ on the
+left and by $h$ on the right is $h^{\top}A^{\top}=Ah$, the symmetry of $Ah$
+again. Hence
+\[
+  T_{\mathrm{spl}}=\bigl\{(A,B,C,D)=(A,0,0,-A^{\top})\;:\;Ah\ \text{symmetric}\bigr\},
+\]
+of dimension $n(n+1)/2$. It is the tangent space to the split locus: the
+same computation on $X$ alone shows that the polarised first-order
+deformations of $(X,\beta)$ are the matrices $A$ with $Ah$ symmetric, the
+space $T_{[X]}\cA_{n}$ of dimension $n(n+1)/2$; the deformation of
+$\widehat X$ induced by $A$ is the dual one, $-A^{\top}$; and the map
+$A\mapsto(A,0,0,-A^{\top})$ is injective. Finally $T_{\mathrm{spl}}\subseteq
+T$: for $v\in T_{\mathrm{spl}}$, $v\lrcorner\,\eta=0$ because
+$\eta\in\langle\beta,\widehat\beta\rangle$, so $v$ is polarised, and
+$v\lrcorner\,\omega_{1}=v\lrcorner\,\omega_{2}=0$ because $\omega_{1}$ and
+$\omega_{2}$ are polynomials in $\beta,\widehat\beta,\ell$ by
+\Cref{thm:splitclosed} and $v\lrcorner$ is a derivation; by
+\Cref{prop:firstorder} such a $v$ commutes with $K$.
+
+(ii) Every $v\in T$ has $v\lrcorner\,\eta=0$. If the $\lambda_{i}$ and
+$\eta$ span $\NS(A_{0})_{\QQ}=\langle\beta,\widehat\beta,\ell\rangle$, then
+$v\lrcorner\,\lambda_{i}=0$ for all $i$ is equivalent, for $v\in T$, to
+$v\lrcorner\,\beta=v\lrcorner\,\widehat\beta=v\lrcorner\,\ell=0$, so
+$\ker\ob_{E}=T\cap T_{\mathrm{spl}}=T_{\mathrm{spl}}$ by (i), and the rank
+is $n^{2}-n(n+1)/2=n(n-1)/2$, which is the codimension of
+\Cref{prop:splitgeom}(iii).
+
+(iii) By \eqref{eq:splitsigma}, $\sigma_{E}(\zeta)=\sum_{i}(-1)^{p_{i}}
+\zeta_{ii}\,e^{\lambda_{i}}$ for a diagonal $\zeta$. Since $v\lrcorner$ is a
+derivation and $v\lrcorner\,\lambda_{i}$ has even degree,
+$v\lrcorner\,\lambda_{i}^{\,q}=q\,\lambda_{i}^{\,q-1}(v\lrcorner\,\lambda_{i})$
+and so $v\lrcorner\,e^{\lambda_{i}}=(v\lrcorner\,\lambda_{i})\,e^{\lambda_{i}}$.
+Therefore
+\[
+  \sigma_{E}\bigl(\ob_{E}(v)\bigr)
+  =\sum_{i}(-1)^{p_{i}}(v\lrcorner\,\lambda_{i})\,e^{\lambda_{i}}
+  =v\lrcorner\sum_{i}(-1)^{p_{i}}e^{\lambda_{i}}
+  =v\lrcorner\,\ch(E).
+\]
+For $v\in T$ one has $v\lrcorner\,\eta^{k}=k\eta^{k-1}(v\lrcorner\,\eta)=0$,
+and $v\lrcorner\,\omega=0$ for every $\omega\in\HW(A_{0})$ by
+\Cref{prop:firstorder}; under the hypothesis on $\ch(E)$ this gives
+\eqref{eq:sigmaob}.
+
+(iv) The three classes $\lambda_{1}=\gamma+3\ell$, $\lambda_{2}=-2\gamma$,
+$\lambda_{3}=\gamma-3\ell$ span $\langle\gamma,\ell\rangle$, and
+$\langle\eta,\gamma\rangle=\langle\beta,\widehat\beta\rangle$ by the
+determinant in the proof of \Cref{lem:sixmonomials}, so (ii) applies and
+gives the kernel and the rank; \Cref{prop:explicitobject} gives the
+hypothesis of (iii), so the image lies in $\ker\sigma_{E}$. The subspace
+$\Delta$ has dimension $\dim\Ann_{H^{0,2}}(\omega_{1})=n^{2}=9$ by
+\Cref{lem:annihilator}. The components of $\ob_{E}(v)$ on $L_{i}$ and on
+$L_{i}^{-1}[3]$ are $v\lrcorner\,\lambda_{i}$ and
+$v\lrcorner\,(-\lambda_{i})=-v\lrcorner\,\lambda_{i}$, so an element of the
+image of the shape $(z,\dots,z)$ has $z=-z$, hence is zero; this is
+$\Delta\cap\image\ob_{E}=0$, and with $\dim\ker\sigma_{E}=15$ from
+\Cref{prop:explicitobject} the dimension count follows. Every number in (iv)
+is also computed directly in item (XXV) of \Cref{sec:verification}, in the
+model of item (XIII).
+\end{proof}
+
+\begin{remark}[What the obstruction classes say]\label{rem:obstructionmeaning}
+\Cref{prop:splitobstruction} sharpens \Cref{rem:whatmeasures} in one
+direction and closes a door in another. The direction: for the explicit
+object the obstruction classes along the family are nonzero, and they are
+nonzero exactly in the $n(n-1)/2$ directions normal to the split locus,
+which are the directions in which the Weil class has to be transported.
+The door: those classes lie in the kernel of $\sigma_{E}$ by
+\eqref{eq:sigmaob}, and \eqref{eq:sigmaob} holds for every object whose
+Chern character is a flat section of Hodge classes along the family, so the
+semiregularity map cannot detect the obstruction of any such object. The
+obstruction is therefore genuine, and it is invisible to the criterion. For
+the explicit object the situation is the worst possible: the twelve
+dimensions $\Delta\oplus\image\ob_{E}$ of the kernel are accounted for by
+the two mechanisms of \Cref{cor:kernelfamily} and \eqref{eq:obdef}, the
+remaining three lie on the even side of \Cref{cor:pteobstructed} as well,
+and none of the fifteen is an artefact. The classes of the shape
+$z\cdot\id_{E}$ are the ones a change of the twisting class would
+contribute, one and the same $z$ to every rank one summand; the last
+assertion of (iv) says that no such change removes the obstruction. So the
+explicit object does not move off the split locus to first order, as a
+complex and as a twisted complex, and the question of \Cref{q:residual} for
+it is not one of verifying a hypothesis but of replacing the object.
+
+The positive content is the recipe. By (ii), a split object whose classes
+span $\NS(A_{0})_{\QQ}$ with $\eta$ has obstruction map of rank
+$n(n-1)/2$ against the family, and the spanning hypothesis is more than is
+needed: in the model of item (XXV) a single class $\theta\in\NS(A_{0})_{\QQ}$
+not proportional to $\eta$ already has $\{v\in T:v\lrcorner\,\theta=0\}=
+T_{\mathrm{spl}}$, for each of the seven classes tested at
+$(n,d)=(2,1),(2,3),(3,3)$. So every split object built from line bundles
+other than powers of $\eta$ is obstructed in exactly the normal directions
+to the split locus, and \Cref{thm:positivity} says that an object built
+from powers of $\eta$ carries no Weil class. What survives is the statement
+of \Cref{rem:familyuniform}: the object must have positive rank.
+\end{remark}
+
+\subsubsection*{The evaluation map of the explicit object}
+
+\Cref{thm:weakfails} places the copy $\Delta$ of the tangent space inside the
+image of the evaluation map. For a split object the whole of
+$\operatorname{ev}_{E}$ can be written down, and for the explicit object the
+entire kernel of $\sigma_{E}$ turns out to lie in its image. We identify
+$HH^{2}(A_{0})$ with
+\begin{equation}\label{eq:HT2}
+  HT^{2}(A_{0})
+  =H^{0,2}(A_{0})\;\oplus\;\Hom\bigl(H^{1,0},H^{0,1}\bigr)\;\oplus\;
+   \textstyle\bigwedge^{2}\bigl(H^{1,0}\bigr)^{\vee}
+\end{equation}
+by the Hochschild--Kostant--Rosenberg isomorphism, the three summands being
+$H^{2}(\cO)$, $H^{1}(T)$ and $H^{0}(\bigwedge^{2}T)$ for the trivial tangent
+bundle. An element $x=(z,v,\pi)$ acts on $H^{*}(A_{0},\CC)$ by $z\wedge$, by
+the derivation $v\lrcorner$ of \Cref{ssec:tangent}, and by the double
+contraction $\pi\lrcorner$, which removes two $(1,0)$ slots; we write
+$x\lrcorner\,\xi$ for the sum of the three.%
+\footnote{The double contraction is a second order operator. For a class
+$\lambda$ of type $(1,1)$, which has a single $(1,0)$ slot,
+$\pi\lrcorner\,\lambda=0$ and $\pi\lrcorner\,\lambda^{k}=\binom{k}{2}
+\lambda^{k-2}\,(\pi\lrcorner\,\lambda^{2})$, because $\pi\lrcorner$ is a
+composite of two interior products, each of which is an antiderivation, and
+the only nonzero terms are those in which the two interior products hit two
+different factors. Summing over $k$ with the factorials gives
+$\pi\lrcorner\,e^{\lambda}=\tfrac12(\pi\lrcorner\,\lambda^{2})\,e^{\lambda}$,
+exactly parallel to $v\lrcorner\,e^{\lambda}=(v\lrcorner\,\lambda)\,e^{\lambda}$
+for the first order operator $v\lrcorner$. This is the whole content of the
+compatibility \eqref{eq:sigmaev} below: the semiregularity map of a line
+bundle is multiplication by $e^{\lambda}$, and every summand of $HT^{2}$ acts
+on $e^{\lambda}$ by a scalar-valued factor which is precisely the value of
+$\operatorname{ev}_{L}$. The same identity, for arbitrary $E$, is the
+commutative square of Buchweitz and Flenner \cite[Corollary 4.3]{BF03} and
+its Hochschild form in \cite[Lemma 11.3]{Mar25b}; on an abelian variety the
+Todd class is trivial and no correction to the HKR map is needed
+\cite{Cal05,BF08}.}
+
+\begin{proposition}[The evaluation map of a split object]\label{prop:evaluation}
+Let $A_{0}$ be a split member with $X$ general and let
+$E=\bigoplus_{i=1}^{s}L_{i}[p_{i}]$ with $\lambda_{i}=c_{1}(L_{i})$ and all
+$\Ext^{2}(L_{i}[p_{i}],L_{j}[p_{j}])$, $i\ne j$, zero, so that
+$\Ext^{2}(E,E)=\bigoplus_{i}H^{0,2}(A_{0})$.
+\begin{enumerate}[label=\textup{(\roman*)},nosep]
+\item Under \eqref{eq:HT2}, $\operatorname{ev}_{E}$ is diagonal:
+  \begin{equation}\label{eq:evsplit}
+    \operatorname{ev}_{E}(z,v,\pi)_{i}
+    =z+v\lrcorner\,\lambda_{i}+\tfrac12\,\pi\lrcorner\,\lambda_{i}^{2}
+    \;\in\;H^{0,2}(A_{0})=\Ext^{2}\bigl(L_{i}[p_{i}],L_{i}[p_{i}]\bigr).
+  \end{equation}
+\item For every $x\in HT^{2}(A_{0})$,
+  \begin{equation}\label{eq:sigmaev}
+    \sigma_{E}\bigl(\operatorname{ev}_{E}(x)\bigr)=x\lrcorner\,\ch(E),
+  \end{equation}
+  and consequently
+  $\ker\sigma_{E}\cap\image\operatorname{ev}_{E}
+   =\operatorname{ev}_{E}\bigl(\{x:x\lrcorner\,\ch(E)=0\}\bigr)$.
+  The weakened hypothesis of \cite[Question 11.4]{Mar25b} holds for $E$ if
+  and only if $\operatorname{ev}_{E}$ kills every $x$ that preserves
+  $\ch(E)$ to first order.
+\item $\dim HT^{2}(A_{0})=2\binom{2n}{2}+4n^{2}$ and
+  $\dim\Ext^{2}(E,E)=s\binom{2n}{2}$; for $s\ge5$ and every $n\ge2$ the
+  second exceeds the first, so $\operatorname{ev}_{E}$ is not surjective and
+  \cite[Lemma 11.3]{Mar25b} cannot apply to a sum of five or more line
+  bundles.
+\item For the object of \Cref{prop:explicitobject}, with
+  $\lambda_{i}=u_{i}\theta^{+}+\bbar u_{i}\theta^{-}$ as in
+  \Cref{not:splitcoords}: the space $\{x:x\lrcorner\,\ch(E)=0\}$ is
+  $\Ann_{H^{0,2}}(\omega_{1})\oplus\{v:v\lrcorner\,\omega_{1}=0\}\oplus
+  \{\pi:\pi\lrcorner\,\omega_{1}=0\}$, of dimensions $9$, $18$ and $9$; the
+  first and the third summands are both carried by $\operatorname{ev}_{E}$
+  onto $\Delta$; the second is carried onto
+  \[
+    \Sigma=\bigl\{\,(u_{i}a+\bbar u_{i}b)_{i=1}^{6}\;:\;
+      a\in\textstyle\bigwedge^{2}V_{+}^{0,1},\ b\in\bigwedge^{2}V_{-}^{0,1}\,\bigr\},
+    \qquad \dim\Sigma=n(n-1)=6,
+  \]
+  which contains the image of the obstruction map of
+  \Cref{prop:splitobstruction}; $\Delta\cap\Sigma=0$; and
+  \[
+    \ker\sigma_{E}=\Delta\oplus\Sigma\subseteq\image\operatorname{ev}_{E}.
+  \]
+  So every direction in which $\sigma_{E}$ is blind is the value of
+  $\operatorname{ev}_{E}$ on a Hochschild class that preserves $\ch(E)$ to
+  first order, and the weakened hypothesis fails for $E$ by all fifteen
+  dimensions. The rank of $\operatorname{ev}_{E}$ is $45$. The same
+  containment $\ker\sigma_{E}\subseteq\image\operatorname{ev}_{E}$, with
+  $\dim\ker\sigma_{E}=15$, holds for each of the eighteen configurations of
+  \Cref{rem:familyuniform}.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) The evaluation map is the action of $HH^{*}(A_{0})$ on
+$\Ext^{*}(E,E)$, which under HKR is contraction of a polyvector in
+$H^{q}(\bigwedge^{p}T)$ with $\tfrac{1}{p!}\mathrm{At}(E)^{p}$
+\cite{BF08}; for $p=0$ this is $z\cdot\id_{E}$ as in the proof of
+\Cref{thm:weakfails}, for $p=1$ it is $v\lrcorner\,\mathrm{At}(E)$, the map
+\eqref{eq:obdef}, and for $p=2$ it is $\tfrac12\pi\lrcorner\,\mathrm{At}(E)^{2}$.
+The Atiyah class of $E$ is diagonal with entries $\lambda_{i}$, so all three
+are diagonal with the entries displayed.
+
+(ii) By \eqref{eq:splitsigma}, $\sigma_{E}(\zeta)=\sum_{i}(-1)^{p_{i}}\zeta_{i}
+e^{\lambda_{i}}$ for diagonal $\zeta$. The three factors in \eqref{eq:evsplit}
+are exactly the scalars by which $z\wedge$, $v\lrcorner$ and $\pi\lrcorner$
+act on $e^{\lambda_{i}}$: the first trivially, the second because
+$v\lrcorner$ is a derivation and $v\lrcorner\,\lambda_{i}$ has even degree,
+the third by the footnote above. Hence
+$\sigma_{E}(\operatorname{ev}_{E}(x))=\sum_{i}(-1)^{p_{i}}\,x\lrcorner\,
+e^{\lambda_{i}}=x\lrcorner\,\ch(E)$. The description of
+$\ker\sigma_{E}\cap\image\operatorname{ev}_{E}$ follows: $\operatorname{ev}_{E}(x)$
+lies in $\ker\sigma_{E}$ if and only if $x\lrcorner\,\ch(E)=0$.
+
+(iii) The three summands of \eqref{eq:HT2} have dimensions $\binom{2n}{2}$,
+$4n^{2}$ and $\binom{2n}{2}$. The inequality
+$s\binom{2n}{2}>2\binom{2n}{2}+4n^{2}$ is $(s-2)(2n-1)>4n$, and
+$4n/(2n-1)\le8/3$ for $n\ge2$, so it holds for $s\ge5$; it is checked for
+$2\le n\le30$ and $5\le s\le40$ in \Cref{sec:lean}.
+
+(iv) Since $\ch(E)=12\omega_{1}$ is of type $(3,3)$, the three summands of
+$x\lrcorner\,\ch(E)$ have types $(3,5)$, $(2,4)$ and $(1,3)$, so the kernel
+is the direct sum of the three kernels. The first is $\Ann_{H^{0,2}}(\omega_{1})$,
+of dimension $n^{2}=9$ by \Cref{lem:annihilator}. The second is
+$\Hom(V_{+}^{1,0},V_{+}^{0,1})\oplus\Hom(V_{-}^{1,0},V_{-}^{0,1})$, of
+dimension $2n^{2}=18$, by the proof of \Cref{prop:firstorder}, whose
+argument for (i)$\Leftrightarrow$(iii) does not use the polarisation. For the
+third, decompose $\bigwedge^{2}(H^{1,0})^{\vee}$ as
+$\bigwedge^{2}(V_{+}^{1,0})^{\vee}\oplus(V_{+}^{1,0})^{\vee}\otimes(V_{-}^{1,0})^{\vee}
+\oplus\bigwedge^{2}(V_{-}^{1,0})^{\vee}$; here $\omega_{1}$ is a combination
+of $(\theta^{+})^{3}$ and $(\theta^{-})^{3}$ with both coefficients nonzero,
+$(\theta^{\pm})^{3}$ spans $\bigwedge^{3}V_{\pm}^{1,0}\otimes\bigwedge^{3}V_{\pm}^{0,1}$,
+the outer blocks of $\pi$ act injectively on the respective factor
+$\bigwedge^{3}V_{\pm}^{1,0}$ and land in different summands of $H^{1,3}$,
+and the middle block kills both; so the third kernel is the middle block,
+of dimension $n^{2}=9$.
+
+At a split point $\theta^{\pm}$ are of type $(1,1)$, so $\theta^{\pm}\in
+V_{\pm}^{1,0}\otimes V_{\pm}^{0,1}$, and they are nondegenerate pairings
+because $(\theta^{\pm})^{3}\ne0$. Write $\lambda_{i}^{2}=u_{i}^{2}(\theta^{+})^{2}
++\bbar u_{i}^{2}(\theta^{-})^{2}+2\Nm(u_{i})\,\theta^{+}\theta^{-}$. A middle
+block $\pi$ kills $(\theta^{\pm})^{2}$, which have no $V_{\mp}^{1,0}$ slot, so
+$\tfrac12\pi\lrcorner\,\lambda_{i}^{2}=\Nm(u_{i})\,\pi\lrcorner\,(\theta^{+}\theta^{-})$;
+the six $u_{i}$ of \Cref{prop:explicitobject} are $\pm\zeta_{6},\pm1,
+\pm\zeta_{6}^{-1}$, all of norm one, so this value is independent of $i$ and
+$\operatorname{ev}_{E}(\pi)=z_{\pi}\cdot\id_{E}$ with
+$z_{\pi}=\pi\lrcorner\,(\theta^{+}\theta^{-})$. The map $\pi\mapsto z_{\pi}$
+from the middle block to $V_{+}^{0,1}\otimes V_{-}^{0,1}$ is the tensor
+product of the two nondegenerate pairings, hence an isomorphism onto the
+middle block of $H^{0,2}$, which is $\Ann_{H^{0,2}}(\omega_{1})$ by
+\Cref{lem:annihilator}. So $\operatorname{ev}_{E}$ carries the third kernel
+onto $\Delta$, as it carries the first by \Cref{thm:weakfails}.
+
+For $v=(v_{+},v_{-})$ in the second kernel,
+$v\lrcorner\,\lambda_{i}=u_{i}\,v_{+}\lrcorner\,\theta^{+}+\bbar u_{i}\,
+v_{-}\lrcorner\,\theta^{-}$ with $a=v_{+}\lrcorner\,\theta^{+}\in
+\bigwedge^{2}V_{+}^{0,1}$ and $b=v_{-}\lrcorner\,\theta^{-}\in\bigwedge^{2}V_{-}^{0,1}$;
+as $v_{\pm}$ ranges over $\Hom(V_{\pm}^{1,0},V_{\pm}^{0,1})$, $a$ and $b$
+range over the whole of $\bigwedge^{2}V_{\pm}^{0,1}$ because the pairings
+$\theta^{\pm}$ are nondegenerate, which is the surjectivity of
+$\operatorname{alt}(Vc)$ in \eqref{eq:phidelta}. So the image is $\Sigma$.
+The map $(a,b)\mapsto(u_{i}a+\bbar u_{i}b)_{i}$ is injective, because
+$(u_{1},\bbar u_{1})$ and $(u_{2},\bbar u_{2})$ are linearly independent in
+$\CC^{2}$, $u_{1}/\bbar u_{1}=\zeta_{6}^{2}$ differing from
+$u_{2}/\bbar u_{2}=1$; hence $\dim\Sigma=2\binom{n}{2}=n(n-1)=6$. The
+obstruction map of \Cref{prop:splitobstruction} is the restriction to the
+polarised $K$-commuting $v$, so its image lies in $\Sigma$. An element of
+$\Sigma$ of the shape $(z,\dots,z)$ has $u_{i}a+\bbar u_{i}b=z=-z$ on
+comparing $i$ with $3+i$, so $z=0$ and then $a=b=0$: $\Delta\cap\Sigma=0$.
+By (ii), $\Delta\oplus\Sigma\subseteq\ker\sigma_{E}\cap\image\operatorname{ev}_{E}$,
+and its dimension $9+6=15$ equals $\dim\ker\sigma_{E}$ by
+\Cref{prop:explicitobject}, so the three spaces coincide. The rank of
+$\operatorname{ev}_{E}$ and the statement for the eighteen configurations
+are the computations of item (XXVI) of \Cref{sec:verification}, which also
+recomputes every dimension in this proof in the model of item (XIII).
+\end{proof}
+
+\begin{figure}[tbp]
+\centering
+  \includegraphics[width=\textwidth]{fig_evaluation}
+\caption{\Cref{prop:evaluation} for the explicit object at $n=3$. Left: the
+three summands of $HT^{2}(A_{0})$, drawn with heights proportional to their
+dimensions, and inside each the part that preserves $\ch(E)$ to first order:
+the annihilator of $\omega_{1}$, the deformations killing $\omega_{1}$ with
+the polarised $K$-commuting tangent space $T$ in front, and the middle block
+of bivectors. Right: $\Ext^{2}(E,E)$ as six stacked copies of $H^{0,2}$, one
+per summand of $E$, and inside it the kernel of $\sigma_{E}$: the column
+$\Delta$, one and the same class in every layer, and the column $\Sigma$,
+whose entries depend on the summand through $u_{i}$. The three arrows are the
+evaluation map on the three kernels; the two teal ones both land on
+$\Delta$, the ochre one on $\Sigma$, and together they cover the kernel.
+Below, the commutative square that makes this a statement about the weakened
+criterion of \cite[Question 11.4]{Mar25b}.}
+\label{fig:evaluation}
+\end{figure}
+
+\begin{remark}[Question 11.4 for split objects, and what is left of it]
+\label{rem:question114}
+For a split object the two criteria stand or fall together, and for the
+explicit object both fall completely. \Cref{thm:weakfails} makes the first
+$n^{2}$ dimensions of the failure uniform over every concentrated object in
+every dimension; \Cref{prop:evaluation}(iv) accounts for the remaining
+$n(n-1)$ at $n=3$ by the deformations of the two halves $V_{\pm}$ of the
+Hodge structure separately, and the equality $\ker\sigma_{E}=\Delta\oplus\Sigma$
+says that the two mechanisms exhaust the kernel: nothing in it is
+accidental. Nothing here touches the case the question was asked for. A
+sheaf of positive rank has $z\cdot\ch(E)\ne0$ for every $z\ne0$, so its
+$\Delta$ is zero, and whether $\operatorname{ev}_{E}$ kills the deformations
+that preserve $\kappa(E)$ is a statement about the sheaf and not about its
+Chern character. Markman's candidate in his Section 12, a rank one complex on
+a principally polarised abelian fourfold with Chern character on the secant
+$\langle e^{\pm\sqrt{-d}\Theta}\rangle$, is exactly such a sheaf, and he
+records that the verification remains to be done. \Cref{thm:factor} reduces
+that verification to one identity on the fourfold, and
+\Cref{thm:candidatefails} shows that the identity fails: the candidate does
+not satisfy the weakened criterion either.
+\end{remark}
+
+\begin{theorem}[Where a semiregular split object can live]\label{thm:pterange}
+Keep \Cref{setup:pte} and suppose $E$ satisfies \eqref{eq:pteconditions} with
+$\ch_{0}(E)\ne0$, so that the $u_{i}$ take $\nu\ge n+1$ distinct norms by
+\Cref{cor:nplusone}. Write $N_{1}<\dots<N_{\nu}$ for those norms, $M_{j}$ for
+the sum of the $m_{i}$ at level $N_{j}$, and
+$r_{K}(N)=\#\{u\in\cO_{K}:\Nm_{K/\QQ}(u)=N\}$.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em]
+\item If $\nu=n+1$ then, with $P=\prod_{k}N_{k}$, $S=\ch_{0}(E)$ and
+  $D_{j}=N_{j}\prod_{k\ne j}(N_{j}-N_{k})$,
+  \begin{equation}\label{eq:levelsums}
+    M_{j}=(-1)^{n}\,\frac{S\,P}{D_{j}},
+  \end{equation}
+  and the least $S>0$ making every $M_{j}$ an integer is
+  $S_{\min}=\operatorname{lcm}_{j}\bigl(|D_{j}|/\gcd(|D_{j}|,P)\bigr)$.
+  Multiplicity one, \Cref{lem:splitsemireg}(i), forces
+  $|M_{j}|\le r_{K}(N_{j})$ for every $j$.
+\item For $4\le n\le8$, every $d\in\{1,2,3,7,11,19\}$ and every choice of
+  norms below the bounds recorded in item (XXII) of \Cref{sec:verification},
+  no set of $n+1$ norms and no set of $n+2$ norms satisfies those constraints.
+  In that range no split object of the shape of \Cref{setup:pte} is
+  semiregular, and the reason is arithmetic rather than geometric: the least
+  integral scale outruns the supply of elements at the levels it demands.
+\item At $n=3$ the constraints of (i) can be met. With norms at most $200$
+  there are exactly eleven sets of four norms that meet them, all of them at
+  $d=1$ or $d=2$, and after dividing out the common factor each has one of the
+  three shapes $(1,2,3,4)$, $(1,2,4,5)$ and $(1,4,9,10)$. The smallest is
+  $d=2$ at $(9,18,27,36)$, where $S=1$, $|M|=(4,6,4,1)$ and $\ch_{0}(E)=1$.
+\item For all eleven, the full system \eqref{eq:pteconditions} has no
+  solution: no assignment of signs to the elements of $\cO_{K}$ at those
+  norms, with the level sums of \eqref{eq:levelsums}, satisfies the
+  off-diagonal conditions. In particular no split object of the shape of
+  \Cref{setup:pte} with norms at most $200$ is semiregular at $n=3$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) The conditions $T_{r,r}=0$ for $r=1,\dots,n$ say that the linear
+functional $f\mapsto\sum_{j}M_{j}f(N_{j})$ kills $x,x^{2},\dots,x^{n}$, hence
+sends every polynomial $f$ of degree at most $n$ to $S\,f(0)$. Applying it to
+$f(x)=\prod_{k\ne j}(x-N_{k})$, which has degree $n$, gives
+\[
+  M_{j}\prod_{k\ne j}(N_{j}-N_{k})=S\,(-1)^{n}\prod_{k\ne j}N_{k},
+\]
+and multiplying by $N_{j}$ turns this into \eqref{eq:levelsums}. The value of
+$S_{\min}$ is the definition of a least common multiple, and the bound on
+$|M_{j}|$ holds because each $u$ of norm $N_{j}$ contributes at most one term
+$m_{i}=\pm1$ to $M_{j}$.
+
+(ii), (iii) and (iv) are the computations of item (XXII) of
+\Cref{sec:verification}, carried out in exact integer arithmetic. For (ii) and
+(iii) the script enumerates every set of $n+1$ norms represented by $\cO_{K}$
+below the bound, forms $D_{j}$ and $S_{\min}$, and tests
+$|M_{j}|\le r_{K}(N_{j})$; at $\nu=n+2$ the solution space of the diagonal
+conditions is two dimensional and its integer points inside the same box are
+swept by running two coordinates over their own ranges. For (iv) the
+off-diagonal conditions are, after grouping by norm,
+\[
+  \sum_{j}N_{j}^{r}A_{1,j}=0\ \ (r=0,1,2),
+  \qquad
+  \sum_{j}N_{j}^{r}A_{2,j}=0\ \ (r=0,1),
+  \qquad
+  A_{k,j}=\sum_{\Nm(u)=N_{j}}m_{u}u^{k},
+\]
+which are additive over the levels; the four levels are therefore split into
+one half that is tabulated and one that is streamed against the table, so the
+enumeration is complete and not a sample. The four level sets attacked
+directly are $d=2$ at $(9,18,27,36)$, $(27,54,81,108)$ and $(33,66,99,132)$
+and $d=1$ at $(5,20,45,50)$; the other four of the eight are their images
+under multiplication by an element of norm $2$ or $4$, which is a bijection on
+the relevant norm levels because the element counts agree, so a solution for
+one would give a solution for the other. The remaining three, $d=1$ at
+$(13,52,117,130)$, $(17,68,153,170)$ and $(25,50,100,125)$, have levels of
+$8,8,8,16$ and $12,12,12,16$ elements. For them the scale is $S=\pm S_{\min}$,
+since $|S|\ge2$ violates the bound $|M_{j}|\le r_{K}(N_{j})$ and $S\mapsto-S$
+is the symmetry $m\mapsto-m$. The first three levels are streamed against the
+fourth, matched through a linear hash of the ten integer coordinates of the
+off-diagonal conditions, and every match is checked on all ten coordinates
+exactly. A solution has all ten coordinates zero and cannot be missed, so the
+search is complete; it covers $4.29\times10^{14}$ sign patterns in the
+largest case and finds none.
+\end{proof}
+
+\begin{remark}[What the range means]\label{rem:pterangemeaning}
+The dimension that matters is $n\ge4$, since $n=2$ and $n=3$ are settled by
+\cite{Mar25a,Mar25b} and \cite{FF26}. There
+\Cref{thm:pterange}(ii) says that the split route closes before any geometry
+is used: the level sums cannot exist, so there is nothing to test for
+semiregularity. At $n=3$, where the geometry does produce an object, the level
+sums do exist and the off-diagonal conditions are what remove them, which is a
+different mechanism and a reminder that (ii) is a statement about a range and
+not a theorem for all $n$. What both cases share is that the obstruction is
+arithmetic: it lives in the norm form of $K$ and in the supply of integers of
+a given norm, not in the cohomology of $A$.
+\end{remark}
+
+The range is now beside the point, because a second mechanism, this one in
+the cohomology of $A$, closes the split route for every $n$ and every set of
+norms at once.
+
+\begin{corollary}[No sum of line bundles runs either argument]\label{cor:noline}
+Let $A$ be of $(K,-1,n)$-Weil type with $n\ge2$, and let
+$E=\bigoplus_{i}L_{i}[p_{i}]^{\oplus m_{i}}$ be a sum of shifted line bundles,
+twisted by a common class or not, whose (twisted) Chern character remains of
+Hodge type to first order along $\cD_{n,n}$ and has a nonzero Weil component.
+Then $\sigma_{E}$ is not injective on the image of $\operatorname{ev}_{E}$:
+$E$ is neither semiregular nor semiregular in the weakened sense of
+\cite[Question 11.4]{Mar25b}, and it is obstructed to first order along some
+direction of the Weil family. In particular every object of \Cref{setup:pte}
+satisfying \eqref{eq:pteconditions}, for every $n\ge2$, every field $K$,
+every rank and every set of norms, fails both criteria: the conclusion of
+\Cref{thm:pterange}, that no split object of that shape is semiregular, holds
+without any bound on the norms, in every dimension, and for the weakened
+criterion as well.
+\end{corollary}
+
+\begin{proof}
+Write $\lambda_{i}$ for the twisted first Chern classes of the summands. If
+every $\lambda_{i}$ were a real multiple of $\eta$, it would be a rational
+multiple, both classes being rational, and the twisted Chern character
+$\sum_{i}m_{i}e^{\lambda_{i}}$ would be a polynomial in $\eta$; its component
+in degree $2n$ would then lie in $\QQ\eta^{n}$, which meets the Weil line in
+zero by \Cref{prop:grading}, against the hypothesis. So some $\lambda_{i}$ is
+not a real multiple of $\eta$, and \Cref{thm:linebundle} applies to the
+summand $L_{i}[p_{i}]$. For an object of \Cref{setup:pte} the classes are
+$\lambda_{i}=\theta(u_{i})\in R_{0}$, and $R_{0}\cap\QQ\eta=0$; no twist is
+needed because $c_{1}(E)=\theta(T_{1,0})=0$ by \eqref{eq:pteconditions}, as
+$(1,0)$ is not an excluded pair for $n\ge2$; and \eqref{eq:pteconditions}
+gives a flat Chern character with a nonzero Weil component by
+\Cref{prop:chintermsofu}.
+\end{proof}
+
+\begin{remark}[What is closed and what is not]\label{rem:nolinemeaning}
+\Cref{cor:noline} ends the search that \Cref{thm:pterange} began: there is no
+sum of line bundles, at any member of any Weil family in any dimension, that
+could run the semiregularity argument in either form, and the arithmetic of
+\Cref{thm:pterange} is now a description of how the level sums fail rather
+than the reason the route fails. The reason is \Cref{prop:rigidity}(i): the
+only divisor class that stays of type $(1,1)$ across the whole family is the
+polarisation, so every line bundle summand off that line is obstructed in
+some direction of the family, and the semiregularity map, whose composite
+with the obstruction is contraction with the flat class $\ch(E)$, cannot see
+it. What is not closed is the object the argument needs: one with no rank one
+summand off the polarisation line, of positive rank, indecomposable enough
+that its Atiyah class contracted with every direction of $T$ vanishes.
+Markman's reflexive sheaves at $n=3$ are of that kind, and nothing here
+says that their analogues at $n\ge4$ do not exist.
+\end{remark}
