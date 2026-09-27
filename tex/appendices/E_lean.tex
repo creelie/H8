@@ -3,21 +3,18 @@
 The theorems of this paper are statements of algebraic geometry and are not
 formalised. What is formalised is the finite arithmetic on which many of them
 turn, which the kernel can settle by computation; the rest of their
-computational content is checked in exact arithmetic by the scripts of
-\Cref{sec:verification}. The file \texttt{HodgeObstruction.lean} accompanies the
+computational content is checked in exact arithmetic by the computations of
+\Cref{sec:verification}. The certificate is a single Lean~4 file that accompanies the
 paper. It compiles against a bare Lean~4 toolchain, has no \texttt{sorry}, and
 depends on no library, Mathlib included; the report at its foot states, for
-each of its eighty theorems, that it depends on no axiom whatever, or on
+each of its eighty-eight theorems, that it depends on no axiom whatever, or on
 propositional extensionality alone, which is what \texttt{decide} uses when it
 reduces an equality of Booleans, or when a bound is proved from the lemmas
-on natural numbers in the core library.\footnote{Sixty-nine of the eighty
-report \texttt{does not depend on any axioms}; the remaining eleven report
-\texttt{[propext]}. No theorem reaches for anything else, and none mentions
-\texttt{sorryAx}. The workflow in \texttt{.github/workflows/lean.yml} fails the
-build if either changes.} The package also builds with \texttt{lake build}
-under the \texttt{lakefile.toml} distributed with it, with the same report;
-each run takes about two minutes. The results of \Cref{ssec:rankzero}, the annihilator
-dimension and the rank-zero obstruction, are not among the eighty: the
+on natural numbers in the core library.\footnote{Seventy-seven of the
+eighty-eight report that they depend on no axiom; the remaining eleven depend
+on propositional extensionality alone. No theorem uses anything else, and
+none uses \texttt{sorry}.} The results of \Cref{ssec:rankzero}, the annihilator
+dimension and the rank-zero obstruction, are not among the eighty-eight: the
 lemma is proved by hand, and its dimension count is verified in exact
 arithmetic modulo a prime by item (XIV) of \Cref{sec:verification}.
 
@@ -27,7 +24,7 @@ arithmetic modulo a prime by item (XIV) of \Cref{sec:verification}.
 \small
 \renewcommand{\arraystretch}{1.06}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.31\linewidth}>{\raggedright\arraybackslash}p{0.62\linewidth}@{}}
-\caption{The eighty machine-checked theorems.}\label{tab:lean}\\
+\caption{The eighty-eight machine-checked theorems.}\label{tab:lean}\\
 \toprule
 \textbf{theorem} & \textbf{statement} \\
 \midrule
@@ -124,13 +121,24 @@ arithmetic modulo a prime by item (XIV) of \Cref{sec:verification}.
 \texttt{lefschetz\_}\allowbreak\texttt{counts} & the $\Sp_{8}$-invariants of $\bigwedge^{*}(V\oplus V)$ number $1,3,6,10,15,10,6,3,1$ by the decomposition of each $\bigwedge^{i}V$, the Hodge classes that are not Lefschetz $0,0,2,6,13,6,2,0,0$, the Lefschetz classes at a CM point are counted by $(1+4y+y^{2})^{4}$, and Weyl's formula gives $308$ for $2\varpi_{2}$, \Cref{thm:lefschetzclosure} \\
 \texttt{criterion\_}\allowbreak\texttt{endomorphisms\_n2} & for all natural numbers, $2e_{0}+12=\chi+2e_{1}$ with $e_{1}\ge8$ and $\chi\ge1$ gives $e_{0}\ge3$: the Euler characteristic of an object meeting the criterion at $n=2$, \Cref{thm:p2endo}(iv) \\
 \texttt{criterion\_}\allowbreak\texttt{endomorphisms\_n3} & for all natural numbers, $2e_{0}+60=\chi+2e_{1}+e_{3}$ with $e_{1}\ge12$, $e_{3}\ge40$ and $\chi\ge1$ gives $e_{0}\ge3$: the same at $n=3$, \Cref{thm:p2endo}(iv) \\
+\texttt{quartic\_}\allowbreak\texttt{squares\_}\allowbreak\texttt{mod4\_}\allowbreak\texttt{phi} & the squares modulo $4$ in $\ZZ[\varphi]$, $\varphi^{2}=\varphi+1$, are $0$, $1$, $1+\varphi$, $2+3\varphi$, \Cref{thm:quarticobstruction} \\
+\texttt{quartic\_}\allowbreak\texttt{no\_}\allowbreak\texttt{square\_}\allowbreak\texttt{phi} & neither $-1$ nor twice a unit is a square modulo $4$ in $\ZZ[\varphi]$, \Cref{thm:quarticobstruction} \\
+\texttt{quartic\_}\allowbreak\texttt{squares\_}\allowbreak\texttt{mod4\_}\allowbreak\texttt{sqrt2} & the squares modulo $4$ in $\ZZ[\sqrt2]$ are $0$, $1$, $2$, $3+2\sqrt2$, \Cref{thm:quarticobstruction} \\
+\texttt{quartic\_}\allowbreak\texttt{no\_}\allowbreak\texttt{square\_}\allowbreak\texttt{sqrt2} & $3$, $1+3\sqrt2$ and $1+\sqrt2$ are not squares modulo $4$ in $\ZZ[\sqrt2]$, \Cref{thm:quarticobstruction} \\
+\texttt{quartic\_}\allowbreak\texttt{rank\_}\allowbreak\texttt{two\_}\allowbreak\texttt{congruences} & $m\equiv9$ has no solution $1\le m\le8$ modulo $13$ or $17$, and modulo $5$ only $m=4$, \Cref{thm:quarticobstruction} \\
+\texttt{quartic\_}\allowbreak\texttt{euler\_}\allowbreak\texttt{minimal} & the minimal profiles $1,8,r,8,1$ with $r=18,20,12$ have Euler characteristic $4,6,-2$, \Cref{thm:quarticobstruction} \\
+\texttt{orlov\_}\allowbreak\texttt{equality\_}\allowbreak\texttt{count} & $n(n-1)+(2n)^{2}+n(n-1)=6n^{2}-2n$ for $3\le n\le64$, and $1+16+1=18$, \Cref{prop:orlovequality} \\
+\texttt{orlov\_}\allowbreak\texttt{n4\_}\allowbreak\texttt{euler} & the minimal profile at $n=4$ has $\chi=-2$, while every secant character has $\chi=8d(a^{2}d+b^{2})\ge8$, \Cref{prop:orlovfour} \\
 \end{longtable}
 \endgroup
 
 An element of $\ZZ[\sqrt{-d}]$ is a pair of integers, multiplication and
-conjugation are the evident operations, and every statement in the table but
-the last two is a closed Boolean expression evaluated by the kernel.%
-\footnote{For those the tactic is \texttt{decide}, which asks the kernel to evaluate a closed Boolean expression by reduction. That is the strongest check available and the least flexible: it works only over finite ranges, which is why each of those theorems carries an explicit bound, and it is also why none of them can be the general statement the paper proves. The last two, \texttt{criterion\_}\allowbreak\texttt{endomorphisms\_n2} and \texttt{criterion\_}\allowbreak\texttt{endomorphisms\_n3}, are stated for all natural numbers and proved from the lemmas on natural numbers in the core library, with \texttt{decide} only for a final numerical inequality.} Nothing is quoted; the
+conjugation are the evident operations, and every statement in the table
+except \texttt{criterion\_}\allowbreak\texttt{endomorphisms\_n2},
+\texttt{criterion\_}\allowbreak\texttt{endomorphisms\_n3} and the second
+half of \texttt{orlov\_}\allowbreak\texttt{n4\_}\allowbreak\texttt{euler} is a
+closed Boolean expression evaluated by the kernel.%
+\footnote{For those the tactic is \texttt{decide}, which asks the kernel to evaluate a closed Boolean expression by reduction. That is the strongest check available and the least flexible: it works only over finite ranges, which is why each of those theorems carries an explicit bound, and it is also why none of them can be the general statement the paper proves. The three exceptions are stated for all natural numbers and proved from the lemmas on natural numbers in the core library, with \texttt{decide} only for a final numerical inequality.} Nothing is quoted; the
 kernel recomputes each assertion from the definitions.
 
 Two of the entries deserve a word about what they do and do not settle.

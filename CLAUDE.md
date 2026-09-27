@@ -45,7 +45,16 @@ the quartic CM subsection `ssec:quartic` of `tex/sections/10d_cmfields.tex`
 `rem:flatsums` after `prop:p2flat` in `tex/sections/10c_construction.tex`,
 `thm:cmpropagation` (iv), (v) restated in the chosen-cycle and corrected
 forms, item (LV) with `code/attack/` and `code/attack_checks.py`, and the
-figures of `figures/make_round12.py`).
+figures of `figures/make_round12.py`; round 13 made the paper journal-shaped
+(the long chapters split into sections `sec:basepoints`, `sec:propagation`,
+`sec:corrected`, `sec:secantobjects`, `sec:beyond`; the computations and the
+Lean certificate moved to Appendices D and E, `tex/appendices/D_computations.tex`
+and `tex/appendices/E_lean.tex`, with no program names in the paper; a 90-word
+abstract), redrew most figures, and attacked the three remaining inputs:
+`prop:flatall`, `prop:orlovequality`, `prop:quarticsecant`,
+`thm:quarticobstruction`, `prop:f3primestrength`, `prop:orthpowers`, with
+`code/attack/gaps/` as part (E) of item (LV) and Lean Sections 32 and 33,
+eighty-eight theorems).
 
 Release v1.0.0 (tag `v1.0.0`, commit `ef15bce`) is archived on Zenodo under
 DOI 10.5281/zenodo.22950276, recorded in the macro `\zenodoDOI` at the top of
@@ -58,15 +67,14 @@ section.
 
 - `cd code && python3 verify_all.py` ends with `N checks passed, 0 failed`;
   keep the count in `README.md`, `.zenodo.json`, `.github/workflows/lean.yml`,
-  `tex/sections/12_verification.tex`, `tex/appendices/D_scripts.tex` and
-  `tex/declarations.tex` in step.
-- `cd lean && lean HodgeObstruction.lean`: 80 theorems, each axiom-free or
+  `tex/appendices/D_computations.tex` and `tex/declarations.tex` in step.
+- `cd lean && lean HodgeObstruction.lean`: 88 theorems, each axiom-free or
   depending on `propext` only.
 - `cd tex && latexmk -pdf main.tex`: 0 errors, 0 overfull or underfull boxes,
   no undefined references.
 - Regenerate `code/paper_labels.txt` from the `\label`s in `tex/` whenever
   labels change, and update the label count quoted in
-  `tex/sections/12_verification.tex`.
+  `tex/appendices/D_computations.tex`.
 - When a figure generator in `figures/` changes, rerun it, rebuild its PDF and
   its PNG at 200 dpi, run `python3 figures/checkfigs.py`, and copy the files
   to `tex/figures/`.

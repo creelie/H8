@@ -523,3 +523,18 @@ The long runs (`t1_generic.py` and `t1_T.py` in full, `t1_loci.py`,
 `t2_tensor_closure.py`, `t2_split_model.py`, `t4_lg_n.py 4 d`, `t4_minimal.py`,
 `t4_n2_cross.py` on the box of size 3, `verify/v3b_symbolic.py 4,5`) are not
 repeated; their transcripts are here.
+
+## gaps/: the three remaining inputs, attacked through their smallest cases
+
+A later attack, with the computations re-run and wired into item (LV) as its
+part (E). Nothing here is a new case of the Hodge conjecture for abelian
+varieties; each directory holds the programs and their transcripts.
+
+| directory | subject | status |
+| --- | --- | --- |
+| `quartic_obstruction/` | the propagation statement for a quartic CM field at n = 2: the secant space S(t,q) of a quartic field and its Hochschild profile (Proposition prop:quarticsecant), the integral classes of the F_0-Hodge ring for d_F = 5, 8, 13, 17, flatness of the twisted character of an Orlov product, r(kappa) = 100, and the identities of the obstruction theorem thm:quarticobstruction (no dimension-count certificate for F_0 = Q(sqrt 5), Q(sqrt 2), Q(sqrt 13), Q(sqrt 17)) | proved, with the lattice description computed; the finite arithmetic is also certified in Lean (Section 32) |
+| `orlov_growth/` | the Orlov template in every dimension: flatness of the twisted character for all n (prop:flatall, checked at n = 1, 2 with d a symbol; all n by tensor factorisation) and the equality criterion with negative Ext groups (prop:orlovequality) | proved; the counts are certified in Lean (Section 33) |
+| `f3prime/` | (F3') implies (M), and the closure graph with that rule added (prop:f3primestrength); the powers of a variety of orthogonal type, where the first open class is det(V) on Y^t (prop:orthpowers) | proved |
+
+Run each program with `python3 -B <program>` from its directory;
+`../attack_checks.py` runs them all as part (E) of item (LV).

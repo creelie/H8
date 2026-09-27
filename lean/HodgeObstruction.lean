@@ -1553,6 +1553,93 @@ theorem criterion_endomorphisms_n3 (e0 e1 e3 chi : Nat)
   exact Nat.lt_of_not_le fun h =>
     absurd (Nat.le_trans h5 (Nat.mul_le_mul_left 2 h)) (by decide)
 
+/-! ## 32.  The quartic obstruction: arithmetic modulo four
+
+The obstruction to a dimension-count certificate for a quartic CM field at
+`n = 2` (the quartic analogue of the theorem that no Orlov product works at
+`n = 4`) ends in finitely many statements about squares modulo `4` in the
+rings of integers `Z[φ]`, `φ^2 = φ + 1`, of `Q(√5)` and `Z[√2]` of `Q(√2)`,
+and about residues of the integers `1, ..., 8`.  An element `a + bφ` or
+`a + b√2` modulo `4` is the pair `(a, b)` of residues. -/
+
+/-- The square of `a + bφ` modulo `4`, using `φ^2 = φ + 1`. -/
+def sqPhi (a b : Nat) : Nat × Nat := ((a * a + b * b) % 4, (2 * a * b + b * b) % 4)
+
+/-- The square of `a + b√2` modulo `4`. -/
+def sqRoot2 (a b : Nat) : Nat × Nat := ((a * a + 2 * b * b) % 4, (2 * a * b) % 4)
+
+/-- **The squares modulo `4` in `Z[φ]`** are `0, 1, 1 + φ, 2 + 3φ`. -/
+theorem quartic_squares_mod4_phi :
+    ∀ a, a < 4 → ∀ b, b < 4 →
+      sqPhi a b = (0, 0) ∨ sqPhi a b = (1, 0) ∨ sqPhi a b = (1, 1) ∨
+        sqPhi a b = (2, 3) := by decide
+
+/-- **Neither `-1` nor twice a unit is a square modulo `4` in `Z[φ]`**: the
+two cases `Δ = -φ^{2k}` and `Δ = -2ε` of the rank-two argument for `Q(√5)`. -/
+theorem quartic_no_square_phi :
+    ∀ a, a < 4 → ∀ b, b < 4 →
+      sqPhi a b ≠ (3, 0) ∧ sqPhi a b ≠ (2, 0) ∧ sqPhi a b ≠ (0, 2) ∧
+        sqPhi a b ≠ (2, 2) := by decide
+
+/-- **The squares modulo `4` in `Z[√2]`** are `0, 1, 2, 3 + 2√2`. -/
+theorem quartic_squares_mod4_sqrt2 :
+    ∀ a, a < 4 → ∀ b, b < 4 →
+      sqRoot2 a b = (0, 0) ∨ sqRoot2 a b = (1, 0) ∨ sqRoot2 a b = (2, 0) ∨
+        sqRoot2 a b = (3, 2) := by decide
+
+/-- **`3`, `1 + 3√2` and `1 + √2` are not squares modulo `4` in `Z[√2]`**: the
+cases `N(Δ) = 1, 7` of the rank-two argument for `Q(√2)`. -/
+theorem quartic_no_square_sqrt2 :
+    ∀ a, a < 4 → ∀ b, b < 4 →
+      sqRoot2 a b ≠ (3, 0) ∧ sqRoot2 a b ≠ (1, 3) ∧ sqRoot2 a b ≠ (1, 1) := by
+  decide
+
+/-- **The rank-two congruence `m ≡ 9` has no solution `1 ≤ m ≤ 8` modulo `13` or
+`17`, and modulo `5` its only solution is `m = 4`.**  Here `m = μ^2 N(Δ)`,
+bounded by `8` by the inequality `χ^2 ≥ 4 μ^2 N(Δ)` at `χ = 6`. -/
+theorem quartic_rank_two_congruences :
+    (∀ m, m < 9 → 1 ≤ m → m % 13 ≠ 9 ∧ m % 17 ≠ 9) ∧
+    (∀ m, m < 9 → 1 ≤ m → m % 5 = 4 → m = 4) ∧
+    (∀ m, m < 9 → 4 * m ≤ 36) := by decide
+
+/-- **The Euler characteristic of a minimal object.**  A Hochschild-minimal
+secant object on a fourfold with `Ext^{<0} = 0` has profile
+`1, 8, r, 8, 1`, so `χ = r - 14`; for the three values `r = 18, 20, 12` of the
+quartic secant space this is `4, 6, -2`. -/
+theorem quartic_euler_minimal :
+    (1 + 18 + 1 : Int) - 8 - 8 = 4 ∧ (1 + 20 + 1 : Int) - 8 - 8 = 6 ∧
+      (1 + 12 + 1 : Int) - 8 - 8 = -2 := by decide
+
+/-! ## 33.  The Orlov template: the equality count
+
+For secant complexes `F₁, F₂` on a polarised abelian `n`-fold, the Künneth
+formula gives `dim Ext²(E,E) = Σ_k e_k e'_{2-k}` for `E = Φ(F₁ ⊠ F₂^∨)`, and the
+number the criterion asks for is `6n² - 2n` for `n ≥ 3` and `18` for `n = 2`.
+Equality forces the profile `1, 2n, n(n-1)` in degrees `0, 1, 2`. -/
+
+/-- **The equality count**: `1·n(n-1) + (2n)(2n) + n(n-1)·1 = 6n² - 2n`,
+for `3 ≤ n ≤ 64`, and `1·1 + 4·4 + 1·1 = 18` at `n = 2`. -/
+theorem orlov_equality_count :
+    (∀ n, n < 65 → 3 ≤ n →
+      n * (n - 1) + (2 * n) * (2 * n) + n * (n - 1) = 6 * n * n - 2 * n) ∧
+    1 * 1 + 4 * 4 + 1 * 1 = 18 := by decide
+
+/-- **No Orlov product at `n = 4`.**  The minimal profile `1, 8, 12, 8, 1` has
+Euler characteristic `-2`, while a secant character on a principally
+polarised fourfold has `χ = 8d(a²d + b²) ≥ 8`. -/
+theorem orlov_n4_euler :
+    (1 + 12 + 1 : Int) - 8 - 8 = -2 ∧
+      ∀ d a b : Nat, 1 ≤ d → 1 ≤ a * a * d + b * b → 8 ≤ 8 * d * (a * a * d + b * b) := by
+  refine ⟨by decide, ?_⟩
+  intro d a b hd hs
+  have h1 : 8 ≤ 8 * d := by
+    have h := Nat.mul_le_mul_left 8 hd
+    rwa [Nat.mul_one] at h
+  have h2 : 8 * d ≤ 8 * d * (a * a * d + b * b) := by
+    have h := Nat.mul_le_mul_left (8 * d) hs
+    rwa [Nat.mul_one] at h
+  exact Nat.le_trans h1 h2
+
 end HodgeObstruction
 
 /-! ## The axioms each theorem depends on
@@ -1642,3 +1729,11 @@ propositional extensionality enters through `decide`, and in no case
 #print axioms HodgeObstruction.lefschetz_counts
 #print axioms HodgeObstruction.criterion_endomorphisms_n2
 #print axioms HodgeObstruction.criterion_endomorphisms_n3
+#print axioms HodgeObstruction.quartic_squares_mod4_phi
+#print axioms HodgeObstruction.quartic_no_square_phi
+#print axioms HodgeObstruction.quartic_squares_mod4_sqrt2
+#print axioms HodgeObstruction.quartic_no_square_sqrt2
+#print axioms HodgeObstruction.quartic_rank_two_congruences
+#print axioms HodgeObstruction.quartic_euler_minimal
+#print axioms HodgeObstruction.orlov_equality_count
+#print axioms HodgeObstruction.orlov_n4_euler
