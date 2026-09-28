@@ -465,7 +465,7 @@ them by item. We describe what is checked.
   named in a rule is declared and every declared statement is used, that the
   rule set is acyclic, and that every one of the seventeen theorem labels it
   names, for its rules and for the consequences of $\mathbf{HC}$ it records,
-  is a label of this paper, against the list of all $597$ labels generated
+  is a label of this paper, against the list of all $599$ labels generated
   from the sources of this paper. It then computes the forward closure
   by iterating the one step map to a fixed point, and verifies that no
   statement marked proved rests at any depth on an open one, that
@@ -1114,11 +1114,12 @@ them by item. We describe what is checked.
   \Cref{thm:quarticobstruction}(i) on eight pairs, from an exact annihilator
   over $\QQ(\sqrt{-1})$, with the values $100$, $102$, $104$ and, for
   $F=\QQ(\sqrt5,\sqrt{-1})$ and a class with $N_{w}=2$, $88$ and $94$; for
-  \Cref{prop:sexticroom}, the profiles of the secant classes of a sextic
-  field for every support closed under $\varepsilon\mapsto-\varepsilon$ and three
-  tensors of smaller flattening rank, exactly over $\ZZ$ at two independent
-  random points, with the formula for $r^{2}$, the value of $\chi$ over
-  $\QQ(\sqrt{-1})$, and the quartic profile as a regression test; and the identities used in the proof of
+  \Cref{prop:sexticcount}, an independent computation of the full profiles
+  $r^{0},\dots,r^{6}$ of the secant classes of a sextic field, for every
+  support closed under $\varepsilon\mapsto-\varepsilon$ and three tensors of
+  smaller flattening rank, exactly over $\ZZ$ at two random points, which are
+  palindromic and agree with item (LVI), with the value of $\chi$ over
+  $\QQ(\sqrt{-1})$ and the quartic profile as a regression test; and the identities used in the proof of
   \Cref{prop:quarticother} hold on random integral classes. For
   \Cref{prop:flatall}, the four identities at $n=1$ and $n=2$ with $d$ a symbol;
   for \Cref{prop:orlovequality}, the Euler characteristic of a secant class
@@ -1129,12 +1130,41 @@ them by item. We describe what is checked.
   \Cref{prop:f3primestrength}, the closure graph with the implication
   $\textup{(F3$'$)}\Rightarrow\textup{(M)}$ added, whose five minimal
   sufficient sets are unchanged.
+
+\item \emph{The count in degree six.} The computation builds $H^{*}(X,\CC)$
+  for a principally polarised abelian sixfold with real multiplication by a
+  cubic field as the exterior algebra on twelve generators in three blocks of
+  four, with $\theta_{j}=x_{j1}y_{j1}+x_{j2}y_{j2}$, and $HT^{k}(X)$ as
+  $\bigoplus_{a+b=k}\bigwedge^{a}H^{0,1}\otimes\bigwedge^{b}T$ acting by
+  $\alpha\wedge(t\lrcorner\,\cdot\,)$. (A) $\theta_{j}^{3}=0$,
+  $\int\theta^{6}=720$, $\int\theta_{1}^{2}\theta_{2}^{2}\theta_{3}^{2}=8$ and
+  $\int\exp(\sum c_{j}\theta_{j})=(c_{1}c_{2}c_{3})^{2}$. (B) On one factor,
+  $HT^{k}_{j}$ kills $e^{\lambda\theta_{j}}$ for $k\ge3$, $HT^{2}_{j}$ maps
+  into the line of $\omega_{j}$, and the coefficient pairs at
+  $\lambda_{j}(\pm1)$ span $\CC^{2}$. (C) Exactly over $\QQ(\sqrt{-1})$, for
+  $q=1$, $t\in\{0,2\}$ and four coefficient patterns, generic, supported on the
+  two CM types induced from the imaginary quadratic subfield, a rank one
+  tensor, and a Galois orbit of six types, the ranks of contraction from
+  $HT^{1}$, $HT^{2}$, $HT^{3}$ are $12$ and $(54,112)$, $(30,40)$, $(51,88)$,
+  $(54,96)$, equal to the formulas of \Cref{prop:sexticcount}(i) evaluated on
+  $N_{w}$, the $A_{jj'}$, the $\rho_{j}$ and the slices $M^{(j;j')}_{\sigma'}$.
+  (D) Exactly, $\chi(v,v)=-64\Nm(q)\sum|w_{\varepsilon}|^{2}$ for the four
+  patterns, and $+16\Nm(q)\sum|w_{\varepsilon}|^{2}$ for two places. (E) Modulo
+  a prime $p\equiv1$ modulo $4$ at which the cubic field splits and the
+  $s_{j}$ exist, near $10^{6}$, for $\QQ(\zeta_{7})^{+}$ with $q=2+\alpha$,
+  $\QQ(\zeta_{9})^{+}$ with $q=3-\alpha$ and the non-Galois cubic field of
+  discriminant $229$ with $q=3+\alpha$, $\alpha$ a generator and $t=\alpha$,
+  the ranks modulo $p$, which bound the ranks below, equal the values of the
+  formulas, which bound them above, and the identity of (D) holds modulo
+  $p$. (F) The bookkeeping of \Cref{prop:sexticcount}(iii): the bound
+  $\chi\le-(r^{3}-2r^{2}+22)$ is $-26$, $-2$, $-8$, $-10$ for the four
+  patterns, and $r(\kappa)\le252<264$. That is \Cref{prop:sexticcount}.
 \end{enumerate}
 
-Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LV) are the ones
+Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LVI) are the ones
 on which theorems depend. Items (IV) and (V) support statements that no
 obstruction exists, and a failure there would strengthen rather than weaken
 the paper, so they are included for completeness rather than for safety.
-The fifty-two items other than (XXIX), (XXXI) and (XL) perform $1024$
+The fifty-three items other than (XXIX), (XXXI) and (XL) perform $1048$
 checks, all of which pass; those three are $\Ext$ computations over a
 polynomial ring, recorded with their output.

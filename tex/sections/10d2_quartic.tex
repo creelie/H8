@@ -943,70 +943,6 @@ changes the Euler characteristic; a kernel on $X\times X$ that is not an
 external product; or a proof of the injectivity of $\sigma_{E}$ for some Orlov
 product that does not go through a dimension count.
 
-The count behind \Cref{thm:quarticobstruction} is special to quartic fields.
-For a CM field $F=F_{0}(\sqrt{-q})$ of degree $2g$, with $F_{0}$ totally real of
-degree $g$ and real places $\tau_{1},\dots,\tau_{g}$, the same construction
-starts from a principally polarised abelian $2g$-fold $X$ with real
-multiplication by $\cO_{F_{0}}$, the components $\theta_{j}$ of its polarisation,
-and the secant space $S(t,q)$ spanned by the $2^{g}$ classes
-$e_{\varepsilon}=\exp\bigl(\sum_{j}(\tau_{j}(t)+\varepsilon_{j}s_{j})\theta_{j}\bigr)$,
-$s_{j}=\sqrt{-1}\,\sqrt{\tau_{j}(q)}$. For $v=\sum_{\varepsilon}w_{\varepsilon}
-e_{\varepsilon}$ let $\rho_{j}$ be the rank of the $2\times2^{g-1}$ matrix of the
-$w_{\varepsilon}$ with rows indexed by $\varepsilon_{j}$, and $N_{jk}$ the number of
-pairs $(\varepsilon_{j},\varepsilon_{k})$ occurring among the $\varepsilon$ with
-$w_{\varepsilon}\ne0$.
-
-\begin{proposition}[Beyond degree four the count leaves room]
-\label{prop:sexticroom}
-In this setting, let $v\in S(t,q)$ be nonzero.
-\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
-\item $\chi(v,v)=(-4)^{g}\,\Nm(q)\sum_{\varepsilon}|w_{\varepsilon}|^{2}$ when $t=0$,
-  and $\chi$ is invariant under $e^{\theta_{t}}$; so $\chi$ is positive definite
-  on $S(t,q)$ for $g$ even and negative definite for $g$ odd.
-\item For $g=3$ the ranks of contraction into $v$ are palindromic,
-  $r^{k}(v)=r^{6-k}(v)$, with $r^{1}(v)=12$ and
-  $r^{2}(v)=\sum_{j}\rho_{j}+4\sum_{j<k}N_{jk}$; for a class with all eight
-  $w_{\varepsilon}$ nonzero in general position the profile is
-  $(1,12,54,112,54,12,1)$.
-\item Let $g=3$, and let $F$ be a perfect complex on $X$ with $\ch(F)=v$,
-  $\Ext^{<0}(F,F)=0$ and $\dim\Ext^{k}(F,F)=r^{k}(v)$ for $k=0,1,2$, which is
-  what an Orlov product $\Phi(F\boxtimes F^{\vee})$ meeting the criterion with
-  equality requires. Then Serre duality forces
-  $\dim\Ext^{3}(F,F)=2r^{2}(v)-22-\chi(v,v)$, and every bound
-  $\dim\Ext^{k}(F,F)\ge r^{k}(v)$ holds as soon as
-  $-\chi(v,v)\ge r^{3}(v)-2r^{2}(v)+22$. The right-hand side is $-6$, $2$, $8$,
-  $10$, $12$ or $26$ on the classes computed, and replacing $v$ by $Nv$
-  multiplies $\chi(v,v)$ by $N^{2}$ and leaves every $r^{k}$ unchanged; so no
-  integral secant class is excluded once it is replaced by a large multiple.
-\end{enumerate}
-\end{proposition}
-
-\begin{proof}
-(i) As in \Cref{prop:quarticsecant}(iii), $\int_{X}\exp\bigl(\sum_{j}c_{j}\theta_{j}
-\bigr)=\prod_{j}c_{j}^{2}$ and $e_{\varepsilon}^{\vee}=e_{-\varepsilon}$ at $t=0$, so
-$\int_{X}e_{\varepsilon}^{\vee}e_{\varepsilon'}$ vanishes unless
-$\varepsilon'=-\varepsilon$, when it is $\prod_{j}(2s_{j})^{2}=(-4)^{g}\Nm(q)$; and a
-rational class has $w_{-\varepsilon}=\overline{w_{\varepsilon}}$. (ii) is computed
-exactly in item (LV) of \Cref{sec:verification}, at two independent choices of
-the coefficients, for every support closed under $\varepsilon\mapsto-\varepsilon$
-and for classes whose coefficient tensor has smaller flattening ranks; the same
-computation reproduces the profile $(1,8,2\rho+4N_{w},8,1)$ of
-\Cref{prop:quarticsecant}(ii) for $g=2$. (iii) With $e_{k}=\dim\Ext^{k}(F,F)$,
-Serre duality on the sixfold gives $e_{k}=e_{6-k}$, so
-$\chi(v,v)=\chi(F,F)=2(e_{0}-e_{1}+e_{2})-e_{3}=2(1-12+r^{2})-e_{3}$. By (ii),
-$e_{4}=e_{2}=r^{2}=r^{4}$, $e_{5}=e_{1}=r^{5}$ and $e_{6}=e_{0}=r^{6}$, so the
-only remaining bound is $e_{3}\ge r^{3}$, which is the inequality stated.
-\end{proof}
-
-So a minimal secant object of a sextic field, and with it an Orlov product
-meeting the corrected criterion with equality, is not excluded by any count
-used in this paper. Its twisted character is flat, by the argument of
-\Cref{thm:quarticobstruction}(iii) with three real places instead of two, so
-it would be a genuine certificate for the $(F,2,1)$-family. Whether such a
-complex exists is open; for fields of degree at least eight the Euler
-characteristic involves $\dim\Ext^{3}$ and $\dim\Ext^{4}$ with opposite signs
-and constrains even less.
-
 \begin{remark}[What is missing at $n=2$]\label{rem:quarticgap}
 The Weil classes of an $(F,2,\delta)$-family are known to be algebraic at the
 CM points, on $\mathrm{NL}(R_{F})$, and, for biquadratic $F$, on the
@@ -1033,5 +969,243 @@ is flat. Even $\mathbf{W}(F,2,\delta)$ for every quartic $F$ and every
 $\delta$ would be only the first case of the conclusion of
 $\mathrm{P2}_{\mathrm{split}}$, which concerns every field of degree at least
 four in infinitely many dimensions, and it would leave (F2) and (F3$'$) of
-\Cref{cor:fourremain} untouched.
+\Cref{cor:fourremain} untouched. Whether \Cref{thm:quarticobstruction} itself
+extends to the next degree is settled in \Cref{ssec:sextic}: it does not.
+\end{remark}
+
+\subsection{Degree six: the count does not extend}\label{ssec:sextic}
+
+Whether \Cref{thm:quarticobstruction} extends to CM fields of degree six is
+the one computation the quartic case leaves open, and the answer is no, for a
+reason of parity. Let $F=F_{0}(\sqrt{-q})$ be a sextic CM field with totally
+real cubic subfield $F_{0}$, real places $\tau_{1},\tau_{2},\tau_{3}$ and $q\in
+F_{0}$ totally positive, and let $X$ be a principally polarised abelian sixfold
+with real multiplication by $\cO_{F_{0}}$, so that
+$H^{1}(X,\CC)=U_{1}\oplus U_{2}\oplus U_{3}$ with $U_{j}$ the eigenspace of
+$\tau_{j}$, of dimension four and Hodge type $(2,2)$. Let
+$\theta_{j}\in H^{1,1}(X)$ be the component of the polarisation on $U_{j}$, so
+that $\theta=\sum_{j}\theta_{j}$, $\theta_{j}^{3}=0$ and
+$\int_{X}\theta_{1}^{2}\theta_{2}^{2}\theta_{3}^{2}=8$. For $t\in F_{0}$ and
+$\varepsilon\in\{\pm1\}^{3}$ put $s_{j}=\sqrt{-1}\,\sqrt{\tau_{j}(q)}$ and
+$e_{\varepsilon}=\exp\bigl(\sum_{j}(\tau_{j}(t)+\varepsilon_{j}s_{j})\theta_{j}\bigr)$,
+and let $S(t,q)$ be the span of the eight $e_{\varepsilon}$. As in
+\Cref{prop:quarticsecant}(i) it is a rational subspace of dimension
+$8=2^{[F_{0}:\QQ]}$ of the algebra generated by the $\theta_{j}$, the Galois
+group permuting the $e_{\varepsilon}$ as it permutes the CM types of $F$, and
+it is the secant space of Markman's construction for $F$ on
+$X\times\widehat{X}$ \cite{Mar25c}. A real class
+$v=\sum_{\varepsilon}w_{\varepsilon}e_{\varepsilon}$ has
+$w_{-\varepsilon}=\bbar{w}_{\varepsilon}$. Write $N_{w}$ for the number of
+nonzero $w_{\varepsilon}$; $A_{jj'}$ for the number of sign pairs
+$(\sigma,\sigma')$ such that $w_{\varepsilon}\ne0$ for some $\varepsilon$ with
+$\varepsilon_{j}=\sigma$ and $\varepsilon_{j'}=\sigma'$; $\rho_{j}$ for the rank
+of the $2\times4$ matrix $(w_{\varepsilon})$ whose rows are indexed by
+$\varepsilon_{j}$ and whose columns by the two other signs; and, for
+$\{j,j',j''\}=\{1,2,3\}$ and $\sigma'=\pm1$, $M^{(j;j')}_{\sigma'}$ for the
+$2\times2$ matrix $(w_{\varepsilon})_{\varepsilon_{j},\varepsilon_{j''}}$ with
+$\varepsilon_{j'}=\sigma'$ fixed. Let $r^{k}(v)$ be the rank of the contraction
+$HT^{k}(X)\to H^{*}(X,\CC)$, $\xi\mapsto\xi\lrcorner\,v$.
+
+\begin{proposition}[The count in degree six]\label{prop:sexticcount}
+Let $v\in S(t,q)$ be a nonzero real class.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item $r^{1}(v)=12$,
+  \[
+    r^{2}(v)=4\,(A_{12}+A_{13}+A_{23})+\rho_{1}+\rho_{2}+\rho_{3},
+    \qquad
+    r^{3}(v)=8N_{w}+2\sum_{j\ne j'}\bigl(\rk M^{(j;j')}_{+}+\rk M^{(j;j')}_{-}\bigr).
+  \]
+  So $r^{2}(v)\le54$ and $r^{3}(v)\le112$, with equality when every
+  $w_{\varepsilon}$ is nonzero and every $M^{(j;j')}_{\sigma'}$ is invertible,
+  which holds outside a proper Zariski closed subset of $S(t,q)$. When $F$
+  contains an imaginary quadratic field $K$ and $v$ lies in the secant plane
+  of $K$, so that $N_{w}=2$, one has $(r^{2},r^{3})=(30,40)$.
+\item $\chi(v,v)=\int_{X}v^{\vee}v=-64\,\Nm_{F_{0}/\QQ}(q)\sum_{\varepsilon}
+  |w_{\varepsilon}|^{2}<0$. For a CM field of degree $2m$, with $X$ of dimension
+  $2m$ and $2^{m}$ exponentials, the same computation gives
+  $(-4)^{m}\Nm(q)\sum_{\varepsilon}|w_{\varepsilon}|^{2}$: the Euler form on
+  the secant space is definite, of sign $(-1)^{m}$.
+\item Let $F_{1},F_{2}$ be perfect complexes on $X$ with
+  $\Ext^{<0}(F_{i},F_{i})=0$ and characters $v_{i}$ in spaces
+  $S(t_{i},q_{i})$, let $A=X\times\widehat{X}$ carry the action of $F$ of
+  \cite{Mar25c} for a rational $F_{0}$-$B$-field, and put
+  $E=\Phi(F_{1}\boxtimes F_{2}^{\vee})$ and $\kappa=\ch(E)e^{\ell/2}$. Then
+  $r(\kappa)=r(\ch E)=r^{2}(v_{1})+144+r^{2}(v_{2})\le252$, while every class
+  that stays of Hodge type over $\cD_{F}$ has rank at most
+  $\dim HT^{2}(A)-\dim\cD_{F}=276-12=264$. Moreover
+  $\dim\Ext^{2}(E,E)\ge r(\kappa)$, with equality if and only if each $F_{i}$
+  has
+  \[
+    \dim\Ext^{k}(F_{i},F_{i})=1,\ 12,\ r^{2}(v_{i}),\ e_{3},\ r^{2}(v_{i}),\ 12,\ 1
+    \quad(k=0,\dots,6),
+  \]
+  where $e_{3}=2r^{2}(v_{i})-22-\chi(v_{i},v_{i})$,
+  and this profile is compatible with the bound $e_{3}\ge r^{3}(v_{i})$ exactly
+  when $\chi(F_{i},F_{i})\le-(r^{3}(v_{i})-2r^{2}(v_{i})+22)$, that is
+  $\chi(F_{i},F_{i})\le-26$ for $v_{i}$ general in its secant space, and
+  $\chi(F_{i},F_{i})\le-2$ when $N_{w}=2$.
+\item If $t_{1}=t_{2}=0$ and $q_{1}=q_{2}=q$, then $\kappa$ is invariant
+  under $G_{F}$, and so is a Hodge class on every member of the
+  $(F,2,1)$-family.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) Choose a basis $x_{j1},x_{j2}$ of $U_{j}^{1,0}$ and $y_{j1},y_{j2}$ of
+$U_{j}^{0,1}$ with $\theta_{j}=x_{j1}y_{j1}+x_{j2}y_{j2}$, and let
+$\omega_{j}=y_{j1}y_{j2}$ span $\bigwedge^{2}U_{j}^{0,1}$. Then
+$H^{*}(X,\CC)$ and $HT^{*}(X)=\bigwedge^{*}(H^{0,1}\oplus T)$ are the tensor
+products over $j$ of the corresponding algebras of the three factors,
+$HT^{k}(X)=\bigoplus_{a_{1}+a_{2}+a_{3}=k}HT^{a_{1}}_{1}\otimes HT^{a_{2}}_{2}
+\otimes HT^{a_{3}}_{3}$, and contraction is compatible with the factorisation;
+$v=\sum_{\varepsilon}w_{\varepsilon}\bigotimes_{j}e^{\lambda_{j}(\varepsilon_{j})\theta_{j}}$
+with $\lambda_{j}(\pm1)=\tau_{j}(t)\pm s_{j}$, two distinct numbers. The blocks
+of $HT^{k}(X)$ shift the three Hodge bidegrees of $H^{*}(X)$ by different
+amounts, so their images are independent and $r^{k}(v)$ is the sum of their
+ranks. Inside a block the bookkeeping rests on two facts about one factor:
+the two classes $e^{\lambda_{j}(\pm1)\theta_{j}}$ are linearly independent,
+and so are the subspaces $U_{j}^{0,1}e^{\lambda_{j}(\pm1)\theta_{j}}$ of
+$H^{*}(U_{j})$, since $u\,e^{\lambda\theta_{j}}=u+\lambda\,u\theta_{j}$ for
+$u\in U_{j}^{0,1}$; whereas $\omega_{j}e^{\lambda\theta_{j}}=\omega_{j}$ for
+every $\lambda$, so that the summands of a block through $HT^{2}_{j}$ share the
+factor $\omega_{j}$ and are combined, not juxtaposed. On one factor,
+contraction into $e^{\lambda\theta_{j}}$ is as follows. For $\xi\in HT^{1}_{j}$,
+$\xi\lrcorner\,e^{\lambda\theta_{j}}=y^{\lambda}(\xi)\,e^{\lambda\theta_{j}}$ with
+$y^{\lambda}(\xi)=\xi^{0,1}+\lambda\,\xi_{T}\lrcorner\,\theta_{j}\in
+U_{j}^{0,1}$, as in \Cref{lem:bfield}(i); $y^{\lambda}$ is onto, its kernel
+$K^{\lambda}_{j}$ has dimension two, and
+$HT^{1}_{j}=K^{\lambda_{j}(+1)}_{j}\oplus K^{\lambda_{j}(-1)}_{j}$ because
+$\lambda_{j}(+1)\ne\lambda_{j}(-1)$ and $\xi_{T}\lrcorner\,\theta_{j}$
+determines $\xi_{T}$. For $\xi\in HT^{2}_{j}$, since $\omega_{j}\theta_{j}=0$,
+one finds $\omega_{j}\lrcorner\,e^{\lambda\theta_{j}}=\omega_{j}$,
+$(y_{ja}\otimes\partial_{x_{jb}})\lrcorner\,e^{\lambda\theta_{j}}=\pm\lambda\,
+\omega_{j}$ for $a\ne b$ and $0$ for $a=b$, and
+$(\partial_{x_{j1}}\wedge\partial_{x_{j2}})\lrcorner\,e^{\lambda\theta_{j}}
+=\pm\lambda^{2}\omega_{j}$: the image of $HT^{2}_{j}$ is the line
+$\CC\omega_{j}$, $\xi\lrcorner\,e^{\lambda\theta_{j}}=c(\xi,\lambda)\,\omega_{j}$,
+and the pairs $\bigl(c(\xi,\lambda_{j}(+1)),c(\xi,\lambda_{j}(-1))\bigr)$ fill
+$\CC^{2}$. For $k\ge3$, $HT^{k}_{j}$ kills $e^{\lambda\theta_{j}}$, because
+every element of it contains $\omega_{j}$ or $\partial_{x_{j1}}\wedge
+\partial_{x_{j2}}$ together with a further factor, and the further factor
+kills $\omega_{j}$. Item (LVI) of \Cref{sec:verification} checks these
+statements.
+
+Now count. The block $HT^{1}_{j}$ acts on $v$ by
+$\xi\mapsto\sum_{\varepsilon}w_{\varepsilon}\,y^{\lambda_{j}(\varepsilon_{j})}(\xi)
+\bigotimes_{j'}e^{\lambda_{j'}(\varepsilon_{j'})\theta_{j'}}$; on the summand
+$K^{\lambda_{j}(-\sigma)}_{j}$ only the $\varepsilon$ with
+$\varepsilon_{j}=\sigma$ contribute, and they map it isomorphically onto
+$U_{j}^{0,1}$ tensored with a nonzero class as soon as one such
+$w_{\varepsilon}$ is nonzero. Both signs occur in the support of a nonzero real
+$w$, since $w_{-\varepsilon}=\bbar{w}_{\varepsilon}$, so the block has rank $4$
+and $r^{1}(v)=12$. The block $HT^{1}_{j}\otimes HT^{1}_{j'}$ is the sum of the
+four summands $K^{\lambda_{j}(-\sigma)}_{j}\otimes K^{\lambda_{j'}(-\sigma')}_{j'}$,
+each of dimension four; the summand indexed by $(\sigma,\sigma')$ maps
+isomorphically onto $U_{j}^{0,1}\otimes U_{j'}^{0,1}$ tensored with the class
+$\sum_{\sigma''}w_{\varepsilon}e^{\lambda_{j''}(\sigma'')\theta_{j''}}$, which
+is nonzero exactly when the pair $(\sigma,\sigma')$ occurs in the support, and
+to zero otherwise; so the block has rank $4A_{jj'}$. The block $HT^{2}_{j}$
+maps $\xi$ to $\sum_{\sigma}c(\xi,\lambda_{j}(\sigma))\,z_{\sigma}$ with
+$z_{\sigma}=\omega_{j}\otimes\sum_{\mu}w_{\sigma\mu}e_{\mu}$, where $\mu$ runs
+over the four sign patterns of the other two places and the $e_{\mu}$ are
+independent; as $(c(\xi,\lambda_{j}(+1)),c(\xi,\lambda_{j}(-1)))$ fills
+$\CC^{2}$, the rank is the dimension of the span of $z_{+},z_{-}$, which is
+$\rho_{j}$. This gives $r^{2}(v)$. In degree three the block
+$HT^{1}_{1}\otimes HT^{1}_{2}\otimes HT^{1}_{3}$ is the sum of eight summands
+$\bigotimes_{j}K^{\lambda_{j}(-\varepsilon_{j})}_{j}$, of dimension eight, on
+each of which exactly one term of $v$ acts, isomorphically when
+$w_{\varepsilon}\ne0$ and by zero otherwise: rank $8N_{w}$. The block
+$HT^{2}_{j}\otimes HT^{1}_{j'}$ factors through $\CC^{2}\otimes HT^{1}_{j'}$
+by $c\otimes\mathrm{id}$, which is onto, and on
+$\CC^{2}\otimes K^{\lambda_{j'}(-\sigma')}_{j'}$ the map is
+$M^{(j;j')}_{\sigma'}\otimes y^{\lambda_{j'}(\sigma')}$ followed by tensoring
+with independent classes, of rank $2\rk M^{(j;j')}_{\sigma'}$; the two values
+of $\sigma'$ give independent images. The blocks $HT^{3}_{j}$ contribute
+nothing. This gives $r^{3}(v)$. The maximal values are $48+6=54$ and
+$64+6\cdot8=112$; the conditions for them are the nonvanishing of the
+$w_{\varepsilon}$ and of the determinants of the $M^{(j;j')}_{\sigma'}$, which
+are polynomials in the coordinates of $v$, nonzero on $S(t,q)$. If $F\supseteq K$
+and $v$ lies in the secant plane of $K$, the support of $w$ is a pair
+$\{\varepsilon_{0},-\varepsilon_{0}\}$, the two CM types of $F$ induced from
+$K$; then $A_{jj'}=2$, $\rho_{j}=2$, $N_{w}=2$ and every
+$M^{(j;j')}_{\sigma'}$ has one nonzero entry, so $(r^{2},r^{3})=(24+6,16+24)$.
+Item (LVI) computes the three ranks exactly over $\QQ(\sqrt{-1})$ for $q=1$
+and four coefficient patterns, and modulo a prime, which bounds a rank
+below, for three cubic fields with $q$ irrational and $t$ a generator of
+$F_{0}$; in every case the ranks equal the values of the formulas.
+
+(ii) Since $\theta_{j}^{3}=0$, $\theta^{2m}=\frac{(2m)!}{2^{m}}\theta_{1}^{2}
+\cdots\theta_{m}^{2}$, and $\int_{X}\theta^{2m}/(2m)!=1$ gives
+$\int_{X}\theta_{1}^{2}\cdots\theta_{m}^{2}=2^{m}$ and
+$\int_{X}\exp(\sum_{j}c_{j}\theta_{j})=\prod_{j}c_{j}^{2}$. The dual of
+$e^{\lambda\theta_{j}}$ is $e^{-\lambda\theta_{j}}$, so
+$\int_{X}e_{\varepsilon}^{\vee}e_{\varepsilon'}=\prod_{j}\bigl(\lambda_{j}(\varepsilon'_{j})
+-\lambda_{j}(\varepsilon_{j})\bigr)^{2}$, which is $0$ unless
+$\varepsilon'=-\varepsilon$, where it is $\prod_{j}(2s_{j})^{2}=(-4)^{m}\Nm(q)$.
+Hence $\chi(v,v)=(-4)^{m}\Nm(q)\sum_{\varepsilon}w_{\varepsilon}w_{-\varepsilon}
+=(-4)^{m}\Nm(q)\sum_{\varepsilon}|w_{\varepsilon}|^{2}$. Item (LVI) checks the
+identity exactly for $m=2$ and $m=3$.
+
+(iii) As in the proof of \Cref{thm:quarticobstruction}(i), $r(\kappa)=r(\ch E)$
+by \Cref{lem:bfield}(i), and $\Phi$ identifies $r(\ch E)$ with the rank of
+contraction from $HT^{2}(X\times X)=\bigoplus_{a+b=2}HT^{a}(X)\otimes HT^{b}(X)$
+into $v_{1}\boxtimes v_{2}$; the block $HT^{1}\otimes HT^{1}$ contributes
+$r^{1}(v_{1})r^{1}(v_{2})=144$ and the other two contribute
+$r^{2}(v_{1})+r^{2}(v_{2})$, by the type argument given there. The tangent
+space $T_{[A]}\cD_{F}\subseteq H^{1}(T_{A})$, of dimension $mn^{2}=12$, kills
+every class that stays of Hodge type along $\cD_{F}$, as in
+\Cref{prop:p2primelocus}(i), and $\dim HT^{2}(A)=66+144+66$. By the K\"unneth
+formula, with $\Ext^{<0}=0$,
+$\dim\Ext^{2}(E,E)=e_{0}e_{2}'+e_{1}e_{1}'+e_{2}e_{0}'$ where
+$e_{k}=\dim\Ext^{k}(F_{1},F_{1})$ and $e_{k}'=\dim\Ext^{k}(F_{2},F_{2})$; the
+commutative square $\sigma\circ\operatorname{ev}=(\,\cdot\,)\lrcorner\ch$ of
+\Cref{setup:criterion}, valid in every degree, gives $e_{k}\ge r^{k}(v_{1})$
+and $e_{k}'\ge r^{k}(v_{2})$, and $e_{0},e_{0}'\ge1$. So
+$\dim\Ext^{2}(E,E)\ge r^{2}(v_{2})+144+r^{2}(v_{1})$, with equality if and
+only if $e_{0}=e_{0}'=1$, $e_{1}=e_{1}'=12$, $e_{2}=r^{2}(v_{1})$ and
+$e_{2}'=r^{2}(v_{2})$. Serre duality on the sixfold gives $e_{k}=e_{6-k}$, so
+$\chi(F_{i},F_{i})=2(e_{0}-e_{1}+e_{2})-e_{3}=2r^{2}(v_{i})-22-e_{3}$, and by
+Riemann--Roch on an abelian variety $\chi(F_{i},F_{i})=\chi(v_{i},v_{i})$,
+which is (ii); this determines $e_{3}$, and $e_{3}\ge r^{3}(v_{i})$ is the
+stated inequality. With the maximal ranks it reads
+$\chi\le-(112-108+22)=-26$, and with $N_{w}=2$ it reads
+$\chi\le-(40-60+22)=-2$.
+
+(iv) The proof of \Cref{thm:quarticobstruction}(iii) applies with three
+factors in place of two: for $t=0$ the classes $e_{\varepsilon}\boxtimes
+e_{\varepsilon'}^{\vee}$, the correspondence $Z\mapsto\ch(\Phi(Z))e^{\ell/2}$
+and the Poincar\'e class decompose as tensor products over $j$ of classes of
+even degree, on each factor $\sqrt{-q}$ acts as in the imaginary quadratic
+construction with $d$ replaced by $\tau_{j}(q)$, and the identities of
+\Cref{prop:flatall} at $n=2$ show that each image is a multiple of an
+exponential of $\eta_{j}$ or of a Weil class of the $j$-th factor, invariant
+under the special unitary group of that factor; $G_{F}(\RR)$ is the product of
+the three, and is Zariski dense in $G_{F}$.
+\end{proof}
+
+\begin{remark}[Why the obstruction is a phenomenon of degree four]
+\label{rem:sexticparity}
+In \Cref{thm:quarticobstruction} the equality $\dim\Ext^{2}(E,E)=r(\kappa)$
+determines the whole Ext profile of each factor, because on a fourfold
+$\Ext^{2}$ is the middle degree and Serre duality supplies the rest; the Euler
+characteristic of a minimal factor is then the small positive integer
+$r^{2}-14$, the Euler form on the secant space being positive definite, and
+the arithmetic of \Cref{prop:quarticother} excludes it. On a sixfold the same
+equality fixes $\Ext^{0}$, $\Ext^{1}$ and $\Ext^{2}$ and leaves the middle
+group $\Ext^{3}$ free, and the Euler form has changed sign:
+$\chi(F_{i},F_{i})=-64\Nm(q)\sum|w_{\varepsilon}|^{2}$ is a negative integer
+that $e_{3}$ absorbs. So no dimension count excludes a minimal Orlov product
+over a sextic field, and none does over any CM field of degree $2m\ge6$,
+where $\Ext^{3},\dots,\Ext^{m}$ are free and the Euler form has sign
+$(-1)^{m}$. What \Cref{prop:sexticcount}(iii) leaves for such an object is the
+profile displayed there, with $\chi(F_{i},F_{i})\le-26$ for a general secant
+character, and the flat twisted character of (iv), which stays of Hodge type
+over the whole twelve-dimensional period domain. Whether a sheaf with that
+profile exists on a sixfold with real multiplication by a cubic field is not
+known; nothing in \Cref{thm:quarticobstruction} bears on it, and a
+certificate of the kind of \Cref{thm:twistedcert} for a sextic field would
+be exactly such a sheaf, with $\dim\Ext^{2}(E,E)=r(\kappa)\le252$ on the
+twelvefold. The Orlov products never reach the rank $264$ of a class of
+general shape, in degree six as in degree four, where the values are
+$r(\kappa)\le104$ against $112$.
 \end{remark}

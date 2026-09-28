@@ -69,9 +69,12 @@ B-field is trivial, proved by factorisation over the real places and checked
 for seven real quadratic fields (`a1_flat_general.py`, `a1_rkappa_general.py`);
 round 16 showed that the count is special to quartic fields: for sextic CM
 fields the secant profile is palindromic, chi is negative definite and a
-minimal object is not excluded (`prop:sexticroom`,
-`code/attack/gaps/sextic/s1_profile.py`, Lean Section 35, ninety-three
-theorems).
+minimal object is not excluded (`code/attack/gaps/sextic/s1_profile.py`,
+Lean Section 35, ninety-three theorems); round 17 replaced that proposition by
+the subsection `ssec:sextic` of `tex/sections/10d2_quartic.tex`
+(`prop:sexticcount`, with closed formulas for r^2 and r^3, the bound
+r(kappa) <= 252 < 264 and flatness, and `rem:sexticparity`), with item (LVI),
+`code/sextic_count.py`.
 
 Release v1.0.0 (tag `v1.0.0`, commit `ef15bce`) is archived on Zenodo under
 DOI 10.5281/zenodo.22950276, recorded in the macro `\zenodoDOI` at the top of

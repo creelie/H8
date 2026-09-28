@@ -153,6 +153,11 @@ Contents
          fourfold, the explicit objects at a split member, and the natural
          objects at n = 4, each track with its verifier's re-implementation
          [attack_checks.py, running scripts in attack/]
+  (LVI)  the dimension count for Orlov products over a sextic CM field:
+         the contraction ranks r^1, r^2, r^3 into a secant class in closed
+         form, the Euler form (-4)^m Nm(q) sum |w|^2, and the profile of a
+         minimal object; the obstruction of degree four does not extend
+         [sextic_count.py]
 """
 
 import os
@@ -556,6 +561,9 @@ def main():
     head("(LV) the round-12 attack scripts: a fast subset of their "
          "computations")
     run_module("LV", "attack_checks.py")
+
+    head("(LVI) the dimension count for Orlov products over a sextic CM field")
+    run_module("LVI", "sextic_count.py")
 
     print()
     print("=" * 70)
