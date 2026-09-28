@@ -82,7 +82,9 @@ What is checked:
   (f) F = F_0(sqrt(-q)) contains an imaginary quadratic field exactly in 20
       of the 48 cases: q = 1 (Q(sqrt(-1))), q = 2+a over Q(zeta_7)^+ and
       Q(zeta_9)^+ (Q(sqrt(-1))), q = 2+a over the field of discriminant 321
-      and q = 4+a over that of discriminant 1509 (Q(sqrt(-3))).
+      and q = 4+a over that of discriminant 1509 (Q(sqrt(-3))); in these
+      two cases the lattice minimum of -chi is 288 and 4608, attained with
+      Omega = 0, and the least -chi with Omega != 0 is 728 and 6504.
 
 Everything is exact (rational arithmetic, Q(sqrt(-1)), Q(alpha), and
 arithmetic modulo primes in (c) and in the shapes of (e), where ranks modulo
@@ -571,7 +573,7 @@ def part_e(scan):
 
 
 # ------------------------------------------------------------------ (f)
-def part_f():
+def part_f(scan):
     got = {}
     for name, poly in W.cubic_fields():
         qs, k = W.q_values(poly)
@@ -585,12 +587,18 @@ def part_f():
     want[("disc 321", (2, 1, 0))] = 3
     want[("disc 1509", (4, 1, 0))] = 3
     ks = {name: W.q_values(poly)[1] for name, poly in W.cubic_fields()}
+    minima = [(8 * scan[key][3], 8 * scan[key][0])
+              for key in (("disc 321", (2, 1, 0)), ("disc 1509", (4, 1, 0)))]
     check("F_0(sqrt(-q)) contains an imaginary quadratic field in exactly 20 "
           "of the 48 cases: q = 1 (Q(sqrt(-1))), q = 2+a over Q(zeta_7)^+ and "
           "Q(zeta_9)^+ (Q(sqrt(-1))), q = 2+a = k+a over discriminant 321 and "
-          "q = 4+a = k+1+a over discriminant 1509 (Q(sqrt(-3)))",
-          got == want and ks["disc 321"] == 2 and ks["disc 1509"] == 3,
-          "%d cases" % len(got))
+          "q = 4+a = k+1+a over discriminant 1509 (Q(sqrt(-3))); in the last "
+          "two the lattice minimum of -chi is 288 and 4608, attained with "
+          "Omega = 0, and the least -chi with Omega != 0 is 728 and 6504",
+          got == want and ks["disc 321"] == 2 and ks["disc 1509"] == 3
+          and minima == [(288, 728), (4608, 6504)],
+          "%d cases; (minimum, least with Omega != 0) = %s" % (len(got),
+                                                              minima))
 
 
 if __name__ == "__main__":
@@ -601,7 +609,7 @@ if __name__ == "__main__":
     scan = run_scan()
     part_d(scan)
     part_e(scan)
-    part_f()
+    part_f(scan)
     print()
     print("  %d checks passed, %d failed" % (len(PASS), len(FAIL)))
     raise SystemExit(0 if not FAIL else 1)

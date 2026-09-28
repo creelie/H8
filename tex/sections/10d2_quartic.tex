@@ -1202,10 +1202,12 @@ profile displayed there, with $\chi(F_{i},F_{i})\le-26$ for a general secant
 character, and the flat twisted character of (iv), which stays of Hodge type
 over the whole twelve-dimensional period domain. Whether a sheaf with that
 profile exists on a sixfold with real multiplication by a cubic field is not
-known; nothing in \Cref{thm:quarticobstruction} bears on it, and a
-certificate of the kind of \Cref{thm:twistedcert} for a sextic field would
-be exactly such a sheaf, with $\dim\Ext^{2}(E,E)=r(\kappa)\le252$ on the
-twelvefold. The Orlov products never reach the rank $264$ of a class of
+known; nothing in \Cref{thm:quarticobstruction} bears on it. A certificate
+of the kind of \Cref{thm:twistedcert} for a sextic field would be an Orlov
+product of such sheaves, with $\dim\Ext^{2}(E,E)=r(\kappa)\le252$ on the
+twelvefold, whose twisted character has a nonzero component in the Weil
+classes $W_{F}(A)$; flatness does not give that component, and
+\Cref{lem:sexticweil} computes it. The Orlov products never reach the rank $264$ of a class of
 general shape, in degree six as in degree four, where the values are
 $r(\kappa)\le104$ against $112$.
 \end{remark}
@@ -1337,6 +1339,9 @@ $\int_{X}v^{\vee}v$ directly, is integral, and a Fincke--Pohst enumeration
 finds no vector of norm at most $3$; for $q=1$ it finds exactly four of norm
 $4$, which are the four classes of (iv). Since $-\chi$ is then a positive
 multiple of $8$ that is at least $32$, and $26<32$, (ii) gives the condition.
+For $\QQ(\zeta_{7})^{+}$ and $\QQ(\zeta_{9})^{+}$ one has $k=2$, and $2+\alpha$
+is the square of a unit (\Cref{prop:sexticweilmin}(i)), so both values of $q$
+give the same CM field $F_{0}(\sqrt{-1})$, with different secant spaces.
 \end{proof}
 
 \begin{remark}[What the lattice test leaves]\label{rem:sexticnoexclusion}
@@ -1349,16 +1354,272 @@ fields every integral point of $S(0,q)$ is the character of a numerically
 admissible minimal factor, with profile
 $(1,12,r^{2},2r^{2}-22-\chi,r^{2},12,1)$, and the Orlov product of two such
 factors would satisfy $\dim\Ext^{2}(E,E)=r(\kappa)$ on the twelvefold with a
-flat twisted character. The smallest candidates for $q=1$ are the real and
-imaginary parts of $e^{\sqrt{-1}\,\theta}$, of shape $N_{w}=2$ and profile
-$(1,12,30,70,30,12,1)$. Nothing here produces a sheaf with such a profile:
-those two classes are polynomials in $\theta$, so they lie in the rational
-span of the characters $e^{k\theta}$, $0\le k\le6$, of the powers of the
-principal polarisation, but a character does not determine the Ext groups,
-and whether some complex with character $\operatorname{Re}e^{\sqrt{-1}\,
-\theta}$ is minimal is not known. The computation covers sixteen fields and
-two values of $q$ each; we have not proved the bound $\chi\le-32$ for every
-cubic field. $\mathrm{P2}_{\mathrm{split}}$ remains open, in degree six as in
+flat twisted character. Numerical admissibility is not enough, because a
+flat twisted character need not have a component in $W_{F}(A)$. The classes
+that attain $\chi=-32$ for $q=1$, the real and imaginary parts of
+$e^{\sqrt{-1}\,\theta}$, of shape $N_{w}=2$ and profile
+$(1,12,30,70,30,12,1)$, are not candidates for $\mathrm{P2}_{\mathrm{split}}$:
+they span the secant plane of the subfield $\QQ(\sqrt{-1})$ of $F$, and the
+Orlov products of complexes with characters in their span have twisted
+characters with no component in $W_{F}(A)$ (\Cref{lem:sexticweil}(iii)).
+The least $-\chi$ of an integral flat character whose Orlov square has such
+a component is $192$ over the lattices computed here
+(\Cref{prop:sexticweilmin}), and the targets that remain are described in
+\Cref{rem:sextictargets}. The computations cover sixteen fields, with two
+values of $q$ in \Cref{prop:sexticintegral} and three in
+\Cref{prop:sexticweilmin}; we have not proved the bound $\chi\le-32$ for
+every cubic field. $\mathrm{P2}_{\mathrm{split}}$ remains open, in degree six as in
 degree four; what changes is that no numerical invariant considered in this
 paper stands in the way of a certificate over a sextic field.
 \end{remark}
+
+The flatness of \Cref{prop:sexticcount}(iv) makes $\kappa$ a Hodge class on
+every member of the family, but in degree four the Hodge classes of a very
+general member are the products of divisor classes and the Weil classes
+$W_{F}(A)$ (\Cref{prop:cmweil}(iii)), and only a nonzero component of
+$\kappa$ in $W_{F}(A)$ bears on $\mathbf{W}(F,2,1)$. We compute that
+component. Keep the notation of \Cref{prop:sexticcount}, with $t_{1}=t_{2}=0$,
+$q_{1}=q_{2}=q$ and trivial $B$-field, put $d_{j}=\tau_{j}(q)$, and let
+$\Psi(Z)=\ch(\Phi(Z))e^{\ell/2}$ as in \Cref{prop:flatall}, so that
+$\kappa(v_{1},v_{2})=\Psi(v_{1}\boxtimes v_{2}^{\vee})$ for the characters
+$v_{i}$ of $F_{i}$. As in the proof of \Cref{prop:sexticcount}(iv),
+$H^{1}(A,\CC)$ is the sum of three factors $U_{j}\oplus U_{j}^{\vee}$, on each
+of which $\sqrt{-q}$ acts as in the imaginary quadratic construction with
+$\beta=\theta_{j}$ and $d=d_{j}$. On the $j$-th factor write
+$\widehat\theta_{j}$ and $\ell_{j}$ for the components of the dual
+polarisation and of the Poincar\'e class, and put
+$\gamma_{j}=d_{j}\theta_{j}-\widehat\theta_{j}$, as in \eqref{eq:gammadef},
+and $\eta_{j}=d_{j}\theta_{j}+\widehat\theta_{j}$, a positive multiple of the
+polarisation of the factor for which $\sqrt{-q}$ is anti-self-adjoint
+(\Cref{prop:splitgeom}(i)). For $\sigma=\pm1$ let $\tau_{j,\sigma}$ be the
+embedding of $F$ over $\tau_{j}$ with
+$\tau_{j,\sigma}(\sqrt{-q})=\sigma\sqrt{-1}\,\sqrt{\tau_{j}(q)}=\sigma s_{j}$,
+and $V_{j,\sigma}\subset H^{1}(A,\CC)$ its eigenspace, of dimension four. By
+\Cref{thm:splitclosed}(ii) with $n=2$ and $d=d_{j}$, the line
+$\bigwedge^{4}V_{j,\sigma}$ is spanned by
+\begin{equation}\label{eq:sexticomega}
+  \omega_{j,\sigma}=-\frac{1}{2d_{j}^{2}}\bigl(\gamma_{j}-\sigma s_{j}\ell_{j}\bigr)^{2},
+\end{equation}
+so the six classes $\omega_{j,\sigma}$ span $W_{F}(A)\otimes\CC$. Since
+$\eta_{j}$ pairs $V_{j,+}$ with $V_{j,-}$, the products $\eta_{i}\eta_{k}$ lie
+in summands of $H^{4}(A,\CC)=\bigwedge^{4}\bigl(\bigoplus_{j,\sigma}
+V_{j,\sigma}\bigr)$ other than the six lines $\bigwedge^{4}V_{j,\sigma}$. Let
+$\kappa_{j,\sigma}(v_{1},v_{2})$ be the coefficient of $\omega_{j,\sigma}$ in
+the component of $\kappa(v_{1},v_{2})$ in $\bigwedge^{4}V_{j,\sigma}$; the
+\emph{$F$-Weil part} of $\kappa$ is
+$\sum_{j,\sigma}\kappa_{j,\sigma}\,\omega_{j,\sigma}$, its component in
+$W_{F}(A)\otimes\CC$. For $\varepsilon\in\{\pm1\}^{3}$ let
+$\varepsilon^{(j)}$ be the sign vector that agrees with $\varepsilon$ at $j$
+and only there.
+
+\begin{lemma}[The $F$-Weil part of an Orlov product]\label{lem:sexticweil}
+Let $v_{i}=\sum_{\varepsilon}w^{i}_{\varepsilon}e_{\varepsilon}\in S(0,q)$ for
+$i=1,2$.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item The degree-four part of $\kappa(v_{1},v_{2})$ is a quadratic form in the
+  $\eta_{j}$ plus $\sum_{j,\sigma}\kappa_{j,\sigma}\,\omega_{j,\sigma}$, with
+  \[
+    \kappa_{j,\sigma}(v_{1},v_{2})=-16\Nm(q)\,\tau_{j}(q)
+    \sum_{\varepsilon_{j}=\sigma}w^{1}_{\varepsilon}\,w^{2}_{\varepsilon^{(j)}}.
+  \]
+\item Let $v=v(c_{0},f,g,c_{3})$ be rational, and for $\{j,k,l\}=\{1,2,3\}$
+  write $f_{j}=\tau_{j}(f)$, $g_{j}=\tau_{j}(g)$ and $q_{j}=\tau_{j}(q)$. The
+  numbers
+  \begin{align*}
+    R_{j}&=c_{0}^{2}+\frac{f_{k}^{2}}{q_{k}}+\frac{f_{l}^{2}}{q_{l}}
+      +\frac{g_{j}^{2}}{q_{k}q_{l}}-\frac{1}{q_{j}}\Bigl(f_{j}^{2}
+      +\frac{g_{l}^{2}}{q_{k}}+\frac{g_{k}^{2}}{q_{l}}
+      +\frac{c_{3}^{2}}{q_{k}q_{l}}\Bigr),\\
+    I_{j}&=c_{0}f_{j}+\frac{f_{k}g_{l}}{q_{k}}+\frac{f_{l}g_{k}}{q_{l}}
+      +\frac{c_{3}g_{j}}{q_{k}q_{l}}
+  \end{align*}
+  are $\tau_{j}(R)$ and $\tau_{j}(I)$ for elements $R,I\in F_{0}$. Put
+  $\Omega(v)=R+2I/\sqrt{-q}\in F$. Then
+  \[
+    \kappa_{j,\sigma}(v,v)=-\Nm(q)\,\tau_{j}(q)\,\tau_{j,\sigma}\bigl(\Omega(v)\bigr).
+  \]
+  So the $F$-Weil part of $\kappa(v,v)$ is zero if $R=I=0$, and otherwise
+  all six $\kappa_{j,\sigma}(v,v)$ are nonzero.
+\item If $v_{1}$ and $v_{2}$ are supported on one pair
+  $\{\varepsilon_{0},-\varepsilon_{0}\}$, the $F$-Weil part of
+  $\kappa(v_{1},v_{2})$ is zero. For $q=1$, $F$ contains
+  $K=\QQ(\sqrt{-1})$, the classes $\operatorname{Re}e^{\sqrt{-1}\,\theta}$ and
+  $\operatorname{Im}e^{\sqrt{-1}\,\theta}$ span the plane $P_{\theta}$ of
+  \Cref{def:secantplane} with $d=1$, and for
+  $v_{i}=a_{i}\operatorname{Re}e^{\sqrt{-1}\,\theta}
+  +b_{i}\operatorname{Im}e^{\sqrt{-1}\,\theta}$ with $a_{i},b_{i}\in\QQ$ the
+  class $\kappa(v_{1},v_{2})$ lies in $\QQ[\eta]\oplus W_{K}(A)$, where
+  $\eta=\theta+\widehat\theta$ and $W_{K}(A)\subseteq H^{12}(A,\QQ)$ are the
+  Weil classes of $K$ on the twelvefold (\Cref{prop:composite}); its part of
+  degree at most four is
+  \[
+    -32(a_{1}a_{2}+b_{1}b_{2})+16(a_{1}b_{2}-a_{2}b_{1})\,\eta
+    +4(a_{1}a_{2}+b_{1}b_{2})\,\eta^{2}.
+  \]
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) The classes $e_{\varepsilon}\boxtimes e_{\varepsilon'}^{\vee}
+=\bigotimes_{j}\bigl(e^{\varepsilon_{j}s_{j}\theta_{j}}\boxtimes
+e^{-\varepsilon'_{j}s_{j}\theta_{j}}\bigr)$ and $\Psi$ decompose over the three
+factors, as in the proof of \Cref{prop:sexticcount}(iv), and on the $j$-th
+factor the two identities of \Cref{prop:flatall} at $n=2$ read, with their
+constants,
+\[
+  \Psi_{j}\bigl(e^{\sigma s_{j}\theta_{j}}\boxtimes e^{\sigma s_{j}\theta_{j}}\bigr)
+  =-4d_{j}\,e^{\sigma(s_{j}/2d_{j})\eta_{j}},
+  \qquad
+  \Psi_{j}\bigl(e^{\sigma s_{j}\theta_{j}}\boxtimes e^{-\sigma s_{j}\theta_{j}}\bigr)
+  =\tfrac12\bigl(\gamma_{j}-\sigma s_{j}\ell_{j}\bigr)^{2}
+  =-d_{j}^{2}\,\omega_{j,\sigma},
+\]
+which item (LVIII) of \Cref{sec:verification} checks. So
+$\Psi(e_{\varepsilon}\boxtimes e_{\varepsilon'}^{\vee})$ is the product over
+$j$ of the first class where $\varepsilon'_{j}=-\varepsilon_{j}$ and of the
+second where $\varepsilon'_{j}=\varepsilon_{j}$. In degree four a product with
+two or three factors of the second kind vanishes, one with none is a
+quadratic form in the $\eta_{j}$, and one with exactly one, at $j$, has
+$\varepsilon'=\varepsilon^{(j)}$ and equals
+$-d_{j}^{2}\prod_{i\ne j}(-4d_{i})\,\omega_{j,\varepsilon_{j}}
+=-16\Nm(q)\,d_{j}\,\omega_{j,\varepsilon_{j}}$. Summing
+$w^{1}_{\varepsilon}w^{2}_{\varepsilon'}\Psi(e_{\varepsilon}\boxtimes
+e_{\varepsilon'}^{\vee})$ over $\varepsilon$ and $\varepsilon'$ gives (i).
+
+(ii) An element $h$ of the Galois group that fixes the place $j$ permutes
+the two others, so it fixes $R_{j}$ and $I_{j}$, which are symmetric in $k$
+and $l$; hence $R_{j},I_{j}\in\tau_{j}(F_{0})$, and moving $j$ by the Galois
+group shows that they are the conjugates of two elements of $F_{0}$. Write
+$\varepsilon=(\sigma,\mu)$ with $\mu$ the signs at $k$ and $l$, so that
+$\varepsilon^{(j)}=(\sigma,-\mu)$. Since $e^{\pm s_{i}\theta_{i}}=B_{i}\pm
+s_{i}\theta_{i}$, the class $v=\sum_{a}C_{a}\prod_{i\in a}\theta_{i}
+\prod_{i\notin a}B_{i}$, with $C_{\emptyset}=c_{0}$, $C_{\{i\}}=f_{i}$,
+$C_{\{1,2,3\}\setminus\{i\}}=g_{i}$ and $C_{\{1,2,3\}}=c_{3}$, has
+$w_{\varepsilon}=\frac18\sum_{a}C_{a}\prod_{i\in a}\varepsilon_{i}/s_{i}$.
+Grouping $a=b$ and $a=b\cup\{j\}$ for $b\subseteq\{k,l\}$ gives
+$w_{(\sigma,\mu)}=\frac18\sum_{b}D_{b}\prod_{i\in b}\mu_{i}/s_{i}$ with
+$D_{b}=C_{b}+u\,C_{b\cup\{j\}}$ and $u=\sigma/s_{j}=\tau_{j,\sigma}(1/\sqrt{-q})$.
+Since $\sum_{\mu}\prod_{i\in b}\mu_{i}\prod_{i\in b'}(-\mu_{i})
+=4(-1)^{|b|}\delta_{bb'}$ and $s_{i}^{2}=-q_{i}$,
+\[
+  \sum_{\varepsilon_{j}=\sigma}w_{\varepsilon}w_{\varepsilon^{(j)}}
+  =\frac1{16}\Bigl((c_{0}+uf_{j})^{2}+\frac{(f_{k}+ug_{l})^{2}}{q_{k}}
+  +\frac{(f_{l}+ug_{k})^{2}}{q_{l}}+\frac{(g_{j}+uc_{3})^{2}}{q_{k}q_{l}}\Bigr),
+\]
+and expanding with $u^{2}=-1/q_{j}$ gives $\frac1{16}(R_{j}+2uI_{j})
+=\frac1{16}\tau_{j,\sigma}(\Omega(v))$. With (i) this is the formula. The
+embedding $\tau_{j,\sigma}$ is injective and $1$, $1/\sqrt{-q}$ are
+independent over $F_{0}$, so one $\kappa_{j,\sigma}(v,v)$ vanishes if and only
+if $R=I=0$, and then all do.
+
+(iii) If $w^{1}$ and $w^{2}$ vanish off $\{\varepsilon_{0},-\varepsilon_{0}\}$,
+no term of (i) survives, since $\varepsilon^{(j)}$ is neither $\varepsilon$
+nor $-\varepsilon$. For $q=1$, $s_{j}=\sqrt{-1}$ and
+$e_{(1,1,1)}=e^{\sqrt{-1}\,\theta}$, whose real and imaginary parts are
+$u_{\theta}$ and $v_{\theta}$ of \eqref{eq:uv} with $d=1$, supported on
+$\{\pm(1,1,1)\}$. On each factor $\sqrt{-1}=\sqrt{-q}$ acts as in the
+imaginary quadratic construction with $\beta=\theta_{j}$ and $d=1$, so $K$
+acts on $A$ by the action \eqref{eq:Mdef} determined by $\theta$ with $d=1$,
+and \Cref{prop:flatall} with $n=6$ and $d=1$ gives
+$\kappa\in\QQ[\eta]\oplus W_{K}(A)$. For the constants write
+$v_{1}=w_{1}e^{\sqrt{-1}\,\theta}+\bbar w_{1}e^{-\sqrt{-1}\,\theta}$ and
+$v_{2}^{\vee}=a_{2}\operatorname{Re}e^{\sqrt{-1}\,\theta}
+-b_{2}\operatorname{Im}e^{\sqrt{-1}\,\theta}
+=w_{2}e^{\sqrt{-1}\,\theta}+\bbar w_{2}e^{-\sqrt{-1}\,\theta}$, with
+$w_{1}=\frac12(a_{1}-\sqrt{-1}\,b_{1})$ and $w_{2}=\frac12(a_{2}+\sqrt{-1}\,
+b_{2})$. By the first identity in the proof of (i),
+$\Psi(e^{\pm\sqrt{-1}\,\theta}\boxtimes e^{\pm\sqrt{-1}\,\theta})
+=-64\,e^{\pm(\sqrt{-1}/2)\eta}$, while the two mixed terms have degree
+twelve; so in degrees below twelve $\kappa$ is
+$-128\operatorname{Re}\bigl(w_{1}w_{2}\,e^{(\sqrt{-1}/2)\eta}\bigr)$, whose
+terms of degree $0$, $2$ and $4$ are the stated ones.
+\end{proof}
+
+For $q=1$ the Orlov products of complexes with characters in
+$\QQ\operatorname{Re}e^{\sqrt{-1}\,\theta}\oplus\QQ\operatorname{Im}
+e^{\sqrt{-1}\,\theta}$ are therefore the template of
+\Cref{prop:orlovequality} at $(n,d)=(6,1)$, seen on the twelvefold through the
+restriction of the action of $F$ to $K$. Their twisted characters are flat
+for the family of $K$ and have a nonzero $K$-Weil part in $H^{12}$ when
+$F_{1}=F_{2}\ne0$ (\Cref{prop:flatall}), and they are not an input to
+$\mathrm{P2}_{\mathrm{split}}$. By \Cref{prop:composite}, $\mathbf{W}(F,2,1)$
+gives the $K$-Weil classes on the members of the $F$-family, and the converse
+is not available; a consequence for $K$ through \Cref{prop:descent} would
+still need a twisted form of the propagation of \Cref{thm:semiregclosure}.
+
+\begin{proposition}[Integral characters with an $F$-Weil part]
+\label{prop:sexticweilmin}
+Keep the notation of \Cref{prop:sexticintegral}(v), with $\alpha$ a root of
+$x^{3}+x^{2}-2x-1$ for $\QQ(\zeta_{7})^{+}$ and of $x^{3}-3x+1$ for
+$\QQ(\zeta_{9})^{+}$, and let $q$ run over $1$, $k+\alpha$ and $k+1+\alpha$
+for each of the sixteen fields, forty-eight cases in all.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item For $\QQ(\zeta_{7})^{+}$ and $\QQ(\zeta_{9})^{+}$, $k=2$ and
+  $2+\alpha=\beta^{2}$ with the unit $\beta=-1+\alpha+\alpha^{2}$, of norm
+  $-1$, respectively $\beta=-2+\alpha+\alpha^{2}$, of norm $1$. So
+  $F_{0}(\sqrt{-(2+\alpha)})=F_{0}(\sqrt{-1})$, and the integral classes of
+  $S(0,2+\alpha)$ with $\chi=-32$ are $\pm\operatorname{Re}
+  e^{\sqrt{-1}\,\theta_{\beta}}$ and $\pm\operatorname{Im}
+  e^{\sqrt{-1}\,\theta_{\beta}}$, where
+  $\theta_{\beta}=\sum_{j}\tau_{j}(\beta)\theta_{j}$; they have $\Omega=0$.
+\item $F=F_{0}(\sqrt{-q})$ contains an imaginary quadratic field in exactly
+  twenty of the cases: $\QQ(\sqrt{-1})$ for $q=1$ and for $q=2+\alpha$ over
+  $\QQ(\zeta_{7})^{+}$ and $\QQ(\zeta_{9})^{+}$, and $\QQ(\sqrt{-3})$ for
+  $q=2+\alpha$ over the field of discriminant $321$, where $k=2$, and for
+  $q=4+\alpha$ over the field of discriminant $1509$, where $k=3$. In these
+  two cases the least $-\chi$ of a nonzero integral class is $288$,
+  respectively $4608$, attained with $\Omega=0$, and the least $-\chi$ of an
+  integral class with $\Omega\ne0$ is $728$, respectively $6504$.
+\item For $q=1$, every integral class with $-\chi<296$ over
+  $\QQ(\zeta_{7})^{+}$, respectively $-\chi<488$ over $\QQ(\zeta_{9})^{+}$,
+  lies in $\ZZ\operatorname{Re}e^{\sqrt{-1}\,\theta}
+  \oplus\ZZ\operatorname{Im}e^{\sqrt{-1}\,\theta}$, and so has $\Omega=0$.
+  The least $-\chi$ of an integral class with $\Omega\ne0$ is $296$,
+  respectively $488$, attained by eight classes up to sign, among them
+  $v(-5,0,-2,0)$, respectively $v(-7,0,-2,0)$, all with $N_{w}=8$ and
+  $(r^{2},r^{3})=(54,112)$. The least values for $q=2+\alpha$ are the same.
+\item For $q=3+\alpha$ over $\QQ(\zeta_{7})^{+}$, $\Nm(q)=13$, $F$ contains
+  no imaginary quadratic field, and the least $-\chi$ of a nonzero integral
+  class is $192$, attained only at $\pm v_{*}$ with
+  $v_{*}=v(-1,0,2-\alpha^{2},0)$, which has $N_{w}=8$,
+  $(r^{2},r^{3})=(54,112)$ and $\Omega(v_{*})=(18-4\alpha-6\alpha^{2})/13$.
+  Over $\QQ(\zeta_{9})^{+}$, $\Nm(q)=17$ and the least value is $256$,
+  attained only at $\pm v(1,0,-\alpha,0)$, with $N_{w}=8$,
+  $(r^{2},r^{3})=(54,112)$ and $\Omega=(6\alpha+6\alpha^{2})/17$.
+\item Over the forty-eight cases the least $-\chi$ of an integral class with
+  $\Omega\ne0$ is $192$, attained only at $\pm v_{*}$. In each case this
+  least value lies between $192$ and $7080$, and for $q=1$ between $296$ and
+  $3872$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) In $\ZZ[\alpha]$, with $\alpha^{3}=-\alpha^{2}+2\alpha+1$, respectively
+$\alpha^{3}=3\alpha-1$, one computes $\beta^{2}=2+\alpha$, and the norms of
+$\beta$ are $\pm1$; so $\sqrt{-(2+\alpha)}=\beta\sqrt{-1}$. The class
+$e^{\sqrt{-1}\,\theta_{\beta}}$ is $e_{\varepsilon}$ with
+$\varepsilon_{j}$ the sign of $\tau_{j}(\beta)$, and expanding
+$\prod_{j}(B_{j}+\sqrt{-1}\,\tau_{j}(\beta)\theta_{j})$ gives
+$v(1,0,-\Nm(\beta)\beta^{-1},0)+\sqrt{-1}\,v(0,\beta,0,-\Nm(\beta))$, with
+$\chi=-32$ by \Cref{prop:sexticintegral}(iii) and $\Omega=0$ by
+\Cref{lem:sexticweil}(ii),(iii); the enumeration of item (LVIII) finds these
+four classes, and no others, among the integral classes with $-\chi\le32$.
+(ii) If $\QQ(\sqrt{-D})\subseteq F$ with $D$
+squarefree, then $\sqrt{-D}=b\sqrt{-q}$ with $b\in F_{0}$, since
+$\sqrt{-D}\notin F_{0}$ and its square lies in $F_{0}$; so $D=b^{2}q$,
+$Dq=(bq)^{2}$ is a square in $F_{0}$, and taking norms,
+$D^{3}=\Nm(b)^{2}\Nm(q)$, so $D$ is the squarefree part of $\Nm(q)$.
+Conversely, if $Dq=c^{2}$ with $c\in F_{0}$, then
+$(c\sqrt{-q}/q)^{2}=-D$. Item (LVIII) tests whether
+$\prod_{j}(x^{2}-D\tau_{j}(q))$ is reducible over $\QQ$, which is the
+condition. The rest of (ii) and (iii) to (v) are the computation of item
+(LVIII): the lattices of \Cref{prop:sexticintegral}(v), computed in the same
+way for $q=k+1+\alpha$, are enumerated by Fincke--Pohst after LLL reduction,
+with a bound doubled until a class with $\Omega\ne0$ appears, and $\Omega$ is
+computed exactly in $F_{0}$ from \Cref{lem:sexticweil}(ii). The classes of
+$\ZZ\operatorname{Re}e^{\sqrt{-1}\,\theta}\oplus\ZZ\operatorname{Im}
+e^{\sqrt{-1}\,\theta}$ have $\Omega=0$ by \Cref{lem:sexticweil}(iii). The
+shapes are computed modulo a prime at which the $s_{j}$ exist; a rank modulo
+a prime bounds the rank below, and $8$, $54$ and $112$ are the largest values
+of $N_{w}$, $r^{2}$ and $r^{3}$ (\Cref{prop:sexticcount}(i)).
+\end{proof}
