@@ -225,8 +225,8 @@ rational, diagonal over $\CC$ with nonzero entries, and algebraic, and
 $\omega(B)$ is algebraic whenever $\omega(X)$ is; \Cref{lem:onecomponent}
 passes from one Weil class to all of them.
 
-(ii) $H^{1}(B_{F})=H^{1}(B)\otimes_{K}F$, each eigenspace of $F$ is an eigenspace of $K$ of signature $(n,n)$, the
-hermitian form is $H_{B}\otimes F$ with determinant $\det H_{B}$, and a norm
+(ii) $H^{1}(B_{F})=H^{1}(B)\otimes_{K}F$, each eigenspace of $F$ is an
+eigenspace of $K$ of signature $(n,n)$, the hermitian form is $H_{B}\otimes F$ with determinant $\det H_{B}$, and a norm
 from $K$ is a norm from $F$. The identity for $j^{*}$ is the multiplicativity
 of the determinant under restriction of scalars, and $\Tr_{F/K}$ is onto.
 Item (LIV) of \Cref{sec:verification} checks the linear algebra of both
@@ -272,7 +272,7 @@ below it.}
 \end{figure}
 
 \noindent
-The remaining problems are the following.
+The list is as follows.
 
 \begin{enumerate}[label=\textup{(C\arabic*)},leftmargin=3.0em,itemsep=4pt]
 \item \emph{One secant object on one fourfold.} There should exist a
@@ -385,7 +385,8 @@ The remaining problems are the following.
   of a Mumford family (\Cref{thm:mumfordcm}); and reductions of their
   algebraicity on the rest of the family, to one case of \textup{(L)}
   (\Cref{cor:mumfordequiv}) and to the Kuga--Satake class of one K3 surface
-  (\Cref{sec:beyond}). At a very general member their algebraicity is open.
+  (\Cref{thm:mumfordks}). At a very general member their algebraicity is
+  open.
 \item \emph{Varieties that are not abelian.} No reduction of the Hodge
   conjecture for arbitrary smooth projective varieties to abelian varieties is
   known, and none of Hodge-theoretic kind can exist: the $H^{3}$ of a very
@@ -396,8 +397,8 @@ The remaining problems are the following.
   two routes through hyperplane sections that would be the natural candidates.
   What this paper contributes: those three obstructions and, on the positive
   side, special cases only (\Cref{prop:mumfordfivefold},
-  \Cref{rem:f3primefrontier}). Nor is this entry the complement of the others. The varieties that are not
-  abelian include $A\times\PP^{1}$ for every abelian variety $A$, and the
+  \Cref{rem:f3primefrontier}). Nor is this entry the complement of the
+  others. The varieties that are not abelian include $A\times\PP^{1}$ for every abelian variety $A$, and the
   conjecture for $A\times\PP^{1}$ gives it for $A$, so the conjecture for
   the varieties that are not abelian is the whole conjecture
   (\Cref{prop:f3ishc}).
@@ -476,8 +477,8 @@ $Z\times Z$.
 \begin{proof}
 Operators induced by algebraic cycles on $Z\times Z$ are closed under sums
 and rational multiples, and under composition, because the composite of two
-algebraic correspondences is again algebraic \cite{Kle68}. The operator $L$ is induced by the image of
-a divisor of class $L$ under the diagonal, and $\Lambda$ by $B(Z)$. With
+algebraic correspondences is again algebraic \cite{Kle68}. The operator $L$
+is induced by the image of a divisor of class $L$ under the diagonal, and $\Lambda$ by $B(Z)$. With
 $[L,\Lambda]=H$ and $H$ acting on $H^{k}$ by $k-e$ (the proof of
 \Cref{lem:LambdaL}), $H=L\Lambda-\Lambda L$ is induced by an algebraic cycle,
 and since the numbers $k-e$ for $0\le k\le 2e$ are distinct,
@@ -614,10 +615,10 @@ proved here.
 The statement $B(X)$ is known for abelian varieties $X$ and open, in general,
 for varieties fibred in them. This subsection proves it for the total space
 of an abelian scheme over a curve whose invariant cycles are algebraic, and
-so for the total space of every Mumford family. The proof assembles the operator $\Lambda$ from a
-relative part, which is a Pontryagin product and is algebraic on every abelian
-scheme, and a part along the base, which is algebraic exactly when the
-invariant cycles are.
+so for the total space of every Mumford family. The proof assembles the
+operator $\Lambda$ from a relative part, which is a Pontryagin product and is
+algebraic on every abelian scheme, and a part along the base, which is
+algebraic exactly when the invariant cycles are.
 
 \begin{proposition}[$\Lambda$ as a Pontryagin product]
 \label{prop:pontryaginlambda}
@@ -1002,15 +1003,17 @@ $H^{1}(C,R^{q}\pi_{*}\QQ)$ in balanced types.
 \label{ssec:targets}
 
 The argument of \Cref{ssec:newlefschetz} does more than add one variety to
-the known cases of \textup{(L)}. For an abelian scheme over a curve it shows that \textup{(L)}
-for the total space is exactly the statement that algebraicity propagates
-along the curve, and the base points of this paper then turn each of the two
-targets identified in \Cref{rem:bullseye}, one Weil family and the first
-classes beyond the Weil lines, into \textup{(L)} for one explicit variety. The
+the known cases of \textup{(L)}. For an abelian scheme over a curve it shows
+that \textup{(L)} for the total space is exactly the statement that
+algebraicity propagates along the curve, and the base points of this paper
+then turn each of the two open targets, one Weil family and the first classes
+beyond the Weil lines, into \textup{(L)} for one explicit variety,
+\textup{(L)} being the statement at the centre of \Cref{rem:bullseye}. The
 reductions are equivalences, so they locate the difficulty rather than remove
-it. Along the way two things are proved outright: the Hodge conjecture for the
-self-product of a Mumford fourfold at every CM point, and the impossibility of
-realising the two branches of \Cref{rem:twobranches} by two objects.
+it. Along the way two things are proved outright: the Hodge conjecture for
+the self-product of a Mumford fourfold at every CM point, and the
+impossibility of realising the two branches of \Cref{rem:twobranches} by two
+objects.
 
 \begin{lemma}[Spreading along a curve]\label{lem:spreading}
 Let $\pi\colon W\to C$ be a smooth projective morphism onto a smooth projective
@@ -1295,24 +1298,27 @@ family and closing the first classes beyond the Weil lines are each the
 Lefschetz standard conjecture for one variety: the total space of the family
 over a curve through a base point, and the ninefold $W\times_{C}W$. By
 \Cref{thm:lefschetzpropagation} that case of \textup{(L)} is in turn the
-algebraicity of the invariant cycles, so nothing is gained for free: the
-reduction moves both targets onto the bullseye of \Cref{rem:bullseye} and
-shows that they sit there, and no further. Some things are unconditional:
+algebraicity of the invariant cycles, so the reduction gains nothing by
+itself: it moves both targets onto the bullseye of \Cref{rem:bullseye} and
+shows that they sit there, and no further. Some results are unconditional:
 the Hodge conjecture for the total space of a Mumford family over its Shimura
 curve (\Cref{prop:mumfordfivefold}), $B$ for every abelian scheme over a curve
 of relative dimension at most four whose invariant classes are
-Hodge\footnote{In relative dimension five the same argument goes through as
-soon as the Hodge conjecture is known for every abelian fivefold; we quote it
-there, following \cite{MZ99} and \cite{Mar25a}, but have not checked the
-dimension-five statement of \cite{MZ99} ourselves.}
-(\Cref{cor:lefschetzsmall}), and the following two. The
-Mumford classes are algebraic at every CM point (\Cref{thm:mumfordcm}), so the
-first case of (F2) is a propagation problem along one compact Shimura curve,
-exactly as a Weil family is a propagation problem from its base point. And the
-object (P2) asks for cannot be assembled from two objects each of which sees
-one branch (\Cref{thm:nosum}): the two branches of \Cref{rem:twobranches} must
-live inside a single summand with a quadratic relation among its first order
-deformations. Neither target is closed here. For the Mumford target
+Hodge\footnote{In relative dimension five the same argument applies as soon
+as the Hodge conjecture is known for every abelian fivefold, which Markman
+\cite{Mar25a} records through the description of their Hodge rings in
+\cite{MZ99}; we have not checked the dimension-five statement of \cite{MZ99}
+ourselves.} (\Cref{cor:lefschetzsmall}), and the following two. The Mumford
+classes are algebraic at every CM point (\Cref{thm:mumfordcm}), so the first
+case of (F2) is a propagation problem along one compact Shimura curve,
+exactly as a Weil family is a propagation problem from its base point. And
+the object that the pure form of (P2) asks for cannot be assembled from two
+objects each of which sees one branch (\Cref{thm:nosum}): the two branches of
+\Cref{rem:twobranches} would have to live inside a single summand with a
+quadratic relation among its first order deformations. By \Cref{thm:p2false}
+no such object exists, and \Cref{thm:nosum} is one of the results that
+\Cref{rem:p2prime} keeps as the record of what the pure form asked for.
+Neither target is closed here. For the Mumford target
 \Cref{ssec:mumfordrigid} goes further: it closes off degeneration and
 deformation into a larger family, reduces semiregularity to one dimension,
 $119$, and specialisation to a degree bound at CM points; and

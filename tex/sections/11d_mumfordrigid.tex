@@ -1,18 +1,18 @@
-\subsection{The Mumford target: rigidity, a numerical criterion, and the
-bypasses}\label{ssec:mumfordrigid}
+\subsection{Rigidity and a numerical criterion for the Mumford
+classes}\label{ssec:mumfordrigid}
 
-The first case of (F2) is now a propagation problem along one compact
-Shimura curve: the exceptional classes are algebraic at every CM point
-(\Cref{thm:mumfordcm}), and on every member exactly when $B(W\times_{C}W)$
-holds (\Cref{cor:mumfordequiv}). This subsection asks whether the
-propagation can be obtained without passing through the Lefschetz standard
-conjecture, by one of the mechanisms that have closed other cases of the
-Hodge conjecture: a degeneration, a deformation into a larger family on which
-the class stays of Hodge type, a specialisation to special points, or
-semiregularity. It proves that the first two cannot work, that the third
-works exactly when the representing cycles have bounded degree, and it
-reduces the fourth to one dimension count at one CM point. It does not prove
-the classes algebraic at a very general point.
+The first case of (F2) is a propagation problem along one compact Shimura
+curve: the exceptional classes are algebraic at every CM point
+(\Cref{thm:mumfordcm}), and they are algebraic on every member exactly when
+$B(W\times_{C}W)$ holds (\Cref{cor:mumfordequiv}). We ask here whether the
+propagation can be obtained without the Lefschetz standard conjecture, by one
+of the mechanisms that have proved other cases of the Hodge conjecture:
+degeneration, deformation into a larger family on which the class stays of
+Hodge type, specialisation to special points, or semiregularity. The first
+two cannot work; the third works exactly when the representing cycles have
+bounded degree; and the fourth reduces to one dimension count at one CM
+point. We do not prove that the classes are algebraic at a very general
+point.
 
 \begin{setupenv}[The classes $\omega_{a}$]\label{setup:omegaa}
 Keep \Cref{setup:mumford} and let $W\to C$ be a family as in
@@ -39,9 +39,9 @@ $\alpha\in\QQ$, and $\pi_{0}$ is a multiple of
 $\mathrm{pr}_{1}^{*}\theta\cup\mathrm{pr}_{2}^{*}\theta$; so adding a rational
 multiple of $\pi_{0}$ to an exceptional class changes $L_{0}$ and not the
 question of algebraicity. For $c\in C$ write $Y=X_{c}\times X_{c}$, let
-$HT^{2}(Y)=H^{0,2}(Y)\oplus H^{1}(T_{Y})\oplus H^{0}({\textstyle\bigwedge^{2}}T_{Y})$ act on
-$H^{*}(Y,\CC)$ by contraction as in \Cref{setup:criterion}, of dimension
-$28+64+28=120$, and let $\kappa\in H^{1}(T_{Y})$ be the Kodaira--Spencer class
+$HT^{2}(Y)=H^{0,2}(Y)\oplus H^{1}(T_{Y})\oplus H^{0}({\textstyle\bigwedge^{2}}T_{Y})$,
+of dimension $28+64+28=120$, act on $H^{*}(Y,\CC)$ by contraction as in
+\Cref{setup:criterion}, and let $\kappa\in H^{1}(T_{Y})$ be the Kodaira--Spencer class
 at $c$ of the family $W\times_{C}W\to C$. Put
 \[
   e(\omega)=\dim HT^{2}(Y)-\dim\Ann_{HT^{2}(Y)}(\omega)
@@ -70,14 +70,12 @@ occurs $|\Gamma|/3$ times in the place of each $\sigma_{i}$, so
 $r=\frac13(\sum_{i}c_{i})\sum_{j}\sigma_{j}(\beta)=0$. The relations
 $c\in\QQ^{3}$ with $\sum_{i}c_{i}\sigma_{i}(\beta)=0$ form a $\Gamma$-stable
 subspace $N$ containing $(1,1,1)$. The plane $\{\sum c_{i}=0\}$ is an
-irreducible representation of $\Gamma$ over $\QQ$, since $\Gamma$ contains
-the $3$-cycles, which have no rational eigenvector in that plane; so if $N$
-were larger than the line of $(1,1,1)$ it would contain the plane and be all
-of $\QQ^{3}$, and $\sigma_{1}(\beta)=0$. Hence $c\in\QQ(1,1,1)$.\footnote{For a
-cyclic cubic field $\Gamma$ is the group of $3$-cycles; otherwise it is the
-full symmetric group. The argument uses only that $\Gamma$ contains the
-$3$-cycles, which holds for every transitive subgroup of the symmetric group
-on three letters.}
+irreducible representation of $\Gamma$ over $\QQ$: being transitive on three
+letters, $\Gamma$ is the alternating or the full symmetric group, so it
+contains the $3$-cycles, which have no rational eigenvector in that plane.
+If $N$ were larger than the line of $(1,1,1)$, it would therefore contain the
+plane and be all of $\QQ^{3}$, and $\sigma_{1}(\beta)=0$. Hence
+$c\in\QQ(1,1,1)$.
 \end{proof}
 
 \begin{lemma}[One exceptional class gives the others]\label{lem:oneexceptional}
@@ -89,8 +87,8 @@ of \Cref{prop:mumfordproduct}.
 
 \begin{proof}
 At a CM point every Hodge class of $X_{t}\times X_{t}$ is algebraic
-(\Cref{thm:mumfordcm}); so let $t$ be another point, where the Hodge group is
-$G$, and write $X=X_{t}$. For $x\in H^{2}(X)\otimes H^{2}(X)$ let $E_{x}$ be
+(\Cref{thm:mumfordcm}). Let $t$ be any other point, so that the Hodge group
+of $X_{t}$ is $G$ (proof of \Cref{cor:mumfordequiv}), and write $X=X_{t}$. For $x\in H^{2}(X)\otimes H^{2}(X)$ let $E_{x}$ be
 the endomorphism $y\mapsto x_{*}(\theta^{2}\cup y)$ of $H^{2}(X,\QQ)$, where
 $x_{*}$ is the action of $x$ as a correspondence. By Poincar\'e duality and
 the hard Lefschetz isomorphism $\theta^{2}\colon H^{2}\to H^{6}$, the map
@@ -98,10 +96,11 @@ $x\mapsto E_{x}$ is a $G$-equivariant isomorphism onto $\End H^{2}(X,\QQ)$,
 so it carries the Hodge classes onto the Hodge endomorphisms, which are
 $\QQ\times F$ by \Cref{prop:mumfordrm}(ii). It carries the products of
 divisor classes, which are invariant under $\Sp(V,\psi)$, onto the
-$\Sp(V,\psi)$-equivariant endomorphisms, which are $\QQ\times\QQ$, so it
+$\Sp(V,\psi)$-equivariant endomorphisms, which are $\QQ\times\QQ$; hence it
 carries $\omega$ to an element $(r,\beta)$ with $\beta\notin\QQ$. The
 algebraic Hodge classes form a subspace $A$ containing the products of divisor
-classes, and $A$ is closed under composition: if $x_{1},x_{2}$ are algebraic,
+classes, and its image under $x\mapsto E_{x}$ is closed under composition:
+if $x_{1},x_{2}$ are algebraic,
 then the composite correspondence $x_{1}\circ\Delta_{*}(\theta^{2})\circ
 x_{2}$ is algebraic, and so is its K\"unneth component in
 $H^{2}\otimes H^{2}$, since the K\"unneth projectors of $X\times X$ are
@@ -111,7 +110,8 @@ of \Cref{thm:lefschetzfamily}); that component $x$ has
 $E_{x}=E_{x_{1}}E_{x_{2}}$. So the image of $A$ is a subalgebra of
 $\QQ\times F$ containing $\QQ\times\QQ$ and $(r,\beta)$, hence
 $\QQ\times\QQ[\beta]=\QQ\times F$, because $\beta$ generates the cubic
-field $F$.
+field $F$. Thus $A$ is the space of all Hodge classes in
+$H^{2}(X)\otimes H^{2}(X)$.
 \end{proof}
 
 \begin{theorem}[Rigidity of the exceptional classes]\label{thm:mumfordrigid}
@@ -121,7 +121,7 @@ rational exceptional class.
 \item $\Ann_{H^{1}(T_{Y})}(\omega)=\CC\kappa$ and
   $\Ann_{H^{0,2}(Y)}(\omega)=0$.
 \item $\Ann_{H^{0}(\bigwedge^{2}T_{Y})}(\omega)=0$ if and only if
-  $L_{0}(a)=a_{0}+\Tr_{F/\QQ}(\alpha)\ne0$. So
+  $L_{0}(a)=a_{0}+\Tr_{F/\QQ}(\alpha)\ne0$. In particular
   $\Ann_{HT^{2}(Y)}(\omega)=\CC\kappa$ and $e(\omega)=119$ whenever
   $L_{0}(a)\ne0$, which can always be arranged by adding a rational multiple
   of $\pi_{0}$.
@@ -143,15 +143,15 @@ $\omega$ is fixed by both, so $x\mapsto x\lrcorner\,\omega$ preserves the
 decomposition of $HT^{2}(Y)$ by type ($H^{0,2}$, $H^{1}(T)$ or
 $H^{0}(\bigwedge^{2}T)$, which land in the distinct summands $H^{2,4}$,
 $H^{1,3}$ and $H^{0,2}$ of $H^{*}(Y)$), by weight of $S$, and by parity under
-$\tau$. The annihilator is the sum of the kernels on the $46$ nonzero
-blocks. Item (XLIV) of \Cref{sec:verification} writes each block as a matrix
-whose entries are linear in $a$ and computes the Gram determinant of its
-columns, a polynomial in $a$ that, for real $a$, vanishes exactly where the
-columns become dependent. Every Gram determinant is a positive constant times a product of
-the following factors, and the one block with a kernel at a generic point is
-the $\tau$-even block of weight zero in $H^{1}(T)$, whose kernel is spanned,
-for every $a$, by a vector independent of $a$, which is dropped before the
-determinant is taken.
+$\tau$. The annihilator is therefore the sum of the kernels on the $46$
+nonzero blocks. Item (XLIV) of \Cref{sec:verification} writes each block as a
+matrix whose entries are linear in $a$ and computes the Gram determinant of
+its columns, a polynomial in $a$ that, for real $a$, vanishes exactly where
+the columns become dependent. The only block with a kernel at a generic point
+is the $\tau$-even block of weight zero in $H^{1}(T)$; its kernel is spanned,
+for every $a$, by one vector independent of $a$, which is dropped before the
+determinant is taken. Every Gram determinant is a positive constant times a
+product of the following factors.
 \begin{enumerate}[label=\textup{(\alph*)},leftmargin=2.6em,itemsep=1pt]
 \item Eleven quadratic forms $P_{1},P_{2},Q_{1},\dots,Q_{4},R,S_{1},\dots,
   S_{4}$, each a positive combination of squares of rational linear forms
@@ -168,24 +168,26 @@ determinant is taken.
 \item The linear form $L_{0}$, which divides the Gram determinants of the
   nine $\tau$-odd blocks of $H^{0}(\bigwedge^{2}T)$ and no other.
 \end{enumerate}
-The sums of squares are certified in exact arithmetic by item (XLIV) and by
-the Lean theorem \texttt{mumford\_rigidity\_sos}. For a rational exceptional
-class the coefficients are real, and by \Cref{lem:conjugates} the factors of
-(a), (b) and (c) do not vanish: those of (a) would force two conjugates of
-$\alpha$ to coincide or one to vanish, those of (b) vanish only at $a=0$,
-and those of (c) would give a rational relation among the conjugates with
-unequal coefficients. So every block is injective except the one named, and
-$L_{0}$ decides the bivector blocks: if $L_{0}(a)\ne0$ they are injective, and
-if $L_{0}(a)=0$ the four blocks of dimension one, whose Gram determinants are
-$L_{0}^{2}/16$, lie in the annihilator.
+The sums of squares are certified in exact arithmetic by item (XLIV) and in
+\Cref{sec:lean}. For a rational exceptional class the coefficients are real,
+and by \Cref{lem:conjugates} the factors of (a), (b) and (c) do not vanish:
+those of (a) would force two conjugates of $\alpha$ to coincide or one to
+vanish, those of (b) vanish only at $a=0$, whereas $a\ne0$, and those of (c)
+would give a rational relation among the conjugates with unequal
+coefficients. Hence every block is injective except the $\tau$-even block of
+weight zero in $H^{1}(T)$ and the nine bivector blocks of (d). Those nine are
+injective when $L_{0}(a)\ne0$; when $L_{0}(a)=0$, the four of them of
+dimension one, whose Gram determinants are $L_{0}^{2}/16$, lie in the
+annihilator.
 
-The vector of the exceptional block is $\kappa$. The family of Hodge
-structures along $C$ is the orbit of the Hodge structure at $c$ under the
-real points of the third factor of $G$, so the Kodaira--Spencer class
+It remains to identify the kernel of the $\tau$-even block of weight zero in
+$H^{1}(T)$. The family of
+Hodge structures along $C$ is the orbit of the Hodge structure at $c$ under
+the real points of the third factor of $G$, so the Kodaira--Spencer class
 $\kappa$ is the component of type $(-1,1)$ of an element of
 $\mathfrak{sl}(V_{3})$, the lowering operator acting on both copies of $V$.
-It kills $\omega$ because $\omega$ is invariant under $G$, it is fixed by
-$\tau$ and has weight zero for $S$, and item (XLIV) checks that it spans the
+It kills $\omega$ because $\omega$ is invariant under $G$; it is fixed by
+$\tau$ and has weight zero for $S$; and item (XLIV) checks that it spans that
 kernel. This proves (i) and (ii).
 
 For (iii), a point of $\mathfrak{S}$ is a Hodge filtration $F^{1}$ on
@@ -195,28 +197,28 @@ $\mathfrak{S}$ at $Y$ is an element $\xi$ of
 $\mathfrak{sp}(\psi\oplus\psi)^{-1,1}\subset H^{1}(T_{Y})$, and it moves
 $F^{2}H^{4}$ by the derivation $\xi$ of ${\textstyle\bigwedge^{*}}H^{1}$, which maps
 $H^{2,2}$ into $H^{1,3}$; so the Zariski tangent space of the Hodge locus is
-$\{\xi:\xi\lrcorner\,\omega=0\}$, which is $\CC\kappa$ by (i).\footnote{This is
-Griffiths transversality in its simplest case: for a variation of weight one
-there is no horizontality condition, so the tangent space of the Hodge locus
-of a class of type $(p,p)$ is the kernel of the contraction into
-$H^{p-1,p+1}$, see \cite[Chapter~5]{Voi03}. For a class of higher weight on a
-general variety only the horizontal directions enter.} The Hodge locus is an
-analytic germ containing the smooth curve germ $\{X_{t}\times X_{t}\}$, whose
-tangent line is $\CC\kappa$, and its Zariski tangent space is that line; so
-the two germs are equal.
+$\{\xi:\xi\lrcorner\,\omega=0\}$, which is $\CC\kappa$ by (i). This is the
+usual description of the tangent space of the Hodge locus of a class of type
+$(p,p)$ as the kernel of the contraction into $H^{p-1,p+1}$
+\cite[Chapter~5]{Voi03}, in its simplest case:
+a variation of weight one is subject to no horizontality condition, so every
+direction of $\mathfrak{S}$ enters. The Hodge locus is an analytic germ whose
+Zariski tangent space is a line, so it lies in a smooth curve germ; it
+contains the smooth curve germ $\{X_{t}\times X_{t}\}$, whose tangent line is
+$\CC\kappa$; so the two germs are equal.
 \end{proof}
 
-\begin{remark}[What the divisor classes do instead]\label{rem:rigidcompare}
+\begin{remark}[Comparison with the divisor classes]\label{rem:rigidcompare}
 The same computation at classes with $\alpha\in\QQ$ shows what rigidity
 excludes. At $a=(3,5,5,5)$, a combination of products of divisor classes, the
-tangent space of the Hodge locus in $\mathfrak{S}$ has dimension $10$, and it
-contains the tangent space of the diagonal Siegel space
-$\{X'\times X'\}$ of dimension $10$, because that class is invariant under
-the whole of $\Sp(V,\psi)$; at $a=(1,1,1,1)$ it has dimension $20$. So the
-products of divisor classes move with $X'\times X'$ for every $X'$, the
-exceptional classes move with $X_{t}\times X_{t}$ for $t\in C$ only, and every
-deformation of $Y$ off the curve, however small, makes them cease to be of
-Hodge type. \Cref{fig:rigidity} draws the three loci.
+tangent space of the Hodge locus in $\mathfrak{S}$ has dimension $10$ and
+contains the tangent space of the diagonal Siegel space $\{X'\times X'\}$,
+also of dimension $10$, because that class is invariant under the whole of
+$\Sp(V,\psi)$; at $a=(1,1,1,1)$ it has dimension $20$. The products of
+divisor classes therefore move with $X'\times X'$ for every $X'$, whereas the
+exceptional classes move with $X_{t}\times X_{t}$ for $t\in C$ only and cease
+to be of Hodge type under every deformation of $Y$ off the curve, however
+small. \Cref{fig:rigidity} shows the three loci.
 \end{remark}
 
 \begin{figure}[tbp]
@@ -256,27 +258,29 @@ By \Cref{thm:mumfordrigid}(iii) the Hodge locus of $\omega$ coincides with the
 curve in a neighbourhood of every point of the curve, so a connected family
 through $Y$ on which $\omega$ stays of Hodge type maps into the curve near
 each of its points over the curve; by connectedness and the identity theorem
-its image is the curve. The curve is compact because $D$ is a division
-algebra, so the arithmetic group of the Shimura curve is cocompact
-\cite{Mum69}.\footnote{By \Cref{setup:mumford} the algebra $D$ is definite at
+its image lies in the curve. The curve is compact because $D$ is a division
+algebra, so that the arithmetic group of the Shimura curve is cocompact
+\cite{Mum69}. Indeed, by \Cref{setup:mumford} the algebra $D$ is definite at
 $\sigma_{1}$ and $\sigma_{2}$, so $D\otimes_{F,\sigma_{1}}\RR$ is Hamilton's
 quaternions and $D$ is not $M_{2}(F)$: it is a division algebra, split at the
-one real place $\sigma_{3}$. The norm one group of an order in it, embedded in
-$\SL_{2}(\RR)$ through $\sigma_{3}$, is a Fuchsian group of finite covolume
-with no parabolic element: a parabolic $\gamma\ne\pm1$ would make
-$\gamma\mp1$ a nonzero nilpotent element of $D$. A Fuchsian group of finite
-covolume without parabolic elements has compact quotient.} For the last sentence: a member of the curve other than a CM
-point has Hodge group $G$ (proof of \Cref{cor:mumfordequiv}), and on it
-$\omega$ lies outside the span of the products of divisor classes and of the
-Weil classes of quotients, by \Cref{prop:mumfordproduct}(ii) and (iii). At a
-CM point the class is algebraic already (\Cref{thm:mumfordcm}), and the
-countably many CM points do not carry algebraicity to the other members
-(\Cref{lem:spreading}).
+one real place $\sigma_{3}$. The norm one group of an order in $D$, embedded
+in $\SL_{2}(\RR)$ through $\sigma_{3}$, is a Fuchsian group of finite
+covolume with no parabolic element, since a parabolic $\gamma\ne\pm1$ would
+make $\gamma\mp1$ a nonzero nilpotent element of $D$; and a Fuchsian group of
+finite covolume without parabolic elements has compact quotient.
+
+For the last assertion: a member of the curve other than a CM point has
+Hodge group $G$ (proof of \Cref{cor:mumfordequiv}), and on it $\omega$ lies
+outside the span of the products of divisor classes and of the Weil classes
+of quotients, by \Cref{prop:mumfordproduct}(ii) and (iii). At a CM point the
+class is already algebraic (\Cref{thm:mumfordcm}), and the CM points, being
+countably many, do not carry algebraicity to the other members
+(\Cref{lem:spreading} needs uncountably many points).
 \end{proof}
 
 The same computation controls deformations that are not algebraic at all,
 and so decides whether the twistor lines along which Markman moves sheaves
-for Weil classes can be used here.
+in his proof for Weil classes can be used here.
 
 \begin{proposition}[The Hodge locus among all complex tori, and twistor
 lines]\label{prop:notwistor}
@@ -296,7 +300,7 @@ $\omega$ is of type $(2,2)$.
 \item No twistor line through a member of the Mumford family, and no compact
   connected complex curve in $\mathcal{T}$ through it, keeps $\omega$ of
   Hodge type.
-\item $\mathcal{T}_{\omega}$ contains twistor lines nevertheless. The algebra
+\item Nevertheless $\mathcal{T}_{\omega}$ contains twistor lines. The algebra
   $D\otimes_{F,\sigma_{1}}\RR$ is Hamilton's quaternions and acts on
   $V_{\RR}$ through the first factor of $G(\RR)$; for a unit quaternion $j$
   with $j^{2}=-1$, the complex structure $j\oplus j$ on $V_{\RR}\oplus
@@ -315,9 +319,9 @@ homotheties is the stabiliser of its invariant tensors. Let $\mathfrak{H}$ be
 the connected component of this closed set that contains $Y$; it is closed in
 $\mathcal{T}$ and consists of the $J=1\otimes1\otimes j_{3}$ with
 $j_{3}\in\SL_{2}(\RR)$, $j_{3}^{2}=-1$, in the half plane that contains the
-structure of $Y$, that is of the squares of the members of the Mumford
-family. At each of its points the
-first order condition for $\omega$ to stay of type $(2,2)$ along
+structure of $Y$, that is, of the squares of the members of the Mumford
+family. At each of its points the first order condition for $\omega$ to stay
+of type $(2,2)$ along
 $\xi\in H^{1}(T_{Y})$ is $\xi\lrcorner\,\omega=0$, as in the proof of
 \Cref{thm:mumfordrigid}(iii), where no polarisation was used, and by
 \Cref{thm:mumfordrigid}(i) the solutions form the line $\CC\kappa$ tangent to

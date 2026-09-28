@@ -34,7 +34,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from render3d import Camera, Scene, addv, smul                  # noqa: E402
+from render3d import Camera, Scene, addv, smul, dot as dot3     # noqa: E402
 from make_diagrams import (Plate, compile_plate, proj, TIP, soften,  # noqa
                            orbit_eye)
 
@@ -215,38 +215,53 @@ def fig_escape():
 def fig_lightcone():
     """The null cone of q = x^2 + y^2 - z^2, the two sheets of q = -1, and
     positive planes with their normal lines."""
-    tgt = (0.05, 0.0, 0.0)
-    cam = Camera(eye=orbit_eye(tgt, 16.0, -50.0, 16.0), target=tgt,
-                 focal=12.0, scale=2.80)
+    tgt = (0.0, 0.0, 0.05)
+    AZ, EL = -55.0, 21.0
+    cam = Camera(eye=orbit_eye(tgt, 18.0, AZ, EL), target=tgt,
+                 focal=14.0, scale=2.55)
     sc = Scene(cam)
     pl = Plate("fig_lightcone", GEN,
                "The null cone of a form of signature (2,1), the two sheets of "
                "q = -1, and positive planes with their normal lines.",
-               thresh=249)
+               thresh=241)
     R = 1.60                      # height of the drawn cone
     RH = math.sqrt(R * R - 1.0)   # radius of the drawn sheet at the same height
+    # the screen-right and the away-from-the-viewer directions in {z = 0}
+    a = math.radians(AZ)
+    U = (-math.sin(a), math.cos(a), 0.0)
+    B = (-math.cos(a), -math.sin(a), 0.0)
+    # the second positive plane P' = w'-perp, tilted about the line of sight
     s = math.atanh(0.5)
     ch, sh = math.cosh(s), math.sinh(s)
-    w2 = (sh, 0.0, ch)            # the point of the sheet for P'
-    e1p = (ch, 0.0, sh)           # an orthonormal basis of P' = w2-perp
-    e2p = (0.0, 1.0, 0.0)
+    w2 = addv(smul(sh, U), (0.0, 0.0, ch))      # w' = sinh s U + cosh s z
+    e1p = addv(smul(ch, U), (0.0, 0.0, sh))     # q-orthonormal basis of P'
+    e2p = B
+
+    def q(v, w):
+        return v[0] * w[0] + v[1] * w[1] - v[2] * w[2]
+    assert abs(q(w2, w2) + 1) < 1e-12 and abs(q(e1p, e1p) - 1) < 1e-12
+    assert abs(q(w2, e1p)) < 1e-12 and abs(q(w2, e2p)) < 1e-12
+    # an orthonormal basis of P
+    th1, th2 = math.radians(-58.0), math.radians(32.0)
+    e1 = addv(smul(math.cos(th1), U), smul(math.sin(th1), B))
+    e2 = addv(smul(math.cos(th2), U), smul(math.sin(th2), B))
 
     # the null cone q = 0
     for sgn in (1, -1):
         sc.surface(lambda t, rr, sgn=sgn: (rr * math.cos(t), rr * math.sin(t),
                                            sgn * rr),
                    (0, 2 * math.pi), (0.0, R), 48, 10, base="PBlue",
-                   opacity=0.22, ambient=0.50, diffuse=0.40)
+                   opacity=0.20, ambient=0.50, diffuse=0.40)
         for m in range(16):
             t = 2 * math.pi * m / 16
             sc.polyline([(0, 0, 0), (R * math.cos(t), R * math.sin(t),
                                      sgn * R)],
-                        "soft,PBlue!55,line width=0.3pt", priority=1)
+                        "soft,PBlue!50,line width=0.3pt", priority=1)
         sc.curve(lambda t, sgn=sgn: (R * math.cos(t), R * math.sin(t),
                                      sgn * R), (0, 2 * math.pi), 96,
                  "soft,PBlue!80,line width=0.6pt", priority=2, chunk=2)
     # the two sheets of q = -1; the upper one is the period domain
-    for sgn, op in ((1, 0.62), (-1, 0.20)):
+    for sgn, op in ((1, 0.58), (-1, 0.22)):
         sc.surface(lambda t, rr, sgn=sgn: (rr * math.cos(t), rr * math.sin(t),
                                            sgn * math.sqrt(1 + rr * rr)),
                    (0, 2 * math.pi), (0.0, RH), 48, 10, base="POchre",
@@ -263,27 +278,29 @@ def fig_lightcone():
                  "soft,POchre!85!black,line width=0.6pt", priority=2, chunk=2)
     # the positive plane P = {z = 0}, its unit circle, e_1 and e_2
     L = 1.95
-    sc.surface(lambda u, v: (u, v, 0.0), (-L, L), (-L, L), 12, 12,
-               base="PClay", opacity=0.16, ambient=0.66, diffuse=0.26)
-    corners = [(-L, -L), (L, -L), (L, L), (-L, L)]
-    for a, b in zip(corners, corners[1:] + corners[:1]):
-        sc.polyline([(a[0], a[1], 0), (b[0], b[1], 0)],
-                    "soft,PClay!70,line width=0.4pt", priority=1)
+
+    def inP(u, v):
+        return addv(smul(u, U), smul(v, B))
+    sc.surface(inP, (-L, L), (-L, L), 12, 12, base="PClay", opacity=0.14,
+               ambient=0.66, diffuse=0.26)
+    corners = [inP(-L, -L), inP(L, -L), inP(L, L), inP(-L, L)]
+    for c0, c1 in zip(corners, corners[1:] + corners[:1]):
+        sc.polyline([c0, c1], "soft,PClay!70,line width=0.4pt", priority=1)
     sc.curve(lambda t: (math.cos(t), math.sin(t), 0.0), (0, 2 * math.pi), 96,
              "PClay,line width=1.0pt", priority=3, chunk=2)
-    sc.polyline([(0, 0, 0), (1, 0, 0)], "PClay!80!black,line width=1.1pt," + TIP,
-                priority=4)
-    sc.polyline([(0, 0, 0), (0, 1, 0)], "PClay!80!black,line width=1.1pt," + TIP,
-                priority=4)
+    for e in (e1, e2):
+        sc.polyline([(0, 0, 0), e], "PClay!80!black,line width=1.1pt," + TIP,
+                    priority=4)
     # the second positive plane P', its unit ellipse and its normal line
+    sc.surface(lambda uu, vv: addv(smul(uu, e1p), smul(vv, e2p)), (-1.0, 1.0),
+               (-1.0, 1.0), 10, 10, base="PGrass", opacity=0.14, ambient=0.70,
+               diffuse=0.2,
+               cull=lambda Q: all(((dot3(p_, e1p) / (ch * ch + sh * sh)) ** 2
+                                   + dot3(p_, e2p) ** 2) <= 1.0001
+                                  for p_ in Q))
     sc.curve(lambda t: addv(smul(math.cos(t), e1p), smul(math.sin(t), e2p)),
              (0, 2 * math.pi), 96, "PGrass,line width=0.9pt", priority=3,
              chunk=2)
-    sc.surface(lambda u, v: addv(smul(u, e1p), smul(v, e2p)), (-1.0, 1.0),
-               (-1.0, 1.0), 10, 10, base="PGrass", opacity=0.12, ambient=0.70,
-               diffuse=0.2,
-               cull=lambda Q: all(((q[0] / ch) ** 2 + q[1] ** 2) <= 1.0001
-                                  for q in Q))
     k = 2.05 / ch
     sc.polyline([smul(-0.30 * k, w2), smul(k, w2)],
                 "PGrass!85!black,line width=0.9pt", priority=3)
@@ -301,37 +318,39 @@ def fig_lightcone():
     def extreme(pts, key):
         return max(pts, key=lambda p: key(proj(cam, p)))
 
-    rim = [(R * math.cos(t), R * math.sin(t), R)
-           for t in [2 * math.pi * i / 360 for i in range(360)]]
-    hrim = [(RH * math.cos(t), RH * math.sin(t), R)
-            for t in [2 * math.pi * i / 360 for i in range(360)]]
-    cone_right = smul(0.62, extreme(rim, lambda q: q[0]))
-    sheet_left = extreme(hrim, lambda q: -q[0])
-    corner = extreme([(a, b, 0.0) for a, b in corners], lambda q: q[0])
-    ell = [addv(smul(math.cos(t), e1p), smul(math.sin(t), e2p))
-           for t in [2 * math.pi * i / 360 for i in range(360)]]
-    ell_left = extreme(ell, lambda q: -q[0] - 0.3 * q[1])
+    circ = [2 * math.pi * i / 360 for i in range(360)]
+    rim = [(R * math.cos(t), R * math.sin(t), R) for t in circ]
+    hrim = [(RH * math.cos(t), RH * math.sin(t), R) for t in circ]
+    lrim = [(RH * math.cos(t), RH * math.sin(t), -R) for t in circ]
+    cone_right = smul(0.70, extreme(rim, lambda q_: q_[0]))
+    sheet_left = extreme(hrim, lambda q_: -q_[0])
+    lsheet_left = extreme(lrim, lambda q_: -q_[0])
+    corner = extreme(corners, lambda q_: q_[0])
+    ell = [addv(smul(math.cos(t), e1p), smul(math.sin(t), e2p)) for t in circ]
+    ell_right = extreme(ell, lambda q_: q_[0])
 
     pl.label(proj(cam, (0, 0, 2.05)), r"$P^{\perp}$", color="PInk",
              dirs=[90, 60, 120], rmax=0.5)
-    pl.label(proj(cam, smul(k, w2)), r"$P'^{\perp}$", color="PGrass",
+    pl.label(proj(cam, smul(k, w2)), r"$P'^{\perp}$", color="PGrass!85!black",
              dirs=[90, 45, 0], rmax=0.5)
     pl.label(proj(cam, (0, 0, 1.0)), r"$w_{P}$", color="POchre!80!black",
              dirs=[180, 150, 210], rmax=3.0, skip=0.12)
-    pl.label(proj(cam, w2), r"$w_{P'}$", color="PGrass", dirs=[0, 30, -30],
-             rmax=3.0, skip=0.12)
-    pl.label(proj(cam, (1.0, 0, 0)), r"$e_{1}$", color="PClay!80!black",
-             dirs=[-90, -60, -120], rmax=2.0, skip=0.14)
-    pl.label(proj(cam, (0, 1.0, 0)), r"$e_{2}$", color="PClay!80!black",
-             dirs=[90, 60], rmax=2.0, skip=0.14)
+    pl.label(proj(cam, w2), r"$w_{P'}$", color="PGrass!85!black",
+             dirs=[0, 30, -30], rmax=3.0, skip=0.12)
+    pl.label(proj(cam, e1), r"$e_{1}$", color="PClay!80!black",
+             dirs=[-60, -90, -30], rmax=2.0, skip=0.14)
+    pl.label(proj(cam, e2), r"$e_{2}$", color="PClay!80!black",
+             dirs=[-30, 0, -60], rmax=2.0, skip=0.14)
     pl.label(proj(cam, corner), r"$P=\{z=0\}$", color="PClay",
              dirs=[0, -30, 30], rmax=1.0)
     pl.label(proj(cam, cone_right), r"$q=0$", color="PBlue",
              dirs=[0, -20, 20], rmax=2.0)
     pl.label(proj(cam, sheet_left), r"$q=-1$", color="POchre!80!black",
              dirs=[180, 160, 200], rmax=2.5, skip=0.10)
-    pl.label(proj(cam, ell_left), r"$P'$", color="PGrass",
-             dirs=[180, 200, 220, 240], rmax=2.5, skip=0.10)
+    pl.label(proj(cam, lsheet_left), r"$q=-1$", color="POchre!80!black",
+             dirs=[180, 160, 200], rmax=2.5, skip=0.10)
+    pl.label(proj(cam, ell_right), r"$P'$", color="PGrass!85!black",
+             dirs=[0, 20, -20, 40], rmax=2.5, skip=0.10)
     pl.build()
     compile_plate("fig_lightcone")
 

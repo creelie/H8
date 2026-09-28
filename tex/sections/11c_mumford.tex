@@ -5,16 +5,17 @@
 Statement (F2) is the Hodge conjecture for the Hodge classes on abelian
 varieties that no Weil line reaches, and \Cref{prop:mumfordproduct} exhibits
 the first of them: two classes in $H^{4}(X\times X,\QQ)$ for an abelian
-fourfold $X$ of Mumford type. None of the constructions of the earlier
+fourfold $X$ of Mumford type. None of the constructions of the preceding
 sections acts on them. In this subsection we identify them as a real
 multiplication on the primitive part of $H^{2}(X)$, and we prove that they
 are algebraic as soon as the Kuga--Satake class of one K3 surface of Picard
 number thirteen attached to $X$ is algebraic. We do not prove that the
-Kuga--Satake class is algebraic, and we know of no proof. What changes is the
-kind of question: two classes on an eightfold are traded for one
+Kuga--Satake class is algebraic, and we know of no proof. The reduction
+changes the kind of question: two classes on an eightfold are traded for one
 correspondence of a well-studied type, between a surface and its Kuga--Satake
-variety. The field enters through the Clifford relations, which force the
-Kuga--Satake map to see all of it.
+variety. The cubic field of the real multiplication enters through the
+Clifford relations, which force the blocks of the Kuga--Satake embedding to
+span it.
 
 \begin{setupenv}[Mumford type]\label{setup:mumford}
 Let $X$ be as in \Cref{prop:mumfordproduct}, with $V=H^{1}(X,\QQ)$,
@@ -22,10 +23,10 @@ polarisation $\psi$ and polarisation class $\theta\in H^{2}(X,\QQ)$, and let
 $G=\Hg(X)$. Over $\bar{\QQ}$ the Hodge cocharacter is nontrivial on exactly
 one of the three factors of $G$: on $V_{i}$ it has weights $\pm a_{i}/2$ with
 $a_{i}\ge0$, and $V$ has only the two weights $\pm\frac12$, so exactly one
-$a_{i}$ is nonzero. Because
-$\End^{0}(X)=\QQ$ the group $G$ is therefore $\QQ$-simple: the Lie algebra of
-a $\QQ$-factor not containing that geometric factor would consist of Hodge
-classes in $\End(V)$, that is of endomorphisms of $X$. So $G$ is the image in
+$a_{i}$ is nonzero. Since $\End^{0}(X)=\QQ$, it follows that $G$ is
+$\QQ$-simple: the Lie algebra of a $\QQ$-factor not containing that geometric
+factor would consist of Hodge classes in $\End(V)$, that is, of endomorphisms
+of $X$. So $G$ is the image in
 $\GL(V)$ of $\Res_{F/\QQ}D^{1}$, where $F$ is a totally real cubic field, $D$
 is a quaternion algebra over $F$ split at one real place $\sigma_{3}$ and
 definite at the other two, $\sigma_{1}$ and $\sigma_{2}$, with
@@ -88,17 +89,18 @@ $V_{3}=V_{3}^{1,0}\oplus V_{3}^{0,1}$, so $\bigwedge^{2}V_{3}$ has type
 $(1,1)$ and $S^{2}V_{3}$ has one dimension of each of the types $(2,0)$,
 $(1,1)$, $(0,2)$.
 
-(ii) A Hodge endomorphism commutes with the Mumford--Tate group $G\cdot\mathbb{G}_{m}$, and
-$\mathbb{G}_{m}$ acts on $H^{2}$ by scalars, so the Hodge endomorphisms are
-the $G$-endomorphisms. Over $\bar{\QQ}$ the four summands $\QQ\theta$,
-$U_{12}$, $U_{13}$, $U_{23}$ are irreducible and pairwise non-isomorphic, so
-the $G$-endomorphisms are the combinations of the four projections. The
-Galois group fixes the projection onto $\QQ\theta$ and permutes the other
-three as it permutes the indices $k$, that is as it permutes the embeddings of
-$F$. An endomorphism acting on $U_{ij}$ by $\sigma_{k}(a)$ is therefore
-Galois invariant, hence rational, and these exhaust the rational points,
-which are $\QQ\times F$. Poincar\'e duality identifies $\End H^{2}(X,\QQ)$
-with $H^{6}(X)\otimes H^{2}(X)$, and $\theta^{2}\otimes1$ carries
+(ii) A Hodge endomorphism commutes with the Mumford--Tate group
+$G\cdot\mathbb{G}_{m}$, and $\mathbb{G}_{m}$ acts on $H^{2}$ by scalars, so
+the Hodge endomorphisms are the $G$-endomorphisms. Over $\bar{\QQ}$ the four
+summands $\QQ\theta$, $U_{12}$, $U_{13}$, $U_{23}$ are irreducible and
+pairwise non-isomorphic, so the $G$-endomorphisms are the combinations of the
+four projections. The Galois group fixes the projection onto $\QQ\theta$ and
+permutes the other three as it permutes the indices $k$, that is, as it
+permutes the embeddings of $F$. For $a\in F$ an endomorphism acting on
+$U_{ij}$ by $\sigma_{k}(a)$ is therefore Galois invariant, hence rational, and
+with the scalars on $\QQ\theta$ these exhaust the rational points, which form
+$\QQ\times F$. Poincar\'e duality identifies $\End H^{2}(X,\QQ)$ with
+$H^{6}(X)\otimes H^{2}(X)$, and $\theta^{2}\otimes1$ carries
 $H^{2}\otimes H^{2}$ onto it; both are given by algebraic classes, and on an
 abelian variety so is the inverse of the Lefschetz isomorphism
 \cite[\S2]{Kle68}. The products of divisor classes in $H^{2}\otimes H^{2}$
@@ -119,8 +121,9 @@ symmetric forms are the multiples of $\operatorname{tr}(xy)$, and
 $\operatorname{tr}(x_{i}y_{i})=\sigma_{i}(\operatorname{trd}(xy))$ for
 $x,y\in D^{0}$, so the Galois-invariant ones are the $q_{\lambda}$. At
 $\sigma_{1}$ and $\sigma_{2}$ the algebra $D\otimes\RR$ is Hamilton's
-quaternions, $T_{i}$ is of type $(1,1)$, and $\operatorname{trd}(x^{2})=-2\operatorname{nrd}(x)$ is
-negative on nonzero pure quaternions. At $\sigma_{3}$ the form
+quaternions, $T_{i}$ is of type $(1,1)$, and
+$\operatorname{trd}(x^{2})=-2\operatorname{nrd}(x)$ is negative on nonzero
+pure quaternions. At $\sigma_{3}$ the form
 $\operatorname{tr}(xy)$ on $\mathfrak{sl}_{2}(\RR)$ is negative on the line of
 type $(1,1)$, the Lie algebra of the rotations fixed by the Hodge
 cocharacter, and positive on its orthogonal complement, the real points of
@@ -196,7 +199,7 @@ $F$.
 By the Kuga--Satake class of a projective K3 surface $S$ we mean the Hodge
 class on $S\times\mathrm{KS}(S)\times\mathrm{KS}(S)$ that induces the embedding
 of \Cref{prop:ksembed} for $T(S)_{\QQ}$; its algebraicity is the Kuga--Satake
-Hodge conjecture for $S$ of \Cref{rem:kstransport}.
+Hodge conjecture for $S$ (\Cref{rem:kstransport}).
 
 \begin{theorem}[One K3 surface for the two classes]\label{thm:mumfordks}
 In \Cref{setup:mumford}, let $\lambda\in F$ be totally positive.
@@ -242,19 +245,20 @@ change its even Clifford algebra, so $D^{1}$ is the spin group of
 $(D^{0},\lambda\operatorname{trd})$ for every $\lambda$, and
 $\Res_{F/\QQ}D^{1}$ maps to $\mathrm{Spin}(T,q_{\lambda})$ by multiplication
 in the Clifford algebra, with the same kernel as its map to $\GL(V)$, so that
-$G$ is a subgroup of $\mathrm{Spin}(T,q_{\lambda})$; as a representation of the $i$-th factor,
-$C(T_{i})$ is four copies of $V_{i}$. Hence $C^{+}(T)$ is $V^{\oplus32}$ as a
-representation of $G$ over $\bar{\QQ}$, and over $\QQ$ as well, because $V$ is
-absolutely irreducible. The Hodge structures on $C^{+}(T)=H^{1}(\mathrm{KS}(S_{\lambda}),\QQ)$
-and on $V^{\oplus32}=H^{1}(X^{32},\QQ)$ are both given by lifts of weight one of
-the same homomorphism $\mathbb{S}\to\MT(T)_{\RR}$ through $G\cdot\mathbb{G}_{m}$, and
-two such lifts coincide.\footnote{They differ by a homomorphism from the
+$G$ is a subgroup of $\mathrm{Spin}(T,q_{\lambda})$; as a representation of
+the $i$-th factor, $C(T_{i})$ is four copies of $V_{i}$. Hence $C^{+}(T)$ is
+$V^{\oplus32}$ as a representation of $G$ over $\bar{\QQ}$, and over $\QQ$ as
+well, because $V$ is absolutely irreducible. The Hodge structures on
+$C^{+}(T)=H^{1}(\mathrm{KS}(S_{\lambda}),\QQ)$ and on
+$V^{\oplus32}=H^{1}(X^{32},\QQ)$ are both given by lifts of weight one of the
+same homomorphism $\mathbb{S}\to\MT(T)_{\RR}$ through $G\cdot\mathbb{G}_{m}$,
+and two such lifts coincide.\footnote{They differ by a homomorphism from the
 anisotropic torus $\mathbb{S}/\mathbb{G}_{m}$ to the centre of
 $G\cdot\mathbb{G}_{m}$, whose identity component is $\mathbb{G}_{m}$, and
 such a homomorphism is trivial.} So
 $H^{1}(\mathrm{KS}(S_{\lambda}),\QQ)\cong H^{1}(X^{32},\QQ)$ as Hodge
 structures, and $\mathrm{KS}(S_{\lambda})$ is isogenous to $X^{32}$. For the
-form Galluzzi uses this is her theorem \cite{Gal00}, and van Geemen proves the
+form used by Galluzzi this is her theorem \cite{Gal00}; van Geemen proves the
 corresponding splitting for every K3 surface with real multiplication
 \cite{vG08}.
 
@@ -288,26 +292,28 @@ is a nonzero scalar on $V_{i}$, so $N_{i}^{2}$ is a nonzero scalar. Three pairwi
 anticommuting invertible matrices are linearly independent: multiplying a
 relation $\sum_{i}c_{i}N_{i}=0$ by $N_{j}$ on either side and adding gives
 $2c_{j}N_{j}^{2}=0$. If the $e_{ab}$ spanned a subspace of $F$ of dimension at
-most two, the $N_{i}$ would lie in the span of at most two rational matrices;
-so the $e_{ab}$ span $F$, and two of them, $e$ and $e'$, are not rational
-multiples of each other. Then $(e/e')^{2}$ is irrational, since a cubic field
+most two, the three $N_{i}$ would lie in the span of at most two rational
+matrices, which is impossible; so the $e_{ab}$ span $F$, and two of them, $e$
+and $e'$, are not rational multiples of each other. Then $(e/e')^{2}$ is irrational, since a cubic field
 contains no irrational element with rational square, so $e^{2}/\lambda$ and
 $e'^{2}/\lambda$ are not both rational. Fix a block $\kappa=m_{e}$ with
 $e^{2}/\lambda\notin\QQ$, induced by a cycle $\Gamma$. Item (XLI) builds the
 Clifford algebra of the split model and checks that $\Psi$ has this shape,
 with three anticommuting $N_{i}$.
 
-The real multiplication first. The trace form $(a,b)\mapsto\operatorname{tr}(ab)$ on
-$\End(V)$ is induced by an algebraic class: for correspondences $a,b$ on $X$
+Consider first the real multiplication. The trace form
+$(a,b)\mapsto\operatorname{tr}(ab)$ on $\End(V)$ is induced by an algebraic
+class: for correspondences $a,b$ on $X$
 the Lefschetz trace formula gives
 $\operatorname{tr}(a_{*}b_{*}\mid H^{1})=-\deg\bigl((a\circ b\circ\pi_{1})\cdot\Delta_{X}\bigr)$,
 where $\pi_{1}$ is the K\"unneth projector onto $H^{1}$, algebraic on an
 abelian variety \cite[\S2]{Kle68}. So the adjoint $\kappa^{\dagger}$ of
 $\kappa$, for this form and the intersection form on $S$, is induced by a
 cycle built from the transpose of $\Gamma$, $\pi_{1}$ and $\Delta_{X}$, and
-$\kappa^{\dagger}\kappa$ is an algebraic endomorphism of $T(S)$. An element $x$ of $T_{i}$ acts on the
-eight-dimensional space $V$ through a two-dimensional factor, with
-multiplicity four, so $\operatorname{tr}_{V}(xy)=4\Tr_{F/\QQ}\operatorname{trd}(xy)$, and
+$\kappa^{\dagger}\kappa$ is an algebraic endomorphism of $T(S)$. An element
+$x$ of $T_{i}$ acts on the eight-dimensional space $V$ through a
+two-dimensional factor, with multiplicity four, so
+$\operatorname{tr}_{V}(xy)=4\Tr_{F/\QQ}\operatorname{trd}(xy)$, and
 \[
   q_{\lambda}(\kappa^{\dagger}\kappa x,y)
   =\operatorname{tr}_{V}(ex\cdot ey)
@@ -322,14 +328,14 @@ $[\mathrm{pt}\times S]$, $[S\times\mathrm{pt}]$ and $\sum_{r}d_{r}\times d_{r}^{
 over dual bases of $\NS(S)_{\QQ}$, gives algebraic cycles on $S\times S$
 inducing the real multiplication.
 
-The classes on $X\times X$ next. The map $\mu_{\kappa}=\mu\circ(\kappa\otimes\kappa)$
-from $T(S)\otimes T(S)$ to $H^{2}(X,\QQ)$ is induced by an algebraic cycle on
-$S\times S\times X$, obtained from $\Gamma\times\Gamma$, the divisor
+Consider next the classes on $X\times X$. The map
+$\mu_{\kappa}=\mu\circ(\kappa\otimes\kappa)$ from $T(S)\otimes T(S)$ to
+$H^{2}(X,\QQ)$ is induced by an algebraic cycle on $S\times S\times X$,
+obtained from $\Gamma\times\Gamma$, the divisor
 $m^{*}\theta-p_{1}^{*}\theta-p_{2}^{*}\theta$ on $X\times X$, whose class is
 $\psi$ in $H^{1}\otimes H^{1}$, and the diagonal of $X$ by pull-back,
 push-forward and intersection, because $\mu$ uses nothing but $\psi$ and the
-composition of endomorphisms of $V$.
-The form $q_{\lambda}\otimes q_{\lambda}$ is the intersection form of
+composition of endomorphisms of $V$. The form $q_{\lambda}\otimes q_{\lambda}$ is the intersection form of
 $S\times S$ on $T(S)\otimes T(S)$ and $B$ is the intersection form of $X$
 twisted by $\theta^{2}$, so the adjoint $\mu_{\kappa}^{\dagger}$ is induced by
 cup product with $\theta^{2}$ followed by the transposed cycle, and
@@ -378,21 +384,22 @@ a Shioda--Inose structure, which relates the surface to an abelian surface;
 by Morrison these are the surfaces of Picard number $19$ or $20$, those of
 Picard number $18$ with $T(S)\cong U\oplus T'$ and those of Picard number
 $17$ with $T(S)\cong U^{2}\oplus T'$
-\cite[Theorem~6.3 and Corollary~6.4]{Mor84}, and for them the argument also
-uses the Hodge conjecture for the powers of an abelian surface, whose Hodge
-classes are generated by divisor classes (see \cite{MZ99}), and the fact
-that the Kuga--Satake variety of an abelian surface is isogenous to a power
-of it \cite{Mor85}. With Buskin's theorem that rational Hodge isometries between K3
-surfaces are algebraic \cite{Bus19}, this reaches the surfaces of Picard
-number at least $19$, those of Picard number $18$ with $T(S)_{\QQ}$
-isotropic, and those of Picard number $17$ with $T(S)_{\QQ}$ of Witt index
-two (\Cref{rem:mumfordpowersopen}). It does not reach every surface of
-Picard number seventeen, as Morrison notes \cite[Remark~7.2]{Mor84}: for
+\cite[Theorem~6.3 and Corollary~6.4]{Mor84}, and for these the proof uses in
+addition the Hodge conjecture for the powers of an abelian surface, whose
+Hodge classes are generated by divisor classes (see \cite{MZ99}), and the
+fact that the Kuga--Satake variety of an abelian surface is isogenous to a
+power of it \cite{Mor85}. With Buskin's theorem that rational Hodge
+isometries between K3 surfaces are algebraic \cite{Bus19}, this reaches the
+surfaces of Picard number at least $19$, those of Picard number $18$ with
+$T(S)_{\QQ}$ isotropic, and those of Picard number $17$ with $T(S)_{\QQ}$ of
+Witt index two (\Cref{rem:mumfordpowersopen}). It does not reach every
+surface of Picard number seventeen, as Morrison notes
+\cite[Remark~7.2]{Mor84}: for
 $T(S)=U\oplus\langle6\rangle\oplus\langle-2\rangle\oplus\langle-2\rangle$,
 the transcendental lattice of the very general K3 surface of a family of
 dimension three \cite[Corollary~2.10]{Mor84}, $T(S)_{\QQ}$ has Witt index one,
 since $\langle6,-2,-2\rangle$ is anisotropic over $\QQ_{3}$ (item (LX) of
-\Cref{sec:verification}); we do not claim that the conjecture is unknown for
+\Cref{sec:verification}); we do not claim that the conjecture is open for
 every such surface. The double planes branched along six lines, of Picard
 number at least sixteen, are settled by Paranjape's cycle; see \cite{vG00}.
 Floccari proves the conjecture for the K3 surfaces attached to projective
@@ -403,16 +410,17 @@ in $(U^{3}\oplus\langle-m\rangle)_{\QQ}$ for some $m>0$, both the conjecture
 and the Hodge conjecture for all powers \cite[Theorems~1.2 and~5.11]{Flo25};
 their transcendental lattices embed, after scaling in the first case, in a
 rational quadratic space of rank seven and signature $(3,4)$, so their
-transcendental rank is at most six. Ingalls, Logan and Patashnick prove it,
-with the Hodge conjecture for the square, for a general K3 surface in
-$\PP^{4}$ with fifteen ordinary double points and the K3 surfaces joined to
-it by chains of rational maps of finite degree
-\cite[Theorems~1.5, 4.8 and~6.4]{ILP22}, and Bolognesi and Laterveer for the triple
-covers of a quadric branched along a curve of genus four, which form two
-families of dimension nine; these carry a non-symplectic automorphism of
-order three, so their fields of Hodge endomorphisms are CM fields
-\cite{BL24}. The surfaces $S_{\lambda}$ have transcendental rank nine and
-real multiplication by a cubic field.
+transcendental rank is at most six. Ingalls, Logan and Patashnick prove the
+conjecture, with the Hodge conjecture for the square, for a general K3
+surface in $\PP^{4}$ with fifteen ordinary double points and for the K3
+surfaces joined to it by chains of rational maps of finite degree
+\cite[Theorems~1.5, 4.8 and~6.4]{ILP22}. Bolognesi and Laterveer prove it for
+the triple covers of a quadric branched along a curve of genus four, which
+form two families of dimension nine; these carry a non-symplectic
+automorphism of order three, so their fields of Hodge endomorphisms are CM
+fields \cite{BL24}. The surfaces $S_{\lambda}$, by contrast, have
+transcendental rank nine and real multiplication by a cubic field.
+
 Schlickewei made the real multiplication algebraic on those double planes
 that have it, necessarily by a field of degree at most two, from Paranjape's
 cycle and van Geemen's description of their Kuga--Satake varieties
@@ -428,41 +436,43 @@ similarities between transcendental lattices of K3 surfaces that start and
 end at $T(S)$, therefore span exactly the maximal multiquadratic subfield
 $E_{\mathrm{mq}}$ of $E$, the compositum of its quadratic subfields. For a
 cubic field $E_{\mathrm{mq}}=\QQ$: a cubic field contains no irrational
-element with rational square, so none of its elements acts as a similarity;
-the element
-$\kappa^{\dagger}\kappa=m_{4e^{2}/\lambda}$ in the proof takes the place that
-the similarities occupy there, and the Clifford relations are what make it
-irrational. Buskin's theorem that rational Hodge isometries between K3
-surfaces are algebraic \cite{Bus19} does not give the real multiplication
-either. A Hodge isometry of $T(S_{\lambda})$ is a Hodge endomorphism, hence
-some $m_{a}$ by \Cref{prop:mumfordrm}(iii), and it is an isometry only when
-$a^{2}=1$. For $b\in F^{\times}$ the theorem does give algebraic cycles between
-$S_{\lambda}$ and $S_{\lambda b^{-2}}$ that realise $m_{b}$, but every composite
-of them that returns to $S_{\lambda}$ is again a Hodge isometry of
-$T(S_{\lambda})$, so it multiplies by an element of square one.
+element with rational square, so no irrational element of it acts as a
+similarity. In the proof of \Cref{thm:mumfordks} the element
+$\kappa^{\dagger}\kappa=m_{4e^{2}/\lambda}$ plays the role that the
+similarities play for quadratic fields, and the Clifford relations are what
+make it irrational. Buskin's theorem \cite{Bus19} does not give the real
+multiplication either. A Hodge isometry of $T(S_{\lambda})$ is a Hodge
+endomorphism, hence some $m_{a}$ by \Cref{prop:mumfordrm}(iii), and it is an
+isometry only when $a^{2}=1$. For $b\in F^{\times}$ Buskin's theorem does give
+algebraic cycles between $S_{\lambda}$ and $S_{\lambda b^{-2}}$ that realise
+$m_{b}$, but every composite of them that returns to $S_{\lambda}$ is again a
+Hodge isometry of $T(S_{\lambda})$, so it multiplies by an element of square
+one.
 
 The surfaces $S_{\lambda}$ include those of Zhu, who computes the integral
 structure that the fourfold induces on $T$ and studies the K3 surfaces of
-Picard number thirteen that carry it \cite{Zhu18}; its form is the
-corestriction of the reduced norm of $D^{0}$, which up to sign is
-$\frac12q_{1}$.
-\Cref{thm:mumfordks} applies to them as it stands, because the irrationality
-of $e^{2}/\lambda$ comes from the anticommuting blocks and not from $\lambda$.
-The closest explicit families are those of van Geemen and Sch\"utt, with
+Picard number thirteen that carry it \cite{Zhu18}; the form of that structure
+is the corestriction of the reduced norm of $D^{0}$, which up to sign is
+$\frac12q_{1}$. \Cref{thm:mumfordks} applies to them as it stands, because the
+irrationality of $e^{2}/\lambda$ comes from the anticommuting blocks and not
+from $\lambda$. The explicit families closest to these are those of van
+Geemen and Sch\"utt, with
 real multiplication by the cyclic cubic fields $\QQ(\zeta_{7}+\zeta_{7}^{-1})$
 and $\QQ(\zeta_{9}+\zeta_{9}^{-1})$ and Picard numbers four and ten, on which
 the real multiplication is induced by explicit algebraic cycles
 \cite[Theorem~1.2 and Section~4.8]{vGS25}; their Picard numbers are not
 thirteen, and the Kuga--Satake class, which \Cref{thm:mumfordks} needs and
 algebraic real multiplication does not supply, is not treated there.
-The first case of (F2) is therefore implied by one instance of the
-Kuga--Satake Hodge conjecture, for one K3 surface of Picard number thirteen;
-by \Cref{prop:mumfordkslink} below that instance is equivalent to the first
-case of (F2) at $X$ together with a link, and it is not a reduction of it.
+
+By \Cref{thm:mumfordks}, then, the first case of (F2) is implied by one
+instance of the Kuga--Satake Hodge conjecture, for one K3 surface of Picard
+number thirteen; by \Cref{prop:mumfordkslink} below that instance is
+equivalent to the first case of (F2) at $X$ together with a link, and it is
+not a reduction of it.
 \end{remark}
 
 \Cref{thm:mumfordks} trades the two exceptional classes for one Kuga--Satake
-class. The next results say what the trade buys and what it costs. If the
+class. The next results make this exchange precise. If the
 exceptional classes are algebraic, so is every Hodge class on every power of
 $X$ (\Cref{thm:mumfordpowers}); if the Kuga--Satake class is algebraic, so is
 every Hodge class on every product $S_{\lambda}^{a}\times X^{b}$
@@ -507,9 +517,10 @@ irreducible, a representation of $G$ defined over $\QQ$ contains
 $T_{1}$, $T_{2}$ and $T_{3}$ with one and the same multiplicity $m$, and its
 space of $G$-maps from $T$, of $\QQ$-dimension $3m$, is a vector space over
 $\End_{G}(T)=F$ (\Cref{prop:mumfordrm}(iii)) of dimension $m$. Item (XXXV)
-decomposes every $\bigwedge^{k}V$, and item (LV) checks twice, by peeling
-highest weights and by Weyl's alternating sum over the Weyl group of
-$\SL_{2}^{3}$, that no summand $S^{2}V_{i}$ occurs; that is (i). For (ii),
+decomposes every $\bigwedge^{k}V$, and item (LV) checks in two ways, by
+repeated subtraction of highest weights and by Weyl's alternating sum over
+the Weyl group of $\SL_{2}^{3}$, that no summand $S^{2}V_{i}$ occurs; that is
+(i). For (ii),
 $H^{n}(X\times X)=\bigoplus_{a+b=n}\bigwedge^{a}V\otimes\bigwedge^{b}V$, and
 item (LV) computes by the same two methods the multiplicity of $S^{2}V_{1}$
 in it: $0,0,1,0,6,0,16,0,24,0,16,0,6,0,1,0,0$ for $n=0,\dots,16$. In
@@ -647,12 +658,12 @@ composite of correspondences, which involves a push-forward; item (LV) finds
 one already of the form $\hat{t}\hat{t}$. This is where
 \Cref{thm:mumfordpowers} differs from \Cref{prop:powers}, in which the first
 fundamental theorem for $\SL(W)$ lets pull-backs and products suffice. We have
-not found \Cref{thm:mumfordpowers} in the literature and make no claim of
-priority; it is an implication between open statements, not a new case of the
-Hodge conjecture.
+not found \Cref{thm:mumfordpowers} in the literature; it is an implication
+between open statements, not a new case of the Hodge conjecture.
 \end{remark}
 
-At the CM points the powers are unconditional.
+At the CM points of a Mumford family the conclusion holds without any
+hypothesis.
 
 \begin{proposition}[Powers at a CM point]\label{prop:mumfordcmpowers}
 Let $W\to C$ be a family as in \Cref{cor:mumfordlefschetz} and $c\in C$ a CM
@@ -692,7 +703,7 @@ pull-backs of Hodge classes of the fourfold $X_{c}$ along homomorphisms, and
 these are algebraic \cite{Mar25a}.
 \end{proof}
 
-For $n=2$ this is \Cref{thm:mumfordcm} again, without the computation of item
+For $n=2$ this recovers \Cref{thm:mumfordcm} without the computation of item
 (XLIII). The statement is also contained in the theorem of \cite{Li26} on the
 powers of CM fourfolds.
 
@@ -732,13 +743,13 @@ $a,b\ge0$.
 By \Cref{thm:mumfordks}(ii) the exceptional classes are algebraic, so by
 \Cref{thm:mumfordpowers} the Hodge conjecture holds for every power of $X$.
 In the proof of \Cref{thm:mumfordks}(ii) a block $\kappa=m_{e}$, $e\ne0$, of
-the Kuga--Satake embedding, a map from $T(S)$ to $\End V$, which is a
-K\"unneth component of $H^{*}(X\times X,\QQ)$ up to a twist, is induced by a
-cycle on $S\times X\times X$; its adjoint $\kappa^{\dagger}$ is algebraic,
-$\kappa^{\dagger}\kappa=m_{4e^{2}/\lambda}$, and every $m_{a}$, $a\in F$, is
-induced by a cycle on $S\times S$. So
-$L=m_{\lambda/(4e^{2})}\kappa^{\dagger}$ is algebraic and
-$L\kappa$ is the identity of $T(S)$. The decomposition
+the Kuga--Satake embedding is induced by a cycle on $S\times X\times X$; it
+is a map from $T(S)$ to $\End V$, which up to a twist is a K\"unneth
+component of $H^{*}(X\times X,\QQ)$. Its adjoint $\kappa^{\dagger}$ is
+algebraic, $\kappa^{\dagger}\kappa=m_{4e^{2}/\lambda}$, and every $m_{a}$,
+$a\in F$, is induced by a cycle on $S\times S$. So
+$L=m_{\lambda/(4e^{2})}\kappa^{\dagger}$ is algebraic and $L\kappa$ is the
+identity of $T(S)$. The decomposition
 $H^{*}(S,\QQ)=\QQ\oplus\NS(S)_{\QQ}\oplus T(S)\oplus H^{4}(S,\QQ)$ has
 algebraic projectors, as in that proof, so $H^{*}(S^{a}\times X^{b},\QQ)$ is
 the sum of the summands $N\otimes T(S)^{\otimes r}\otimes H^{*}(X^{b},\QQ)$,
@@ -756,8 +767,8 @@ $\xi=(L^{\otimes r}\otimes1)(\kappa^{\otimes r}\otimes1)\xi$ is algebraic.
 $X\times X$ only. Varesco proves an implication of the same kind, from the
 algebraicity of the Kuga--Satake correspondence to the Hodge conjecture for
 all powers, for families of K3 surfaces of generic Picard number sixteen
-\cite{Var22}; we have seen that paper only in summary. The converse question,
-what the Kuga--Satake class asks for beyond the target, has a precise answer.
+\cite{Var22}. The converse question, what the Kuga--Satake class asks for
+beyond the target, has a precise answer.
 
 \begin{proposition}[What the Kuga--Satake route asks]\label{prop:mumfordkslink}
 In the situation of \Cref{cor:mumfordksproducts}, the Kuga--Satake class of
@@ -801,9 +812,10 @@ is not a reduction of it: at the point $X$ it asks for (i), which is the first
 case of (F2) there, and in addition for a link. Whether (i) implies (ii) is
 not known; the Hodge conjecture implies both. The route helps only if the
 Kuga--Satake class of $S_{\lambda}$ can be made algebraic by arguments proper
-to K3 surfaces. A link has to be a genuinely new correspondence: $T$ occurs in
-no $H^{k}(X)$ (\Cref{prop:mumfordwhere}(i)), and the next proposition shows
-that it occurs in the cohomology of no abelian variety of dimension below six.
+to K3 surfaces. A link has to be a correspondence of a new kind: $T$ occurs
+in no $H^{k}(X)$ (\Cref{prop:mumfordwhere}(i)), and the next proposition
+shows that it occurs in the cohomology of no abelian variety of dimension
+below six.
 
 \begin{proposition}[No small abelian carrier of $T$]\label{prop:mumfordcarrier}
 In \Cref{setup:mumford}, let $Y$ be an abelian variety such that $T(-1)$ is
@@ -889,15 +901,15 @@ $i=1,2$, and with the Hodge cocharacter of $V_{3}$ on the two summands with
 $i=3$: the signature $(2,0)$, $(2,0)$, $(1,1)$. Item (LV) computes that the
 part of $\bigwedge^{2}H$ on which the torus acts trivially is
 $T_{1}\oplus T_{2}\oplus T_{3}$ plus three trivial summands, and that this
-copy of $T$ has Hodge numbers $(1,7,1)$, those of $T(S_{\lambda})$. We recall,
-without having re-read the sources, that these are the Hodge structures on
-$H^{1}(Z,\QQ)\cong D$ of the abelian sixfolds $Z$ with multiplication by $K$
-over the Shimura curves of PEL type attached to $K$ and $D$, which go back to
-Shimura, and that at a suitable member the copy of $T$ is isomorphic to
-$T(S_{\lambda})$, the Hodge structure on it depending only on the image of the
-Hodge cocharacter in $G^{\mathrm{ad}}$. Nothing in the paper uses this. It
-would not give a link: that would still need an algebraic cycle on
-$S_{\lambda}\times Z$ acting nontrivially on $T(S_{\lambda})$.
+copy of $T$ has Hodge numbers $(1,7,1)$, those of $T(S_{\lambda})$. We recall
+without proof that these are the Hodge structures on $H^{1}(Z,\QQ)\cong D$ of
+the abelian sixfolds $Z$ with multiplication by $K$ over the Shimura curves of
+PEL type attached to $K$ and $D$, which go back to Shimura, and that at a
+suitable member the copy of $T$ is isomorphic to $T(S_{\lambda})$, the Hodge
+structure on it depending only on the image of the Hodge cocharacter in
+$G^{\mathrm{ad}}$. Nothing in the paper uses this, and it would not give a
+link: that would still need an algebraic cycle on $S_{\lambda}\times Z$ acting
+nontrivially on $T(S_{\lambda})$.
 \end{remark}
 
 \begin{remark}[The K3 surfaces at the CM points]\label{rem:mumfordkscm}
@@ -908,7 +920,7 @@ $X_{c}$ induces on $T$, and call the surface $S_{c}$. By the proof of
 quadratic extension $L$ of $F$ contained in $D$; $L$ is a CM field, since the
 torus is compact at $\sigma_{1}$ and $\sigma_{2}$, where $D$ is definite, and
 at $\sigma_{3}$, where it contains the nontrivial image of the circle of the
-Hodge structure. It acts on $T=D^{0}$ by conjugation, with invariants
+Hodge structure. The torus acts on $T=D^{0}$ by conjugation, with invariants
 $D^{0}\cap L$, the three-dimensional space $L^{0}$ of elements of $L$ of
 reduced trace zero. So $\NS(S_{c})_{\QQ}=T^{\perp}\oplus L^{0}$ has rank
 sixteen. Write $D=L\oplus Lj$ with $jx=\bar{x}j$ for $x\in L$. Then $Lj$ is
@@ -919,8 +931,8 @@ by $L$ consists of Hodge endomorphisms and $T(S_{c})$ has complex
 multiplication by the sextic CM field $L$. At the CM points the Kuga--Satake
 question therefore lies among K3 surfaces of Picard number sixteen, among
 which the known cases recalled in \Cref{rem:mumfordks} are particular
-families; we have not checked whether some $S_{c}$ belongs to one of them.
-It would not help: at $c$ the exceptional classes are already algebraic
+families. Whether some $S_{c}$ belongs to one of them we have not determined,
+and it would not help: at $c$ the exceptional classes are already algebraic
 (\Cref{thm:mumfordcm}), and what is missing is the propagation along $C$.
 \end{remark}
 
@@ -975,9 +987,9 @@ which the Hodge conjecture is not known.
 Nothing proved from \Cref{prop:mumfordwhere} to \Cref{prop:mumfordsurface} is
 a new case of the Hodge conjecture. \Cref{thm:mumfordpowers},
 \Cref{cor:mumfordksproducts} and one direction of \Cref{prop:mumfordkslink}
-are implications whose hypotheses are open; \Cref{prop:mumfordcmpowers} is a
-consequence of Markman's theorem, and of \cite{Li26}; the rest are statements
-about Hodge structures and correspondences. The first case of (F2) is open.
+are implications whose hypotheses are open; \Cref{prop:mumfordcmpowers}
+follows from Markman's theorem and is also contained in \cite{Li26}; the rest
+are statements about Hodge structures and correspondences. The first case of (F2) is open.
 By \Cref{cor:mumfordequiv}, \Cref{cor:mumfordpowersequiv} and
 \Cref{prop:mumfordsurface} it is equivalent to each of the following: the
 algebraicity of the exceptional classes of $X_{t}\times X_{t}$ for uncountably
@@ -990,13 +1002,13 @@ $\Sigma_{t}\subset X_{t}$. For a family defined over a number field it is
 also equivalent to the algebraicity, at one point $t\in C(\CC)\setminus
 C(\bar{\QQ})$, of one cycle on one power of $X_{t}$ whose class is not fixed
 by the cyclic permutation of the three tensor factors of $V$
-(\Cref{prop:mumfordmotivic}). It is implied by the Kuga--Satake Hodge conjecture
-for the surfaces $S_{\lambda}$ attached to uncountably many fibres
+(\Cref{prop:mumfordmotivic}). It is implied by the Kuga--Satake Hodge
+conjecture for the surfaces $S_{\lambda}$ attached to uncountably many fibres
 (\Cref{cor:mumfordone}(ii)), which by \Cref{prop:mumfordkslink} is equivalent
 to it together with a link, and that is open too: none of the cases of the
 Kuga--Satake Hodge conjecture known to us (\Cref{rem:mumfordks}) covers a K3
 surface of transcendental rank nine with real multiplication by a cubic field,
-and we do not claim that this survey is complete.
+and we do not claim that the survey there is complete.
 
 Two limits explain why the constructions at hand do not reach the target.
 First, the Kuga--Satake class has a nonzero component in $T(S)\otimes
@@ -1038,8 +1050,9 @@ which it stays a Hodge class, from a member at which it is algebraic; it
 implies the Kuga--Satake Hodge conjecture for $S_{\lambda}$ and with it
 everything above.
 
-Members at which the class is algebraic exist. Call the family $\cK$, keep the
-embedding $T\subset\Lambda_{\QQ}$ of the proof of \Cref{thm:mumfordks}(i), and
+The Kuga--Satake class is algebraic at some members of this family. Call the
+family $\cK$, keep the embedding $T\subset\Lambda_{\QQ}$ of the proof of
+\Cref{thm:mumfordks}(i), and
 for $S\in\cK$ let $\kappa_{S}$ be the Kuga--Satake class of $T$ with the Hodge
 structure that $S$ induces on it, a Hodge class on $S\times A_{S}\times A_{S}$
 with $H^{1}(A_{S},\QQ)=C^{+}(T)$; at $S_{\lambda}$ it is the class of
@@ -1053,18 +1066,20 @@ anisotropic vector of $P$ carrying $C^{-}(P)$ onto $C^{+}(P)$, and the map
 $\Psi$ of \Cref{prop:ksembed}, with $v_{0}\in P$, carries $N$ to Hodge
 endomorphisms of $A_{S}$, left multiplication by $N$ commuting with that of
 $C^{+}(P\otimes\RR)$. So $\kappa_{S}$ is algebraic if and only if the
-Kuga--Satake class of $P$ is.
-By the argument recalled in \Cref{rem:mumfordks}, $\kappa_{S}$ is therefore
-algebraic at the members of Picard number at least $19$, which are dense in
-$\cK$, at those of Picard number $18$ with $T(S)_{\QQ}$ isotropic and at those
-of Picard number $17$ with $T(S)_{\QQ}$ of Witt index two. In the last two
-cases $T(S)_{\QQ}\cong L_{\QQ}$ for an even lattice
-$L=U\oplus\langle2a\rangle\oplus\langle-2b\rangle$ or $U^{2}\oplus\langle-2b\rangle$,
-which embeds primitively in $U^{3}\subset\Lambda$; the surjectivity of the
-period map gives a K3 surface $S'$ with $T(S')=L$, which has a Shioda--Inose
-structure \cite[Corollary~6.4]{Mor84}, and a Hodge isometry $T(S)_{\QQ}\cong T(S')_{\QQ}$, which extends
-by Witt's theorem to a rational Hodge isometry $H^{2}(S,\QQ)\cong
-H^{2}(S',\QQ)$, algebraic by \cite{Bus19}. The case of Picard number $17$
+Kuga--Satake class of $P$ is. By the argument recalled in
+\Cref{rem:mumfordks}, $\kappa_{S}$ is therefore algebraic at the members of
+Picard number at least $19$, which are dense in $\cK$, at those of Picard
+number $18$ with $T(S)_{\QQ}$ isotropic and at those of Picard number $17$
+with $T(S)_{\QQ}$ of Witt index two. In the last two cases
+$T(S)_{\QQ}\cong L_{\QQ}$ for an even lattice
+$L=U\oplus\langle2a\rangle\oplus\langle-2b\rangle$ or
+$U^{2}\oplus\langle-2b\rangle$, which embeds primitively in
+$U^{3}\subset\Lambda$. The surjectivity of the period map gives a K3 surface
+$S'$ with $T(S')=L$, which has a Shioda--Inose structure
+\cite[Corollary~6.4]{Mor84}, and a Hodge isometry
+$T(S)_{\QQ}\cong T(S')_{\QQ}$; by Witt's theorem it extends to a rational
+Hodge isometry $H^{2}(S,\QQ)\cong H^{2}(S',\QQ)$, which is algebraic by
+\cite{Bus19}. The case of Picard number $17$
 fills subfamilies of dimension three. The space $T$ has Witt index two: its
 signature $(2,7)$ allows no totally isotropic subspace of dimension three, and
 an anisotropic kernel of dimension at least seven would be indefinite, hence

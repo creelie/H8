@@ -1,13 +1,14 @@
 \subsection{The second criterion: a rank at one point}
 
-The other way to get from a dense algebraic locus to an open one is to make
-the cycle move, and the classical tool for that is semiregularity. What
-follows is not a new theorem about semiregularity; it is the observation that
-after \Cref{thm:hdgcount}, \Cref{thm:everyfamily} and \Cref{thm:closedlocus},
-the semiregularity of a single object at a single point implies the Hodge
-conjecture for the whole family, with no further propagation argument. The
-first step is that the object exists, and that its Chern character is as rigid
-as it can be.
+The other way from a dense algebraic locus to an open one is to make the
+cycle move, and the classical tool for that is semiregularity. The theorem
+below adds nothing to the theory of semiregularity itself. Its content is
+that, after \Cref{thm:hdgcount}, \Cref{thm:everyfamily} and
+\Cref{thm:closedlocus}, the semiregularity of a single object at a single
+point implies the Hodge conjecture for the whole family, with no further
+propagation argument. We begin with the object: it exists, and its Chern
+character is concentrated in one degree and is a flat Hodge class on the
+whole family.
 
 \begin{proposition}[The $K$-theory class at a base point]\label{prop:ktheory}
 Let $s_{0}\in\Sigma$ be a base point of \Cref{thm:everyfamily} and write
@@ -27,9 +28,9 @@ $\cl(\xi)=\omega_{1}$. For a smooth quasi-projective variety over a field the
 Chern character $\ch\colon K_{0}(A_{0})_{\QQ}\to\CH^{*}(A_{0})_{\QQ}$ is a
 ring isomorphism \cite[Ex.~15.2.16(b) and Cor.~18.3.2]{Ful98}, so there is a
 unique $u\in K_{0}(A_{0})_{\QQ}$ with $\ch(u)=\xi$, and its Chern character
-has no component outside degree $n$. Choose $N$ clearing the denominators of
-$u$; then $Nu\in K_{0}(A_{0})$ is a difference of classes of vector bundles
-and is therefore the class of a perfect complex $E$, with
+has no component outside degree $n$. Choose $N\ge1$ such that $Nu$ is the
+image of a class in $K_{0}(A_{0})$; that class is a difference of classes of
+vector bundles, hence the class of a perfect complex $E$, and
 $\ch(E)=N\xi$. Passing to cohomology gives the displayed identities.
 
 For the last sentence, $\ch(E)$ has a single nonzero component, equal to
@@ -52,45 +53,22 @@ map
 is injective, then $E$ extends to a perfect complex on $\cX$.
 \end{theorem}
 
-In this form, for perfect complexes and with every obstruction annihilated by
-$\sigma_{E}$ and not only the curvilinear ones, the theorem is proved by
-Pridham \cite{Pri24}, who identifies $\sigma_{E}$ with the tangent map of a
-generalised Abel--Jacobi map on the derived moduli of perfect complexes; for
-coherent sheaves see also \cite{BLM23}. Perry \cite{Per26} extends it to
-noncommutative varieties with group actions, which covers twisted derived
-categories and answers a question of Markman.
+In this generality, for perfect complexes and for every obstruction
+annihilated by $\sigma_{E}$ rather than only the curvilinear ones, the
+theorem is proved by Pridham \cite{Pri24}, who identifies $\sigma_{E}$ with the
+tangent map of a generalised Abel--Jacobi map on the derived moduli of perfect
+complexes; for coherent sheaves see also \cite{BLM23}. Perry \cite{Per26}
+extends it to noncommutative varieties with group actions, which covers
+twisted derived categories and answers a question of Markman.
 
 \begin{theorem}[Semiregularity at one point closes the family]
 \label{thm:semiregclosure}
 Let $n\ge2$, let $s_{0}$ and $E$ be as in \Cref{prop:ktheory}, and suppose the
-semiregularity map $\sigma_{E}$ of \Cref{thm:BF} is
-injective.\footnote{The hypothesis is not vacuous and it is not free, and the
-degree-zero component shows both at once. For a line bundle $L$ one has
-$\Ext^{2}(L,L)=H^{2}(\cO_{X})$ and $\sigma_{0}=\mathrm{tr}$ is the identity
-on it, so $\sigma_{L}$ is injective for every line bundle on every variety,
-and \Cref{thm:BF} returns the classical fact that a divisor class deforms
-wherever it stays of type $(1,1)$. The object of \Cref{prop:ktheory} has rank
-zero, so its trace component is not an isomorphism and in general not
-injective, the source having no reason to be as small as
-$h^{2}(\cO_{A_{0}})=\binom{2n}{2}$. The entire hypothesis therefore rests on
-the components with $q\ge1$, which is exactly the range in which
-semiregularity stops being formal and starts being a computation.} Then
+semiregularity map $\sigma_{E}$ of \Cref{thm:BF} is injective. Then
 $\Sigma=\cD_{n,n}$, and the Hodge conjecture holds in every degree for every
 abelian $2n$-fold of $(K,-1,n)$-Weil type with $\Hg(A)=\SU(V,H)$ in that
 family.
 \end{theorem}
-
-\begin{remark}[The hypothesis is not met by the object above]
-\label{rem:semiregunavailable}
-By \Cref{prop:concentrated} the complex of \Cref{prop:ktheory} has
-$\dim\ker\sigma_{E}\ge n^{2}$ at every base point constructed in this paper,
-so the hypothesis of \Cref{thm:semiregclosure} is not satisfied by it. The
-theorem is stated because the hypothesis concerns a choice of perfect complex
-representing a class in $K_{0}$, and a different representative is not
-excluded; but no representative that is presently available satisfies it. See
-\Cref{rem:killsreduction}, and \Cref{thm:p2forces} below for what any
-representative satisfying it would have to look like.
-\end{remark}
 
 \begin{proof}
 Let $\mathfrak{M}$ be the stack of perfect complexes with vanishing negative
@@ -102,44 +80,74 @@ $\Ext^{<0}(E,E)\ne0$, which that stack excludes,\footnote{Lieblich's
 stack parametrises the complexes he calls universally gluable, those with
 $\Ext^{<0}(E,E)=0$; without that condition a complex can have automorphisms
 of negative degree, and the natural moduli object is the derived stack of
-To\"en and Vaqui\'e.} use instead the analytic Kuranishi germ of pairs of the
-proof of \Cref{thm:p2false}, with the same tangent and obstruction spaces; the argument below then gives a nonempty
-analytic open set in place of a Zariski open one, which is all that
-\Cref{cor:allornothing} needs.
+To\"en and Vaqui\'e.} use instead the analytic Kuranishi germ of pairs from
+the proof of \Cref{thm:p2false}, which has the same tangent and obstruction
+spaces; the argument below then gives a nonempty analytic open set in place of
+a Zariski open one, which is all that \Cref{cor:allornothing} needs.
 
 By \Cref{prop:ktheory} the Chern character of $E$ stays of Hodge type along
 every direction in $\cS$, because it is a flat section of Hodge classes on the
 whole base. So \Cref{thm:BF} applies to every infinitesimal deformation of
 $A_{0}$ inside the family, and injectivity of $\sigma_{E}$ kills every
 obstruction. The morphism $\mathfrak{M}\to\cS$ is therefore formally smooth at
-$[E]$, and being locally of finite presentation it is smooth at $[E]$; in
-particular it is dominant near $[E]$, so by Chevalley its image contains a
-nonempty Zariski open $U\subseteq\cS$.
+$[E]$, and being locally of finite presentation it is smooth on an open
+neighbourhood of $[E]$, which we take connected. Smooth morphisms are open,
+so the image of that neighbourhood is a nonempty Zariski open subset
+$U\subseteq\cS$.
 
-For $s\in U$ pick a perfect complex $E_{s}$ on $A_{s}$ in the fibre. Its
-Chern character is $N\omega_{1}$ in degree $n$ and zero elsewhere, and Chern
-characters of perfect complexes are algebraic, so $N\omega_{1}$ and hence
-$\omega_{1}$ is algebraic on $A_{s}$; the rest of the Weil line follows by
+For $s\in U$ pick a point of the neighbourhood over $s$, that is, a perfect
+complex $E_{s}$ on $A_{s}$. Chern characters are locally constant in
+families, so $\ch(E_{s})$ is the parallel transport of $\ch(E)$: it is
+$N\omega_{1}$ in degree $n$ and zero elsewhere. Chern characters of perfect
+complexes are algebraic, so $N\omega_{1}$, and hence $\omega_{1}$, is
+algebraic on $A_{s}$; the rest of the Weil line follows by
 \Cref{lem:onecomponent}. So $p^{-1}(U)\subseteq\Sigma$, which therefore
 contains a nonempty open set, and \Cref{cor:allornothing} gives
 $\Sigma=\cD_{n,n}$. Apply \Cref{thm:residual}(a).
 \end{proof}
 
-\subsection{What the rank at one point forces}
+\begin{remark}[The hypothesis is not met by the object above]
+\label{rem:semiregunavailable}
+Injectivity of $\sigma_{E}$ is automatic for some objects and fails for
+others, and its degree-zero component already shows both. For a line bundle
+$L$ one has $\Ext^{2}(L,L)=H^{2}(\cO_{X})$ and $\sigma_{0}=\mathrm{tr}$ is the
+identity on it, so $\sigma_{L}$ is injective for every line bundle on every
+variety, and \Cref{thm:BF} returns the classical fact that a divisor class
+deforms wherever it stays of type $(1,1)$. The object of \Cref{prop:ktheory}
+has rank zero, so its trace component is not an isomorphism, and in general
+not injective, the source having no reason to be as small as
+$h^{2}(\cO_{A_{0}})=\binom{2n}{2}$. The hypothesis of
+\Cref{thm:semiregclosure} therefore rests on the components with $q\ge1$,
+which is where semiregularity stops being formal and becomes a computation.
 
-The hypothesis of \Cref{thm:semiregclosure} is a rank, and a rank is not
-open to inspection until the object is written down. It nevertheless has
-consequences that can be stated for every representative at once, because the
-semiregularity map composed with the evaluation map of Hochschild cohomology
-is contraction into the Chern character (\Cref{setup:criterion}), and the
-Chern character here is a Weil class. The annihilator of a Weil class in
-$HT^{2}$ is large, and injectivity forces the evaluation map to vanish on the
-whole of it. We compute the annihilator and draw the consequences; they are the
-exact analogue, for (P2), of what \Cref{thm:candidatefails} and
-\Cref{thm:nosplit} do for the secant route, and they use the same local
+For the object of \Cref{prop:ktheory} the hypothesis fails: by
+\Cref{prop:concentrated} it has $\dim\ker\sigma_{E}\ge n^{2}$ at every base
+point constructed in this paper (see also \Cref{rem:killsreduction}). The
+hypothesis concerns a choice of perfect complex representing a class in
+$K_{0}$, and \Cref{prop:concentrated} does not reach every representative.
+\Cref{thm:p2forces} and the results after it describe what a representative
+satisfying the hypothesis would have to look like, and \Cref{thm:p2false}
+shows that there is none. The proof of \Cref{thm:semiregclosure} applies word
+for word to the corrected criterion \textup{(P2$'$)} of \Cref{rem:p2prime},
+and \Cref{rem:p2primesurvive} records which of the results below carry over
+to it.
+\end{remark}
+
+\subsection{Consequences of the rank condition}
+
+The hypothesis of \Cref{thm:semiregclosure} is a rank, and a rank cannot be
+inspected until the object is written down. It nevertheless has consequences
+that hold for every representative at once, because the semiregularity map
+composed with the evaluation map of Hochschild cohomology is contraction into
+the Chern character (\Cref{setup:criterion}), and the Chern character here is
+a Weil class. The annihilator of a Weil class in $HT^{2}$ is large, and
+injectivity forces the evaluation map to vanish on the whole of it. We compute
+the annihilator and draw the consequences. They are the exact analogue for
+(P2) of what \Cref{thm:candidatefails} and \Cref{thm:nosplit} do for the
+secant route in \Cref{sec:secantobjects}, and they rest on the same local
 products.
 
-\begin{theorem}[What injectivity of the semiregularity map forces]
+\begin{theorem}[Consequences of injectivity]
 \label{thm:p2forces}
 Let $A$ be an abelian $2n$-fold of $(K,-1,n)$-Weil type, $n\ge2$, and write
 $H^{1}(A,\CC)=V_{+}\oplus V_{-}$ for the eigenspaces of $K$,
@@ -193,27 +201,29 @@ $\Hom(V_{+}^{1,0},V_{+}^{0,1})$ replaces a factor of $\bigwedge^{n}V_{+}^{1,0}$
 in $\alpha_{+}$ by an element of $V_{+}^{0,1}$, which is already exhausted in
 $\alpha_{+}$, so it kills $\alpha_{+}$; it acts trivially on $\alpha_{-}$,
 which has no $V_{+}^{1,0}$ factor. Likewise $\Hom(V_{-}^{1,0},V_{-}^{0,1})$
-kills $\omega$. The block $\Hom(V_{+}^{1,0},V_{-}^{0,1})$ carries $\alpha_{+}$
-to a nonzero element of $\bigwedge^{n-1}V_{+}^{1,0}\otimes V_{-}^{0,1}
-\otimes\bigwedge^{n}V_{+}^{0,1}$ and kills $\alpha_{-}$, and
-$\Hom(V_{-}^{1,0},V_{+}^{0,1})$ carries $\alpha_{-}$ to a nonzero element of
-a different summand of $H^{n-1,n+1}$; since $ab\ne0$ and the two summands are
-independent, a general $v$ kills $\omega$ if and only if its two mixed blocks
-vanish, that is, if and only if $v$ is $K$-linear. The space of $K$-linear
-maps has dimension $2n^{2}$, and it contains the $n^{2}$-dimensional tangent
-space of the polarised family, which is its symmetric part. For $\pi$, a
-mixed bivector $\theta\wedge\theta'$ with $\theta\in T_{+}=(V_{+}^{1,0})^{\vee}$
-and $\theta'\in T_{-}=(V_{-}^{1,0})^{\vee}$ kills $\alpha_{+}$ because
-$\theta'$ kills every factor of $\bigwedge^{n}V_{+}^{1,0}$, and kills
-$\alpha_{-}$ symmetrically; a bivector in $\bigwedge^{2}T_{+}$ carries
-$\alpha_{+}$ to a nonzero element of $\bigwedge^{n-2}V_{+}^{1,0}
-\otimes\bigwedge^{n}V_{+}^{0,1}$ and kills $\alpha_{-}$, and symmetrically
-for $\bigwedge^{2}T_{-}$. Since the images of the three summands of $HT^{2}$
-lie in the three different Hodge components $H^{n,n+2}$, $H^{n-1,n+1}$ and
-$H^{n-2,n}$ of $H^{2n+2}(A,\CC)$, the annihilator is the direct sum of the
-three annihilators computed, of dimensions $n^{2}$, $2n^{2}$ and $n^{2}$. Item
-(XXXV) of \Cref{sec:verification} carries out the whole computation in the
-exterior algebra for $n=2$ and $n=3$.
+kills $\omega$. A nonzero element of the block $\Hom(V_{+}^{1,0},V_{-}^{0,1})$
+carries $\alpha_{+}$ to a nonzero element of
+$\bigwedge^{n-1}V_{+}^{1,0}\otimes V_{-}^{0,1}\otimes\bigwedge^{n}V_{+}^{0,1}$
+and kills $\alpha_{-}$, and a nonzero element of $\Hom(V_{-}^{1,0},V_{+}^{0,1})$
+carries $\alpha_{-}$ to a nonzero element of a different summand of
+$H^{n-1,n+1}$ and kills $\alpha_{+}$. Since $ab\ne0$ and the two summands are
+independent, $v$ kills $\omega$ if and only if its two mixed blocks vanish,
+that is, if and only if $v$ is $K$-linear. The space of $K$-linear maps has
+dimension $2n^{2}$, and it contains the $n^{2}$-dimensional tangent space of
+the polarised family, which is its symmetric part. For $\pi$, a mixed
+bivector $\theta\wedge\theta'$ with $\theta\in T_{+}=(V_{+}^{1,0})^{\vee}$ and
+$\theta'\in T_{-}=(V_{-}^{1,0})^{\vee}$ kills $\alpha_{+}$ because $\theta'$
+kills every factor of $\bigwedge^{n}V_{+}^{1,0}$, and kills $\alpha_{-}$
+symmetrically; a nonzero bivector in $\bigwedge^{2}T_{+}$ carries $\alpha_{+}$
+to a nonzero element of $\bigwedge^{n-2}V_{+}^{1,0}\otimes\bigwedge^{n}V_{+}^{0,1}$
+and kills $\alpha_{-}$, and symmetrically for $\bigwedge^{2}T_{-}$, the two
+images lying in different summands; so the annihilator in
+$H^{0}(\bigwedge^{2}T_{A})$ is $T_{+}\otimes T_{-}$. Since the images of the
+three summands of $HT^{2}$ lie in the three different Hodge components
+$H^{n,n+2}$, $H^{n-1,n+1}$ and $H^{n-2,n}$ of $H^{*}(A,\CC)$, the annihilator
+is the direct sum of the three annihilators computed, of dimensions $n^{2}$,
+$2n^{2}$ and $n^{2}$. Item (XXXV) of \Cref{sec:verification} carries out the
+whole computation in the exterior algebra for $n=2$ and $n=3$.
 
 (ii) By the commutative square $\sigma_{E}\circ\operatorname{ev}_{E}
 =(\,\cdot\,)\lrcorner\ch(E)$ of \Cref{setup:criterion}, $\sigma_{E}$
@@ -228,14 +238,15 @@ $\tfrac12(\theta\wedge\theta')\lrcorner\mathrm{At}(E)^{2}
 =A_{\theta}A_{\theta'}$, as in the proof of \Cref{thm:candidatefails}.
 
 (iii) The map $z\mapsto z\cdot\id_{E}$ is a homomorphism of graded algebras
-from $H^{*}(\cO_{A})=\bigwedge^{*}H^{0,1}$ to the Yoneda algebra, because the
-classes from $H^{*}(A,\CC)$ are graded central there, so its kernel is an
-ideal, and by (ii) it contains the mixed block $V_{+}^{0,1}\otimes V_{-}^{0,1}$.
-The ideal generated by the mixed block in $\bigwedge^{*}(V_{+}^{0,1}\oplus
-V_{-}^{0,1})=\bigwedge^{*}V_{+}^{0,1}\otimes\bigwedge^{*}V_{-}^{0,1}$ is the
-sum of the summands $\bigwedge^{a}V_{+}^{0,1}\otimes\bigwedge^{b}V_{-}^{0,1}$
-with $a,b\ge1$, since each such summand is a multiple of the mixed block and
-the remaining summands, $a=0$ or $b=0$, meet the ideal in zero; the quotient in
+from $H^{*}(\cO_{A})=\bigwedge^{*}H^{0,1}$ to the graded centre of the Yoneda
+algebra, so its kernel is an ideal, and by (ii) it contains the mixed block
+$V_{+}^{0,1}\otimes V_{-}^{0,1}$. The ideal generated by the mixed block in
+$\bigwedge^{*}(V_{+}^{0,1}\oplus V_{-}^{0,1})
+=\bigwedge^{*}V_{+}^{0,1}\otimes\bigwedge^{*}V_{-}^{0,1}$ is the sum of the
+summands $\bigwedge^{a}V_{+}^{0,1}\otimes\bigwedge^{b}V_{-}^{0,1}$ with
+$a,b\ge1$, since each such summand consists of multiples of the mixed block,
+while the remaining summands, with $a=0$ or $b=0$, meet the ideal in zero; the
+quotient in
 degree $k\ge1$ is $\bigwedge^{k}V_{+}^{0,1}\oplus\bigwedge^{k}V_{-}^{0,1}$,
 of dimension $2\binom{n}{k}$, and zero for $k>n$. In particular the top class
 of $H^{2n}(\cO_{A})$, which is mixed for $n\ge1$, acts by zero. Serre duality
@@ -277,11 +288,11 @@ $I_{-}=0$, which is the claim. The two pieces of linear algebra, the shape of
 the ideal in (iii) and the dichotomy just used, are checked in item (XXXV).
 \end{proof}
 
-\begin{corollary}[Where (P2) can and cannot be met]\label{cor:p2shape}
+\begin{corollary}[Locally free components are excluded]\label{cor:p2shape}
 Let $A$ be as in \Cref{thm:p2forces} and suppose that no proper abelian
 subvariety $B\subset A$ has $T_{0}B\supseteq T_{+}$ or $T_{0}B\supseteq T_{-}$;
-equivalently, that $A$ has no $K$-stable abelian subvariety on which $K$ acts
-through a single embedding, which holds whenever $A$ is simple, at every
+equivalently, that $A$ has no nonzero $K$-stable abelian subvariety on which
+$K$ acts through a single embedding. This holds whenever $A$ is simple, at every
 split member $X\times\widehat X$ with $X$ simple of endomorphism algebra
 $\QQ$, and at a general point of the quaternionic locus of \Cref{setup:quat}.
 Let $E$ be a perfect complex on $A$ with $\ch(E)=N\omega$ as above and
@@ -294,8 +305,8 @@ cohomology sheaf that is not locally free on the reduced support.
 \end{corollary}
 
 \begin{proof}
-Suppose $Z_{0}$ is such a component, with $U\subseteq Z_{0}^{\mathrm{sm}}$ dense
-open and $E|_{U}$ a locally free sheaf of positive rank on $U$. By
+Suppose that $Z_{0}$ is such a component, with $U\subseteq Z_{0}^{\mathrm{sm}}$
+dense open and $E|_{U}$ a locally free sheaf of positive rank on $U$. By
 \Cref{thm:p2forces}(iv), $U=U_{+}\cup U_{-}$ with
 $U_{\pm}=\{p\in U:T_{\pm}\subseteq T_{p}Z_{0}\}$, both closed in $U$; as $U$
 is irreducible, $U=U_{+}$ say. Then every constant vector field
@@ -311,10 +322,13 @@ $G=\{x\in A:Z_{0}+x=Z_{0}\}$, a closed algebraic subgroup of $A$, and $B$
 its identity component, an abelian subvariety. The connected set
 $\exp(T_{+})$ contains $0$ and lies in $G$, hence in $B$, so
 $T_{+}\subseteq T_{0}B$. By hypothesis $B=A$, so $Z_{0}=A$, against the
-codimension. If $E$ were a sheaf, its support would have codimension exactly
-$n\ge2$ and along a dense open set of every component it would be locally
-free of positive rank on the reduced support, which is excluded; the last
-sentence is the negation of the same condition.
+codimension. The last sentence of the statement is the negation of the
+condition just excluded. If $E$ were a sheaf, its support would have
+codimension at least $n$, because the Chern character of a nonzero sheaf
+begins in the codimension of its support, with the support cycle, whose
+multiplicities are positive; this is excluded by \Cref{thm:p2support}(iii)
+below, whose proof uses nothing from the present one beyond the translation
+argument above.
 
 For the equivalence in the hypothesis, let $\sqrt{-d}$ act on $A$ through
 an order of $K$. If $B\ne A$ has $T_{0}B\supseteq T_{+}$, then
@@ -327,26 +341,27 @@ and $T_{0}C'$ is a $K$-stable complement of $T_{0}C\supseteq T_{+}$, so
 $T_{0}C'\subseteq T_{-}$ and $K$ acts on $C'$ through a single embedding.
 Conversely, if a nonzero $K$-stable $C'\ne A$ has $T_{0}C'\subseteq T_{-}$,
 its $K$-stable complement $B$ is proper with $T_{0}B\supseteq T_{+}$. For the
-three cases: a simple $A$ has no proper abelian subvariety; for
+three cases: a simple $A$ has no nonzero proper abelian subvariety; for
 $X\times\widehat X$ with $X$ simple and $\End^{0}(X)=\QQ$ the sub-Hodge
 structures of $H_{1}(X)\otimes\QQ^{2}$ are $H_{1}(X)\otimes W$ with
-$W\subseteq\QQ^{2}$, and $W$ is $K$-stable only for $W=0$ or $\QQ^{2}$, $K$
-acting on $\QQ^{2}$ through a quadratic field; and at a general quaternionic
+$W\subseteq\QQ^{2}$, and since $K$ acts on $\QQ^{2}$ through a quadratic
+field, $W$ is $K$-stable only for $W=0$ or $\QQ^{2}$; and at a general quaternionic
 member $A$ is either simple or, when the quaternion algebra of
 \Cref{setup:quat} splits, isogenous to $C\times C$ with $C$ a general
 principally polarised abelian $n$-fold, whose sub-Hodge structures are again
 $H_{1}(C)\otimes W$ with the same conclusion.
 \end{proof}
 
-\subsection{The whole Hochschild action, and the two branches}
+\subsection{The Hochschild action and the two branches}
 
-\Cref{thm:p2forces} computes the annihilator degree by degree and reads off
-what the vanishing of the evaluation map on it means for $E$. The annihilator
-has a structure that the degree-by-degree description hides, and bringing it
-out costs nothing and gives more: it is the mixed part of a splitting of
-$HH^{1}(A)$ into two halves, one for each of the two conjugate pieces of the
-Weil class. Everything in this subsection is about the Hochschild cohomology
-of $A$ alone, and the consequences for $E$ follow from it formally.
+\Cref{thm:p2forces} computes the annihilator summand by summand and reads off
+what the vanishing of the evaluation map on it means for $E$. That
+description hides a structure which costs nothing to bring out and gives
+more: the annihilator is the mixed part of a splitting of $HH^{1}(A)$ into
+two halves, one for each of the two conjugate pieces $\alpha_{+}$ and
+$\alpha_{-}$ of the Weil class. The results of this subsection concern the
+Hochschild cohomology of $A$ alone, and their consequences for $E$ follow
+formally.
 
 \begin{setupenv}[Hochschild cohomology in these terms]\label{setup:hh}
 For an abelian variety $A$ the Hochschild--Kostant--Rosenberg isomorphism
@@ -355,9 +370,9 @@ identifies
   HH^{*}(A)\;\cong\;HT^{*}(A)=\bigoplus_{p,q}H^{p}\bigl(\textstyle\bigwedge^{q}T_{A}\bigr)
   =\textstyle\bigwedge^{*}\bigl(H^{0,1}(A)\oplus H^{0}(T_{A})\bigr),
 \]
-as a graded ring, the grading being $p+q$; the Todd class of $A$ is trivial,
+as graded rings, the grading being $p+q$: the Todd class of $A$ is trivial,
 so the twist by $\td^{1/2}$ in \cite{Cal05}, \cite{CRV12} is the identity and
-the identification is a ring isomorphism on the nose. Write
+the plain identification is already multiplicative. Write
 $HH^{1}(A)=H^{0,1}(A)\oplus H^{0}(T_{A})$, of dimension $4n$, so that
 $HH^{*}(A)$ is the exterior algebra on it, of dimension $2^{4n}$. It acts on
 $H^{*}(A,\CC)=\bigwedge^{*}\bigl(H^{1,0}\oplus H^{0,1}\bigr)$ by wedging with
@@ -415,9 +430,11 @@ $H^{0}(T_{A})=T_{+}\oplus T_{-}$.
 (i) Of the $4n$ basis operators, $\bbar x_{i}\wedge$ kills $\alpha_{+}$
 because $\bbar x_{i}$ already occurs in it, and $\partial_{y_{j}}\lrcorner$
 kills $\alpha_{+}$ because no $y$ occurs in it; so $P\supseteq
-V_{+}^{0,1}\oplus T_{-}$. Conversely $\bbar y_{j}\wedge\alpha_{+}\ne0$ and
-$\partial_{x_{i}}\lrcorner\alpha_{+}\ne0$, and these images lie in different
-summands of $H^{*}$, so no nonzero combination of them kills $\alpha_{+}$:
+V_{+}^{0,1}\oplus T_{-}$. Conversely, the classes
+$\bbar y_{j}\wedge\alpha_{+}$ are linearly independent, as are the classes
+$\partial_{x_{i}}\lrcorner\alpha_{+}$, and the two families lie in different
+summands of $H^{*}$, so no nonzero combination of the operators
+$\bbar y_{j}\wedge$ and $\partial_{x_{i}}\lrcorner$ kills $\alpha_{+}$:
 $P=V_{+}^{0,1}\oplus T_{-}$, of dimension $2n$. The computation for $Q$ is the
 same with the roles of the two eigenspaces exchanged, and
 $P\cap Q=0$ with $\dim P+\dim Q=4n$, so $HH^{1}=P\oplus Q$. A class killing

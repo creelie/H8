@@ -166,6 +166,11 @@ Contents
          the invariant Omega = R + 2I/sqrt(-q), and the least -chi of a class
          with Omega != 0 over forty-eight lattices, 192 at q = 3 + alpha
          over Q(zeta_7)^+  [sextic_weil.py, with attack/gaps/sextic/s3_weil.py]
+  (LIX)  kernels on X x X for a quartic CM field at n = 2: a kernel that is
+         not an external product with flat character P + omega and r = 94,
+         graphs and pure spinors give no Weil class, the shape of the secant
+         characters, negative Ext groups, the Prym bookkeeping
+         [quartic_kernels.py, with attack/gaps/quartic_kernels/]
   (LX)   the motivic group of a Mumford fourfold: sp(V) = Lie G + S^2 V_1
          (x) S^2 V_2 (x) S^2 V_3, the four groups G, G.A_3, N, Sp and their
          invariants, the known classes, and the Kuga-Satake lattices
@@ -589,6 +594,9 @@ def main():
 
     head("(LVIII) the F-Weil part of Orlov products in degree six")
     run_module("LVIII", "sextic_weil.py")
+
+    head("(LIX) kernels on X x X for a quartic CM field at n = 2")
+    run_module("LIX", "quartic_kernels.py")
 
     head("(LX) the motivic group of a Mumford fourfold and the known classes")
     run_module("LX", "mumford_motivic.py")
