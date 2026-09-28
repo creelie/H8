@@ -27,10 +27,10 @@ per theorem. Every line must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
 through `decide` or the core lemmas on natural numbers, and none may mention `sorryAx`. The GitHub workflow in
 `.github/workflows/lean.yml` enforces all three, and fails the build if the
-number of theorems is not eighty-eight or if any of them reaches for a further
+number of theorems is not ninety-two or if any of them reaches for a further
 axiom.
 
-## The eighty-eight theorems
+## The ninety-two theorems
 
 | theorem | statement |
 | --- | --- |
@@ -87,7 +87,8 @@ axiom.
 | `markman_candidate_identities` | for odd `d <= 201` and `N = (d+9)/2`: `12N(N-5) = (d+9)(3d-3)`, at least `(d+9)(2d-1)`; `110N - 12N^2 + 2N(2d-1) = (d+9)(27-d)`; `9 - 2N = -d` and `81 + 36N - (d+9)(27-d) = d^2`, the secant point `(1,3)`; `N(3 + sqrt(-d)) = 2N`; the ranks `8d(d+9)` and `8d(d-9)` are nonzero for `d` not `9` |
 | `secant_kernel_arithmetic` | the matrix `[[a, b], [b, -ad]]` cutting out the classes that preserve `a u_t + b v_t` has determinant `-(a^2 d + b^2)`, nonzero for `(a,b)` not `(0,0)`, `a, b < 13`, `d <= 20`; the coefficients `C_k = k! c_k` satisfy `C_(k+1) = -d C_(k-1)`, which makes the Poisson compensation uniform in the degree; and `n(n+1)/2 + n(n-1)/2 = n^2` for `n < 60` |
 | `candidate_unnormalised_points` | for odd `d <= 201`: `(d+9)(3d-3) - (d+9)(2d-1) = (d+9)(d-2) >= 12`, so Markman's candidate always has an unnormalised double point; normalising every isolated point gives `chi = 50 N`, never the secant value `72 N - 4 N^2` |
-| `tensor_rank_gap` | `C(2n,2) >= 6 > 1` for `n >= 2`, the tensor rank separation || `smooth_invariants` | Noether and the self-intersection formula for a smooth support: `K^2 + e = 12 chi` and `K^2 - e = 6(b^2+d)^2` |
+| `tensor_rank_gap` | `C(2n,2) >= 6 > 1` for `n >= 2`, the tensor rank separation |
+| `smooth_invariants` | Noether and the self-intersection formula for a smooth support: `K^2 + e = 12 chi` and `K^2 - e = 6(b^2+d)^2` |
 | `smooth_bmy_defect` | the Bogomolov-Miyaoka-Yau defect of a smooth support is `24(b^4 - d^2)` |
 | `smooth_bmy_is_d_le_bsq` | so the inequality is exactly `d <= b^2`, over a box in `b` and `d` |
 | `smooth_index_vacuous` | the Hodge index bound `9(b^2+d) >= 8b^2` holds for every `d >= 1`, so it never binds |
@@ -113,6 +114,18 @@ axiom.
 | `criterion_endomorphisms_n2` | for all natural numbers, `2 e0 + 12 = chi + 2 e1` with `e1 >= 8` and `chi >= 1` gives `e0 >= 3`: an object meeting the numerical criterion at n = 2 has at least three endomorphisms |
 | `criterion_endomorphisms_n3` | for all natural numbers, `2 e0 + 60 = chi + 2 e1 + e3` with `e1 >= 12`, `e3 >= 40` and `chi >= 1` gives `e0 >= 3`: the same at n = 3 |
 | `weil_monomials_separated` | neither Weil monomial lies in the exterior algebra on `V_-^{1,0} + V_+^{0,1}` or on `V_+^{1,0} + V_-^{0,1}`, for `n <= 12`: the Weil line misses every class pulled back from a quotient by an abelian subvariety tangent to an eigenspace |
+| `quartic_squares_mod4_phi` | the squares modulo `4` in `Z[phi]`, `phi^2 = phi + 1`, are `0, 1, 1 + phi, 2 + 3 phi` |
+| `quartic_no_square_phi` | neither `-1` nor twice a unit is a square modulo `4` in `Z[phi]`: the case `Q(sqrt 5)` of the rank-two argument |
+| `quartic_squares_mod4_sqrt2` | the squares modulo `4` in `Z[sqrt 2]` are `0, 1, 2, 3 + 2 sqrt 2` |
+| `quartic_no_square_sqrt2` | `3`, `1 + 3 sqrt 2` and `1 + sqrt 2` are not squares modulo `4` in `Z[sqrt 2]` |
+| `quartic_rank_two_congruences` | `m = 9` has no solution `1 <= m <= 8` modulo `13` or `17`, and modulo `5` only `m = 4` |
+| `quartic_euler_minimal` | the minimal profiles `1, 8, r, 8, 1` with `r = 18, 20, 12` have Euler characteristic `4, 6, -2` |
+| `orlov_equality_count` | `n(n-1) + (2n)^2 + n(n-1) = 6n^2 - 2n` for `3 <= n <= 64`, and `1 + 16 + 1 = 18` |
+| `orlov_n4_euler` | the minimal profile at `n = 4` has `chi = -2`, while every secant character has `chi = 8d(a^2 d + b^2) >= 8` (for all natural numbers) |
+| `quartic_squares_mod4_mod8` | a square is `0` or `1` modulo `4`, an odd square `1` modulo `8`, twice a square `0` or `2` modulo `8` |
+| `quartic_rank_two_small_odd_parts` | the rank-two conditions on `m` in `[1, 8]` for `D = 3, 7` and `D = 6, 10, 14` have no solution, and for `D = 2` leave `m = 1, 5` |
+| `quartic_rank_two_large_odd_part` | for every modulus `n >= 10` no `m < 9` is `9` modulo `n` (for all natural numbers) |
+| `quartic_sqrt2_units_mod4` | `3` and `1 + 2 sqrt 2` are not squares modulo `4` in `Z[sqrt 2]`, `(1 + sqrt 2)^2 = 3 + 2 sqrt 2`, `(3 + 2 sqrt 2)^2 = 1` modulo `4`, and `5` is not `+-1` modulo `8` |
 
 
 ## Two statements that look true and are not
@@ -136,12 +149,12 @@ careful reading does not catch and a kernel check does.
 `code/verify_all.py` in the parent directory performs the same checks in exact
 rational arithmetic over Q, independently of Lean, together with the exterior
 algebra computations that Lean does not carry, and prints
-`823 checks passed, 0 failed`.
+`1021 checks passed, 0 failed`.
 
 ## Transcript
 
 `axioms.txt` is the unedited output of `lean HodgeObstruction.lean` under
-Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): eighty-eight lines, one per
-theorem, seventy-seven reading `does not depend on any axioms` and eleven reading
+Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): ninety-two lines, one per
+theorem, eighty reading `does not depend on any axioms` and twelve reading
 `depends on axioms: [propext]`, exit status 0, no `sorryAx`. `lake build`
 completes with the same report. Each run takes about two minutes.

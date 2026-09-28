@@ -10,7 +10,7 @@ from ealib import *
 from a1model import RMModel, QS
 import a1_general as GEN   # only for saturate_classes (module-level model is replaced below)
 
-FIELDS = {"sqrt5": ((0, 1), (1, 1)), "sqrt2": ((1, 1), (1, -1)), "sqrt13": ((2, 1), (1, -1)), "sqrt17": ((0, 2), (2, 1))}
+FIELDS = {"sqrt5": ((0, 1), (1, 1)), "sqrt2": ((1, 1), (1, -1)), "sqrt13": ((2, 1), (1, -1)), "sqrt17": ((0, 2), (2, 1)), "sqrt10": ((1, 3), (3, -1))}
 for name, Rm in FIELDS.items():
     M = RMModel(Rm)
     S = M.disc

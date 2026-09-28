@@ -216,6 +216,7 @@ lem:posrank
 lem:products
 lem:prodweil
 lem:pte
+lem:quarticlattice
 lem:rankduality
 lem:rosatiauto
 lem:semiregsum
@@ -294,6 +295,7 @@ prop:powers
 prop:quarticcasimir
 prop:quarticnl
 prop:quarticnogo
+prop:quarticother
 prop:quarticquat
 prop:quarticscalar
 prop:quarticsecant

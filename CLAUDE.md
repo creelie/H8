@@ -54,7 +54,14 @@ abstract), redrew most figures, and attacked the three remaining inputs:
 `prop:flatall`, `prop:orlovequality`, `prop:quarticsecant`,
 `thm:quarticobstruction`, `prop:f3primestrength`, `prop:orthpowers`, with
 `code/attack/gaps/` as part (E) of item (LV) and Lean Sections 32 and 33,
-eighty-eight theorems).
+eighty-eight theorems); round 14 proved the description of the integral
+classes `lem:quarticlattice` for every real quadratic field by a local
+computation, and extended `thm:quarticobstruction` (no dimension-count
+certificate from Orlov products) to every quartic CM field through the
+arithmetic of `prop:quarticother` modulo the different and modulo 4
+(`code/attack/gaps/quartic_obstruction/a1_lattice_local.py`,
+`a1_lattice_general.py`, `a1_rank2_arith.py`; Lean Section 34, ninety-two
+theorems).
 
 Release v1.0.0 (tag `v1.0.0`, commit `ef15bce`) is archived on Zenodo under
 DOI 10.5281/zenodo.22950276, recorded in the macro `\zenodoDOI` at the top of
@@ -68,7 +75,7 @@ section.
 - `cd code && python3 verify_all.py` ends with `N checks passed, 0 failed`;
   keep the count in `README.md`, `.zenodo.json`, `.github/workflows/lean.yml`,
   `tex/appendices/D_computations.tex` and `tex/declarations.tex` in step.
-- `cd lean && lean HodgeObstruction.lean`: 88 theorems, each axiom-free or
+- `cd lean && lean HodgeObstruction.lean`: 92 theorems, each axiom-free or
   depending on `propext` only.
 - `cd tex && latexmk -pdf main.tex`: 0 errors, 0 overfull or underfull boxes,
   no undefined references.

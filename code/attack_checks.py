@@ -650,8 +650,20 @@ def track_gaps():
              "in 49 cases"),
             ("a1_lattice.py", 2, "the integral classes of the F_0-Hodge ring: "
              "the saturation lies in the congruence lattice c = g mod d"),
-            ("a1_Lgen.py", 8, "the congruence lattice is spanned by integral "
-             "classes, for d_F = 5, 8, 13, 17"),
+            ("a1_Lgen.py", 10, "the congruence lattice is spanned by integral "
+             "classes, for d_F = 5, 8, 13, 17, 40"),
+            ("a1_lattice_general.py", 15, "the integral classes on the "
+             "lattice O^2 + (d^-1)^2 are the congruence lattice, for "
+             "d_F = 12, 24, 28, 40, 56"),
+            ("a1_lattice_local.py", 11, "the local expansion behind "
+             "lem:quarticlattice, with delta and the entries of V as symbols: "
+             "the congruence lattice is integral at every prime and every "
+             "integral class satisfies the congruence"),
+            ("a1_rank2_arith.py", 15, "the rank-two arithmetic of "
+             "prop:quarticother for every real quadratic field: "
+             "N(x + 4y) = N(x) mod 4 with D a symbol, the parity at the "
+             "ramified prime above 2, and the three conditions on m for "
+             "squarefree D < 200000 leave only D = 2 and D = 5"),
             ("a1_flat.py", 59, "the twisted character of an Orlov product of "
              "F-secant objects is invariant under G_F, so a Hodge class on "
              "the whole (F,2,1)-family, with a nonzero Weil part"),
@@ -665,6 +677,12 @@ def track_gaps():
         out, st = run(w, script)
         check("%s (%s): %d checks passed, 0 failed" % (what, script, n),
               summary_ok(out, st, n))
+    out, st = run(w, "a1_general.py", "sqrt10", "2", "12")
+    check("Q(sqrt 10) (a1_general.py sqrt10 2 12): the exact scan of 1841 "
+          "complex-secant planes finds no admissible character "
+          "(chi, rank V, r^2) = (4,1,18) or (6,2,20)",
+          st == 0 and "scanned 1841 complex-secant planes" in out
+          and "ADMISSIBLE: 0" in out)
     w = "gaps/orlov_growth"
     out, st = run(w, "lagrangian_check.py")
     check("flatness in every dimension (lagrangian_check.py): at n = 1 and "
