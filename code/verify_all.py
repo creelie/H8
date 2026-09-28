@@ -162,6 +162,18 @@ Contents
          threshold is at most 26 for every shape, and for sixteen cubic
          fields every integral point of S(0,q) has chi <= -32
          [sextic_lattice.py, with attack/gaps/sextic/s2_lattice.py]
+  (LVIII) the F-Weil part of Orlov products in degree six: the pair formula,
+         the invariant Omega = R + 2I/sqrt(-q), and the least -chi of a class
+         with Omega != 0 over forty-eight lattices, 192 at q = 3 + alpha
+         over Q(zeta_7)^+  [sextic_weil.py, with attack/gaps/sextic/s3_weil.py]
+  (LX)   the motivic group of a Mumford fourfold: sp(V) = Lie G + S^2 V_1
+         (x) S^2 V_2 (x) S^2 V_3, the four groups G, G.A_3, N, Sp and their
+         invariants, the known classes, and the Kuga-Satake lattices
+         [mumford_motivic.py, with attack/gaps/mumford/]
+  (LXI)  Hodge classes on K3 surfaces and on varieties of K3^[n] type: the
+         Fujiki relation on Sym^2, c_2 = (6/5) q^vee, the threshold
+         t(t+1)/2 for powers, norm-one spans and Kummer sectors
+         [k3_hodge.py, with attack/gaps/f3prime/]
 """
 
 import os
@@ -571,6 +583,15 @@ def main():
 
     head("(LVII) integral flat characters in degree six")
     run_module("LVII", "sextic_lattice.py")
+
+    head("(LVIII) the F-Weil part of Orlov products in degree six")
+    run_module("LVIII", "sextic_weil.py")
+
+    head("(LX) the motivic group of a Mumford fourfold and the known classes")
+    run_module("LX", "mumford_motivic.py")
+
+    head("(LXI) Hodge classes on K3 surfaces and varieties of K3^[n] type")
+    run_module("LXI", "k3_hodge.py")
 
     print()
     print("=" * 70)

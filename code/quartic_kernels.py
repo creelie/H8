@@ -79,10 +79,10 @@ What is checked:
       (a)-(c) of prop:quarticother leave only D = 3 among the squarefree
       D < 200000;
 
-  (H) Prym bookkeeping: c_n(Omega_{P^n}(1)) = (-1)^n; the classes a_chi of
-      the fibres have <a_chi, a_psi> = (-1)^n N delta(psi = conj chi) in
-      Q(zeta_N); the fields with phi(N) = 4 are Q(zeta_5), Q(zeta_8),
-      Q(zeta_12), and 3g - 3 < (phi(N)/2)(g - 1)^2 for phi(N) >= 4, g >= 3.
+  (H) Prym bookkeeping (the algebraicity is Schoen's theorem and is not
+      recomputed): the fields with phi(N) = 4 are Q(zeta_5), Q(zeta_8),
+      Q(zeta_12); 3g - 3 < (phi(N)/2)(g - 1)^2 for phi(N) >= 4, g >= 3; a
+      split hermitian form of F-dimension 2n has determinant (-1)^n.
 
 Everything is exact.  Standard library and python-flint.  The model is in
 attack/gaps/quartic_kernels/ (qk_ext.py, qk_place.py, qk_coeff.py,
@@ -99,8 +99,8 @@ from fractions import Fraction as Fr
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "attack", "gaps", "quartic_kernels"))
 from qk_ext import (popc, add, sc, sub, wedge, gen, one, expo, degrees,  # noqa: E402
-                    shift, derivation, interior, field, rank_K, dict_rank_Q,
-                    span_basis, intersection, nullspace_Q, iszero)
+                    shift, derivation, interior, field, rank_K, rank_Q,
+                    dict_rank_Q, span_basis, intersection, nullspace_Q)
 from qk_place import (theta_x, thetahat, ell, eta, gamma, omega_w,     # noqa: E402
                       inv_basis, U0_class, P_class, W_class, graph_class,
                       graph_geometric, orlov, Mstar, Jcx, lin_to_mat,
@@ -143,6 +143,11 @@ def part_A():
     check("model: Phi(X x 0) = 1, Phi(Delta) = pt, Phi(antidiagonal) = "
           "16 e^{-ell/2}; the graph formula gives the class of the graph for "
           "%d maps; P = [X x X] and U0 = pr_2^* pt" % len(pairs), ok and ok_g and ok_u)
+
+    pP = orlov(P_class())
+    check("Phi(X x X) at one place is -(the class of Xhat_j at 0), not flat; so "
+          "ch Phi(O_X [x] F) = 1 (x) Phi(P_2) + Phi(P_1) (x) 1 is not flat",
+          pP == {240: Fr(-1)} and all(not is_flat(pP, su_basis(d)) for d in (1, 3)))
 
     ds = [Fr(1), Fr(2), Fr(3), Fr(5, 2)]
     ws = {d: orlov(W_class(d)) for d in ds}
@@ -274,9 +279,10 @@ def part_C():
         gens = [QC.graph_vec(Fd, b, a, QC.c_expand(Fd, i, l))
                 for b, a in pairs for (i, l) in cs]
         ok, rk = QC.in_Q_span(G, gens)
-        check("D = %d, q = %d + %d R: G'' is Gal(F_0/Q)-invariant and a rational "
-              "combination of classes of O-graphs (span of rank %d = 2 x 81)"
-              % (D, q[0], q[1], rk), ok and rk == 162 and QC.galois(Fd, G) == G)
+        check("D = %d, q = %d + %d R: G'' is Gal(F_0/Q)-invariant, and the classes of "
+              "O-graphs span all %d rational classes of graph type at both places, "
+              "so G'' is a rational combination of them" % (D, q[0], q[1], rk),
+              ok and rk == 81 and QC.galois(Fd, G) == G)
     Fd = QC.F0(5)
     G = QC.G_vec(Fd, Fd.elt((2, 1)))
     gens, labels = [], []
@@ -341,7 +347,7 @@ def part_D():
                  ("(v1,v1)", S["v1"], S["v1"]), ("(u,w)", S["u"], S["w"]),
                  ("(v1,w)", S["v1"], S["w"]),
                  ("(u+v1+w,vR)", S["u"] + S["v1"] + S["w"], S["vR"])]
-        flat_k, notflat_ch, rel, nonlit, nweil = True, True, True, True, 0
+        flat_k, notflat_ch, rel, nonlit, nweil, nrank0 = True, True, True, True, 0, 0
         f2 = (mk(384) * dd[1] * dd[1]).inv()
         f1 = (mk(384) * dd[0] * dd[0]).inv()
         deg4 = ("eta^2", "Omega", "Lambda")
@@ -354,6 +360,8 @@ def part_D():
             II, rest = tensor_split([(c, wedge(P1, eh), wedge(P2, eh))
                                      for c, P1, P2 in raw], projs)
             _, rest_u = tensor_split(raw, projs)
+            rank = sum((c * P1.get(0, mk(0)) * P2.get(0, mk(0)) for c, P1, P2 in raw), mk(0))
+            nrank0 += int(rank == 0)
             flat_k = flat_k and not rest
             notflat_ch = notflat_ch and bool(rest_u)
             k40 = {names[i]: v for (i, j), v in II.items() if names[j] == "1" and names[i] in deg4}
@@ -372,8 +380,9 @@ def part_D():
             if weil40:
                 nweil += 1
                 nonlit = nonlit and bool(extra)
-        check("D = %d, q = %s + %s sqrt%d, six pairs: kappa = ch(E) e^{ell/2} is flat "
-              "and ch(E) is not" % (D, qa, qb, D), flat_k and notflat_ch)
+        check("D = %d, q = %s + %s sqrt%d, six pairs (%d of rank zero): kappa = "
+              "ch(E) e^{ell/2} is flat and ch(E) is not" % (D, qa, qb, D, nrank0),
+              flat_k and notflat_ch and nrank0 >= 1)
         check("D = %d: kappa_(4,8) = kappa_(4,0) eta_2^4 / (384 tau_2(q)^2) and "
               "kappa_(8,4) = eta_1^4 kappa_(0,4) / (384 tau_1(q)^2) for the six pairs; "
               "where kappa_(4,0) has a Weil part (%d pairs) kappa has components "
@@ -496,7 +505,6 @@ def part_F():
         Mv = [M[i][j] for i in range(8) for j in range(8)]
         Iv = [Fr(int(i == j)) for i in range(8) for j in range(8)]
         M2 = [[sum(M[i][k] * M[k][j] for k in range(8)) for j in range(8)] for i in range(8)]
-        from qk_ext import rank_Q
         ok = (ok and len(ns) == 2 and rank_Q(ns + [Mv, Iv], 64) == 2 and
               M2 == [[-d * Fr(int(i == j)) for j in range(8)] for i in range(8)])
     check("the commutant of su_j(d) on H^1(A_j) is span(1, M*) with M*^2 = -d, a "
@@ -579,87 +587,57 @@ def part_G():
 
 
 # ------------------------------------------------------------------ (H)
-def poly_rem(a, b):
-    a = list(a)
-    while len(a) >= len(b):
-        c = a[-1] / b[-1]
-        sh = len(a) - len(b)
-        for i, x in enumerate(b):
-            a[sh + i] -= c * x
-        while a and a[-1] == 0:
-            a.pop()
-    return a
-
-
-def poly_div(a, b):
-    a = list(a)
-    q = [Fr(0)] * (len(a) - len(b) + 1)
-    while len(a) >= len(b) and any(a):
-        c = a[-1] / b[-1]
-        sh = len(a) - len(b)
-        q[sh] = c
-        for i, x in enumerate(b):
-            a[sh + i] -= c * x
-        a.pop()
-    return q
-
-
-def cyclotomic(N, cache={}):
-    if N not in cache:
-        p = [Fr(-1)] + [Fr(0)] * (N - 1) + [Fr(1)]
-        for dv in range(1, N):
-            if N % dv == 0:
-                p = poly_div(p, cyclotomic(dv))
-        cache[N] = p
-    return cache[N]
-
-
-def phi(N):
-    return sum(1 for k in range(1, N + 1) if gcd(k, N) == 1)
-
-
 def gcd(a, b):
     while b:
         a, b = b, a % b
     return a
 
 
+def phi(N):
+    return sum(1 for k in range(1, N + 1) if gcd(k, N) == 1)
+
+
 def part_H():
     print("(H) bookkeeping for the Prym loci")
-    ok = True
-    for n in range(1, 9):
-        c = [Fr(1)]                       # 1/(1 + h) up to h^n
-        for k in range(1, n + 1):
-            c.append(-c[-1])
-        ok = ok and c[n] == (-1) ** n
-    check("c_n(Omega_{P^n}(1)) = (-1)^n from the Euler sequence (n <= 8), so the "
-          "fibres |K_C| of Y have [F_i].[F_j] = (-1)^n delta_ij", ok)
-    ok = True
-    for N in (5, 8, 12):
-        Phi = cyclotomic(N)
-        units = [k for k in range(1, N) if gcd(k, N) == 1]
-        for n in (1, 2, 3):
-            for a in units:
-                for b in units:
-                    s = [Fr(0)] * N
-                    for i in range(N):
-                        s[(-(a + b) * i) % N] += (-1) ** n
-                    val = poly_rem(s, Phi)
-                    exp = [Fr((-1) ** n * N)] if (a + b) % N == 0 else []
-                    val = [x for x in val]
-                    while val and val[-1] == 0:
-                        val.pop()
-                    ok = ok and val == exp
-    check("<a_chi, a_psi> = (-1)^n N delta(psi = conj chi) in Q(zeta_N) for "
-          "a_chi = sum_i chi(g_i)^(-1) [F_i], N = 5, 8, 12, n = 1, 2, 3; so a_chi "
-          "!= 0 spans the chi-line", ok)
     quart = [N for N in range(3, 200) if phi(N) == 4]
-    ok = quart == [5, 8, 10, 12] and all(
-        3 * g - 3 < (phi(N) // 2) * (g - 1) ** 2
-        for N in range(3, 200) if phi(N) >= 4 for g in range(3, 60))
-    check("phi(N) = 4 exactly for N = 5, 8, 10, 12 (fields Q(zeta_5), Q(zeta_8), "
-          "Q(zeta_12)), and 3g - 3 < (phi(N)/2)(g - 1)^2 whenever phi(N) >= 4 and "
-          "g >= 3 (N < 200, g < 60); at g = 3, phi(N) = 4: 6 < 8", ok)
+    check("phi(N) = 4 exactly for N = 5, 8, 10, 12 (N < 200), and Q(zeta_10) = "
+          "Q(zeta_5): the quartic cyclotomic fields are Q(zeta_5), Q(zeta_8), "
+          "Q(zeta_12)", quart == [5, 8, 10, 12])
+    ok = all(3 * g - 3 < (phi(N) // 2) * (g - 1) ** 2
+             for N in range(3, 200) if phi(N) >= 4 for g in range(3, 60))
+    ok = ok and 3 * 3 - 3 == 6 and (4 // 2) * (3 - 1) ** 2 == 8
+    check("3g - 3 < (phi(N)/2)(g - 1)^2 whenever phi(N) >= 4 and g >= 3 (N < 200, "
+          "g < 60): the Prym loci never fill D_F; at g = 3, phi(N) = 4 the "
+          "bound is 6 < 8", ok)
+    # a hyperbolic hermitian form of F-dimension 2n has det = (-1)^n
+    ok = True
+    for n in range(1, 6):
+        M = [[Fr(0)] * (2 * n) for _ in range(2 * n)]
+        for i in range(n):
+            M[i][n + i] = M[n + i][i] = Fr(1)
+        det = det_Q(M)
+        ok = ok and det == (-1) ** n
+    check("a split (hyperbolic) hermitian form of F-dimension 2n has determinant "
+          "(-1)^n, so delta = [det H] is trivial for n = g - 1 = 2", ok)
+
+
+def det_Q(M):
+    M = [row[:] for row in M]
+    n = len(M)
+    det = Fr(1)
+    for c in range(n):
+        p = next((r for r in range(c, n) if M[r][c] != 0), None)
+        if p is None:
+            return Fr(0)
+        if p != c:
+            M[c], M[p] = M[p], M[c]
+            det = -det
+        det *= M[c][c]
+        for r in range(c + 1, n):
+            f = M[r][c] / M[c][c]
+            for k in range(c, n):
+                M[r][k] -= f * M[c][k]
+    return det
 
 
 if __name__ == "__main__":

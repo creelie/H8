@@ -232,14 +232,15 @@ Item (LIV) of \Cref{sec:verification} checks the linear algebra of both
 statements exactly, over seven CM fields.
 \end{proof}
 
-The case $K$ imaginary quadratic and $N=3$ of (i) is the degeneration argument
-of Schoen through which Markman obtains every Weil fourfold, at every
-discriminant, from the sixfolds of trivial discriminant
-\cite{Mar25a};\footnote{We know Schoen's argument only through Markman's
-account of it. What (i) records is the product and push-forward to which that
-argument amounts; in the form given here it needs no degeneration at all,
-only a Weil surface $Y$ of the complementary discriminant and one of its
-Weil classes, which is a divisor class.} what
+The case $K$ imaginary quadratic, $n=2$ and $N=3$ of (i) is Proposition~10
+of Schoen's addendum \cite{Sch98}, the argument through which Markman obtains
+every Weil fourfold, at every discriminant, from the sixfolds of trivial
+discriminant \cite{Mar25a};\footnote{Schoen multiplies a Weil fourfold $A$ by
+a Weil surface $A'$ of the complementary discriminant, identifies $A\times A'$
+up to isogeny with a member of a family of Weil sixfolds of fixed
+discriminant, and pushes forward the cycles $z\cdot(A\times D)$, for $D$ a
+divisor on $A'$ whose class spans its Weil classes; this is the
+correspondence $P$ of (i) with $m=1$, and it involves no degeneration.} what
 (i) adds is that the same argument works in every dimension and for every CM
 field. Its consequence for the structure of the problem is not small: the
 triples $(K,n,\delta)$ are not separate problems. The trivial discriminant
@@ -331,15 +332,24 @@ With that said, here is the list.
   is built on a plane meeting the spinor variety in a conjugate pair, does not
   apply to them as it stands. Markman has extended it to these fields
   \cite{Mar25c}: for an abelian variety $X$ with real multiplication by the
-  totally real subfield $F_{0}$ of $F$ he makes $F$ act on
-  $X\times\widehat{X}$, replaces the plane by a rational subspace of dimension
+  totally real subfield $F_{0}$ of $F$, a polarisation
+  $\Theta\in\bigwedge^{2}_{F_{0}}H^{1}(X,\QQ)$ and $q\in F_{0}$ with
+  $F=F_{0}(\sqrt{-q})$, he makes $F$ act on $X\times\widehat{X}$ with split
+  Weil type, replaces the plane by a rational subspace $B$ of dimension
   $2^{[F_{0}:\QQ]}$ of the half-spin representation that is secant to the
-  spinor variety, and gives secant sheaves for Jacobians of curves of genus
-  four with real multiplication by a real quadratic field. The Weil classes
-  of $F$ on $X\times\widehat{X}$ would be algebraic if such a sheaf were
-  semiregular, and according to the abstract of \cite{Mar25c} that
-  semiregularity has not yet been addressed. We know that work only from its
-  abstract, and nothing in this paper depends on it. The smallest open case,
+  spinor variety, and shows that for sheaves $F_{1},F_{2}$ on $X$ with
+  characters in $B$ the class $\kappa(E)=\ch(E)\exp(-c_{1}(E)/\rk E)$ of
+  $E=\Phi(F_{1}\boxtimes F_{2}^{\vee})$ stays of Hodge type on every member
+  of the family, and that where it stays algebraic all Weil classes are
+  algebraic \cite[Theorem~1.1.2, Proposition~10.2.1]{Mar25c}. He exhibits
+  such a pair meeting his non-degeneracy criterion when $F$ is biquadratic
+  and $X$ is the Jacobian of a curve of genus four with real multiplication
+  by $F_{0}$ and an automorphism acting through a unit of norm one
+  \cite[Example~11.2.7, Lemma~11.2.8]{Mar25c}. That $\kappa(E)$ stays
+  algebraic would follow from a semiregularity of $E$, which is not addressed
+  there \cite[Question~11.2.2]{Mar25c}. No result of this paper depends on a
+  theorem of \cite{Mar25c}; \Cref{ssec:quartic} and \Cref{ssec:sextic} use
+  its construction as their setting. The smallest open case,
   quartic fields at $n=2$, is analysed in \Cref{ssec:quartic}. What this paper
   contributes: everything except the propagation. By
   \Cref{sec:cmfields} each such family has a connected period domain, a flat
