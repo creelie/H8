@@ -1,13 +1,13 @@
 \section{Equivariance and Markman's construction}
 \label{sec:escape}
 
-We return to abelian varieties of Weil type. \Cref{thm:character} says that a
+We return to abelian varieties of Weil type. By \Cref{thm:character}, a
 $\Kx$-eigenclass for the norm character has no component along the Weil line,
-and we ask what the contrapositive demands of a construction that does
-reach the Weil line. The demand is not on the size of the object, on the
-ambient geometry or on any dimension count; it concerns the way the object
-transforms under $\Kx$. This section states the demand in a concrete form and
-then shows how Markman's construction meets it.
+and we ask what the contrapositive demands of a construction that does reach
+the Weil line. The demand does not concern the size of the object, the ambient
+geometry or any dimension count; it concerns the way the object transforms
+under $\Kx$. We state it in a concrete form and then show how Markman's
+construction meets it.
 
 \subsection{The orbit criterion}
 
@@ -34,8 +34,9 @@ $\tau_{0}^{2n}\ne\bbar{\tau_{0}}^{\,2n}$, that is with $\tau_{0}^{2n}\notin\QQ$.
 Then $S\supseteq\QQ+\QQ\tau_{0}^{2n}=K$, so $S=K$ and the span is
 $K\alpha=\HW(A)$.
 
-Irreducibility: a proper nonzero $\Kx$-stable $\QQ$-subspace would be a line,
-on which $\Kx$ would act by a $\QQ$-valued character, forcing
+For irreducibility, a proper nonzero $\Kx$-stable $\QQ$-subspace would be a
+line $\QQ\alpha'$, on which $\Kx$ would act by a $\QQ$-valued character. Since
+$\iota(\tau)^{*}\alpha'=\tau^{2n}\alpha'$ and $\HW(A)$ is free over $K$, this forces
 $\tau^{2n}\in\QQ$ for all $\tau$, which we have just excluded.
 \end{proof}
 
@@ -55,8 +56,8 @@ Such a $\chi$ would make $\QQ\cdot\ch_{n}(\cE)$ a $\Kx$-stable line inside
 $\HW(A)$, contradicting \Cref{prop:orbitplane}.
 \end{proof}
 
-\Cref{cor:orbitcriterion} is the sense in which a construction must break
-equivariance. Suppose that a construction assigns to the data
+\Cref{cor:orbitcriterion} says in what sense a construction that reaches the
+Weil line must break equivariance. Suppose that a construction assigns to the data
 $(A,\iota,\eta)$ an object $\cE(A,\iota,\eta)$ naturally, in the sense that
 an isomorphism of the data induces an isomorphism of the objects. For
 $\tau\ne0$ in the order of $K$ the endomorphism $\iota(\tau)$ is an isogeny of
@@ -66,25 +67,25 @@ normalisation imposed by the change of polarisation, whose effect on
 $\ch_{n}$ is multiplication by a rational number $\chi(\tau)$, a power of the
 norm. Whenever that is the case, \Cref{cor:orbitcriterion} shows that
 $\ch_{n}(\cE)$ is not a nonzero Weil class. A construction that reaches the
-Weil line must therefore depend on a choice that $\Gal(K/\QQ)$ moves, and the
-rest of this section shows what such a choice looks like.
+Weil line must therefore depend on a choice that $\Gal(K/\QQ)$ moves. The rest
+of this section describes such a choice.
 
 \subsection{The two conjugate isotropic subspaces}
 
 The choice that $\Gal(K/\QQ)$ moves is already visible in
 \Cref{sec:characters}. The splitting
 $V_{\CC}=V_{+}\oplus V_{-}$ of \eqref{eq:Vsplit} is defined over $K$ and not
-over $\QQ$: conjugation interchanges the two summands. Consequently
-$\bigwedge^{2n}V_{+}$ and $\bigwedge^{2n}V_{-}$ are individually defined over
-$K$, and only their sum is rational. A class in $\HW(A)$ is of the form
-$w+\bbar{w}$ with $w\in\bigwedge^{2n}V_{+}$, and the two summands are the two
-conjugate halves.
+over $\QQ$, since conjugation interchanges the two summands. Hence
+$\bigwedge^{2n}V_{+}$ and $\bigwedge^{2n}V_{-}$ are each defined over $K$,
+and only their sum is rational. A class in $\HW(A)$ is of the form
+$w+\bbar{w}$ with $w\in\bigwedge^{2n}V_{+}$, and we call $\bigwedge^{2n}V_{+}$
+and $\bigwedge^{2n}V_{-}$ the two conjugate halves.
 
 \begin{definition}[Conjugate pair data]\label{def:conjpair}
-By \emph{conjugate pair data} for $(A,\iota,\eta)$ we mean an ordered choice of
-one of the two summands $V_{\pm}$, equivalently an ordered choice of one of the
-two embeddings $K\hookrightarrow\CC$, equivalently a choice of one of the two
-points of a $\Gal(K/\QQ)$-orbit of size two attached to the $K$-structure.
+By \emph{conjugate pair data} for $(A,\iota,\eta)$ we mean a choice of one of
+the two summands $V_{\pm}$, equivalently of one of the two embeddings
+$K\hookrightarrow\CC$, equivalently of one of the two points of a
+$\Gal(K/\QQ)$-orbit of size two attached to the $K$-structure.
 \end{definition}
 
 \begin{proposition}[Corestriction produces the plane]\label{prop:corestriction}
@@ -97,11 +98,14 @@ conjugate inputs and combine them.
 \end{proposition}
 
 \begin{proof}
-Both displayed elements are fixed by conjugation, hence rational, and both lie
-in $\bigwedge^{2n}V_{+}\oplus\bigwedge^{2n}V_{-}$ by construction, hence in
-$\HW(A)$ by \Cref{def:weilline}. They are linearly independent over $\QQ$
-because $w$ and $\bbar{w}$ are linearly independent over $\CC$, and $\HW(A)$ has
-dimension two by \Cref{prop:weilline}(i).
+Conjugation interchanges $w$ and $\bbar{w}$ and sends $\sqrt{-d}$ to
+$-\sqrt{-d}$, so both elements are fixed by it and are therefore rational.
+Both lie in $\bigwedge^{2n}V_{+}\oplus\bigwedge^{2n}V_{-}$ by construction,
+hence in $\HW(A)$ by \Cref{def:weilline}. They are linearly independent over
+$\QQ$ because $w$ and $\bbar{w}$ are linearly independent over $\CC$: a
+relation $q_{1}(w+\bbar{w})+q_{2}\sqrt{-d}\,(w-\bbar{w})=0$ with
+$q_{1},q_{2}\in\QQ$ forces $q_{1}+q_{2}\sqrt{-d}=0$, that is $q_{1}=q_{2}=0$.
+Since $\HW(A)$ has dimension two by \Cref{prop:weilline}(i), they span it.
 \end{proof}
 
 A construction reaching the Weil line therefore has to be, in a suitable
@@ -174,16 +178,17 @@ The object \eqref{eq:markmanobject} satisfies none of the hypotheses of
 \end{proposition}
 
 \begin{proof}
-(i) and (ii) are a comparison of hypotheses and require no argument beyond
-reading \eqref{eq:markmanobject}.%
-\footnote{The three hypotheses of \Cref{prop:whichescaped} are related. A
-construction that takes its input from projective space is normally
-equivariant for whatever acts on the input, and an equivariant construction
-normally returns a single eigenclass, so the three tend to hold or fail
-together.} For (iii), if $\ch_{n}(E)$ were an eigenclass
-for the norm then by \Cref{cor:equivariant} it would have zero component along
-the Weil line, whereas Markman establishes that it spans one \cite{Mar25b}.
+Items (i) and (ii) are a comparison of hypotheses and need no argument beyond
+reading \eqref{eq:markmanobject}. For (iii), if $\ch_{n}(E)$ were an
+eigenclass for the norm, then by \Cref{cor:equivariant} it would have zero
+component along the Weil line, whereas Markman shows that this component is
+nonzero \cite{Mar25b}.
 \end{proof}
+
+The three hypotheses of \Cref{prop:whichescaped} are related. A construction
+that takes its input from projective space is normally equivariant for
+whatever acts on the input, and an equivariant construction normally returns
+a single eigenclass, so the three tend to hold or fail together.
 
 \begin{remark}[Where secant geometry must be placed]\label{rem:secantlesson}
 Secant geometry can produce Weil classes: Markman's construction is a secant
@@ -200,10 +205,10 @@ dimension makes room for the two conjugate inputs.
 
 \subsection{Beyond the known range}
 
-We can state what a construction for the cases that remain open would
-have to supply. The known range is $n=2$, for every discriminant, and $n=3$
-with trivial discriminant; see \cite{Mar25b} and, for a different route at
-$n=2$ and trivial discriminant, \cite{FF26}.
+The algebraicity of the Weil classes is known for $n=2$, for every
+discriminant, and for $n=3$ with trivial discriminant; see \cite{Mar25b} and,
+for a different route at $n=2$ and trivial discriminant, \cite{FF26}. We state
+what a construction for the remaining cases would have to supply.
 
 \begin{question}\label{q:higher}
 Fix $n\ge4$ and an imaginary quadratic field $K$. Does there exist an abelian
@@ -216,13 +221,12 @@ Weil type with multiplication by $K$?
 \end{question}
 
 Each of the four ingredients is a concrete demand. By
-\Cref{cor:orbitcriterion} any answer must, however it is phrased, be bilinear
-in a pair of conjugate inputs, because that is the only way a rational class
-can acquire a $\Kx$-orbit spanning a plane. \Cref{sec:construction} supplies
-the first three ingredients in closed form, for every $n\ge2$ and every
-imaginary quadratic field, with $X$ an arbitrary polarised abelian $n$-fold;
-the fourth, the deformation argument, is open, and \Cref{rem:deformation}
-says what it requires.
+\Cref{cor:orbitcriterion}, any answer must be bilinear in a pair of conjugate
+inputs, since that is the only way a rational class can acquire a
+$\Kx$-orbit spanning a plane. \Cref{sec:construction} supplies the first three
+ingredients explicitly, for every $n\ge2$ and every imaginary quadratic field,
+with $X$ an arbitrary polarised abelian $n$-fold. The fourth, the deformation
+argument, is open, and \Cref{rem:deformation} says what it requires.
 
 \begin{figure}[htbp]
 \centering

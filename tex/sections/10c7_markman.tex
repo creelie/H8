@@ -1,13 +1,12 @@
 \subsubsection*{Markman's candidate in dimension eight}
 
-There is one concrete candidate of that kind above $n=3$, proposed by Markman
-in \cite[Section 12]{Mar25b} with the remark that it is yet to be checked
+Above $n=3$ there is one concrete candidate of this kind. Markman proposes
+it in \cite[Section 12]{Mar25b} and notes that it remains to be checked
 against the weakened criterion. Its Chern character is a finite computation
-in the ring $\QQ[\Theta]/(\Theta^{5})$, and we carry it out, because it
-places the candidate exactly at a rational point of the secant plane of
+in the ring $\QQ[\Theta]/(\Theta^{5})$. We carry the computation out: it
+places the candidate at a rational point of the secant plane of
 \Cref{def:secantplane} and reduces what has to be checked to a single
-condition; that condition is then decided, in the negative, in
-\Cref{thm:candidatefails}.
+condition, which \Cref{thm:candidatefails} decides in the negative.
 
 \begin{setupenv}[Markman's object]\label{setup:markman}
 Let $(X,\Theta)$ be a principally polarised abelian fourfold, $d\ge3$ odd and
@@ -26,7 +25,7 @@ $Z_{i}\cap Z_{j}$ for $i,j$ at cyclic distance at least three. Put
 the complex placed in degrees $0$ and $1$.
 \end{setupenv}
 
-\begin{proposition}[The candidate sits at the point $(1,3)$ of the secant plane]
+\begin{proposition}[Markman's candidate on the secant plane]
 \label{prop:markman8}
 In \Cref{setup:markman}, with $t=\Theta$ and $u_{t},v_{t}$ as in
 \eqref{eq:uv} for $n=4$:
@@ -43,9 +42,9 @@ In \Cref{setup:markman}, with $t=\Theta$ and $u_{t},v_{t}$ as in
   \]
   the rational point $(a,b)=(1,3)$ of the secant plane $P_{\Theta}$; with
   the twist $\cO_{X}(\Theta)$ in place of $\cO_{X}(3\Theta)$ the degree two
-  component would be $-\tfrac{d+8}{2}\Theta^{2}$ instead, so the twist in
-  \cite[Section 12]{Mar25b} is to be read as $3\Theta$;
-\item $\Nm_{K/\QQ}(3+\sqrt{-d})=d+9=2N$ is the number of divisors, and by
+  component would instead be $-\tfrac{d+8}{2}\Theta^{2}$, so the twist in
+  \cite[Section 12]{Mar25b} must be read as $3\Theta$;
+\item $\Nm_{K/\QQ}(3+\sqrt{-d})=d+9=2N$, with $N$ the number of divisors, and by
   \Cref{thm:secantinvariants} the Bogomolov discriminant of $\cF$ is
   $\Delta(\cF)=(d+9)\Theta^{2}$;
 \item the objects $\Phi(\cF\boxtimes\cF)$ and $\Phi(\cF\boxtimes\cF^{\vee})$
@@ -62,9 +61,10 @@ its normalised Chern character is invariant under the special Mumford--Tate
 group by \cite[Corollary 9.2]{Mar25b}, and its Weil component is nonzero by
 \cite[Proposition 10.2]{Mar25b}, the relevant coefficient being
 $\Nm(c)$ with $c=\tfrac12(1+3/\sqrt{-d})\ne0$. What remains is condition
-(2a) in its weakened form: that $\operatorname{ev}_{E}$ kills every class in
+(2a) in its weakened form: for $E=\Phi(\cF\boxtimes\cF)$, the map
+$\operatorname{ev}_{E}$ must kill every class in
 $H^{1}(T)\oplus H^{0}(\bigwedge^{2}T)$ that preserves $\kappa(E)$ to first
-order, for $E=\Phi(\cF\boxtimes\cF)$.
+order.
 \end{proposition}
 
 \begin{proof}
@@ -73,9 +73,10 @@ and $\Theta^{4}=24$. The Koszul complex of $r$ transversal translates of
 $\Theta$ gives $\ch$ of the structure sheaf of their intersection as
 $(1-e^{-\Theta})^{r}$, so $\ch(\cO_{Z_{i}})=\Theta^{2}-\Theta^{3}+\tfrac{7}{12}\Theta^{4}$,
 $\ch(\cO_{C_{i}})=\Theta^{3}-\tfrac32\Theta^{4}$ and $\ch$ of four divisors
-is $\Theta^{4}$; integrating, $\chi(\cO_{Z_{i}})=14$, $\chi(\cO_{C_{i}})=-36$
-and $24$ points, as also follows from $0-2\cdot1+16$, $0-3+48-81$ and
-$0-4+96-324+256$.
+is $\Theta^{4}$. Integrating gives $\chi(\cO_{Z_{i}})=14$,
+$\chi(\cO_{C_{i}})=-36$ and $24$ points; the same numbers are the Koszul sums
+$0-2\cdot1+16$, $0-3+48-81$ and $0-4+96-324+256$ of the values
+$\chi(\cO_{X}(-k\Theta))=k^{4}$.
 
 (i), (ii). At every point $Z$ is locally a union of coordinate subspaces of
 $\CC^{4}$: along $C_{i}$ two surfaces $\{x_{1}=x_{2}=0\}\cup\{x_{2}=x_{3}=0\}$,
@@ -120,7 +121,8 @@ by (i). Comparing with \eqref{eq:uv} at $n=4$,
 $u_{t}=1-\tfrac d2t^{2}+\tfrac{d^{2}}{24}t^{4}$ and $v_{t}=t-\tfrac d6t^{3}$,
 gives $\ch(\cF)=u_{t}+3v_{t}$.
 
-(iv) $\Nm(3+\sqrt{-d})=9+d$, and \eqref{eq:discnorm} with $(a,b)=(1,3)$.
+(iv) This follows from $\Nm(3+\sqrt{-d})=9+d$ and \eqref{eq:discnorm} with
+$(a,b)=(1,3)$.
 
 (v) Orlov's equivalence is $\Phi=(\id\times\Phi_{\cP})^{-1}\circ\mu^{*}$ with
 $\mu(x,y)=(x+y,y)$, so the restriction of $\Phi(\cF_{1}\boxtimes\cF_{2})$ to
@@ -135,9 +137,10 @@ changing the sign of the odd degrees, $\int u_{t}^{2}=8d^{2}$,
 $\int u_{t}v_{t}=0$ and $\int v_{t}^{2}=-8d$ give the two values. On a
 threefold $\int(u_{t}+v_{t})^{2}=2\int u_{t}v_{t}=-8q$.
 
-The last paragraph: (2b) is the $\mathrm{Spin}(V_{\QQ})_{B}$-invariance of
-$\kappa(E)$, which \cite[Corollary 9.2]{Mar25b} derives from
-$\ch(\cF)\in B$ and the nonvanishing of the rank; (2c) is
+For the final assertion, condition (2b) is the
+$\mathrm{Spin}(V_{\QQ})_{B}$-invariance of $\kappa(E)$, which
+\cite[Corollary 9.2]{Mar25b} derives from $\ch(\cF)\in B$ and the
+nonvanishing of the rank. Condition (2c) is
 \cite[Proposition 10.2]{Mar25b}, which for $K$ imaginary quadratic reduces
 to the nonvanishing of the component of $\ch(\cF)\otimes\ch(\cF)$ in
 $\ell_{W}\otimes\ell_{\bbar W}$, and writing $\ch(\cF)=c\,\ell_{W}+\bbar c\,\ell_{\bbar W}$
@@ -146,42 +149,42 @@ Every number in (i) to (v) is recomputed for every odd squarefree $d\le101$
 in item (XXVII) of \Cref{sec:verification}.
 \end{proof}
 
-\begin{remark}[The one condition left]\label{rem:onecondition}
-\Cref{prop:markman8} does not verify Markman's candidate; it verifies
-everything about it that is a statement about classes, and it shows that the
-one remaining statement is about the object. That statement is, for
-$E=\Phi(\cF\boxtimes\cF)$ on the eightfold $X\times\widehat X$ of Weil type
-with $\kappa(E)=\ch(E)e^{-c_{1}(E)/\operatorname{rk}E}$: every
-$x\in H^{1}(T)\oplus H^{0}(\bigwedge^{2}T)$ with $x\lrcorner\,\kappa(E)=0$
-satisfies $\operatorname{ev}_{E}(x)=0$ in $\Ext^{2}(E,E)$. The $H^{2}(\cO)$
-summand imposes nothing, because $\operatorname{rk}E\ne0$ makes
-$z\cdot\kappa(E)\ne0$ for $z\ne0$. By \Cref{thm:linebundle} the condition
-fails as soon as $E$ has a rank one direct summand whose class is not a
-multiple of the polarisation; so the first thing to know about $E$ is
-whether it is indecomposable. Markman's object at $n=3$ is reflexive of
-rank $8q$ away from a divisor and he proves the condition by descending to
-a quotient on which $\sigma_{E}$ is injective on an invariant subspace
-\cite[Proposition 11.5]{Mar25b}. Whether the same can be done for
-$\Phi(\cF\boxtimes\cF)$ is a question about Ext groups of one sheaf on one
-eightfold, not about any Hodge class. \Cref{thm:factor} below moves it from
-the eightfold to the fourfold and from the object $E$ to $\cF$ itself: it is
-equivalent to the single identity \eqref{eq:heisenberg} in
-$\Ext^{2}(\cF,\cF\otimes\Omega^{2}_{X})$, the other half of the condition
-holding by construction; and \Cref{thm:candidatefails} shows that the
-identity fails, so the answer is no.
+\begin{remark}[The remaining condition]\label{rem:onecondition}
+\Cref{prop:markman8} does not verify Markman's candidate. It verifies every
+statement about the candidate that concerns classes, and it shows that the
+one remaining statement concerns the object. For
+$E=\Phi(\cF\boxtimes\cF)$ on the eightfold $X\times\widehat X$ of Weil type,
+with $\kappa(E)=\ch(E)e^{-c_{1}(E)/\operatorname{rk}E}$, that statement reads:
+every $x\in H^{1}(T)\oplus H^{0}(\bigwedge^{2}T)$ with
+$x\lrcorner\,\kappa(E)=0$ satisfies $\operatorname{ev}_{E}(x)=0$ in
+$\Ext^{2}(E,E)$. The $H^{2}(\cO)$ summand imposes nothing, because
+$\operatorname{rk}E\ne0$ makes $z\cdot\kappa(E)\ne0$ for $z\ne0$. By
+\Cref{thm:linebundle} the condition fails as soon as $E$ has a rank one
+direct summand whose class is not a multiple of the polarisation, so the
+first question about $E$ is whether it is indecomposable. Markman's object
+at $n=3$ is reflexive of rank $8q$ away from a divisor, and he proves the
+condition by descending to a quotient on which $\sigma_{E}$ is injective on
+an invariant subspace \cite[Proposition 11.5]{Mar25b}. Whether the same can
+be done for $\Phi(\cF\boxtimes\cF)$ is a question about the Ext groups of one
+object on one eightfold, not about any Hodge class. \Cref{thm:factor} below
+moves the question from the eightfold to the fourfold and from $E$ to $\cF$
+itself: the condition is equivalent to the single identity
+\eqref{eq:heisenberg} in $\Ext^{2}(\cF,\cF\otimes\Omega^{2}_{X})$, the other
+half of it holding by construction. \Cref{thm:candidatefails} shows that the
+identity fails, so the answer is negative.
 \end{remark}
 
-\subsubsection*{The one condition, reduced to the factor}
+\subsubsection*{Reduction to the fourfold}
 
-The condition left in \Cref{rem:onecondition} is about an object on an
-eightfold. It is equivalent to a condition on the factor $\cF$ on the
-fourfold, and on the fourfold it splits into two, one of which holds for
-Markman's object because the object is constructed uniformly over the moduli
-of principally polarised fourfolds. The reduction is not special to that
-object: it works for every secant object on every abelian $n$-fold with
-$n\ge3$, and its ingredients are three computations in the Hodge algebra of
-one abelian variety, which is why they can be checked by machine. We fix the
-conventions first.
+The condition of \Cref{rem:onecondition} concerns an object on an eightfold.
+It is equivalent to a condition on the factor $\cF$ on the fourfold, and
+there it splits into two conditions, one of which holds for Markman's object
+because the object is constructed uniformly over the moduli of principally
+polarised fourfolds. The reduction is not special to that object. It works
+for every secant object on every abelian $n$-fold with $n\ge3$, and its
+ingredients are three computations in the Hodge algebra of a single abelian
+variety, which can therefore be checked by machine. We first fix
+conventions.
 
 \begin{setupenv}[The weakened criterion for one object]\label{setup:criterion}
 Let $Y$ be an abelian variety and $F$ a nonzero perfect complex on $Y$. Write
@@ -190,13 +193,14 @@ in \eqref{eq:HT2}, with $x=(z,v,\pi)$ acting on $H^{*}(Y,\CC)$ by
 $x\lrcorner$, and likewise $HT^{1}(Y)=H^{0,1}(Y)\oplus H^{0}(T_{Y})$, with
 $(z,\theta)$ acting by $z\wedge$ and by the interior product $\theta\lrcorner$.
 Normalise the Atiyah class $\mathrm{At}(F)\in\Ext^{1}(F,F\otimes\Omega^{1}_{Y})$
-so that $\ch(F)=\operatorname{tr}\exp\mathrm{At}(F)$; for a line bundle it is
-then $c_{1}(L)$, as in \eqref{eq:obdef}.%
+so that $\ch(F)=\operatorname{tr}\exp\mathrm{At}(F)$; for a line bundle $L$
+it is then $c_{1}(L)$, as in \eqref{eq:obdef}.%
 \footnote{This is the convention of \cite{Tod09} and of
-\cite[footnote 14]{Mar25a}; Buchweitz and Flenner use the opposite sign, which
-changes $\mathrm{At}(F)$ to $-\mathrm{At}(F)$ and leaves $\mathrm{At}(F)^{2}$
-and every statement below unchanged except for the sign of the middle term of
-$\operatorname{ev}_{F}$, which is irrelevant to the vanishing statements.}
+\cite[footnote 14]{Mar25a}. Buchweitz and Flenner use the opposite sign,
+which replaces $\mathrm{At}(F)$ by $-\mathrm{At}(F)$; this leaves
+$\mathrm{At}(F)^{2}$ unchanged and changes only the sign of the middle term
+of $\operatorname{ev}_{F}$, which does not affect the vanishing statements
+below.}
 The evaluation map of \Cref{thm:weakfails} is, under HKR,
 \begin{equation}\label{eq:evgeneral}
   \operatorname{ev}_{F}(z,v,\pi)=z\cdot\id_{F}+v\lrcorner\,\mathrm{At}(F)
@@ -220,9 +224,9 @@ $\sigma_{F}\circ\operatorname{ev}_{F}=(\,\cdot\,)\lrcorner\,\ch(F)$ of
   =\ker\sigma_{F}\cap\image\operatorname{ev}_{F},
 \]
 so the weakened criterion is exactly the hypothesis of
-\cite[Question 11.4]{Mar25b}, that $\sigma_{F}$ restricts to the image of
-$\operatorname{ev}_{F}$ as an injective map; \Cref{prop:evaluation}(ii) is
-the case of a split object.
+\cite[Question 11.4]{Mar25b}, that the restriction of $\sigma_{F}$ to the
+image of $\operatorname{ev}_{F}$ is injective. For a split object this is
+\Cref{prop:evaluation}(ii).
 \end{setupenv}
 
 \begin{lemma}[The $B$-field transform]\label{lem:bfield}
@@ -244,27 +248,27 @@ $HT^{2}(Y)$ with inverse $e^{-B}$, and:
   $\Ann_{HT^{2}}(\ch(F\otimes L))=e^{-B}\Ann_{HT^{2}}(\ch F)$; hence $F$
   satisfies the weakened criterion if and only if $F\otimes L$ does.
 \end{enumerate}
-The computation in (ii) is formal: it uses only that the Atiyah class of the
-twisted object is $\mathrm{At}(F)+B\cdot\id_{F}$ and its Chern character
+The computation in (ii) is formal: it uses only that the twisted object has
+Atiyah class $\mathrm{At}(F)+B\cdot\id_{F}$ and Chern character
 $\ch(F)e^{B}$. It therefore applies verbatim to the twisted sheaves of
-\cite[Section 2]{Mar25b}, with $B$ rational: for $F$ of nonzero rank $r$, the
-criterion for the twisted object $F\otimes L^{-1}$ with class
+\cite[Section 2]{Mar25b}, with $B$ rational. In particular, for $F$ of
+nonzero rank $r$, the criterion for the twisted object $F\otimes L^{-1}$ with class
 $\kappa(F)=\ch(F)e^{-c_{1}(F)/r}$ is the same condition as the criterion for
 $F$ with class $\ch(F)$.
 \end{lemma}
 
 \begin{proof}
-Everything takes place in a graded algebra on which the interior products
-$\iota_{a}=\partial_{a}\lrcorner$ act as odd derivations, and the only
-properties used are that $w$ is even, that $B$ is even and central with
+The computation takes place in a graded algebra on which the interior
+products $\iota_{a}=\partial_{a}\lrcorner$ act as odd derivations. It uses
+only that $w$ is even; that $B$ is even and central with
 $\iota_{a}\iota_{b}B=0$, which holds for $B$ of type $(1,1)$ and
-$\partial_{a},\partial_{b}$ of type $(1,0)$, and that the odd scalar classes
-$\iota_{a}B$ anticommute with every odd element. In $H^{*}(Y,\CC)$ this is
-clear; the same argument applies in
+$\partial_{a},\partial_{b}$ of type $(1,0)$; and that the odd scalar classes
+$\iota_{a}B$ anticommute with every odd element. In $H^{*}(Y,\CC)$ these
+properties are clear. They also hold in
 $\bigoplus_{p,q}\Ext^{p}(F,F\otimes\Omega^{q}_{Y})=\Ext^{*}(F,F)\otimes
 \bigwedge^{*}H^{1,0}$, on which the polyvectors act through the second factor
 by odd derivations, because the classes coming from $H^{*}(Y,\CC)$ are graded
-central in the Yoneda algebra. First $\iota_{a}(B^{k})=k(\iota_{a}B)B^{k-1}$,
+central in the Yoneda algebra. First, $\iota_{a}(B^{k})=k(\iota_{a}B)B^{k-1}$,
 since $\iota_{a}B$ is odd and $B$ is even, so
 $\iota_{a}e^{B}=(\iota_{a}B)e^{B}$. For $w$ even this gives
 $v\lrcorner\,(we^{B})=(v\lrcorner\,w)e^{B}+w\sum_{a}v(p_{a})(\iota_{a}B)e^{B}
@@ -298,15 +302,15 @@ algebra $\Ext^{*}(F,F)\otimes\bigwedge^{*}H^{1,0}$, with $w=\exp\mathrm{At}(F)$,
   x\lrcorner\,\exp\mathrm{At}(F\otimes L)
   =\bigl((e^{B}x)\lrcorner\,\exp\mathrm{At}(F)\bigr)e^{B},
 \]
-and the component in $\Ext^{2}(F,F)\otimes\bigwedge^{0}$ of the right hand
-side is that of $(e^{B}x)\lrcorner\,\exp\mathrm{At}(F)$, because $e^{B}=1+B+\cdots$
-raises the exterior degree. This is
+and the right hand side has the same component in
+$\Ext^{2}(F,F)\otimes\bigwedge^{0}$ as $(e^{B}x)\lrcorner\,\exp\mathrm{At}(F)$,
+because $e^{B}-1=B+\tfrac12B^{2}+\cdots$ raises the exterior degree. This is
 $\operatorname{ev}_{F\otimes L}(x)=\operatorname{ev}_{F}(e^{B}x)$. By (i) in
 $H^{*}(Y,\CC)$ with $w=\ch(F)$, $x\lrcorner\,\ch(F\otimes L)=0$ if and only
 if $(e^{B}x)\lrcorner\,\ch(F)=0$, which is the statement on the annihilators.
 Hence $\operatorname{ev}_{F\otimes L}(\Ann_{HT^{2}}(\ch(F\otimes L)))
 =\operatorname{ev}_{F}(\Ann_{HT^{2}}(\ch F))$. The identity (i) is checked
-on random data in item (XXVIII) of \Cref{sec:verification}.
+numerically on random data in item (XXVIII) of \Cref{sec:verification}.
 \end{proof}
 
 \begin{theorem}[Reduction to the factor]\label{thm:factor}
@@ -340,8 +344,8 @@ notation of \eqref{eq:uv}. Then:
     $\Ext^{2}(F,F\otimes\Omega^{2}_{X})$.
   \end{enumerate}
   The trace of (b) is automatic: $\operatorname{tr}\mathrm{At}(F)^{2}
-  =2\ch_{2}(F)=-ad\,t^{2}=\operatorname{tr}(-d\,t^{2}\cdot\id_{F})$. So (b)
-  says that the trace free part of the square of the Atiyah class vanishes.
+  =2\ch_{2}(F)=-ad\,t^{2}=\operatorname{tr}(-d\,t^{2}\cdot\id_{F})$, so (b)
+  is the vanishing of the trace free part of the square of the Atiyah class.
 \item Let $F_{1},F_{2}$ be two such complexes, $G=F_{1}\boxtimes F_{2}$ on
   $X\times X$ and $E=\Phi(G)$ on $X\times\widehat X$, with $\Phi$ Orlov's
   equivalence as in \Cref{prop:markman8}(v). Then
@@ -478,10 +482,10 @@ $\Phi^{HT}\bigl(\Ann_{HT^{2}}(\ch G)\bigr)=\Ann_{HT^{2}}(\ch E)$ and the second
 $\operatorname{ev}_{E}\bigl(\Ann_{HT^{2}}(\ch E)\bigr)
 =\Phi\bigl(\operatorname{ev}_{G}(\Ann_{HT^{2}}(\ch G))\bigr)$, with $\Phi$ an
 isomorphism on $\Ext^{2}$. So $E$ satisfies the criterion if and only if $G$
-does. Items (i) and (ii) are recomputed in the model of \Cref{sec:verification},
-item (XXVIII), for $n=3,4,5$ and several $(d,a,b)$, together with the controls
-that the bare Poisson class $(0,0,\pi)$ and the class compensated with the
-opposite sign do not preserve $\ch(F)$.
+does. Items (i) and (ii) are recomputed in the model of item (XXVIII) of
+\Cref{sec:verification} for $n=3,4,5$ and several $(d,a,b)$, with two
+controls: neither the bare Poisson class $(0,0,\pi)$ nor the class
+compensated with the opposite sign preserves $\ch(F)$.
 \end{proof}
 
 \begin{figure}[tbp]
@@ -503,7 +507,7 @@ the identity \eqref{eq:heisenberg}.}
 \label{fig:factor}
 \end{figure}
 
-\begin{corollary}[The one condition, on the fourfold]\label{cor:markmancondition}
+\begin{corollary}[The remaining condition on the fourfold]\label{cor:markmancondition}
 In \Cref{setup:markman} let $E=\Phi(\cF\boxtimes\cF)$. Then $E$ satisfies the
 weakened criterion of \cite[Question 11.4]{Mar25b} if and only if
 \begin{equation}\label{eq:heisenberg}
@@ -511,7 +515,8 @@ weakened criterion of \cite[Question 11.4]{Mar25b} if and only if
   \qquad\text{in }\Ext^{2}(\cF,\cF\otimes\Omega^{2}_{X}).
 \end{equation}
 Equivalently, writing $\mathrm{At}(\cF)=\sum_{a}A_{a}\otimes p_{a}$ with
-$A_{a}\in\Ext^{1}(\cF,\cF)$ in a basis $p_{a}$ of $H^{1,0}(X)$, all the
+$A_{a}\in\Ext^{1}(\cF,\cF)$ in a basis $p_{a}$ of $H^{1,0}(X)$, and
+$\Theta=\sum_{a}p_{a}\wedge q_{a}$ with $q_{a}\in H^{0,1}(X)$, all the
 commutators $A_{a}A_{b}-A_{b}A_{a}\in\Ext^{2}(\cF,\cF)$ are the scalars
 $\pm2d\,(q_{a}\wedge q_{b})\cdot\id_{\cF}$ prescribed by $\Theta^{2}$, the
 sign being fixed by the Koszul rule.
@@ -521,24 +526,24 @@ sign being fixed by the Koszul rule.
 By \Cref{prop:markman8}(iii), $\ch(\cF)=u_{\Theta}+3v_{\Theta}$, so
 \Cref{thm:factor} applies with $n=4$, $(a,b)=(1,3)$ and $F_{1}=F_{2}=\cF$, and
 $E$ satisfies the criterion if and only if $\cF$ satisfies (a) and (b). It
-remains to see that (a) holds. The data of \Cref{setup:markman} are a
+remains to show that (a) holds. The data of \Cref{setup:markman} are a
 principally polarised fourfold $(X,\Theta)$ and $N$ points $x_{i}\in X$ with
-$D_{i}=\tau_{x_{i}}^{*}\Theta$; the conditions imposed on the $D_{i}$, that
+$D_{i}=\tau_{x_{i}}^{*}\Theta$. The conditions imposed on the $D_{i}$, that
 the intersections of two, three and four of them be smooth of the expected
 codimension and that five of them be disjoint, are open in the parameter
 space of such data over the local universal deformation $S$ of $(X,\Theta)$,
 by the openness of smoothness for a proper flat family and the properness of
-the projection; and the isolated points of $Z$, being transversal
-intersections of four divisors, form a finite \'etale cover of the open set
-where the conditions hold, so the $m$ points to be normalised can be followed
-locally. The partial normalisation separates two smooth branches at each of
-them and commutes with base change. So the construction produces a perfect
+the projection. The isolated points of $Z$, being transversal intersections
+of four divisors, form a finite \'etale cover of the open set where the
+conditions hold, so the $m$ points to be normalised can be followed locally;
+the partial normalisation separates two smooth branches at each of them and
+commutes with base change. The construction therefore produces a perfect
 complex $\cF_{S}$ on the universal family over a neighbourhood of the base
 point in $S$, whose fibre at the base point is $\cF$ and whose base has
 Kodaira--Spencer image the whole space of polarised deformations, of
 dimension $10=n(n+1)/2$. The obstruction $v\lrcorner\,\mathrm{At}(\cF)$ to
-extending $\cF$ along $v$ vanishes for every $v$ along which $\cF$ does extend
-\cite{Tod09}, which is (a).
+extending $\cF$ along $v$ vanishes for every $v$ along which $\cF$ extends
+\cite{Tod09}, and this is (a).
 
 For the reformulation, $\Omega^{1}_{X}=\cO_{X}\otimes H^{1,0}$ gives
 $\mathrm{At}(\cF)=\sum_{a}A_{a}\otimes p_{a}$, and
@@ -548,43 +553,44 @@ for $\Theta=\sum_{a}p_{a}\wedge q_{a}$. Comparing coefficients of
 $p_{a}\wedge p_{b}$ gives the commutator relations.
 \end{proof}
 
-\begin{remark}[What the reduction closes, and what it does not]\label{rem:factorclosed}
-Three things are closed. First, the eightfold has disappeared: the condition
-of \Cref{rem:onecondition}, on an object of rank $8d(d-9)$ on $X\times\widehat X$
-of Weil type, is equivalent to one identity \eqref{eq:heisenberg} for a rank
-one complex on the fourfold, in the Yoneda algebra $\Ext^{*}(\cF,\cF)$; the
-dimension of the space of classes that has to be killed drops from $2n^{2}$
-to $n^{2}$ and, by (a), to $n(n-1)/2=6$; at $n=3$ the count $n^{2}=9$ is the
-nine-dimensional kernel of \cite[Corollaries 8.3.12 and 8.5.2]{Mar25a}, now
-written out for every secant object in every dimension. Second, the half of that space made
-of honest deformations imposes nothing, because Markman's construction is
-uniform over the moduli of principally polarised fourfolds. Third, the two
-forms of the criterion, for $E$ with $\ch(E)$ and for the twisted object with
-$\kappa(E)$, are the same by \Cref{lem:bfield}, so nothing is lost by working
-with the untwisted object.
+\begin{remark}[Scope of the reduction]\label{rem:factorclosed}
+The reduction accomplishes three things. First, it removes the eightfold:
+the condition of \Cref{rem:onecondition}, on an object of rank $8d(d-9)$ on
+$X\times\widehat X$ of Weil type, is equivalent to one identity
+\eqref{eq:heisenberg} for a rank one complex on the fourfold, in the Yoneda
+algebra $\Ext^{*}(\cF,\cF)$. The dimension of the space of classes that has
+to be killed drops from $2n^{2}$ to $n^{2}$ and, by (a), to $n(n-1)/2=6$. At
+$n=3$ the count $n^{2}=9$ is the nine-dimensional kernel of
+\cite[Corollaries 8.3.12 and 8.5.2]{Mar25a}, which \eqref{eq:secantkernel}
+writes out for every secant object in every dimension. Second, the half of
+that space made of honest deformations imposes nothing, because Markman's
+construction is uniform over the moduli of principally polarised fourfolds.
+Third, by \Cref{lem:bfield} the two forms of the criterion, for $E$ with
+$\ch(E)$ and for the twisted object with $\kappa(E)$, coincide, so nothing
+is lost by working with the untwisted object.
 
-The identity itself is a Heisenberg relation: the components of the Atiyah
-class in the $n$ tangent directions must commute up to the scalars
-prescribed by $\Theta^{2}$, and the only part of it that the Chern character
-forces is the trace. It is exactly the statement that $\cF$ deforms, as an
-object of the deformed category, along the Poisson directions of $X$
-compensated by the gerbe classes $\tfrac d2\,\pi\lrcorner\,\Theta^{2}$, the
-noncommutative first order deformations of $X$ with a gerby correction in
-the language of \cite[Section 8.5]{Mar25a}. It holds
-in the one case where the method is known to work: for Markman's sheaves
+What remains is the identity itself, which is a Heisenberg relation: the
+components of the Atiyah class in the $n$ tangent directions must commute up
+to the scalars prescribed by $\Theta^{2}$, and the Chern character forces
+only the trace of the relation. The identity says exactly that $\cF$
+deforms, as an object of the deformed category, along the Poisson directions
+of $X$ compensated by the gerbe classes $\tfrac d2\,\pi\lrcorner\,\Theta^{2}$;
+these are the noncommutative first order deformations of $X$ with a gerby
+correction, in the language of \cite[Section 8.5]{Mar25a}. It holds in the
+one case where the method is known to work. For Markman's sheaves
 $\cF_{1}=I_{\bigcup C_{i}}(\Theta)$ on the Jacobian threefold of
 \cite[Section 11.1]{Mar25b}, with $\ch=u_{\Theta}+v_{\Theta}$ and $d=q$, the
 kernel of the obstruction map equals the annihilator of the Chern character
 \cite[Corollary 8.3.12]{Mar25a}, which is stronger than the weakened
-criterion, so by \Cref{thm:factor}(iii) these sheaves satisfy
-$\mathrm{At}(\cF_{1})^{2}=-q\,\Theta^{2}\cdot\id$ on the threefold. For
-the rank one complex of \Cref{setup:markman} on the fourfold the identity
-is a computation of Yoneda products in $\Ext^{*}(\cF,\cF)$, and it can be
-made local: the next paragraphs carry it out at one point of the support and
-find that it fails.
+criterion; so by \Cref{thm:factor}(iii) these sheaves satisfy
+$\mathrm{At}(\cF_{1})^{2}=-q\,\Theta^{2}\cdot\id$ on the threefold. For the
+rank one complex of \Cref{setup:markman} on the fourfold, the identity is a
+computation of Yoneda products in $\Ext^{*}(\cF,\cF)$, and the computation
+can be made local. Below we carry it out at one point of the support and
+find that the identity fails.
 \end{remark}
 
-\subsubsection*{The identity fails at an isolated double point}
+\subsubsection*{Failure at an isolated double point}
 
 The identity \eqref{eq:heisenberg} can be tested locally. The evaluation map
 is an algebra homomorphism \cite[(8.3.3)]{Mar25a}, so on a bivector
@@ -594,11 +600,11 @@ $\theta\wedge\theta'$ it is the Yoneda product of the classes
   \in\Ext^{1}(\cF,\cF),\qquad\theta\in H^{0}(T_{X}),
 \]
 which are the first order deformations of $\cF$ along the translations of
-$X$; and the product of two global classes restricts to the product of their
+$X$. The product of two global classes restricts to the product of their
 germs. At a point where the support of $\cF$ has two smooth branches of
-codimension two meeting transversally, the germs multiply nontrivially, and
+codimension two meeting transversally, the germs multiply nontrivially;
 since the compensating classes $z\cdot\id_{\cF}$ have zero germs, the
-identity fails. Markman's construction has such points, and it cannot avoid
+identity fails. Markman's construction has such points and cannot avoid
 them.
 
 \begin{lemma}[Localisation]\label{lem:edge}
@@ -614,12 +620,12 @@ $\cO_{Y,p}$-linear in $\theta$.
 \end{lemma}
 
 \begin{proof}
-Composition of morphisms commutes with restriction to open sets, which is the
+Composition of morphisms commutes with restriction to open sets; this is the
 first assertion. For the second, $z\cdot\id_{F}$ restricted to an affine open
 $U$ is $z|_{U}\cdot\id_{F|_{U}}$, and $z|_{U}\in H^{m}(U,\cO_{U})=0$. For the
 third, the Atiyah class of $F$ is the class of the first jet sequence
 $0\to F\otimes\Omega^{1}_{Y}\to J^{1}(F)\to F\to0$ \cite[Section 3]{BF03},
-its restriction to $U$ is the jet sequence of $F|_{U}$, and contracting with
+and its restriction to $U$ is the jet sequence of $F|_{U}$. Contracting with
 $\theta$ is pushing out along $\id\otimes\theta\colon F\otimes\Omega^{1}\to F$,
 which produces the extension $J_{\theta}(F)$ whose underlying sheaf is
 $F\oplus F$ with $f\cdot(s,s')=(fs+\theta(f)s',fs')$. Linearity in $\theta$
@@ -673,7 +679,7 @@ compatibly with Yoneda products up to the Koszul sign, since a product of
 chain maps on the tensor product of resolutions is the tensor product of the
 products.
 
-The building block is one plane. The Koszul complex
+The basic case is a single plane. The Koszul complex
 $0\to A\xrightarrow{(-x_{2},x_{1})^{t}}A^{2}\xrightarrow{(x_{1},x_{2})}\mathfrak m_{A}\to0$
 is a free resolution, so $\mathfrak m_{A}$ has projective dimension one and
 $\Ext^{i}_{A}(\mathfrak m_{A},-)=0$ for $i\ge2$; and
@@ -770,8 +776,8 @@ $\theta(0)\wedge\theta'(0)\notin N_{1}\otimes N_{2}$.
 
 Both computations are repeated by machine in item (XXIX) of
 \Cref{sec:verification}, which also finds $\Ext^{2}_{\cO}(K,K)\cong
-\bigwedge^{2}N_{1}\oplus\bigwedge^{2}N_{2}$ with $a_{\theta}a_{\theta'}$ the
-projection of $\theta(0)\wedge\theta'(0)$ to it, the exact complement of (i).
+\bigwedge^{2}N_{1}\oplus\bigwedge^{2}N_{2}$, with $a_{\theta}a_{\theta'}$ the
+projection of $\theta(0)\wedge\theta'(0)$ to it: the exact complement of (i).
 \end{proof}
 
 \begin{theorem}[Markman's candidate does not satisfy the weakened criterion]
@@ -801,16 +807,16 @@ be normalised:
 (i) The surfaces $Z_{i}$ and $Z_{j}$ at cyclic distance at least three meet
 in the $24$ points of $D_{i}\cap D_{i+1}\cap D_{j}\cap D_{j+1}$, and there are
 $12N(N-5)=(d+9)(3d-3)$ such points, of which $m=(d+9)(2d-1)$ are normalised;
-the remaining $(d+9)(d-2)\ge12$ are not. Let $p$ be one of them. The four
-divisors through $p$ meet transversally, so their local equations
+the remaining $(d+9)(d-2)\ge12$ are not. Let $p$ be one of the latter. The
+four divisors through $p$ meet transversally, so their local equations
 $x_{1},\dots,x_{4}$ form a regular system of parameters of $\cO_{X,p}$ and
 identify its completion with $\CC[[x_{1},\dots,x_{4}]]$, with
-$D_{i}=\{x_{1}=0\}$, $D_{i+1}=\{x_{2}=0\}$, $D_{j}=\{x_{3}=0\}$,
-$D_{j+1}=\{x_{4}=0\}$, hence $Z_{i}=P_{1}$ and $Z_{j}=P_{2}$ in the
-notation of \Cref{lem:localproducts}; the completion is flat, so a class
-whose completed germ is nonzero is nonzero. No other
-$D_{k}$ passes through $p$, five divisors having empty intersection, so no
-other component of $Z$ does. Near $p$ the map $\nu$ is an isomorphism,
+$D_{i}=\{x_{1}=0\}$, $D_{i+1}=\{x_{2}=0\}$, $D_{j}=\{x_{3}=0\}$ and
+$D_{j+1}=\{x_{4}=0\}$; hence $Z_{i}=P_{1}$ and $Z_{j}=P_{2}$ in the
+notation of \Cref{lem:localproducts}. The completion is flat, so a class
+whose completed germ is nonzero is nonzero. No other $D_{k}$ passes through
+$p$, since five divisors have empty intersection, so no other component of
+$Z$ does. Near $p$ the map $\nu$ is an isomorphism,
 $\nu_{*}\cO_{\widetilde Z}=\cO_{Z}$, and $\cF$ is the ideal sheaf
 $I_{Z}=I_{P_{1}}\cap I_{P_{2}}$ twisted by the locally trivial $\cO_{X}(3\Theta)$:
 the germ $\cF_{p}$ is the module $I$ of \Cref{lem:localproducts}(i).
@@ -820,38 +826,42 @@ at $p$ are $\partial_{1}$ and $\partial_{3}$; they exist because the constant
 fields span every tangent space. Put $\pi=\theta\wedge\theta'$. Since
 $\operatorname{ev}_{\cF}$ is an algebra homomorphism,
 $\operatorname{ev}_{\cF}(\pi)=\tfrac12\pi\lrcorner\,\mathrm{At}(\cF)^{2}
-=A_{\theta}A_{\theta'}$, and by \Cref{lem:edge} its germ at $p$ is
+=A_{\theta}A_{\theta'}$. By \Cref{lem:edge} its germ at $p$ is
 $a_{\theta}a_{\theta'}$, which is nonzero by \Cref{lem:localproducts}(i),
-$\partial_{1}\wedge\partial_{3}$ having nonzero component in $N_{1}\otimes N_{2}$.
-The germ of $\tfrac d2(\pi\lrcorner\,\Theta^{2})\cdot\id_{\cF}$ at $p$ is zero
-by the same lemma. So the germ at $p$ of
+because $\partial_{1}\wedge\partial_{3}$ has nonzero component in
+$N_{1}\otimes N_{2}$. The germ of
+$\tfrac d2(\pi\lrcorner\,\Theta^{2})\cdot\id_{\cF}$ at $p$ is zero by
+\Cref{lem:edge}. So the germ at $p$ of
 $\tfrac12\pi\lrcorner(\mathrm{At}(\cF)^{2}+d\Theta^{2}\cdot\id_{\cF})$ is
 $a_{\theta}a_{\theta'}\ne0$, and the class itself is nonzero.
 
 (ii) By \Cref{thm:factor}(ii) the class $x_{\cF}$ preserves $\ch(\cF)$, and by
 \eqref{eq:evgeneral} $\operatorname{ev}_{\cF}(x_{\cF})$ is the class of (i).
 
-(iii) $\ch(\cF^{\vee})=u_{\Theta}-3v_{\Theta}$ lies on the secant plane. By
+(iii) Both $\cF$ and $\cF^{\vee}$ are admissible as $F_{2}$, since
+$\ch(\cF^{\vee})=u_{\Theta}-3v_{\Theta}$ lies on the secant plane. By
 \Cref{thm:factor}(iv), $E$ satisfies the criterion only if both factors do,
-and $\cF$ does not; the displayed class is the transport of
+and $\cF$ does not. The class $x$ of the statement is the transport of
 $x_{\cF}\otimes1\in\Ann_{HT^{2}}(\ch(\cF\boxtimes F_{2}))$, on which
-$\operatorname{ev}$ is $\pm\operatorname{ev}_{\cF}(x_{\cF})\otimes\id_{F_{2}}\ne0$.
-The last assertion is \Cref{setup:criterion}:
-$\sigma_{E}(\operatorname{ev}_{E}(x))=x\lrcorner\,\ch(E)=0$ with
-$\operatorname{ev}_{E}(x)\ne0$.
+$\operatorname{ev}$ is $\pm\operatorname{ev}_{\cF}(x_{\cF})\otimes\id_{F_{2}}\ne0$;
+since $\Phi$ is an isomorphism on $\Ext^{2}$, $\operatorname{ev}_{E}(x)\ne0$.
+The last assertion follows from the commutative square of
+\Cref{setup:criterion}: $\sigma_{E}(\operatorname{ev}_{E}(x))=x\lrcorner\,\ch(E)=0$
+with $\operatorname{ev}_{E}(x)\ne0$.
 \end{proof}
 
-\begin{remark}[The normalised points obstruct as well]\label{rem:normalisedpoints}
+\begin{remark}[Normalised points]\label{rem:normalisedpoints}
 At a normalised point the germ of $\cF$ is the complex $K$ of
-\Cref{lem:localproducts}(ii), and the same argument with $\theta(p)=\partial_{1}$,
-$\theta'(p)=\partial_{2}$ produces a nonzero germ. So the failure does not
-depend on which points are separated, and separating all of them would not
-help even if it were allowed: normalising every isolated point changes
-$\chi(\cO_{\widetilde Z})$ to $110N-12N^{2}+12N(N-5)=50N$, while the secant
-plane requires $(d+9)(27-d)=72N-4N^{2}$, and the two agree only for
-$N=11/2$. The two local computations are complementary: at a point of type
-(i) the obstruction lives in $N_{1}\otimes N_{2}$, at a point of type (ii) in
-$\bigwedge^{2}N_{1}\oplus\bigwedge^{2}N_{2}$, and together they exhaust
+\Cref{lem:localproducts}(ii), and the same argument, with
+$\theta(p)=\partial_{1}$ and $\theta'(p)=\partial_{2}$, produces a nonzero
+germ. The failure therefore does not depend on which points are separated.
+Separating all of them would not help even if the construction allowed it:
+normalising every isolated point changes $\chi(\cO_{\widetilde Z})$ to
+$110N-12N^{2}+12N(N-5)=50N$, while the secant plane requires
+$(d+9)(27-d)=72N-4N^{2}$, and the two agree only for $N=11/2$. The two local
+computations are complementary: at a point of type (i) the obstruction lies
+in $N_{1}\otimes N_{2}$, at a point of type (ii) in
+$\bigwedge^{2}N_{1}\oplus\bigwedge^{2}N_{2}$, and together these exhaust
 $\bigwedge^{2}T_{p}$.
 \end{remark}
 
@@ -896,13 +906,15 @@ local equations of the branches form part of a regular system of
 parameters, the ideal is
 $I\otimes_{\CC}\CC[x_{5},\dots,x_{n}]$ with $I$ as in \Cref{lem:localproducts},
 and \eqref{eq:kunnethext} with the third factor gives
-$\Ext^{2}(I_{p},I_{p})=N_{1}\otimes N_{2}\otimes\cO_{W,p}$, $W$ the
+$\Ext^{2}(I_{p},I_{p})=N_{1}\otimes N_{2}\otimes\cO_{W,p}$, where $W$ is the
 intersection of the branches. The jet classes along $\partial_{5},\dots,\partial_{n}$
-vanish, these derivations acting on a free factor, and the products of the
-classes along $\partial_{1},\dots,\partial_{4}$ are as in the lemma; reducing
+vanish, since these derivations act on a free factor, and the products of the
+classes along $\partial_{1},\dots,\partial_{4}$ are as in the lemma. Reducing
 modulo the maximal ideal of $\cO_{W,p}$ shows that $a_{\theta}a_{\theta'}\ne0$
 whenever $\theta(p)\wedge\theta'(p)$ has a nonzero component in
-$N_{1}\otimes N_{2}$. The rest of the argument is that of
+$N_{1}\otimes N_{2}$. When $n=4$ and $F_{p}$ is the complex
+$[\cO\to\cO_{P_{1}}\oplus\cO_{P_{2}}]$, \Cref{lem:localproducts}(ii) applies
+directly. The rest of the argument is that of
 \Cref{thm:candidatefails}, using \Cref{thm:factor} for $n\ge3$. For the last
 assertion, $Z_{i}\cap Z_{j}=D_{i}\cap D_{i+1}\cap D_{j}\cap D_{j+1}$ is a
 transversal intersection of four divisors, of codimension four, and at a
@@ -910,25 +922,26 @@ general point of it no fifth divisor passes, so $Z$ has exactly the two
 branches $Z_{i}$ and $Z_{j}$ there.
 \end{proof}
 
-\begin{remark}[What this settles]\label{rem:candidatemeaning}
+\begin{remark}[Scope of the local obstruction]\label{rem:candidatemeaning}
 \Cref{thm:candidatefails} answers the question left open in
 \cite[Section 12]{Mar25b}: the secant objects proposed there do not satisfy
-the weaker criterion of Question 11.4, for any discriminant. The reason is
-local and geometric. Question 11.4 asks whether the semiregularity map may be
-required to be injective only on the image of the evaluation map; for a
-secant object that image contains, by \Cref{thm:factor}, the products
-$A_{\theta}A_{\theta'}$ of the translation classes shifted by the scalars
-$\tfrac d2(\theta\wedge\theta')\lrcorner\,\Theta^{2}$, and the semiregularity
-map kills them all. For the criterion to hold these shifted products must
-vanish, and they cannot: at an isolated double point of the support, the
-translation classes of the two branches multiply to a nonzero local class,
-while a scalar has no local class at all. What survives of the fourth
-ingredient of \Cref{rem:deformation} is therefore sharper than before. A
-secant object of positive rank on a fourfold that satisfies the weakened
-criterion must have, at every point, germs whose translation classes multiply
-to zero in the local $\Ext^{2}$; by \Cref{lem:localproducts} this excludes
-every support with two transversal branches of codimension two through a
-point, whether or not the branches are separated, and by
+the weakened criterion of \cite[Question 11.4]{Mar25b}, for any
+discriminant. The reason is local and geometric. That question asks whether
+the semiregularity map may be required to be injective only on the image of
+the evaluation map. For a secant object this image contains, by
+\Cref{thm:factor}, the products $A_{\theta}A_{\theta'}$ of the translation
+classes shifted by the scalars
+$\tfrac d2(\theta\wedge\theta')\lrcorner\,\Theta^{2}$, and the
+semiregularity map kills them all. For the criterion to hold these shifted
+products must vanish, and they cannot: at an isolated double point of the
+support, the translation classes of the two branches multiply to a nonzero
+local class, while a scalar has no local class at all. The fourth ingredient
+of \Cref{rem:deformation} can accordingly be stated more sharply. A secant
+object of positive rank on a fourfold that satisfies the weakened criterion
+must have, at every point, germs whose translation classes multiply to zero
+in the local $\Ext^{2}$. By \Cref{lem:localproducts} this excludes every
+support with two transversal branches of codimension two through a point,
+whether or not the branches are separated, and by
 \Cref{cor:localobstruction} it excludes the chain of consecutive
 intersections of translates in every dimension. An object supported on a
 smooth surface, or on surfaces meeting only along curves, is not excluded by

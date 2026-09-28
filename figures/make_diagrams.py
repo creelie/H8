@@ -14,15 +14,20 @@ make_secant.py and make_smooth.py.
                  translates L^i P^j of one primitive piece sit at the same
                  height in the degrees j, j+2, ..., 8-j, so the sl_2 strings
                  are the horizontal bands of the plate; the hard Lefschetz
-                 isomorphisms L^{4-k} : H^k -> H^{8-k} are the arcs.  The
-                 primitive middle piece P^4, of dimension 70 - 28 = 42, is
-                 the clay block.
+                 isomorphisms L^{4-k} : H^k -> H^{8-k} are the nested half
+                 ellipses, each clear of every prism it passes over.  P^k
+                 is dark, its translates light in the same colour.  Under
+                 the prisms the same decomposition as a table, one row for
+                 each sl_2 string, above the Betti numbers, and brackets
+                 for what restriction j^* to a smooth ample hypersurface
+                 does: injective in degrees k < 4, zero on P^4, and
+                 H^k = L^{k-4} H^{8-k} for k > 4.
 
   fig_moduli     for n = 1..6, a stacked prism of height n(2n+1), the
                  dimension of the moduli of principally polarised abelian
                  2n-folds, split into the Weil family of dimension n^2 and
-                 its codimension n(n+1), with the ratio n/(2n+1) of the two
-                 dimensions drawn against its limit 1/2.
+                 its codimension n(n+1); braces on the last prism name the
+                 parts, and a table under the prisms gives the numbers.
 
   fig_signature  the signatures (p,q) of an imaginary quadratic action, with
                  p + q = dim A, on the saddle z = pq, which is the dimension
@@ -30,8 +35,16 @@ make_secant.py and make_smooth.py.
                  curves p + q = 2n collect the signatures available in one
                  dimension; the ridge p = q is where the Weil line consists
                  of Hodge classes, and on each curve it is the highest point.
+                 A key under the plate says what the filled and the open
+                 points are.
 
-All heights are the actual numbers, times one scale per figure.
+All heights are the actual numbers, times one scale per figure.  The two bar
+plates use the parallel oblique projection of class Oblique, in which the
+front faces of the prisms are true rectangles and every horizontal line is
+horizontal: each prism stands on the zero line, fills the depth of the frame,
+and its top meets the gridline of its height on the back wall and the tick of
+its height on the scale.  fig_signature uses the perspective camera of
+render3d.py.
 
 Label placement (class Plate).  The geometry of a plate is compiled once
 without labels and rendered to a grey bitmap; every label is typeset by TeX
@@ -685,6 +698,27 @@ def bar_frame(cam, xl, xr, dep, ztop, levels, hs, tick=0.14):
 LADDER_COL = {0: "PTeal", 1: "POchre", 2: "PBlue", 3: "PIndigo", 4: "PClay"}
 
 
+PALETTE_RGB = {"PInk": (26, 32, 44), "PBlue": (37, 82, 139),
+               "PTeal": (23, 127, 125), "POchre": (193, 138, 44),
+               "PClay": (178, 74, 58), "PIndigo": (58, 64, 140)}
+
+
+def ink_on(col, mix=0.80):
+    """The text colour for a number on a tile filled with col!80: white or
+    PInk, whichever has the larger WCAG contrast against the fill."""
+    def lum(rgb):
+        c = []
+        for v in rgb:
+            v /= 255.0
+            c.append(v / 12.92 if v <= 0.03928 else ((v + 0.055) / 1.055) ** 2.4)
+        return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]
+    fill = tuple(mix * a + (1 - mix) * 255 for a in PALETTE_RGB[col])
+    lf, lw, li = lum(fill), 1.0, lum(PALETTE_RGB["PInk"])
+    white = (lw + 0.05) / (lf + 0.05)
+    ink = (lf + 0.05) / (li + 0.05)
+    return "white" if white >= ink else "PInk"
+
+
 def bracket(x0, x1, y, up=0.10):
     """A horizontal bracket from x0 to x1 at height y, ends turned up."""
     return ("  \\draw[PSlate,line width=0.5pt] (%.4f,%.4f) -- (%.4f,%.4f) -- "
@@ -781,7 +815,7 @@ def fig_ladder():
                       yr + th / 2))
             pl.add("  \\node[text=%s,font=\\footnotesize,inner sep=0pt] at "
                    "(%.4f,%.4f) {$%d$};\n"
-                   % ("white" if dark else "%s!60!black" % col, cols[k], yr,
+                   % (ink_on(col) if dark else "%s!60!black" % col, cols[k], yr,
                       prim[j]))
     yb = y - 0.52 - rp * 5 - 0.12
     pl.add(tk_line2([(xh - 1.05, yb + 0.30), (cols[-1] + tw / 2 + 0.05,

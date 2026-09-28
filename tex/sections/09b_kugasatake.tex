@@ -1,22 +1,20 @@
 \section{The Kuga--Satake construction}\label{sec:ks}
 
-\Cref{thm:hyperplane} closes induction on dimension through hyperplane
-sections. One classical construction does reach a middle degree Hodge class
-without any such induction, and we set it out in full, both because it shows
-what a successful route looks like and because its boundary is numerical and
-can be located. The construction is that of Kuga and Satake \cite{KS67}, in
-the form given by Deligne \cite{Del72}.%
-\footnote{Kuga and Satake construct the abelian variety; the Hodge-theoretic
-properties that make it useful, in particular the embedding of
-\Cref{prop:ksembed}, are due to Deligne. The Clifford algebra families and
-their Riemann forms go back to Satake \cite{Sat66}.}
-This section builds it and proves that \Cref{thm:hyperplane} has no bearing on
-it. For abelian varieties of Weil type with Hodge group $\SU(V,H)$ we then
-determine when it applies to a piece of $H^{2}$: when $n=1$, where the Weil
-line consists of divisor classes and there is nothing to prove, and when
-$n=2$ and the discriminant is trivial, where the Weil line lies in $H^{4}$.
-The arithmetic of the section is checked in item (VIII) of
-\Cref{sec:verification}.
+\Cref{thm:hyperplane} blocks induction on dimension through hyperplane
+sections in the primitive middle degree. One classical construction does reach
+a middle degree Hodge class without any such induction, and we set it out in
+full, both because it shows what a successful route looks like and because
+its boundary is numerical and can be located. It is the construction of Kuga
+and Satake \cite{KS67}, which builds on Satake's Clifford algebra families and
+their Riemann forms \cite{Sat66}. We follow the form given by Deligne
+\cite{Del72}, to whom the Hodge-theoretic properties that make it useful are
+due, in particular the embedding of \Cref{prop:ksembed}. After building it we
+show that \Cref{thm:hyperplane} has no bearing on it. For abelian varieties of
+Weil type with Hodge group $\SU(V,H)$ we then determine when it applies to a
+piece of $H^{2}$: exactly when $n=1$, where the Weil line consists of divisor
+classes and there is nothing to prove, or $n=2$ with trivial discriminant,
+where the Weil line lies in $H^{4}$. The arithmetic of the
+section is checked in item (VIII) of \Cref{sec:verification}.
 
 \subsection{The construction}
 
@@ -27,11 +25,13 @@ $T_{\CC}=T^{2,0}\oplus T^{1,1}\oplus T^{0,2}$, polarised by $q$, with
 \[
   \dim_{\CC}T^{2,0}=1 .
 \]
-Such a structure is said to be \emph{of K3 type}. Write $T^{2,0}=\CC\sigma$;
-the Hodge--Riemann relations give $q(\sigma,\sigma)=0$ and
-$q(\sigma,\bbar{\sigma})>0$, so the real plane
+Such a structure is said to be \emph{of K3 type}. Write $T^{2,0}=\CC\sigma$.
+The Hodge--Riemann relations give $q(\sigma,\sigma)=0$ and
+$q(\sigma,\bbar{\sigma})>0$, and make $q$ negative definite on the real points
+of $T^{1,1}$; so the real plane
 $P=\langle\Re\sigma,\Im\sigma\rangle\subset T_{\RR}$ is positive definite and
-$q$ has signature $(2,b-2)$ on $T_{\RR}$. Normalise $\sigma$ so that
+$q$ has signature $(2,b-2)$ on $T_{\RR}$. Since $q(\Re\sigma,\Im\sigma)=0$
+and $q(\Re\sigma)=q(\Im\sigma)$, we may normalise $\sigma$ so that
 $e_{1}=\Re\sigma$ and $e_{2}=\Im\sigma$ are orthonormal.
 \end{setupenv}
 
@@ -55,8 +55,8 @@ rewrite any word in the $f_{i}$ as a scalar times an increasing product, so the
 $f_{S}$ span; they are independent by the standard filtration argument
 comparing $C$ with $\bigwedge^{*}T$. The dimension counts are
 $\sum_{k}\binom{b}{k}=2^{b}$ and
-$\sum_{k\ \mathrm{even}}\binom{b}{k}=2^{b-1}$. The last statement is the
-grading: odd plus even plus odd is even.
+$\sum_{k\ \mathrm{even}}\binom{b}{k}=2^{b-1}$. The last inclusion holds
+because the grading is multiplicative and odd plus even plus odd is even.
 \end{proof}
 
 \begin{lemma}[The complex structure]\label{lem:cliffJ}
@@ -66,8 +66,9 @@ $C^{+}\otimes_{\QQ}\RR$ whose square is $-\id$.
 \end{lemma}
 
 \begin{proof}
-$J^{2}=e_{1}e_{2}e_{1}e_{2}=-e_{1}e_{1}e_{2}e_{2}=-q(e_{1})q(e_{2})=-1$, using
-anticommutativity of $e_{1}$ and $e_{2}$ and then $e_{i}^{2}=q(e_{i})=1$.
+$J^{2}=e_{1}e_{2}e_{1}e_{2}=-e_{1}e_{1}e_{2}e_{2}=-q(e_{1})q(e_{2})=-1$,
+since the orthogonal vectors $e_{1}$ and $e_{2}$ anticommute and
+$e_{i}^{2}=q(e_{i})=1$.
 Left multiplication by an element of $C^{+}$ preserves $C^{+}$, and the square
 of left multiplication by $J$ is left multiplication by $J^{2}=-1$.
 \end{proof}
@@ -118,24 +119,25 @@ $\End^{0}(\mathrm{KS}(T))$.
 The map lands in $\End(C^{+})$ by the last part of \Cref{lem:cliffdim}, since
 $v,v_{0}\in T\subset C^{-}$. It is injective because $\Psi(v)(1)=v\,v_{0}$
 and $v_{0}$ is invertible in $C(T,q)$, with $v_{0}^{-1}=v_{0}/q(v_{0})$, so
-$\Psi(v)=0$ forces $v=0$. That it respects
-the Hodge structures is Deligne's computation \cite[\S4]{Del72}: the
-Hodge structure on $\End(C^{+})$ is induced by $J$ acting on both sides, and
-$\Psi$ intertwines the weight-two structure on $T$, twisted once, with it.
-The last sentence is the definition of a morphism of Hodge structures together
-with the theorem of Lefschetz on $(1,1)$ classes in the form that says a Hodge
-class of type $(0,0)$ in $\End(H^{1}(B,\QQ))$ of an abelian variety $B$ is an
-element of $\End^{0}(B)$.
+$\Psi(v)=0$ forces $v=0$. That it respects the Hodge structures is
+Deligne's computation \cite[\S4]{Del72}: the Hodge structure on
+$\End(C^{+})$ is induced by $J$ acting on both sides, and $\Psi$ intertwines
+the weight-two structure on $T$, twisted once, with it. The last sentence
+follows from the definition of a morphism of Hodge structures and the
+Lefschetz theorem on $(1,1)$ classes, in the form which says that for an
+abelian variety $B$ a Hodge class of type $(0,0)$ in $\End(H^{1}(B,\QQ))$ is
+an element of $\End^{0}(B)$.
 \end{proof}
 
 \begin{remark}[Algebraicity of the transport]%
 \label{rem:kstransport}
-The graph of an element of $\End^{0}(\mathrm{KS}(T))$ is an algebraic cycle on
+An element of $\End^{0}(\mathrm{KS}(T))$ is a rational multiple of an
+endomorphism, whose graph is an algebraic cycle on
 $\mathrm{KS}(T)\times\mathrm{KS}(T)$, so the image of a Hodge class under
 $\Psi$ is algebraic. Carrying that conclusion back to the variety $X$ from
 which $T$ came requires the correspondence $\Psi$ itself to be induced by an
 algebraic cycle on $X\times\mathrm{KS}(T)\times\mathrm{KS}(T)$, and that is
-not known in general. It is known that $\Psi$ is absolute Hodge, by
+not known in general. What is known is that $\Psi$ is absolute Hodge, by
 Deligne's theorem for abelian varieties together with the analysis of the
 Kuga--Satake correspondence, and that it is motivated in Andr\'e's sense
 \cite{And96}; van Geemen \cite{vG00} surveys the cases in which algebraicity
@@ -153,18 +155,19 @@ correspondence, which in general remains open.
 \begin{proof}
 Both theorems are statements about the pair of maps $j^{*}$ and $j_{*}$
 attached to the inclusion $j\colon Y\hookrightarrow X$ of a smooth member of an
-ample linear system, and both proofs use two properties of that pair which no
-other correspondence has: the Lefschetz hyperplane theorem, which makes
-$j^{*}$ an isomorphism in degrees at most $d-2$ and, through
+ample linear system, and both proofs use two properties of that pair which a
+general correspondence does not have: the Lefschetz hyperplane theorem, which
+makes $j^{*}$ an isomorphism in degrees at most $d-2$ and, through
 \Cref{lem:gysinrestrict}, forces the vanishing of \Cref{thm:hyperplane} in
 the primitive middle degree; and the identity $j_{*}j^{*}=\,\cdot\cup L$ of
 \Cref{lem:gysinrestrict}, which makes the return trip multiply by the
 polarisation instead of recovering the class. The Kuga--Satake
-correspondence is a cycle class on a triple product of varieties of unrelated
-dimensions, $\dim\mathrm{KS}(T)=2^{b-2}$ against $\dim X$, and it has neither
-property; in particular the composite of $\Psi$ with its transpose is
+correspondence is a cohomology class on a triple product of varieties of
+unrelated dimensions, $\dim\mathrm{KS}(T)=2^{b-2}$ against $\dim X$, and it has
+neither property; in particular the composite of $\Psi$ with its transpose is
 multiplication by $q(v_{0})$ on $T$, not a power of a polarisation of $X$. So
-neither hypothesis of \Cref{thm:hyperplane} is met.
+neither of the two properties on which \Cref{thm:hyperplane} rests holds for
+$\Psi$.
 \end{proof}
 
 \Cref{prop:ksnotrestriction} shows what an escape from \Cref{thm:hyperplane}
@@ -267,8 +270,10 @@ $h^{2,0}=2\binom{n}{2}=n(n-1)$ by \Cref{prop:h2pieces}.
 The complexification of a rational subrepresentation of $R$ is a
 subrepresentation of $\bigwedge^{2}V_{+}\oplus\bigwedge^{2}V_{-}$ stable under
 conjugation. For $n\ge3$ the two summands are not isomorphic, because
-$\bigwedge^{2}V_{+}^{\vee}\cong\bigwedge^{2n-2}V_{+}$ and $2n-2\ne2$; the only
-such subrepresentations are then $0$ and the whole, and $R$ is irreducible.
+$\bigwedge^{2}V_{+}^{\vee}\cong\bigwedge^{2n-2}V_{+}$ and $2n-2\ne2$. The
+subrepresentations are then $0$, the two summands and the whole; conjugation
+exchanges the summands, so only $0$ and the whole are stable under it, and
+$R$ is irreducible.
 For $n=1$ both summands are the trivial representation, and $R$ is the plane
 of Hodge classes $\HW(A)\subset H^{2}(A,\QQ)$.
 
@@ -329,28 +334,29 @@ in $H^{4}(A,\QQ)$, outside the structures to which the construction applies.
 \begin{proof}
 The first clause is \Cref{prop:normpart} with \Cref{setup:k3type}. For $n=1$
 we have $2n=2$, so $\HW(A)\subseteq H^{2}(A,\QQ)\cap H^{1,1}(A)$, which is
-$\NS(A)\otimes\QQ$. For $n=2$ the Weil line lies in degree $2n=4$.
+$\NS(A)\otimes\QQ$ by the Lefschetz theorem on $(1,1)$ classes. For $n=2$ the
+Weil line lies in degree $2n=4$.
 \end{proof}
 
 \begin{remark}[Higher weight]\label{rem:nohigherks}
 For $n\ge2$ the Weil line sits in $H^{2n}(A,\QQ)$ with $2n\ge4$, and the
-Clifford construction has no counterpart in weight greater than two: it turns
-a quadratic form into an algebra, and a Hodge structure of weight $w$ carries a
-polarisation that is symmetric only for $w$ even and has no reason to produce
-a Clifford algebra with the right complex structure. One might instead apply
-the construction to a sub-Hodge structure of $H^{2}$ and try to recover the
-degree $2n$ class from the resulting abelian variety. \Cref{prop:normpart}
-rules this out for $n\ge3$, and for $n=2$ at nontrivial discriminant. At
-$n=2$ and trivial discriminant the two structures of K3 type exist, but the
-Hodge conjecture for abelian fourfolds of Weil type is in any case a theorem
-of Markman \cite{Mar25a,Mar25b}, proved at trivial discriminant also by
-Floccari and Fu \cite{FF26}. What remains conceivable for $n\ge3$ is a
-construction of Kuga--Satake shape for the weight $2n$ structure directly,
-producing an auxiliary variety on which the Weil line becomes a divisor class
-or an endomorphism. None is known, and \Cref{thm:character} does not obstruct
-one: such a construction is a correspondence and need not produce a
-$\Kx$-eigenclass. This is the gap of \Cref{rem:nonequivariant}, seen from the
-other side.
+Clifford construction has no known counterpart in weight greater than two. It
+turns a quadratic form into an algebra; the polarisation of a Hodge structure
+of weight $w$ is symmetric only when $w$ is even, and even then there is no
+reason for its Clifford algebra to carry the right complex structure. One
+might instead apply the construction to a sub-Hodge structure of $H^{2}$ and
+try to recover the degree $2n$ class from the resulting abelian variety.
+\Cref{prop:normpart} rules this out for $n\ge3$, and for $n=2$ at nontrivial
+discriminant. At $n=2$ and trivial discriminant the two structures of K3 type
+exist, but the Hodge conjecture for abelian fourfolds of Weil type is in any
+case a theorem of Markman \cite{Mar25a,Mar25b}, proved at trivial
+discriminant also by Floccari and Fu \cite{FF26}. What remains conceivable for
+$n\ge3$ is a construction of Kuga--Satake shape for the weight $2n$ structure
+directly, producing an auxiliary variety on which the Weil line becomes a
+divisor class or an endomorphism. None is known, and \Cref{thm:character} does
+not obstruct one: such a construction is a correspondence and need not
+produce a $\Kx$-eigenclass. This is the gap of \Cref{rem:nonequivariant},
+seen from the other side.
 \end{remark}
 
 \begin{figure}[htbp]

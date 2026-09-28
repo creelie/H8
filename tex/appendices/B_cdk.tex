@@ -1,14 +1,13 @@
 \section{The locus of Hodge classes}\label{app:cdk}
 
-Every deformation argument about Hodge classes rests on one theorem: the locus
-in a family where a given class stays a Hodge class is an algebraic
-subvariety, not merely an analytic one. This is the theorem of Cattani,
-Deligne and Kaplan \cite{CDK95}. The present appendix states it, proves the
-part of it that is elementary, isolates the two analytic inputs that the rest
-needs, computes the example that matters here, and then says precisely why the
-theorem is not a route to the Hodge conjecture. The last point is the one that
-bears on \Cref{sec:construction}, and it is the reason the appendix is here
-rather than in a reference.
+Deformation arguments about Hodge classes rest on one theorem, that of
+Cattani, Deligne and Kaplan \cite{CDK95}: the locus in a family where a given
+class stays a Hodge class is an algebraic subvariety, not merely an analytic
+one. This appendix states the theorem, proves its elementary part, isolates
+the two analytic inputs that the rest requires, computes the example that
+matters here, and explains why the theorem is not a route to the Hodge
+conjecture. The last point is the one that bears on \Cref{sec:construction},
+and it is why the material is set out here rather than cited.
 
 \subsection{Variations of Hodge structure}
 
@@ -36,10 +35,10 @@ subject to Griffiths transversality
 The example to keep in mind is the geometric one: for $f\colon\cX\to S$ smooth
 projective, $\mathbb{V}=R^{w}f_{*}\QQ$ with its Gauss--Manin connection is such
 a variation, and \eqref{eq:transversality} is Griffiths' theorem
-\cite[Ch.~10]{Voi02}. Our other example is the Weil family of
-\Cref{prop:weildomain} below, which is not defined by a family of varieties in
-the first instance but by a period domain, and which carries a variation all
-the same.
+\cite[Ch.~10]{Voi02}. The other example we use is the Weil family of
+\Cref{prop:weildomain} below, which is defined in the first instance by a
+period domain rather than by a family of varieties, and which carries a
+variation all the same.
 
 \begin{notation}\label{not:totalspace}
 Write $\cV^{\mathrm{an}}$ for the total space of $\cV$, a complex manifold
@@ -49,7 +48,7 @@ $(s,\alpha)$ with $\alpha\in\mathbb{V}_{s}$, a covering space of $S$ with
 countable fibres.
 \end{notation}
 
-\subsection{The locus of Hodge classes}
+\subsection{Hodge loci}
 
 \begin{definition}\label{def:hodgelocus}
 Let $\mathbb{V}$ be a polarised variation of weight $2p$ on $S$. Its
@@ -62,10 +61,9 @@ Let $\mathbb{V}$ be a polarised variation of weight $2p$ on $S$. Its
 For $N\in\QQ$ write $\Hdg^{p}_{N}$ for the part with $Q(\alpha,\alpha)=N$.
 \end{definition}
 
-The condition $\alpha\in F^{p}$ for a rational $\alpha$ of weight $2p$ is
-exactly the condition that $\alpha$ be of type $(p,p)$, by conjugation
-symmetry. The following two lemmas are elementary and give everything about
-$\Hdg^{p}$ except algebraicity.
+By conjugation symmetry, a rational $\alpha$ of weight $2p$ lies in $F^{p}$
+exactly when it is of type $(p,p)$. The following two lemmas are elementary,
+and they give everything about $\Hdg^{p}$ except algebraicity.
 
 \begin{lemma}[Analyticity]\label{lem:hodgeanalytic}
 $\Hdg^{p}(\mathbb{V})$ is a closed analytic subset of
@@ -80,15 +78,15 @@ Work on a simply connected open $U\subseteq S$ over which $\mathbb{V}$ is
 trivialised, $\mathbb{V}|_{U}\cong V_{0}\times U$ for a fixed $\QQ$-vector
 space $V_{0}$. Then $\mathbb{V}^{\mathrm{tot}}|_{U}$ is the disjoint union over
 $\alpha\in V_{0}$ of copies of $U$. Fix $\alpha$. The quotient
-$\cV/F^{p}$ is a holomorphic vector bundle on $U$ and the image
+$\cV/F^{p}$ is a holomorphic vector bundle on $U$, and the image
 $\bar\alpha(s)$ of the flat section $\alpha$ in $(\cV/F^{p})_{s}$ is a
-holomorphic section of it. The locus in question is the zero locus of
-$\bar\alpha$, a closed analytic subset of $U$. Taking the union over the
-countable set $V_{0}$ gives the first statement, and shows that on the sheet
-indexed by $\alpha$ the projection $\pi$ is the inclusion of that zero locus
-into $U$, hence injective. Countability of the set of components follows
-because $V_{0}$ is countable and each zero locus has countably many
-components.
+holomorphic section of it. The set of $s\in U$ with $\alpha\in F^{p}\cV_{s}$
+is the zero locus of $\bar\alpha$, a closed analytic subset of $U$. Taking
+the union over the countable set $V_{0}$ gives the first statement, and shows
+that on the sheet indexed by $\alpha$ the projection $\pi$ is the inclusion of
+that zero locus into $U$, hence injective. There are countably many
+components because $S$ is covered by countably many such $U$, the set $V_{0}$
+is countable, and each zero locus has countably many components.
 \end{proof}
 
 \begin{lemma}[Finiteness at bounded norm]\label{lem:boundednorm}
@@ -115,7 +113,12 @@ appear or disappear without its $Q$-norm changing.
 \end{proof}
 
 \begin{theorem}[Cattani, Deligne and Kaplan \cite{CDK95}]\label{thm:cdk}%
-\footnote{The paper is short and the proof is not. It draws on the whole asymptotic theory of degenerating Hodge structures built in the two decades before it, and the two inputs isolated below are the load-bearing ones. Deligne had earlier shown that Hodge classes on abelian varieties are absolute by a different route; the theorem here is what carries the relevant consequences beyond abelian varieties.}
+\footnote{The paper is short and the proof is not. It draws on the whole
+asymptotic theory of degenerating Hodge structures built in the two decades
+before it, and the two inputs isolated below are the ones that carry the
+weight. Deligne had earlier shown by a different route that Hodge classes on
+abelian varieties are absolute; the theorem here carries the relevant
+consequences beyond abelian varieties.}
 Let $S$ be a smooth complex quasi-projective variety and $\mathbb{V}$ a
 polarised variation of $\ZZ$-Hodge structure of weight $2p$ on $S$. Then each
 connected component of $\Hdg^{p}(\mathbb{V})$ is a closed algebraic subvariety
@@ -123,20 +126,24 @@ of $\mathbb{V}^{\mathrm{tot}}$, and its image in $S$ is a closed algebraic
 subvariety of $S$.
 \end{theorem}
 
-We do not reproduce the proof. What we do record is exactly where the
-difficulty lies and which two theorems remove it, because the shape of the
-argument is what a reader needs in order to judge whether a deformation
-argument in this area is legitimate.
+We do not reproduce the proof, which draws on the whole asymptotic theory of
+degenerating Hodge structures developed in the two preceding decades. For
+families of abelian varieties the algebraicity of these loci also follows, by
+a different route, from Deligne's theorem that Hodge classes on abelian
+varieties are absolutely Hodge; \Cref{thm:cdk} is what carries it beyond
+abelian varieties. We record where the difficulty lies and which two
+theorems remove it, since the shape of the argument is what one needs in
+order to judge whether a deformation argument in this area is legitimate.
 
 By \Cref{lem:hodgeanalytic} a component $Z$ of $\Hdg^{p}$ is already a closed
 analytic subvariety of an open subset of $S$, and by \Cref{lem:boundednorm} it
 carries a locally constant $Q$-norm and is one sheet of a finite cover of its
 image. Choose a smooth projective compactification $\bar S\supseteq S$ with
 $\bar S\setminus S$ a normal crossing divisor. By Chow's theorem it is enough
-to show that $Z$ extends to an analytic subvariety of $\bar S$, that is,
-that $Z$ does not oscillate wildly as one approaches the boundary. That is an
-asymptotic question about the Hodge filtration, and the two theorems that
-answer it are:
+to show that $Z$ extends to an analytic subvariety of $\bar S$, that is, that
+$Z$ does not oscillate wildly as one approaches the boundary. This is an
+asymptotic question about the Hodge filtration, and it is answered by two
+theorems.
 
 \begin{enumerate}[label=\textup{(\Alph*)},leftmargin=2.2em]
 \item \emph{The nilpotent orbit theorem} of Schmid \cite{Sch73}: near a
@@ -158,17 +165,16 @@ behaviours form a finite list. Algebraicity then follows from the analytic
 extension across the boundary together with Chow's theorem in $\bar S$.
 
 \begin{remark}\label{rem:cdkinputs}
-Both (A) and (B) are theorems about degenerating Hodge structures and neither
-mentions algebraic cycles. This is worth saying plainly: the algebraicity in
-\Cref{thm:cdk} is algebraicity of a locus of periods, obtained from analysis,
-and it carries no information about algebraic cycles whatever. The point is
-developed in \Cref{ssec:cdknot}.
+Both (A) and (B) are theorems about degenerating Hodge structures, and
+neither mentions algebraic cycles. The algebraicity in \Cref{thm:cdk} is
+algebraicity of a locus of periods, obtained by analysis, and it carries no
+information about algebraic cycles; \Cref{ssec:cdknot} develops the point.
 \end{remark}
 
 \subsection{The Weil family}
 
-The relevant example for this paper is the family of complex structures in
-\Cref{setup:model}.
+The example relevant to this paper is the family of complex structures on the
+model of \Cref{setup:model}.
 
 \begin{proposition}[The Weil period domain]\label{prop:weildomain}
 Fix $K$, $n$, the $K$-space $V=K^{2n}$, and the hermitian form $H$ of
@@ -185,29 +191,30 @@ In particular
 \[
   \dim_{\CC}\cD_{n,n}=n^{2},
 \]
-against $\dim\cA_{2n}=n(2n+1)$ for the moduli of principally polarised abelian
-$2n$-folds.
+compared with $\dim\cA_{2n}=n(2n+1)$ for the moduli of principally polarised
+abelian $2n$-folds.
 \end{proposition}
 
 \begin{proof}
 A Hodge structure of weight one on $V$ is a subspace $V^{1,0}\subset V_{\CC}$
 with $V_{\CC}=V^{1,0}\oplus\overline{V^{1,0}}$. Commuting with the $K$-action
-means that $V^{1,0}$ is stable under $S$, hence splits as
-$V^{1,0}=P\oplus P'$ with $P=V^{1,0}\cap V_{+}$ and $P'=V^{1,0}\cap V_{-}$.
+means that $V^{1,0}$ is stable under the operator $S$ of \Cref{setup:model},
+so that it splits as $V^{1,0}=P\oplus P'$ with $P=V^{1,0}\cap V_{+}$ and
+$P'=V^{1,0}\cap V_{-}$.
 Conjugation interchanges $V_{+}$ and $V_{-}$, so
 $\overline{V^{1,0}}=\bbar{P}\oplus\bbar{P'}$ with $\bbar{P}\subset V_{-}$, and
 the direct sum condition becomes $V_{-}=P'\oplus\bbar{P}$, which determines
 $P'$ up to the choice of a complement; the Weil condition
 $\dim P=\dim P'=n$ of \Cref{lem:balanced} together with the polarisation
-condition pins it down as $P'=\bbar{P}^{\perp_{H}}$. So the structure is
-determined by $P$.
+condition pins it down as $P'=\bbar{P}^{\perp_{H}}$. The structure is
+therefore determined by $P$.
 
 For the positivity, extend $H$ to the $\CC$-bilinear pairing between $V_{+}$
-and $V_{-}$; the computation \eqref{eq:Qplusminus} in the proof of
-\Cref{thm:model} says that the second Riemann relation holds exactly when
-$i\,Q$ is positive on $V^{1,0}$, which on the $V_{+}$ part is the condition
-that $H$ be negative definite on $P$, the sign being fixed by the convention
-in \Cref{lem:hermform}. The set of $n$-dimensional negative definite subspaces
+and $V_{-}$. By the computation \eqref{eq:Qplusminus} in the proof of
+\Cref{thm:model}, the second Riemann relation holds exactly when $i\,Q$ is
+positive on $V^{1,0}$, and on the $V_{+}$ part this is the condition that $H$
+be negative definite on $P$, the sign being fixed by the convention of
+\Cref{lem:hermform}. The set of $n$-dimensional negative definite subspaces
 of a hermitian space of signature $(n,n)$ is the standard realisation of the
 symmetric domain of $\mathrm{U}(n,n)$: the unitary group acts transitively on
 it and the stabiliser of a point is $\mathrm{U}(n)\times\mathrm{U}(n)$, the
@@ -215,8 +222,7 @@ unitary groups of $P$ and of $P^{\perp}$. It is open in $\mathrm{Gr}(n,2n)$
 because negative definiteness is an open condition, and
 $\dim\mathrm{Gr}(n,2n)=n(2n-n)=n^{2}$.
 
-The comparison dimension is $\dim\cA_{g}=g(g+1)/2$ with $g=2n$, which is
-$n(2n+1)$.
+For the comparison, $\dim\cA_{g}=g(g+1)/2$, which is $n(2n+1)$ for $g=2n$.
 \end{proof}
 
 \begin{corollary}[The Weil locus is algebraic]\label{cor:weilalgebraic}
@@ -228,29 +234,28 @@ $(K,-1,n)$-Weil type, is a closed algebraic subvariety of dimension $n^{2}$.
 \begin{proof}
 The condition of admitting such an action is the condition that a certain
 class in $\End(H^{1})$, namely the graph of $\iota(\sqrt{-d})$, be a Hodge
-class, together with the balanced signature, which is locally constant. So the
-locus is a component of a locus of Hodge classes for the variation
+class, together with the balanced signature, which is locally constant. The
+locus is therefore a component of a locus of Hodge classes for the variation
 $\End(R^{1}f_{*}\QQ)$ over $\cA_{2n}$ with its level structure, and
 \Cref{thm:cdk} applies. The dimension is \Cref{prop:weildomain}.
 \end{proof}
 
-\subsection{What the theorem does not give}\label{ssec:cdknot}
+\subsection{Limits of the theorem}\label{ssec:cdknot}
 
 \begin{remark}[Algebraic locus, not algebraic class]\label{rem:notalgebraic}
 \Cref{thm:cdk} says that the set of parameters where $\alpha$ is Hodge is cut
 out by polynomial equations. It says nothing about whether $\alpha$ is the
 class of a cycle at any one of those parameters. The two statements are
 independent in both directions: the Hodge locus of a class that happens to be
-algebraic everywhere is still only known to be algebraic by \Cref{thm:cdk},
-and conversely knowing the locus is algebraic supplies no cycle. It is easy to
-slide from one to the other in words, and \Cref{cor:weilalgebraic} is exactly
-the kind of statement that invites the slide: the Weil locus is an algebraic
-subvariety, it is even a Shimura subvariety, and none of that produces the
-class $\omega_{1}$ of \eqref{eq:omegagens}.
+algebraic everywhere is still known to be algebraic only through
+\Cref{thm:cdk}, and conversely the algebraicity of the locus supplies no
+cycle. The distinction is easily blurred, and \Cref{cor:weilalgebraic} is
+exactly the kind of statement that invites it: the Weil locus is an algebraic
+subvariety, even a Shimura subvariety, and none of that produces the class
+$\omega_{1}$ of \eqref{eq:omegagens}.
 \end{remark}
 
-\begin{remark}[What would be needed: the variational conjecture]%
-\label{rem:variational}
+\begin{remark}[The variational Hodge conjecture]\label{rem:variational}
 The property that would turn \Cref{thm:cdk} into a tool is the variational
 Hodge conjecture of Grothendieck: if $\cX\to S$ is smooth projective over a
 connected base, $\alpha$ is a flat section of $R^{2p}f_{*}\QQ$ that is Hodge at
@@ -259,21 +264,21 @@ $\alpha_{s}$ is algebraic at every point. This is open. What is known is the
 infinitesimal statement under a semiregularity hypothesis: if the cycle at
 $s_{0}$ is semiregular in the sense of Bloch \cite{Blo72}, then it deforms to
 first order, and hence formally, along the locus where its class stays Hodge.
-That is the theorem discussed in \Cref{sec:semireg}, and
-\Cref{cor:countnotbind} records that its numerical hypothesis is not what
+That theorem is the subject of \Cref{sec:semireg}, and
+\Cref{cor:countnotbind} shows that its numerical hypothesis is not what
 obstructs the present problem.
 \end{remark}
 
-\begin{remark}[Where this leaves the construction of
+\begin{remark}[The construction of
 \texorpdfstring{\Cref{sec:construction}}{Section 14}]\label{rem:cdkconstruction}
 The construction of \Cref{sec:construction} produces, for every $n$, every $d$
 and every nondegenerate $\beta$, an abelian variety of Weil type together with
-a sheaf whose second Chern class is computed in closed form. Its output is
-algebraic on the split locus. The missing ingredient recorded in
-\Cref{rem:deformation} is a statement along the algebraic locus of
-\Cref{cor:weilalgebraic}: one needs the Hodge type of the deformed object to
-be controlled as the parameter moves off the split locus. \Cref{thm:cdk}
-guarantees that the locus one is deforming along is an algebraic variety, which
-is what makes the question well posed; it does not answer it. Stating this
-precisely is the purpose of \Cref{q:higher}.
+secant sheaves whose Chern classes are computed in closed form, and its output
+is algebraic on the split locus. The missing ingredient, described in
+\Cref{rem:deformation}, is a statement along the algebraic locus of
+\Cref{cor:weilalgebraic}: the Hodge type of the deformed object has to be
+controlled as the parameter moves off the split locus. \Cref{thm:cdk}
+guarantees that the locus along which one deforms is an algebraic variety,
+which is what makes the question well posed, but it does not answer the
+question. \Cref{q:higher} states it precisely.
 \end{remark}

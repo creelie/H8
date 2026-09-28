@@ -1,9 +1,8 @@
 \section{The exterior algebra model in coordinates}\label{app:exterior}
 
-We record the computation behind \Cref{thm:fmtheta} in coordinates, both
-because it is the only place in the paper where a sign has to be pinned down
-and because the model is the one the computations of \Cref{sec:verification}
-implement.
+We record in coordinates the computation behind \Cref{thm:fmtheta}, both to
+pin down the sign in \eqref{eq:fmtheta} and because this is the model that the
+computations of \Cref{sec:verification} implement.
 
 Let $g\ge1$ and let $W$ be the $\QQ$-vector space with basis
 $e_{1},\dots,e_{2g},f_{1},\dots,f_{2g}$. We identify
@@ -11,10 +10,10 @@ $V=\langle e_{1},\dots,e_{2g}\rangle$ with $H^{1}(A,\QQ)$ and
 $V^{\vee}=\langle f_{1},\dots,f_{2g}\rangle$ with $H^{1}(\Av,\QQ)$, so that
 $\bigwedge^{*}W=H^{*}(A\times\Av,\QQ)$.
 
-In $\bigwedge^{*}W$ a basis is indexed by subsets $S$ of
-$\{1,\dots,4g\}$, with the convention that the generator numbered $i$ is
-$e_{i}$ for $i\le2g$ and $f_{i-2g}$ for $i>2g$, and that the basis element
-$w_{S}$ is the wedge of the generators of $S$ in increasing order. The product
+Number the generators so that the generator numbered $i$ is $e_{i}$ for
+$i\le2g$ and $f_{i-2g}$ for $i>2g$. A basis of $\bigwedge^{*}W$ is then
+indexed by the subsets $S$ of $\{1,\dots,4g\}$, the basis element $w_{S}$
+being the wedge of the generators in $S$ in increasing order. The product
 is $w_{S}w_{T}=\varepsilon(S,T)\,w_{S\cup T}$ when $S\cap T=\emptyset$ and zero
 otherwise, where
 \begin{equation}\label{eq:shufflesign}
@@ -47,21 +46,23 @@ $\sigma(g,k)=(-1)^{g(g+1)/2+k}$, independent of $T$.
 \end{lemma}
 
 \begin{proof}
-Uniqueness of the term and the identification of $S$ are established in the
-proof of \Cref{thm:fmtheta}. The sign is the product of the two shuffle signs
-\eqref{eq:shufflesign} relating the displayed word to the target word
+The uniqueness of the term and the identification of $S$ are established in
+the proof of \Cref{thm:fmtheta}. The sign is the product of the two shuffle
+signs \eqref{eq:shufflesign} relating the displayed word to the target word
 $\bigl(\prod_{j\in U}e_{j}e_{g+j}\bigr)\bigl(f_{1}\cdots f_{2g}\bigr)$.
 Relabelling the symplectic pairs by a permutation $\pi$ of $\{1,\dots,g\}$
 carries the word for $T$ to the word for $\pi(T)$ and multiplies both the
 displayed and the target word by the sign of the induced permutation of
-generators, so the quotient is unchanged; hence $\sigma$ depends only on
-$(g,k)$. Evaluating at $T=\{1,\dots,k\}$ gives the stated value, and the
-evaluation is carried out for all $g\le12$ and all $k$ in
-\Cref{sec:verification}, item~(II).
+generators, so the quotient is unchanged. Since the permutations of
+$\{1,\dots,g\}$ act transitively on its $k$-subsets, $\sigma$ depends only on
+$(g,k)$. Evaluating at $T=\{1,\dots,k\}$, as in the proof of
+\Cref{thm:fmtheta}, gives the stated value. Item~(II) of
+\Cref{sec:verification} checks both the independence of $T$ and the value for
+every $g\le12$ and every $0\le k\le g$.
 \end{proof}
 
 \begin{remark}
-The computation is small enough to do by hand at $g=2$. There
+At $g=2$ the computation can be done by hand. There
 $\ell=e_{1}f_{1}+e_{2}f_{2}+e_{3}f_{3}+e_{4}f_{4}$,
 $\theta=e_{1}e_{3}+e_{2}e_{4}$ and $\theta'=f_{1}f_{3}+f_{2}f_{4}$, and one
 finds $\Phi_{\cP}(1)=-\tfrac12\theta^{2}$, $\Phi_{\cP}(\theta')=\theta$ and

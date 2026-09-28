@@ -9,6 +9,7 @@ cor:countnotbind
 cor:disjointroutes
 cor:equivariant
 cor:exactform
+cor:fanolines
 cor:fourdiscriminants
 cor:fourremain
 cor:hhfactor
@@ -114,6 +115,7 @@ eq:ptepure
 eq:quarticstar
 eq:quatE
 eq:secantkernel
+eq:sexticomega
 eq:shift
 eq:shufflesign
 eq:sigmaev
@@ -147,11 +149,13 @@ fig:doublepoint
 fig:escape
 fig:evaluation
 fig:extprofile
+fig:f3primereach
 fig:factor
 fig:fibres
 fig:frontier
 fig:hankel
 fig:hodgespike
+fig:k3threshold
 fig:kahlersign
 fig:ks
 fig:ladder
@@ -160,6 +164,7 @@ fig:lefschetzgrid
 fig:minimalsupport
 fig:moment
 fig:mumford
+fig:mumfordgroups
 fig:pencil
 fig:product
 fig:propagation
@@ -168,6 +173,7 @@ fig:quarticloci
 fig:rigidity
 fig:roadmap
 fig:route
+fig:sexticweil
 fig:spinor
 fig:support
 fig:tangent
@@ -220,6 +226,7 @@ lem:quarticlattice
 lem:rankduality
 lem:rosatiauto
 lem:semiregsum
+lem:sexticweil
 lem:sixmonomials
 lem:splitsemireg
 lem:spreading
@@ -248,8 +255,10 @@ prop:divfails
 prop:divroute
 prop:evaluation
 prop:explicitobject
+prop:f2isab
 prop:f3ishc
 prop:f3prime
+prop:f3primefibration
 prop:f3primesmall
 prop:f3primestrength
 prop:firstorder
@@ -259,6 +268,8 @@ prop:grading
 prop:grr
 prop:h2pieces
 prop:hksquare
+prop:k3ntype
+prop:k3powers
 prop:ksembed
 prop:ksnotrestriction
 prop:ktheory
@@ -273,7 +284,9 @@ prop:mumfordcarrier
 prop:mumfordcmpowers
 prop:mumforddivisor
 prop:mumfordfivefold
+prop:mumfordformal
 prop:mumfordkslink
+prop:mumfordmotivic
 prop:mumfordproduct
 prop:mumfordrm
 prop:mumfordsurface
@@ -295,6 +308,7 @@ prop:pencil
 prop:pontryaginlambda
 prop:powers
 prop:quarticcasimir
+prop:quarticexclusions
 prop:quarticnl
 prop:quarticnogo
 prop:quarticother
@@ -308,6 +322,7 @@ prop:secantprofile
 prop:separate
 prop:sexticcount
 prop:sexticintegral
+prop:sexticweilmin
 prop:signatureforced
 prop:smoothlocal
 prop:splitgeom
@@ -340,9 +355,11 @@ rem:deformation
 rem:dimensionbookkeeping
 rem:dimfour
 rem:divroute
+rem:f2rule
 rem:f3collapse
 rem:f3primefrontier
 rem:f3primeopen
+rem:f3primesharp
 rem:factorclosed
 rem:failuremode
 rem:familyuniform
@@ -405,6 +422,10 @@ rem:pteoutcome
 rem:pterangemeaning
 rem:quarticgap
 rem:quarticisogeny
+rem:quarticmixedkernel
+rem:quarticnegext
+rem:quarticprym
+rem:quarticsecantshape
 rem:quatdivisible
 rem:question114
 rem:remaindershape
@@ -418,8 +439,10 @@ rem:secantlesson
 rem:secantplace
 rem:semiregneed
 rem:semiregunavailable
+rem:sexticnatural
 rem:sexticnoexclusion
 rem:sexticparity
+rem:sextictargets
 rem:signcheck
 rem:sizeconstant
 rem:sizeofloss

@@ -88,8 +88,8 @@ of \Cref{prop:mumfordproduct}.
 \begin{proof}
 At a CM point every Hodge class of $X_{t}\times X_{t}$ is algebraic
 (\Cref{thm:mumfordcm}). Let $t$ be any other point, so that the Hodge group
-of $X_{t}$ is $G$ (proof of \Cref{cor:mumfordequiv}), and write $X=X_{t}$. For $x\in H^{2}(X)\otimes H^{2}(X)$ let $E_{x}$ be
-the endomorphism $y\mapsto x_{*}(\theta^{2}\cup y)$ of $H^{2}(X,\QQ)$, where
+of $X_{t}$ is $G$ (proof of \Cref{cor:mumfordequiv}), and write $X=X_{t}$.
+For $x\in H^{2}(X)\otimes H^{2}(X)$ let $E_{x}$ be the endomorphism $y\mapsto x_{*}(\theta^{2}\cup y)$ of $H^{2}(X,\QQ)$, where
 $x_{*}$ is the action of $x$ as a correspondence. By Poincar\'e duality and
 the hard Lefschetz isomorphism $\theta^{2}\colon H^{2}\to H^{6}$, the map
 $x\mapsto E_{x}$ is a $G$-equivariant isomorphism onto $\End H^{2}(X,\QQ)$,
@@ -100,8 +100,7 @@ $\Sp(V,\psi)$-equivariant endomorphisms, which are $\QQ\times\QQ$; hence it
 carries $\omega$ to an element $(r,\beta)$ with $\beta\notin\QQ$. The
 algebraic Hodge classes form a subspace $A$ containing the products of divisor
 classes, and its image under $x\mapsto E_{x}$ is closed under composition:
-if $x_{1},x_{2}$ are algebraic,
-then the composite correspondence $x_{1}\circ\Delta_{*}(\theta^{2})\circ
+if $x_{1},x_{2}$ are algebraic, then the composite correspondence $x_{1}\circ\Delta_{*}(\theta^{2})\circ
 x_{2}$ is algebraic, and so is its K\"unneth component in
 $H^{2}\otimes H^{2}$, since the K\"unneth projectors of $X\times X$ are
 polynomials in the graphs of $[2]\times1$ and $1\times[2]$, which act on
@@ -181,9 +180,9 @@ dimension one, whose Gram determinants are $L_{0}^{2}/16$, lie in the
 annihilator.
 
 It remains to identify the kernel of the $\tau$-even block of weight zero in
-$H^{1}(T)$. The family of
-Hodge structures along $C$ is the orbit of the Hodge structure at $c$ under
-the real points of the third factor of $G$, so the Kodaira--Spencer class
+$H^{1}(T)$. The family of Hodge structures along $C$ is the orbit of the
+Hodge structure at $c$ under the real points of the third factor of $G$, so
+the Kodaira--Spencer class
 $\kappa$ is the component of type $(-1,1)$ of an element of
 $\mathfrak{sl}(V_{3})$, the lowering operator acting on both copies of $V$.
 It kills $\omega$ because $\omega$ is invariant under $G$; it is fixed by
@@ -200,9 +199,9 @@ $H^{2,2}$ into $H^{1,3}$; so the Zariski tangent space of the Hodge locus is
 $\{\xi:\xi\lrcorner\,\omega=0\}$, which is $\CC\kappa$ by (i). This is the
 usual description of the tangent space of the Hodge locus of a class of type
 $(p,p)$ as the kernel of the contraction into $H^{p-1,p+1}$
-\cite[Chapter~5]{Voi03}, in its simplest case:
-a variation of weight one is subject to no horizontality condition, so every
-direction of $\mathfrak{S}$ enters. The Hodge locus is an analytic germ whose
+\cite[Chapter~5]{Voi03}, in its simplest case: a variation of weight one is
+subject to no horizontality condition, so every direction of $\mathfrak{S}$
+enters. The Hodge locus is an analytic germ whose
 Zariski tangent space is a line, so it lies in a smooth curve germ; it
 contains the smooth curve germ $\{X_{t}\times X_{t}\}$, whose tangent line is
 $\CC\kappa$; so the two germs are equal.
@@ -321,8 +320,8 @@ $\mathcal{T}$ and consists of the $J=1\otimes1\otimes j_{3}$ with
 $j_{3}\in\SL_{2}(\RR)$, $j_{3}^{2}=-1$, in the half plane that contains the
 structure of $Y$, that is, of the squares of the members of the Mumford
 family. At each of its points the first order condition for $\omega$ to stay
-of type $(2,2)$ along
-$\xi\in H^{1}(T_{Y})$ is $\xi\lrcorner\,\omega=0$, as in the proof of
+of type $(2,2)$ along $\xi\in H^{1}(T_{Y})$ is $\xi\lrcorner\,\omega=0$, as
+in the proof of
 \Cref{thm:mumfordrigid}(iii), where no polarisation was used, and by
 \Cref{thm:mumfordrigid}(i) the solutions form the line $\CC\kappa$ tangent to
 $\mathfrak{H}$. So near each of its points $\mathcal{T}_{\omega}$ is the smooth
@@ -356,25 +355,26 @@ with $s$ a symmetric $2\times2$ matrix, by \Cref{prop:mumfordproduct}(ii), and
 the signature of $\psi(\cdot,J\cdot)\otimes s$ is $(4(p+q),4(p+q))$ when $s$ has
 signature $(p,q)$, so none is definite, none is a polarisation, and the member
 is not an abelian variety. The members of the Mumford family are not on these
-lines, so by (i) the lines lie in other components.
+lines, since $\psi(x,Jy)$ is definite at the former and of signature $(4,4)$
+at the latter, so by (i) the lines lie in other components.
 \end{proof}
 
 Markman's proof for Weil classes on abelian fourfolds moves a sheaf along
 twistor lines on which its Chern character stays of Hodge type. By
 \Cref{prop:notwistor} no such line passes through the square of a member of
-the Mumford family: the twistor lines on which $\omega$ is of Hodge type exist,
+the Mumford family: twistor lines on which $\omega$ is of Hodge type exist,
 but they carry non-algebraic tori whose Hodge cocharacter lies in a definite
-factor of $D$, in components of the Hodge locus that the Mumford family never
-meets. The Kuga--Satake class of \Cref{thm:mumfordks} behaves differently. The
-Kuga--Satake construction applies to every Hodge structure of K3 type on
-$(T,q_{\lambda})$, so that class stays of Hodge type over the whole period
-domain of $(T,q_{\lambda})$, of dimension seven, and not only along the curve;
-it is the one class attached to the target that deformation methods of this
-kind are not excluded from.
+factor of $D$, and they lie in components of the Hodge locus that the Mumford
+family never meets. The Kuga--Satake class of \Cref{thm:mumfordks} behaves
+differently. The Kuga--Satake construction applies to every Hodge structure
+of K3 type on $(T,q_{\lambda})$, so that class stays of Hodge type over the
+whole period domain of $(T,q_{\lambda})$, of dimension seven, and not only
+along the curve; among the classes attached to the target, it is the only one
+for which deformation methods of this kind are not excluded.
 
 The same space $T$ also makes the square a holomorphic symplectic variety,
-and this decides what the mechanism of van Geemen and Rapagnetta would have
-to supply here. They prove the Hodge conjecture for the general abelian
+and this determines what the mechanism of van Geemen and Rapagnetta would
+have to supply here. They prove the Hodge conjecture for the general abelian
 fourfold of Weil type with trivial discriminant by pulling back the second
 Chern class of a hyperk\"ahler sixfold along a map from the fourfold, which
 gives an algebraic class of codimension two that is not a product of divisor
@@ -425,16 +425,16 @@ $\nu\ne0$ it is the element dual to the form $q_{1/\nu}$.
 (i) The map $\iota$ is $G$-equivariant because $\Psi$ is invariant, and
 injective. Its image lies in $S^{2}V$: for $x$ in the symplectic Lie algebra
 of $\psi$ one has $(x\otimes1)\Psi=-(1\otimes x)\Psi$, and the exchange of the
-two factors carries $(x\otimes1)\Psi$ to $-(1\otimes x)\Psi$ because $\Psi$
-is alternating. An element $g$ of $G\cdot\mathbb{G}_{m}$ multiplies $\Psi$ by
-the multiplier $\chi(g)$ of $\psi$, so $(g\otimes g)\iota(x)=
+two factors carries $(x\otimes1)\Psi$ to $-(1\otimes x)\Psi=(x\otimes1)\Psi$,
+because $\Psi$ is alternating. An element $g$ of $G\cdot\mathbb{G}_{m}$
+multiplies $\Psi$ by the multiplier $\chi(g)$ of $\psi$, so $(g\otimes g)\iota(x)=
 \chi(g)\,\iota(gxg^{-1})$: the map $\iota$ is equivariant for the adjoint
 action on $T$ twisted by $\chi$, which is the action defining $T(-1)$. Both
 Hodge structures come from the Hodge cocharacter through
 $G\cdot\mathbb{G}_{m}$, so $\iota$ is a morphism of Hodge structures from
-$T(-1)$. The sub-Hodge structures
-of $H^{2}(Y,\QQ)$ are its $G$-stable subspaces, since $\mathbb{G}_{m}$ acts
-by scalars. Over $\bar{\QQ}$, item (XLVIII) of \Cref{sec:verification} splits
+$T(-1)$. The sub-Hodge structures of $H^{2}(Y,\QQ)$ are its $G$-stable
+subspaces, since $\mathbb{G}_{m}$ acts by scalars. Over $\bar{\QQ}$, item
+(XLVIII) of \Cref{sec:verification} splits
 $H^{2}(Y)=\bigwedge^{2}(V\oplus V)$ by the three Casimir operators into the
 isotypic pieces of highest weights $(0,0,0)$, $(2,2,0)$, $(2,0,2)$,
 $(0,2,2)$, $(2,2,2)$, $(2,0,0)$, $(0,2,0)$, $(0,0,2)$, of dimensions
@@ -450,8 +450,10 @@ $(0,2,2)$, it has summands of all three and $h^{2,0}(W)\ge6$; if it has one of
 weight $(2,2,2)$, then $h^{2,0}(W)\ge9$. If $h^{2,0}(W)=1$, therefore,
 $W\otimes\bar{\QQ}$ contains the piece $\iota(T_{3})$ of weight $(0,0,2)$,
 which has multiplicity one, and with it $\iota(T_{1})$ and $\iota(T_{2})$; so
-$W\supseteq\iota(T)$, and $W=\iota(T)$ if $W$ is irreducible. The
-part of type $(2,0)$ of $\iota(T)$ is spanned by $\sigma_{0}=\iota(E_{3})$,
+$W\supseteq\iota(T)$, and $W=\iota(T)$ if $W$ is irreducible. The same
+argument shows that $\iota(T)$ is irreducible: a nonzero sub-Hodge structure
+of it contains one of the $\iota(T_{i})$ over $\bar{\QQ}$, hence all three.
+The part of type $(2,0)$ of $\iota(T)$ is spanned by $\sigma_{0}=\iota(E_{3})$,
 where $E_{3}\in\mathfrak{sl}(V_{3})\otimes\CC$ maps $V_{3}^{0,1}$ onto
 $V_{3}^{1,0}$, and item (XLVIII) finds that $\sigma_{0}$ pairs $H^{1,0}$ of the
 first factor with $H^{1,0}$ of the second through an invertible matrix. So
@@ -478,15 +480,15 @@ and put $f^{*}=\pi_{*}\tilde{f}^{*}$, a morphism of Hodge structures. The
 kernel of $\pi_{*}$ on $H^{2}(\tilde{Y},\QQ)$ is spanned by the classes of
 the exceptional divisors, so $\alpha\mapsto\tilde{f}^{*}\alpha-
 \pi^{*}f^{*}\alpha$ is a morphism of Hodge structures from $H^{2}(M,\QQ)$ to a
-space of Hodge classes. The Hodge structure $T(M)$ is irreducible. A
+space of Hodge classes. The Hodge structure $T(M)$ is irreducible: a
 sub-Hodge structure $W\subseteq T(M)$ with $W^{2,0}=0$ consists of rational
 classes of type $(1,1)$, which lie in $\NS(M)_{\QQ}\cap T(M)=0$; if
 $W^{2,0}\ne0$, then $\sigma_{M}\in W_{\CC}$, the orthogonal complement of $W$
 in $H^{2}(M,\QQ)$ is a sub-Hodge structure orthogonal to $\sigma_{M}$ and
 $\bar{\sigma}_{M}$, hence of type $(1,1)$ and contained in $\NS(M)_{\QQ}$,
-and $W\supseteq T(M)$. It is not spanned by Hodge classes, so that
+and $W\supseteq T(M)$. Since $T(M)$ is not spanned by Hodge classes, that
 morphism vanishes on it, and $\tilde{f}^{*}\alpha=\pi^{*}f^{*}\alpha$ for
-$\alpha\in T(M)$. Since $\tilde{f}^{*}$ is a ring homomorphism and
+$\alpha\in T(M)$. Because $\tilde{f}^{*}$ is a ring homomorphism and
 $\pi_{*}\pi^{*}$ is the identity, $f^{*}(\alpha\beta)=f^{*}\alpha\cup
 f^{*}\beta$ for $\alpha,\beta\in T(M)$. The kernel of $f^{*}$ on $T(M)$ is a
 sub-Hodge structure not containing $\sigma_{M}$, hence zero, and the image is
@@ -497,8 +499,8 @@ of the image, so $f$ is generically finite onto its image $Z$, of dimension
 eight, and $\sigma_{M}$ is generically nondegenerate on $Z$. As $M$ is
 projective, $b_{2}(M)=\dim T(M)+\dim\NS(M)_{\QQ}\ge9+1$; this excludes the
 generalised Kummer varieties, whose second Betti number is seven
-\cite{Bea83}. Finally $\dim M\ge\dim Z=8$, and suppose $\dim M=8$. Then $f$
-is dominant, and for $\alpha\in T(M)_{\CC}$ the relation of Fujiki and
+\cite{Bea83}. Finally $\dim M\ge\dim Z=8$; suppose that $\dim M=8$. Then
+$f$ is dominant, and for $\alpha\in T(M)_{\CC}$ the relation of Fujiki and
 Beauville \cite{Bea83,Fuj87} gives
 \[
   \int_{Y}(f^{*}\alpha)^{8}=\int_{\tilde{Y}}\tilde{f}^{*}(\alpha^{8})
@@ -517,11 +519,13 @@ x_{3})=\Delta(N_{1},N_{2},N_{3})^{2}$ with
 $\Delta=N_{1}^{2}+N_{2}^{2}+N_{3}^{2}-2N_{1}N_{2}-2N_{1}N_{3}-2N_{2}N_{3}$;
 this is also the product of the eight numbers $\pm r_{1}\pm r_{2}\pm r_{3}$,
 where $\pm r_{i}$ are the eigenvalues of $x_{i}$ and $r_{i}^{2}=N_{i}$. The
-$N_{i}$ are algebraically independent functions on $T_{\CC}$, so
-$\Delta^{2}$ would be a constant multiple of the fourth power of the linear
-form $\sum_{i}\sigma_{i}(\lambda)N_{i}$. But $\Delta$ is a nondegenerate
-ternary quadratic form, hence irreducible, and a contradiction results. So
-$\dim M\ge10$.
+$N_{i}$ are algebraically independent functions on $T_{\CC}$, so the two
+expressions for $\int_{Y}(f^{*}\alpha)^{8}$ would make $\Delta^{2}$ a nonzero
+constant multiple of the fourth power of the linear form
+$\sum_{i}\sigma_{i}(\lambda)N_{i}$, and then, by unique factorisation,
+$\Delta$ a multiple of its square. But $\Delta$ is a nondegenerate
+ternary quadratic form, hence irreducible. So $\dim M\ne8$, and since the
+dimension of a hyperk\"ahler manifold is even, $\dim M\ge10$.
 
 (iv) By \cite{Bea83} the map $H^{2}(S,\QQ)\to H^{2}(S^{[n]},\QQ)$ induced by
 the universal subscheme $Z_{n}\subset S\times S^{[n]}$ is injective, carries
@@ -545,19 +549,19 @@ Hodge class in $H^{2}(X)\otimes H^{2}(X)$ algebraic; the Hodge classes in the
 other K\"unneth components of $H^{4}(Y,\QQ)$ are products of divisor classes,
 as at the end of the proof of \Cref{thm:mumfordks}; and the Hodge classes of
 $Y$ form a ring generated in degrees two and four (proof of
-\Cref{cor:mumfordequiv}).
+\Cref{cor:mumfordequiv}). So every Hodge class of $Y$ is algebraic.
 \end{proof}
 
-\begin{remark}[What the mechanism of van Geemen and Rapagnetta would
-need]\label{rem:hkroute}
-By \Cref{prop:hksquare}(ii) the exceptional classes are the classes
-$\iota_{2}(c_{\nu})$ with $\nu\notin\QQ$, the images of the elements dual to
-the forms $q_{\lambda}$, $\lambda=1/\nu$, on the part $\iota(T)$ of $H^{2}(Y)$
-generated by the symplectic class; the form with $\lambda$ rational gives a
-product of divisor classes. They are the analogues
-for $(Y,\sigma_{0})$ of the dual Beauville--Bogomolov class, whose pull-back is
-what \cite{vGR26} uses. Part (iii) says what a transfer of that argument
-needs: a projective hyperk\"ahler manifold of dimension at least ten with
+\begin{remark}[The mechanism of van Geemen and
+Rapagnetta]\label{rem:hkroute}
+By \Cref{prop:hksquare}(ii) the exceptional classes are, up to rational
+multiples of $\pi_{0}$, the classes $\iota_{2}(c_{\nu})$ with $\nu\notin\QQ$,
+the images of the elements dual to the forms $q_{\lambda}$, $\lambda=1/\nu$,
+on the part $\iota(T)$ of $H^{2}(Y)$ generated by the symplectic class; the
+form with $\lambda$ rational gives a product of divisor classes. They are the
+analogues for $(Y,\sigma_{0})$ of the dual Beauville--Bogomolov class, whose
+pull-back is what \cite{vGR26} uses. By part (iii), a transfer of that
+argument needs a projective hyperk\"ahler manifold of dimension at least ten with
 transcendental part $T(-1)$, such as $S_{\mu}^{[n]}$ with $n\ge5$ for a
 surface $S_{\mu}$ of \Cref{thm:mumfordks}, and a rational map from $Y$ onto a
 symplectic subvariety of dimension eight. For $M=S_{\mu}^{[n]}$ the form of
@@ -567,12 +571,12 @@ $\mu\notin\QQ^{\times}F^{\times2}$. No such map is known. It would give an
 algebraic cycle on $S_{\mu}\times X\times X$ inducing an isomorphism of
 $T(S_{\mu})$ onto $\iota(T)\subset H^{1}(X)\otimes H^{1}(X)$, a correspondence
 of the kind that the Kuga--Satake class supplies in the proof of
-\Cref{thm:mumfordks}; so this is the Kuga--Satake route in geometric form,
-not an independent one. Maps to K3 surfaces and to hyperk\"ahler eightfolds
-cannot serve, by (iii).
+\Cref{thm:mumfordks}; so this route is the Kuga--Satake route in geometric
+form rather than an independent one. By (iii), maps to K3 surfaces and to
+hyperk\"ahler eightfolds cannot serve.
 \end{remark}
 
-\begin{theorem}[The Mumford criterion is a dimension]
+\begin{theorem}[A numerical criterion for the Mumford classes]
 \label{thm:mumfordnumerical}
 Let $c\in C$, $Y=X_{c}\times X_{c}$, $\omega=\omega_{a}$ a rational
 exceptional class with $L_{0}(a)\ne0$, and $E$ a perfect complex on $Y$ with
@@ -606,22 +610,21 @@ $\image\operatorname{ev}_{E}=\Ext^{2}(E,E)$. Conversely, if $\sigma_{E}$ is
 injective, then $\sigma_{E}(\operatorname{ev}_{E}(\kappa))=N\kappa\lrcorner
 \,\omega=0$ forces $\operatorname{ev}_{E}(\kappa)=0$, so the kernel is
 $\CC\kappa$ and the rank is $119$; and $\operatorname{ev}_{E}$ restricted to
-$H^{1}(T_{Y})$ is the obstruction map \cite{Tod09}, which vanishes at
-$\kappa$.
+$H^{1}(T_{Y})$ is the obstruction map \cite{Tod09}, which therefore vanishes
+at $\kappa$, so that $E$ extends to first order along the curve.
 
 (iii) By (ii) $\sigma_{E}$ is injective. The Chern character of $E$ is
 $N\omega$, a flat section of Hodge type over the whole of $C$, so
 \Cref{thm:BF} applies to every infinitesimal deformation of $Y$ inside
-$W\times_{C}W\to C$. The proof of \Cref{thm:semiregclosure} now applies word
+$W\times_{C}W\to C$. The proof of \Cref{thm:semiregclosure} then applies word
 for word, with the stack of perfect complexes on the fibres of $W\times_{C}
 W\to C$ \cite{Lie06} in place of that of $\cA\to\cS$, or the analytic
 Kuranishi germ if $\Ext^{<0}(E,E)\ne0$: it is smooth over $C$ at $[E]$, its
 image contains a nonempty open subset $U\subseteq C$, and for $t\in U$ a
-perfect complex $E_{t}$ on $X_{t}\times
-X_{t}$ in the same connected component has $\ch(E_{t})=N\omega_{t}$, so
-$\omega_{t}$ is algebraic, and by \Cref{lem:oneexceptional} so are both
-exceptional classes. $U$ is uncountable, and \Cref{cor:mumfordequiv} gives
-the rest.
+perfect complex $E_{t}$ on $X_{t}\times X_{t}$ in the same connected
+component has $\ch(E_{t})=N\omega_{t}$, so $\omega_{t}$ is algebraic, and by
+\Cref{lem:oneexceptional} so are both exceptional classes. Since $U$ is
+uncountable, \Cref{cor:mumfordequiv} gives the rest.
 
 (iv) By \Cref{thm:mumfordcm} there is $\xi\in\CH^{2}(Y)_{\QQ}$ with class
 $\omega$, and the argument of \Cref{prop:ktheory} gives $E$: the Chern
@@ -635,13 +638,13 @@ at one point, and one number, which is $119$ here and $2n(2n-1)$ for a Weil
 family. For a Weil family that number is attained by no object
 (\Cref{thm:p2false}), because an object attaining it would have to deform to
 non-algebraic tori; the classes here are rigid, so that argument does not
-apply (\Cref{rem:p2prime}). The objects of (iv) exist, and the only open question is whether one
-of them, or another representative of the same class in $K_{0}$, attains the
-bound of (i). We have not found one, and we do not claim that one exists. The
-rigidity of \Cref{thm:mumfordrigid} is not an obstacle to it: semiregularity
-moves an object along the Hodge locus of its Chern character, and the curve
-is exactly that locus, so a semiregular object would propagate along the
-curve and nowhere else, which is all that is needed.
+apply (\Cref{rem:p2prime}). The objects of (iv) exist, and what remains open
+is whether one of them, or another representative of the same class in
+$K_{0}$, attains the bound of (i). We have not found one, and we do not claim
+that one exists. The rigidity of \Cref{thm:mumfordrigid} is no obstacle:
+semiregularity moves an object along the Hodge locus of its Chern character,
+and the curve is exactly that locus, so a semiregular object would propagate
+along the curve and nowhere else, which is all that is needed.
 
 \begin{corollary}[Bounded data at CM points]\label{cor:mumfordbounded}
 Fix a relatively ample line bundle on $W\times_{C}W\to C$, and let $\omega$ be
@@ -667,52 +670,57 @@ For a pair $(\underline{P},\underline{q})$ let $\Sigma_{\underline{P},
 represented with these data. The proof of \Cref{thm:closedlocus} applies
 verbatim to $(W\times_{C}W,C,\omega)$, as in \Cref{lem:spreading}, and shows
 that each $\Sigma_{\underline{P},\underline{q}}$ is Zariski closed. If (b)
-holds, one pair of $\Phi$ serves at infinitely many points, so its
-$\Sigma$ is an infinite closed subset of the irreducible curve $C$, hence
-$C$, and (a) holds. If (a) holds, $C$ is the union of the countably many
-$\Sigma_{\underline{P},\underline{q}}$, and $C$ is uncountable, so one of
+holds, then, $\Phi$ being finite, one pair of $\Phi$ serves at infinitely
+many points, so its $\Sigma$ is an infinite closed subset of the irreducible
+curve $C$, hence $C$, and (a) holds. If (a) holds, $C$ is the union of the
+countably many $\Sigma_{\underline{P},\underline{q}}$, and $C$ is
+uncountable, so one of
 them is infinite, hence equal to $C$; then (b) holds with $\Phi$ that one
 pair and every point of $C$.
 \end{proof}
 
-\Cref{thm:mumfordcm} gives a representation at every CM point, through
-Markman's theorem for abelian fourfolds \cite{Mar25a} and the ring of
-\Cref{thm:mumfordcm}, with no control of degree, and isogenies between CM
-members, which move CM points along their Hecke orbits, do not bound it
-either. \Cref{cor:mumfordbounded} says that such a bound is not a convenience
-but the whole remaining content: with it the target falls, and without it the
-CM points, being countable, say nothing about a very general member
-(\Cref{lem:spreading} needs uncountably many points).
+The proof of \Cref{thm:mumfordcm} represents the classes at every CM point,
+through Markman's theorem for abelian fourfolds \cite{Mar25a} and the ring
+generated by divisor classes and pull-backs of Hodge classes of $X_{c}$ along
+homomorphisms $X_{c}\times X_{c}\to X_{c}$, but with no control of degree;
+isogenies between CM members, which move CM points along their Hecke orbits,
+do not bound the degree either. By
+\Cref{cor:mumfordbounded} such a bound, at infinitely many CM points, is
+equivalent to the target; without it the CM points, being countably many,
+say nothing about a very general member (\Cref{lem:spreading} needs
+uncountably many points).
 
-\begin{remark}[The bypass mechanisms, one by one]\label{rem:bypassaudit}
-\Cref{fig:bypass} collects what is known about each route to the Mumford
-target that avoids the Lefschetz standard conjecture.
+\begin{remark}[Routes to the Mumford target]\label{rem:bypassaudit}
+We list the routes to the Mumford target that avoid the Lefschetz standard
+conjecture, with what is known about each; \Cref{fig:bypass} summarises
+them.
 \begin{enumerate}[label=\textup{(\arabic*)},leftmargin=2.6em,itemsep=2pt]
-\item \emph{Degeneration.} Blocked: the base is compact and the Hodge locus is
-  the base (\Cref{cor:nodegeneration}), so no family on which $\omega$ stays
-  of Hodge type approaches the boundary, and there is no limit mixed Hodge
-  structure to specialise to.
+\item \emph{Degeneration.} Closed off: the base is compact and the Hodge
+  locus is the base (\Cref{cor:nodegeneration}), so no family on which
+  $\omega$ stays of Hodge type approaches the boundary, and there is no limit
+  mixed Hodge structure to specialise to.
 \item \emph{Deformation into a larger Hodge locus}, on which $\omega$ would
-  become a product of divisor classes or a Weil class and be algebraic by
-  an earlier theorem, then be carried back. Blocked by
+  become a product of divisor classes or a Weil class, hence algebraic by a
+  known theorem, and could then be carried back. Closed off by
   \Cref{thm:mumfordrigid}(iii), already to first order.
 \item \emph{Hochschild deformations}: twisting $D^{b}(Y)$ by a $B$-field or a
   Poisson bivector, as in the gerby and noncommutative deformations used for
-  Weil classes. Blocked: an object with $\ch(E)=N\omega$ extends along no
+  Weil classes. Closed off: an object with $\ch(E)=N\omega$ extends along no
   direction of $HH^{2}(Y)$ except that of the curve
   (\Cref{cor:mumfordsplit}(i)).
 \item \emph{Constructions from line bundles}: cones, tensor products, duals,
   pull-backs and push-forwards along homomorphisms, and Fourier--Mukai
-  functors whose kernels are built in the same way. Blocked at every point of
-  the curve: everything so built has a Chern character invariant under the
+  functors whose kernels are built in the same way. Closed off at every point
+  of the curve: everything so built has a Chern character invariant under the
   Lefschetz group, and the exceptional classes are not
   (\Cref{thm:lefschetzclosure}).
 \item \emph{Twistor and hyperholomorphic deformation}, the mechanism of
   Markman's proof for Weil classes: move a sheaf along twistor lines on which
-  its Chern character stays of Hodge type. Blocked on the square: no twistor
-  line through a member of the Mumford family keeps $\omega$ of Hodge type,
-  and those that do carry non-algebraic tori, in other components of the
-  Hodge locus (\Cref{prop:notwistor}).
+  its Chern character stays of Hodge type. Closed off on the square: no
+  twistor line through a member of the Mumford family keeps $\omega$ of Hodge
+  type, and the twistor lines that do keep it of Hodge type carry
+  non-algebraic tori and lie in other components of the Hodge locus
+  (\Cref{prop:notwistor}).
 \item \emph{Specialisation.} The class is algebraic at every CM point
   (\Cref{thm:mumfordcm}), on every power of $X_{c}$ \cite[Theorem~1.3]{Li26};
   this suffices exactly when the degrees are bounded
@@ -729,12 +737,13 @@ target that avoids the Lefschetz standard conjecture.
   bundles (\Cref{prop:mumforddivisor}) and splits only in a constrained way
   (\Cref{cor:mumfordsplit}); no such object is known.
 \item \emph{Kuga--Satake.} Reduced to the Kuga--Satake class of one K3 surface
-  of Picard number thirteen (\Cref{thm:mumfordks}), which the known cases do
-  not reach (\Cref{rem:mumfordks}). Its geometric form is the mechanism of
-  van Geemen and Rapagnetta \cite{vGR26}, pull-back of the dual
-  Beauville--Bogomolov class of a hyperk\"ahler manifold: the exceptional
-  classes are exactly such twisted dual forms of the part of $H^{2}$ of the
-  square generated by its symplectic class, and a rational map onto a
+  of Picard number thirteen (\Cref{thm:mumfordks}), which the known cases of
+  the Kuga--Satake Hodge conjecture do not reach (\Cref{rem:mumfordks}). Its
+  geometric form is the mechanism of van Geemen and Rapagnetta \cite{vGR26},
+  pull-back of the dual Beauville--Bogomolov class of a hyperk\"ahler
+  manifold: up to multiples of $\pi_{0}$, the exceptional classes are exactly
+  such twisted dual forms of the part of $H^{2}$ of the square generated by
+  its symplectic class, and a rational map onto a
   symplectic subvariety of some $S_{\mu}^{[n]}$, $n\ge5$, would suffice;
   K3 surfaces and hyperk\"ahler eightfolds cannot serve
   (\Cref{prop:hksquare}, \Cref{rem:hkroute}).
@@ -742,21 +751,21 @@ target that avoids the Lefschetz standard conjecture.
   motivated \cite[Th\'eor\`eme~0.6.2]{And96b}, so $\omega_{t}$ is motivated for
   every $t$; a motivated class is algebraic once the Lefschetz involutions of
   the auxiliary varieties are (\Cref{prop:lefmot}), and for the auxiliary
-  varieties of Andr\'e's proof that is not known. Along the family the auxiliary variety
-  that suffices is $W\times_{C}W$ (\Cref{thm:lefschetzpropagation}), and its
-  Lefschetz standard conjecture is equivalent to the target
-  (\Cref{cor:mumfordequiv}): the route moves the problem and does not shorten
-  it.
+  varieties of Andr\'e's proof that is not known. Along the family the
+  auxiliary variety that suffices is $W\times_{C}W$
+  (\Cref{thm:lefschetzpropagation}), and its Lefschetz standard conjecture is
+  equivalent to the target (\Cref{cor:mumfordequiv}): the route moves the
+  problem and does not shorten it.
 \end{enumerate}
-Five of the ten are closed off by theorems; two work at special points
-only, the CM points and the closed points of the reductions modulo $p$, and
-each of them suffices exactly when a degree bound holds; two are reduced to a
-single object, one Kuga--Satake class or one perfect complex with
-$\dim\Ext^{2}=119$ at one CM point; and one is equivalent to the target. None
-of them is carried out here, and the target remains open. The five that are
-not closed off are one statement and two stronger inputs, not five
-obligations: any one of them would suffice (\Cref{cor:mumfordone},
-\Cref{rem:mumfordneeded}).
+Five of the ten routes are closed off by theorems. Of the other five, two
+work at special points only, the CM points and the closed points of the
+reductions modulo $p$, and each suffices exactly when a degree bound holds;
+two are reduced to a single object, one Kuga--Satake class or one perfect
+complex with $\dim\Ext^{2}=119$ at one CM point; and one is equivalent to the
+target. None of these five is carried out here, and the target remains open.
+They are not five separate obligations: three of them are the target itself
+in other forms and the other two are stronger inputs that imply it, so any
+one of them would suffice (\Cref{cor:mumfordone}, \Cref{rem:mumfordneeded}).
 \end{remark}
 
 \begin{figure}[tbp]

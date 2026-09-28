@@ -439,7 +439,8 @@ of $t$ factors meets some block twice, so a $G_{\nu}$-invariant Hodge class,
 being its own average, is the average of an algebraic class, and is
 algebraic. A partition with $t$ distinct part sizes has
 $n\ge1+2+\dots+t=t(t+1)/2$, so by the third fact the Hodge conjecture holds
-for $S^{[n]}$ when $n<t(t+1)/2$. For $n=N$ the partition $(1,2,\dots,t)$ has
+for $S^{[n]}$ when $n<t(t+1)/2$ (\Cref{fig:k3threshold}). For $n=N$ the
+partition $(1,2,\dots,t)$ has
 $l(\nu)=t$ and $G_{\nu}=1$, so the Hodge class $\det(T)$ of $S^{t}$ is
 algebraic if the Hodge conjecture holds for $S^{[N]}$. If $\det(T)$ is
 algebraic, the Hodge conjecture holds for every power of $S$ by
@@ -460,6 +461,24 @@ trivial \cite{Zar83}, so every $\tau_{\varphi}$ is invariant under
 $\mathfrak{S}_{2}$ and the Hodge conjecture for $S^{[2]}$ asks for the same
 classes as that for $S\times S$.
 \end{proof}
+
+\begin{figure}[tbp]
+\centering
+  \includegraphics[width=\textwidth]{fig_k3threshold}
+\caption{The threshold of \Cref{prop:k3powers}(ii). For $t=1,\dots,21$ the
+bar rises to $t(t+1)/2$, the least $n$ that has a partition with $t$ distinct
+part sizes, and is cut into the parts $1,2,\dots,t$ of the partition that
+attains it. For a K3 surface $S$ with $E=\End_{\mathrm{Hdg}}(T(S))=\QQ$ and
+$t=\dim T(S)$, which is at least $3$, the Hodge conjecture holds for
+$S^{[n]}$ with $n$ below the bar; at its top it is equivalent to the
+algebraicity of the class $\det T(S)$ on $S^{t}$ of \Cref{prop:orthpowers},
+and to the Hodge conjecture for every power of $S$; above it, it is open, and
+it follows from that algebraicity. A very general $S$ has $t=21$: the
+conjecture holds for $S^{[n]}$ with $n\le230$, and for $S^{[231]}$ it is
+equivalent to the algebraicity of $\det T(S)$ on $S^{21}$, one of the first
+open cases of \textup{(F3$'$)} (\Cref{rem:f3primefrontier}).}
+\label{fig:k3threshold}
+\end{figure}
 
 \begin{proposition}[Varieties of K3$^{[n]}$ type]\label{prop:k3ntype}
 Let $X$ be a smooth projective hyperk\"ahler variety deformation equivalent
@@ -1029,7 +1048,7 @@ conjecture these equivalences are folklore, and we claim no priority for
 them.
 \end{remark}
 
-\begin{remark}[Where \textup{(F3$'$)} now stops]\label{rem:f3primefrontier}
+\begin{remark}[Where \textup{(F3$'$)} stops]\label{rem:f3primefrontier}
 With \Cref{prop:f3prime}, \Cref{prop:aclosure} and \Cref{prop:f3primesmall},
 \textup{(F3$'$)} holds on every variety of dimension at most three, on every
 fourfold whose zero-cycles are supported in dimension three (in particular
@@ -1037,7 +1056,7 @@ every uniruled fourfold), on every fivefold whose zero-cycles are supported
 in dimension at most three, on every fourfold and fivefold whose maximal
 rationally connected quotient is birational to a variety satisfying
 \textup{(F3$'$)} in degree four (\Cref{prop:f3primefibration}), and on
-every member of $\mathcal{A}$, a class now containing the Fermat
+every member of $\mathcal{A}$, a class containing the Fermat
 hypersurfaces of every degree and dimension, the Hilbert schemes of points on
 abelian surfaces, on products of curves and on the K3 surfaces of
 \Cref{prop:aclosure}(iv), the generalised Kummer varieties $K_{n}(A)$ and the
@@ -1051,8 +1070,8 @@ $S^{[n]}$ for $n<t(t+1)/2$ and on the moduli spaces of dimension less than
 $t$; on every fourfold of K3$^{[2]}$ type whose field $E$ is $\QQ$ or a CM
 field; on $F(Y)$ and $Y\times Y$ for every cubic fourfold $Y$ with such a
 field; and on every fourfold of generalised Kummer type \cite{FV25}. Its
-first open cases are now these, the first two in degree four on fourfolds
-whose zero-cycles are not supported on a proper closed subset and which are
+first open cases are these (\Cref{fig:f3primereach}), the first two in
+degree four on fourfolds whose zero-cycles are not supported on a proper closed subset and which are
 not known to be birational to a member of $\mathcal{A}$: $S\times S$ and
 $S^{[2]}$ for a K3 surface
 whose real multiplication is not known to be algebraic, such as $S_{\lambda}$
@@ -1076,6 +1095,37 @@ abelian variety. \textup{(F3$'$)} remains open, and \Cref{thm:closure} is
 unchanged, since every statement proved here is a special case of one of the
 open statements of its rule set, not a new rule.
 \end{remark}
+
+\begin{figure}[tbp]
+\centering
+  \includegraphics[width=\textwidth]{fig_f3primereach}
+\caption{What arguments on zero-cycles and on rationally connected
+fibrations give for \textup{(F3$'$)} and for the Hodge conjecture (HC in the
+figure) on a variety $X$, over the plane of $n=\dim X$ and the least dimension
+$d$ of a closed subset supporting $\mathrm{CH}_{0}(X)_{\QQ}$; $d$ is at most
+the dimension of the maximal rationally connected quotient $R$ of $X$, and
+$d=n$ whenever $H^{n,0}(X)\ne0$ (\Cref{rem:f3primesharp}). Both hold when
+$n\le5$ and $d\le3$ (\Cref{prop:f3primesmall}), hence on every variety of
+dimension at most three. The hatched cells are open in general;
+\textup{(F3$'$)} holds there when $R$ is birational to a variety with
+$\Hdg^{2}=\mathrm{Ab}^{2}$, for instance a member of $\mathcal{A}$, and the
+Hodge conjecture when $R$ is birational to an abelian fourfold
+(\Cref{prop:f3primefibration}). The double arrows are the equivalences of
+\Cref{rem:f3primesharp}: \textup{(F3$'$)}, and the Hodge conjecture, hold for
+every uniruled fivefold, and for every rational sixfold, if and only if they
+hold in degree four for every fourfold; the sixfold $\mathrm{Bl}_{Y}\PP^{6}$
+of a smooth sextic fourfold $Y$ in a hyperplane carries the Hodge numbers
+listed. The rings are first open cases (\Cref{rem:f3primefrontier}): the
+sextic fourfolds, the first family of smooth hypersurfaces not covered (the
+Fermat sextic lies in $\mathcal{A}$); $S\times S$ and $S^{[2]}$ for a K3
+surface $S$ whose real multiplication is not known to be algebraic, such as
+$S_{\lambda}$; the fourfolds of K3$^{[2]}$ type with real multiplication,
+among them $F(Y)$; and, beyond the breaks of the axes, $S^{[231]}$ for a very
+general K3 surface, which is equivalent to the algebraicity of $\det T(S)$ on
+$S^{21}$ (\Cref{prop:k3powers}, \Cref{fig:k3threshold}). Every other cell is
+open in general, and \textup{(F3$'$)} remains open.}
+\label{fig:f3primereach}
+\end{figure}
 
 \begin{setupenv}[The rule set]\label{setup:rules}
 Item (XXXIII) of \Cref{sec:verification} carries forty-two statements and
@@ -1243,7 +1293,8 @@ three smaller problems. With (F3) replaced by the weaker statement
 \textup{(F3$'$)} of \Cref{def:f3prime}, the conjecture modulo abelian
 varieties, the three statements (F1), (F2), \textup{(F3$'$)} still suffice,
 and no rule of \Cref{setup:rules} derives the conjecture from a proper
-subset of them.
+subset of them. With the rule of \Cref{prop:f2isab}, which the rule set does
+not contain, (F2) and \textup{(F3$'$)} already suffice (\Cref{rem:f2rule}).
 \begin{enumerate}[label=\textup{(F\arabic*)},leftmargin=3.0em,itemsep=4pt]
 \item \emph{One propagation statement, for every CM field.} \textup{(P2)},
   in the corrected form of \Cref{rem:p2prime}: at one base point of each
@@ -1282,7 +1333,9 @@ subset of them.
   is no such class \cite{MZ99}; in dimension eight there are
   (\Cref{prop:mumfordproduct}), so this is not a reduction of the conjecture
   for abelian varieties to Weil classes, which is false as a statement about
-  Hodge rings: it is the conjecture for those classes. Its smallest case is
+  Hodge rings: it is the conjecture for those classes, and by
+  \Cref{prop:f2isab} it is equivalent to the conjecture for every abelian
+  variety. Its smallest case is
   brought down to one Kuga--Satake class in \Cref{thm:mumfordks}; it holds at
   every CM point (\Cref{thm:mumfordcm}), and on all members of a Mumford
   family it is equivalent to the Lefschetz standard conjecture for one
@@ -1337,11 +1390,12 @@ $\alpha+\beta\notin R(A)$, because $R(A)$ is closed under subtraction, so
 (F2) makes $\alpha+\beta$ and $\beta$ algebraic, and with them $\alpha$.
 So in every degree in which (F2) says anything it is the whole conjecture for
 that degree: on the square of a Mumford fourfold it gives every Hodge class of
-$H^{4}$, the six products of divisor classes included. Whether (F2) alone
-gives the conjecture for every abelian variety is not decided here, and
-nothing depends on it: the rule set does not use such an implication, and
-adding it would not change \Cref{thm:closure}(ii), since (F3) alone is
-already sufficient.
+$H^{4}$, the six products of divisor classes included. Multiplying by an
+exceptional class of that square moves every Hodge class of every abelian
+variety outside the subring, and \Cref{prop:f2isab} deduces from this that
+(F2) is the whole conjecture for abelian varieties. The rule set does not
+contain that implication; \Cref{rem:f2rule} says how \Cref{thm:closure}(ii)
+changes when it is adjoined.
 
 The form of (F3) that is not the conjecture itself asks only for
 algebraicity modulo classes coming from abelian varieties. It is
@@ -1354,20 +1408,21 @@ known of it, and \Cref{rem:f3primeopen} why it is not closed.
   \includegraphics[width=0.92\textwidth]{fig_frontier}
 \caption{The rule set of \Cref{setup:rules} with the rules of
 \Cref{ssec:bullseye}, drawn as a hypergraph. A rule with several premises is
-a junction marked $\wedge$, with arrows from its premises and one arrow to its
-conclusion; each rule carries the result that proves it, and the junction
-marked \S16.5 is the closure map of \Cref{ssec:closuremap}. Clay marks an
-open statement, grass what this paper proves, indigo a derived statement,
-and the tag $\Leftarrow\mathbf{HC}$ an open statement that the conjecture
-implies: every clay node except (P2). The arrow from (F3) to the conjecture
-is \Cref{prop:f3ishc}, and the junction above the conjecture for abelian
-varieties is \Cref{prop:f3prime}(i). The five minimal sufficient sets of
-\Cref{thm:closure}(ii) are drawn as nested ribbons under the arrows they
-use, widest first, and listed in the cards below: (F3) alone; (L) with (M);
-(L) through (V) with \textup{(F3$'$)}; (V) with \textup{(F3$'$)}; and, on
-the left, (P2) with (F2) and \textup{(F3$'$)}. A shared arrow shows the
-bands of every route through it. The secant route, which reaches the
-imaginary quadratic families only, is drawn in \Cref{fig:closure}.}
+a junction marked $\wedge$, joined to its premises and with one arrow to its
+conclusion. The letters name the results that prove the rules: (a) is
+\Cref{prop:f3ishc}; (b) and (g) are the closure map of
+\Cref{ssec:closuremap}; (c) is \Cref{prop:f3prime}(i); (d) is
+\Cref{prop:lefmot}; (e) is \Cref{prop:lefvhc}; (f) is \Cref{thm:vhcab};
+(h) is \Cref{thm:cmpropagation}; and (i) is the chain of
+\Cref{prop:descent}, \Cref{prop:separate}, \Cref{prop:cmweil} and
+\Cref{app:albert}. Clay marks an open statement, a double frame an open
+statement that the conjecture implies, grass what this paper proves, slate
+what it quotes, and indigo a derived statement. The table lists the five
+minimal sufficient sets of \Cref{thm:closure}(ii), the rules each of them
+uses, and which of the open statements the conjecture implies; only
+$\mathrm{P2}_{\mathrm{split}}$, which asks for a particular complex, is not
+known to follow from it. The secant route, which reaches the imaginary
+quadratic families only, is drawn in \Cref{fig:closure}.}
 \label{fig:frontier}
 \end{figure}
 
@@ -1580,31 +1635,31 @@ would have to supply for them to be algebraic.
 \begin{figure}[tbp]
 \centering
   \includegraphics[width=\textwidth]{fig_closure}
-\caption{The route of this paper in \Cref{thm:closure}, drawn as a stack of
-plates, one per level of the derivation; the other routes of the literature
-are drawn in \Cref{fig:frontier}. The spine in indigo runs from the Weil families at the bottom to
-the conjecture at the top. The two statements (F2) and (F3) enter in clay from
-the right, each at the level where it is needed; (F2) is the conjecture for a
-class of Hodge classes that no Weil line reaches, not a reduction, and (F3) is
-the whole conjecture (\Cref{prop:f3ishc}), so the route drawn is minimal
-only with (F3) replaced by \textup{(F3$'$)} of \Cref{def:f3prime}. From
-below,
-the propagation statement (P2) in grass reaches the two discriminant cases of
-the quadratic fields and the fields of higher degree alike, because
-\Cref{thm:everyfamily} and \Cref{thm:cmbasepoint} put a base point in every
-family; it is read in the corrected form of \Cref{rem:p2prime}. The two
-edges inside the levels are \Cref{prop:descent}: descent from the trivial
-discriminant to the others, and scalar extension from the fields of degree at
-least four to the quadratic fields; with them (P2) is needed only for the
-split families of the fields of higher degree. The three
-pillars under the grass node are the results of \Cref{thm:p2numerical},
-\Cref{thm:p2support} and \Cref{cor:hhfactor} on the first form, in which the
-Chern character is exactly a Weil class; by \Cref{thm:p2false} that form is
-never met, so the number on the first pillar is attained by no complex. The
-secant route in clay reaches the trivial discriminant, since the member it is
-built on is split, and through descent the rest of the quadratic case; it has
-no edge to the fields of higher degree. The bounded criterion (P1) is drawn apart, in slate, closed on
-itself: it is equivalent to its own conclusion.}
+\caption{The route of this paper through the rule set of \Cref{thm:closure},
+drawn as a stack of plates, one per level of the derivation; the other routes
+are drawn in \Cref{fig:frontier}. Heavy arrows are the rules used by the
+minimal set $\{\mathrm{P2}_{\mathrm{split}},\mathrm{F2},\mathrm{F3}'\}$,
+light arrows the rules it does not use. The bottom plate carries the
+propagation statement, read in the corrected form of \Cref{rem:p2prime},
+once for each of the four kinds of Weil family, with the secant route beside
+it. The small grass blocks on the next plate are the base points of
+\Cref{thm:everyfamily} and \Cref{thm:cmbasepoint}, one in every family. The
+three arrows inside that plate are \Cref{prop:descent}: descent from the
+trivial discriminant to the others, and scalar extension from the fields of
+degree at least four to the quadratic fields. With them (P2) is needed only
+for the split families of the fields of higher degree, and the other three
+(P2) blocks are not used. (F2) is the conjecture for the Hodge classes that
+no Weil line reaches, and (F3) is the whole conjecture
+(\Cref{prop:f3ishc}), so the route is minimal only with (F3) replaced by
+\textup{(F3$'$)} of \Cref{def:f3prime}. The bracket under the two quadratic
+(P2) blocks records the first form of the criterion, in which the Chern
+character is exactly a Weil class, as \Cref{thm:p2numerical},
+\Cref{thm:p2support} and \Cref{cor:hhfactor} describe it; by
+\Cref{thm:p2false} that form is met by no complex. The secant route reaches
+the trivial discriminant, since the member it is built on is split, and
+through descent the rest of the quadratic case; it has no edge to the fields
+of higher degree. The bounded criterion (P1) stands apart, closed on itself:
+it is equivalent to its own conclusion.}
 \label{fig:closure}
 \end{figure}
 

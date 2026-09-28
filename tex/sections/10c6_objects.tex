@@ -1,6 +1,6 @@
 \section{Secant objects on the split member}\label{sec:secantobjects}
 
-\subsection{What the object must be, and what it cannot be}
+\subsection{Sums of line bundles and the positivity obstruction}
 \label{ssec:whatobject}
 
 \Cref{thm:semiregclosure} asks for one perfect complex at one base point.
@@ -10,8 +10,10 @@ $\ell$ by \Cref{thm:splitclosed}, so the Chern character one wants is
 manifestly in reach. This subsection settles that candidate. It does not
 exist, and the obstruction is not semiregularity: it is the Chern character
 condition, and it fails because the norm form of $K$ is positive
-definite.\footnote{The norm form has now closed three different doors in this
-paper, by three different mechanisms, and they should be kept apart.
+definite.
+
+The norm rules out three different constructions in this paper, by three
+different mechanisms, and they should be kept apart.
 \Cref{thm:character} uses the norm \emph{character} of $\Kx$ and an
 equivariance hypothesis. \Cref{prop:divfails} uses the fact that the part $R$
 of $H^{2}$ on which $\Kx$ acts through $\tau^{2}$ and $\bbar\tau^{\,2}$ has no
@@ -20,7 +22,7 @@ Hodge classes at a general point, which is a statement about the Hodge group.
 positive definite quadratic form on $K$ and that the multiplicities of a
 filtration are positive integers. The three are independent, and only the
 third is available at a special point, which is exactly where the object of
-\Cref{prop:ktheory} has to live.}
+\Cref{prop:ktheory} has to live.
 
 \begin{lemma}[The semiregularity map of a split object]\label{lem:splitsemireg}
 Let $Y$ be a smooth projective complex variety and let
@@ -76,8 +78,9 @@ Condition (ii) is cheap, because the shifts $p_{i}$ are at our disposal: only
 their parities are fixed by the Chern character, and a line bundle whose first
 Chern class is nondegenerate of index $k$ has cohomology in degree $k$ alone,
 so one may choose the $p_{i}$ to avoid every index that occurs. Condition
-(iii) is a rank. Condition (i) is free. What is not free is the Chern
-character itself, and that is what the rest of this subsection is about.
+(iii) is a rank condition, and condition (i) is free. What is not free is the
+Chern character itself, and that is the subject of the rest of this
+subsection.
 
 \begin{notation}[Coordinates on the divisor classes]\label{not:splitcoords}
 Let $A_{0}=X\times\widehat{X}$ be a split member, $n\ge2$, and keep
@@ -91,7 +94,7 @@ Every $\theta\in R_{0}$ is $\theta=u\theta^{+}+\bbar u\,\theta^{-}$ for a
 unique $u\in K$, and in coordinates $u=g+h\sqrt{-d}$ corresponds to
 $\theta=2g\gamma+2dh\,\ell$. By \Cref{prop:splitgeom}(iv) the group
 $\NS(A_{0})_{\QQ}$ at a split member with $X$ general is
-$\QQ\eta\oplus R_{0}$, so every divisor class is $e\eta+\theta$ with
+$\QQ\eta\oplus R_{0}$, so every divisor class $\lambda$ is $e\eta+\theta$ with
 $e\in\QQ$ and $\theta\in R_{0}$, and we write $u(\lambda)\in K$ for the
 coordinate of its $R_{0}$-part.
 \end{notation}
@@ -125,8 +128,8 @@ as $\gamma$ and $\ell$ over $\CC$.
 \end{proof}
 
 The next lemma says the same thing at every abelian variety of Weil type, not
-only at a split member, and it says it without coordinates. It is the fact the
-positivity argument really turns on.
+only at a split member, and it says it without coordinates. It is the fact on
+which the positivity argument turns.
 
 \begin{lemma}[$\theta^{+}\theta^{-}$ is never proportional to $\eta^{2}$]
 \label{lem:tensorrank}
@@ -183,9 +186,11 @@ $\ch_{n}(E)$ has no component on the Weil line.
 
 \begin{proof}
 From \eqref{eq:effectivech},
-$\ch_{2}(E)=\tfrac12\sum_{i}m_{i}\lambda_{i}^{2}$. Decompose $H^{4}(A,\CC)$
-into $\Kx$-isotypic pieces and keep the one for $\Nm^{2}$, namely
-$\bigwedge^{2}V_{+}\otimes\bigwedge^{2}V_{-}$. Writing
+$\ch_{2}(E)=\tfrac12\sum_{i}m_{i}\lambda_{i}^{2}$, and hypothesis
+\eqref{eq:noextranorm} is what makes the decomposition
+$\lambda_{i}=e_{i}\eta+\theta_{i}$ available with $e_{i}$ a scalar. Decompose
+$H^{4}(A,\CC)$ into $\Kx$-isotypic pieces and keep the one for $\Nm^{2}$,
+namely $\bigwedge^{2}V_{+}\otimes\bigwedge^{2}V_{-}$. Writing
 $\theta_{i}=u_{i}\theta^{+}+\bbar u_{i}\theta^{-}$ for a fixed choice of
 generators $\theta^{\pm}$ of $\bigwedge^{2}V_{\pm}$, one has
 \[
@@ -198,9 +203,7 @@ generators $\theta^{\pm}$ of $\bigwedge^{2}V_{\pm}$, one has
 and of these five terms only the first and the last are in the $\Nm^{2}$
 piece: $\eta\theta_{i}$ carries $\Nm\tau^{2}$ and $\Nm\bbar\tau^{\,2}$, and
 $(\theta^{\pm})^{2}$ carry $\tau^{4}$ and $\bbar\tau^{\,4}$, all four distinct
-from $\Nm^{2}$. Hypothesis \eqref{eq:noextranorm} is what makes the
-decomposition $\lambda_{i}=e_{i}\eta+\theta_{i}$ available with $e_{i}$ a
-scalar. So the $\Nm^{2}$-part of $\ch_{2}(E)$ is
+from $\Nm^{2}$. So the $\Nm^{2}$-part of $\ch_{2}(E)$ is
 \[
   \tfrac12\Bigl(\sum_{i}m_{i}e_{i}^{2}\Bigr)\eta^{2}
   +\Bigl(\sum_{i}m_{i}\Nm_{K/\QQ}(u_{i})\Bigr)\theta^{+}\theta^{-}.
@@ -221,18 +224,11 @@ $\ch_{k}(E)=\frac{1}{k!}\bigl(\sum_{i}m_{i}e_{i}^{k}\bigr)\eta^{k}$, and
 $\eta^{k}$ is not on the Weil line by \Cref{thm:hdgcount}.
 \end{proof}
 
-\begin{corollary}[The cheapest objects do not exist]\label{cor:nofiltered}
+\begin{corollary}[Objects filtered by line bundles]\label{cor:nofiltered}
 Let $A$ satisfy \eqref{eq:noextranorm}, which holds at every split member of
 \Cref{thm:splitclosed} and at every quaternionic base point of
-\Cref{thm:quatweil}.\footnote{At a split member $\NS(A)_{\QQ}$ has rank three
-with basis $\beta,\widehat\beta,\ell$ by \Cref{prop:splitgeom}(iv), and of
-these $\eta$ spans the norm-character part while $\gamma$ and $\ell$ span
-$R$. At a quaternionic point $\NS(A)_{\QQ}$ is the space of Rosati-symmetric
-elements of $B=(-d,b)_{\QQ}$, which is spanned by $1$, $j$ and $ij$; the first
-gives $\eta$ and the other two are semilinear over $K$, hence lie in $R$. In
-both cases the norm-character part of $\NS(A)_{\QQ}$ is exactly $\QQ\eta$.}
-Then \Cref{thm:semiregclosure} cannot be applied at $A$ with any of the
-following:
+\Cref{thm:quatweil}. Then \Cref{thm:semiregclosure} cannot be applied at $A$
+with any of the following:
 \begin{enumerate}[label=\textup{(\alph*)},nosep]
 \item a coherent sheaf admitting a filtration by line bundles, in particular
   any direct sum of line bundles;
@@ -247,13 +243,24 @@ component.
 \end{corollary}
 
 \begin{proof}
+First, \eqref{eq:noextranorm} holds at the points named. At a split member
+$\NS(A)_{\QQ}$ has rank three with basis $\beta,\widehat\beta,\ell$ by
+\Cref{prop:splitgeom}(iv), and of these $\eta$ spans the norm-character part
+while $\gamma$ and $\ell$ span $R$. At a quaternionic point $\NS(A)_{\QQ}$ is
+the space of Rosati-symmetric elements of $B=(-d,b)_{\QQ}$, which is spanned
+by $1$, $j$ and $ij$; the first gives $\eta$ and the other two are semilinear
+over $K$, hence lie in $R$. In both cases the norm-character part of
+$\NS(A)_{\QQ}$ is exactly $\QQ\eta$.
+
 Each of (a), (b) and (c) has a Chern character of the shape
 \eqref{eq:effectivech} with positive multiplicities, by additivity of $\ch$
 along a filtration and by Mukai's computation of the Chern character of a
-simple semi-homogeneous bundle. Apply \Cref{thm:positivity}.
+simple semi-homogeneous bundle. The conclusion of \Cref{thm:positivity} then
+contradicts the requirement that $\ch_{n}(E)$ have a nonzero component on the
+Weil line.
 \end{proof}
 
-\begin{remark}[Where the theorem has force, and why it does not contradict
+\begin{remark}[Scope of the theorem, and the objects of
 Markman]\label{rem:markmanpositivity}
 At a very general member of the family $\NS(A)_{\QQ}=\QQ\eta$, so
 \Cref{thm:positivity} is true for the empty reason that there are no
@@ -262,21 +269,16 @@ exactly where \Cref{thm:semiregclosure} needs its object to live and where the
 base points of \Cref{thm:everyfamily} are. That is the opposite of the usual
 situation in this paper, where the special members are the easy ones.
 
-The theorem also does not touch the objects of Markman \cite{Mar25a,Mar25b}.
+The theorem does not touch the objects of Markman \cite{Mar25a,Mar25b}.
 Those are sheaves whose class in $K_{0}$ is not a positive combination of
 exponentials of divisor classes, so \eqref{eq:effectivech} fails for them at
-the first step; and they live at very general points, where as just noted the
-statement is vacuous anyway. What the theorem does is remove the class of
+the first step; and they live at very general points, where, as just noted,
+the statement is vacuous. What the theorem does is remove the class of
 objects one would reach for first, and it removes it for a reason which is
 visible before any cohomology is computed.
 \end{remark}
 
-\begin{proof}
-Immediate from \Cref{thm:positivity}, since the conclusion there contradicts
-the requirement that $\ch_{n}(E)$ have a nonzero component on the Weil line.
-\end{proof}
-
-\begin{remark}[What is left of the candidate, and what it must look like]
+\begin{remark}[Signed sums of line bundles]
 \label{rem:whatitmustbe}
 \Cref{thm:positivity} uses positivity of the multiplicities and nothing else,
 so it says exactly where to go next: the object must be a complex whose
@@ -306,17 +308,17 @@ at $d=1$ and $3$ or $6$ at $d=2$, never $0$. Item (XIII) of
 \Cref{sec:verification} carries both computations.
 
 So the object of \Cref{thm:semiregclosure}, if it exists at a split member, is
-not a sum of line bundles in any arrangement of signs and shifts: it must have
+not a sum of line bundles in any arrangement of signs and shifts, and
+\Cref{cor:noline} below proves this in every dimension. It must have
 $\Ext^{2}$ that the trace does not see, that is, it must be indecomposable in
-the derived category. That is a sharper description of the remaining
-construction than \Cref{rem:tworemain} gives, and it is as far as we have been
-able to push it.
+the derived category. This description of the remaining construction is
+sharper than the one in \Cref{rem:tworemain}.
 \end{remark}
 
-\subsection{The object, written down, and what it costs}
+\subsection{An explicit object and the Prouhet--Tarry--Escott problem}
 \label{ssec:pte}
 
-\Cref{prop:ktheory} produced the object of \Cref{thm:semiregclosure} by an
+\Cref{prop:ktheory} produces the object of \Cref{thm:semiregclosure} by an
 existence argument: the Chern character is an isomorphism onto the Chow ring
 with rational coefficients, so a $K$-theory class with the right character
 exists. That is enough for the theorem and tells one nothing about the object.
@@ -396,7 +398,7 @@ $T_{q,r}=N^{r}\sum_{i}m_{i}u_{i}^{\,q-r}$, and the pairs $(q,r)$ with
 $q,r\le n$ realise every difference $k=q-r$ from $0$ to $n$. The excluded
 pairs $(0,0)$ and $(n,0)$ are the ones with $r=0$ and $k=0$ or $k=n$; but
 $k=0$ also occurs at $(1,1),\dots,(n,n)$, which are not excluded, so
-$\sum_{i}m_{i}=0$ is required after all. The remaining differences
+$\sum_{i}m_{i}=0$ is still required. The remaining differences
 $k=1,\dots,n-1$ each occur at some non-excluded pair, and $k=n$ occurs only at
 $(n,0)$.
 \end{proof}
@@ -443,22 +445,23 @@ $N_{j}$ are distinct and nonzero, so $\nu\le n$ forces every $M_{j}=0$ and
 hence $\ch_{0}(E)=\sum_{j}M_{j}=0$.
 \end{proof}
 
-\subsubsection*{The smallest solution, and what it does}
+\subsubsection*{The smallest solution}
 
 At $n=3$ and $K=\QQ(\sqrt{-3})$ the Prouhet--Tarry--Escott condition of
-\Cref{lem:pte} has a solution of striking simplicity: the norm circle
+\Cref{lem:pte} has a particularly simple solution: the norm circle
 $\Nm=1$ carries the six roots of unity of $K$, and the two cosets of the cube
 roots of $-1$ and of $+1$ are a Prouhet--Tarry--Escott pair of degree
-two.\footnote{Explicitly, with $\zeta$ a primitive sixth root of unity, the
-cube roots of $-1$ are $\zeta,\zeta^{3},\zeta^{5}$ and those of $+1$ are
-$1,\zeta^{2},\zeta^{4}$; each triple sums to zero and has zero sum of squares,
+two. Explicitly, with $\zeta_{6}$ a primitive sixth root of unity, the
+cube roots of $-1$ are $\zeta_{6},\zeta_{6}^{3},\zeta_{6}^{5}$ and those of
+$+1$ are $1,\zeta_{6}^{2},\zeta_{6}^{4}$; each triple sums to zero and has
+zero sum of squares,
 while the sums of cubes are $-3$ and $+3$. A search over the norm circles of
 $\cO_{K}$ with $\Nm\le200$ and $|g|,|h|\le25$, for $K=\QQ(\sqrt{-d})$ with
 $d=1,2,3,7$, finds this solution and its conjugate at $n=3$, one further pair
 at $d=1$ and $n=4$, and nothing else; item (XIII) of \Cref{sec:verification}
-records the search.}
+records the search.
 
-\begin{proposition}[The object at $n=3$, written out]\label{prop:explicitobject}
+\begin{proposition}[An explicit object at $n=3$]\label{prop:explicitobject}
 Let $K=\QQ(\sqrt{-3})$, $n=3$, and let $A_{0}=X\times\widehat X$ be a split
 member. In the basis $\beta,\widehat\beta,\ell$ of $\NS(A_{0})_{\QQ}$ put
 \[
@@ -497,23 +500,24 @@ $2+p_{i}-p_{j}\ne3$ whenever $i\ne j$, that is $p_{i}-p_{j}\ne1$; within each
 of the two blocks the difference is $0$, and between them it is $\pm3$.
 \end{proof}
 
-\begin{remark}[What this settles and what it does not]\label{rem:pteoutcome}
+\begin{remark}[What the construction settles]\label{rem:pteoutcome}
 Three things are settled. The object of \Cref{prop:ktheory} is not an
 abstraction: at $n=3$ over $\QQ(\sqrt{-3})$ it is six line bundles and a
 shift, and its Chern character is exactly $12$ times a Weil class with every
 other graded piece zero. The construction is completely general, and
 \Cref{lem:pte} identifies the constraint as a Prouhet--Tarry--Escott problem
-on a norm circle, which is a question of a kind that can be attacked. And
+on a norm circle, a question of a kind that can be attacked directly. And
 \Cref{cor:nplusone} says what any semiregular solution must look like: the
 $u_{i}$ must take at least $n+1$ distinct norms, because otherwise the rank is
-zero and \Cref{thm:equalnorms} produces a kernel of dimension $n^{2}$.
+zero and the argument of \Cref{thm:equalnorms} produces a kernel of
+dimension $n^{2}$.
 
-The remaining question was the existence of a solution with $n+1$ norms. The
-level sums are then forced up to scale, and they compete with the supply of
-elements of $\cO_{K}$ at each level; \Cref{thm:pterange} carries out that
-competition in a range, and \Cref{cor:noline} then shows that no solution in
-any range could have served, because a line bundle summand off the
-polarisation line is obstructed along the family whatever the norms.
+This leaves the existence of a solution with $n+1$ norms. The level sums are
+then forced up to scale, and they compete with the supply of elements of
+$\cO_{K}$ at each level; \Cref{thm:pterange} carries out that competition in
+a range, and \Cref{cor:noline} shows that no solution in any range could
+serve, because a line bundle summand off the polarisation line is obstructed
+along the family whatever the norms.
 \end{remark}
 
 \subsubsection*{The obstruction classes of the explicit object}
@@ -694,35 +698,46 @@ is also computed directly in item (XXV) of \Cref{sec:verification}, in the
 model of item (XIII).
 \end{proof}
 
-\begin{remark}[What the obstruction classes say]\label{rem:obstructionmeaning}
+\begin{remark}[Meaning of the obstruction classes]\label{rem:obstructionmeaning}
 \Cref{prop:splitobstruction} sharpens \Cref{rem:whatmeasures} in one
-direction and closes a door in another. The direction: for the explicit
-object the obstruction classes along the family are nonzero, and they are
-nonzero exactly in the $n(n-1)/2$ directions normal to the split locus,
-which are the directions in which the Weil class has to be transported.
-The door: those classes lie in the kernel of $\sigma_{E}$ by
+respect and exposes a limit of the criterion in another. First, for the
+explicit object the obstruction classes along the family are nonzero, and
+they are nonzero exactly in the $n(n-1)/2$ directions normal to the split
+locus, which are the directions in which the Weil class has to be
+transported. Second, those classes lie in the kernel of $\sigma_{E}$ by
 \eqref{eq:sigmaob}, and \eqref{eq:sigmaob} holds for every object whose
 Chern character is a flat section of Hodge classes along the family, so the
 semiregularity map cannot detect the obstruction of any such object. The
 obstruction is therefore genuine, and it is invisible to the criterion. For
-the explicit object the situation is the worst possible: the twelve
-dimensions $\Delta\oplus\image\ob_{E}$ of the kernel are accounted for by
-the two mechanisms of \Cref{cor:kernelfamily} and \eqref{eq:obdef}, the
-remaining three lie on the even side of \Cref{cor:pteobstructed} as well,
-and none of the fifteen is an artefact. The classes of the shape
-$z\cdot\id_{E}$ are the ones a change of the twisting class would
-contribute, one and the same $z$ to every rank one summand; the last
-assertion of (iv) says that no such change removes the obstruction. So the
-explicit object does not move off the split locus to first order, as a
-complex and as a twisted complex, and the question of \Cref{q:residual} for
-it is not one of verifying a hypothesis but of replacing the object.
+the explicit object the
+situation is the worst possible: the twelve dimensions
+$\Delta\oplus\image\ob_{E}$ of the kernel are accounted for by the two
+mechanisms of \Cref{cor:kernelfamily} and \eqref{eq:obdef}, the remaining
+three lie on the even side of \Cref{cor:pteobstructed} as well, and none of
+the fifteen is an artefact. The classes of the shape $z\cdot\id_{E}$ are the
+ones a change of the twisting class would contribute, one and the same $z$
+to every rank one summand; the last assertion of (iv) says that no such
+change removes the obstruction. So the explicit object does not move off the
+split locus to first order, either as a complex or as a twisted complex, and
+the question of \Cref{q:residual} for it is not one of verifying a
+hypothesis but of replacing the object.
 
-The positive content is the recipe. By (ii), a split object whose classes
+The positive content is a recipe. By (ii), a split object whose classes
 span $\NS(A_{0})_{\QQ}$ with $\eta$ has obstruction map of rank
 $n(n-1)/2$ against the family, and the spanning hypothesis is more than is
-needed: in the model of item (XXV) a single class $\theta\in\NS(A_{0})_{\QQ}$
-not proportional to $\eta$ already has $\{v\in T:v\lrcorner\,\theta=0\}=
-T_{\mathrm{spl}}$, for each of the seven classes tested at
+needed: a single class $\theta\in\NS(A_{0})_{\QQ}$ not proportional to
+$\eta$ already has $\{v\in T:v\lrcorner\,\theta=0\}=T_{\mathrm{spl}}$.
+Indeed, every $v\in T$ kills $\eta$ and commutes with $K$, so it is a pair
+$(v_{+},v_{-})$ with $v_{\pm}\in\Hom(V_{\pm}^{1,0},V_{\pm}^{0,1})$. Since
+$\theta^{\pm}$ is of type $(1,1)$ in $\bigwedge^{2}V_{\pm}$, the $R_{0}$-part
+$u\theta^{+}+\bbar u\,\theta^{-}$ of $\theta$, with $u\ne0$, gives
+$v\lrcorner\,\theta=u\,v_{+}\lrcorner\,\theta^{+}+\bbar u\,v_{-}\lrcorner\,\theta^{-}$,
+whose two terms lie in the different summands $\bigwedge^{2}V_{+}^{0,1}$ and
+$\bigwedge^{2}V_{-}^{0,1}$ of $H^{0,2}(A_{0})$. So the kernel of
+$v\mapsto v\lrcorner\,\theta$ on $T$ does not depend on $u\ne0$; it is
+therefore the common kernel for $\gamma$ and $\ell$, the cases $u=1$ and
+$u=\sqrt{-d}$, which is $T_{\mathrm{spl}}$ by (ii). The computation of item
+(XXV) confirms this for each of the seven classes tested at
 $(n,d)=(2,1),(2,3),(3,3)$. So every split object built from line bundles
 other than powers of $\eta$ is obstructed in exactly the normal directions
 to the split locus, and \Cref{thm:positivity} says that an object built
@@ -747,25 +762,26 @@ $H^{2}(\cO)$, $H^{1}(T)$ and $H^{0}(\bigwedge^{2}T)$ for the trivial tangent
 bundle. An element $x=(z,v,\pi)$ acts on $H^{*}(A_{0},\CC)$ by $z\wedge$, by
 the derivation $v\lrcorner$ of \Cref{ssec:tangent}, and by the double
 contraction $\pi\lrcorner$, which removes two $(1,0)$ slots; we write
-$x\lrcorner\,\xi$ for the sum of the three.%
-\footnote{The double contraction is a second order operator. For a class
-$\lambda$ of type $(1,1)$, which has a single $(1,0)$ slot,
-$\pi\lrcorner\,\lambda=0$ and $\pi\lrcorner\,\lambda^{k}=\binom{k}{2}
-\lambda^{k-2}\,(\pi\lrcorner\,\lambda^{2})$, because $\pi\lrcorner$ is a
-composite of two interior products, each of which is an antiderivation, and
-the only nonzero terms are those in which the two interior products hit two
-different factors. Summing over $k$ with the factorials gives
+$x\lrcorner\,\xi$ for the sum of the three.
+
+The double contraction is a second order operator. For a class $\lambda$ of
+type $(1,1)$, which has a single $(1,0)$ slot, $\pi\lrcorner\,\lambda=0$ and
+$\pi\lrcorner\,\lambda^{k}=\binom{k}{2}\lambda^{k-2}\,(\pi\lrcorner\,\lambda^{2})$,
+because $\pi\lrcorner$ is a composite of two interior products, each of which
+is an antiderivation, and the only nonzero terms are those in which the two
+interior products hit two different factors. Summing over $k$ with the
+factorials gives
 $\pi\lrcorner\,e^{\lambda}=\tfrac12(\pi\lrcorner\,\lambda^{2})\,e^{\lambda}$,
 exactly parallel to $v\lrcorner\,e^{\lambda}=(v\lrcorner\,\lambda)\,e^{\lambda}$
 for the first order operator $v\lrcorner$. This is the whole content of the
 compatibility \eqref{eq:sigmaev} below: the semiregularity map of a line
 bundle is multiplication by $e^{\lambda}$, and every summand of $HT^{2}$ acts
-on $e^{\lambda}$ by a scalar-valued factor which is precisely the value of
-$\operatorname{ev}_{L}$. The same identity, for arbitrary $E$, is the
-commutative square of Buchweitz and Flenner \cite[Corollary 4.3]{BF03} and
+on $e^{\lambda}$ as multiplication by a class in $H^{0,2}$ which is precisely
+the value of $\operatorname{ev}_{L}$. The same identity, for arbitrary $E$, is
+the commutative square of Buchweitz and Flenner \cite[Corollary 4.3]{BF03} and
 its Hochschild form in \cite[Lemma 11.3]{Mar25b}; on an abelian variety the
 Todd class is trivial and no correction to the HKR map is needed
-\cite{Cal05,BF08}.}
+\cite{Cal05,BF08}.
 
 \begin{proposition}[The evaluation map of a split object]\label{prop:evaluation}
 Let $A_{0}$ be a split member with $X$ general and let
@@ -832,11 +848,11 @@ The Atiyah class of $E$ is diagonal with entries $\lambda_{i}$, so all three
 are diagonal with the entries displayed.
 
 (ii) By \eqref{eq:splitsigma}, $\sigma_{E}(\zeta)=\sum_{i}(-1)^{p_{i}}\zeta_{i}
-e^{\lambda_{i}}$ for diagonal $\zeta$. The three factors in \eqref{eq:evsplit}
-are exactly the scalars by which $z\wedge$, $v\lrcorner$ and $\pi\lrcorner$
-act on $e^{\lambda_{i}}$: the first trivially, the second because
+e^{\lambda_{i}}$ for diagonal $\zeta$. The three terms of \eqref{eq:evsplit}
+are exactly the factors by which $z\wedge$, $v\lrcorner$ and $\pi\lrcorner$
+multiply $e^{\lambda_{i}}$: the first trivially, the second because
 $v\lrcorner$ is a derivation and $v\lrcorner\,\lambda_{i}$ has even degree,
-the third by the footnote above. Hence
+the third by the formula for $\pi\lrcorner\,e^{\lambda}$ above. Hence
 $\sigma_{E}(\operatorname{ev}_{E}(x))=\sum_{i}(-1)^{p_{i}}\,x\lrcorner\,
 e^{\lambda_{i}}=x\lrcorner\,\ch(E)$. The description of
 $\ker\sigma_{E}\cap\image\operatorname{ev}_{E}$ follows: $\operatorname{ev}_{E}(x)$
@@ -924,7 +940,7 @@ criterion of \cite[Question 11.4]{Mar25b}.}
 \label{fig:evaluation}
 \end{figure}
 
-\begin{remark}[Question 11.4 for split objects, and what is left of it]
+\begin{remark}[Question 11.4 for split objects]
 \label{rem:question114}
 For a split object the two criteria stand or fall together, and for the
 explicit object both fall completely. \Cref{thm:weakfails} makes the first
@@ -933,18 +949,25 @@ every dimension; \Cref{prop:evaluation}(iv) accounts for the remaining
 $n(n-1)$ at $n=3$ by the deformations of the two halves $V_{\pm}$ of the
 Hodge structure separately, and the equality $\ker\sigma_{E}=\Delta\oplus\Sigma$
 says that the two mechanisms exhaust the kernel: nothing in it is
-accidental. Nothing here touches the case the question was asked for. A
-sheaf of positive rank has $z\cdot\ch(E)\ne0$ for every $z\ne0$, so its
+accidental. None of this touches the case for which the question was asked.
+A sheaf of positive rank has $z\cdot\ch(E)\ne0$ for every $z\ne0$, so its
 $\Delta$ is zero, and whether $\operatorname{ev}_{E}$ kills the deformations
 that preserve $\kappa(E)$ is a statement about the sheaf and not about its
-Chern character. Markman's candidate in his Section 12, a rank one complex on
-a principally polarised abelian fourfold with Chern character on the secant
-$\langle e^{\pm\sqrt{-d}\Theta}\rangle$, is exactly such a sheaf, and he
-records that the verification remains to be done. \Cref{thm:factor} reduces
-that verification to one identity on the fourfold, and
-\Cref{thm:candidatefails} shows that the identity fails: the candidate does
-not satisfy the weakened criterion either.
+Chern character. Markman's candidate in \cite[Section 12]{Mar25b}, a rank
+one complex on a principally polarised abelian fourfold with Chern character
+on the secant $\langle e^{\pm\sqrt{-d}\Theta}\rangle$, is exactly such a
+sheaf, and he records that the verification remains to be done.
+\Cref{thm:factor} reduces that verification to one identity on the fourfold,
+and \Cref{thm:candidatefails} shows that the identity fails: the candidate
+does not satisfy the weakened criterion either.
 \end{remark}
+
+\subsubsection*{Solutions of nonzero rank}
+
+We return to the Diophantine problem of \Cref{setup:pte}. By
+\Cref{cor:nplusone} a solution with $\ch_{0}(E)\ne0$ needs at least $n+1$
+distinct norms, and multiplicity one bounds each level sum by the number of
+elements of $\cO_{K}$ of that norm.
 
 \begin{theorem}[Where a semiregular split object can live]\label{thm:pterange}
 Keep \Cref{setup:pte} and suppose $E$ satisfies \eqref{eq:pteconditions} with
@@ -1010,17 +1033,17 @@ off-diagonal conditions are, after grouping by norm,
   A_{k,j}=\sum_{\Nm(u)=N_{j}}m_{u}u^{k},
 \]
 which are additive over the levels; the four levels are therefore split into
-one half that is tabulated and one that is streamed against the table, so the
-enumeration is complete and not a sample. The four level sets attacked
-directly are $d=2$ at $(9,18,27,36)$, $(27,54,81,108)$ and $(33,66,99,132)$
-and $d=1$ at $(5,20,45,50)$; the other four of the eight are their images
-under multiplication by an element of norm $2$ or $4$, which is a bijection on
-the relevant norm levels because the element counts agree, so a solution for
-one would give a solution for the other. The remaining three, $d=1$ at
+one half that is tabulated and one that is run against the table, so the
+enumeration is complete and not a sample. It is applied directly to four of
+the eleven sets: $d=2$ at $(9,18,27,36)$, $(27,54,81,108)$ and
+$(33,66,99,132)$, and $d=1$ at $(5,20,45,50)$. Four more are their images
+under multiplication by an element of norm $2$ or $4$, which is a bijection
+on the relevant norm levels because the element counts agree, so a solution
+for one would give a solution for the other. The remaining three, $d=1$ at
 $(13,52,117,130)$, $(17,68,153,170)$ and $(25,50,100,125)$, have levels of
 $8,8,8,16$ and $12,12,12,16$ elements. For them the scale is $S=\pm S_{\min}$,
 since $|S|\ge2$ violates the bound $|M_{j}|\le r_{K}(N_{j})$ and $S\mapsto-S$
-is the symmetry $m\mapsto-m$. The first three levels are streamed against the
+is the symmetry $m\mapsto-m$. The first three levels are run against the
 fourth, matched through a linear hash of the ten integer coordinates of the
 off-diagonal conditions, and every match is checked on all ten coordinates
 exactly. A solution has all ten coordinates zero and cannot be missed, so the
@@ -1028,7 +1051,7 @@ search is complete; it covers $4.29\times10^{14}$ sign patterns in the
 largest case and finds none.
 \end{proof}
 
-\begin{remark}[What the range means]\label{rem:pterangemeaning}
+\begin{remark}[Meaning of the range]\label{rem:pterangemeaning}
 The dimension that matters is $n\ge4$, since $n=2$ and $n=3$ are settled by
 \cite{Mar25a,Mar25b} and \cite{FF26}. There
 \Cref{thm:pterange}(ii) says that the split route closes before any geometry
@@ -1041,11 +1064,11 @@ arithmetic: it lives in the norm form of $K$ and in the supply of integers of
 a given norm, not in the cohomology of $A$.
 \end{remark}
 
-The range is now beside the point, because a second mechanism, this one in
-the cohomology of $A$, closes the split route for every $n$ and every set of
-norms at once.
+The bound on the norms is, however, beside the point: a second mechanism,
+this one in the cohomology of $A$, closes the split route for every $n$ and
+every set of norms at once.
 
-\begin{corollary}[No sum of line bundles runs either argument]\label{cor:noline}
+\begin{corollary}[Sums of line bundles fail both criteria]\label{cor:noline}
 Let $A$ be of $(K,-1,n)$-Weil type with $n\ge2$, and let
 $E=\bigoplus_{i}L_{i}[p_{i}]^{\oplus m_{i}}$ be a sum of shifted line bundles,
 twisted by a common class or not, whose (twisted) Chern character remains of
@@ -1077,17 +1100,17 @@ gives a flat Chern character with a nonzero Weil component by
 \Cref{prop:chintermsofu}.
 \end{proof}
 
-\begin{remark}[What is closed and what is not]\label{rem:nolinemeaning}
+\begin{remark}[What the corollary leaves open]\label{rem:nolinemeaning}
 \Cref{cor:noline} ends the search that \Cref{thm:pterange} began: there is no
 sum of line bundles, at any member of any Weil family in any dimension, that
 could run the semiregularity argument in either form, and the arithmetic of
-\Cref{thm:pterange} is now a description of how the level sums fail rather
+\Cref{thm:pterange} is a description of how the level sums fail rather
 than the reason the route fails. The reason is \Cref{prop:rigidity}(i): the
 only divisor class that stays of type $(1,1)$ across the whole family is the
 polarisation, so every line bundle summand off that line is obstructed in
 some direction of the family, and the semiregularity map, whose composite
 with the obstruction is contraction with the flat class $\ch(E)$, cannot see
-it. What is not closed is the object the argument needs: one with no rank one
+it. What remains open is the object the argument needs: one with no rank one
 summand off the polarisation line, of positive rank, indecomposable enough
 that its Atiyah class contracted with every direction of $T$ vanishes.
 Markman's reflexive sheaves at $n=3$ are of that kind, and nothing here

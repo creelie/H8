@@ -2,34 +2,33 @@
 
 Every numerical assertion in this paper is checked in exact arithmetic:
 rational, integer or exterior-algebra computations, and exact linear algebra
-over number fields and over function fields in one variable.%
-\footnote{Several of the quantities are differences of large binomial coefficients, and at $n=7$ the semiregularity target exceeds $10^{11}$, so the comparison in item (V) would be meaningless in floating point.}
-No floating-point operation occurs; where a rank is computed modulo a prime,
-it is used only as a bound in the direction in which reduction is safe, and
-the bound is matched by an exact computation in the other direction. Items
-(XXIX), (XXXI) and (XL) are $\Ext$ computations over a polynomial ring. The
-programs that carry out the computations, one for each item, are in the
-repository named in the statement on data availability, whose README lists
-them by item. We describe what is checked.
+over number fields and over function fields in one variable. No
+floating-point operation occurs. A rank computed modulo a prime is used only
+as a lower bound for the rank over $\QQ$, since reduction can only lower a
+rank, and the bound is matched by an exact computation in the other
+direction. Items (XXIX), (XXXI) and (XL) are $\Ext$
+computations over a polynomial ring. The programs that carry out the
+computations are in the repository named in the statement on data
+availability, which lists them by item. For each item we describe what is
+computed, how it is computed, and which statements of the paper it supports.
 
 \begin{enumerate}[label=\textup{(\Roman*)},leftmargin=*]
 \item \emph{The Fourier--Mukai transform on powers of the polarisation.}
   The exterior algebra $\bigwedge^{*}(V\oplus V^{\vee})$ of
-  \Cref{not:model} is constructed explicitly for $g\le4$, with basis elements
-  indexed by bit masks and structure constants computed from the shuffle sign.
-  The class $\ell$ of \eqref{eq:ell}, the forms $\theta$ and $\theta'$ of
-  \eqref{eq:thetamodel} and \eqref{eq:thetapmodel}, and the exponential
-  $e^{\ell}$ are formed, and $\Phi_{\cP}(\theta'^{\,k})$ is computed by
-  extracting the coefficient of the top form in the dual variables. The output
-  is checked to be an exact rational multiple of $\theta^{\,g-k}$ with no
-  other component, and the multiple is compared with \eqref{eq:fmtheta}. All
-  values agree.
+  \Cref{not:model} is constructed explicitly for $g\le4$, with a basis
+  indexed by subsets of the generators and structure constants given by the
+  shuffle sign. The class $\ell$ of \eqref{eq:ell}, the forms $\theta$ and
+  $\theta'$ of \eqref{eq:thetamodel} and \eqref{eq:thetapmodel}, and the
+  exponential $e^{\ell}$ are formed, and $\Phi_{\cP}(\theta'^{\,k})$ is
+  computed by extracting the coefficient of the top form in the dual
+  variables. The result is an exact rational multiple of $\theta^{\,g-k}$
+  with no other component, and the multiple agrees with \eqref{eq:fmtheta} in
+  every case.
 
-\item \emph{The sign.} The uniformity of the sign $\sigma(g,k)$ over the
-  index sets $T$, which is the step in the proof of \Cref{thm:fmtheta} that
-  the reader may wish to see confirmed, is checked as a permutation
-  computation for every $g\le12$ and every $0\le k\le g$, together with the
-  closed form \eqref{eq:sign}. All values agree.
+\item \emph{The sign.} The proof of \Cref{thm:fmtheta} uses that the sign
+  $\sigma(g,k)$ is the same for all index sets $T$. This is checked as a
+  permutation computation for every $g\le12$ and every $0\le k\le g$,
+  together with the closed form \eqref{eq:sign}; all values agree.
 
 \item \emph{The character separation.} The grading \eqref{eq:grading} is
   formed for $n\le4$ and the positions of the Weil line and of $\eta^{n}$ are
@@ -38,19 +37,19 @@ them by item. We describe what is checked.
 
 \item \emph{The numerical comparison.} The values of $2n^{2}+2n$, $2^{2n}$
   and $3^{2n}$ are tabulated for $2\le n\le8$, confirming
-  \Cref{lem:chicompare}; the computation also records, as a counterexample to the
-  inference that \Cref{rem:retract} retracts, the types $(1,3)$ and $(1,5)$ on
-  an abelian surface with their Euler characteristics $3$ and $5$.
+  \Cref{lem:chicompare}. As counterexamples to the inference discussed in
+  \Cref{rem:retract}, the item also records the polarisation types $(1,3)$
+  and $(1,5)$ on an abelian surface, with Euler characteristics $3$ and $5$.
 
 \item \emph{The semiregularity target.} The identity
   $\sum_{q}\binom{2n}{q}\binom{2n}{q+2}=\binom{4n}{2n-2}$ of
   \Cref{prop:target} is verified for $2\le n\le7$, with the growth rates of
   \Cref{cor:countnotbind}.
 
-\item \emph{The coordinate model.} The computation builds the model of \Cref{setup:model} over $\QQ(\sqrt{-d})$ for
-  $(n,d)$ in a table covering $n\le3$ and $d\in\{1,2,3,5,7\}$, and checks
-  eight things for each: that the $u^{s}_{j}$ of \eqref{eq:eigenvec} are
-  eigenvectors of $S$; that $\omega_{+}+\omega_{-}$ and
+\item \emph{The coordinate model.} The model of \Cref{setup:model} is built
+  over $\QQ(\sqrt{-d})$ for the pairs $(n,d)$ of a table covering $n\le3$ and
+  $d\in\{1,2,3,5,7\}$, and eight statements are checked for each: that the
+  $u^{s}_{j}$ of \eqref{eq:eigenvec} are eigenvectors of $S$; that $\omega_{+}+\omega_{-}$ and
   $(\omega_{+}-\omega_{-})/\delta$ are rational and agree with the closed form
   \eqref{eq:omegagens}; that $\iota(\tau)^{*}$ multiplies $\omega_{\pm}$ by
   $\tau^{2n}$ and $\bbar{\tau}^{\,2n}$ at five values of $\tau$; that
@@ -61,21 +60,22 @@ them by item. We describe what is checked.
   $\eta^{2n}\ne0$; and that the supports of $\omega_{1},\omega_{2}$ and
   $\eta^{n}$ are disjoint, which is \Cref{prop:disjoint}.
 
-\item \emph{The Hodge class count.} The computation computes, for $n\le4$ and every $(r,s)$, the dimension of the space of
-  $\mathfrak{sl}_{2n}$-invariants in
-  $\bigwedge^{r}V_{+}\otimes\bigwedge^{s}V_{+}^{\vee}$, as the kernel of the
-  raising operators on the weight-zero subspace, in exact rational arithmetic.
-  It confirms $\dim\Hdg^{n}=3$ and $\dim\Hdg^{k}=1$ for $k\ne n$, which is
-  \Cref{thm:hdgcount}, and the codimension count of \Cref{prop:weildomain}.
+\item \emph{The Hodge class count.} For $n\le4$ and every $(r,s)$, the
+  dimension of the space of $\mathfrak{sl}_{2n}$-invariants in
+  $\bigwedge^{r}V_{+}\otimes\bigwedge^{s}V_{+}^{\vee}$ is computed in exact
+  rational arithmetic, as the kernel of the raising operators on the
+  weight-zero subspace. This gives $\dim\Hdg^{n}=3$ and $\dim\Hdg^{k}=1$ for
+  $k\ne n$, which is \Cref{thm:hdgcount}, and the codimension count of
+  \Cref{prop:weildomain}.
 
-\item \emph{The Clifford algebra.} The computation builds
-  $C(T,q)$ for forms of signature $(3,b-3)$ with $b\le8$, checks the Clifford
-  relations and $v^{2}=q(v)$ for a general $v$, checks $J^{2}=-1$ and that
+\item \emph{The Clifford algebra.} The algebra $C(T,q)$ is built for forms
+  of signature $(3,b-3)$ with $b\le8$. The computation checks the Clifford
+  relations and $v^{2}=q(v)$ for a general $v$; that $J^{2}=-1$ and that
   left multiplication by $J$ squares to $-\id$ on $C^{+}$, which is
-  \Cref{lem:cliffJ}, checks $C^{-}C^{+}C^{-}\subseteq C^{+}$, which is what
-  makes $\Psi$ of \Cref{prop:ksembed} land where it should, and tabulates the
-  Hodge numbers of \Cref{prop:h2pieces} together with the solution $n=1$ of
-  \Cref{prop:normpart}.
+  \Cref{lem:cliffJ}; and that $C^{-}C^{+}C^{-}\subseteq C^{+}$, which is why
+  the map $\Psi$ of \Cref{prop:ksembed} takes values in $\End(C^{+})$. It
+  also tabulates the Hodge numbers of \Cref{prop:h2pieces}, together with the
+  solution $n=1$ of \Cref{prop:normpart}.
 
 \item \emph{The family and the secant plane.} The computations verify
   \Cref{thm:explicitweil} symbolically for $n\le5$ and several $d$, and
@@ -84,36 +84,38 @@ them by item. We describe what is checked.
 
 \item \emph{The split member.} The computation builds
   $A=X\times\widehat{X}$ with the action \eqref{eq:Mdef} in coordinates and
-  does two independent things. First it solves, by exact rational Gaussian
-  elimination, for an expression of each of $\omega_{1},\omega_{2}$ as a
-  rational combination of the degree $2n$ monomials in
-  $\beta,\widehat{\beta},\ell$, and prints the solution; it succeeds for
-  $n\le3$ and $d\in\{1,2,3,7\}$. Second it verifies
-  \Cref{thm:splitclosed} directly: that $\gamma\mp\sqrt{-d}\,\ell$ is an
-  eigenclass for $\tau^{2}$ respectively $\bbar{\tau}^{\,2}$, and that
-  \eqref{eq:splitclosed} holds on the nose, for $n\le5$ and several $d$.
-  Third it checks the formulas of \Cref{ex:splitsmall} as they are printed,
-  at $n=2$ for $d\le3$ and at $n=3$ for $d\in\{1,2,3,7\}$.
+  makes three checks, the first two independent of each other. First, exact
+  rational Gaussian elimination expresses each of $\omega_{1},\omega_{2}$ as
+  a rational combination of the degree $2n$ monomials in
+  $\beta,\widehat{\beta},\ell$, and the solution is recorded; this succeeds
+  for $n\le3$ and $d\in\{1,2,3,7\}$. Second, \Cref{thm:splitclosed} is
+  verified directly: $\gamma\mp\sqrt{-d}\,\ell$ is an eigenclass for
+  $\tau^{2}$, respectively $\bbar{\tau}^{\,2}$, and \eqref{eq:splitclosed}
+  holds exactly, for $n\le5$ and several $d$. Third, the formulas of
+  \Cref{ex:splitsmall} are checked as stated, at $n=2$ for $d\le3$ and at
+  $n=3$ for $d\in\{1,2,3,7\}$.
 
-\item \emph{The reach of the base case.} The computation settles the four assertions of
-  \Cref{prop:splitgeom}. It verifies $M^{2}=-d$ and $M^{\top}Q+QM=0$ entry by
-  entry for the block form $Q=\beta\oplus(\widehat\beta/d)$ on
-  $H_{1}(A,\QQ)$, for $n\le4$, and checks that the action induced on
-  $H^{2}(A,\QQ)$ multiplies $d\beta+\widehat\beta$ by $d$, multiplies
-  $\gamma$ and $\ell$ by $-d$, and has $\beta+d\widehat\beta$ as an eigenclass
-  only when $d=1$, for six pairs $(n,d)$; it
-  computes $\det H=(-d)^{n}(d_{1}\cdots d_{n})^{2}$ for ten choices of
-  $(n,d,\beta)$ including non-principal $\beta$, and certifies in each case
-  that $(-1)^{n}\det H$ is a norm from $K$, together with the two facts the
-  proof uses, that $\det B$ is a square and that $d$ is a norm; it checks the
-  codimension formula $n^{2}-n(n+1)/2=n(n-1)/2$ for $n\le10$; and it computes
-  both the dimension of the space of $\mathrm{Sp}$-invariants and the rank of
-  the set of monomials $\beta^{i}\widehat{\beta}^{j}\ell^{k}$ in degree $2n$,
-  finding rank three in degree two for $n\le4$ and agreement in the middle
-  degree for $n\le3$.
+\item \emph{The reach of the base case.} The computation checks the four
+  assertions of \Cref{prop:splitgeom}. It verifies $M^{2}=-d$ and
+  $M^{\top}Q+QM=0$ entry by entry for the block form
+  $Q=\beta\oplus(\widehat\beta/d)$ on $H_{1}(A,\QQ)$, for $n\le4$, and checks,
+  for six pairs $(n,d)$, that the action induced on $H^{2}(A,\QQ)$ multiplies
+  $d\beta+\widehat\beta$ by $d$, multiplies $\gamma$ and $\ell$ by $-d$, and
+  has $\beta+d\widehat\beta$ as an eigenclass only when $d=1$. It computes
+  $\det H=(-d)^{n}(d_{1}\cdots d_{n})^{2}$ for ten choices of $(n,d,\beta)$,
+  including non-principal $\beta$, and certifies in each case that
+  $(-1)^{n}\det H$ is a norm from $K$, together with the two facts the proof
+  uses, that $\det B$ is a square and that $d$ is a norm. It checks the
+  codimension formula $n^{2}-n(n+1)/2=n(n-1)/2$ for $n\le10$. Finally it
+  computes both the dimension of the space of $\mathrm{Sp}$-invariants and
+  the rank of the set of monomials $\beta^{i}\widehat{\beta}^{j}\ell^{k}$ in
+  degree $2n$, finding rank three in degree two for $n\le4$ and agreement in
+  the middle degree for $n\le3$.
 
-\item \emph{Quaternionic multiplication.} The computation builds $B=(-d,b)$ and the module $B^{n}$ in coordinates and verifies
-  \Cref{thm:quatweil} for nine choices of $(n,d,b,a)$ with $n\le3$: the
+\item \emph{Quaternionic multiplication.} The computation builds the
+  quaternion algebra $B=(-d,b)$ and the module $B^{n}$ in coordinates and
+  verifies \Cref{thm:quatweil} for nine choices of $(n,d,b,a)$ with $n\le3$:
+  the
   relations $i^{2}=-d$, $j^{2}=b$, $ij=-ji$; that $E$ of \eqref{eq:quatE} is
   alternating and nondegenerate with $i$ anti-self-adjoint and $j$
   self-adjoint; that the hermitian form on the $K$-basis is
@@ -124,54 +126,55 @@ them by item. We describe what is checked.
   for each of several fields, every nontrivial class in the tested range is
   realised in every dimension $n\le8$ with signature $(n,n)$, by a single
   factor when $n$ is odd and by the product of \Cref{lem:products} when $n$ is
-  even. Last it records the two dimensions behind \Cref{rem:ntwo}: the
+  even. Finally it records the two dimensions behind \Cref{rem:ntwo}: the
   quaternionic locus has dimension $n(n+1)/2$ inside a period domain of
   dimension $n^{2}$, so its codimension is $n(n-1)/2$, which is checked for
   $n\le10$ and is $1$ exactly at $n=2$.
 
-\item \emph{The semiregularity map of a sum of line bundles.} The computation builds the split member with $X=E_{i}^{n}$, so
-  that the Hodge decomposition is defined over $\QQ(i)$ and every step is
-  exact, and verifies: that the six degree four monomials in
+\item \emph{The semiregularity map of a sum of line bundles.} The
+  computation builds the split member with $X=E_{i}^{n}$, so that the Hodge
+  decomposition is defined over $\QQ(i)$ and every step is exact, and
+  verifies the following. The six degree four monomials in
   $\beta,\widehat\beta,\ell$ are independent for $n\le4$, which is
-  \Cref{lem:sixmonomials}; that $\theta^{+}\theta^{-}$ is never a multiple
-  of $\eta^{2}$, for six pairs $(n,d)$, which is \Cref{lem:tensorrank}; that the coefficient of $\theta^{+}\theta^{-}$
-  in $\ch_{2}$ is $\sum_{i}m_{i}\Nm(u_{i})$, which is the identity behind
-  \Cref{thm:positivity}; that no multiset with positive multiplicities
-  satisfies the resulting equations with some $u_{i}$ nonzero, for five pairs
-  $(n,d)$; that the map $\Phi$ of \Cref{lem:splitsemireg}(iii) is injective
-  at $n=2$ for $s\le3$ and of rank $22$ rather than $24$ at $s=4$; that
-  an exhaustive search over the classes $a\beta+b\widehat\beta+c\ell$ with
-  $|a|,|b|,|c|\le3$ and $d\in\{1,2\}$ produces no signed tuple of at most
-  three line bundles with a flat Chern character and a nonzero Weil component;
-  and that every signed tuple of at most four in the same box with a flat
-  Chern character and a nonzero Weil component has exactly four terms and a
+  \Cref{lem:sixmonomials}. For six pairs $(n,d)$, $\theta^{+}\theta^{-}$ is
+  never a multiple of $\eta^{2}$, which is \Cref{lem:tensorrank}. The
+  coefficient of $\theta^{+}\theta^{-}$ in $\ch_{2}$ is
+  $\sum_{i}m_{i}\Nm(u_{i})$, the identity behind \Cref{thm:positivity}, and
+  for five pairs $(n,d)$ no multiset with positive multiplicities satisfies
+  the resulting equations with some $u_{i}$ nonzero. The map $\Phi$ of
+  \Cref{lem:splitsemireg}(iii) is injective at $n=2$ for $s\le3$ and has rank
+  $22$ rather than $24$ at $s=4$. An exhaustive search over the classes
+  $a\beta+b\widehat\beta+c\ell$ with $|a|,|b|,|c|\le3$ and $d\in\{1,2\}$
+  finds no signed tuple of at most three line bundles with a flat Chern
+  character and a nonzero Weil component, and every signed tuple of at most
+  four in the same box with these two properties has exactly four terms and a
   map $\Phi$ with nonzero kernel, of dimension $2$, $3$, $4$ or $6$ at $d=1$
-  and $3$ or $6$ at $d=2$. It then turns
-  to $n=3$: it finds the Prouhet--Tarry--Escott pair of \Cref{lem:pte} on the
-  norm circle $\Nm=4$ of $\QQ(\sqrt{-3})$ by exhaustive search, verifies that
-  the six line bundles of \Cref{prop:explicitobject} have
-  $\ch_{k}=0$ for $k\ne3$ and $\ch_{3}=12\,\omega_{1}$, and verifies that
-  every difference of the six classes is nondegenerate of index three. The
-  a second computation repeats the rank computations modulo a
-  prime congruent to $1$ mod $4$, which reaches $n=3$: it reproduces the $n=2$
-  ranks exactly, finds $\Phi$ injective at $n=3$ for a general choice of up to
-  ten classes, and finds rank $75$ of $90$ for the explicit object.
+  and $3$ or $6$ at $d=2$. At $n=3$ the computation finds the
+  Prouhet--Tarry--Escott pair of \Cref{lem:pte} on the norm circle $\Nm=4$ of
+  $\QQ(\sqrt{-3})$ by exhaustive search, and verifies that the six line
+  bundles of \Cref{prop:explicitobject} have $\ch_{k}=0$ for $k\ne3$ and
+  $\ch_{3}=12\,\omega_{1}$ and that every difference of the six classes is
+  nondegenerate of index three. A second computation repeats the rank
+  computations modulo a prime congruent to $1$ modulo $4$, which reaches
+  $n=3$: it reproduces the $n=2$ ranks exactly, finds $\Phi$ injective at
+  $n=3$ for a general choice of up to ten classes, and finds rank $75$ of
+  $90$ for the explicit object.
 
-\item \emph{The annihilator and the rank-zero obstruction.} The computation computes, modulo the same prime, the
-  dimension of the annihilator of each rational generator of the Weil line
-  in $H^{0,2}$ at $n=2,3,4$ and finds $n^{2}$ in every case, which is
-  \Cref{lem:annihilator}; splits the semiregularity map of the explicit
-  object of \Cref{sec:construction} by parity and finds an odd kernel of
-  dimension $9=n^{2}$ equal to the annihilator, an even kernel of dimension
-  $6$, and a total of $15$, against $0$ for a generic triple, which is
-  \Cref{cor:pteobstructed}; and runs the semiregularity rank over every
-  configuration $s_{i}\gamma+c_{i}\ell$ with $\sum s_{i}=\sum c_{i}=0$ in a
-  box of side $7$ whose virtual Chern character lies on the Weil line,
-  finding eighteen configurations and rank $75$ of $90$ for all of them,
-  which is \Cref{rem:familyuniform}.
+\item \emph{The annihilator and the rank-zero obstruction.} Modulo the same
+  prime, the annihilator of each rational generator of the Weil line in
+  $H^{0,2}$ has dimension $n^{2}$ at $n=2,3,4$, which is
+  \Cref{lem:annihilator}. The computation splits the semiregularity map of
+  the explicit object of \Cref{sec:construction} by parity and finds an odd
+  kernel of dimension $9=n^{2}$ equal to the annihilator, an even kernel of
+  dimension $6$, and a total of $15$, against $0$ for a generic triple, which
+  is \Cref{cor:pteobstructed}. It then computes the semiregularity rank for
+  every configuration $s_{i}\gamma+c_{i}\ell$ with $\sum s_{i}=\sum c_{i}=0$
+  in a box of side $7$ whose virtual Chern character lies on the Weil line:
+  there are eighteen such configurations, and the rank is $75$ of $90$ for
+  all of them, which is \Cref{rem:familyuniform}.
 
-\item \emph{The Weil class under products.} The computation verifies, in exact arithmetic over
-  $\QQ(\sqrt{-d})$, the two identities \eqref{eq:weilmult} for every pair
+\item \emph{The Weil class under products.} The computation verifies, in
+  exact arithmetic over $\QQ(\sqrt{-d})$, the two identities \eqref{eq:weilmult} for every pair
   $n_{1},n_{2}\le3$; their $K$-valued form
   $\omega(A_{1})\omega(A_{2})=2\,\omega(A_{1}\times A_{2})$ over the same
   range; the $k$-factor identity with constant $2^{k-1}$ for six partitions
@@ -181,110 +184,115 @@ them by item. We describe what is checked.
   dimension $n$ inside a family of dimension $n^{2}$ and is smaller than the
   quaternionic locus for every $n\ge2$.
 
-\item \emph{The annihilator as the tangent space.} The computation builds a polarised Hodge structure of
-  $(K,-1,n)$-Weil type from scratch over the Gaussian rationals, with no
-  reduction modulo a prime and no floating point anywhere, and checks five
-  things at $n=2,3,4$. That the construction is what it claims to be: the
-  polarisation has exactly two nonzero blocks on $V_{+}\times V_{-}$, each a
-  perfect pairing of $n$-dimensional spaces, and the two rational generators
-  of the Weil line are real of type $(n,n)$. That the annihilator of each
-  generator in $H^{0,2}$ has dimension exactly $n^{2}$, which is
-  \Cref{lem:annihilator} again, now in a model built independently of the one
-  used in item (XIV). That the polarisation-preserving first-order
-  deformations have dimension $n(2n+1)=\dim\cA_{2n}$ and those commuting with
-  $K$ have dimension $n^{2}=\dim\cD_{n,n}$. That a polarised deformation
-  contracts the whole Weil line to zero exactly on that $n^{2}$-dimensional
-  subspace, and that one generator already cuts it out, which is
-  \Cref{prop:firstorder}. And that the map of \Cref{thm:anntangent} is
+\item \emph{The annihilator as the tangent space.} The computation builds a
+  polarised Hodge structure of $(K,-1,n)$-Weil type directly over the
+  Gaussian rationals, with no reduction modulo a prime, and checks five
+  statements at $n=2,3,4$. First, the construction is what it claims to be:
+  the polarisation has exactly two nonzero blocks on $V_{+}\times V_{-}$,
+  each a perfect pairing of $n$-dimensional spaces, and the two rational
+  generators of the Weil line are real of type $(n,n)$. Second, the
+  annihilator of each generator in $H^{0,2}$ has dimension exactly $n^{2}$,
+  which is \Cref{lem:annihilator} again, in a model built independently of
+  the one used in item (XIV). Third, the polarisation-preserving first-order
+  deformations have dimension $n(2n+1)=\dim\cA_{2n}$, and those commuting
+  with $K$ have dimension $n^{2}=\dim\cD_{n,n}$. Fourth, a polarised
+  deformation contracts the whole Weil line to zero exactly on that
+  $n^{2}$-dimensional subspace, and one generator already cuts it out, which
+  is \Cref{prop:firstorder}. Fifth, the map of \Cref{thm:anntangent} is
   injective, independent of the basis of $V_{+}^{1,0}$ used to write it, and
-  has image exactly the annihilator. The five statements are then rerun for
-  eight distinct choices of the $n$-plane $V_{+}^{1,0}$ at $n=2$ and at $n=3$,
-  and hold in all sixteen.
+  has image exactly the annihilator. The five statements are checked again
+  for eight distinct choices of the $n$-plane $V_{+}^{1,0}$ at $n=2$ and at
+  $n=3$, and hold in all sixteen.
 
-\item \emph{The quaternionic locus as a Lagrangian Grassmannian.} The computation verifies, over $\QQ$ in exact arithmetic and
-  for $2\le n\le5$, the three statements of \Cref{prop:lagrangian}. That the
-  form $\omega_{\psi}(x,y)=E(x,\psi y)$ attached to a Rosati-symmetric $\psi$
-  is alternating on $V_{+}$, which is the identity $E(\psi x,y)=E(x,\psi y)$
-  read twice. That the graph of a symmetric form is isotropic and the graph of
-  a form that is not symmetric is not, so the chart of
-  $\mathrm{LG}(n,2n)$ by symmetric forms is exactly right and not merely
-  contained in the locus. That the chart has dimension $n(n+1)/2$, computed as
-  the rank of the symmetric basis rather than quoted, and that the codimension
-  in $\cD_{n,n}$ is therefore $n(n-1)/2$; at $n=4$ these are $10$ and $6$. And
-  that a random $n$-plane, completed to a basis of $V_{+}$, is Lagrangian for
-  the form that is standard in that basis, which is the construction behind
-  \Cref{rem:onlyrational}: over the reals the loci sweep the whole family, and
-  only the rationality of $\psi$ prevents them from covering it.
+\item \emph{The quaternionic locus as a Lagrangian Grassmannian.} The
+  computation verifies, over $\QQ$ in exact arithmetic and for $2\le n\le5$,
+  the three statements of \Cref{prop:lagrangian}. First, the form
+  $\omega_{\psi}(x,y)=E(x,\psi y)$ attached to a Rosati-symmetric $\psi$ is
+  alternating on $V_{+}$, which is the identity $E(\psi x,y)=E(x,\psi y)$
+  read twice. Second, the graph of a symmetric form is isotropic and the
+  graph of a form that is not symmetric is not, so the chart of
+  $\mathrm{LG}(n,2n)$ by symmetric forms describes the locus exactly and is
+  not merely contained in it. Third, the chart has dimension $n(n+1)/2$,
+  computed as the rank of the symmetric basis rather than quoted, so that the
+  codimension in $\cD_{n,n}$ is $n(n-1)/2$; at $n=4$ these are $10$ and $6$.
+  The computation also checks that a random $n$-plane, completed to a basis
+  of $V_{+}$, is Lagrangian for the form that is standard in that basis,
+  which is the construction behind \Cref{rem:onlyrational}: over the reals
+  the loci sweep out the whole family, and only the rationality of $\psi$
+  prevents them from covering it.
 
-\item \emph{The size forced on an object carrying the class.} The computation verifies, in the exterior algebra over $\QQ$ for
-  $1\le n\le4$, that $\alpha_{\pm}^{2}=0$ and hence
-  $\omega_{1}^{2}=2\alpha_{+}\alpha_{-}$, that $\int\omega_{1}^{2}\ne0$, and
-  that $\chi(E,E)=(-1)^{n}N^{2}\int\omega^{2}$ for every rank $r$ and every
-  multiplicity $N$ in the ranges tested, the rank cancelling out of the
-  identity. That is \Cref{prop:objectsize}, and with it the lower bound
-  $\sum_{i}\dim\Ext^{i}(E,E)\ge N^{2}|\int\omega^{2}|$. The computation also records
-  that the constant is not dimension-free, since it depends on the
-  normalisation of $\omega$ against $\eta$, so that no growth rate in $n$
-  should be read off it; what the bound needs, and all that it needs, is that
-  the Weil class is not isotropic.
+\item \emph{The size forced on an object carrying the class.} In the
+  exterior algebra over $\QQ$, for $1\le n\le4$, the computation verifies that
+  $\alpha_{\pm}^{2}=0$, hence $\omega_{1}^{2}=2\alpha_{+}\alpha_{-}$, that
+  $\int\omega_{1}^{2}\ne0$, and that $\chi(E,E)=(-1)^{n}N^{2}\int\omega^{2}$
+  for every rank $r$ and every multiplicity $N$ in the ranges tested, the rank
+  cancelling out of the identity. This is \Cref{prop:objectsize}, and with it
+  the lower bound $\sum_{i}\dim\Ext^{i}(E,E)\ge N^{2}|\int\omega^{2}|$. The
+  constant is not dimension-free, since it depends on the normalisation of
+  $\omega$ against $\eta$, so no growth rate in $n$ should be read off it;
+  the bound needs only that the Weil class is not isotropic.
 
-\item \emph{Infinitesimal rigidity of divisor classes.} The computation builds the four blocks of $H^{1,1}$ and the tangent
-  space of $\cD_{n,n}$ over $\QQ(i)$ and verifies, for $n=2,3,4$, the three
-  parts of \Cref{prop:rigidity}. That the real span of the classes killed by
-  contraction has dimension exactly one and is the polarisation, checked
-  against the full real space of $(1,1)$ classes, of dimension $4n^{2}$,
-  which is $16$ at $n=2$ and $64$ at $n=4$. That the kernel attached to a
-  norm-character class with block $a$ has dimension $n(n-\operatorname{rank}a)$
-  for every rank; at $n=4$ the four values are $12$, $8$, $4$, $0$. And that a
-  class drawn at random has kernel zero, so it rigidifies the family to a
-  point. The dimension $n^{2}$ of the tangent space is recovered in the same
-  computation rather than assumed.
+\item \emph{Infinitesimal rigidity of divisor classes.} The computation
+  builds the four blocks of $H^{1,1}$ and the tangent space of $\cD_{n,n}$
+  over $\QQ(i)$ and verifies, for $n=2,3,4$, the three parts of
+  \Cref{prop:rigidity}. First, the real span of the classes killed by
+  contraction has dimension exactly one and is the polarisation; this is
+  checked against the full real space of $(1,1)$ classes, of dimension
+  $4n^{2}$, which is $16$ at $n=2$ and $64$ at $n=4$. Second, the kernel
+  attached to a norm-character class with block $a$ has dimension
+  $n(n-\operatorname{rank}a)$ for every rank; at $n=4$ the four values are
+  $12$, $8$, $4$, $0$. Third, a class drawn at random has kernel zero, so it
+  rigidifies the family to a point. The dimension $n^{2}$ of the tangent
+  space is recomputed in the same computation rather than assumed.
 
-\item \emph{The invariants of the required object.} The computation computes, for $1\le n\le8$, every squarefree
-  $d\le11$ and every rank and twist in a range, the Chern classes of the
-  Chern character $au+bv$ by Newton's identities, and finds every one of them
-  integral; it also confirms the closed form
-  $\Delta=a^{2}d+b^{2}$ of \Cref{thm:secantinvariants} and its positivity.
-  That is \Cref{prop:notforbidden}: nothing numerical forbids the object the
-  construction needs, in any dimension tested.
+\item \emph{The invariants of the required object.} For $1\le n\le8$, every
+  squarefree $d\le11$ and every rank and twist in a range, the Chern classes
+  of the Chern character $au+bv$ are computed by Newton's identities, and
+  every one of them is integral. The computation also confirms the closed
+  form $\Delta=a^{2}d+b^{2}$ of \Cref{thm:secantinvariants} and its
+  positivity. This is \Cref{prop:notforbidden}: nothing numerical forbids the
+  object the construction needs, in any dimension tested.
 
-\item \emph{A sheaf with the required Chern character exists.} The computation carries out, exactly over $\QQ$ and for
-  $1\le n\le10$, the computation behind \Cref{thm:secantexists}. For every
-  squarefree $d\le11$ and every rank and twist in a range it solves the
-  Vandermonde system that expresses the rational point $au_{t}+bv_{t}$ of the
-  secant plane as a rational combination of the Chern characters
-  $e^{jt}=\ch(\cO_{X}(jt))$, clears denominators to obtain the least positive
-  multiple $M$ and the integer witness \eqref{eq:lbwitness}, and then verifies
-  that witness by recomputing every moment $\sum_{j}n_{j}j^{k}$ and comparing
-  it with $Mc_{k}$, rather than trusting the solve. It checks that the rank
-  $\sum_{j}n_{j}$ of the witness equals $Ma$, which is the positive rank
-  hypothesis of \Cref{lem:posrank}, and it records the least $M$ in each case:
-  $6$ at $n=4$ with $d=3$ and $a=b=1$, at most $2016$ over the whole range at
-  $n=8$, and never $1$ once $n\ge7$, which is \Cref{rem:themultiple}. Finally
-  it expands $\theta^{k}/k!$ in the exterior algebra of a symplectic lattice
-  and finds every coefficient integral, which is why the coordinates $c_{k}$
-  are integers and hence why the problem is a lattice problem at all.
+\item \emph{Existence of a sheaf with the required Chern character.} The
+  computation behind \Cref{thm:secantexists} is carried out exactly over
+  $\QQ$ for $1\le n\le10$. For every squarefree $d\le11$ and every rank and
+  twist in a range, it solves the Vandermonde system that expresses the
+  rational point $au_{t}+bv_{t}$ of the secant plane as a rational
+  combination of the Chern characters $e^{jt}=\ch(\cO_{X}(jt))$, clears
+  denominators to obtain the least positive multiple $M$ and the integer
+  witness \eqref{eq:lbwitness}, and then verifies that witness independently
+  of the solution, by recomputing every moment $\sum_{j}n_{j}j^{k}$ and
+  comparing it with $Mc_{k}$. It checks that the rank $\sum_{j}n_{j}$ of the
+  witness equals $Ma$, which is the positive rank hypothesis of
+  \Cref{lem:posrank}, and it records the least $M$ in each case: $6$ at $n=4$
+  with $d=3$ and $a=b=1$, at most $2016$ over the whole range at $n=8$, and
+  never $1$ once $n\ge7$, which is \Cref{rem:themultiple}. Finally it expands
+  $\theta^{k}/k!$ in the exterior algebra of a symplectic lattice and finds
+  every coefficient integral; this is why the coordinates $c_{k}$ are
+  integers, and hence why the problem is a lattice problem.
 
-\item \emph{Which split objects can be semiregular.} The computation settles \Cref{thm:pterange} in exact integer
-  arithmetic. It enumerates the norms represented by $\cO_{K}$ below a bound,
-  forms for every set of $n+1$ of them the forced level sums
-  \eqref{eq:levelsums} and the least integral scale, and tests them against
-  the supply $r_{K}(N_{j})$ of elements of that norm; at $n+2$ norms the
-  solution space is two dimensional and its integer points in the same box are
-  swept coordinate by coordinate. For $4\le n\le8$ and $d\le19$ nothing
-  survives, with norms to $110$ at $n=4$ and to $30$ at $n=8$. At $n=3$ and
-  norms to $200$ exactly eleven sets survive, all at $d=1$ or $d=2$, of the
-  three shapes recorded in \Cref{thm:pterange}(iii). The computation then runs the
-  whole system \eqref{eq:pteconditions} on those sets: for each it enumerates
-  every assignment of signs to the elements of $\cO_{K}$ at those norms with
-  the prescribed level sums, splitting the four levels into a tabulated half
-  and a streamed half so that the enumeration is complete, and finds no
-  solution for eight of them. A second computation settles the other three, $d=1$ at
-  $(13,52,117,130)$, $(17,68,153,170)$ and $(25,50,100,125)$, whose largest
-  level has sixteen elements: it streams three levels against the fourth
-  through a linear hash of the ten off-diagonal coordinates, re-checks every
-  match exactly, and finds no solution. It also reruns two of the eight as a
-  control. The largest search covers $4.29\times10^{14}$ sign patterns.
+\item \emph{Semiregular split objects.} The computation settles
+  \Cref{thm:pterange} in exact integer arithmetic. It enumerates the norms
+  represented by $\cO_{K}$ below a bound, forms for every set of $n+1$ of them
+  the forced level sums \eqref{eq:levelsums} and the least integral scale,
+  and tests them against the supply $r_{K}(N_{j})$ of elements of that norm;
+  at $n+2$ norms the solution space is two-dimensional, and its integer
+  points in the same box are swept coordinate by coordinate. For $4\le n\le8$
+  and $d\le19$ nothing survives, with norms up to $110$ at $n=4$ and up to
+  $30$ at $n=8$. At $n=3$ and norms up to $200$ exactly eleven sets survive,
+  all at $d=1$ or $d=2$, of the three shapes recorded in
+  \Cref{thm:pterange}(iii). The computation then runs the whole system
+  \eqref{eq:pteconditions} on those sets: for each it enumerates every
+  assignment of signs to the elements of $\cO_{K}$ at those norms with the
+  prescribed level sums, splitting the four levels into two halves, one
+  tabulated and the other enumerated against the table, so that the
+  enumeration is complete; it finds no solution for eight of the sets. A
+  second computation settles the other three, $d=1$ at $(13,52,117,130)$,
+  $(17,68,153,170)$ and $(25,50,100,125)$, whose largest level has sixteen
+  elements: it matches three levels against the fourth through a linear hash
+  of the ten off-diagonal coordinates, re-checks every match exactly, and
+  finds no solution. As a control it also reruns two of the eight. The
+  largest search covers $4.29\times10^{14}$ sign patterns.
 \item \emph{The quaternionic Weil cycle.} The computation checks
   \Cref{prop:quatdivisible} on the lattice $\cO_{b}^{2}$. It confirms the
   ratios $-b/3$ and $4b^{2}/3$ and the value $1/12$ for $d\in\{1,3\}$, two
@@ -298,8 +306,8 @@ them by item. We describe what is checked.
   integral divisor classes, for $d\in\{1,2,3,7\}$, three weight vectors and
   seven values of $b$, and finds Gram matrix $\mathrm{diag}(8d,8d^{2})$ and
   index $2(a_{1}a_{2})^{2}$ throughout.
-\item \emph{The divisor route on a fixed lattice.} The computation checks \Cref{prop:pencil} on
-  $\Lambda=\cO^{2}$ with $j^{2}=1$, for $d\in\{1,3\}$. It computes the
+\item \emph{The divisor route on a fixed lattice.} The computation checks
+  \Cref{prop:pencil} on $\Lambda=\cO^{2}$ with $j^{2}=1$, for $d\in\{1,3\}$. It computes the
   lattice of $K$-bilinear classes, of rank $12$, checks $t(x)=0$ on it and the
   identity $-\int xy\,\eta^{2}\big/\!\int\eta^{4}=\mathrm{tr}(\phi_{x}\phi_{y})/24$
   on all $78$ pairs of basis vectors, and finds signature $(8,4)$ for $I$. It
@@ -324,72 +332,73 @@ them by item. We describe what is checked.
   $6$ and that $[\mathfrak{c},J_{0}]$ together with its brackets spans all of
   $\mathfrak{c}$, which is the Lie algebra step in the proof of
   \Cref{prop:pencil}(iv).
-\item \emph{The obstruction map of a split object.} The computation works in the model of item
-  (XIII), modulo the same prime, and checks \Cref{prop:splitobstruction}.
-  For $(n,d)=(2,1),(2,3),(3,3)$ it computes the space $T$ of first-order
-  deformations killing $\eta$ and both generators of the Weil line and
-  finds dimension $n^{2}$; computes the space $T_{\mathrm{spl}}$ of
-  deformations keeping $\beta,\widehat\beta,\ell$ of type $(1,1)$ and finds
-  dimension $n(n+1)/2$ and $T_{\mathrm{spl}}\subseteq T$; as a control,
-  replaces $\eta$ by $\beta+d\widehat\beta$ and finds that $T$ collapses to
+\item \emph{The obstruction map of a split object.} The computation works in
+  the model of item (XIII), modulo the same prime, and checks
+  \Cref{prop:splitobstruction}. For $(n,d)=(2,1),(2,3),(3,3)$ it computes the
+  space $T$ of first-order deformations killing $\eta$ and both generators of
+  the Weil line, of dimension $n^{2}$, and the space $T_{\mathrm{spl}}$ of
+  deformations keeping $\beta,\widehat\beta,\ell$ of type $(1,1)$, of
+  dimension $n(n+1)/2$, and checks that $T_{\mathrm{spl}}\subseteq T$. As a
+  control, replacing $\eta$ by $\beta+d\widehat\beta$ makes $T$ collapse to
   dimension $n(n+1)/2$ for $d>1$, which is the mismatch of conventions
-  described in the footnote to \Cref{setup:construction}; and for three
-  classes spanning $\NS(A_{0})_{\QQ}$ together with $\eta$ computes the
-  obstruction map $v\mapsto(v\lrcorner\lambda_{i})_{i}$ on $T$, finding
-  kernel exactly $T_{\mathrm{spl}}$ and rank $n(n-1)/2$; it also finds that
-  each of the seven single classes $\gamma$, $\ell$, $\gamma+\ell$,
-  $\gamma+2\ell$, $\beta$, $\widehat\beta$, $\beta+\ell$ already has
-  $\{v\in T:v\lrcorner\theta=0\}=T_{\mathrm{spl}}$, and that each of $150$
-  random rational classes off $\QQ\eta$ is contracted nontrivially by some
-  vector of $T$ while $\eta$ and $3\eta$ are contracted to zero by all of
-  $T$, which is the mechanism of \Cref{thm:linebundle}. For the six line
-  bundles of \Cref{prop:explicitobject} at $n=3$ it finds kernel
-  $T_{\mathrm{spl}}$ of dimension $6$ and rank $3$; checks that
-  $\sigma_{E}$ kills the image; computes the annihilator of $\omega_{1}$ in
-  $H^{0,2}$, of dimension $9$, and checks that $\sigma_{E}$ kills
-  $z\cdot\id_{E}$ for $z$ in it; finds that the sum of that
-  nine-dimensional space and the three-dimensional image has dimension
-  $12$; recomputes the kernel of $\sigma_{E}$ as $15$; and checks that the
-  components of every obstruction vector on $L_{i}$ and on $L_{i}^{-1}[3]$
-  are negatives of each other.
-\item \emph{The evaluation map.} The computation rewrites the model of item (XIII)
-  in its Hodge basis and checks \Cref{prop:evaluation} for the explicit
-  object at $n=3$. It builds a basis of $HT^{2}$, of dimension
+  discussed after \Cref{setup:construction}. For three classes spanning
+  $\NS(A_{0})_{\QQ}$ together with $\eta$, the obstruction map
+  $v\mapsto(v\lrcorner\lambda_{i})_{i}$ on $T$ has kernel exactly
+  $T_{\mathrm{spl}}$ and rank $n(n-1)/2$. Each of the seven single classes
+  $\gamma$, $\ell$, $\gamma+\ell$, $\gamma+2\ell$, $\beta$, $\widehat\beta$,
+  $\beta+\ell$ already has $\{v\in T:v\lrcorner\theta=0\}=T_{\mathrm{spl}}$,
+  and each of $150$ random rational classes off $\QQ\eta$ is contracted
+  nontrivially by some vector of $T$, while $\eta$ and $3\eta$ are contracted
+  to zero by all of $T$; this is the mechanism of \Cref{thm:linebundle}. For
+  the six line bundles of \Cref{prop:explicitobject} at $n=3$ the computation
+  finds kernel $T_{\mathrm{spl}}$ of dimension $6$ and rank $3$, and checks
+  that $\sigma_{E}$ kills the image. It computes the annihilator of
+  $\omega_{1}$ in $H^{0,2}$, of dimension $9$, checks that $\sigma_{E}$ kills
+  $z\cdot\id_{E}$ for $z$ in it, and finds that the sum of that
+  nine-dimensional space and the three-dimensional image has dimension $12$.
+  Finally it recomputes the kernel of $\sigma_{E}$ as $15$, and checks that
+  the components of every obstruction vector on $L_{i}$ and on
+  $L_{i}^{-1}[3]$ are negatives of each other.
+\item \emph{The evaluation map.} The computation rewrites the model of item
+  (XIII) in its Hodge basis and checks \Cref{prop:evaluation} for the
+  explicit object at $n=3$. It builds a basis of $HT^{2}$, of dimension
   $15+36+15=66$, implements the three actions of \eqref{eq:HT2} as
   multiplication, a derivation and a double interior product, and verifies
   the identity $\sigma_{E}(\operatorname{ev}_{E}(x))=x\lrcorner\ch(E)$ on
-  every basis vector and on random elements; confirms that $\ch(E)$ is
-  concentrated in degree six and proportional to $\omega_{1}$; computes the
-  rank of $\operatorname{ev}_{E}$, which is $45$, against
-  $\dim\Ext^{2}(E,E)=90$; computes the three kernels of contraction with
-  $\ch(E)$, of dimensions $9$, $18$ and $9$; finds that their images under
-  $\operatorname{ev}_{E}$ have dimensions $9$, $6$ and $9$, that the first and
-  third coincide, that the first and second meet in zero, and that the sum of
-  all three has dimension $15$, equal to the dimension of $\ker\sigma_{E}$,
-  which it recomputes; and repeats the last comparison for every one of the
-  eighteen configurations of item (XIV), finding $\dim\ker\sigma_{E}=15$ and
+  every basis vector and on random elements. It confirms that $\ch(E)$ is
+  concentrated in degree six and proportional to $\omega_{1}$, and that
+  $\operatorname{ev}_{E}$ has rank $45$, against $\dim\Ext^{2}(E,E)=90$. The
+  three kernels of contraction with $\ch(E)$ have dimensions $9$, $18$ and
+  $9$; their images under $\operatorname{ev}_{E}$ have dimensions $9$, $6$
+  and $9$, the first and third coincide, the first and second meet in zero,
+  and the sum of all three has dimension $15$, equal to the dimension of
+  $\ker\sigma_{E}$, which is recomputed. The last comparison is repeated for
+  every one of the eighteen configurations of item (XIV), with
+  $\dim\ker\sigma_{E}=15$ and
   $\dim(\ker\sigma_{E}\cap\image\operatorname{ev}_{E})=15$ in every case.
 \item \emph{Markman's candidate in dimension eight.} The computation works in
   $\QQ[\Theta]/(\Theta^{5})$ with $\int\Theta^{4}=24$ and checks
   \Cref{prop:markman8} for every odd squarefree $d\le101$: the Euler
   characteristics $14$, $-36$ and $24$ from the Koszul complexes; the count
   $12N(N-5)=(d+9)(3d-3)$ of isolated points and its comparison with the
-  $(d+9)(2d-1)$ normalised; $\chi(\cO_{\widetilde Z})=(d+9)(27-d)$ from the
+  number $(d+9)(2d-1)$ of those that are normalised;
+  $\chi(\cO_{\widetilde Z})=(d+9)(27-d)$ from the
   Mayer--Vietoris complex; the equality $\ch(\cF)=u_{t}+3v_{t}$ degree by
   degree for the twist $3\Theta$, and the failure by $-4\Theta^{2}$ in
   degree two for the twist $\Theta$; $\Nm(3+\sqrt{-d})=2N$ and the
   discriminant $(d+9)\Theta^{2}$; and the ranks $8d(d-9)$ and $8d(d+9)$ of
   the two transforms, with the threefold control $-8q$ that reproduces
   Markman's rank at $n=3$.
-\item \emph{The classes preserving a secant Chern character.} The computation works in the Hodge algebra of an
-  abelian $n$-fold with $t=\sum_{a}p_{a}\wedge q_{a}$, modulo a large prime,
+\item \emph{The classes preserving a secant Chern character.} The
+  computation works in the Hodge algebra of an abelian $n$-fold with
+  $t=\sum_{a}p_{a}\wedge q_{a}$, modulo a large prime,
   and checks \Cref{thm:factor}(i), (ii) and \Cref{lem:bfield}(i) for
   $(n,d,a,b)$ equal to $(3,3,1,1)$, $(3,3,1,3)$, $(4,3,1,3)$, $(4,5,1,3)$,
   $(4,7,2,1)$ and $(5,3,1,3)$, the third being Markman's candidate. It builds
   $\ch(F)=au_{t}+bv_{t}$, implements the actions of $HT^{1}$ and $HT^{2}$ as
   multiplication, interior product, derivation and double interior product,
-  and finds: that the kernel of $y\mapsto y\lrcorner\ch(F)$ on $HT^{1}$, of
-  dimension $2n$, is zero in every case; that the kernel on $HT^{2}$ has
+  and finds: that the kernel of $y\mapsto y\lrcorner\ch(F)$ on $HT^{1}$, a
+  space of dimension $2n$, is zero in every case; that the kernel on $HT^{2}$ has
   dimension exactly $n^{2}$, contains the $n(n+1)/2$ polarised deformations
   and the $n(n-1)/2$ classes $(\tfrac d2\,\pi\lrcorner t^{2},0,\pi)$, and is
   spanned by them; and, as controls, that the bare classes $(0,0,\pi)$ and
@@ -412,9 +421,10 @@ them by item. We describe what is checked.
   $a_{a}a_{b}+a_{b}a_{a}=0$ in both models; and, for $I$, the same vanishing
   pattern from the jet modules and their Yoneda products.
 
-\item \emph{A rank one secant object with smooth support.} The computation expands $\ch(\cO_{S})=1-\ch(\cF)e^{-b\Theta}$
-  from scratch in $\QQ[\Theta]/(\Theta^{5})$, for every $b\le6$ and every
-  squarefree $d<60$, and reads off the class $N\Theta^{2}$ with
+\item \emph{A rank one secant object with smooth support.} The computation
+  expands $\ch(\cO_{S})=1-\ch(\cF)e^{-b\Theta}$ directly in
+  $\QQ[\Theta]/(\Theta^{5})$, for every $b\le6$ and every squarefree $d<60$,
+  and reads off the class $N\Theta^{2}$ with
   $N=\Nm_{K/\QQ}(b+\sqrt{-d})/2$, the pushforward
   $\iota_{*}K_{S}=(4bN/3)\Theta^{3}$ and the Euler characteristic
   $\chi(\cO_{S})=4N(2b^{2}-N)$, checking each against the closed form rather
@@ -424,27 +434,27 @@ them by item. We describe what is checked.
   by $d>0$ and so never binds, that $e(S)\ge0$ is $d\le\tfrac53b^{2}$ and that
   $3e(S)-K_{S}^{2}=24(b^{4}-d^{2})\ge0$ is $d\le b^{2}$, and that equality in
   the Hodge index would need $9N=4b^{2}$, which no admissible pair reaches.
-  At $b=3$ it prints the six surviving discriminants, the four of them with
-  $N$ an integer, and \Cref{tab:smoothsupport}. That is
+  At $b=3$ it lists the six surviving discriminants, the four among them with
+  $N$ an integer, and the entries of \Cref{tab:smoothsupport}. This is
   \Cref{thm:smoothinvariants} and \Cref{cor:fourdiscriminants}.
 
-\item \emph{Where the local obstruction lives.} The computation computes, for ten codimension two germs in
-  $\CC^{4}$, the number of minimal generators, the projective dimension of
-  $R/I$, the ranks of a minimal free resolution, and
-  $\cE xt^{1}$, $\cE xt^{2}$ and $\cE xt^{3}$ of the ideal against itself; for
-  the germs with $\cE xt^{2}\ne0$ it also decides, by null homotopy of the
-  composite of the two jet chain maps, which products of translation classes
-  are nonzero. The seven Cohen--Macaulay germs, namely the smooth one, two
+\item \emph{The germs that carry the local obstruction.} For ten
+  codimension two germs in $\CC^{4}$ the computation determines the number of
+  minimal generators, the projective dimension of $R/I$, the ranks of a
+  minimal free resolution, and $\cE xt^{1}$, $\cE xt^{2}$ and $\cE xt^{3}$ of
+  the ideal against itself; for the germs with $\cE xt^{2}\ne0$ it also
+  decides, by null homotopy of the composite of the two jet chain maps, which
+  products of translation classes are nonzero. The seven Cohen--Macaulay germs, namely the smooth one, two
   and three planes meeting along a line, the double plane, the quadric cone,
   the fat plane and the cone over the twisted cubic, all have
   $\cE xt^{2}=0$, the last two despite needing three generators in codimension
   two. The three that are not Cohen--Macaulay, namely two planes meeting at a
   point, three planes meeting pairwise at a point and a plane with an embedded
-  point, have $\cE xt^{2}\ne0$ and nonzero products. That is
+  point, have $\cE xt^{2}\ne0$ and nonzero products. This is
   \Cref{thm:cmvanishing} and \Cref{rem:cmsharp}.
 
-\item \emph{Cohen--Macaulay supports with a split resolution.} The computation reads the coefficients
-  $(1,b,-d,-db,d^{2})$ off $u_{\Theta}+bv_{\Theta}$ rather than quoting them,
+\item \emph{Cohen--Macaulay supports with a split resolution.} The
+  computation reads the coefficients $(1,b,-d,-db,d^{2})$ off $u_{\Theta}+bv_{\Theta}$ rather than quoting them,
   confirms the three identities $c_{k+2}+dc_{k}=0$ that make the weighted
   measures of \Cref{thm:noci} share mass, mean and variance, and checks that
   the quadratic of that theorem has discriminant $-\tfrac29b^{2}-2d<0$ for
@@ -455,79 +465,92 @@ them by item. We describe what is checked.
   \Cref{lem:burchmoments}. Nothing survives at $r=2$ or $r=3$, for $b=3$ and
   every squarefree $d<24$ and also for every $b\le6$ over seven fields; at
   $r=4,5,6$ only $d=15$ and $d=23$ survive, and the first candidate at each
-  rank is printed. The computation also records that the moment system alone is not
-  enough: at $r=4$, $d=23$ it has the solution $p=(-8,-5,0,1,2)$,
-  $q=(-7,-6,-4,4)$, which only the injectivity of $\varphi$ removes.
+  rank is recorded. The moment system alone does not suffice: at $r=4$,
+  $d=23$ it has the solution $p=(-8,-5,0,1,2)$, $q=(-7,-6,-4,4)$, which only
+  the injectivity of $\varphi$ removes.
 
-\item \emph{The closure graph.} The computation carries the rule set of \Cref{setup:rules} as data: forty-two statements,
-  each marked proved here, quoted, open or derived, and twenty-two rules, each carrying
-  the label of the theorem that proves it. It checks that every statement
-  named in a rule is declared and every declared statement is used, that the
-  rule set is acyclic, and that every one of the seventeen theorem labels it
-  names, for its rules and for the consequences of $\mathbf{HC}$ it records,
-  is a label of this paper, against the list of all $604$ labels generated
-  from the sources of this paper. It then computes the forward closure
-  by iterating the one step map to a fixed point, and verifies that no
-  statement marked proved rests at any depth on an open one, that
-  $\mathbf{HC}$ is not in the closure of the proved and quoted statements,
-  and, by exhaustive search over all $2^{16}$ subsets of the sixteen open
-  statements, that there are exactly the five minimal sufficient sets of
-  \Cref{thm:closure}(ii), $\{\mathrm{F3}\}$, $\{\mathrm{L},\mathrm{M}\}$,
-  $\{\mathrm{L},\mathrm{F3}'\}$, $\{\mathrm{V},\mathrm{F3}'\}$ and
+\item \emph{The closure graph.} The computation carries the rule set of
+  \Cref{setup:rules} as data: forty-two statements, each marked proved here,
+  quoted, open or derived, and twenty-two rules, each carrying the label of
+  the theorem that proves it. It checks that every statement named in a rule
+  is declared and every declared statement is used, that the rule set is
+  acyclic, and that each of the seventeen theorem labels it names, for its
+  rules and for the consequences of $\mathbf{HC}$ it records, is a label of
+  this paper, against the list of all $627$ labels generated from the
+  sources. It then computes the forward closure by iterating the one step map
+  to a fixed point, and verifies the following. No statement marked proved
+  rests at any depth on an open one, and $\mathbf{HC}$ is not in the closure
+  of the proved and quoted statements. By exhaustive search over all
+  $2^{16}$ subsets of the sixteen open statements, the minimal sufficient
+  sets are exactly the five of \Cref{thm:closure}(ii), $\{\mathrm{F3}\}$,
+  $\{\mathrm{L},\mathrm{M}\}$, $\{\mathrm{L},\mathrm{F3}'\}$,
+  $\{\mathrm{V},\mathrm{F3}'\}$ and
   $\{\mathrm{P2}_{\mathrm{split}},\mathrm{F2},\mathrm{F3}'\}$, with
   $\mathrm{P2}_{\mathrm{split}}$ the propagation statement for the split
-  families of the CM fields of degree at least four, that (F3) is the one open
-  statement that suffices alone, that \textup{(F3$'$)} alone gives neither
-  the conjecture for abelian varieties nor $\mathbf{HC}$, that the sets
-  $\{\mathrm{P2}_{\mathrm{split}},\mathrm{F2},\mathrm{F3}\}$, $\{\mathrm{L},\mathrm{F3}\}$
-  and $\{\mathrm{V},\mathrm{F3}\}$ suffice and are not minimal, that the
-  route through this paper is the only minimal set with three elements and
-  the only one whose derivation uses a statement proved here, that each
-  element of each set is necessary, that every set contains (F3),
-  \textup{(F3$'$)} or \textup{(M)}, that every element of every set other
-  than $\mathrm{P2}_{\mathrm{split}}$ is recorded as a consequence of $\mathbf{HC}$, and that
-  $\{\mathrm{F3}\}$ and $\{\mathrm{L},\mathrm{M}\}$ are each equivalent
-  to it. It confirms that \textup{(V)} alone gives the
-  conjecture for abelian varieties and not $\mathbf{HC}$, and that
-  \textup{(L)} gives \textup{(V)}. It confirms that the six open demands of
-  the secant route lie outside every minimal set, that granting the two of
+  families of the CM fields of degree at least four. The statement (F3) is
+  the one open statement that suffices alone, and \textup{(F3$'$)} alone
+  gives neither the conjecture for abelian varieties nor $\mathbf{HC}$. The
+  sets
+  $\{\mathrm{P2}_{\mathrm{split}},\mathrm{F2},\mathrm{F3}\}$,
+  $\{\mathrm{L},\mathrm{F3}\}$ and $\{\mathrm{V},\mathrm{F3}\}$ suffice and
+  are not minimal. The route through this paper is the only minimal set with
+  three elements and the only one whose derivation uses a statement proved
+  here. Each element of each minimal set is necessary, every minimal set
+  contains (F3), \textup{(F3$'$)} or \textup{(M)}, every element of every
+  minimal set other than $\mathrm{P2}_{\mathrm{split}}$ is recorded as a
+  consequence of $\mathbf{HC}$, and $\{\mathrm{F3}\}$ and
+  $\{\mathrm{L},\mathrm{M}\}$ are each equivalent to $\mathbf{HC}$.
+  The statement \textup{(V)} alone gives the conjecture for abelian varieties
+  and not $\mathbf{HC}$, and \textup{(L)} gives \textup{(V)}. The six open
+  demands of the secant route lie outside every minimal set, and granting the
+  two of
   them that matter reaches $\mathbf{W}(K,n,\delta_{0})$ and, through the
   descent rule of \Cref{prop:descent}, $\mathbf{W}(K,n,\delta)$ for every
-  $\delta$, but not the Weil classes of the fields of degree at least four;
-  that the trivial discriminant closes the imaginary quadratic case and the
-  split families of the fields of degree at least four close it as well; that
-  the propagation statement for the split imaginary quadratic families
-  reaches all of that case, and for the split families of the higher fields
-  the Weil classes of every CM field, so that those are not open; that no
-  minimal set contains a propagation statement for a family of nontrivial
-  discriminant or for an imaginary quadratic field; and that the bounded criterion
-  is absent from the rule set, being equivalent to its own conclusion. It
-  then removes the rule of \Cref{prop:f3ishc} and the statement
-  \textup{(F3$'$)} with its rule and repeats the search, which returns the
-  four sets obtained without them,
+  $\delta$, but not the Weil classes of the fields of degree at least four.
+  Within the rule set, the algebraicity of the Weil classes of trivial
+  discriminant yields the whole imaginary quadratic case, and so does that
+  of the Weil classes of the split families of the fields of degree at least
+  four; the propagation statement for the split imaginary quadratic families
+  yields all of that case, and $\mathrm{P2}_{\mathrm{split}}$ yields the
+  algebraicity of the Weil classes of every CM field, which is therefore a
+  derived statement of the rule set and not an open one.
+  No minimal set contains a propagation statement for a family of nontrivial
+  discriminant or for an imaginary quadratic field, and the bounded
+  criterion is absent from the rule set, being equivalent to its own
+  conclusion. The computation then removes the rule of \Cref{prop:f3ishc}
+  and the statement \textup{(F3$'$)} with its rule and repeats the search,
+  which returns the four sets obtained without them,
   $\{\mathrm{L},\mathrm{M}\}$, $\{\mathrm{L},\mathrm{F3}\}$,
-  $\{\mathrm{V},\mathrm{F3}\}$ and $\{\mathrm{P2}_{\mathrm{split}},\mathrm{F2},\mathrm{F3}\}$;
-  so the change in the answer is those two additions and nothing else.
+  $\{\mathrm{V},\mathrm{F3}\}$ and
+  $\{\mathrm{P2}_{\mathrm{split}},\mathrm{F2},\mathrm{F3}\}$; so these two
+  additions account for the whole difference between the two answers. It
+  also adjoins the rule $\mathrm{F2}\Rightarrow$ (the conjecture for abelian
+  varieties) of \Cref{prop:f2isab}, which the rule set does not contain, and
+  finds five minimal sets again, $\{\mathrm{F3}\}$,
+  $\{\mathrm{L},\mathrm{M}\}$, $\{\mathrm{L},\mathrm{F3}'\}$,
+  $\{\mathrm{V},\mathrm{F3}'\}$ and $\{\mathrm{F2},\mathrm{F3}'\}$, none
+  of which contains $\mathrm{P2}_{\mathrm{split}}$ (\Cref{rem:f2rule}).
   Finally it checks that the numbering under which the same graph is carried
-  into Section 24 of the Lean certificate maps these rules onto those. The
-  full derivation of $\mathbf{HC}$ from the proved and quoted statements and
-  each minimal sufficient set is printed, one rule per line. That is
-  \Cref{thm:closure}, \Cref{prop:f3ishc}, \Cref{prop:f3prime} and
-  \Cref{cor:fourremain}.
-\item \emph{No split resolution runs the criterion.} The computation records the data behind
-  \Cref{thm:nosplit}: that the scalar $(e^{2}+d)/2$ by which the compensated
-  Poisson class acts on $\cO(e\Theta)$ is nonzero for every twist and every
-  $d>0$ in a range; the vanishing pattern $H^{2}(\cO(m\Theta))=0$ for $m\ne0$
-  on an $n$-fold with $3\le n\le6$, from the index theorem; that the three
-  split resolutions of \Cref{tab:burch} have no twist in common between
-  $E_{0}$ and $E_{1}$ and satisfy the moment identities \eqref{eq:burchsystem},
-  so that the theorem removes them as they stand; and, as a control, that no
-  Koszul resolution of a complete intersection, twisted by any $b\in[-6,12]$,
-  is secant for $d<30$, which is \Cref{thm:noci} in that range.
-\item \emph{The two statements that are not reductions, and what the rank
-  forces.} The computation has three
-  parts. For an abelian fourfold $X$ of Mumford type it decomposes every
-  $\bigwedge^{k}V$, $V=V_{1}\otimes V_{2}\otimes V_{3}$, under
+  into Section 24 of the Lean certificate maps these rules onto the rules
+  there. The full derivation of $\mathbf{HC}$ from the proved and quoted
+  statements and each minimal sufficient set is written out, one rule per
+  line. This is \Cref{thm:closure}, \Cref{prop:f3ishc}, \Cref{prop:f3prime}
+  and \Cref{cor:fourremain}, and the count of \Cref{rem:f2rule}.
+\item \emph{No split resolution satisfies the weakened criterion.} The
+  computation records the data behind \Cref{thm:nosplit}: that the scalar
+  $(e^{2}+d)/2$ by which the compensated Poisson class acts on
+  $\cO(e\Theta)$ is nonzero for every twist and every $d>0$ in a range; the
+  vanishing pattern $H^{2}(\cO(m\Theta))=0$ for $m\ne0$ on an $n$-fold with
+  $3\le n\le6$, from the index theorem; that the three split resolutions of
+  \Cref{tab:burch} have no twist in common between $E_{0}$ and $E_{1}$ and
+  satisfy the moment identities \eqref{eq:burchsystem}, so that the theorem
+  excludes them as they stand; and, as a control, that no Koszul resolution
+  of a complete intersection, twisted by any $b\in[-6,12]$, is secant for
+  $d<30$, which is \Cref{thm:noci} in that range.
+\item \emph{Two statements that are not reductions, and the consequences of
+  injectivity.} The computation has three parts. First, for an abelian
+  fourfold $X$ of Mumford type it decomposes every $\bigwedge^{k}V$,
+  $V=V_{1}\otimes V_{2}\otimes V_{3}$, under
   $\mathrm{SL}_{2}^{3}$ by peeling highest weights, finds one invariant in
   $\bigwedge^{2}V$ and one in $\bigwedge^{4}V$, counts eight invariants in
   $\bigwedge^{4}(V\oplus V)$ distributed $1,1,4,1,1$ over the K\"unneth
@@ -535,28 +558,29 @@ them by item. We describe what is checked.
   divisor classes $\psi_{11},\psi_{12},\psi_{22}$ in the exterior algebra of
   $V\oplus V$ and finds their six products independent, and counts the
   $\Sp_{8}$-invariants of $\bigwedge^{4}(V\oplus V)$ by the Weyl character
-  formula over the $384$ signed permutations, finding six. That is
-  \Cref{prop:mumfordproduct}. For the quintic threefold it computes the
-  Hodge numbers $(1,101,101,1)$ from the Jacobian ring of the Fermat quintic,
-  checks in a four-dimensional model that the map from the $(0,3)$ part to
-  the $(3,0)$ part is symplectic of adjoint weight $3$, and lists the adjoint
-  weights, $\{-1,0,1\}$ in weight one against $\{-3,\dots,3\}$ here. That
-  is \Cref{prop:noabeliantype}. For $n=2$ and $n=3$ it builds
+  formula over the $384$ signed permutations, finding six. This is
+  \Cref{prop:mumfordproduct}. Second, for the quintic threefold it computes
+  the Hodge numbers $(1,101,101,1)$ from the Jacobian ring of the Fermat
+  quintic, checks in a four-dimensional model that the map from the $(0,3)$
+  part to the $(3,0)$ part is symplectic of adjoint weight $3$, and lists the
+  adjoint weights, $\{-1,0,1\}$ in weight one against $\{-3,\dots,3\}$ here.
+  This is \Cref{prop:noabeliantype}. Third, for $n=2$ and $n=3$ it builds
   $H^{*}(A,\CC)$ with the eigenspace decomposition, the Weil class
-  $\alpha_{+}+\alpha_{-}$, and the action of all of $HT^{2}$ on it, finds the
-  annihilator of dimension $4n^{2}$ spanned by the mixed block, the $K$-linear
-  deformations and the mixed bivectors with the remaining classes acting
-  injectively, computes the ideal generated by the mixed block in the exterior
-  algebra on $2n$ generators, of codimension $2^{n+1}-1$ with quotient of
-  dimension $2\binom{n}{k}$ in degree $k\ge1$, and checks over $\mathbb{F}_{3}$ in
-  dimensions two and three that two subspaces spanning the space with all
-  mixed wedge products zero cannot both be nonzero. That is
-  \Cref{thm:p2forces}.
-\item \emph{The Weil classes of a CM field of degree four and six.} The computation builds the cyclotomic fields
-  $\QQ(\zeta_{5})$, $\QQ(\zeta_{7})$, $\QQ(\zeta_{8})$ and $\QQ(\zeta_{9})$
-  exactly, as $\QQ[x]/(p)$ with elements stored as rational coordinate
-  vectors, and carries out the construction of \Cref{thm:cmbasepoint} for six
-  pairs $(F,n)$, with $m=2$ and $m=3$ and $n=1,2,3$. For each it checks that
+  $\alpha_{+}+\alpha_{-}$, and the action of all of $HT^{2}$ on it, and finds
+  the annihilator, of dimension $4n^{2}$, spanned by the mixed block, the
+  $K$-linear deformations and the mixed bivectors, the remaining classes
+  acting injectively. It computes the ideal generated by the mixed block in
+  the exterior algebra on $2n$ generators, of codimension $2^{n+1}-1$ with
+  quotient of dimension $2\binom{n}{k}$ in degree $k\ge1$, and checks over
+  $\mathbb{F}_{3}$ in dimensions two and three that two subspaces spanning
+  the space with all mixed wedge products zero cannot both be nonzero. This
+  is \Cref{thm:p2forces}.
+\item \emph{Weil classes of CM fields of degrees four and six.} The
+  computation builds the cyclotomic fields $\QQ(\zeta_{5})$,
+  $\QQ(\zeta_{7})$, $\QQ(\zeta_{8})$ and $\QQ(\zeta_{9})$ exactly, as
+  $\QQ[x]/(p)$ with elements represented by rational coordinate vectors, and
+  carries out the construction of \Cref{thm:cmbasepoint} for six pairs
+  $(F,n)$, with $m=2$ and $m=3$ and $n=1,2,3$. For each it checks that
   the CM type and its conjugate partition the embeddings, that
   $\zeta-\zeta^{-1}$ is totally imaginary, that the trace-dual bases satisfy
   $\sum_{k}\sigma(\omega_{k})\sigma'(\omega^{*}_{k})=\delta_{\sigma\sigma'}$
@@ -576,9 +600,9 @@ them by item. We describe what is checked.
   is the product of the two $F$-Weil classes above it and that $W_{K}$ lies in
   the span of the products of pairs from $W_{F}$, which is
   \Cref{prop:composite}.
-\item \emph{What the transport does along the orbit.} The computation works on the lattice
-  $\Lambda=\ZZ^{2G}$ with the standard alternating form. For a sample of
-  rational symplectic elements drawn from the unipotent radical of the
+\item \emph{Transport along the orbit.} The computation works on the
+  lattice $\Lambda=\ZZ^{2G}$ with the standard alternating form. For a sample
+  of rational symplectic elements drawn from the unipotent radical of the
   stabiliser of an isotropic line, with denominators up to $29$, it verifies
   the three scaling identities of \Cref{lem:transport}, namely
   $\det\varphi=c^{2G}$, $\varphi^{*}E=c^{2}E$ and
@@ -593,34 +617,36 @@ them by item. We describe what is checked.
   while for the other $m=c^{2n-1}$ and the image degree grows linearly in $c$.
   Finally it tabulates the bound $c^{2n}\deg(Z)/|G(Z)|$ of
   \Cref{thm:p1forces}(ii) for stabilisers of order $1$, $2$ and $4$, which is
-  strictly increasing and unbounded. That is \Cref{lem:transport},
+  strictly increasing and unbounded. This is \Cref{lem:transport},
   \Cref{lem:multiplicity} and \Cref{thm:p1forces}.
-\item \emph{The annihilator of a Weil class in Hochschild cohomology.} The computation builds
-  $HH^{*}(A)=\bigwedge^{*}\bigl(H^{0,1}\oplus H^{0}(T_{A})\bigr)$, of
-  dimension $2^{4n}$, as an exterior algebra on $4n$ operators indexed by bit
-  masks, acting on $H^{*}(A,\CC)$ by wedging and contracting, and computes the
-  annihilator of $\omega=a\alpha_{+}+b\alpha_{-}$ in every degree by exact
-  rational elimination. It confirms that $P=V_{+}^{0,1}\oplus T_{-}$ is
-  exactly the annihilator of $\alpha_{+}$ in degree one and
-  $Q=V_{-}^{0,1}\oplus T_{+}$ that of $\alpha_{-}$, that
-  $\Ann_{HH^{1}}(\omega)=0$, that $\Ann_{HH^{2}}(\omega)=P\wedge Q$ of
-  dimension $4n^{2}$, that
-  $\dim\Ann_{HH^{k}}(\omega)=\binom{4n}{k}-2\binom{2n}{k}+\delta_{k,2n}$
-  in every degree $k\ge1$ (and $0$ in degree $0$), that the ideal generated by $P\wedge Q$ consists of the
-  monomials meeting both halves and has codimension $2^{2n+1}-1$, that
-  contraction with $\alpha_{-}$ is injective on $\bigwedge^{*}P$ and with
-  $\alpha_{+}$ on $\bigwedge^{*}Q$ with the two images meeting in exactly one
-  line in degree $2n$, and that
-  $\dim HH^{2}-\dim\Ann_{HH^{2}}=2n(2n-1)$. The computation is run in every
-  degree for $n=1$, where degree two is the exceptional degree $2n$ and the
-  annihilator is one larger, and for $n=2$ with two choices of $(a,b)$, and in
-  degrees up to three for $n=3$. That is \Cref{thm:hhsplitting} and
-  \Cref{cor:hhfactor}.
+\item \emph{The annihilator of a Weil class in Hochschild cohomology.} The
+  computation builds $HH^{*}(A)=\bigwedge^{*}\bigl(H^{0,1}\oplus
+  H^{0}(T_{A})\bigr)$, of
+  dimension $2^{4n}$, as an exterior algebra on $4n$ operators, with a basis
+  indexed by subsets of them, acting on $H^{*}(A,\CC)$ by wedging and
+  contracting, and computes the annihilator of
+  $\omega=a\alpha_{+}+b\alpha_{-}$ in every degree by exact rational
+  elimination. In degree one, $P=V_{+}^{0,1}\oplus T_{-}$ is exactly the
+  annihilator of $\alpha_{+}$ and $Q=V_{-}^{0,1}\oplus T_{+}$ that of
+  $\alpha_{-}$, and $\Ann_{HH^{1}}(\omega)=0$. In degree two,
+  $\Ann_{HH^{2}}(\omega)=P\wedge Q$, of dimension $4n^{2}$. In every degree
+  $k\ge1$ the annihilator has dimension
+  $\dim\Ann_{HH^{k}}(\omega)=\binom{4n}{k}-2\binom{2n}{k}+\delta_{k,2n}$, and
+  in degree $0$ it is $0$. The computation also confirms that
+  the ideal generated by $P\wedge Q$ consists of the monomials meeting both
+  halves and has codimension $2^{2n+1}-1$, that contraction with
+  $\alpha_{-}$ is injective on $\bigwedge^{*}P$ and contraction with
+  $\alpha_{+}$ on $\bigwedge^{*}Q$, the two images meeting in exactly one
+  line in degree $2n$, and that $\dim HH^{2}-\dim\Ann_{HH^{2}}=2n(2n-1)$. It
+  is run in every degree for $n=1$, where degree two is the exceptional
+  degree $2n$ and the annihilator is one larger, and for $n=2$ with two
+  choices of $(a,b)$, and in degrees up to three for $n=3$. This is
+  \Cref{thm:hhsplitting} and \Cref{cor:hhfactor}.
 
-\item \emph{The criterion as a number, and the support of an object meeting
-  it.} The computation checks the finite
-  linear algebra of \Cref{thm:p2numerical}, \Cref{lem:finiteproduct} and
-  \Cref{thm:p2support} in five parts. (A) In the exterior algebra of
+\item \emph{The numerical criterion and the support of an object meeting
+  it.} The computation checks the finite linear algebra of
+  \Cref{thm:p2numerical}, \Cref{lem:finiteproduct} and \Cref{thm:p2support}
+  in five parts. (A) In the exterior algebra of
   $H^{*}(A,\CC)$ with $HH^{1}$ acting by wedging and contracting, the map
   $\xi\mapsto\xi\lrcorner\,\omega$ on $HH^{2}$ has rank exactly $2n(2n-1)$
   for $n=2$ and $n=3$, that is $12$ and $30$, and it is injective on
@@ -644,12 +670,14 @@ them by item. We describe what is checked.
   $\bigwedge^{*}(V_{+}^{1,0}\oplus V_{-}^{0,1})$, so the Weil line meets the
   sum of the two subrings in zero.
 
-\item \emph{Two jet classes on a complex of finite length.} The computation builds, for a bounded complex $M$ of free modules over $\QQ[x_{1},x_{2}]$ or
-  $\QQ[x_{1},x_{2},x_{3}]$ with finite length cohomology, the jet chain maps
-  $-\sum_{i}a_{i}\partial_{i}(d)$ and decides whether the composite of two of
-  them is null homotopic. It first confirms that each input has finite
-  length, and then tests every pair of coordinate directions and a random
-  pair of independent rational directions on eighteen modules: in two
+\item \emph{Two jet classes on a complex of finite length.} For a bounded
+  complex $M$ of free modules over $\QQ[x_{1},x_{2}]$ or
+  $\QQ[x_{1},x_{2},x_{3}]$ with finite length cohomology, the computation
+  builds the jet chain maps $-\sum_{i}a_{i}\partial_{i}(d)$ and decides
+  whether the composite of two of them is null homotopic. It first confirms
+  that the cohomology of each input has finite length, and then tests every
+  pair of coordinate directions and a random pair of independent rational
+  directions on eighteen modules: in two
   variables the residue field, $R/\mathfrak{m}^{2}$, $R/\mathfrak{m}^{3}$,
   four monomial ideals, the complete intersection
   $(x_{1}^{2}+x_{2}^{2},x_{1}x_{2})$, the ideal
@@ -667,12 +695,12 @@ them by item. We describe what is checked.
   complex $K$ of the residue field in two variables, checks that $C$ is a
   complex with cohomology of lengths $1$ and $1$ and Euler characteristic
   zero, and that $J(\partial_{2})J(\partial_{1})$ is null homotopic on $C$,
-  while on $k\oplus k[1]$, also of Euler characteristic zero, it is not. That
-  is the sharpness of the lemma.
+  while on $k\oplus k[1]$, also of Euler characteristic zero, it is not. So
+  the hypothesis $\chi(M)\ne0$ of the lemma cannot be dropped.
 
 \item \emph{The two classes on a Mumford fourfold, and the K3 surface that
-  would carry them.} The computation works on
-  the split model $V=V_{1}\otimes V_{2}\otimes V_{3}$ of
+  would carry them.} The computation works on the split model
+  $V=V_{1}\otimes V_{2}\otimes V_{3}$ of
   \Cref{setup:mumford}, with $\mathfrak{sl}_{2}^{3}$ acting through its nine
   generators and $\psi=\epsilon\otimes\epsilon\otimes\epsilon$, in five parts.
   (A) The commutant of $\mathfrak{sl}_{2}^{3}$ in $\End\bigwedge^{2}V$,
@@ -687,7 +715,7 @@ them by item. We describe what is checked.
   image is all of $H^{2}$. (D) The Lefschetz pairing
   $\int\alpha\beta\theta^{2}$ is nondegenerate on $H^{2}$; $\mu\mu^{\dagger}$
   acts on the three $U_{ij}$ by one and the same nonzero rational number
-  $\nu$, which is $-1$ in the normalisation used there; for three choices of
+  $\nu$, which is $-1$ in the normalisation of the model; for three choices of
   the conjugates of $e$ and $\lambda$, $\mu_{e}\mu_{e}^{\dagger}$ acts on
   $U_{ij}$ by $\nu\sigma_{i}(g)\sigma_{j}(g)$ with $g=e^{2}/\lambda$ and
   preserves the line of $\theta$; the algebra it generates on $U$ is spanned by
@@ -695,20 +723,21 @@ them by item. We describe what is checked.
   scalars when they coincide; and $\kappa^{\dagger}\kappa$, for the trace form
   on $\End(V)$, is multiplication by $4e^{2}/\lambda$. (E) In the Clifford
   algebra of $T$ with the form $\sum_{i}l_{i}\operatorname{tr}(x_{i}y_{i})$,
-  $(l_{1},l_{2},l_{3})=(1,2,5)$, built on bit masks of an orthogonal basis,
-  the spin lifts of the three copies of $\mathfrak{sl}_{2}$ act on $C^{+}(T)$,
-  of dimension $256$; the vectors of highest weight $(1,1,1)$ span $32$
+  $(l_{1},l_{2},l_{3})=(1,2,5)$, with a basis indexed by subsets of an
+  orthogonal basis of $T$, the spin lifts of the three copies of
+  $\mathfrak{sl}_{2}$ act on $C^{+}(T)$, of dimension $256$; the vectors of highest weight $(1,1,1)$ span $32$
   dimensions and lowering them gives a basis, so $C^{+}(T)\cong V^{\oplus32}$.
   In that basis the map $\Psi(v)x=vxv_{0}$ of \Cref{prop:ksembed} is
   $v\otimes N_{i}$ for $v\in T_{i}$, the three matrices $N_{i}$ anticommute
   pairwise, square to the scalars $4$, $8$, $20$, proportional to the $l_{i}$,
-  and are linearly independent. That is \Cref{prop:mumfordrm},
+  and are linearly independent. This is \Cref{prop:mumfordrm},
   \Cref{lem:mumfordmu} and the shape of the Kuga--Satake map used in the proof
   of \Cref{thm:mumfordks}.
 
-\item \emph{The Lefschetz operator of an abelian scheme over a curve.} The computation works in exact exterior
-  algebra over $\QQ$ and assumes no sign convention. (A) On ten abelian
-  varieties with $g\le4$ and polarisation types from $(1)$ to $(1,2,4)$ and
+\item \emph{The Lefschetz operator of an abelian scheme over a curve.} The
+  computation works in exact exterior algebra over $\QQ$ and assumes no sign
+  convention. (A) On ten abelian varieties with $g\le4$ and polarisation
+  types from $(1)$ to $(1,2,4)$ and
   $(1,1,2,2)$, the contraction by the dual bivector satisfies
   $[L,\Lambda]=H$, and the Pontryagin product, computed from
   $x\star y=\mu_{*}(p_{1}^{*}x\cup p_{2}^{*}y)$ with $\mu_{*}$ defined against
@@ -722,15 +751,15 @@ them by item. We describe what is checked.
   $[L_{\mathrm{rel}},\Lambda_{C}]=0$ and $[L_{C},T]=0$ hold. (C) The invariants
   of $\mathfrak{sl}_{2}^{3}$ in $\bigwedge^{q}(V_{1}\otimes V_{2}\otimes V_{3})$,
   computed as the joint kernel of the six generators, have dimensions
-  $1,0,1,0,1,0,1,0,1$. That is \Cref{prop:pontryaginlambda}, the algebra of
+  $1,0,1,0,1,0,1,0,1$. This is \Cref{prop:pontryaginlambda}, the algebra of
   \Cref{thm:lefschetzfamily} and the count in \Cref{cor:mumfordlefschetz}.
 
-\item \emph{The two remaining targets, reduced.} The computation works in the split model
-  $H^{*}(X\times X)=\bigwedge^{*}(V\oplus V)$, sixteen generators, with
-  exact rational arithmetic where a space is determined and ranks modulo the
-  prime $1000003$ of integer vectors where a span is to be shown full, a rank
-  modulo a prime being a lower bound for the rank over $\QQ$. (A) The
-  invariants of $\mathfrak{sl}_{2}^{3}$ in $\bigwedge^{k}(V\oplus V)$ have
+\item \emph{Reduction of the two targets.} The computation works in the
+  split model $H^{*}(X\times X)=\bigwedge^{*}(V\oplus V)$, on sixteen
+  generators, in exact rational arithmetic where a space is to be
+  determined, and with ranks of integer vectors modulo the prime $1000003$
+  where a span is to be shown full, a rank modulo a prime being a lower bound
+  for the rank over $\QQ$. (A) The invariants of $\mathfrak{sl}_{2}^{3}$ in $\bigwedge^{k}(V\oplus V)$ have
   dimensions $1,0,3,0,8,0,16,0,28,0,16,0,8,0,3,0,1$; in degree four the
   products of divisor classes give six, so two are exceptional; and the ring
   of invariants is generated in degrees two and four. (B) At a CM point the
@@ -742,16 +771,16 @@ them by item. We describe what is checked.
   Hodge class in every degree. (C) On an abelian $2n$-fold of Weil type,
   $n=1,2,3$, the classes of type $(p,p)$ annihilated by $Q\wedge HH^{1}$, by
   $P\wedge HH^{1}$ and by $HH^{1}\wedge HH^{1}$ are $\CC\alpha_{-}$,
-  $\CC\alpha_{+}$ and $0$. That is \Cref{thm:mumfordcm}, the ring structure
+  $\CC\alpha_{+}$ and $0$. This is \Cref{thm:mumfordcm}, the ring structure
   used in \Cref{cor:mumfordequiv}, and the annihilators in the proof of
   \Cref{thm:nosum}.
 
-\item \emph{The exceptional classes of a Mumford square are rigid.} The computation works in the model of
-  \Cref{setup:omegaa} at a point of the Mumford curve, with $V^{1,0}$ the
-  vectors of third weight $+1$, and in exact rational arithmetic with the
-  coefficients $a_{0},\dots,a_{3}$ as symbols. (A) The Casimir operators
-  split ${\textstyle\bigwedge^{2}}V$ as $1+9+9+9$ and the four tensors $\pi$ are invariant.
-  (B) $\mathfrak{sp}^{-1,1}$ has dimension $36$ and splits into nine weight
+\item \emph{Rigidity of the exceptional classes of a Mumford square.} The
+  computation works in the model of \Cref{setup:omegaa} at a point of the
+  Mumford curve, with $V^{1,0}$ the vectors of third weight $+1$, in exact
+  rational arithmetic with the coefficients $a_{0},\dots,a_{3}$ as symbols.
+  (A) The Casimir operators split ${\textstyle\bigwedge^{2}}V$ as $1+9+9+9$,
+  and the four tensors $\pi$ are invariant. (B) $\mathfrak{sp}^{-1,1}$ has dimension $36$ and splits into nine weight
   blocks of dimensions $3,4,3,4,8,4,3,4,3$; the generic kernel of contraction
   into $\omega_{a}$ is one vector, independent of $a$; every Gram determinant
   is a positive constant times a product of $P_{1},P_{2},Q_{1},\dots,Q_{4},R$;
@@ -771,13 +800,12 @@ them by item. We describe what is checked.
   (E) As a cross-check, the annihilator in $HT^{2}$ has dimension one at forty
   random admissible points, $36$ at $(1,1,1,1)$, $7$ at $a_{2}=0$, $4$ on the
   hyperplane $a_{0}-3a_{1}-3a_{2}+a_{3}=0$, and $10$ at three points of
-  $L_{0}=0$. That is \Cref{thm:mumfordrigid}, \Cref{rem:rigidcompare} and
+  $L_{0}=0$. This is \Cref{thm:mumfordrigid}, \Cref{rem:rigidcompare} and
   the annihilator used in \Cref{thm:mumfordnumerical}.
 
-\item \emph{What an object with an exceptional Chern character must look
-  like.} The computation works in the same
-  model. (A) At $a=(3,5,-7,11)$ the ranks of contraction into $\omega_{a}$ on
-  $HT^{k}$, computed exactly over $\QQ$ block by block, are
+\item \emph{Objects with an exceptional Chern character.} The computation
+  works in the same model. (A) At $a=(3,5,-7,11)$ the ranks of contraction
+  into $\omega_{a}$ on $HT^{k}$, computed exactly over $\QQ$ block by block, are
   $1,16,119,328,560,328,119,16,1$ for $k=0,\dots,8$ and $0$ above. (B) The
   same ranks hold modulo the prime $1000133$, at which the minimal polynomial
   of $\zeta_{7}+\zeta_{7}^{-1}$ splits, at $a_{0}=2$ and the three conjugates
@@ -789,17 +817,18 @@ them by item. We describe what is checked.
   classes and $132$ Hodge classes in degree four; products of divisor classes
   span $100$, and meet the span of the four $\pi$ exactly where
   $a_{1}=a_{2}=a_{3}$. (F) At a CM point $X_{c}$ has $8$ Hodge classes in
-  degree four, of which products of divisor classes span $6$. That is
+  degree four, of which products of divisor classes span $6$. This is
   \Cref{lem:rankduality}, \Cref{thm:mumfordprofile} and
   \Cref{prop:mumforddivisor}.
 
-\item \emph{What line bundles generate on a Mumford square.} The computation works in the same model, with
-  $\mathfrak{sp}(V,\psi)$ spanned by the $36$ maps $x\mapsto\psi(u,x)v+
+\item \emph{The classes generated by line bundles on a Mumford square.} The
+  computation works in the same model, with $\mathfrak{sp}(V,\psi)$
+  spanned by the $36$ maps $x\mapsto\psi(u,x)v+
   \psi(v,x)u$ and the torus of diagonal matrices in $\Sp(V,\psi)$, of rank
   four. (A) The $36$ maps and the Lie algebra of $G$ lie in
   $\mathfrak{sp}(V,\psi)$. (B) The $\Sp(V,\psi)$-invariants of
-  ${\textstyle\bigwedge^{k}}(V\oplus V)$ have dimension at most $1,3,6,10,15,10,6,3,1$ for
-  $k=0,2,\dots,16$, as a kernel modulo $1000003$, and products of the three
+  ${\textstyle\bigwedge^{k}}(V\oplus V)$ have dimension at most
+  $1,3,6,10,15,10,6,3,1$ for $k=0,2,\dots,16$, as a kernel modulo $1000003$, and products of the three
   invariant divisor classes span spaces of exactly these dimensions. (C) The
   $G$-invariants have dimension $1,3,8,16,28,16,8,3,1$, by weight
   multiplicities and as a kernel, so the Hodge classes that are not
@@ -815,12 +844,11 @@ them by item. We describe what is checked.
   and by $\pi_{13}-\pi_{23}$ have dimension $308$ and highest weight
   $(2,2,0,0)$, and Weyl's formula gives $1,27,42,308$ for the highest weights
   $0,\varpi_{2},\varpi_{4},2\varpi_{2}$, with sum $378$. (G) The module meets
-  the span of the four $\pi$ in a plane. That is
+  the span of the four $\pi$ in a plane. This is
   \Cref{thm:lefschetzclosure}.
 
 \item \emph{The Hodge locus of an exceptional class among all complex tori.}
-  The computation realises $V_{\RR}$ as the
-  fixed space in $V_{1}\otimes V_{2}\otimes V_{3}$ of the real structure that
+  The computation realises $V_{\RR}$ as the fixed space in $V_{1}\otimes V_{2}\otimes V_{3}$ of the real structure that
   is quaternionic on the first two factors and real on the third, in exact
   Gaussian integer arithmetic. (A) It is a real structure, $V_{\RR}$ has
   dimension $8$, and $\psi$ is real and alternating on it. (B) The complex
@@ -831,15 +859,15 @@ them by item. We describe what is checked.
   preserves $V_{\RR}$ and $\psi$ and carries $\psi(x,Jy)$, for
   $J=j\otimes1\otimes1$, to its negative, so every form $\psi\otimes s$ on
   $V_{\RR}\oplus V_{\RR}$ with $s\ne0$ is congruent to its negative and
-  indefinite. (C) At $j\otimes1\otimes1$
-  the tensors $\pi$ have type $(2,2)$ and the annihilator of $\omega_{a}$ in
+  indefinite. (C) At $j\otimes1\otimes1$ the tensors $\pi$ have type $(2,2)$ and the annihilator of $\omega_{a}$ in
   $H^{1}(T)$, of dimension $64$, is spanned by the lowering derivation of the
   first factor; for the Mumford family it is spanned by that of the third,
   as in item (XLIV). (D) The exchange of the first and third factors carries
-  $\pi_{12}$ to $\pi_{23}$ and fixes $\pi_{0}$ and $\pi_{13}$. That is
+  $\pi_{12}$ to $\pi_{23}$ and fixes $\pi_{0}$ and $\pi_{13}$. This is
   \Cref{prop:notwistor}.
 
-\item \emph{The square as a holomorphic symplectic variety.} The computation works in the same split model, with
+\item \emph{The square as a holomorphic symplectic variety.} The
+  computation works in the same split model, with
   $\iota(x)=(x\otimes1)\Psi$ for $x$ in $T=\bigoplus_{i}\mathfrak{sl}(V_{i})$.
   (A) $\iota(x)$ is symmetric and $\iota$ is equivariant, for all pairs of the
   nine generators. (B) The three Casimir operators split
@@ -856,16 +884,16 @@ them by item. We describe what is checked.
   1\otimes1\otimes x_{3})=\Delta(N_{1},N_{2},N_{3})^{2}$ as a polynomial
   identity in the nine coordinates. (F) $\iota(x)^{8}=8!\det(x)$ times the
   volume form at three random integral points. (G) $\Delta$ is a
-  nondegenerate ternary form, of Gram determinant $-4$, and irreducible. That
+  nondegenerate ternary form, of Gram determinant $-4$, and irreducible. This
   is \Cref{prop:hksquare}.
 
-\item \emph{Which of the open routes to the Mumford target are needed.} The computation carries the implications into
-  and out of the Mumford target as data, in the manner of item (XXXIII):
+\item \emph{The open routes to the Mumford target.} The computation carries
+  the implications into and out of the Mumford target as data, in the manner of item (XXXIII):
   sixteen statements, one of them proved (the Hodge conjecture at the CM
   points), and twenty-two Horn rules, each labelled by the theorem that proves
-  it; unlike that rule set this one contains equivalences. (A) Its eleven
-  labels are labels of the paper and its statements are all used. (B) The target is not
-  in the closure of what is proved. (C) The statements equivalent to the
+  it; unlike that rule set, this one contains equivalences. (A) Its eleven
+  labels are labels of the paper, and its statements are all used. (B) The
+  target is not in the closure of what is proved. (C) The statements equivalent to the
   target over what is proved are exactly the target, algebraicity at
   uncountably many points, $B(W\times_{C}W)$, bounded data at infinitely many
   points, and bounded data modulo $p$. (D) The minimal sets of open statements
@@ -874,17 +902,16 @@ them by item. We describe what is checked.
   $\dim\Ext^{2}=119$ nor the two Kuga--Satake statements. (F) \textup{(L)}
   and \textup{(V)} each yield the target. (G) The Hodge conjecture and (F2)
   yield the target, and the target yields none of the Hodge conjecture, (F1),
-  (F2), (F3), \textup{(L)}, \textup{(V)}, \textup{(M)}. (H) (F3) is
+  (F2), (F3), \textup{(L)}, \textup{(V)}, \textup{(M)}. (H) The statement (F3) is
   equivalent to the Hodge conjecture by \Cref{prop:f3ishc}, so it is the
   twelfth one-element route to the target, and the minimal sets of open
   statements that yield the Hodge conjecture in this rule set are the
   conjecture itself, (F3), and \textup{(L)} with \textup{(M)}, none of which
-  contains the target. That is \Cref{cor:mumfordone} and
+  contains the target. This is \Cref{cor:mumfordone} and
   \Cref{rem:mumfordneeded}.
-\item \emph{What an object meeting the numerical criterion must look like.}
-  The computation checks the finite
-  ingredients of \Cref{thm:p2endo}. (A) In the coordinate model of
-  \Cref{sec:explicit}, for $n=2$ with $d=1,2,3,5,7$ and for $n=3$ with
+\item \emph{The shape of an object meeting the numerical criterion.} The
+  computation checks the finite ingredients of \Cref{thm:p2endo}. (A) In the
+  coordinate model of \Cref{sec:explicit}, for $n=2$ with $d=1,2,3,5,7$ and for $n=3$ with
   $d=1,2,3$, the rational Weil classes $\omega_{1}$, $\omega_{2}$ satisfy
   $\eta\wedge\omega_{1}=\eta\wedge\omega_{2}=0$, and in the orientation in
   which $\eta^{2n}$ is positive the intersection form on the rational Weil
@@ -906,9 +933,9 @@ them by item. We describe what is checked.
   $n=5$ a profile with $e_{0}=1$ satisfies the same constraints, so the bound
   on $\End$ is special to $n\le3$; and the same identity with $\chi=0$ on the
   Mumford square returns the $800$ odd self-extensions of item (XLV).
-\item \emph{The Hodge classes of a very general Weil torus.} The computation checks the finite inputs of
-  \Cref{lem:weiltorushodge}, \Cref{lem:weiltorussubsets} and
-  \Cref{thm:p2false}, in the coordinate model of \Cref{sec:explicit}, for
+\item \emph{The Hodge classes of a very general Weil torus.} The
+  computation checks the finite inputs of \Cref{lem:weiltorushodge},
+  \Cref{lem:weiltorussubsets} and \Cref{thm:p2false}, in the coordinate model of \Cref{sec:explicit}, for
   $n=2$ with $d=1,3$ and for $n=3$ with $d=2$. The members of the family $S$
   of \Cref{setup:weiltori} used are $T_{X,Y}$ with $X$ and $Y$ spanned by
   explicit $K$-rational combinations of the eigenvectors, three of them for
@@ -922,25 +949,27 @@ them by item. We describe what is checked.
   when its product with every product of $2n-k+1$ holomorphic $1$-forms
   vanishes; the ranks are computed modulo a prime $q<2^{31}$ in which $-d$ is
   a square, with $\sqrt{-d}$ sent to both square roots so that the conjugate
-  conditions are imposed as well, and since reduction can only lower a rank
-  the dimensions found are upper bounds, attained by the Weil classes. Degrees above
-  $2n$ are not checked; the proof of the lemma covers them. (D) For an
-  element $\kappa$ of $V_{+}\otimes V_{-}$ with random coefficients,
-  $\alpha_{+}\wedge\kappa^{n}=\alpha_{-}\wedge\kappa^{n}=0$, and
-  $\alpha_{+}\wedge(\kappa+\beta)^{n}=\alpha_{+}\wedge\beta^{n}$ becomes
-  nonzero once a component $\beta\in\bigwedge^{2}V_{-}$ with $\beta^{n}\ne0$
-  is added (while $\alpha_{-}\wedge(\kappa+\beta)^{n}$ stays zero, every term
-  having a factor from $V_{-}$; symmetrically for $\beta'\in\bigwedge^{2}V_{+}$
-  and $\alpha_{-}$), so the vanishing used for the block diagonal K\"ahler
-  class $\kappa_{0}$ is a property of $V_{+}\otimes V_{-}$ and not of the
+  conditions are imposed as well; since reduction can only lower a rank, the
+  dimensions found are upper bounds, and they are attained by the Weil
+  classes. Degrees above $2n$ are not checked; the proof of the lemma covers
+  them. (D) For an element $\kappa$ of $V_{+}\otimes V_{-}$ with random
+  coefficients, $\alpha_{+}\wedge\kappa^{n}=\alpha_{-}\wedge\kappa^{n}=0$,
+  and $\alpha_{+}\wedge(\kappa+\beta)^{n}=\alpha_{+}\wedge\beta^{n}$ becomes
+  nonzero once a component $\beta\in\bigwedge^{2}V_{-}$ with
+  $\beta^{n}\ne0$ is added, while $\alpha_{-}\wedge(\kappa+\beta)^{n}$ stays
+  zero, every term having a factor from $V_{-}$; the same holds with the
+  roles of $V_{+}$ and $V_{-}$, and of $\alpha_{+}$ and $\alpha_{-}$,
+  exchanged. So the vanishing used for the block diagonal K\"ahler class
+  $\kappa_{0}$ is a property of $V_{+}\otimes V_{-}$ and not of the
   coordinates.
 
-\item \emph{The corrected criterion as a number.} The computation works in the eigenbasis model of item (XXXVIII), with
+\item \emph{The corrected criterion as a number.} The computation works in
+  the eigenbasis model of item (XXXVIII), with
   $\theta=i\sum_{j}s_{j}e_{j}\wedge f_{j}$ and
   $\gamma=\sum_{k}c_{k}\theta^{k}+u\alpha_{+}+\bbar u\alpha_{-}$, builds the
   image $\xi\lrcorner\gamma$ of every element of a basis of $HT^{2}$, and
-  computes ranks exactly over $\QQ(i)$ by blocks of torus weight, which is
-  legitimate because contraction is equivariant for the torus of
+  computes ranks exactly over $\QQ(i)$ by blocks of torus weight. This is
+  justified because contraction is equivariant for the torus of
   \Cref{thm:p2primenumber} and elements whose weights differ by other than a
   multiple of $(1,\dots,1)$ have images in different weight spaces; nothing
   else about the structure is used. (A) For $n=3,4$, ten shapes (pure, $c_{0}$
@@ -971,16 +1000,16 @@ them by item. We describe what is checked.
   $\int\gamma\,\kappa_{h}^{2}=\frac16(\sigma_{2}(h)+4\operatorname{Re}\det
   h_{01,23})\int\theta^{4}$ at eight random $h$, and the sign of
   $\int\gamma\,\kappa^{2}$ is that of $c_{2}$ at $150$ random K\"ahler
-  classes, while at the ratio $R=3/16$ both signs occur. That is
+  classes, while at the ratio $R=3/16$ both signs occur. This is
   \Cref{prop:p2primelocus} and \Cref{rem:p2primeexceptional}. In a longer
   run the closed form of (A) is checked exactly for $n=5,\dots,9$ on five
   shapes, and at $n=10$, where $HT^{2}$ has dimension $780$ and $\gamma$ has
-  $2^{20}+2$ terms. That is \Cref{thm:p2primenumber}.
+  $2^{20}+2$ terms. This is \Cref{thm:p2primenumber}.
 
-\item \emph{The Hochschild profile of a corrected character.} The computation computes, in the same model and by
-  the same torus blocks, the rank $\rho_{k}$ of contraction into $\gamma$ on
-  every $HT^{k}$, exactly over $\QQ(i)$. (A) For $n=2,3$, in every degree
-  $0\le k\le4n$, on eight shapes and two values of $u$, the ranks equal
+\item \emph{The Hochschild profile of a corrected character.} In the same
+  model and by the same torus blocks, the computation determines the rank
+  $\rho_{k}$ of contraction into $\gamma$ on every $HT^{k}$, exactly over
+  $\QQ(i)$. (A) For $n=2,3$, in every degree $0\le k\le4n$, on eight shapes and two values of $u$, the ranks equal
   $2\binom{2n}{k}+M_{k}\min(k+1,2n+1-k,r')-[k=n]\,d$ for $1\le k\le2n-1$, with
   $\rho_{0}=\rho_{2n}=1$ and $\rho_{k}=0$ above $2n$; the general profiles are
   $(1,8,24,8,1)$ and $(1,12,57,112,57,12,1)$, and the pure case gives
@@ -991,12 +1020,13 @@ them by item. We describe what is checked.
   monomial only with its complement, so $\int x^{2}$ is even; at $n=2$ the
   point $|u|=4|c_{2}|$ of $\theta^{2}+\omega$ has $\rho_{2}=23$. In a longer
   run (A) is checked for $n=4$ in every degree, where $HT^{8}$ has
-  dimension $12870$, and for $n=5$ up to degree three. That is
+  dimension $12870$, and for $n=5$ up to degree three. This is
   \Cref{prop:p2primeprofile}.
 
-\item \emph{Descent and scalar extension.} The computation models the cohomology of an abelian variety of $(F,n)$-Weil type, $F$ a CM
-  field of degree $2m$, by alternating $\QQ$-multilinear forms on
-  $H_{1}=F^{N}$, its Weil classes by the forms $\Tr_{F/\QQ}(a\det_{F})$ and its
+\item \emph{Descent and scalar extension.} The computation models the
+  cohomology of an abelian variety of $(F,n)$-Weil type, $F$ a CM field of
+  degree $2m$, by alternating $\QQ$-multilinear forms on $H_{1}=F^{N}$, its
+  Weil classes by the forms $\Tr_{F/\QQ}(a\det_{F})$ and its
   polarisation by $\Tr_{F/\QQ}(\xi H)$. (A) For $F=\QQ(i)$, $\QQ(\sqrt{-2})$,
   $\QQ(\sqrt{-3})$, $\QQ(\zeta_{5})$ and $\QQ(\zeta_{8})$, and $n=1,2$ (and
   $n=3$ over $\QQ(i)$), the correspondence
@@ -1011,23 +1041,24 @@ them by item. We describe what is checked.
   to $n=5$ over $\QQ(i)$, up to $n=4$ over $\QQ(\sqrt{-2})$ and
   $\QQ(\sqrt{-3})$, up to $n=3$ over $\QQ(\sqrt{-5})$, $\QQ(\zeta_{5})$ and
   $\QQ(\zeta_{8})$, and up to $n=2$ over the sextic field $\QQ(\zeta_{7})$, and
-  (C) up to $n=3$. That is \Cref{prop:descent}.
+  (C) up to $n=3$. This is \Cref{prop:descent}.
 
 \item \emph{Quartic fields, the Mumford fourfold, and the objects of the
   criterion.} Each computation of this item is carried out twice, by
-  independent implementations; the fast part performs $58$ checks, and the
-  longer runs are recorded with the programs. Where a space of invariants is
-  bounded above by a rank modulo a prime, which can only lower a rank, the
-  bound is matched by explicit invariants. (A) Quartic fields: for $F=\QQ(\zeta_{5})$ (cyclic, with no imaginary quadratic subfield),
+  independent implementations. A fast selection of them performs $58$
+  checks; the longer runs are recorded with the programs. Where a space of
+  invariants is bounded above by a rank modulo a prime, which can only lower
+  a rank, the bound is matched by explicit invariants. (A) Quartic fields:
+  for $F=\QQ(\zeta_{5})$ (cyclic, with no imaginary quadratic subfield),
   $\QQ(\zeta_{8})$, $\QQ(\zeta_{12})$ (biquadratic) and
   $\QQ(\sqrt{-(3+\sqrt2)})$ (not Galois), and six hermitian forms in all,
   $\mathfrak{su}(V,H)$ has dimension $30$ and kills $W_{F}$, and its
   invariants have dimension $2$ in degree two and $7$ in degree four, with
   $W_{F}$ meeting the products of divisor classes in $0$; $\phi$ is
   semilinear with $\phi^{2}=(\det H)^{-1}$, it commutes with $\mathfrak{su}(V,H)$
-  on $R_{F}$ and the commutant has dimension $8$, and over $\QQ(\zeta_{5})$
-  with a hermitian form that is not diagonal $\phi g=\overline{\det g}\,g\phi$
-  for an element $g$ of $\mathrm{U}(V,H)$ with $\det g\notin\QQ$;
+  on $R_{F}$ and the commutant has dimension $8$, and, over $\QQ(\zeta_{5})$
+  with a hermitian form that is not diagonal,
+  $\phi g=\overline{\det g}\,g\phi$ for an element $g$ of $\mathrm{U}(V,H)$ with $\det g\notin\QQ$;
   \eqref{eq:quarticstar} holds, $\Delta^{*}C_{q}=6c\,\Omega$, and the
   pull-backs of $W_{F}$ along five maps span a space of dimension $20$
   containing $C_{q}$; on the split locus for three fields $\det H$ is a square
@@ -1037,16 +1068,15 @@ them by item. We describe what is checked.
   $W_{F}(B_{F})$, and the invariants of $\mathfrak{su}(V_{C},H_{C})$ in degree
   two meet $R_{F}$ in $0$; $\dim HT^{2}=120$, the annihilator of a Weil class
   has dimensions $0$, $16$, $24$, the eight-dimensional tangent space kills
-  $\gamma$, and $r(\gamma)=112$ for nine general $p$, in two independent
-  implementations, and at six elements of the Hodge ring; the part of the
-  contraction that no $p$ reaches has rank $68$; and on the $25$ monomials and
-  all $300$ pairs of them, with seven ratios, $r$ takes the values $80$,
+  $\gamma$, and $r(\gamma)=112$ for nine general $p$ and at six elements of
+  the Hodge ring; the part of the contraction that no $p$ reaches has rank
+  $68$; and on the $25$ monomials and all $300$ pairs of them, with seven ratios, $r$ takes the values $80$,
   $84$, $88$, $104$, $108$, $112$, and $92$, $96$ on pairs, with no value
-  below $80$ in about $1800$ further exact trials. That is
+  below $80$ in about $1800$ further exact trials. This is
   \Cref{prop:quarticquat}, \Cref{prop:quarticnl}(iii),
   \Cref{prop:quarticscalar}, \Cref{prop:quarticcasimir} and
-  \Cref{thm:quarticp2prime}. (B) The Mumford fourfold: by
-  peeling highest weights and, independently, by Weyl's alternating sum, no
+  \Cref{thm:quarticp2prime}. (B) The Mumford fourfold: by peeling highest
+  weights and, independently, by Weyl's alternating sum, no
   $\bigwedge^{k}V$ contains a summand $S^{2}V_{i}$, the multiplicity of
   $S^{2}V_{1}$ in $H^{n}(X\times X)$ is $1,6,16,24,16,6,1$ for
   $n=2,4,\dots,14$ and $0$ otherwise, and the copy in $H^{2}$ lies in
@@ -1062,21 +1092,21 @@ them by item. We describe what is checked.
   $\QQ[S_{2}]$, $\QQ[S_{3}]$, $\QQ[S_{4}]$ have dimensions $2$, $5$, $14$, so
   $\End_{G}(V\otimes V)$ and $\End_{G}(V^{\otimes3})$ have dimensions $8$ and
   $125$; and the irreducible zero-sum multisets of the weights $\{\pm1\}^{3}$
-  are the four pairs $\{w,-w\}$ and two sets of four. That is
+  are the four pairs $\{w,-w\}$ and two sets of four. This is
   \Cref{prop:mumfordwhere}, \Cref{thm:mumfordpowers}, \Cref{rem:mumforddet}
   and \Cref{prop:mumfordcmpowers}; \Cref{cor:mumfordksproducts},
-  \Cref{prop:mumfordkslink}, \Cref{prop:mumfordcarrier} apart from its
-  computation, and \Cref{prop:mumfordsurface} are proved in the text and have
-  no computation. (C) Explicit objects on the split member: the Hochschild
-  profile of a secant class for $n=2,\dots,5$ and the Euler characteristic for
-  $n=2,\dots,6$, at further values of $d$; the certificates
-  of \Cref{thm:twistedcert}, with profile $(1,8,18,8,1)$ for seven values of
+  \Cref{prop:mumfordkslink}, \Cref{prop:mumfordcarrier}, apart from its
+  computational part, and \Cref{prop:mumfordsurface} are proved in the text
+  and need no computation. (C) Explicit objects on the split member: the
+  Hochschild profile of a secant class for $n=2,\dots,5$ and the Euler
+  characteristic for $n=2,\dots,6$, at further values of $d$; the
+  certificates of \Cref{thm:twistedcert}, with profile $(1,8,18,8,1)$ for seven values of
   $d$ and $(1,12,48,74,\dots)$ for five; the flatness of
   $\ch(E)e^{\ell/2}$, the recursion $\mu_{m+2}=-\mu_{m}/(4d)$ and the Weil
   part over the function field $\QQ(d)$ for $n\le5$, the $B$-field in the
   eight conventions for $\Phi$, and the dimensions $5$ and $9$ of the Hodge
   loci; $r(\ch G)=18$, $48$, $88$ at $n=2,3,4$; the parity numbers of
-  \Cref{rem:untwisting}; and the correction to \Cref{ex:splitsmall} at $n=3$.
+  \Cref{rem:untwisting}; and the formulas of \Cref{ex:splitsmall} at $n=3$.
   (D) Natural objects at $n=4$: over $\QQ(i)$, exactly, $\dim T=16$,
   $T$ kills $\eta$ and the Weil plane, and $T\lrcorner\ch F$ has rank $6$ for
   the natural objects off $C_{\eta}$ and $0$ on it; modulo a prime,
@@ -1093,9 +1123,9 @@ them by item. We describe what is checked.
   four points off $C_{\eta}$ and the pure ones are those on a conic through
   $l_{W}$. \Cref{lem:p2primesummands}, \Cref{cor:naturalsums},
   \Cref{prop:secantprofile} and \Cref{prop:orlovfour} are proved in the text
-  and checked here in examples. (E) The remaining inputs, through their
-  smallest cases: for a quartic CM field, the secant spaces $S(t,q)$ are
-  rational of dimension $4$, with Hochschild profile $(1,8,2\rho+4N_{w})$ and
+  and checked here in examples. (E) Secant classes over quartic and sextic
+  fields, and four further statements, in their smallest cases: for a
+  quartic CM field, the secant spaces $S(t,q)$ are rational of dimension $4$, with Hochschild profile $(1,8,2\rho+4N_{w})$ and
   the Euler characteristic of \Cref{prop:quarticsecant}(iii), in $49$ cases;
   the expansion in the proof of \Cref{lem:quarticlattice}, with $\delta$ and
   the entries of $V$ as symbols, and a direct computation of the integral
@@ -1107,11 +1137,12 @@ them by item. We describe what is checked.
   $D$ a symbol, the parity at the ramified prime above $2$, and the three
   conditions on $m$ for every squarefree $D<200000$, which leave only $D=2$
   and $D=5$; an exact scan of $1841$ complex-secant planes for
-  $\QQ(\sqrt{10})$, which finds no admissible character; the twisted character of an Orlov product of such objects is
-  invariant under the Lie algebra of $G_{F}$, with nonzero Weil part, for the
-  seven real quadratic fields $\QQ(\sqrt D)$, $D=2,3,5,7,10,13,17$, with at
-  least two values of $q$ each; the formula $r(\kappa)=r^{2}(v_{1})+64+r^{2}(v_{2})$ of
-  \Cref{thm:quarticobstruction}(i) on eight pairs, from an exact annihilator
+  $\QQ(\sqrt{10})$, which finds no admissible character; the invariance of
+  the twisted character of an Orlov product of such objects under the Lie
+  algebra of $G_{F}$, and its nonzero Weil part, for the seven real
+  quadratic fields $\QQ(\sqrt D)$, $D=2,3,5,7,10,13,17$, with at least two
+  values of $q$ each; the formula $r(\kappa)=r^{2}(v_{1})+64+r^{2}(v_{2})$
+  of \Cref{thm:quarticobstruction}(i) on eight pairs, from an exact annihilator
   over $\QQ(\sqrt{-1})$, with the values $100$, $102$, $104$ and, for
   $F=\QQ(\sqrt5,\sqrt{-1})$ and a class with $N_{w}=2$, $88$ and $94$; for
   \Cref{prop:sexticcount}, an independent computation of the full profiles
@@ -1119,17 +1150,17 @@ them by item. We describe what is checked.
   support closed under $\varepsilon\mapsto-\varepsilon$ and three tensors of
   smaller flattening rank, exactly over $\ZZ$ at two random points, which are
   palindromic and agree with item (LVI), with the value of $\chi$ over
-  $\QQ(\sqrt{-1})$ and the quartic profile as a regression test; and the identities used in the proof of
-  \Cref{prop:quarticother} hold on random integral classes. For
-  \Cref{prop:flatall}, the four identities at $n=1$ and $n=2$ with $d$ a symbol;
-  for \Cref{prop:orlovequality}, the Euler characteristic of a secant class
-  and the numbers $R_{n}$ for $n\le12$. For \Cref{prop:orthpowers}, the
-  dimensions of the $\SO(t)$- and $\mathrm{O}(t)$-invariants of $V^{\otimes j}$,
+  $\QQ(\sqrt{-1})$ and the quartic profile as controls; and the identities
+  used in the proof of \Cref{prop:quarticother}, on random integral classes.
+  Further, for \Cref{prop:flatall}, the four identities at $n=1$ and $n=2$
+  with $d$ a symbol; for \Cref{prop:orlovequality}, the Euler characteristic
+  of a secant class and the numbers $R_{n}$ for $n\le12$; for
+  \Cref{prop:orthpowers}, the dimensions of the $\SO(t)$- and $\mathrm{O}(t)$-invariants of $V^{\otimes j}$,
   equal for $j<t$ and differing by one at $j=t$, for $t\le8$, with the
   determinant invariant and odd under reflections; and for
   \Cref{prop:f3primestrength}, the closure graph with the implication
-  $\textup{(F3$'$)}\Rightarrow\textup{(M)}$ added, whose five minimal
-  sufficient sets are unchanged.
+  $\textup{(F3$'$)}\Rightarrow\textup{(M)}$ added, which has the same five
+  minimal sufficient sets as the rule set of item (XXXIII).
 
 \item \emph{The count in degree six.} The computation builds $H^{*}(X,\CC)$
   for a principally polarised abelian sixfold with real multiplication by a
@@ -1142,23 +1173,23 @@ them by item. We describe what is checked.
   $HT^{k}_{j}$ kills $e^{\lambda\theta_{j}}$ for $k\ge3$, $HT^{2}_{j}$ maps
   into the line of $\omega_{j}$, and the coefficient pairs at
   $\lambda_{j}(\pm1)$ span $\CC^{2}$. (C) Exactly over $\QQ(\sqrt{-1})$, for
-  $q=1$, $t\in\{0,2\}$ and four coefficient patterns, generic, supported on the
-  two CM types induced from the imaginary quadratic subfield, a rank one
-  tensor, and a Galois orbit of six types, the ranks of contraction from
-  $HT^{1}$, $HT^{2}$, $HT^{3}$ are $12$ and $(54,112)$, $(30,40)$, $(51,88)$,
-  $(54,96)$, equal to the formulas of \Cref{prop:sexticcount}(i) evaluated on
+  $q=1$, $t\in\{0,2\}$ and four coefficient patterns (generic, supported on
+  the two CM types induced from the imaginary quadratic subfield, a rank one
+  tensor, and a Galois orbit of six types), the rank of contraction from
+  $HT^{1}$ is $12$ and the ranks from $HT^{2}$ and $HT^{3}$ are $(54,112)$,
+  $(30,40)$, $(51,88)$, $(54,96)$, equal to the formulas of \Cref{prop:sexticcount}(i) evaluated on
   $N_{w}$, the $A_{jj'}$, the $\rho_{j}$ and the slices $M^{(j;j')}_{\sigma'}$.
   (D) Exactly, $\chi(v,v)=-64\Nm(q)\sum|w_{\varepsilon}|^{2}$ for the four
   patterns, and $+16\Nm(q)\sum|w_{\varepsilon}|^{2}$ for two places. (E) Modulo
-  a prime $p\equiv1$ modulo $4$ at which the cubic field splits and the
-  $s_{j}$ exist, near $10^{6}$, for $\QQ(\zeta_{7})^{+}$ with $q=2+\alpha$,
+  a prime $p\equiv1$ modulo $4$ near $10^{6}$ at which the cubic field splits
+  and the $s_{j}$ exist, for $\QQ(\zeta_{7})^{+}$ with $q=2+\alpha$,
   $\QQ(\zeta_{9})^{+}$ with $q=3-\alpha$ and the non-Galois cubic field of
   discriminant $229$ with $q=3+\alpha$, $\alpha$ a generator and $t=\alpha$,
   the ranks modulo $p$, which bound the ranks below, equal the values of the
   formulas, which bound them above, and the identity of (D) holds modulo
   $p$. (F) The bookkeeping of \Cref{prop:sexticcount}(iii): the bound
   $\chi\le-(r^{3}-2r^{2}+22)$ is $-26$, $-2$, $-8$, $-10$ for the four
-  patterns, and $r(\kappa)\le252<264$. That is \Cref{prop:sexticcount}.
+  patterns, and $r(\kappa)\le252<264$. This is \Cref{prop:sexticcount}.
 
 \item \emph{Integral flat characters in degree six.} (A) On a complex torus
   of dimension six, $\int v^{\vee}v$ is even for forty random integral
@@ -1186,7 +1217,7 @@ them by item. We describe what is checked.
   cases, and for $q=1$ exactly the four vectors $\pm\operatorname{Re}
   e^{\sqrt{-1}\,\theta}$, $\pm\operatorname{Im}e^{\sqrt{-1}\,\theta}$ with
   $-\chi=32$, each of shape $N_{w}=2$, the shape being computed exactly
-  modulo a prime near $10^{6}$ at which the $s_{j}$ exist. That is
+  modulo a prime near $10^{6}$ at which the $s_{j}$ exist. This is
   \Cref{prop:sexticintegral}(ii), (iv) and (v).
 
 \item \emph{The $F$-Weil part of Orlov products in degree six.} The
@@ -1252,14 +1283,14 @@ them by item. We describe what is checked.
   $\Nm(q)$: exactly the twenty cases of \Cref{prop:sexticweilmin}(ii), with
   the lattice minima $288$ and $4608$, attained with $\Omega=0$, and the
   least values $728$ and $6504$ with $\Omega\ne0$ in the two cases with
-  $\QQ(\sqrt{-3})$. That is \Cref{lem:sexticweil} and
+  $\QQ(\sqrt{-3})$. This is \Cref{lem:sexticweil} and
   \Cref{prop:sexticweilmin}.
 
 \item \emph{Kernels on $X\times X$ for a quartic field.} The computation
   works over $\RR$ place by place, as in the proof of
-  \Cref{thm:quarticobstruction}(iii): at one real place, with
-  $d=\tau_{j}(q)$, in the exterior algebra on the eight generators of the
-  part at $\tau_{j}$ of $H^{1}(X\times\widehat X)$, with the classes
+  \Cref{thm:quarticobstruction}(iii). At a real place $\tau_{j}$, with
+  $d=\tau_{j}(q)$, it works in the exterior algebra on the eight generators
+  of the part of $H^{1}(X\times\widehat X)$ at $\tau_{j}$, with the classes
   $\theta_{j}$, $\widehat\theta_{j}$, $\ell_{j}$, $\eta_{j}$, $\gamma_{j}$,
   the Lie algebra of $SU_{j}$ and an exact Fourier--Mukai transform; a class
   on $A$ is a sum of tensor products over the two places, split exactly along
@@ -1323,7 +1354,7 @@ them by item. We describe what is checked.
   $D<200000$; and the resulting bounds on $\nu_{i}$. (H) $\varphi(N)=4$
   exactly for $N=5,8,10,12$ among $N<200$; $3g-3<\frac12\varphi(N)(g-1)^{2}$
   whenever $\varphi(N)\ge4$ and $g\ge3$, for $N<200$ and $g<60$; and a
-  hyperbolic hermitian form of rank $2n$ has determinant $(-1)^{n}$. That is
+  hyperbolic hermitian form of rank $2n$ has determinant $(-1)^{n}$. This is
   \Cref{rem:quarticsecantshape}, \Cref{rem:quarticnegext},
   \Cref{prop:quarticexclusions}, \Cref{rem:quarticmixedkernel} and the numbers
   in \Cref{rem:quarticprym}; the algebraicity of the Weil classes of the Prym
@@ -1379,7 +1410,7 @@ them by item. We describe what is checked.
   $\langle6,-2,-2\rangle$ is anisotropic over $\QQ_{3}$, by the Hilbert
   symbol and by descent, so $U\oplus\langle6\rangle\oplus\langle-2\rangle
   \oplus\langle-2\rangle$ has Witt index one; and this lattice, of signature
-  $(2,3)$, embeds primitively in $U^{3}\oplus E_{8}(-1)^{2}$. That is the
+  $(2,3)$, embeds primitively in $U^{3}\oplus E_{8}(-1)^{2}$. This is the
   computational part of \Cref{prop:mumfordmotivic}, \Cref{prop:mumfordformal},
   \Cref{rem:mumfordks} and \Cref{rem:mumfordpowersopen}.
 
@@ -1411,9 +1442,10 @@ them by item. We describe what is checked.
   partitions of $n\le240$ by a dynamic programme and by listing those of
   $n\le30$; for $t=21$ it is $231$. (F) For $W=\QQ\oplus T$, $T=\QQ^{t}$, and
   a group permuting the factors of $W^{\otimes l}$ within blocks, the
-  invariant $\SO(t)$-invariants exceed the $\mathrm{O}(t)$-invariants exactly
-  when there are at least $t$ blocks, by exact integer ranks in twelve cases
-  with $t=3,4$ and $l\le4$; and the average of $\det(T)$ on three of four
+  $\SO(t)$-invariants fixed by the group exceed the $\mathrm{O}(t)$-invariants
+  fixed by it exactly when there are at least $t$ blocks, by exact integer
+  ranks in twelve cases with $t=3,4$ and $l\le4$; and the average of
+  $\det(T)$ on three of four
   factors vanishes exactly when two of them lie in one block. (G) For ten CM
   fields of degree $2$ to $10$, among them $\QQ(\zeta_{m})$ for
   $m=5,7,8,9,11,12,15$, the elements $(1+sy)(1-sy)^{-1}$ with $\bar y=-y$ have
@@ -1429,7 +1461,7 @@ them by item. We describe what is checked.
   is $\QQ$ for $\QQ(\zeta_{7})^{+}$, $\QQ(\zeta_{9})^{+}$ and
   $\QQ(\zeta_{11})^{+}$, $\QQ(\sqrt2)$ for $\QQ(\sqrt{2+\sqrt2})$,
   $\QQ(\sqrt5)$ for $\QQ(\zeta_{15})^{+}$, and all of $\QQ(\sqrt2,\sqrt3)$.
-  That is the computational part of \Cref{prop:k3powers},
+  This is the computational part of \Cref{prop:k3powers},
   \Cref{prop:k3ntype}, the remark after \Cref{prop:aclosure} and
   \Cref{rem:f3primefrontier}.
 
@@ -1463,14 +1495,14 @@ them by item. We describe what is checked.
   sixfold along a smooth centre $C$ the summands of $H^{2p}$ with $p\le3$
   need one only in degree four on a fourfold $C$; and the decomposition of
   the diagonal of a uniruled fivefold needs one only in degree four on a
-  fourfold. That is the computational part of \Cref{prop:f3primefibration}
+  fourfold. This is the computational part of \Cref{prop:f3primefibration}
   and \Cref{rem:f3primesharp}.
 \end{enumerate}
 
-Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LVII) are the ones
+Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LXII) are the ones
 on which theorems depend. Items (IV) and (V) support statements that no
-obstruction exists, and a failure there would strengthen rather than weaken
-the paper, so they are included for completeness rather than for safety.
-The fifty-four items other than (XXIX), (XXXI) and (XL) perform $1052$
+obstruction exists; a failure there would strengthen the paper rather than
+weaken it, and they are included for completeness.
+The fifty-nine items other than (XXIX), (XXXI) and (XL) perform $1052$
 checks, all of which pass; those three are $\Ext$ computations over a
 polynomial ring, recorded with their output.

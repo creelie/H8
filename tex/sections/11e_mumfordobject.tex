@@ -1,23 +1,22 @@
-\subsection{What an object meeting the Mumford criterion must look like, and
-  the target modulo $p$}
+\subsection{Objects, reduction modulo $p$ and the motivic group}
 \label{ssec:mumfordobject}
 
 \Cref{thm:mumfordnumerical} reduces the semiregularity route to one object at
-one CM point. This subsection derives what any object with the right Chern
-character must satisfy, whether or not it is semiregular: no sequence of
-standard operations produces it from line bundles, it extends along no first
-order deformation of $D^{b}(Y)$ other than the direction of the curve, a
-semiregular one splits only into summands with no $\Ext^{2}$ between them,
+one CM point. We first derive what any object with the right Chern character
+must satisfy, whether or not it is semiregular: no sequence of standard
+operations produces it from line bundles; it extends along no first order
+deformation of $D^{b}(Y)$ other than the direction of the curve; if it is
+semiregular, it splits only into summands with no $\Ext^{2}$ between them;
 and its self-extensions are large in every degree, with an odd part that the
-Euler characteristic forces beyond what Hochschild cohomology supplies. It
-then turns to the reduction modulo $p$, after the recent proof of the Tate
-conjecture for powers of abelian fourfolds over finite fields: the classes
-are represented by cycles at every closed point of every reduction of the
-curve, and the target is equivalent to a bound on those cycles on a Zariski
-dense set of closed points. It ends with the motivic group of $X$, which is
-one of four groups, and with the observation that the kinds of algebraic
-classes known on products of $X$ with other abelian varieties generate no
-exceptional class. None of this constructs the object or closes the target.
+Euler characteristic forces beyond what Hochschild cohomology supplies. We
+then turn to reduction modulo $p$. By Li's proof of the Tate conjecture for
+powers of abelian fourfolds over finite fields, the classes are represented
+by cycles at every closed point of every reduction of the curve, and the
+target is equivalent to a bound on those cycles on a Zariski dense set of
+closed points. Finally, the motivic group of $X$ is one of four groups, and
+the kinds of algebraic classes known on products of $X$ with other abelian
+varieties generate no exceptional class. None of this constructs such an
+object or proves the target.
 
 \begin{lemma}[The contraction ranks are symmetric]\label{lem:rankduality}
 Let $A$ be an abelian variety of dimension $g$ and $c\in H^{*}(A,\CC)$ a class
@@ -84,11 +83,12 @@ $e_{k}=\dim\Ext^{k}(E,E)$ for a perfect complex $E$ on $Y$.
 \end{theorem}
 
 \begin{proof}
-(i) The square $\sigma_{E}\circ\operatorname{ev}_{E}=(\,\cdot\,)\lrcorner
+(i) The identity $\sigma_{E}\circ\operatorname{ev}_{E}=(\,\cdot\,)\lrcorner
 \ch(E)$ of \Cref{setup:hh} holds in every degree, so the kernel of
-$\operatorname{ev}_{E}$ on $HT^{k}(Y)$ lies in the annihilator of $\ch(E)$
-and its image has dimension at least $r_{k}(\ch E)$. Serre duality with the
-trivial canonical bundle gives $e_{k}=e_{8-k}$.
+$\operatorname{ev}_{E}$ on $HT^{k}(Y)$ lies in the annihilator of $\ch(E)$,
+and the image of $HT^{k}(Y)$ in $\Ext^{k}(E,E)$ has dimension at least
+$r_{k}(\ch E)$. Serre duality with the trivial canonical bundle gives
+$e_{k}=e_{8-k}$.
 
 (ii) $r_{0}=1$ because $\omega\ne0$, and $r_{2}=119$ is
 \Cref{thm:mumfordrigid}(ii). If $w\in HT^{1}(Y)$ annihilates $\omega$, so does
@@ -104,12 +104,13 @@ open, being the complement of the common zeros of minors, and item (XLV) of
 computation over $\QQ$ block by block. The rational Hodge classes in
 $H^{2}\otimes H^{2}$ form a $\QQ$-vector space of dimension four whose complex
 span is $\CC^{4}$ (\Cref{setup:omegaa}), hence Zariski dense, and so they
-meet the intersection of these open sets in a Zariski dense set; the classes
-with $\alpha\in\QQ$ form a proper linear subspace and are removed. Item (XLV)
-also computes the ranks modulo a prime at which the minimal polynomial of
-$\zeta_{7}+\zeta_{7}^{-1}$ splits, for $a_{0}=2$ and the three conjugates in
-each of the six orders, and finds the displayed numbers; a rank modulo a prime
-of good reduction is a lower bound for the rank in characteristic zero.
+meet the intersection of these open sets in a Zariski dense set. The classes
+with $\alpha\in\QQ$ form a proper linear subspace, and removing them leaves a
+Zariski dense set. Item (XLV) also computes the ranks modulo a prime at which
+the minimal polynomial of $\zeta_{7}+\zeta_{7}^{-1}$ splits, for $a_{0}=2$ and
+the three conjugates in each of the six orders, and finds the displayed
+numbers; the rank of a matrix with entries integral at a prime is at least the
+rank of its reduction modulo that prime.
 
 (iv) Since $\ch(E)$ has only a component in $H^{4}$, $\ch(E^{\vee})\ch(E)$
 lies in $H^{8}(Y)$ and $\chi(E,E)=\int_{Y}\ch(E^{\vee})\ch(E)=0$, the Todd
@@ -119,9 +120,9 @@ $\Ext^{-j}$ with $\Ext^{8+j}$,
   0=\chi(E,E)=2(e_{0}-e_{1}+e_{2}-e_{3})+e_{4}
   +2\sum_{j\ge1}(-1)^{j}e_{-j},
 \]
-which is the identity. With no negative extensions the odd and even parts are
-equal, and the even part is at least $2\cdot1+2\cdot119+560=800$ by (i) and
-(iii), so the odd part is at least $800$ as well, and $e_{1}+e_{3}\ge400$ by
+which is the displayed identity. With no negative extensions the odd and even
+parts are equal, and the even part is at least $2\cdot1+2\cdot119+560=800$ by
+(i) and (iii), so the odd part is at least $800$ as well, and $e_{1}+e_{3}\ge400$ by
 Serre duality. The Hochschild bound on the odd part is $2(16+328)=688$.
 \end{proof}
 
@@ -170,19 +171,21 @@ is the same computation for $X_{c}$.
 \end{proof}
 
 At a CM point the Hodge classes of $X_{c}$ in $H^{4}$ that are not products
-of divisor classes are among the classes that \Cref{thm:mumfordcm} pulls back
-along homomorphisms $X_{c}\times X_{c}\to X_{c}$; they are algebraic by
-Markman's theorem \cite{Mar25a}. Li proves,
+of divisor classes are among the classes that the proof of
+\Cref{thm:mumfordcm} pulls back along homomorphisms $X_{c}\times X_{c}\to
+X_{c}$; they are algebraic by Markman's theorem \cite{Mar25a}. Li proves,
 independently and more generally, that every Hodge class on every power of
-every complex CM abelian fourfold is algebraic \cite[Theorem~1.3]{Li26},
-which gives \Cref{thm:mumfordcm} for every power $X_{c}^{n}$ and not only the
-square. \Cref{prop:mumforddivisor} says that an object with $\ch(E)=N\omega$
-cannot have its Chern character in the subring generated by divisor classes,
-so it cannot be assembled from line bundles alone. The next theorem shows that
-no sequence of the standard operations of the derived category, applied to
-line bundles on powers of $X_{t}$, gets any further.
+every complex CM abelian fourfold is algebraic \cite[Theorem~1.3]{Li26}, which
+gives \Cref{thm:mumfordcm} for every power $X_{c}^{n}$ and not only for the
+square.
 
-\begin{theorem}[What line bundles generate]\label{thm:lefschetzclosure}
+By \Cref{prop:mumforddivisor}, an object with $\ch(E)=N\omega$ cannot have
+its Chern character in the subring generated by divisor classes, so it cannot
+be assembled from line bundles alone. The next theorem shows that no sequence
+of the standard operations of the derived category, applied to line bundles
+on powers of $X_{t}$, gets any further.
+
+\begin{theorem}[Objects generated by line bundles]\label{thm:lefschetzclosure}
 Let $t\in C$, $X=X_{t}$, and let $L(X)\subseteq\Sp(V,\psi)$ be the Lefschetz
 group of $X$, the centraliser of $\End^{0}(X)$ in $\Sp(V,\psi)$. Let
 $\mathcal{A}$ be the class of abelian varieties isogenous to a power of $X$;
@@ -232,7 +235,7 @@ isogeny, which is injective on rational cohomology, $c_{1}$ becomes a Hodge
 class of degree two on some $X^{n}$, an element of the invariants of the
 Hodge group in ${\textstyle\bigwedge^{2}}(V^{\vee}\otimes\QQ^{n})=
 {\textstyle\bigwedge^{2}}V^{\vee}\otimes S^{2}\QQ^{n}\oplus S^{2}V^{\vee}
-\otimes{\textstyle\bigwedge^{2}}\QQ^{n}$. If $t$ is not a CM point the Hodge
+\otimes{\textstyle\bigwedge^{2}}\QQ^{n}$. If $t$ is not a CM point, the Hodge
 group is $G$, whose invariants in ${\textstyle\bigwedge^{2}}V$ are the multiples of $\psi$
 and in $S^{2}V$ are zero, since every summand of $S^{2}(V_{1}\otimes V_{2}
 \otimes V_{3})$ contains a factor $S^{2}V_{i}$; so the Hodge classes of degree
@@ -279,11 +282,12 @@ $(1,1,1)$ only. The rest of (iii) follows from (i).
 
 (iv) Item (XLVI) generates the module by applying the $36$ elements
 $x\mapsto\psi(u,x)v+\psi(v,x)u$ of $\mathfrak{sp}(V,\psi)$ until the span
-stops growing: it has dimension $308$ and highest weight $(2,2,0,0)$ for the
-torus of diagonal matrices in $\Sp(V,\psi)$, and $308$ is, by Weyl's
-dimension formula, the dimension of
-the irreducible module of highest weight $2\varpi_{2}$; and adding the four
-$\pi$ raises its dimension by two.
+stops growing. The span has dimension $308$ and highest weight $(2,2,0,0)$
+for the torus of diagonal matrices in $\Sp(V,\psi)$. A weight vector of this
+weight is killed by the positive root vectors, so it generates an irreducible
+submodule of highest weight $2\varpi_{2}$, which has dimension $308$ by
+Weyl's dimension formula and is therefore the whole module. Adding the four
+$\pi$ raises the dimension by two.
 \end{proof}
 
 \begin{remark}[Where a construction has to leave $\mathcal{L}$]
@@ -291,14 +295,14 @@ $\pi$ raises its dimension by two.
 \Cref{thm:lefschetzclosure} extends \Cref{prop:mumforddivisor} from sums of
 line bundles to everything the standard operations make out of them, at every
 point of the curve, including the CM points, where the exceptional classes
-are algebraic: the cycles that represent them there are not Chern characters
+are algebraic. There the cycles that represent them are not Chern characters
 of objects of $\mathcal{L}$, and neither are the two Hodge classes of $X_{c}$
 in degree four that are not products of divisor classes. At a point that is
-not CM every Chern character of an object of $\mathcal{L}$ lies in the
+not CM, every Chern character of an object of $\mathcal{L}$ lies in the
 isotypic component of the trivial representation of $\Sp(V,\psi)$, while by
-(iv) an object with $\ch(E)=N\omega$ must have a nonzero component in the one
-of highest weight $2\varpi_{2}$. Every construction of such an object
-therefore contains a step that does not commute with the Lefschetz group on
+\Cref{thm:lefschetzclosure}(iv) an object with $\ch(E)=N\omega$ must have a
+nonzero component in the one of highest weight $2\varpi_{2}$. Every
+construction of such an object therefore contains a step that does not commute with the Lefschetz group on
 cohomology: passing to a direct summand, a subobject or a Jordan--H\"older
 factor, choosing a point of a moduli space, or deforming from a member with
 more endomorphisms. The last is what semiregularity does along the curve
@@ -321,10 +325,11 @@ diagonal sum of $\mathrm{At}(E_{1})$ and $\mathrm{At}(E_{2})$. In
 $\sigma(\zeta)=\sum_{q}\frac1{q!}\operatorname{tr}(\zeta\circ\mathrm{At}^{q})$
 of \Cref{thm:BF} the composite $\zeta\circ\mathrm{At}^{q}$ has diagonal blocks
 $\zeta_{ii}\circ\mathrm{At}(E_{i})^{q}$, and the trace of a block matrix of
-morphisms is the sum of the traces of its diagonal blocks.
+morphisms is the sum of the traces of its diagonal blocks. In particular the
+off-diagonal blocks $\zeta_{12}$ and $\zeta_{21}$ lie in the kernel.
 \end{proof}
 
-\begin{corollary}[No Hochschild bypass, and no free splitting]
+\begin{corollary}[Hochschild deformations and direct summands]
 \label{cor:mumfordsplit}
 Let $c\in C$, $Y=X_{c}\times X_{c}$, $\omega=\omega_{a}$ a rational
 exceptional class with $L_{0}(a)\ne0$, and $E$ a perfect complex on $Y$ with
@@ -360,7 +365,7 @@ $\operatorname{ev}_{E}$ is the diagonal sum of $\operatorname{ev}_{E_{1}}$
 and $\operatorname{ev}_{E_{2}}$, so each vanishes at $\kappa$; then
 $\kappa\lrcorner\ch(E_{i})=\sigma_{E_{i}}(\operatorname{ev}_{E_{i}}(\kappa))
 =0$. Put $e(x)=120-\dim\Ann_{HT^{2}}(x)$, the rank of contraction into $x$.
-It is subadditive, and by \Cref{thm:mumfordprofile}(i)
+It is subadditive in $x$, and by \Cref{thm:mumfordprofile}(i)
 $\dim\Ext^{2}(E_{i},E_{i})\ge e(\ch E_{i})$. The cross terms vanish, so
 \[
   119=\dim\Ext^{2}(E,E)=\sum_{i}\dim\Ext^{2}(E_{i},E_{i})
@@ -372,10 +377,11 @@ annihilators lies in $\Ann(N\omega)=\CC\kappa$ and contains $\kappa$, so it is
 $\CC\kappa$, and the sum has dimension $120$.
 \end{proof}
 
-Part (ii) is the Mumford form of \Cref{thm:nosum}: a semiregular object
-attaining the bound either does not split, or splits as two pieces whose
-annihilators fill $HT^{2}(Y)$ and meet only in the direction of the curve, the
-analogue of the two branches $P$ and $Q$ of \Cref{rem:twobranches}.
+Part (ii) plays for the Mumford classes the role of \Cref{thm:nosum}: a
+semiregular object attaining the bound either does not split, or splits into
+two pieces whose annihilators fill $HT^{2}(Y)$ and meet only in the direction
+of the curve. The two annihilators are the analogue of the two branches $P$
+and $Q$ of \Cref{rem:twobranches}.
 
 \begin{proposition}[Tate classes at every closed point of every reduction]
 \label{prop:modp}
@@ -476,10 +482,10 @@ and surjective.
 \end{proof}
 
 At the generic point of each reduction the class is therefore a Tate class
-over a global function field that no product of divisor classes explains, the
-exact analogue of the situation over $\CC$, while at every closed point it is
-explained by cycles. The next theorem says that a bound on those cycles is
-all that is missing, with no passage through $p$-adic Hodge theory.
+over a global function field that is not a combination of products of divisor
+classes, exactly as over $\CC$, while at every closed point it is a
+combination of classes of cycles. The next theorem shows that a bound on those
+cycles is all that is missing, with no passage through $p$-adic Hodge theory.
 
 \begin{theorem}[The Mumford target is a degree bound in positive
 characteristic]\label{thm:modpdensity}
@@ -597,55 +603,56 @@ stay in one finite set on a Zariski dense set of closed points, for instance
 at infinitely many closed points of infinitely many reductions. The passage
 to characteristic zero is then done by the specialisation of cycle classes
 along $C'_{R}$, and neither the $p$-adic variational Hodge conjecture nor a
-lifting of cycles is needed. Li's theorem gives no bound, and where its proof
-carries cycles into a prescribed isogeny class it does so by an isogeny whose
-degree it does not control \cite[proof of Theorem~1.2, Step~3]{Li26}. Nor
-do the natural representatives at the supersingular points supply the bound.
-At a closed point $x$ whose fibre is supersingular, the Frobenius
+lifting of cycles is needed. Li's theorem gives no bound: where its proof
+carries cycles into a prescribed isogeny class, it does so by an isogeny whose
+degree it does not control \cite[proof of Theorem~1.2, Step~3]{Li26}.
+
+Nor do the natural representatives at the supersingular points supply the
+bound. At a closed point $x$ whose fibre is supersingular, the Frobenius
 eigenvalues on $H^{2}(Y'_{\bar{x}},\QQ_{\ell}(1))$ are roots of unity, so by
-Tate's theorem \cite{Tat66} it is spanned by divisor classes, and
+Tate's theorem \cite{Tat66} this space is spanned by divisor classes, and
 $\omega_{\ell}(\bar{x})\in{\textstyle\bigwedge^{4}}H^{1}$ is a combination of
-products of two of them; but for a closed point $s$ of $\Spec R[1/\ell]$ and a
-finite set of Hilbert polynomials only finitely many closed points of $C'_{s}$
-carry such a combination $\sum_{i}q_{i}\operatorname{cl}(D_{i})
+products of two of them. But for a closed point $s$ of $\Spec R[1/\ell]$ and
+a finite set of Hilbert polynomials, only finitely many closed points of
+$C'_{s}$ carry such a combination $\sum_{i}q_{i}\operatorname{cl}(D_{i})
 \operatorname{cl}(D'_{i})$ with effective divisors $D_{i},D'_{i}$ whose
-Hilbert polynomials lie in that set, for otherwise Step~1 of the proof of
+Hilbert polynomials lie in that set: otherwise Step~1 of the proof of
 \Cref{thm:modpdensity}, run on relative Hilbert schemes of divisors, would
-give one at $\bar\eta_{s}$, against \Cref{prop:modp}(iii); and this holds
-whether or not the supersingular points are dense, as they are in $C'_{R}$
-when $R$ has dimension one: for every prime $p\ge5$ not dividing the
+give one at $\bar\eta_{s}$, against \Cref{prop:modp}(iii). This holds whether
+or not the supersingular points are dense. They are dense in $C'_{R}$ when $R$
+has dimension one. Indeed, for every prime $p\ge5$ not dividing the
 discriminants of $F$ and $D$, which is all but finitely many, the
 supersingular points of the reduction at a prime over $p$ of Kisin's integral
 model of the Shimura curve, with hyperspecial level at $p$, are its whole
 Newton jumping locus and number $(p^{r}-1)(g-1)$ on each component of genus
-$g$, $r$ being the local degree of $F$
-\cite[Theorem~1.2 and Corollary~5.17]{SZ11}; for all but finitely many $s$
-the curve $C'_{s}$ maps finitely onto such a component, of genus at least
-two, so it has at least $p-1$ supersingular points, while a closed subset of
-$C'_{R}$ of dimension one meets all but finitely many of the $C'_{s}$ in
-boundedly many points. Within
-one reduction the
-bound is equivalent to the class being algebraic at the generic point of
-$C'_{s}$, a Tate class over a global function field that is not a combination
-of products of divisor classes (\Cref{prop:modp}(iii)); this is the
-codimension two case of the variational Tate conjecture along $C'_{s}$, which
-Morrow proves for divisors in its crystalline form \cite{Mor19}. From one
-reduction alone the way back to characteristic zero would be the $p$-adic
-variational Hodge conjecture for $W\times_{C}W$ over the Witt vectors of
-$\kappa(s)$, with rational rather than $\ell$-adic coefficients and with the
-crystalline class of the cycle matching the de Rham class of $\omega$; Bloch,
-Esnault and Kerz lift such a class in $K_{0}\otimes\QQ$ of the special fibre
-to the formal completion for $p>15$, the dimension being nine, and leave the
-algebraisation open \cite[Theorem~1.3]{BEK14}. Neither the uniform bound nor
-this conjecture is proved.
+$g$, $r$ being the local degree of $F$ \cite[Theorem~1.2 and
+Corollary~5.17]{SZ11}. For all but finitely many $s$ the curve $C'_{s}$ maps
+finitely onto such a component, of genus at least two, so it has at least
+$p-1$ supersingular points, while a closed subset of $C'_{R}$ of dimension one
+meets all but finitely many of the $C'_{s}$ in boundedly many points.
+
+Within one reduction the bound is equivalent to the class being algebraic at
+the generic point of $C'_{s}$ (\Cref{thm:modpdensity}), a Tate class over a
+global function field that is not a combination of products of divisor
+classes (\Cref{prop:modp}(iii)). This is the codimension two case of the
+variational Tate conjecture along $C'_{s}$, which Morrow proves for divisors
+in its crystalline form \cite{Mor19}. From one reduction alone, the way back
+to characteristic zero would be the $p$-adic variational Hodge conjecture for
+$W\times_{C}W$ over the Witt vectors of $\kappa(s)$, with rational rather than
+$\ell$-adic coefficients and with the crystalline class of the cycle matching
+the de Rham class of $\omega$. Bloch, Esnault and Kerz lift such a class in
+$K_{0}\otimes\QQ$ of the special fibre to the formal completion for $p>15$,
+the dimension being nine, and leave the algebraisation open
+\cite[Theorem~1.3]{BEK14}. Neither the uniform bound nor this conjecture is
+proved.
 \end{remark}
 
-The five routes of \Cref{rem:bypassaudit} that are not closed off are
+Five of the routes of \Cref{rem:bypassaudit} are not closed off:
 \emph{specialisation}, \emph{reduction modulo $p$}, \emph{semiregularity},
-\emph{Kuga--Satake} and \emph{motivated classes}. They are not five
-obligations.
+\emph{Kuga--Satake} and \emph{motivated classes}. The next corollary shows
+that they are not five separate obligations.
 
-\begin{corollary}[The open routes are one statement]\label{cor:mumfordone}
+\begin{corollary}[The open routes reduce to one statement]\label{cor:mumfordone}
 Let $W\to C$ be as in \Cref{cor:mumfordlefschetz}, let $\omega$ be a rational
 exceptional class, and let the \emph{Mumford target} be the first case of
 \textup{(F2)}: the Hodge conjecture for $X_{t}\times X_{t}$ for every $t\in C$.
@@ -690,37 +697,37 @@ Of the five routes, specialisation, reduction modulo $p$ and motivated
 classes are the Mumford target itself in three other forms, by
 \Cref{cor:mumfordone}(i) and, for the motivated classes,
 \Cref{cor:mumfordequiv}; semiregularity and Kuga--Satake are stronger inputs
-that imply it. So one route suffices and the other four can be dropped, and
-item (XLIX) of \Cref{sec:verification} computes this from the rules of the
-paper: every minimal set of open statements from which the target follows
-has one element, and the statements equivalent to it over what is proved
-are exactly the four forms of (i) and the target. Nothing in the paper
-proves any of them, and each of the three forms is the whole of the problem:
-a bound that no known construction gives, or a case of \textup{(L)} that is
-equivalent to the target. The two stronger inputs ask for an object and a
-cycle that nothing in the paper constructs.
+that imply it. So any one route suffices. Item (XLIX) of
+\Cref{sec:verification} confirms this by computing with the implications
+proved in the paper: every minimal set of open statements from which the
+target follows has one element, and the statements equivalent to it over what
+is proved are exactly the four forms of (i) and the target. Nothing in the
+paper proves any of them, and each of the three forms is the whole of the
+problem: a bound that no known construction gives, or a case of \textup{(L)}
+that is equivalent to the target. The two stronger inputs ask for an object
+and a cycle that nothing in the paper constructs.
 
-Nor is the target, once proved, a step that finishes the conjecture. It is a
-special case of the conjecture, and so it is needed in the sense that every
-proof of the conjecture proves it. But it is only the first case of (F2), and
-a proof of it gives the conjecture for every power of every fibre
+The target is a special case of the Hodge conjecture, so every proof of the
+conjecture proves it; in that sense it is needed. A proof of the target would
+not finish the conjecture, however. It is only the first case of (F2); it
+gives the conjecture for every power of every fibre
 (\Cref{cor:mumfordpowersequiv}) but leaves (F1), the other cases of (F2), and
-(F3) open. The last
-of these is not a remainder of the conjecture but the conjecture itself
-(\Cref{prop:f3ishc}); its weaker form \textup{(F3$'$)} is open as well
-(\Cref{rem:f3primeopen}). Of the five minimal sufficient sets of
-\Cref{thm:closure}(ii), only the route through this paper,
-$\{\mathrm{P2}_{\mathrm{split}},\mathrm{F2},\mathrm{F3}'\}$, has the target as an input,
-as the first case of (F2). On the other four it is not an input: (F3) is the
-conjecture, and \textup{(L)} implies \textup{(V)} (\Cref{prop:lefvhc}),
-which carries the algebraicity at the CM points of \Cref{thm:mumfordcm} to
-every member. Item (XLIX) checks both: that (F3), being equivalent to the
-conjecture, yields the target, and that \textup{(L)} and \textup{(V)} do.
+(F3) open. The last of these is not a remainder of the conjecture but the
+conjecture itself (\Cref{prop:f3ishc}), and its weaker form
+\textup{(F3$'$)} is open as well (\Cref{rem:f3primeopen}). Of the five
+minimal sufficient sets of \Cref{thm:closure}(ii), only the route through this
+paper, $\{\mathrm{P2}_{\mathrm{split}},\mathrm{F2},\mathrm{F3}'\}$, has the
+target as an input, as the first case of (F2). In the other four it is not an
+input: (F3) is the conjecture, and \textup{(L)} implies \textup{(V)}
+(\Cref{prop:lefvhc}), which carries the algebraicity at the CM points of
+\Cref{thm:mumfordcm} to every member. Item (XLIX) checks both: that (F3),
+being equivalent to the conjecture, yields the target, and that \textup{(L)}
+and \textup{(V)} do.
 \end{remark}
 
-The target can also be read at a single member, through the group of the
-motives of $X$ rather than through cycles on the family, and it then becomes
-the question which of four groups this is.
+The target can also be read at a single member, through the motivic group of
+$X$ rather than through cycles on the family; it then becomes the question of
+which of four groups this is.
 
 \begin{proposition}[Four possible motivic groups]\label{prop:mumfordmotivic}
 In \Cref{setup:mumford}, let $M$ be the group of the Tannakian category of
@@ -870,7 +877,8 @@ $G$, and (ii) for $X_{t}$ gives the Hodge conjecture for $X_{t}\times X_{t}$;
 \Cref{cor:mumfordone}(iii) gives the target.
 \end{proof}
 
-The four cases differ already on $X^{4}$ and $X^{6}$. Over $\bar{\QQ}$,
+The four cases differ already on $X^{4}$ and $X^{6}$
+(\Cref{fig:mumfordgroups}). Over $\bar{\QQ}$,
 $(V^{\otimes2m})^{G}$ is the tensor product of three copies of the space of
 $\SL_{2}$-invariants of $(\bar{\QQ}^{2})^{\otimes2m}$, of dimension $c=2$ for
 $m=2$ and $c=5$ for $m=3$, with a basis of non-crossing pairings that $\zeta$
@@ -884,16 +892,42 @@ connected, $M^{1}$ would be connected too, since $-1\in G$ lies in its
 identity component; it would then be $G$ or $\Sp(V,\psi)$, and the
 algebraicity of $\mathrm{Det}$ alone would give the Hodge conjecture for every
 power of $X$. We do not know whether $M$ is connected. The argument is the
-standard use of the motivic group as the stabiliser of the algebraic classes;
-we have not found \Cref{prop:mumfordmotivic} in the literature and make no
-claim of priority. It proves no new case of the Hodge conjecture: it says
-what one new cycle on one power of one member would have to do.
+standard use of the motivic group as the stabiliser of the algebraic classes,
+and we claim no priority for \Cref{prop:mumfordmotivic}. It proves no new case
+of the Hodge conjecture: it says what one new cycle on one power of one member
+would have to do.
+
+\begin{figure}[tbp]
+\centering
+  \includegraphics[width=\textwidth]{fig_mumfordgroups}
+\caption{The four possible groups $M^{1}=M\cap\Sp(V,\psi)$ of
+\Cref{prop:mumfordmotivic}, where $M=\mathbb{G}_{m}\cdot M^{1}$, as the chain
+$G\subset G\cdot A_{3}\subset N\subset\Sp(V,\psi)$: the first two inclusions
+have index $3$ and $2$, and $N$, whose identity component is $G$, has
+dimension $9$ against $36$. For each case the table gives the dimension of
+the algebraic classes in the multilinear part $V^{\otimes2m}$ of
+$H^{2m}(X^{2m},\QQ)$ for $m=2$ and $m=3$, from the $c=2$, respectively $c=5$,
+non-crossing pairings (item (LX) of \Cref{sec:verification}); whether $M^{1}$
+contains the cyclic permutation $\zeta$ of the three tensor factors; whether
+$\mathrm{Det}$ and $r_{1}$ are algebraic; and whether the two exceptional
+classes of $X\times X$ are. Only $M^{1}=G$ makes the exceptional classes
+algebraic, and it is equivalent to the Hodge conjecture for every power of
+$X$ (\Cref{prop:mumfordmotivic}(ii)); the proposition does not decide which
+of the four cases occurs. Below, from left to right: $\zeta$; the subgroups of
+$N(\bar{\QQ})/G(\bar{\QQ})\cong S_{3}$, of which only $1$, $A_{3}$ and $S_{3}$
+are stable under the Galois group, which acts transitively on the three
+factors; and $\mathfrak{sp}(V,\psi)=\operatorname{Lie}G\oplus
+S^{2}V_{1}\otimes S^{2}V_{2}\otimes S^{2}V_{3}$, $36=9+27$, the second summand
+irreducible under $G$, with the eigenvalues $-1$ and $3$ of $r_{1}$ on the two
+summands.}
+\label{fig:mumfordgroups}
+\end{figure}
 
 The same invariance explains why the classes known or expected to be
 algebraic on abelian varieties stop short of the exceptional classes, on all
 abelian varieties at once.
 
-\begin{proposition}[What the known classes generate]\label{prop:mumfordformal}
+\begin{proposition}[The system generated by the known classes]\label{prop:mumfordformal}
 Keep \Cref{setup:mumford}, and $\zeta$ and $G\cdot A_{3}$ as in
 \Cref{prop:mumfordmotivic}. For an abelian variety $A$ let $A_{X}\subseteq A$
 be the largest abelian subvariety isogenous to a power of $X$, and $A'$ the
@@ -981,4 +1015,73 @@ through a variety that is not an abelian variety, such as the Kuga--Satake
 class of $S_{\lambda}$ would provide (\Cref{prop:mumfordkslink}).
 \Cref{prop:mumfordformal} extends the second limit of
 \Cref{rem:mumfordpowersopen}; it is an obstruction to a method, not to the
-target, and we make no claim of priority for it.
+target, and we claim no priority for it.
+
+The same invariance, used the other way round, shows that the statement (F2)
+of \Cref{cor:fourremain} is not smaller than the conjecture for abelian
+varieties. For an abelian variety $Y$ let $R(Y)\subseteq H^{*}(Y,\QQ)$ be the
+subring generated by divisor classes and Weil classes of quotients, as in
+\Cref{rem:f3collapse}.
+
+\begin{proposition}[Statement (F2) is the conjecture for abelian varieties]
+\label{prop:f2isab}
+Statement \textup{(F2)} of \Cref{cor:fourremain} implies the Hodge
+conjecture for every abelian variety, and is therefore equivalent to it.
+\end{proposition}
+
+\begin{proof}
+The conjecture for abelian varieties contains (F2). For the converse, recall
+from \Cref{rem:f3collapse} that (F2) gives every Hodge class of degree $2q$ on
+$Y$ as soon as one Hodge class of degree $2q$ on $Y$ lies outside $R(Y)$. Let
+$X$ be as in \Cref{setup:mumford}, and let $\zeta$ act on the cohomology of
+every abelian variety through the factor $V$, as in \Cref{prop:mumfordformal}.
+Every class of $R(Y)$ lies in $\cS(Y)$, so it is fixed by $\zeta$, for every
+$Y$; and an exceptional class $e_{0}\in H^{4}(X\times X,\QQ)$ is not
+(\Cref{prop:mumfordformal}). Let $\theta$ be an ample class on $X\times X$,
+which $\zeta$ fixes. If $\zeta e_{0}=\lambda e_{0}$, then $\lambda\ne1$ and
+$e=e_{0}+\theta^{2}$ has $\zeta e=\lambda e_{0}+\theta^{2}$, which is not a
+multiple of $e$; otherwise put $e=e_{0}$. In either case $e$ is a Hodge class
+of degree $4$ on $X\times X$ with $\zeta e\notin\bar{\QQ}\,e$.
+
+Let $A$ be an abelian variety and $\beta\ne0$ a Hodge class of degree $2p$ on
+$A$, and put $Y=A\times X\times X$. As $\zeta$ acts on
+$H^{*}(Y)=H^{*}(A)\otimes H^{*}(X\times X)$ diagonally, a class
+$\beta\otimes e$ in $R(Y)$ would satisfy
+$\zeta\beta\otimes\zeta e=\beta\otimes e$, which forces $\zeta e\in\bar{\QQ}\,e$.
+So the Hodge class $\beta\otimes e$ lies outside $R(Y)$, and (F2) makes it
+algebraic. In the same way $e\cup\theta^{4}\notin R(X\times X)$, since
+otherwise $(\zeta e-e)\cup\theta^{4}=0$ and the hard Lefschetz theorem would
+give $\zeta e=e$; so (F2) makes every Hodge class of degree $12$ on
+$X\times X$ algebraic. By the Hodge--Riemann bilinear relations the
+intersection pairing between the Hodge classes of degrees $4$ and $12$ on
+$X\times X$ is nondegenerate, so there is a Hodge class $e'$ of degree $12$
+with $\int_{X\times X}e\cup e'=1$. Then
+\[
+  \beta=\mathrm{pr}_{A*}\bigl((\beta\otimes e)\cup
+  \mathrm{pr}_{X\times X}^{*}e'\bigr),
+\]
+with $\mathrm{pr}_{A}$ and $\mathrm{pr}_{X\times X}$ the projections of $Y$,
+and $\beta$ is algebraic.
+\end{proof}
+
+\begin{remark}[The rule set with \Cref{prop:f2isab}]\label{rem:f2rule}
+\Cref{thm:closure} is a statement about the rule set of \Cref{setup:rules},
+and \Cref{prop:f2isab} is a rule that the set does not contain. Adjoined to
+it, the rule changes the fifth minimal set of \Cref{thm:closure}(ii): the
+minimal sufficient sets become
+\[
+  \{\mathrm{F3}\},\quad\{\mathrm{L},\mathrm{M}\},\quad
+  \{\mathrm{L},\mathrm{F3}'\},\quad\{\mathrm{V},\mathrm{F3}'\},\quad
+  \{\mathrm{F2},\mathrm{F3}'\},
+\]
+as item (XXXIII) of \Cref{sec:verification} checks, and
+$\mathrm{P2}_{\mathrm{split}}$ lies in none of them. So the results of this
+paper on Weil classes do not shorten a route to the conjecture. What they do
+is reduce one case of it, the algebraicity of the Weil classes of every CM
+field, to the single statement $\mathrm{P2}_{\mathrm{split}}$, by a route that
+does not pass through (F2). Like (F3), which is the whole conjecture, (F2) is
+the whole conjecture for abelian varieties, carried by the classes that are
+hardest to reach; the exceptional classes of $X\times X$ are its smallest
+instance, and the proof above shows that the classes $\beta\otimes e$ built
+from them already carry all of it.
+\end{remark}
