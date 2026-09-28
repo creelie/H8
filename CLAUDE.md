@@ -61,7 +61,12 @@ certificate from Orlov products) to every quartic CM field through the
 arithmetic of `prop:quarticother` modulo the different and modulo 4
 (`code/attack/gaps/quartic_obstruction/a1_lattice_local.py`,
 `a1_lattice_general.py`, `a1_rank2_arith.py`; Lean Section 34, ninety-two
-theorems).
+theorems); round 15 restated `thm:quarticobstruction` in three parts: the exact
+formula r(kappa) = r^2(v_1) + 64 + r^2(v_2), correcting the claim that r(kappa)
+is always 100, 102 or 104 (it is 88 or 94 for biquadratic F with a class of
+N_w = 2), and the flatness of kappa for every quartic CM field when the
+B-field is trivial, proved by factorisation over the real places and checked
+for seven real quadratic fields (`a1_flat_general.py`, `a1_rkappa_general.py`).
 
 Release v1.0.0 (tag `v1.0.0`, commit `ef15bce`) is archived on Zenodo under
 DOI 10.5281/zenodo.22950276, recorded in the macro `\zenodoDOI` at the top of

@@ -16,3 +16,6 @@ __pycache__/
 !code/extreme/transcripts/*.log
 !code/attack/*/transcripts/*.log
 !code/attack/gaps/*/transcripts/*.log
+
+# output of the Q(sqrt 10) scan run by item (LV)
+code/attack/gaps/quartic_obstruction/a1_general_*.pkl

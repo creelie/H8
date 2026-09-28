@@ -149,7 +149,7 @@ careful reading does not catch and a kernel check does.
 `code/verify_all.py` in the parent directory performs the same checks in exact
 rational arithmetic over Q, independently of Lean, together with the exterior
 algebra computations that Lean does not carry, and prints
-`1021 checks passed, 0 failed`.
+`1023 checks passed, 0 failed`.
 
 ## Transcript
 
