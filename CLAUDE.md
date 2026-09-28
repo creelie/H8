@@ -61,6 +61,16 @@ certificate from Orlov products) to every quartic CM field through the
 arithmetic of `prop:quarticother` modulo the different and modulo 4
 (`code/attack/gaps/quartic_obstruction/a1_lattice_local.py`,
 `a1_lattice_general.py`, `a1_rank2_arith.py`; Lean Section 34, ninety-two
+theorems); round 15 restated `thm:quarticobstruction` in three parts: the exact
+formula r(kappa) = r^2(v_1) + 64 + r^2(v_2), correcting the claim that r(kappa)
+is always 100, 102 or 104 (it is 88 or 94 for biquadratic F with a class of
+N_w = 2), and the flatness of kappa for every quartic CM field when the
+B-field is trivial, proved by factorisation over the real places and checked
+for seven real quadratic fields (`a1_flat_general.py`, `a1_rkappa_general.py`);
+round 16 showed that the count is special to quartic fields: for sextic CM
+fields the secant profile is palindromic, chi is negative definite and a
+minimal object is not excluded (`prop:sexticroom`,
+`code/attack/gaps/sextic/s1_profile.py`, Lean Section 35, ninety-three
 theorems).
 
 Release v1.0.0 (tag `v1.0.0`, commit `ef15bce`) is archived on Zenodo under
@@ -75,7 +85,7 @@ section.
 - `cd code && python3 verify_all.py` ends with `N checks passed, 0 failed`;
   keep the count in `README.md`, `.zenodo.json`, `.github/workflows/lean.yml`,
   `tex/appendices/D_computations.tex` and `tex/declarations.tex` in step.
-- `cd lean && lean HodgeObstruction.lean`: 92 theorems, each axiom-free or
+- `cd lean && lean HodgeObstruction.lean`: 93 theorems, each axiom-free or
   depending on `propext` only.
 - `cd tex && latexmk -pdf main.tex`: 0 errors, 0 overfull or underfull boxes,
   no undefined references.

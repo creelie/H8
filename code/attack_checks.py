@@ -669,6 +669,15 @@ def track_gaps():
              "the whole (F,2,1)-family, with a nonzero Weil part"),
             ("a1_rkappa.py", 8, "r(kappa) = 100 exactly for a rank-one "
              "secant pair, from an exact annihilator over Q(i)"),
+            ("a1_flat_general.py", 96, "the twisted character of an Orlov "
+             "product is invariant under G_F, with a nonzero Weil part, for "
+             "F0 = Q(sqrt 2), Q(sqrt 13), Q(sqrt 17), Q(sqrt 10) (product "
+             "model) and Q(sqrt 3), Q(sqrt 7) (lattice O^2 + (d^-1)^2), two "
+             "q each"),
+            ("a1_rkappa_general.py", 12, "r(kappa) = r^2(v_1) + 64 + "
+             "r^2(v_2) on five further pairs: 102 for a mixed pair, 100 and "
+             "104 over Q(sqrt 2), and 88 and 94 for F = Q(sqrt 5, i) with a "
+             "class of N_w = 2"),
             ("a1_theorem_check.py", 4, "the identities of the quartic "
              "obstruction on random integral classes: 20 | chi in rank one; "
              "adj V = mu lbar l^T, sigma_2 = mu^2 N(Delta) and "
@@ -683,6 +692,13 @@ def track_gaps():
           "(chi, rank V, r^2) = (4,1,18) or (6,2,20)",
           st == 0 and "scanned 1841 complex-secant planes" in out
           and "ADMISSIBLE: 0" in out)
+    out, st = run("gaps/sextic", "s1_profile.py")
+    check("the count beyond degree four (s1_profile.py): the secant profiles "
+          "of a sextic CM field are palindromic, r^2 = sum rho_j + "
+          "4 sum N_jk, chi = (-4)^3 N(q) sum |w|^2 < 0, and a minimal "
+          "object needs only -chi >= r^3 - 2 r^2 + 22; the quartic profile "
+          "(1, 8, 2 rho + 4 N_w, 8, 1) is reproduced",
+          summary_ok(out, st, 7))
     w = "gaps/orlov_growth"
     out, st = run(w, "lagrangian_check.py")
     check("flatness in every dimension (lagrangian_check.py): at n = 1 and "

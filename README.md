@@ -39,7 +39,7 @@ Lean check:
 
 The last lines are
 
-    1021 checks passed, 0 failed
+    1024 checks passed, 0 failed
     overall: PASS
 
 and the exit status is zero. The driver runs five self-contained checks and
@@ -118,10 +118,10 @@ reduction at all.
 No Mathlib and no dependencies. The file ends with one `#print axioms` line
 per theorem; every one must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
-through `decide`, and none may mention `sorryAx`. There are ninety-two theorems. `lean/README.md` lists them
+through `decide`, and none may mention `sorryAx`. There are ninety-three theorems. `lean/README.md` lists them
 and says what each one does and does not establish. The workflow in
 `.github/workflows/lean.yml` runs the check on every push and fails if the
-number of theorems is not ninety-two, or if any of them depends on an axiom other than propext.
+number of theorems is not ninety-three, or if any of them depends on an axiom other than propext.
 
 ## The computations of Appendix D, item by item
 
