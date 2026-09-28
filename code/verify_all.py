@@ -174,6 +174,9 @@ Contents
          Fujiki relation on Sym^2, c_2 = (6/5) q^vee, the threshold
          t(t+1)/2 for powers, norm-one spans and Kummer sectors
          [k3_hodge.py, with attack/gaps/f3prime/]
+  (LXII) zero-cycles and hypersurfaces: Jacobian rings, the Hodge numbers
+         of the sextic fourfold and of the rational sixfold Bl_Y P^6, and
+         h^{4,0} of hypersurface fourfolds  [f3prime_chow.py]
 """
 
 import os
@@ -592,6 +595,9 @@ def main():
 
     head("(LXI) Hodge classes on K3 surfaces and varieties of K3^[n] type")
     run_module("LXI", "k3_hodge.py")
+
+    head("(LXII) zero-cycles, hypersurfaces and the rational sixfold Bl_Y P^6")
+    run_module("LXII", "f3prime_chow.py")
 
     print()
     print("=" * 70)

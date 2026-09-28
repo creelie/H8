@@ -769,10 +769,21 @@ its profile is written down (\Cref{prop:sexticcount},
 \Cref{rem:sexticparity}). Nor does integrality exclude it, as it did in
 degree four: the threshold the profile sets is $\chi\le-26$ for every shape,
 and for sixteen cubic fields, with two values of $q$ each, every integral
-flat secant character has
-$\chi\le-32$, the value $-32$ being attained, for $q=1$, by the real and imaginary
-parts of $e^{\sqrt{-1}\,\theta}$ (\Cref{prop:sexticintegral},
-\Cref{rem:sexticnoexclusion}). None of this is a
+flat secant character has $\chi\le-32$ (\Cref{prop:sexticintegral}). The
+value $-32$ is attained, for $q=1$, by the real and imaginary parts of
+$e^{\sqrt{-1}\,\theta}$, but these are not candidates: they span the secant
+plane of $\QQ(\sqrt{-1})\subseteq F$, and the twisted characters of their
+Orlov products have no component in the Weil classes of $F$
+(\Cref{lem:sexticweil}, \Cref{rem:sexticnoexclusion}). That component is
+computed in closed form, and over forty-eight lattices of integral flat
+characters, sixteen cubic fields with three values of $q$ each, the least
+$-\chi$ of a character whose Orlov square has a nonzero component is $192$,
+attained over $\QQ(\zeta_{7})^{+}$ with $q=3+\alpha$, where $F$ has no
+imaginary quadratic subfield. A minimal factor with that character would have
+the Ext profile $(1,12,54,278,54,12,1)$; whether one exists is open, and no
+combination of fewer than seven characters of natural objects has it
+(\Cref{prop:sexticweilmin}, \Cref{rem:sextictargets},
+\Cref{rem:sexticnatural}). None of this is a
 new case of the conjecture: at $n=2$ the algebraicity of the Weil classes
 remains open for every quartic CM field and every discriminant.
 
@@ -804,21 +815,42 @@ under products and surjective images; it holds on a variety of dimension $k$
 in degrees $0$, $2$, $2k-2$ and $2k$, and on every variety of dimension at
 most three (\Cref{prop:f3prime}). The class of varieties reached in that way
 is closed under blow-ups along centres in it, projective bundles and Hilbert
-schemes of points on surfaces, and it contains every Fermat hypersurface,
-through the inductive structure of Shioda and Katsura, and every K3 surface
-whose Kuga--Satake correspondence is algebraic; with the theorems of
-Bloch--Srinivas and Conte--Murre, (F3$'$) and indeed the conjecture hold on
-every uniruled fourfold and every rationally connected fivefold
-(\Cref{prop:aclosure}, \Cref{prop:f3primesmall},
-\Cref{rem:f3primefrontier}). Beyond that it is open, and its standard
-open case, the square of a K3 surface, turns on the same Kuga--Satake
+schemes of points on surfaces and under domination by algebraic
+correspondences, and it contains every Fermat hypersurface, through the
+inductive structure of Shioda and Katsura, every K3 surface whose
+Kuga--Satake correspondence is algebraic, the generalised Kummer varieties,
+and the moduli spaces and O'Grady resolutions whose motives are built from
+those of abelian surfaces. With the theorems of Bloch--Srinivas and
+Conte--Murre, (F3$'$) and indeed the conjecture hold on every fourfold and
+every fivefold whose zero-cycles are supported in dimension at most three,
+among them every uniruled fourfold and every rationally connected fivefold;
+(F3$'$) and the conjecture in degree four are birational invariants that
+depend only on the maximal rationally connected quotient, and with Markman's
+theorem the conjecture holds on every fourfold birational to an abelian
+fourfold (\Cref{prop:aclosure}, \Cref{prop:f3primesmall},
+\Cref{prop:f3primefibration}, \Cref{rem:f3primefrontier}). Zero-cycles alone
+go no further: (F3$'$) for uniruled fivefolds, or for rational sixfolds, is
+equivalent to (F3$'$) for all fourfolds (\Cref{rem:f3primesharp}). The same
+invariant theory, with the motivic decompositions of de Cataldo and
+Migliorini and of B\"ulles and the theorems of Buskin and Markman on Hodge
+isometries, gives the conjecture itself on the powers, Hilbert schemes and
+moduli spaces of a K3 surface whose transcendental field is a CM field, and
+on the fourfolds of K3$^{[2]}$ type and the Fano varieties of lines of cubic
+fourfolds whose field is $\QQ$ or a CM field (\Cref{prop:k3powers},
+\Cref{prop:k3ntype}, \Cref{cor:fanolines}); with real multiplication each of
+these is equivalent to the algebraicity of the real multiplication. Beyond
+these cases (F3$'$) is open, and its standard open case, the square of a K3
+surface with real multiplication, turns on the same Kuga--Satake
 correspondence as the Mumford classes below (\Cref{rem:f3primeopen}). It is
 at least as strong as the motivatedness of every Hodge class
 (\Cref{prop:f3primestrength}). On the powers of a variety whose middle
 cohomology has Hodge group $\SO(V)$, $t=\dim V$, the Hodge conjecture holds up
 to the power $t-1$, and the first open instance, of the conjecture and of
 (F3$'$) alike, is a single class, the determinant of $V$ on the $t$-th power;
-for a very general K3 surface it lies on $S^{21}$ (\Cref{prop:orthpowers}).
+for a very general K3 surface it lies on $S^{21}$ (\Cref{prop:orthpowers}),
+and it is equivalent to the conjecture for the Hilbert scheme $S^{[231]}$,
+the first Hilbert scheme of $S$ on which the conjecture is open
+(\Cref{prop:k3powers}).
 
 With (F3$'$) in the rule set there are exactly five minimal sets of open
 statements that yield the conjecture (\Cref{thm:closure}). Two restate the
@@ -892,10 +924,27 @@ soon as the Kuga--Satake class of one K3 surface of Picard number thirteen
 attached to the fourfold is algebraic; the Clifford relations of the
 Kuga--Satake construction bring the whole field into play
 (\Cref{prop:mumfordrm}, \Cref{thm:mumfordks}, \Cref{rem:mumfordks}). That
-Kuga--Satake class is not known to be algebraic. If the two classes are
-algebraic, so is every Hodge class on every power of the fourfold
+Kuga--Satake class is not known to be algebraic. Morrison's criterion, as
+extended by Buskin, makes it algebraic on a dense set of the
+seven-dimensional family of K3 surfaces in which the Hodge class survives and
+on countably many subfamilies of dimension three, but none of these meets the
+Mumford curve, whose surfaces have Picard number thirteen, or sixteen at the
+CM points (\Cref{rem:mumfordpowersopen}). If the two classes are algebraic,
+so is every Hodge class on every power of the fourfold
 (\Cref{thm:mumfordpowers}), the one class that pull-backs and products do not
-reach being obtained by composing correspondences. The Kuga--Satake class
+reach being obtained by composing correspondences. At a single member the
+question is which of four groups is the motivic group of the fourfold: its
+intersection with the symplectic group is the Hodge group, the symplectic
+group, or one of two groups in between that contain the cyclic permutation of
+the three tensor factors, and the exceptional classes are algebraic exactly in
+the first case, that is, as soon as one algebraic cycle on one power of the
+fourfold has a class not fixed by that permutation
+(\Cref{prop:mumfordmotivic}). Divisors, Weil classes for every field acting,
+the Hodge classes of abelian varieties without the fourfold as an isogeny
+factor and the Hodge classes of powers of the fourfold fixed by the
+permutation generate, under all the standard operations, only classes fixed
+by it, and so never the exceptional classes (\Cref{prop:mumfordformal}). The
+Kuga--Satake class
 asks for more than the two classes: it is algebraic if and only if they are
 and some algebraic cycle links the surface to a power of the fourfold
 (\Cref{prop:mumfordkslink}), and no such link passes through an abelian
@@ -941,7 +990,10 @@ are represented by algebraic cycles at every closed point of every reduction
 of the curve modulo a prime, and the target is equivalent to a bound on the
 Hilbert data of those cycles on a Zariski dense set of closed points of the
 arithmetic model, with no lifting step (\Cref{prop:modp},
-\Cref{thm:modpdensity}). \Cref{rem:bypassaudit} examines the ten routes to
+\Cref{thm:modpdensity}); at the supersingular points the classes are
+combinations of products of divisors, but these representatives have bounded
+Hilbert data at only finitely many closed points of each reduction
+(\Cref{rem:modpremains}). \Cref{rem:bypassaudit} examines the ten routes to
 the target that avoid the Lefschetz standard conjecture, and none of them is
 carried out. The five that are not closed off are not five obligations: three
 are the target in other forms and two imply it, so any one would suffice

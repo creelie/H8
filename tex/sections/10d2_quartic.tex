@@ -863,7 +863,8 @@ only $D=2$ and $D=5$.
 Let $F=F_{0}(\sqrt{-q})$ be a quartic CM field with real quadratic subfield
 $F_{0}$, let $X$ be a principally polarised abelian fourfold with real
 multiplication by $\cO_{F_{0}}$, and give $A=X\times\widehat X$ the action of
-$F$ of \cite{Mar25c} for a rational $F_{0}$-$B$-field $t$. Let $F_{1},F_{2}$
+$F$ of \cite[\S11.1]{Mar25c}, transported by the $B$-field $e^{\theta_{t}}$ for a
+rational $t\in F_{0}$. Let $F_{1},F_{2}$
 be perfect complexes on $X$ with $\Ext^{<0}(F_{i},F_{i})=0$, for instance
 sheaves, whose Chern characters lie in spaces $S(t',q')$ of
 \Cref{prop:quarticsecant}, and let $E=\Phi(F_{1}\boxtimes F_{2}^{\vee})$ and
@@ -877,7 +878,10 @@ $\kappa=\ch(E)e^{\ell/2}$. Put $v_{1}=\ch(F_{1})$ and $v_{2}=\ch(F_{2}^{\vee})$.
   be obtained from a dimension count for any such $E$.
 \item If $t=0$ and both Chern characters lie in $S(0,q)$, then $\kappa$ is
   invariant under $G_{F}$, and so is a Hodge class on every member of the
-  $(F,2,1)$-family.
+  $(F,2,1)$-family. This is the case $[F:\QQ]=4$ of
+  \cite[Proposition~10.2.1(1)]{Mar25c} and of the inclusion stated before
+  \cite[Lemma~10.1.3]{Mar25c}, with other conventions for $\Phi$ and for the
+  sign of the twist.
 \end{enumerate}
 \end{theorem}
 
@@ -937,11 +941,334 @@ formula of (i) on eight pairs, including the values $88$ and $94$ for
 $F=\QQ(\sqrt5,\sqrt{-1})$.
 \end{proof}
 
-What \Cref{thm:quarticobstruction} leaves for $\mathbf{W}(F,2,\delta)$ is one
-of three things: a complex with Ext groups in degrees at most $-3$, which
-changes the Euler characteristic; a kernel on $X\times X$ that is not an
-external product; or a proof of the injectivity of $\sigma_{E}$ for some Orlov
-product that does not go through a dimension count.
+\begin{remark}[The shape of the secant characters]\label{rem:quarticsecantshape}
+Let $t=0$ in \Cref{thm:quarticobstruction}(iii), and write
+$\eta=\eta_{1}+\eta_{2}$, $\gamma=\gamma_{1}+\gamma_{2}$ and
+$\ell=\ell_{1}+\ell_{2}$ for the decompositions over the real places used in
+its proof: $\eta_{j}=\tau_{j}(q)\theta_{j}+\widehat\theta_{j}$ and
+$\gamma_{j}=\tau_{j}(q)\theta_{j}-\widehat\theta_{j}$, with $\theta_{j}$ and
+$\widehat\theta_{j}$ now the pull-backs to $A$ of the components of the
+polarisations of $X$ and $\widehat X$. The classes $\eta_{t}$ of $A$ are the
+combinations of $\eta_{1}$ and $\eta_{2}$, and the Weil classes at the two
+embeddings over $\tau_{j}$ are the multiples of
+$(\gamma_{j}\mp s_{j}\ell_{j})^{2}$. Let $\kappa_{(a,b)}$ be the component of
+$\kappa$ of degree $a$ at $\tau_{1}$ and $b$ at $\tau_{2}$. Although $\kappa$
+is flat, it does not lie in $\CC[\eta_{1},\eta_{2}]+W_{F}\otimes\CC$ once
+$\kappa_{4}$ has a nonzero Weil part, unlike the classes of
+\Cref{prop:flatall}. Indeed, by the proof of \Cref{thm:quarticobstruction}(iii),
+$\kappa$ is a sum of products $X_{1}X_{2}$ in which each $X_{j}$ is a multiple
+of $e^{\pm c_{j}\eta_{j}}$, $c_{j}=s_{j}/(2\tau_{j}(q))$, or of
+$(\gamma_{j}\mp s_{j}\ell_{j})^{2}$. The components $\kappa_{(4,0)}$ and
+$\kappa_{(4,8)}$ receive exactly the terms whose second factor is an
+exponential, through its parts of degree $0$ and $8$, and
+$c_{2}^{4}=1/(16\tau_{2}(q)^{2})$ for both signs; so
+\[
+  \kappa_{(4,8)}=\frac{\kappa_{(4,0)}\,\eta_{2}^{4}}{384\,\tau_{2}(q)^{2}},
+\]
+and symmetrically. The polynomials in $\eta_{1},\eta_{2}$ of this bidegree
+are the multiples of $\eta_{1}^{2}\eta_{2}^{4}$ and $W_{F}$ has no component
+there, while $\kappa_{(4,0)}$ has a nonzero Weil part as soon as $\kappa_{4}$
+has one, since a nonzero rational Weil class has nonzero components at all
+four embeddings. Moreover $\ch(E)=\kappa e^{-\ell/2}$ is not flat: for $Y$ in
+the Lie algebra of $G_{F}$, $D_{Y}\ch(E)=-\tfrac12(D_{Y}\ell)\ch(E)$, whose
+part of degree two is $-\tfrac12\rk(E)\,D_{Y}\ell$, and $\ell$ is not flat;
+item (LIX) of \Cref{sec:verification} checks the non-flatness for six pairs in
+two fields, three of them of rank zero. So these objects are candidates only
+for a twisted form of \Cref{thm:quarticp2prime}(v), with hypothesis a flat
+twisted character $\kappa$ with $\kappa_{4}=N\omega+P_{4}$, which needs the
+extension of \Cref{thm:BF} to twisted objects \cite{Per26} and the extraction
+of untwisted cycles of \cite[Section~2]{Mar25b}, as after
+\Cref{thm:twistedcert}. This is the form in which Markman states his
+reduction: he uses the normalised class $\ch(E)\exp(-c_{1}(E)/\rk E)$, which is
+$\kappa e^{-\kappa_{1}/\kappa_{0}}$ when $\rk E\ne0$, asserts the shape of a
+polynomial plus a nonzero Weil class only for its component in $H^{4}$, and
+his propagation hypothesis is that this component stays algebraic
+\cite[Proposition~10.2.1, Corollary~10.2.3]{Mar25c}. The class of
+\Cref{rem:quarticmixedkernel} has the untwisted form of
+\Cref{thm:quarticp2prime}(v).
+\end{remark}
+
+\begin{remark}[Negative Ext groups]\label{rem:quarticnegext}
+The hypothesis $\Ext^{<0}(F_{i},F_{i})=0$ in
+\Cref{thm:quarticobstruction}(ii) can be replaced by a condition on the
+amplitude. Let $F_{1},F_{2}$ be any perfect complexes with characters in
+spaces $S(t',q')$, let $e_{k}=\dim\Ext^{k}(F_{1},F_{1})$ and
+$e_{k}'=\dim\Ext^{k}(F_{2},F_{2})$, and put
+$\nu_{i}=\sum_{j\ge3}(-1)^{j}\dim\Ext^{-j}(F_{i},F_{i})$. Then still
+$\dim\Ext^{2}(E,E)\ge r(\kappa)$, and equality forces, for each $i$,
+$\dim\Ext^{k}(F_{i},F_{i})=1,8,r^{2}(v_{i})$ for $k=0,1,2$,
+$\Ext^{-1}(F_{i},F_{i})=\Ext^{-2}(F_{i},F_{i})=0$ and
+$\nu_{i}=\bigl(\chi(v_{i},v_{i})-r^{2}(v_{i})+14\bigr)/2$. This gives
+$\nu_{i}\ge2$ for $(\rho,N_{w})=(1,4)$ and $(2,2)$, and $\nu_{i}\ge1$ for
+$(2,4)$ unless $F_{0}=\QQ(\sqrt3)$ and $\chi(v_{i},v_{i})=4$, where
+$\nu_{i}=-1$; we do not know whether integral classes of that kind exist. So
+equality needs, for both $i$, some $\Ext^{-j}(F_{i},F_{i})\ne0$ with $j\ge4$
+even, or $j\ge3$ odd in the exceptional case, and it fails as soon as one
+$F_{i}$ has its cohomology sheaves in an interval of length at most $3$, at
+most $2$ in the exceptional case. These conditions are necessary, not
+sufficient. The strict inequality $\dim\Ext^{2}(E',E')>r(\ch E')$ passes to
+the images $E'$ of such an $E$ under derived equivalences, push-forward and
+pull-back along isogenies, and twists by line bundles or $B$-fields.
+
+Indeed, $\dim\Ext^{2}(E,E)=\sum_{a\in\ZZ}e_{a}e_{2-a}'$ by the K\"unneth
+formula, and $e_{a}=e_{4-a}$ by Serre duality. The terms $a=0,1,2$ give at
+least $r(\kappa)$, with equality only if $e_{k}$ and $e_{k}'$ are the ranks
+$r^{k}$ for $k\le2$, as in the proof of \Cref{thm:quarticobstruction}(ii); the
+terms $a=3,4,-1,-2$ are $e_{1}e_{-1}'$, $e_{0}e_{-2}'$, $e_{-1}e_{1}'$ and
+$e_{-2}e_{0}'$, which must vanish. Then
+$\chi(F_{i},F_{i})=2e_{0}-2e_{1}+e_{2}+2\sum_{j\ge1}(-1)^{j}e_{-j}$ gives the
+value of $\nu_{i}$. The number $\chi(v,v)$ is a positive even integer:
+positive by \Cref{prop:quarticsecant}(iii), and even because $\int_{X}x^{2}$ is
+even for $x\in H^{4}(X,\ZZ)=\bigwedge^{4}H^{1}(X,\ZZ)$. For $(1,4)$,
+$\chi\in4\ZZ$ by the proof of \Cref{prop:quarticother}(i), and $\chi\ne4$; for
+$(2,2)$, $r^{2}=12$. For $(2,4)$, $r^{2}=20$, and in the proof of
+\Cref{prop:quarticother}(ii) $\chi^{2}-4m>0$ with $m\ge1$, so $\chi\ge4$, and
+$\chi\ne6$. If $\chi=4$, then $m\in\{1,2,3\}$, and conditions (a) to (c) of
+that proof, with $36$ replaced by $16$, say that $m\equiv4$ modulo the odd
+part of $D$, so that $D\in\{2,3,6\}$; that $m=1$; and, for $D\equiv2$ modulo
+$4$, that $m$ is even, because $v_{\mathfrak p}(4)=4\ge3$ now gives
+$v_{\mathfrak p}(\mu\Delta)\ge1$. Only $D=3$ remains. A complex with cohomology
+sheaves in an interval of length $l$ has $\Ext^{-j}(F,F)=0$ for $j>l$.
+Equivalences preserve Ext algebras and, through the induced isomorphisms of
+$HT^{*}$ and $H^{*}$, ranks of contraction (\cite{CRV12}, as in the proof of
+\Cref{thm:factor}(iv)); for an isogeny $g$,
+$g^{*}g_{*}E=\bigoplus_{x\in\ker g}t_{x}^{*}E$, so $\Ext^{2}(g_{*}E,g_{*}E)$
+contains $\Ext^{2}(E,E)$ while $r(\ch g_{*}E)=r(\ch E)$, and likewise for
+$g^{*}$; twists are \Cref{lem:bfield}(i). Item (LIX) confirms that for
+squarefree $D<200000$ the three conditions leave only $D=3$.
+\end{remark}
+
+What \Cref{thm:quarticobstruction} and \Cref{rem:quarticnegext} leave for
+$\mathbf{W}(F,2,\delta)$ is one of three things: an Orlov product both of
+whose factors have nonzero Ext groups in some even degree at most $-4$ (or odd
+degree at most $-3$ when $F_{0}=\QQ(\sqrt3)$); a kernel on $X\times X$ that is
+not an external product; or a proof of the injectivity of $\sigma_{E}$ for
+some Orlov product that does not go through a dimension count, which is what
+Markman's question \cite[Question~11.2.2]{Mar25c} asks for. The next
+proposition shows that a kernel of the second kind cannot be supported on
+graphs of real multiplication, and \Cref{rem:quarticmixedkernel} gives one
+that is not.
+
+\begin{proposition}[Graphs and pure spinors give no Weil class]
+\label{prop:quarticexclusions}
+Keep the notation of \Cref{rem:quarticsecantshape} on $A=X\times\widehat X$
+with $t=0$, let $V_{j}\subseteq H^{1}(A,\RR)$ be the part at $\tau_{j}$, let
+$\mathrm{pt}_{j}$ be a generator of $\bigwedge^{8}V_{j}$, and call a class
+flat if it is invariant under $G_{F}(\RR)$.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item Let $v=c\,e^{\beta}\Omega_{N}$ be a real pure spinor, with
+  $c\in\RR^{\times}$, $\beta$ a real $2$-form, $N\subseteq H^{1}(A,\RR)$ and
+  $\Omega_{N}$ a generator of $\det N$. If $v$ is flat, then $N$ is one of
+  $0$, $V_{1}$, $V_{2}$, $H^{1}(A,\RR)$, and $v\in\RR[\eta_{1},\eta_{2}]$.
+  This applies to the characters of line bundles on translates of abelian
+  subvarieties, of points and of simple semi-homogeneous bundles, and of
+  their images under derived equivalences and isogenies, twisted by any real
+  $B$-field; for instance to $\Phi$ of a line bundle on the graph of a
+  homomorphism $X\to X\times X$.
+\item Let $Z$ be a real linear combination of classes $(\beta,\alpha)_{*}(c)$,
+  where $(\beta,\alpha)\in\cO^{2}\setminus\{0\}$ defines
+  $X\to X\times X$, $x\mapsto(\beta x,\alpha x)$, and $c\in
+  H^{\mathrm{ev}}(X,\RR)$; these include the Chern characters of all perfect
+  complexes on $X\times X$ whose cohomology sheaves are supported on finitely
+  many graphs $\Gamma_{\beta,\alpha}=\{(\beta x,\alpha x)\}$. Let
+  $B=\sum_{j}(f_{j}\theta_{j}+g_{j}\widehat\theta_{j}+h_{j}\ell_{j})$ with real
+  coefficients. If $\ch(\Phi(Z))e^{B}$ is flat, it lies in
+  $e^{g_{1}\eta_{1}+g_{2}\eta_{2}}\,\mathrm{span}(1,\mathrm{pt}_{1},
+  \mathrm{pt}_{2},\mathrm{pt}_{1}\mathrm{pt}_{2})\subseteq\RR[\eta_{1},\eta_{2}]$.
+\item Let $\Gamma$ be one such graph, $L$ a line bundle on $X\times X$ whose
+  first Chern class is a sum of classes of the two places, and $B$ as in
+  (ii). If $\ch(\Phi(I_{\Gamma}\otimes L))e^{B}$ is flat, it lies in
+  $\RR[\eta_{1},\eta_{2}]$.
+\end{enumerate}
+In each case the component in $W_{F}\otimes\RR$ vanishes in every degree: no
+such object has a character, twisted as stated, of the form required by
+\Cref{thm:quarticp2prime}(v) or by its twisted form, whatever the quartic
+field.
+\end{proposition}
+
+\begin{proof}
+Over $\RR$, $G_{F}(\RR)=SU_{1}\times SU_{2}$ with $SU_{j}$ acting on $V_{j}$
+and trivially on the other part, and $V_{j}\otimes\CC$ is the sum of the
+standard representation of $SU_{j}\otimes\CC\cong\SL_{4}$ and its dual, which
+are not isomorphic (proof of \Cref{prop:quarticquat}(i)). So $V_{1}$ and
+$V_{2}$ are irreducible and not isomorphic, and $0$, $V_{1}$, $V_{2}$,
+$H^{1}(A,\RR)$ are the only stable subspaces. The flat classes are
+$\mathrm{Inv}_{1}\otimes\mathrm{Inv}_{2}$, where by the same proof
+$\mathrm{Inv}_{j}\subseteq\bigwedge^{*}V_{j}$ is spanned by the powers of
+$\eta_{j}$ and the two Weil classes $(\gamma_{j}\mp s_{j}\ell_{j})^{2}$; in
+degree two it is $\RR\eta_{j}$, and $\eta_{j}^{4}$ spans $\bigwedge^{8}V_{j}$.
+
+(i) If $v$ is real and pure over $\CC$, then $N=\{\xi:\xi\wedge v=0\}$ is
+defined over $\RR$, and so are $c$ and the class of $\beta$ modulo
+$N\wedge H^{1}$. For $g\in G_{F}(\RR)$, $gv=v$ gives $gN=N$, and
+$g\Omega_{N}=\det(g|_{N})\Omega_{N}=\Omega_{N}$ because the connected
+semisimple group $G_{F}(\RR)$ has no nontrivial character. Hence
+$(e^{g\beta-\beta}-1)\Omega_{N}=0$, whose part of lowest degree gives
+$g\beta-\beta\in N\wedge H^{1}$. So $N$ is one of the four stable subspaces,
+and the class of $\beta$ in $\bigwedge^{2}(H^{1}/N)$ is invariant; by complete
+reducibility it is the image of an invariant $2$-form
+$a_{1}\eta_{1}+a_{2}\eta_{2}$, and since $e^{n\wedge x}\Omega_{N}=\Omega_{N}$
+for $n\in N$, $v=c\,e^{a_{1}\eta_{1}+a_{2}\eta_{2}}\Omega_{N}$, with
+$\Omega_{N}$ a multiple of $1$, $\eta_{1}^{4}$, $\eta_{2}^{4}$ or
+$\eta_{1}^{4}\eta_{2}^{4}$. The characters listed are pure spinors, and
+derived equivalences, isogenies and twists preserve purity; this is the
+classical description recalled in \Cref{setup:lagquadric} and after
+\Cref{cor:naturalsums}, and item (LIX) checks it for $\Phi$ of line bundles on
+graphs.
+
+(ii) As in the proof of \Cref{thm:quarticobstruction}(iii), everything factors
+over the places: $H^{1}(X,\RR)=U_{1}\oplus U_{2}$, $\Phi=\Phi_{1}\otimes\Phi_{2}$,
+and for $c=c_{1}c_{2}$ with $c_{j}\in\bigwedge^{m_{j}}U_{j}^{\vee}$ the
+correspondence of $(\beta,\alpha)_{*}(c)$ is the tensor product of the maps
+$y\mapsto b^{k}a^{4-k-m_{j}}\,y\wedge c_{j}$ on $\bigwedge^{k}U_{j}^{\vee}$,
+with $b=\tau_{j}(\beta)$ and $a=\tau_{j}(\alpha)$. Flat classes have even
+degree at each place, and $\Phi_{j}$ and $e^{B_{j}}$ preserve the parity of the
+degree there, so only the part of $Z$ of even degree at each place matters;
+it lies in $L_{1}\otimes L_{2}$, where $L_{j}$ is the space of classes of the
+$j$-th factor whose correspondence has the form $y\mapsto C_{\deg y}\wedge y$
+with every $C_{k}$ of even degree, of dimension $24$. The space
+$\Phi_{j}(L_{j})$ is stable under multiplication by the $2$-forms pulled back
+from $X$ and by $\ell_{j}$. For the former, $\Phi(Z\,\delta^{*}\omega)=
+\omega\,\Phi(Z)$ for $\omega$ pulled back from $X$ and $\delta(a,b)=a-b$,
+because $\Phi=(1\times\Phi_{\cP})\circ\mu_{*}$ with $\mu(a,b)=(a-b,b)$, and
+$\delta^{*}\omega$ restricts to $(\beta-\alpha)^{*}\omega$ on the graph of
+$(\beta,\alpha)$. For the latter, multiplication by $e^{s\ell}$, $s\in\ZZ$,
+corresponds under $\Phi_{\cP}$ to translation of the second variable by $\pm
+sx$, hence under $\Phi$ to pull-back by the automorphism
+$\nu_{\pm s}(a,b)=(a\pm s(a-b),b\pm s(a-b))$ of $X\times X$, which carries
+graphs of pairs in $\cO^{2}$ to graphs of pairs in $\cO^{2}$; the same holds at
+one place with real pairs. Writing
+$B_{j}=g_{j}\eta_{j}+(f_{j}-g_{j}\tau_{j}(q))\theta_{j}+h_{j}\ell_{j}$
+therefore gives $e^{B_{j}}\Phi_{j}(L_{j})=e^{g_{j}\eta_{j}}\Phi_{j}(L_{j})$, and
+as $\eta_{j}$ is flat and $(U_{1}\otimes U_{2})\cap(W_{1}\otimes W_{2})=
+(U_{1}\cap W_{1})\otimes(U_{2}\cap W_{2})$ for subspaces, the flat classes in
+$e^{B}\Phi(L_{1}\otimes L_{2})$ form
+\[
+  e^{g_{1}\eta_{1}+g_{2}\eta_{2}}\,
+  \bigl(\mathrm{Inv}_{1}\cap\Phi_{1}(L_{1})\bigr)\otimes
+  \bigl(\mathrm{Inv}_{2}\cap\Phi_{2}(L_{2})\bigr).
+\]
+Finally $\mathrm{Inv}_{j}\cap\Phi_{j}(L_{j})=\mathrm{span}(1,\mathrm{pt}_{j})$,
+the images of $X\times\{0\}$ and of the diagonal at that place. Item (LIX)
+computes this exactly for $\tau_{j}(q)\in\{1,3,2/5\}$, and it holds for every
+value by rescaling: for $\lambda>0$ the automorphism $g_{\lambda}$ of $V_{j}$
+that multiplies $H^{1}(X)$ by $\lambda$ and $H^{1}(\widehat X)$ by
+$\lambda^{-1}$ fixes $1$, $\mathrm{pt}_{j}$ and $\ell_{j}$, carries the flat
+classes for $\tau_{j}(q)=d$ to those for $d\lambda^{4}$, commutes with the
+complex structure of $X\times\widehat X$, and preserves $\Phi_{j}(L_{j})$,
+being induced up to a scalar by multiplication by $\lambda$ on the $j$-th
+factor of $X\times X$. For a complex whose cohomology sheaves are supported on
+graphs, a filtration with quotients that are sheaves on the reduced graphs,
+and Grothendieck--Riemann--Roch with trivial Todd classes, put its Chern
+character in the span of the classes $(\beta,\alpha)_{*}(c)$.
+
+(iii) Over the places, $\ch(I_{\Gamma}\otimes L)=\ch(L)-\ch(\cO_{\Gamma}\otimes
+L)=a_{1}a_{2}-b_{1}b_{2}$, where $a_{j}$ is the exponential of the part of
+$c_{1}(L)$ at $\tau_{j}$ and $b_{j}\ne0$ is a class of graph type with no
+component of degree below $4$. Put $A_{j}=e^{B_{j}}\Phi_{j}(a_{j})$ and
+$A_{j}'=e^{B_{j}}\Phi_{j}(b_{j})$; they are linearly independent, as $a_{j}$
+and $b_{j}$ are. If $A_{1}A_{2}-A_{1}'A_{2}'$ is flat, applying $\pi\otimes1$,
+with $\pi$ the quotient map of $\bigwedge^{*}V_{1}$ by $\mathrm{Inv}_{1}$,
+gives $\pi(A_{1})\otimes A_{2}=\pi(A_{1}')\otimes A_{2}'$, so
+$\pi(A_{1})=\pi(A_{1}')=0$; likewise at the second place. So $A_{1}A_{2}$, the
+twisted character of $\Phi(L)$, and $A_{1}'A_{2}'$, that of
+$\Phi(\cO_{\Gamma}\otimes L)$, are both flat, and they lie in
+$\RR[\eta_{1},\eta_{2}]$ by (i) and (ii). Item (LIX) checks, for the graph of
+$\tfrac12(1+\sqrt5)$ in $\QQ(\zeta_{5})$, $L=\cO$ and $L=p_{1}^{*}\cO(\theta)$,
+and $B\in\{0,\tfrac12\ell,\ell\}$, that the character is not flat at all.
+\end{proof}
+
+\begin{remark}[A kernel that is not an external product]
+\label{rem:quarticmixedkernel}
+Keep the notation of \Cref{rem:quarticsecantshape} and
+\Cref{prop:quarticexclusions}, with
+$H^{*}(X,\RR)=\bigotimes_{j}\bigwedge^{*}U_{j}^{\vee}$ and $\int_{j}$ the
+integral at $\tau_{j}$, normalised by $\int_{j}\theta_{j}^{2}=2$. On
+$\bigwedge^{*}U_{j}^{\vee}$ let $U^{0}_{j}(y)=(\int_{j}y)\,\theta_{j}^{2}/2$ and
+$P_{j}(y)=\int_{j}y$, the factors at $\tau_{j}$ of the correspondences of
+$X\times\{0\}$ and of $X\times X$, and let $T_{j}$ be multiplication by
+$-\frac12\tau_{j}(q)^{2}\theta_{j}^{2}$, $0$, $\frac12\tau_{j}(q)$,
+$\frac32\tau_{j}(q)$, $3\tau_{j}(q)$ on $\bigwedge^{k}U_{j}^{\vee}$ for
+$k=0,\dots,4$. Let $Z''$ be the class on $X\times X$ with correspondence
+\[
+  U^{0}_{1}\otimes(T_{2}-P_{2})+(T_{1}-P_{1})\otimes U^{0}_{2}.
+\]
+\begin{enumerate}[label=\textup{(\alph*)},leftmargin=2.6em,itemsep=2pt]
+\item \emph{$Z''$ is rational.} It is $G''-1\boxtimes c'$, where $G''$ has
+  correspondence $U^{0}_{1}\otimes T_{2}+T_{1}\otimes U^{0}_{2}$ and
+  $c'=(\theta_{1}^{2}+\theta_{2}^{2})/2$ is a rational polynomial in the classes
+  $\theta_{t}$, $t\in\cO$, of $X$, which are first Chern classes of line
+  bundles. $G''$ is invariant under $\mathrm{Gal}(F_{0}/\QQ)$,
+  which exchanges the places, so it is rational. At each place the classes
+  $(b,a)_{*}(\theta_{j}^{i})$, $(b,a)\in\RR^{2}$, span the $9$-dimensional space
+  of correspondences $y\mapsto C_{\deg y}\wedge y$ with $C_{k}\in\RR[\theta_{j}]$;
+  as $\cO^{2}$ is Zariski dense in $(F_{0}\otimes\RR)^{2}$, the classes
+  $(\beta,\alpha)_{*}(c)$ with $\beta,\alpha\in\cO$ and $c$ in the rational
+  algebra of the $\theta_{t}$ span the tensor product of these spaces, which
+  contains $G''$, over $\RR$, and a rational vector in the real span of
+  rational vectors lies in their rational span. For $\QQ(\zeta_{5})$ item
+  (LIX) finds a combination of $36$ such classes on $21$ graphs
+  $\{(\beta x,x)\}$. So $NZ''$ is the Chern character of a perfect complex on
+  $X\times X$ for some integer $N\ge1$.
+\item \emph{Its character.} At each place $\ch\Phi_{j}(U^{0}_{j})=1$ and
+  $\ch\Phi_{j}(T_{j}-P_{j})=-\frac14\bigl(\eta_{j}^{2}+\gamma_{j}^{2}-\tau_{j}(q)
+  \ell_{j}^{2}\bigr)$, an identity of degree two in $\tau_{j}(q)$ checked
+  exactly in item (LIX) at four values, so
+  \[
+    \ch\Phi(Z'')=-\tfrac14\textstyle\sum_{j}\bigl(\eta_{j}^{2}+\gamma_{j}^{2}
+    -\tau_{j}(q)\ell_{j}^{2}\bigr)=P+\omega,
+  \]
+  with $P=-\frac14(\eta_{1}^{2}+\eta_{2}^{2})$ and
+  $\omega=-\frac18\sum_{j}\bigl((\gamma_{j}-s_{j}\ell_{j})^{2}
+  +(\gamma_{j}+s_{j}\ell_{j})^{2}\bigr)$, both invariant under
+  $\mathrm{Gal}(F_{0}/\QQ)$ and so rational. The class is flat, of pure degree
+  four, and $\omega$ is a nonzero rational Weil class: $\ch\Phi(NZ'')$ has
+  exactly the form of \Cref{thm:quarticp2prime}(v), without a twist, at the
+  member $X\times\widehat X$ of the $(F,2,1)$-family (not at the base point
+  $s_{0}$). By \Cref{prop:quarticexclusions}(ii) the product term
+  $1\boxtimes c'$ is needed, and $\ch\Phi(Z'')e^{\pm\ell/2}$ is not flat.
+\item \emph{Its rank.} An object $E$ with this character has $\chi(E,E)=0$, and
+  $r(\ch E)=94$ for every quartic CM field and every $q$. The annihilator, of
+  dimension $26$, is the $16$-dimensional space of bivectors in
+  $T_{\sigma}\otimes T_{\sigma'}$ with $\sigma,\sigma'$ over different real places,
+  plus, at each place, a $5$-dimensional subspace of $H^{1}(T_{A})$ containing
+  the $4$-dimensional part of $T_{[A]}\cD_{F}$ at that place. Indeed at each
+  place $-\frac14(\eta_{j}^{2}+\gamma_{j}^{2}-\tau_{j}(q)\ell_{j}^{2})$, with
+  $\int\eta_{j}^{4}:\int(\gamma_{j}^{2}-\tau_{j}(q)\ell_{j}^{2})^{2}=3:4$, is a
+  class of the kind of \Cref{rem:p2primeexceptional}, a Weil class plus a
+  multiple of the square of the polarisation at the exceptional ratio; it has
+  rank $23$, where a general invariant class has rank $24$ and annihilator
+  the tangent space. Item (LIX) computes $94$ and the annihilator exactly for
+  four fields, and they hold for all by the rescaling $g_{\lambda}$ of the proof
+  of \Cref{prop:quarticexclusions} and scalar multiplication on each $V_{j}$,
+  which commute with the complex structure and carry the class for
+  $(\tau_{1}(q),\tau_{2}(q))$ to a multiple of that for any other pair of
+  positive reals, place by place. The value $94$ is not among those of
+  \Cref{thm:quarticp2prime}(iv). The annihilator in $H^{1}(T_{A})$ has
+  dimension $10>8$, and the Hodge locus of the class near $A$ contains the
+  product of the orbits of $\mathrm{Spin}(4,3)$ at the two places, of
+  dimension $10$: it leaves $\cD_{F}$, as at the exceptional ratio of
+  \Cref{rem:p2primeexceptional}.
+\item \emph{Direct sums do not realise it.} If $E=\bigoplus_{i}F_{i}[k_{i}]$ has
+  $\ch(E)=\ch\Phi(NZ'')$ and $\sigma_{E}$ injective, then, as in the proof of
+  \Cref{lem:p2primesummands}(i), every $\operatorname{ev}_{F_{i}}$ kills
+  $T_{[A]}\cD_{F}$, so $T_{[A]}\cD_{F}$ kills every $\ch(F_{i})$; a real class
+  killed by it is killed by its conjugate too, hence by the Lie algebra of
+  $G_{F}$, which they generate, so every $\ch(F_{i})$ is flat. By
+  \Cref{prop:quarticexclusions}(ii) the summands supported on graphs of pairs
+  in $\cO^{2}$ then have no Weil part, while a summand $\cO_{X}\boxtimes F'$
+  with $\ch(F')$ a multiple of $c'$ has character a multiple of
+  $\Phi_{1}(P_{1})+\Phi_{2}(P_{2})$, where $\Phi_{j}(P_{j})$ is, up to sign, the
+  factor at $\tau_{j}$ of the class of $X\times\{0\}$ in $A$, which is not
+  flat. So the realisation of $NZ''$ by shifted sheaves on graphs and copies
+  of such $\cO_{X}\boxtimes F'$ has $\dim\Ext^{2}(E,E)>94$.
+\end{enumerate}
+The class is only a candidate: we know no object with this character and
+$\dim\Ext^{2}(E,E)=94$. Complexes with character $N\omega_{s_{0}}$ exist by
+\Cref{thm:cmpropagation}(v), with $r=80$ by \Cref{thm:quarticp2prime}(i);
+what the kernel adds is an explicit construction from graphs and one product,
+and the value $94$. Nothing here is a new case of the Hodge conjecture.
+\end{remark}
 
 \begin{remark}[What is missing at $n=2$]\label{rem:quarticgap}
 The Weil classes of an $(F,2,\delta)$-family are known to be algebraic at the
@@ -974,7 +1301,8 @@ character is flat \cite[Proposition~10.2.1(1)]{Mar25c}.
 \Cref{prop:quarticexclusions} excludes complexes supported on graphs of real
 multiplication and objects with pure spinor characters, and the kernel of
 \Cref{rem:quarticmixedkernel} gives an untwisted character of the required
-form, with $r=94$, for which no object is known. Even $\mathbf{W}(F,2,\delta)$ for every quartic $F$ and every
+form, with $r=94$; no object with that character and $\dim\Ext^{2}=94$ is
+known. Even $\mathbf{W}(F,2,\delta)$ for every quartic $F$ and every
 $\delta$ would be only the first case of the conclusion of
 $\mathrm{P2}_{\mathrm{split}}$, which concerns every field of degree at least
 four in infinitely many dimensions, and it would leave (F2) and (F3$'$) of
