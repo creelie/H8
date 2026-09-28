@@ -37,7 +37,9 @@ What is checked:
       Hodge type at X x Xhat; the twisted classes with e^{+-ell/2} are not
       flat; the exceptional ratio 3/4 of rem:p2primeexceptional; the rank of
       contraction 23, with annihilator of dimension 5 in H^1(T) containing
-      that of a general invariant class, of dimension 4;
+      that of a general invariant class, of dimension 4; Phi(X x X) at one
+      place is minus the class of X x 0 in A_j, not flat, so the character of
+      O_X (x) F' is not flat;
 
   (B) the global class ch Phi(Z'') = w_1 (x) 1 + 1 (x) w_2 for four quartic
       CM fields: pure of degree four (so chi = 0), r^1 = 16, r = 94; the
@@ -52,7 +54,8 @@ What is checked:
       rational, (3 theta^2 - 2 theta theta_R + 2 theta_R^2)/10 for Q(sqrt5);
 
   (D) secant Orlov products (ch F_i in S(0, q)), six pairs in each of two
-      fields: kappa = ch(E) e^{ell/2} is flat, ch(E) is not,
+      fields, five of the twelve of rank zero: kappa = ch(E) e^{ell/2} is flat,
+      ch(E) is not,
       kappa_(4,8) = kappa_(4,0) eta_2^4 / (384 tau_2(q)^2) and symmetrically,
       and kappa has components outside C[eta_1, eta_2] + W_F whenever
       kappa_(4,0) has a Weil part;
@@ -145,7 +148,7 @@ def part_A():
           "%d maps; P = [X x X] and U0 = pr_2^* pt" % len(pairs), ok and ok_g and ok_u)
 
     pP = orlov(P_class())
-    check("Phi(X x X) at one place is -(the class of Xhat_j at 0), not flat; so "
+    check("Phi(X x X) at one place is -(the class of X x 0 in A_j), not flat; so "
           "ch Phi(O_X [x] F) = 1 (x) Phi(P_2) + Phi(P_1) (x) 1 is not flat",
           pP == {240: Fr(-1)} and all(not is_flat(pP, su_basis(d)) for d in (1, 3)))
 

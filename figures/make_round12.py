@@ -30,7 +30,8 @@ Two plates for the results of round twelve.
                       is not contained in NL(R_F) but meets it at products of
                       two (F,1)-fourfolds (ringed); the CM points carry the
                       base points of thm:cmbasepoint, and the base point s_0
-                      lies on NL(R_F).  The Hodge-generic member is open.
+                      lies on NL(R_F).  The very general member is open; the
+                      Prym loci of rem:quarticprym are not drawn.
 
 Every label is written as  \\node[...] at (x,y) {...};  so that checkfigs.py
 can read it back and test it for overlaps.
@@ -178,7 +179,7 @@ def quarticloci():
     out += panel(7.2, r"$\delta$ nontrivial", False)
     # legend, one statement per line
     rows = [
-        (r"clay: the family $\cD_{F}$, of dimension $8$; the Hodge-generic "
+        (r"clay: the family $\cD_{F}$, of dimension $8$; the very general "
          r"member is open", "PClay"),
         (r"grass: the Noether--Lefschetz locus of $R_{F}=\bigwedge^{2}_{F}H^{1}$, "
          r"of dimension exactly $6$ ($\delta$ trivial) or at most $4$", "PGrass"),

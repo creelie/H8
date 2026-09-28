@@ -534,6 +534,129 @@ def wall(sc, x0, x1, y, z0, z1, levels, hs):
                 priority=1)
 
 
+# ------------------------------------------------------- bar charts in 3D
+# The bar plates (fig_ladder, fig_moduli) are drawn in explicit layers
+# rather than through the depth sort of render3d: first the frame (floor,
+# back wall, side wall and their gridlines), then the prisms from the far
+# one to the near one, each with back-face culling, so that a gridline can
+# never be drawn across a bar.  The prisms fill the whole depth of the
+# frame: their back faces lie in the back wall and their front faces in the
+# plane of the scale, so the top of a prism meets the gridline of its
+# height on the wall and the tick of its height on the scale.
+
+def pp(cam, p):
+    x, y = cam.project(p)[0]
+    return "(%.4f,%.4f)" % (x, y)
+
+
+def tk_poly(cam, pts, style):
+    return "  \\path[%s] %s -- cycle;\n" % (style, " -- ".join(pp(cam, p)
+                                                               for p in pts))
+
+
+def tk_line(cam, pts, style):
+    return "  \\draw[%s] %s;\n" % (style, " -- ".join(pp(cam, p) for p in pts))
+
+
+def tk_line2(pts, style):
+    return "  \\draw[%s] %s;\n" % (style, " -- ".join("(%.4f,%.4f)" % p
+                                                       for p in pts))
+
+
+# the flat shading of a prism: front face, top face (lit), side face (shade)
+SHADE = {"dark": ("{0}!80", "{0}!56", "{0}!80!white!80!black",
+                  "{0}!55!black", "0.4pt"),
+         "light": ("{0}!24", "{0}!13", "{0}!24!white!90!black",
+                   "{0}!75!black", "0.3pt")}
+
+
+def prism(cam, box, col, tone, top=True):
+    """The visible faces of the box (x0, x1, y0, y1, z0, z1), flat shaded
+    and outlined; top=False leaves out the top face, when another prism is
+    stacked on it."""
+    x0, x1, y0, y1, z0, z1 = box
+    front, lit, side, edge, lw = [s.format(col) if "{" in s else s
+                                  for s in SHADE[tone]]
+    faces = [((0, -1, 0), [(x0, y0, z0), (x1, y0, z0), (x1, y0, z1),
+                           (x0, y0, z1)], front),
+             ((0, 1, 0), [(x0, y1, z0), (x1, y1, z0), (x1, y1, z1),
+                          (x0, y1, z1)], front),
+             ((-1, 0, 0), [(x0, y0, z0), (x0, y1, z0), (x0, y1, z1),
+                           (x0, y0, z1)], side),
+             ((1, 0, 0), [(x1, y0, z0), (x1, y1, z0), (x1, y1, z1),
+                          (x1, y0, z1)], side),
+             ((0, 0, 1), [(x0, y0, z1), (x1, y0, z1), (x1, y1, z1),
+                          (x0, y1, z1)], lit)]
+    out = []
+    e = cam.eye
+    for n, pts, fill in faces:
+        if n[2] == 1 and not top:
+            continue
+        p = pts[0]
+        if sum(n[i] * (e[i] - p[i]) for i in range(3)) <= 0:
+            continue
+        out.append(tk_poly(cam, pts, "fill=%s,draw=%s,line width=%s"
+                           % (fill, edge, lw)))
+    return "".join(out)
+
+
+def brace2(x, y0, y1, amp=0.14, side=1):
+    """A vertical curly brace at screen abscissa x from y0 to y1 (y0 < y1),
+    its tip pointing to the right (side=1) or the left (side=-1)."""
+    a = amp * side
+    h = 0.5 * amp
+    ym = 0.5 * (y0 + y1)
+
+    def P(dx, y):
+        return "(%.4f,%.4f)" % (x + dx, y)
+    return ("  \\draw[PSlate,line width=0.5pt] %s .. controls %s and %s .. %s"
+            " -- %s .. controls %s and %s .. %s .. controls %s and %s .. %s"
+            " -- %s .. controls %s and %s .. %s;\n"
+            % (P(0, y0), P(0.3 * a, y0), P(0.5 * a, y0 + 0.2 * h),
+               P(0.5 * a, y0 + h),
+               P(0.5 * a, ym - h), P(0.5 * a, ym - 0.2 * h), P(0.7 * a, ym),
+               P(a, ym), P(0.7 * a, ym), P(0.5 * a, ym + 0.2 * h),
+               P(0.5 * a, ym + h),
+               P(0.5 * a, y1 - h), P(0.5 * a, y1 - 0.2 * h), P(0.3 * a, y1),
+               P(0, y1)))
+
+
+def bar_frame(cam, xl, xr, dep, ztop, levels, hs, tick=0.14):
+    """Floor, back wall (y = dep) and left wall (x = xl) of a bar chart
+    whose prisms stand on the floor 0 <= y <= dep, with the gridlines of
+    the given levels on both walls, the scale on the front edge of the
+    left wall, and its ticks.  Returns the TikZ and the tick ends."""
+    out = []
+    out.append(tk_poly(cam, [(xl, 0, 0), (xr, 0, 0), (xr, dep, 0),
+                             (xl, dep, 0)], "fill=PSlate!9"))
+    out.append(tk_poly(cam, [(xl, dep, 0), (xr, dep, 0), (xr, dep, ztop),
+                             (xl, dep, ztop)], "fill=PSlate!4"))
+    out.append(tk_poly(cam, [(xl, 0, 0), (xl, dep, 0), (xl, dep, ztop),
+                             (xl, 0, ztop)], "fill=PSlate!7"))
+    for v in levels:
+        z = v * hs
+        out.append(tk_line(cam, [(xl, 0, z), (xl, dep, z), (xr, dep, z)],
+                           "PRule!85,line width=0.3pt"))
+    # the outline of the frame
+    out.append(tk_line(cam, [(xl, 0, ztop), (xl, dep, ztop), (xr, dep, ztop),
+                             (xr, dep, 0)], "PSlate!45,line width=0.35pt"))
+    out.append(tk_line(cam, [(xl, dep, 0), (xl, dep, ztop)],
+                       "PSlate!45,line width=0.35pt"))
+    out.append(tk_line(cam, [(xl, dep, 0), (xr, dep, 0)],
+                       "PSlate!60,line width=0.4pt"))
+    out.append(tk_line(cam, [(xl, 0, 0), (xr, 0, 0), (xr, dep, 0)],
+                       "PSlate!80,line width=0.45pt"))
+    out.append(tk_line(cam, [(xl, 0, 0), (xl, 0, ztop)],
+                       "PSlate,line width=0.5pt"))
+    ends = []
+    for v in levels:
+        z = v * hs
+        out.append(tk_line(cam, [(xl, 0, z), (xl - tick, 0, z)],
+                           "PSlate,line width=0.5pt"))
+        ends.append((v, proj(cam, (xl - tick, 0, z))))
+    return "".join(out), ends
+
+
 # ------------------------------------------------------------------ ladder
 LADDER_COL = {0: "PTeal", 1: "POchre", 2: "PBlue", 3: "PIndigo", 4: "PClay"}
 
@@ -635,69 +758,74 @@ def fig_ladder():
 
 # ------------------------------------------------------------------ moduli
 def fig_moduli():
-    cam = Camera(eye=(3.0, -40.0, 10.5), target=(0.0, 0.2, 1.70), focal=33.0,
-                 scale=2.05)
-    sc = Scene(cam)
+    """dim A_{2n} = n(2n+1) as a prism, split into dim D_{n,n} = n^2 below
+    and the codimension n(n+1) above, for n = 1, ..., 6."""
+    tgt = (2.9, 0.0, 1.55)
+    cam = Camera(eye=orbit_eye(tgt, 60.0, -66.0, 17.0), target=tgt,
+                 focal=60.0, scale=1.50)
     pl = Plate("fig_moduli", "make_diagrams.py",
                "The Weil family inside the moduli of principally polarised "
                "abelian 2n-folds: n^2 against n(2n+1), for n up to six.")
-    Hs = 3.0 / 80.0
-    Wd = 0.62
-    X = [-3.0 + 1.20 * (n - 1) for n in range(1, 7)]
-    YW = 0.38
-    XL, XR = -3.66, 3.66
-    sc.surface(lambda u, v: (u, v, 0.0), (XL, XR), (-0.44, YW), 1, 1,
-               base="PSlate", opacity=0.08, ambient=0.74, diffuse=0.16)
-    wall(sc, XL, XR, YW, 0.0, 82 * Hs, range(0, 81, 10), Hs)
-    for v in range(0, 81, 10):
-        sc.polyline([(XL - 0.12, YW, v * Hs), (XL, YW, v * Hs)],
-                    "PSlate!80,line width=0.4pt", priority=1)
-    sc.polyline([(XL, -0.44, 0), (XR, -0.44, 0)], "PSlate!60,line width=0.3pt",
-                priority=1)
-    for n, x in zip(range(1, 7), X):
+    Hs = 3.55 / 80.0              # height of one dimension
+    SP, Wd = 1.02, 0.58           # spacing and width of the prisms
+    DEP = 0.58                    # depth of the frame = depth of a prism
+    X = [SP * (n - 1) + 0.62 for n in range(1, 7)]
+    XL, XR = 0.0, X[-1] + 0.62
+    levels = list(range(0, 81, 10))
+    frame, ends = bar_frame(cam, XL, XR, DEP, 80 * Hs, levels, Hs)
+    pl.add(frame)
+    # the prisms, far to near; each fills the depth 0 <= y <= DEP
+    order = sorted(range(6), key=lambda i: -cam.project((X[i], DEP / 2,
+                                                         0))[1])
+    for i in order:
+        n = i + 1
         d, g = n * n, n * (n + 1)
-        sc.box((x, 0, d * Hs / 2), (Wd, Wd, d * Hs), base="PBlue",
-               ambient=0.16, diffuse=0.36,
-               edge_style="PBlue!60!black,line width=0.35pt")
-        sc.box((x, 0, d * Hs + g * Hs / 2), (Wd, Wd, g * Hs), base="PClay",
-               ambient=0.58, diffuse=0.26,
-               edge_style="PClay!75!black,line width=0.3pt")
-    pl.add("  \\providecommand{\\bl}[1]{\\textcolor{PBlue}{#1}}\n"
-           "  \\providecommand{\\cl}[1]{\\textcolor{PClay}{#1}}\n")
-    pl.add(sc.emit())
+        x0, x1 = X[i] - Wd / 2, X[i] + Wd / 2
+        pl.add(prism(cam, (x0, x1, 0.0, DEP, 0.0, d * Hs), "PBlue", "dark",
+                     top=False))
+        pl.add(prism(cam, (x0, x1, 0.0, DEP, d * Hs, (d + g) * Hs), "PClay",
+                     "light"))
 
-    ylow = None
-    for n, x in zip(range(1, 7), X):
-        px, py = proj(cam, (x, -0.44, 0.0))
-        pl.put(px, py - 0.30, r"$n=%d$" % n)
-        pl.put(px, py - 0.70,
-               r"$\bl{%d}+\cl{%d}=%d$"
-               % (n * n, n * (n + 1), n * (2 * n + 1)), font=r"\footnotesize")
-        ylow = py - 0.70 if ylow is None else min(ylow, py - 0.70)
-    for v in range(0, 81, 10):
-        x, y = proj(cam, (XL - 0.12, YW, v * Hs))
-        pl.put(x - 0.08, y, r"$%d$" % v, color="PSlate", font=r"\footnotesize",
+    # the scale
+    for v, (x, y) in ends:
+        pl.put(x - 0.07, y, r"$%d$" % v, color="PSlate", font=r"\footnotesize",
                anchor="e")
-    # the legend, one row under the plate
-    y = ylow - 0.62
-    x0 = proj(cam, (XL, -0.44, 0.0))[0] + 0.2
-    pl.add("  \\path[fill=PBlue!78,draw=PBlue!60!black,line width=0.35pt] "
-           "(%.3f,%.3f) rectangle (%.3f,%.3f);\n"
-           % (x0, y - 0.12, x0 + 0.30, y + 0.12))
-    pl.put(x0 + 0.45, y, r"$\dim\cD_{n,n}=n^{2}$", anchor="w")
-    x1 = x0 + 3.55
-    pl.add("  \\path[fill=PClay!40,draw=PClay!75!black,line width=0.3pt] "
-           "(%.3f,%.3f) rectangle (%.3f,%.3f);\n"
-           % (x1, y - 0.12, x1 + 0.30, y + 0.12))
-    pl.put(x1 + 0.45, y, r"codimension $n(n+1)$", anchor="w")
-    x2 = x1 + 4.05
-    pl.add("  \\path[fill=PBlue!78,draw=PBlue!60!black,line width=0.35pt] "
-           "(%.3f,%.3f) rectangle (%.3f,%.3f);\n"
-           % (x2, y - 0.14, x2 + 0.30, y - 0.01))
-    pl.add("  \\path[fill=PClay!40,draw=PClay!75!black,line width=0.3pt] "
-           "(%.3f,%.3f) rectangle (%.3f,%.3f);\n"
-           % (x2, y - 0.01, x2 + 0.30, y + 0.16))
-    pl.put(x2 + 0.45, y, r"$\dim\cA_{2n}=n(2n+1)$", anchor="w")
+    xs, ys = proj(cam, (XL, 0, 80 * Hs))
+    pl.put(xs, ys + 0.36, r"$\dim_{\CC}$", color="PSlate",
+           font=r"\footnotesize")
+
+    # braces on the last prism: its two parts and its whole height
+    x0, x1 = X[5] - Wd / 2, X[5] + Wd / 2
+    right = max(proj(cam, (x1, yy, 0))[0] for yy in (0.0, DEP))
+    bx = right + 0.12
+    zb = [proj(cam, (x1, DEP, z * Hs))[1] for z in (0, 36, 78)]
+    pl.add(brace2(bx, zb[0] + 0.02, zb[1] - 0.03))
+    pl.add(brace2(bx, zb[1] + 0.03, zb[2] - 0.02))
+    pl.put(bx + 0.28, 0.5 * (zb[0] + zb[1]), r"$\dim\cD_{n,n}$", anchor="w",
+           color="PBlue")
+    pl.put(bx + 0.28, 0.5 * (zb[1] + zb[2]), r"codimension",
+           anchor="w", color="PClay!85!black")
+    xt, yt = proj(cam, (x1, DEP, 78 * Hs))
+    pl.add(tk_line2([(xt + 0.06, yt), (bx + 0.22, yt)],
+                    "PSlate,line width=0.5pt"))
+    pl.put(bx + 0.28, yt, r"$\dim\cA_{2n}$", anchor="w")
+
+    # the table under the prisms: n, n^2, n(n+1), n(2n+1)
+    cols = [proj(cam, (x, 0, 0))[0] for x in X]
+    yfront = min(proj(cam, (x, 0, 0))[1] for x in (XL, XR))
+    rows = [(r"$n$", "PInk", lambda n: n),
+            (r"$n^{2}$", "PBlue", lambda n: n * n),
+            (r"$n(n+1)$", "PClay!85!black", lambda n: n * (n + 1)),
+            (r"$n(2n+1)$", "PInk", lambda n: n * (2 * n + 1))]
+    xh = proj(cam, (XL, 0, 0))[0] - 0.30
+    for r, (head, col, f) in enumerate(rows):
+        y = yfront - 0.42 - 0.44 * r - (0.10 if r else 0.0)
+        pl.put(xh, y, head, color=col, anchor="e")
+        for n, x in zip(range(1, 7), cols):
+            pl.put(x, y, r"$%d$" % f(n), color=col)
+    yr = yfront - 0.42 - 0.24
+    pl.add(tk_line2([(xh - 1.25, yr), (cols[-1] + 0.35, yr)],
+                    "PRule,line width=0.4pt"))
     pl.build()
     compile_plate("fig_moduli")
 

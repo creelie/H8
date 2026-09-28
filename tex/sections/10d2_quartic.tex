@@ -13,7 +13,11 @@ subsection determines how far the available mechanisms reach there. Divisor
 classes reach the Weil classes exactly on a Noether--Lefschetz locus, which
 has codimension two when $\delta$ is trivial (\Cref{prop:quarticnl},
 \Cref{cor:quarticbase}); for biquadratic $F$ Markman's theorem reaches them on
-a further locus of dimension four (\Cref{prop:quarticscalar}); the Casimir
+a further locus of dimension four (\Cref{prop:quarticscalar}); for
+$F=\QQ(\zeta_{5}),\QQ(\zeta_{8}),\QQ(\zeta_{12})$ and trivial $\delta$
+Schoen's cycles on Prym varieties of cyclic covers reach them on a locus of
+dimension at most six, at whose very general points the Hodge group is all of
+$G_{F}$ (\Cref{rem:quarticprym}); the Casimir
 class of the quadratic form on the weight two part $R_{F}$ below, the natural
 class of degree four attached to it, is algebraic exactly when the Weil
 classes are (\Cref{prop:quarticcasimir}); correspondences with abelian
@@ -22,10 +26,18 @@ member with full Hodge group (\Cref{prop:quarticnogo}); and for a general
 shape the corrected criterion asks $\dim\Ext^{2}(E,E)=112$ of one complex
 (\Cref{thm:quarticp2prime}), which no Orlov product of sheaves on a
 principally polarised fourfold with real multiplication reaches through a
-dimension count, whatever the quartic field (\Cref{thm:quarticobstruction}).
-None of this is a new case of the Hodge
+dimension count, whatever the quartic field (\Cref{thm:quarticobstruction}),
+nor any Orlov product of complexes unless both factors have nonzero self-Ext
+groups in some degree at most $-3$ (\Cref{rem:quarticnegext}). Those products are in any case candidates only for
+a twisted form of the criterion, the form of Markman's reduction
+(\Cref{rem:quarticsecantshape}); complexes supported on graphs of real
+multiplication and objects with pure spinor characters give no Weil class at
+all (\Cref{prop:quarticexclusions}); and a kernel that is not an external
+product has a character of the untwisted form, with $r=94$, but no object
+with that character is known to meet the criterion
+(\Cref{rem:quarticmixedkernel}). None of this is a new case of the Hodge
 conjecture, and $\mathbf{W}(F,2,\delta)$ remains open for every quartic $F$
-and every $\delta$. Item (LV) of \Cref{sec:verification} checks the
+and every $\delta$. Items (LV) and (LIX) of \Cref{sec:verification} check the
 statements in exact arithmetic.
 
 Throughout, $F$ is a quartic CM field and $F_{0}$ its real quadratic subfield,
@@ -308,8 +320,10 @@ extensions of Weil fourfolds, of dimension $4$ when $F$ is biquadratic, on
 which Markman's theorem applies (\Cref{prop:quarticscalar}); it is not
 contained in $\mathrm{NL}(R_{F})$ but meets it (ring) where the fourfold is a
 product of Weil surfaces. The indigo points are CM points; the base point
-$s_{0}$ of \Cref{thm:cmbasepoint} lies on $\mathrm{NL}(R_{F})$. The rest of
-the domain, the Hodge-generic member included, is open.}
+$s_{0}$ of \Cref{thm:cmbasepoint} lies on $\mathrm{NL}(R_{F})$. For
+$F=\QQ(\zeta_{5}),\QQ(\zeta_{8}),\QQ(\zeta_{12})$ and trivial $\delta$ the Prym
+locus of \Cref{rem:quarticprym}, of dimension at most $6$, is not drawn. The
+rest of the domain, the very general member included, is open.}
 \label{fig:quarticloci}
 \end{figure}
 
@@ -376,6 +390,60 @@ This is not a new case of the Hodge conjecture. $B_{F}$ is isogenous to
 $C\times C$, the classes are Hodge classes there, and when
 $\Hg(C)=\SU(V_{C},H_{C})$ \Cref{prop:powers} already gives the conjecture for
 $C\times C$ from \cite{Mar25a}.
+
+\begin{remark}[Prym varieties of cyclic covers]\label{rem:quarticprym}
+For three cyclotomic fields published work gives a further locus, at whose
+very general points the Hodge group is the whole of $G_{F}$. Let $N\ge3$,
+let $\widetilde C\to C$ be an \'etale cyclic cover of degree $N$ of a smooth
+projective curve of genus
+$g\ge2$, and let $P\subseteq J(\widetilde C)$ be the abelian subvariety on
+whose $H^{1}$ the covering group acts through characters of exact order $N$.
+Then $F=\QQ(\zeta_{N})$ acts on $P$, and every embedding of $F$ occurs in
+$H^{1,0}(P)$ with multiplicity $g-1$ \cite[Lemma~1.6a]{Sch88},
+\cite[Lemma~5.1]{PZ25}, so $P$ is of $(F,g-1)$-Weil type
+(\Cref{rem:cmmember}). The hermitian form is split, because the part of
+$H_{1}(\widetilde C,\ZZ)$ on which the covering group acts through
+characters of exact order $N$ has a hyperbolic $\ZZ[\zeta_{N}]$-basis
+\cite[Proposition~2.2]{Loo97}; so $\delta=[(-1)^{g-1}]$, which is trivial for
+$g=3$. Schoen proved that the Weil classes of $P$ are algebraic
+\cite[Theorem~2.0 with $r=0$, Corollary~3.1]{Sch88}, and Patel and Zhang give
+a proof by unramified geometric class field theory
+\cite[Theorems~1.1, 1.2 and~5.3, Remark~3.7]{PZ25}. By
+\cite[Theorem~2.4]{Loo97}, for every $g\ge2$, the monodromy group of the
+family of the $P$ over a finite cover of the moduli of such covers contains a
+subgroup of finite index of an arithmetic subgroup of $G_{F}$. Every factor
+$\SU(g-1,g-1)$ of $G_{F}(\RR)$ is noncompact, so by Borel's density theorem
+\cite{Bor60} its Zariski closure contains $G_{F}$; the Hodge group of every
+member lies in $G_{F}$, so by Andr\'e's theorem \cite[Theorem~1]{And92} a very
+general $P$ has $\Hg(P)=G_{F}$, and by \Cref{prop:cmweil}(iii) the Hodge
+conjecture holds for it in every degree. All of this is a consequence of
+\cite{Sch88,Loo97,And92}, and we make no claim of priority.
+
+For $\varphi(N)=4$, that is for $F=\QQ(\zeta_{5})=\QQ(\zeta_{10})$,
+$\QQ(\zeta_{8})$ and $\QQ(\zeta_{12})$, and $g=3$, the $P$ are abelian
+eightfolds of $(F,2,1)$-Weil type. With their $G_{F}(\QQ)$-translates, which
+lie in $\Sigma_{F}$ by \Cref{thm:cmpropagation}(ii), they fill a countable
+union of analytic subvarieties of $\cD_{F}$, the \emph{Prym locus} of $F$, of
+positive dimension, since the monodromy is infinite, and of dimension at most
+$3g-3=6$ \cite[pp.~25--26]{Sch88}. At a very general point of it $\Hg=G_{F}$, so
+$R_{F}$ has no nonzero Hodge class there, each $\bigwedge^{2}V_{\sigma}$ being
+a nontrivial irreducible representation of $\SL(V_{\sigma})$, and the Hodge
+group is larger than that of a scalar extension of a Weil fourfold: such
+points lie outside $\mathrm{NL}(R_{F})$, outside the locus of
+\Cref{prop:quarticscalar}, and are not CM points. They are the only members
+with $\Hg=G_{F}$ at which we know the Weil classes of a quartic CM field to be
+algebraic. They do not decide $\mathbf{W}(F,2,1)$: the count
+$3g-3=6<8=\tfrac12\varphi(N)(g-1)^{2}=\dim\cD_{F}$ of \cite[pp.~25--26]{Sch88}
+makes the union meagre, as $\mathrm{NL}(R_{F})$ is, and
+\Cref{thm:cmpropagation}(iii) allows $\Sigma_{F}$ to be meagre. Nor does
+\Cref{prop:quarticnogo} exclude them: the cycles come from $J(\widetilde C)$,
+which has $P$ as a factor. For imaginary quadratic fields the count is
+$3n\ge n^{2}$ for $n\le3$, and there the Prym varieties do reach whole
+families: Schoen proved the algebraicity for the Weil fourfolds and for a
+family of Weil sixfolds of $\QQ(\sqrt{-3})$ \cite[Theorem~3.2]{Sch88},
+\cite{Sch98}, and Koike for a family of Weil sixfolds of $\QQ(\sqrt{-1})$
+\cite[Theorem~2.1, Corollary~2.1]{Koi04}.
+\end{remark}
 
 \begin{proposition}[The Casimir class]\label{prop:quarticcasimir}
 Let $A$ be a member of an $(F,2,\delta)$-family and $c\in F^{\times}$, and let
@@ -621,9 +689,17 @@ $T_{\rho}$. We have not extended \Cref{thm:p2false} to fields of degree four,
 so we do not know whether the pure shape is excluded here as it is for $m=1$;
 nothing below uses it.
 
-The natural candidates for the complex are Markman's secant objects
-\cite{Mar25c}, and the dimension count that works for imaginary quadratic
-fields (\Cref{thm:twistedcert}) can be tested on them exactly. Let $X$ be a
+The natural candidates are Markman's secant objects \cite{Mar25c}, in the
+twisted form in which he states his reduction: for them a $B$-field twist of
+$\ch(E)$, the class $\kappa$ of \Cref{thm:quarticobstruction}, is flat, and
+under a non-degeneracy condition its component in $H^{4}$ is a polynomial in
+the $\eta_{t}$ plus a nonzero Weil class
+\cite[Proposition~10.2.1, Theorem~1.1.2]{Mar25c}; but $\ch(E)$ itself is not
+flat, and $\kappa$ is not of the form $N\omega+P(\eta)$ in higher degrees
+(\Cref{rem:quarticsecantshape}), so they are candidates only for a twisted
+form of \Cref{thm:quarticp2prime}(v). The dimension count that works for
+imaginary quadratic fields (\Cref{thm:twistedcert}) can be tested on them
+exactly. Let $X$ be a
 principally polarised abelian fourfold with real multiplication by the ring of
 integers $\cO_{F_{0}}$, write $\theta_{1},\theta_{2}\in H^{2}(X,\RR)$ for the
 components of the polarisation at the two real places of $F_{0}$, so that
@@ -639,14 +715,20 @@ $s_{j}=\sqrt{-1}\,\sqrt{\tau_{j}(q)}$, and for $\varepsilon\in\{\pm1\}^{2}$ put
 $e_{\varepsilon}=\exp\bigl(\sum_{j}(\tau_{j}(t)+\varepsilon_{j}s_{j})\theta_{j}\bigr)$.
 \begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
 \item The span $S(t,q)$ of the four $e_{\varepsilon}$ is a rational subspace of
-  $\mathcal{R}$ of dimension $4=2^{[F_{0}:\QQ]}$, secant to the spinor variety;
-  every $F$-structure of Markman's type on $X\times\widehat X$, for every
-  rational $F_{0}$-$B$-field, gives one of these spaces.
+  $\mathcal{R}$ of dimension $4=2^{[F_{0}:\QQ]}$, secant to the spinor variety.
+  For $t=0$ it is the secant space of \cite[\S11.1, (11.1.2)]{Mar25c} for the
+  polarisation $\theta$ and $q$; replacing $\theta$ by $f\theta$,
+  $f\in F_{0}^{\times}$, replaces $q$ by $qf^{2}$, and a rational $F_{0}$-$B$-field
+  $t$ transports Markman's $F$-structure by the rational automorphism of
+  $X\times\widehat X$ acting on $H^{*}(X)$ as $e^{\theta_{t}}$,
+  $\theta_{t}=\sum_{j}\tau_{j}(t)\theta_{j}$, and replaces $S(0,q)$ by
+  $S(t,q)=e^{\theta_{t}}S(0,q)$.
 \item For $v=\sum_{\varepsilon}w_{\varepsilon}e_{\varepsilon}\in S(t,q)$ let
   $\rho=\rk V$ and $N_{w}=\#\{\varepsilon:w_{\varepsilon}\ne0\}$. The ranks of
   contraction from $HT^{k}(X)$ into $v$ are $1$, $8$ and $2\rho+4N_{w}$ for
   $k=0,1,2$, with $(\rho,N_{w})\in\{(1,4),(2,4),(2,2)\}$, and $N_{w}=2$ only for
-  biquadratic $F$ and $v$ in a secant plane of its imaginary quadratic subfield.
+  biquadratic $F$ and $v$ in the secant plane of one of its two imaginary
+  quadratic subfields \cite[\S11.2.1]{Mar25c}.
 \item For $v=e^{\theta_{t}}(a\,u+v_{f}+c\,w)$ in the basis
   $u=(1-\tfrac12q_{1}\theta_{1}^{2})(1-\tfrac12q_{2}\theta_{2}^{2})$,
   $v_{f}=\theta_{f}-\tfrac12\theta_{\bar fq}\theta_{1}\theta_{2}$,
@@ -973,7 +1055,7 @@ four embeddings. Moreover $\ch(E)=\kappa e^{-\ell/2}$ is not flat: for $Y$ in
 the Lie algebra of $G_{F}$, $D_{Y}\ch(E)=-\tfrac12(D_{Y}\ell)\ch(E)$, whose
 part of degree two is $-\tfrac12\rk(E)\,D_{Y}\ell$, and $\ell$ is not flat;
 item (LIX) of \Cref{sec:verification} checks the non-flatness for six pairs in
-two fields, three of them of rank zero. So these objects are candidates only
+each of two fields, five of the twelve of rank zero. So these objects are candidates only
 for a twisted form of \Cref{thm:quarticp2prime}(v), with hypothesis a flat
 twisted character $\kappa$ with $\kappa_{4}=N\omega+P_{4}$, which needs the
 extension of \Cref{thm:BF} to twisted objects \cite{Per26} and the extraction

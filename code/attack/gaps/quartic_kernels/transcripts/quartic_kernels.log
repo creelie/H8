@@ -1,6 +1,7 @@
 (LIX) kernels on X x X for a quartic CM field at n = 2
 (A) one place: the kernel T(d) - P
   [PASS] model: Phi(X x 0) = 1, Phi(Delta) = pt, Phi(antidiagonal) = 16 e^{-ell/2}; the graph formula gives the class of the graph for 6 maps; P = [X x X] and U0 = pr_2^* pt
+  [PASS] Phi(X x X) at one place is -(the class of X x 0 in A_j), not flat; so ch Phi(O_X [x] F) = 1 (x) Phi(P_2) + Phi(P_1) (x) 1 is not flat
   [PASS] ch Phi(T(d) - P) = -(1/4)(eta^2 + gamma^2 - d ell^2) at d = 1, 2, 3, 5/2; both sides have degree at most two in d, so this holds for every d
   [PASS] the same identity in Q(sqrt5, i) at d = tau_1(2 + phi) = (5 + sqrt5)/2
   [PASS] w = ch Phi(T(d) - P) is flat for su_j(d), of pure degree 4, with Weil part -(1/4) Omega != 0 (d = 1, 2, 3, 5/2)
@@ -12,13 +13,13 @@
          (r, ker in H^1(T), r_gen, ker_gen, rank of both) = [(23, 5, 24, 4, 24), (23, 5, 24, 4, 24)]
 (B) the global class ch Phi(Z'')
   [PASS] Q(zeta_5), q = 2 + phi: ch Phi(Z'') has pure degree 4 (so chi = 0), r^1 = 16, r = 94; annihilator 26 = 16 (T_1 (x) T_2) + 5 + 5 (H^1(T) at each place)
-         r = 94, r^1 = 16, kernels in H^1(T): [5, 5], 7.4s
+         r = 94, r^1 = 16, kernels in H^1(T): [5, 5], 5.5s
   [PASS] Q(sqrt5, i), q = 1: ch Phi(Z'') has pure degree 4 (so chi = 0), r^1 = 16, r = 94; annihilator 26 = 16 (T_1 (x) T_2) + 5 + 5 (H^1(T) at each place)
-         r = 94, r^1 = 16, kernels in H^1(T): [5, 5], 6.3s
+         r = 94, r^1 = 16, kernels in H^1(T): [5, 5], 5.5s
   [PASS] Q(sqrt2)(sqrt(-(2 + sqrt2))), q = 2 + sqrt2: ch Phi(Z'') has pure degree 4 (so chi = 0), r^1 = 16, r = 94; annihilator 26 = 16 (T_1 (x) T_2) + 5 + 5 (H^1(T) at each place)
-         r = 94, r^1 = 16, kernels in H^1(T): [5, 5], 7.1s
+         r = 94, r^1 = 16, kernels in H^1(T): [5, 5], 5.5s
   [PASS] Q(sqrt13)(sqrt(-q)), q = 2 + (1 + sqrt13)/2: ch Phi(Z'') has pure degree 4 (so chi = 0), r^1 = 16, r = 94; annihilator 26 = 16 (T_1 (x) T_2) + 5 + 5 (H^1(T) at each place)
-         r = 94, r^1 = 16, kernels in H^1(T): [5, 5], 7.3s
+         r = 94, r^1 = 16, kernels in H^1(T): [5, 5], 5.2s
 (C) rationality of Z''
   [PASS] D = 5, q = 2 + 1 R: G'' is Gal(F_0/Q)-invariant, and the classes of O-graphs span all 81 rational classes of graph type at both places, so G'' is a rational combination of them
   [PASS] D = 5, q = 1 + 0 R: G'' is Gal(F_0/Q)-invariant, and the classes of O-graphs span all 81 rational classes of graph type at both places, so G'' is a rational combination of them
@@ -28,10 +29,10 @@
   [PASS] Q(zeta_5): G'' is a rational combination of 36 classes (beta, 1)_*(c) on 21 graphs, beta = m + n phi, c in {1, theta_R^2, theta theta_R, theta^2}
   [PASS] Q(sqrt5): (theta_1^2 + theta_2^2)/2 = (3 theta^2 - 2 theta theta_R + 2 theta_R^2)/10, so ch F and Z'' = G'' - ch(O_X [x] F) are rational
 (D) secant Orlov products
-  [PASS] D = 5, q = 5/2 + 1/2 sqrt5, six pairs: kappa = ch(E) e^{ell/2} is flat and ch(E) is not
+  [PASS] D = 5, q = 5/2 + 1/2 sqrt5, six pairs (3 of rank zero): kappa = ch(E) e^{ell/2} is flat and ch(E) is not
   [PASS] D = 5: kappa_(4,8) = kappa_(4,0) eta_2^4 / (384 tau_2(q)^2) and kappa_(8,4) = eta_1^4 kappa_(0,4) / (384 tau_1(q)^2) for the six pairs; where kappa_(4,0) has a Weil part (5 pairs) kappa has components outside C[eta_1, eta_2] + W_F
-         0.5s
-  [PASS] D = 2, q = 2 + 1 sqrt2, six pairs: kappa = ch(E) e^{ell/2} is flat and ch(E) is not
+         0.4s
+  [PASS] D = 2, q = 2 + 1 sqrt2, six pairs (2 of rank zero): kappa = ch(E) e^{ell/2} is flat and ch(E) is not
   [PASS] D = 2: kappa_(4,8) = kappa_(4,0) eta_2^4 / (384 tau_2(q)^2) and kappa_(8,4) = eta_1^4 kappa_(0,4) / (384 tau_1(q)^2) for the six pairs; where kappa_(4,0) has a Weil part (5 pairs) kappa has components outside C[eta_1, eta_2] + W_F
          0.4s
 (E) kernels supported on graphs, one place
@@ -57,5 +58,5 @@
   [PASS] 3g - 3 < (phi(N)/2)(g - 1)^2 whenever phi(N) >= 4 and g >= 3 (N < 200, g < 60): the Prym loci never fill D_F; at g = 3, phi(N) = 4 the bound is 6 < 8
   [PASS] a split (hyperbolic) hermitian form of F-dimension 2n has determinant (-1)^n, so delta = [det H] is trivial for n = g - 1 = 2
 
-  total time 48s
-  39 checks passed, 0 failed
+  total time 40s
+  40 checks passed, 0 failed
