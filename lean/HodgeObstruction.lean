@@ -1588,7 +1588,8 @@ theorem quartic_squares_mod4_sqrt2 :
         sqRoot2 a b = (3, 2) := by decide
 
 /-- **`3`, `1 + 3√2` and `1 + √2` are not squares modulo `4` in `Z[√2]`**: the
-cases `N(Δ) = 1, 7` of the rank-two argument for `Q(√2)`. -/
+residues of the totally negative elements of norm `1` and `7`, which settle the
+rank-two case for `Q(√2)` without the condition modulo `4` of Section 34. -/
 theorem quartic_no_square_sqrt2 :
     ∀ a, a < 4 → ∀ b, b < 4 →
       sqRoot2 a b ≠ (3, 0) ∧ sqRoot2 a b ≠ (1, 3) ∧ sqRoot2 a b ≠ (1, 1) := by
@@ -1639,6 +1640,54 @@ theorem orlov_n4_euler :
     have h := Nat.mul_le_mul_left (8 * d) hs
     rwa [Nat.mul_one] at h
   exact Nat.le_trans h1 h2
+
+/-! ## 34.  The quartic obstruction for every real quadratic field
+
+For `F₀ = Q(√D)`, `D` squarefree, the rank-two case ends in three conditions
+on the integer `m = μ² N(Δ)`, which lies in `[1, 8]`: (a) `m ≡ 9` modulo the
+odd part `D_o` of `D`; (b) `m ≡ 0` or `1` modulo `4`, because
+`m ≡ (μ N(l₁))²` modulo `4`; (c) `m` is odd when `D ≡ 2` modulo `4`.  Only
+`D = 5` and `D = 2` survive, and they are settled by Section 32 and the last
+theorem below. -/
+
+/-- **Squares modulo `4` and `8`**: a square is `0` or `1` modulo `4`, an odd
+square is `1` modulo `8`, and twice a square is `0` or `2` modulo `8`. -/
+theorem quartic_squares_mod4_mod8 :
+    (∀ x, x < 4 → x * x % 4 = 0 ∨ x * x % 4 = 1) ∧
+    (∀ x, x < 8 → x % 2 = 1 → x * x % 8 = 1) ∧
+    (∀ x, x < 8 → 2 * x * x % 8 = 0 ∨ 2 * x * x % 8 = 2) := by decide
+
+/-- **The fields with odd part `3`, `5` or `7`.**  For `D = 3, 7` conditions
+(a) and (b) have no common solution in `[1, 8]`; for `D = 6, 10, 14`,
+conditions (a), (b), (c), that is `m ≡ 9 (mod D_o)` and `m ≡ 1 (mod 4)`, have
+none; for `D = 2` they leave `m = 1, 5`. -/
+theorem quartic_rank_two_small_odd_parts :
+    (∀ m, m < 9 → 1 ≤ m → ¬ (m % 3 = 0 ∧ (m % 4 = 0 ∨ m % 4 = 1))) ∧
+    (∀ m, m < 9 → 1 ≤ m → ¬ (m % 7 = 2 ∧ (m % 4 = 0 ∨ m % 4 = 1))) ∧
+    (∀ m, m < 9 → 1 ≤ m → ¬ (m % 3 = 0 ∧ m % 4 = 1)) ∧
+    (∀ m, m < 9 → 1 ≤ m → ¬ (m % 5 = 4 ∧ m % 4 = 1)) ∧
+    (∀ m, m < 9 → 1 ≤ m → ¬ (m % 7 = 2 ∧ m % 4 = 1)) ∧
+    (∀ m, m < 9 → 1 ≤ m → m % 4 = 1 → m = 1 ∨ m = 5) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
+
+/-- **Odd part at least `10`**: for every modulus `n ≥ 10` and every
+`m < 9`, `m` is not `9` modulo `n`, so condition (a) has no solution. -/
+theorem quartic_rank_two_large_odd_part (n m : Nat) (hn : 10 ≤ n) (hm : m < 9) :
+    m % n ≠ 9 % n := by
+  have h9 : 9 < n := Nat.lt_of_lt_of_le (by decide) hn
+  have hmn : m < n := Nat.lt_trans hm h9
+  rw [Nat.mod_eq_of_lt hmn, Nat.mod_eq_of_lt h9]
+  exact Nat.ne_of_lt hm
+
+/-- **The field `Q(√2)`.**  With `m ∈ {1, 5}` and `μ` odd, `N(Δ) ∈ {1, 5}`,
+and norms of elements of `Z[√2]` prime to `2` are `±1` modulo `8`, so
+`N(Δ) = 1` and `Δ = -(1+√2)^{2k}`, which is `3` or `1 + 2√2` modulo `4`;
+neither is a square modulo `4` in `Z[√2]`. -/
+theorem quartic_sqrt2_units_mod4 :
+    (∀ a, a < 4 → ∀ b, b < 4 →
+      sqRoot2 a b ≠ (3, 0) ∧ sqRoot2 a b ≠ (1, 2)) ∧
+    ((3 * 3 + 2 * 2 * 2) % 4 = 1 ∧ (2 * 3 * 2) % 4 = 0) ∧
+    (5 % 8 ≠ 1 ∧ 5 % 8 ≠ 7) := by decide
 
 end HodgeObstruction
 
@@ -1737,3 +1786,7 @@ propositional extensionality enters through `decide`, and in no case
 #print axioms HodgeObstruction.quartic_euler_minimal
 #print axioms HodgeObstruction.orlov_equality_count
 #print axioms HodgeObstruction.orlov_n4_euler
+#print axioms HodgeObstruction.quartic_squares_mod4_mod8
+#print axioms HodgeObstruction.quartic_rank_two_small_odd_parts
+#print axioms HodgeObstruction.quartic_rank_two_large_odd_part
+#print axioms HodgeObstruction.quartic_sqrt2_units_mod4

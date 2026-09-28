@@ -20,7 +20,10 @@ classes are (\Cref{prop:quarticcasimir}); correspondences with abelian
 varieties whose simple factors have dimension at most seven cannot help at a
 member with full Hodge group (\Cref{prop:quarticnogo}); and for a general
 shape the corrected criterion asks $\dim\Ext^{2}(E,E)=112$ of one complex
-(\Cref{thm:quarticp2prime}). None of this is a new case of the Hodge
+(\Cref{thm:quarticp2prime}), which no Orlov product of sheaves on a
+principally polarised fourfold with real multiplication reaches through a
+dimension count, whatever the quartic field (\Cref{thm:quarticobstruction}).
+None of this is a new case of the Hodge
 conjecture, and $\mathbf{W}(F,2,\delta)$ remains open for every quartic $F$
 and every $\delta$. Item (LV) of \Cref{sec:verification} checks the
 statements in exact arithmetic.
@@ -676,76 +679,239 @@ invariant under $e^{\theta_{t}}$. Item (LV) of \Cref{sec:verification} checks
 (ii) and (iii) in $49$ cases.
 \end{proof}
 
-\begin{theorem}[No dimension-count certificate for four quartic fields]
+The integral classes of $\mathcal{R}$ are described by one congruence, and
+the description does not depend on the field.
+
+\begin{lemma}[The integral classes of $\mathcal{R}$]\label{lem:quarticlattice}
+Let $F_{0}$ be a real quadratic field with ring of integers $\cO$ and
+different $\mathfrak d$, and let $X$ be a principally polarised abelian
+fourfold with real multiplication by $\cO$. A class $v\in\mathcal{R}$ with
+matrix
+\[
+  V=\begin{pmatrix}r&\bar h&\bar g\\ h&c&\bar k\\ g&k&m\end{pmatrix},
+  \qquad r,c,m\in\QQ,\quad h,g,k\in F_{0},
+\]
+lies in $H^{\mathrm{ev}}(X,\ZZ)$ if and only if $r,c,m\in\ZZ$,
+$h,g,k\in\cO$ and $c\equiv g$ modulo $\mathfrak d$.
+\end{lemma}
+
+\begin{proof}
+Integrality can be tested one prime $p$ at a time, and after a faithfully
+flat extension of $\ZZ_{p}$. Let $M=H_{1}(X,\ZZ)$ and let $\langle\,,\rangle$
+be the polarisation form on $M$, that is, $\theta$. The Rosati involution fixes
+$\cO$, so $\langle\,,\rangle=\Tr_{F_{0}/\QQ}\psi$ for a unique $\cO$-bilinear
+alternating form $\psi$ with values in $\mathfrak d^{-1}$, and $\psi$ is
+perfect because $\theta$ is principal. Write $\cO=\ZZ[\nu]$ and
+$\delta=\nu-\bar\nu$, a generator of $\mathfrak d$
+with $\bar\delta=-\delta$, and put $\cO_{p}=\cO\otimes\ZZ_{p}$, a product of
+at most two discrete valuation rings. The form $\delta\psi$ on
+$M_{p}=M\otimes\ZZ_{p}$ is perfect with values in $\cO_{p}$, so $M_{p}$ has a
+symplectic $\cO_{p}$-basis $e,f,e^{*},f^{*}$. Hence
+$M_{p}=\cO_{p}\otimes_{\ZZ_{p}}W$, with $W$ the $\ZZ_{p}$-span of this basis,
+and $\langle\,,\rangle=B\otimes\omega_{0}$, where $\omega_{0}$ is the standard
+symplectic form of $W$ and $B(\alpha,\beta)=\Tr(\delta^{-1}\alpha\beta)$.
+
+Let $\Lambda$ be the ring of integers of a finite extension of $\QQ_{p}$ over
+which $F_{0}$ splits, and fix an embedding of $F_{0}$ in its field of
+fractions. The map $\alpha\otimes\lambda\mapsto(\alpha\lambda,\bar\alpha\lambda)$
+identifies $\cO_{p}\otimes_{\ZZ_{p}}\Lambda$ with the lattice of pairs
+$(x,y)\in\Lambda^{2}$ with $x\equiv y$ modulo $\delta$, whose basis is
+$(1,1),(\delta,0)$. Let $\varepsilon_{1},\varepsilon_{2}$ be the coordinates
+and $u_{1},\dots,u_{4}$ the basis of $W^{\vee}$ dual to $e,f,e^{*},f^{*}$. The
+dual lattice has basis $\varepsilon_{2}$, $(\varepsilon_{1}-\varepsilon_{2})/\delta$,
+so $H^{1}(X,\Lambda)$ has the basis
+\[
+  Y_{i}=\varepsilon_{2}\otimes u_{i},\qquad
+  Z_{i}=\delta^{-1}(X_{i}-Y_{i}),\qquad\text{where }X_{i}=\varepsilon_{1}\otimes u_{i},
+\]
+and $H^{*}(X,\Lambda)$ is the exterior algebra on the $Y_{i}$ and $Z_{i}$. In
+these coordinates $B=\delta^{-1}(\varepsilon_{1}^{2}-\varepsilon_{2}^{2})$, and the
+components of $\theta=B\otimes\omega_{0}$ in the two eigenspaces of $\cO$, the
+first being the one on which $\cO$ acts through the fixed embedding, are
+\[
+  \theta_{1}=\delta^{-1}(X_{1}X_{3}+X_{2}X_{4}),\qquad
+  \theta_{2}=-\delta^{-1}(Y_{1}Y_{3}+Y_{2}Y_{4}).
+\]
+Substitute $X_{i}=Y_{i}+\delta Z_{i}$ in $v=\sum_{a,b}V_{ab}\,\theta_{1}^{a}
+\theta_{2}^{b}/(a!\,b!)$ and expand in the monomials in the $Y_{i}$ and $Z_{i}$.
+Up to sign, every coefficient is one of
+\[
+  r,\ m,\ h,\ k,\ c,\ g,\ g-c,\ \delta h,\ \delta k,\ \delta g,\ \delta^{2}g,\
+  \frac{g-c}{\delta},\ \frac{h-\bar h}{\delta},\ \frac{k-\bar k}{\delta},\
+  \frac{2c-g-\bar g}{\delta^{2}},
+\]
+and each of $r$, $m$, $h$, $k$, $c$, $g$ and $(g-c)/\delta$ occurs, so an
+integral class satisfies the conditions at $p$. Conversely, suppose that they
+hold. Every $x\in\cO_{p}$ has $x-\bar x\in\delta\cO_{p}$, which disposes of
+$h-\bar h$ and $k-\bar k$; and $g=c+\delta g'$ with $g'\in\cO_{p}$ gives
+$2c-g-\bar g=-\delta(g'-\bar g')\in\delta^{2}\Lambda$. So every coefficient
+lies in $\Lambda$. When $p$ is unramified in $F_{0}$, $\delta$ is a unit at
+$p$ and the congruence is empty. Item (LV) of \Cref{sec:verification} carries
+out the expansion with $\delta$ and the entries of $V$ as symbols, and
+computes the integral classes directly for nine fields.
+\end{proof}
+
+\begin{proposition}[Integral secant classes of small Euler characteristic]
+\label{prop:quarticother}
+Let $F_{0}=\QQ(\sqrt D)$ with $D>1$ squarefree, let $X$ be a principally
+polarised abelian fourfold with real multiplication by $\cO_{F_{0}}$, and let
+$v$ be an integral class in a space $S(t,q)$ of \Cref{prop:quarticsecant},
+with $\rho$ and $N_{w}$ as there.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item If $\rho=1$, then $\chi(v,v)\ne4$.
+\item If $\rho=2$ and $N_{w}=4$, then $\chi(v,v)\ne6$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+By \Cref{lem:quarticlattice} the entries of $V$ lie in $\cO=\cO_{F_{0}}$, the
+diagonal ones in $\ZZ$, and $c\equiv g$ modulo $\mathfrak d$; conjugation is
+trivial on $\cO/\mathfrak d$.
+
+(i) Write $V=\lambda\alpha\bar\alpha^{T}$ with $\alpha\in\cO^{3}$, and let
+$\mathfrak a$ be the ideal generated by the entries of $\alpha$; replacing
+$\alpha$ by a multiple, we may take $\mathfrak a$ integral and prime to
+$\mathfrak d$. The entries $\lambda\alpha_{i}\bar\alpha_{j}$ lie in $\cO$ and
+generate $\lambda\mathfrak a\bar{\mathfrak a}=\lambda\Nm(\mathfrak a)\cO$, so
+$\mu=\lambda\Nm(\mathfrak a)\in\ZZ$. With $D'=\alpha_{1}^{2}-\alpha_{0}\alpha_{2}
+\in\mathfrak a^{2}$ one has $\chi=4\lambda^{2}\Nm(D')$, and
+$\Nm(D')\in\Nm(\mathfrak a)^{2}\ZZ$, so $\chi=4$ forces $\mu=\pm1$ and
+$(D')=\mathfrak a^{2}$. Since conjugation is trivial modulo $\mathfrak d$,
+$\alpha_{1}\bar\alpha_{1}-\alpha_{2}\bar\alpha_{0}\equiv D'$ modulo
+$\mathfrak a\mathfrak d$, and the congruence $c\equiv g$ gives
+$\lambda D'\in\mathfrak d\,\bar{\mathfrak a}^{-1}$. The ideal of $\lambda D'$ is
+$\mathfrak a\bar{\mathfrak a}^{-1}$, so $\mathfrak a\subseteq\mathfrak d$, which
+is impossible for $\mathfrak a$ prime to $\mathfrak d$ and $\mathfrak d\ne(1)$.
+
+(ii) The matrix $\operatorname{adj}V$ is Hermitian of rank one, so
+$\operatorname{adj}V=\mu\,\bar l\,l^{T}$ with $l\in\cO^{3}$, $l^{T}V=0$ and
+$\mu\in\QQ^{\times}$. Put $\Delta=l_{1}^{2}-4l_{0}l_{2}$ and
+$m=\mu^{2}\Nm(\Delta)$. Replacing $l$ by $\lambda l$, $\lambda\in F_{0}^{\times}$,
+replaces $\mu$ by $\mu/\Nm(\lambda)$ and $\Delta$ by $\lambda^{2}\Delta$, so $m$
+depends only on $V$. As the entries of $\operatorname{adj}V$ are integral,
+$\mu$ is integral at every prime at which $l$ is primitive, and $l$ can be
+made primitive at the primes above any given $p$, because
+$\cO\otimes\ZZ_{(p)}$ is a principal ideal domain; so $m\in\ZZ$. Let $J$ be
+the matrix with rows $(0,0,1)$, $(0,-2,0)$, $(1,0,0)$. Since
+$\int_{X}\theta_{1}^{2}\theta_{2}^{2}=4$, one has $\chi(v,v)=\operatorname{tr}
+(JVJ\bar V)$; and $\operatorname{adj}J$ has rows $(0,0,2)$, $(0,-1,0)$,
+$(2,0,0)$, so that $l^{T}(\operatorname{adj}J)\,l=-\Delta$ and
+\[
+  \sigma_{2}(JVJ\bar V)=\operatorname{tr}\operatorname{adj}(JVJ\bar V)
+  =\mu^{2}\,\Delta\bar\Delta=m .
+\]
+At a real place, $V=PWQ^{T}$ with $W=(w_{\varepsilon})$ and $P$, $Q$ the
+$3\times2$ matrices with columns $(1,\pm s_{1},s_{1}^{2})$ and
+$(1,\pm s_{2},s_{2}^{2})$, when $t=0$; multiplication by $e^{\theta_{t}}$
+replaces $V$ by $UV\bar U^{T}$ with $U$ unipotent and $U^{T}JU=J$, which
+conjugates $JVJ\bar V$, so we may take $t=0$. As
+$(1,z,z^{2})\,J\,(1,z',z'^{2})^{T}=(z-z')^{2}$ and
+$w_{-\varepsilon}=\overline{w_{\varepsilon}}$, the nonzero eigenvalues of
+$JVJ\bar V$ are $16\Nm(q)\bigl(|w_{++}|\pm|w_{+-}|\bigr)^{2}$, so
+\[
+  \chi^{2}-4m=\bigl(64\Nm(q)\,|w_{++}|\,|w_{+-}|\bigr)^{2}\ge0,
+\]
+with equality exactly when $N_{w}=2$. Modulo $\mathfrak d$ one has
+$\bar V\equiv V$, $\operatorname{tr}(JV)=g-2c+\bar g\equiv0$ and
+$\sigma_{2}(JV)=\operatorname{tr}\bigl(\operatorname{adj}(V)\operatorname{adj}(J)\bigr)
+=\mu\,l^{T}(\operatorname{adj}J)\,\bar l\equiv-\mu\Delta$, with $l$ primitive at
+the primes dividing $\mathfrak d$. Hence
+\[
+  \chi\equiv\operatorname{tr}\bigl((JV)^{2}\bigr)
+  =\operatorname{tr}(JV)^{2}-2\sigma_{2}(JV)\equiv2\mu\Delta
+  \pmod{\mathfrak d}.
+\]
+
+Now let $\chi=6$ and $N_{w}=4$. Then $1\le m\le8$, because $\Delta$ is
+totally negative, and $m$ satisfies three conditions.
+\begin{enumerate}[label=\textup{(\alph*)},leftmargin=2.6em,itemsep=2pt]
+\item $4m\equiv36$ modulo $\mathfrak d\cap\ZZ$, which is $D\ZZ$ if
+  $D\equiv1$ modulo $4$ and $2D\ZZ$ otherwise. As $D$ is squarefree, this
+  says that $m\equiv9$ modulo the odd part $D_{o}$ of $D$.
+\item $m\equiv0$ or $1$ modulo $4$. Take $l$ primitive at $2$, so that
+  $\mu\in\ZZ_{(2)}$. Since $\Nm(x+4y)\equiv\Nm(x)$ modulo $4$ for
+  $x,y\in\cO\otimes\ZZ_{(2)}$, $\Nm(\Delta)\equiv\Nm(l_{1}^{2})=\Nm(l_{1})^{2}$,
+  and $m\equiv\bigl(\mu\Nm(l_{1})\bigr)^{2}$ modulo $4$.
+\item If $D\equiv2$ modulo $4$, then $m$ is odd. The prime $\mathfrak p$ above
+  $2$ is ramified, $v_{\mathfrak p}(2)=2$ and $v_{\mathfrak p}(\sqrt D)=1$, so
+  $v_{\mathfrak p}(\mathfrak d)=3$ while $v_{\mathfrak p}(6)=2$; the congruence
+  $6\equiv2\mu\Delta$ modulo $\mathfrak p^{3}$ forces
+  $v_{\mathfrak p}(\mu\Delta)=0$, so $\mu$ and $\Nm(\Delta)$ are odd.
+\end{enumerate}
+If $D\equiv1$ modulo $4$ and $D\ne5$, then $D\ge13$ and (a) has no solution
+in $[1,8]$. If $D\equiv3$ modulo $4$, (a) gives $m\in\{3,6\}$ for $D=3$,
+$m=2$ for $D=7$ and nothing for $D\ge11$, and (b) excludes these values. If
+$D=2D'$, then (b) and (c) give $m\equiv1$ modulo $4$, which with (a) says
+$m\equiv9$ modulo $4D'$, and this has no solution in $[1,8]$ unless $D'=1$.
+There remain $D=5$, with $m=4$, and $D=2$, with $m\in\{1,5\}$.
+
+For $\QQ(\sqrt5)$, $m=4$ means that $\Delta$ is $-2$ times a unit or minus the
+square of a unit, since $2$ is inert; and $\Delta\equiv l_{1}^{2}$ modulo $4$,
+while neither $-1$ nor twice a unit is a square modulo $4$ in $\ZZ[\varphi]$.
+For $\QQ(\sqrt2)$, (c) makes $\mu$ odd, so $\mu=\pm1$ and
+$\Nm(\Delta)\in\{1,5\}$; the norms of the elements of $\ZZ[\sqrt2]$ prime to
+$2$ are $\pm1$ modulo $8$, so $\Nm(\Delta)=1$ and $\Delta=-(1+\sqrt2)^{2k}$,
+which is $3$ or $1+2\sqrt2$ modulo $4$, and neither is a square modulo $4$ in
+$\ZZ[\sqrt2]$. These finite statements are certified in \Cref{sec:lean}. The
+identities used are checked exactly on random integral classes in item (LV),
+which also confirms that for squarefree $D<200000$ the three conditions leave
+only $D=2$ and $D=5$.
+\end{proof}
+
+\begin{theorem}[No dimension-count certificate for quartic CM fields]
 \label{thm:quarticobstruction}
-Let $F_{0}$ be one of $\QQ(\sqrt5)$, $\QQ(\sqrt2)$, $\QQ(\sqrt{13})$,
-$\QQ(\sqrt{17})$, let $X$ be a principally polarised abelian fourfold with real
-multiplication by $\cO_{F_{0}}$, let $F\supset F_{0}$ be a quartic CM field,
-and give $A=X\times\widehat X$ the action of $F$ of \cite{Mar25c} for a rational
-$F_{0}$-$B$-field. Let $F_{1},F_{2}$ be perfect complexes on $X$ with
-$\Ext^{<0}(F_{i},F_{i})=0$, for instance sheaves, whose Chern characters lie in
-spaces $S(t,q)$ of \Cref{prop:quarticsecant}, and let
-$E=\Phi(F_{1}\boxtimes F_{2}^{\vee})$. Then the class
-$\kappa=\ch(E)e^{\ell/2}$ is a Hodge class on every member of the
-$(F,2,1)$-family, $r(\kappa)=r(\ch E)\in\{100,102,104\}$, and
+Let $F$ be a quartic CM field with real quadratic subfield $F_{0}$, let $X$ be
+a principally polarised abelian fourfold with real multiplication by
+$\cO_{F_{0}}$, and give $A=X\times\widehat X$ the action of $F$ of
+\cite{Mar25c} for a rational $F_{0}$-$B$-field. Let $F_{1},F_{2}$ be perfect
+complexes on $X$ with $\Ext^{<0}(F_{i},F_{i})=0$, for instance sheaves, whose
+Chern characters lie in spaces $S(t,q)$ of \Cref{prop:quarticsecant}, and let
+$E=\Phi(F_{1}\boxtimes F_{2}^{\vee})$ and $\kappa=\ch(E)e^{\ell/2}$. Then
+$r(\kappa)=r(\ch E)\le104$ and
 \[
   \dim\Ext^{2}(E,E)>r(\kappa).
 \]
 So the injectivity of $\sigma_{E}$ cannot be obtained from a dimension count
-for any such $E$.
+for any such $E$. When $F_{0}$ is $\QQ(\sqrt5)$, $\QQ(\sqrt2)$,
+$\QQ(\sqrt{13})$ or $\QQ(\sqrt{17})$, the class $\kappa$ is moreover a Hodge
+class on every member of the $(F,2,1)$-family, and $r(\kappa)$ is $100$, $102$
+or $104$.
 \end{theorem}
 
 \begin{proof}
-That $\kappa$ is invariant under $G_{F}$, hence a Hodge class along the whole
-family, and that $r(\kappa)=r^{2}(v_{1})+r^{1}(v_{1})r^{1}(v_{2})+r^{2}(v_{2})$, are
-computed in item (LV) of \Cref{sec:verification}; with
-\Cref{prop:quarticsecant}(ii) the values are $100$, $102$, $104$. By the
+By \Cref{lem:bfield}(i), multiplication by $e^{\ell/2}$ conjugates contraction
+by an automorphism of $HT^{2}$, so $r(\kappa)=r(\ch E)$; and, as in the proof
+of \Cref{thm:factor}(iv), $\Phi$ identifies $r(\ch E)$ with the rank of
+contraction from $HT^{2}(X\times X)$ into $v_{1}\boxtimes v_{2}$, where
+$v_{1}=\ch(F_{1})$ and $v_{2}=\ch(F_{2}^{\vee})$. The decomposition
+$HT^{2}(X\times X)=\bigoplus_{a+b=2}HT^{a}(X)\otimes HT^{b}(X)$ is compatible
+with contraction, so $r(\ch E)\le\sum_{a+b=2}r^{a}(v_{1})\,r^{b}(v_{2})$, where
+$r^{k}$ denotes the rank of contraction from $HT^{k}(X)$; by
+\Cref{prop:quarticsecant}(ii) the sum is at most $20+64+20=104$. By the
 K\"unneth formula, as in \Cref{prop:orlovfour},
-$\dim\Ext^{2}(E,E)=e_{0}e_{2}'+e_{1}e_{1}'+e_{2}e_{0}'\ge r(\kappa)$, with equality
-only if each $F_{i}$ is minimal, $\dim\Ext^{k}(F_{i},F_{i})=1,8,r^{2}(\ch F_{i})$
-for $k=0,1,2$. For such $F_{i}$, Serre duality gives
-$\chi(F_{i},F_{i})=r^{2}-14$, that is $4$, $6$ or $-2$ for $r^{2}=18,20,12$; the
-last is impossible because $\chi$ is positive on $S(t,q)$. It remains to show
-that no integral class $v$ of $S(t,q)$ has $\chi(v,v)=4$ with $\rho=1$, or
-$\chi(v,v)=6$ with $\rho=2$ and $N_{w}=4$.
-
-The integral classes of $\mathcal{R}$ are computed in item (LV): in
-coordinates $V=\bigl(\begin{smallmatrix}r&\bar h&\bar g\\ h&c&\bar k\\ g&k&m
-\end{smallmatrix}\bigr)$ they are the matrices with $r,c,m\in\ZZ$ and
-$h,g,k\in\cO_{F_{0}}$ satisfying $c\equiv g$ modulo the different
-$\mathfrak d$ of $F_{0}$. If $\rho=1$, then $V=\lambda\alpha\bar\alpha^{T}$ with
-$\alpha\in\cO_{F_{0}}^{3}$ primitive and $\lambda\in\ZZ$, the congruence gives
-$\lambda D\in\mathfrak d$ with $D=\alpha_{1}^{2}-\alpha_{0}\alpha_{2}$, and
-$\chi=4\lambda^{2}\Nm(D)$; $\chi=4$ forces $\lambda=\pm1$ and $\Nm(D)=1$, so the
-discriminant of $F_{0}$ divides $\Nm(D)=1$, which is absurd. If $\rho=2$, let
-$l\in\cO_{F_{0}}^{3}$ be primitive with $l^{T}V=0$ and
-$\Delta=l_{1}^{2}-4l_{0}l_{2}$, totally negative; then $\operatorname{adj}V=
-\mu\,\bar l\,l^{T}$ with $\mu\in\ZZ\setminus\{0\}$, and one has
-$\chi^{2}-4\mu^{2}\Nm(\Delta)=16\Nm(\delta)^{2}|w_{++}|^{2}|w_{+-}|^{2}\ge0$,
-with equality exactly when $N_{w}=2$, and $\chi\equiv\pm2\mu\Delta$ modulo
-$\mathfrak d$. At $\chi=6$ the first gives $m=\mu^{2}\Nm(\Delta)\le8$ and the
-second, squared, $4m\equiv36$ modulo $\mathfrak d$. For $\QQ(\sqrt{13})$ and
-$\QQ(\sqrt{17})$ this asks for $m\equiv9$ modulo $13$ or $17$ with $1\le m\le8$,
-which has no solution. For $\QQ(\sqrt5)$ it gives $m=4$, so $\Delta$ is $-2$
-times a unit or minus the square of a unit, and $\Delta\equiv l_{1}^{2}$ modulo
-$4$; but neither $-1$ nor twice a unit is a square modulo $4$ in $\ZZ[\varphi]$.
-For $\QQ(\sqrt2)$ it gives $\mu=\pm1$ and $\Nm(\Delta)\in\{1,7\}$, which asks
-for $3$, $1+3\sqrt2$ or $1+\sqrt2$ to be a square modulo $4$ in $\ZZ[\sqrt2]$,
-and none is. These finite statements are certified in \Cref{sec:lean}, and
-the identities used are checked exactly on random integral classes in item
-(LV).
+$\dim\Ext^{2}(E,E)=e_{0}e_{2}'+e_{1}e_{1}'+e_{2}e_{0}'$ with
+$e_{k}=\dim\Ext^{k}(F_{1},F_{1})\ge r^{k}(v_{1})$, by the commutative square
+$\sigma_{F}\circ\operatorname{ev}_{F}=(\,\cdot\,)\lrcorner\ch(F)$, and likewise
+for $F_{2}$. So $\dim\Ext^{2}(E,E)\ge r(\kappa)$, with equality only if each
+$F_{i}$ is minimal, $\dim\Ext^{k}(F_{i},F_{i})=1,8,r^{2}(\ch F_{i})$ for
+$k=0,1,2$. For such $F_{i}$, Serre duality gives $\chi(F_{i},F_{i})=r^{2}-14$,
+that is $4$, $6$ or $-2$ for $(\rho,N_{w})=(1,4)$, $(2,4)$, $(2,2)$. The last
+is impossible because $\chi$ is positive on $S(t,q)$. The Chern character of
+a perfect complex on a complex torus is integral\footnote{The topological
+$K$-theory of a real torus is generated, by the K\"unneth theorem, by products
+of classes pulled back from its circle factors, and the Chern characters of
+those are integral.}, so the first two are excluded by
+\Cref{prop:quarticother}. For the four fields named, item (LV) of
+\Cref{sec:verification} checks that $\kappa$ is invariant under $G_{F}$, hence
+a Hodge class along the whole family, and that the bound on $r(\kappa)$ is
+attained.
 \end{proof}
 
-For the other real quadratic subfields the same argument excludes $\rho=1$
-whenever the description of the integral classes holds, and excludes $\rho=2$
-whenever the discriminant of $F_{0}$ has a prime factor at least $11$ or two
-distinct odd prime factors; the fields $\QQ(\sqrt3)$, $\QQ(\sqrt6)$,
-$\QQ(\sqrt7)$, $\QQ(\sqrt{10})$ and $\QQ(\sqrt{14})$ remain. What
-\Cref{thm:quarticobstruction} leaves for $\mathbf{W}(F,2,\delta)$ is one of
-three things: a complex with Ext groups in degrees at most $-3$, which changes
-the Euler characteristic; a kernel on $X\times X$ that is not an external
-product; or a proof of the injectivity of $\sigma_{E}$ for some Orlov product
-that does not go through a dimension count.
+What \Cref{thm:quarticobstruction} leaves for $\mathbf{W}(F,2,\delta)$ is one
+of three things: a complex with Ext groups in degrees at most $-3$, which
+changes the Euler characteristic; a kernel on $X\times X$ that is not an
+external product; or a proof of the injectivity of $\sigma_{E}$ for some Orlov
+product that does not go through a dimension count.
 
 \begin{remark}[What is missing at $n=2$]\label{rem:quarticgap}
 The Weil classes of an $(F,2,\delta)$-family are known to be algebraic at the
@@ -765,10 +931,11 @@ $\dim\Ext^{2}(E,E)=r(\ch E)$, which is $112$ for a general shape; every such
 complex has $\dim\Ext^{2}(E,E)\ge68$. When $\delta$ is trivial the secant
 sheaves of \cite{Mar25c}, on $X\times\widehat{X}$ with $X$ an abelian fourfold
 with real multiplication by $F_{0}$, are natural candidates. For objects of
-the form $\Phi(F_{1}\boxtimes F_{2}^{\vee})$ with $F_{1},F_{2}$ sheaves the
-twisted character is flat, and by \Cref{thm:quarticobstruction} their
-semiregularity, if it holds, cannot be proved by a dimension count for the
-four fields named there. Even $\mathbf{W}(F,2,\delta)$ for every quartic $F$ and every
+the form $\Phi(F_{1}\boxtimes F_{2}^{\vee})$ with $F_{1},F_{2}$ sheaves on a
+principally polarised $X$, \Cref{thm:quarticobstruction} shows that their
+semiregularity, if it holds, cannot be proved by a dimension count, whatever
+the quartic field; for four real quadratic subfields their twisted character
+is moreover known to be flat. Even $\mathbf{W}(F,2,\delta)$ for every quartic $F$ and every
 $\delta$ would be only the first case of the conclusion of
 $\mathrm{P2}_{\mathrm{split}}$, which concerns every field of degree at least
 four in infinitely many dimensions, and it would leave (F2) and (F3$'$) of

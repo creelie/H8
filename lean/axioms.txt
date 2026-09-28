@@ -86,3 +86,7 @@
 'HodgeObstruction.quartic_euler_minimal' does not depend on any axioms
 'HodgeObstruction.orlov_equality_count' does not depend on any axioms
 'HodgeObstruction.orlov_n4_euler' does not depend on any axioms
+'HodgeObstruction.quartic_squares_mod4_mod8' does not depend on any axioms
+'HodgeObstruction.quartic_rank_two_small_odd_parts' does not depend on any axioms
+'HodgeObstruction.quartic_rank_two_large_odd_part' depends on axioms: [propext]
+'HodgeObstruction.quartic_sqrt2_units_mod4' does not depend on any axioms

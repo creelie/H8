@@ -14,7 +14,7 @@ from ealib import *
 from a1model import RMModel, QS
 import a1_secant as SEC
 
-FIELDS = {"sqrt5": ((0, 1), (1, 1)), "sqrt2": ((1, 1), (1, -1)), "sqrt13": ((2, 1), (1, -1)), "sqrt17": ((0, 2), (2, 1))}
+FIELDS = {"sqrt5": ((0, 1), (1, 1)), "sqrt2": ((1, 1), (1, -1)), "sqrt13": ((2, 1), (1, -1)), "sqrt17": ((0, 2), (2, 1)), "sqrt10": ((1, 3), (3, -1))}
 name = sys.argv[1] if len(sys.argv) > 1 else "sqrt2"
 OB = int(sys.argv[2]) if len(sys.argv) > 2 else 1
 BOUND = int(sys.argv[3]) if len(sys.argv) > 3 else 8
