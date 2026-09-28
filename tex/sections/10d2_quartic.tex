@@ -1209,3 +1209,156 @@ twelvefold. The Orlov products never reach the rank $264$ of a class of
 general shape, in degree six as in degree four, where the values are
 $r(\kappa)\le104$ against $112$.
 \end{remark}
+
+The count of \Cref{prop:sexticcount}(iii) is a condition on the Euler
+characteristic of the character alone, so it can be tested on the lattice of
+integral characters, as \Cref{prop:quarticother} tests the quartic one. In
+degree four that test excluded every minimal character. In degree six it
+excludes none that we can find. For $t=0$, the case in which
+\Cref{prop:sexticcount}(iv) makes $\kappa$ flat, put
+$B_{j}=1-\tfrac12\tau_{j}(q)\,\theta_{j}^{2}$, so that
+$e^{\pm s_{j}\theta_{j}}=B_{j}\pm s_{j}\theta_{j}$, and for
+$c_{0},c_{3}\in\QQ$ and $f,g\in F_{0}$ let
+\[
+  v(c_{0},f,g,c_{3})=c_{0}B_{1}B_{2}B_{3}
+  +\sum_{j}\tau_{j}(f)\,\theta_{j}B_{k}B_{l}
+  +\sum_{j}\tau_{j}(g)\,B_{j}\theta_{k}\theta_{l}
+  +c_{3}\,\theta_{1}\theta_{2}\theta_{3},
+\]
+where $\{j,k,l\}=\{1,2,3\}$ in each sum.
+
+\begin{proposition}[Integral flat characters in degree six]
+\label{prop:sexticintegral}
+Keep the notation of \Cref{prop:sexticcount}.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item For every perfect complex $F$ on a complex torus of dimension six,
+  $\chi(F,F)$ is even. So the condition of \Cref{prop:sexticcount}(iii)
+  holds for every $F$ whose character has $N_{w}=2$.
+\item For every nonzero real $v\in S(t,q)$, $r^{3}(v)-2r^{2}(v)\le4$, with
+  equality only if $(r^{2}(v),r^{3}(v))=(54,112)$. So for every shape the
+  condition of \Cref{prop:sexticcount}(iii) is implied by
+  $\chi(F_{i},F_{i})\le-26$.
+\item The rational points of $S(0,q)$ are the classes $v(c_{0},f,g,c_{3})$,
+  and
+  \[
+    \chi(v,v)=-8\bigl(\Nm(q)\,c_{0}^{2}+\Tr\bigl(\Nm(q)\,q^{-1}f^{2}\bigr)
+    +\Tr(q\,g^{2})+c_{3}^{2}\bigr).
+  \]
+\item For $q=1$, the classes $\operatorname{Re}e^{\sqrt{-1}\,\theta}=v(1,0,-1,0)$
+  and $\operatorname{Im}e^{\sqrt{-1}\,\theta}=v(0,1,0,-1)$ are integral
+  points of $S(0,1)$ with $\chi=-32$ and $N_{w}=2$.
+\item Let $F_{0}$ be one of the sixteen cubic fields of item (LVII) of
+  \Cref{sec:verification}, among them $\QQ(\zeta_{7})^{+}$ and
+  $\QQ(\zeta_{9})^{+}$, and let $q=1$ or $q=k+\alpha$, with $\alpha$ the
+  generator of $\cO_{F_{0}}$ used there and $k$ the least integer for which
+  $q$ is totally positive. On the lattice of integral points of $S(0,q)$ the
+  form $-\chi/8$ takes integer values, and it takes no value in
+  $\{1,2,3\}$. So every nonzero integral $v\in S(0,q)$ has
+  $\chi(v,v)\le-32$, and satisfies the condition of
+  \Cref{prop:sexticcount}(iii) whatever its shape. For $q=1$ the value $-32$
+  is attained exactly at $\pm\operatorname{Re}e^{\sqrt{-1}\,\theta}$ and
+  $\pm\operatorname{Im}e^{\sqrt{-1}\,\theta}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) The Chern character $v=\ch(F)$ is integral, as in the proof of
+\Cref{thm:quarticobstruction}(ii), and $\chi(F,F)=\int_{X}v^{\vee}v$ by
+Riemann--Roch. Write $v=\sum_{k}v_{2k}$, so that
+$\int_{X}v^{\vee}v=\sum_{k}(-1)^{k}\int_{X}v_{2k}v_{12-2k}$. The terms $k$ and
+$6-k$ are equal, since $(-1)^{k}=(-1)^{6-k}$ and classes of even degree
+commute, so they contribute an even number when $k\ne3$. For $k=3$ write
+$v_{6}=\sum_{I}a_{I}e_{I}$ in the basis of $\bigwedge^{6}H^{1}(X,\ZZ)$ given
+by the products $e_{I}$ of six elements of a basis of $H^{1}(X,\ZZ)$; since
+$e_{I}e_{I}=0$ and $e_{I}e_{J}=e_{J}e_{I}$, $v_{6}^{2}=2\sum_{I<J}a_{I}a_{J}
+e_{I}e_{J}$ is even. For $N_{w}=2$ the condition of
+\Cref{prop:sexticcount}(iii) is $\chi(F,F)\le-2$, and $\chi(F,F)$ is a
+negative even integer by \Cref{prop:sexticcount}(ii).
+
+(ii) For $j$ and $\sigma=\pm1$ let $W_{j,\sigma}$ be the $2\times2$ slice
+$(w_{\varepsilon})_{\varepsilon_{j}=\sigma}$. The matrices
+$M^{(j';j)}_{\sigma}$ are $W_{j,\sigma}$ and its transpose, so
+$\sum_{j\ne j'}\bigl(\rk M^{(j;j')}_{+}+\rk M^{(j;j')}_{-}\bigr)
+=2\sum_{j,\sigma}\rk W_{j,\sigma}$, and $\rho_{j}$ is the dimension of the span
+of $W_{j,+}$ and $W_{j,-}$. Three constraints link these numbers to the
+support of $w$: a slice has rank two only if its support contains a diagonal
+or an antidiagonal; if $\rho_{j}=1$ and both slices along $j$ are nonzero
+they are proportional, with equal supports and ranks; and if $\rho_{j}=1$
+then $w=a\otimes W$ with $a$ indexed by $\varepsilon_{j}$, so every slice along
+another index is $a\otimes(\text{a row of }W)$, of rank at most one. By the
+formulas of \Cref{prop:sexticcount}(i), $r^{3}-2r^{2}$ is a function of the
+support, the ranks of the six slices and the $\rho_{j}$, and item (LVII)
+maximises it over the $255$ nonempty supports and all rank data meeting the
+three constraints: the maximum is $4$, attained only with full support, six
+slices of rank two and $\rho_{j}=2$, that is at $(54,112)$. The threshold
+$r^{3}-2r^{2}+22$ of \Cref{prop:sexticcount}(iii) is therefore at most $26$.
+
+(iii) Since $\theta_{j}^{3}=0$ and $s_{j}^{2}=-\tau_{j}(q)$,
+$e^{\pm s_{j}\theta_{j}}=B_{j}\pm s_{j}\theta_{j}$, so the eight exponentials
+and the eight products $\prod_{j}\beta_{j}$ with $\beta_{j}\in\{B_{j},\theta_{j}\}$
+span the same complex space, the change of basis being the tensor cube of an
+invertible $2\times2$ matrix. The Galois group permutes the $\tau_{j}$, the
+$\theta_{j}$ and the $B_{j}$ compatibly, so $\sum_{a}C_{a}\prod_{j}\beta_{j}$,
+indexed by the subsets $a$ of $\{1,2,3\}$ with $\beta_{j}=\theta_{j}$ for
+$j\in a$, is rational exactly when $C_{\pi(a)}=\sigma(C_{a})$ for every
+$\sigma$ inducing $\pi$; the stabiliser of $\{j\}$, and of its complement,
+is the stabiliser of $\tau_{j}$, which gives the form $v(c_{0},f,g,c_{3})$.
+The involution $v\mapsto v^{\vee}$ and the integral are multiplicative over
+the three factors, with $\int_{X}\theta_{1}^{2}\theta_{2}^{2}\theta_{3}^{2}=8$;
+on one factor $B_{j}^{\vee}B_{j}=1-\tau_{j}(q)\theta_{j}^{2}$,
+$\theta_{j}^{\vee}\theta_{j}=-\theta_{j}^{2}$ and the mixed products are odd
+in $\theta_{j}$. So
+$\chi(v,v)=-8\sum_{a}C_{a}^{2}\prod_{j\notin a}\tau_{j}(q)$, which is the
+formula.
+
+(iv) For $q=1$, $s_{j}=\sqrt{-1}$ and $e_{(1,1,1)}=\prod_{j}e^{\sqrt{-1}\,
+\theta_{j}}=e^{\sqrt{-1}\,\theta}$. The polarisation is principal, so each
+$\theta^{k}/k!$ is integral, and so are the real and imaginary parts
+$\sum_{k}(-1)^{k}\theta^{2k}/(2k)!$ and $\sum_{k}(-1)^{k}\theta^{2k+1}/(2k+1)!$.
+They are $\tfrac12(e_{(1,1,1)}+e_{(-1,-1,-1)})$ and
+$\tfrac1{2\sqrt{-1}}(e_{(1,1,1)}-e_{(-1,-1,-1)})$, so $N_{w}=2$ and
+$\chi=-64\,(\tfrac14+\tfrac14)=-32$ by \Cref{prop:sexticcount}(ii); expanding
+$\prod_{j}(B_{j}+\sqrt{-1}\,\theta_{j})$ gives the coordinates.
+
+(v) This is the computation of item (LVII). A model of $X$ is
+$H_{1}(X,\ZZ)=\cO e_{1}\oplus\cO e_{2}\oplus\mathfrak d^{-1}f_{1}\oplus
+\mathfrak d^{-1}f_{2}$ with $\psi(e_{a},f_{b})=\delta_{ab}$; by the local
+argument in the proof of \Cref{lem:quarticlattice}, every principally
+polarised lattice with real multiplication by $\cO$ is locally of this shape,
+so integrality does not depend on the model. In the Z-basis of
+$\bigwedge^{\mathrm{ev}}H^{1}(X,\ZZ)$ the coordinates of
+$v(c_{0},f,g,c_{3})$ are rational linear forms in the eight rational
+parameters; they are computed modulo three primes that split completely in
+$F_{0}$, where the $\tau_{j}$ become the three roots of the minimal polynomial,
+reconstructed as rationals and confirmed modulo a fourth prime. The integral
+points are the dual of the lattice spanned by the rows. The Gram matrix of
+$-\chi/8$ on that lattice, computed from (iii) and confirmed by computing
+$\int_{X}v^{\vee}v$ directly, is integral, and a Fincke--Pohst enumeration
+finds no vector of norm at most $3$; for $q=1$ it finds exactly four of norm
+$4$, which are the four classes of (iv). Since $-\chi$ is then a positive
+multiple of $8$ that is at least $32$, and $26<32$, (ii) gives the condition.
+\end{proof}
+
+\begin{remark}[What the lattice test leaves]\label{rem:sexticnoexclusion}
+\Cref{prop:sexticintegral} is the degree-six counterpart of
+\Cref{prop:quarticother}, and it points the other way. In degree four the
+minimal profile forces $\chi(F_{i},F_{i})\in\{4,6\}$ and integrality excludes
+both values; in degree six it only asks $\chi(F_{i},F_{i})\le-26$, and every
+integral flat character that we have computed has $\chi\le-32$. So for those
+fields every integral point of $S(0,q)$ is the character of a numerically
+admissible minimal factor, with profile
+$(1,12,r^{2},2r^{2}-22-\chi,r^{2},12,1)$, and the Orlov product of two such
+factors would satisfy $\dim\Ext^{2}(E,E)=r(\kappa)$ on the twelvefold with a
+flat twisted character. The smallest candidates for $q=1$ are the real and
+imaginary parts of $e^{\sqrt{-1}\,\theta}$, of shape $N_{w}=2$ and profile
+$(1,12,30,70,30,12,1)$. Nothing here produces a sheaf with such a profile:
+those two classes are polynomials in $\theta$, so they lie in the rational
+span of the characters $e^{k\theta}$, $0\le k\le6$, of the powers of the
+principal polarisation, but a character does not determine the Ext groups,
+and whether some complex with character $\operatorname{Re}e^{\sqrt{-1}\,
+\theta}$ is minimal is not known. The computation covers sixteen fields and
+two values of $q$ each; we have not proved the bound $\chi\le-32$ for every
+cubic field. $\mathrm{P2}_{\mathrm{split}}$ remains open, in degree six as in
+degree four; what changes is that no numerical invariant considered in this
+paper stands in the way of a certificate over a sextic field.
+\end{remark}

@@ -39,7 +39,7 @@ Lean check:
 
 The last lines are
 
-    1048 checks passed, 0 failed
+    1052 checks passed, 0 failed
     overall: PASS
 
 and the exit status is zero. The driver runs five self-contained checks and
@@ -87,6 +87,7 @@ then calls the companion scripts in the same directory:
 | `descent.py` | descent and scalar extension for Weil classes: the correspondence pr_{B*}(x . pr_Y^*(eta_Y^{2m-2} y')) maps the Weil classes of B x Y onto those of B, so W(F,n+1,delta'') gives W(F,n,delta) for every discriminant; and W(F,n,iota(delta)) gives W(K,n,delta) for K in F; exact over seven CM fields |
 | `attack_checks.py` | item (LV): a fast subset (about two and a half minutes) of the round-12 attack scripts in `attack/`, each track with its verifier's independent re-implementation: the Hodge classes and the criterion numbers of a quartic CM family at n = 2 (2 and 7 Hodge classes, phi^2 = (det H)^{-1}, r = 120, 80, 112 and the bound 68); pull-backs and one composite of correspondences on powers of a Mumford fourfold (7 of 8, then 8); the Hochschild profiles, the n = 2 certificate and the S^2 parity numbers of explicit objects at a split member, and the erratum to the n = 3 example; the natural objects at n = 4 (dim T = 16, rank 6, the relation giving 14 W_2, the lattice index 2612736000); needs python-flint, sympy and numpy |
 | `sextic_count.py` | item (LVI): the dimension count for Orlov products over a sextic CM field: the contraction ranks r^1 = 12, r^2 = 4(A_12+A_13+A_23) + rho_1+rho_2+rho_3 and r^3 = 8 N_w + 2 sum (rk M_+ + rk M_-) into a secant class, exactly over Q(i) and modulo a prime for three cubic fields; the Euler form -64 Nm(q) sum |w|^2 on the secant space, and +16 Nm(q) sum |w|^2 for two places; the profile (1, 12, r^2, e_3, r^2, 12, 1) of a minimal object with e_3 = 2 r^2 - 22 - chi and the bound chi <= -(r^3 - 2 r^2 + 22); standard library only |
+| `sextic_lattice.py` | item (LVII): integral flat characters in degree six: chi(v, v) is even on a sixfold, r^3 - 2 r^2 <= 4 for every shape of a secant class (so the profile threshold of Proposition 19.22 is at most 26), and for sixteen totally real cubic fields and q in {1, k + alpha} the lattice of integral points of S(0,q), computed modulo split primes with rational reconstruction, has -chi >= 32, with -chi = 32 exactly at the real and imaginary parts of exp(i theta) when q = 1; the model and the lattice code are in `attack/gaps/sextic/s2_lattice.py`; standard library only |
 | `transport_growth.py` | the transport of the base cycle along the rational orbit: det(phi) = c^{2G}, phi^* E = c^2 E and phi^* omega = c^{2n} omega on an explicit sample of rational symplectic elements with denominators to 29; the multiplicity of a component as the order of the stabiliser its kernel meets, computed as a lattice index by Smith normal form, against the image degree computed as a Pfaffian; and the contrast between a subtorus the isogeny preserves, where the image degree is constant, and one it does not, where it grows |
 | `cm_fields.py` | the Weil classes of a CM field of degree four and six: the CM base point of every family, the balanced divisor classes delta_i(f), the identity that the balanced n-fold product of them is the Weil class w(f) = sum_sigma sigma(f) alpha_sigma, checked for six pairs (F, n) with m = 2, 3 and n = 1, 2, 3, and the identity that the Weil classes of a composite field generate those of its imaginary quadratic subfield |
 | `exceptional_classes.py` | the exceptional Hodge classes on the self-product of a Mumford fourfold (eight invariants against six divisor products), the Hodge numbers and adjoint weights that keep the H^3 of a quintic threefold outside abelian type, and the 4n^2-dimensional annihilator of the Weil class in Hochschild cohomology with the two linear-algebra lemmas behind the theorem on the semiregularity form of propagation |
@@ -126,7 +127,7 @@ number of theorems is not ninety-three, or if any of them depends on an axiom ot
 
 ## The computations of Appendix D, item by item
 
-Appendix D of the paper describes its computations as items (I) to (LVI). The
+Appendix D of the paper describes its computations as items (I) to (LVII). The
 programs that carry them out are:
 
 | item | program |
@@ -187,6 +188,7 @@ programs that carry them out are:
 | (LIV) | `code/descent.py` |
 | (LV) | `code/attack_checks.py` |
 | (LVI) | `code/sextic_count.py` |
+| (LVII) | `code/sextic_lattice.py` |
 
 Items (I) to (V) are computed inside `code/verify_all.py` itself; items
 (XXIX), (XXXI) and (XL) are the Macaulay2 computations described below; item

@@ -310,6 +310,170 @@ of priority for it. What it adds here is the location of the first open
 instance of \textup{(F3$'$)} on the powers of such a variety: one class, in
 one degree, on one power.
 
+The class $\mathcal{A}$ of \Cref{prop:f3prime}(iii) is larger than the
+closure properties recorded there show, and its growth is the only unconditional
+way in which this paper enlarges the domain of \textup{(F3$'$)}. Three
+further operations preserve it, and two classical families lie in it.
+
+\begin{proposition}[More varieties of $\mathcal{A}$]\label{prop:aclosure}
+Let $\mathcal{A}$ be as in \Cref{prop:f3prime}(iii).
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item If $Y\in\mathcal{A}$ and $Z\subset Y$ is a smooth closed subvariety
+  with $Z\in\mathcal{A}$, then the blow-up $\mathrm{Bl}_{Z}Y$ lies in
+  $\mathcal{A}$. If $Y\in\mathcal{A}$ and $V$ is a vector bundle on $Y$,
+  then $\PP(V)\in\mathcal{A}$.
+\item If $S\in\mathcal{A}$ is a surface, then the Hilbert scheme $S^{[n]}$
+  lies in $\mathcal{A}$ for every $n\ge1$.
+\item Every Fermat hypersurface
+  $X^{r}_{m}=\{x_{0}^{m}+\dots+x_{r+1}^{m}=0\}\subset\PP^{r+1}$, $r\ge0$,
+  $m\ge1$, lies in $\mathcal{A}$.
+\item A K3 surface $S$ lies in $\mathcal{A}$ as soon as its Kuga--Satake
+  correspondence is induced by an algebraic cycle, that is, as soon as some
+  algebraic cycle $\Gamma$ on $S\times B$, with $B$ an abelian variety,
+  induces a nonzero map $T(S)_{\QQ}\to H^{2}(B,\QQ)$.
+\end{enumerate}
+Consequently \textup{(F3$'$)} holds on every smooth projective variety
+obtained from abelian varieties, curves, Fermat hypersurfaces and K3 surfaces
+as in \textup{(iv)} by products, surjective images, blow-ups along smooth
+centres in $\mathcal{A}$, projective bundles and Hilbert schemes of points on
+surfaces.
+\end{proposition}
+
+\begin{proof}
+(i) Let $c$ be the codimension of $Z$, $E=\PP(N_{Z/Y})$ the exceptional
+divisor, $j\colon E\to\widetilde Y=\mathrm{Bl}_{Z}Y$ its inclusion,
+$\rho\colon E\to Z$ and $\pi\colon\widetilde Y\to Y$ the projections and
+$\xi=c_{1}(\cO_{E}(1))$. By the blow-up formula \cite[\S7.3.3]{Voi02},
+\[
+  H^{*}(\widetilde Y,\QQ)=\pi^{*}H^{*}(Y,\QQ)\oplus
+  \bigoplus_{i=0}^{c-2}j_{*}\bigl(\xi^{i}\cup\rho^{*}H^{*}(Z,\QQ)\bigr).
+\]
+The first summand is the image of the transpose of the graph of $\pi$, and
+the $i$-th of the others is the image of the algebraic cycle
+$(\rho\times j)_{*}\xi^{i}$ on $Z\times\widetilde Y$. Composing with the
+correspondences that exhibit $Y$ and $Z$ as members of $\mathcal{A}$, which is
+allowed \cite[Chapter~16]{Ful98}, shows that $H^{*}(\widetilde Y,\QQ)$ is
+spanned by classes $\Gamma_{*}y$ with $B$ abelian. For $\PP(V)$ the
+projective bundle formula $H^{*}(\PP(V),\QQ)=\bigoplus_{i}\xi^{i}\cup
+\pi^{*}H^{*}(Y,\QQ)$ \cite[\S7.3.3]{Voi02} does the same with the
+algebraic cycles $\Gamma_{\pi}^{t}\cdot\mathrm{pr}^{*}\xi^{i}$.
+
+(ii) By de Cataldo and Migliorini \cite{dCM02}, for every partition $\nu$ of
+$n$ with $l(\nu)$ parts the incidence correspondence
+$\Gamma_{\nu}\subset S^{(\nu)}\times S^{[n]}$ between the product
+$S^{(\nu)}$ of symmetric products attached to $\nu$ and the Hilbert scheme
+induces, after a Tate twist by $n-l(\nu)$, an isomorphism
+$\bigoplus_{\nu}H^{*}(S^{(\nu)},\QQ)\to H^{*}(S^{[n]},\QQ)$. Let
+$q_{\nu}\colon S^{l(\nu)}\to S^{(\nu)}$ be the quotient by the finite group
+$G_{\nu}$. With rational coefficients the cycles and the cohomology of
+$S^{(\nu)}$ are the $G_{\nu}$-invariants of those of $S^{l(\nu)}$
+\cite[Example~1.7.6]{Ful98}, so $\Gamma_{\nu}$ pulls back to a cycle
+$\widetilde\Gamma_{\nu}$ with rational coefficients on the smooth variety
+$S^{l(\nu)}\times S^{[n]}$, whose action on $H^{*}(S^{l(\nu)},\QQ)$ is
+$\Gamma_{\nu*}\circ q_{\nu*}$ up to a nonzero factor. As
+$H^{*}(S^{(\nu)},\QQ)=q_{\nu*}H^{*}(S^{l(\nu)},\QQ)$, the $\nu$-th summand
+is the image of $H^{*}(S^{l(\nu)},\QQ)$ under $\widetilde\Gamma_{\nu}$. Products of members of $\mathcal{A}$ lie in
+$\mathcal{A}$, so $S^{[n]}\in\mathcal{A}$.
+
+(iii) By induction on $r$, following the inductive structure of Shioda and
+Katsura \cite{SK79}. For $r=0$, $X^{0}_{m}$ is a finite set of points, and
+$X^{1}_{m}$ is a curve. Let $r\ge2$ and $r=a+b$ with $a,b\ge1$; fix
+$\epsilon$ with $\epsilon^{m}=-1$ and put
+\[
+  \varphi\bigl((x),(y)\bigr)=\bigl(x_{0}y_{b+1}:\dots:x_{a}y_{b+1}:
+  \epsilon x_{a+1}y_{0}:\dots:\epsilon x_{a+1}y_{b}\bigr),
+\]
+a rational map $X^{a}_{m}\times X^{b}_{m}\dashrightarrow\PP^{r+1}$; since
+$\sum_{i\le a}x_{i}^{m}=-x_{a+1}^{m}$ and $\sum_{k\le b}y_{k}^{m}=-y_{b+1}^{m}$,
+its image lies in $X^{r}_{m}$. It is defined by sections of
+$\cO(1,1)$ whose common zero scheme is $\{x_{a+1}=0\}\times\{y_{b+1}=0\}$,
+the product $Z\cong X^{a-1}_{m}\times X^{b-1}_{m}$ of two smooth
+hyperplane sections, transversal because the Fermat hypersurfaces
+are smooth. Blowing up that reduced scheme resolves the map, so $\varphi$
+extends to a morphism $\widetilde\varphi\colon\mathrm{Bl}_{Z}(X^{a}_{m}\times
+X^{b}_{m})\to X^{r}_{m}$. It is dominant: at a point $z$ of $X^{r}_{m}$ with
+$\sum_{i\le a}z_{i}^{m}\ne0$ the preimages with $x_{a+1}=y_{b+1}=1$ are the
+points $x_{i}=\lambda z_{i}$, $y_{k}=\lambda z_{a+1+k}/\epsilon$ with
+$\lambda^{m}\sum_{i\le a}z_{i}^{m}=-1$, and both equations reduce to this one
+because $\sum_{\text{all}}z_{i}^{m}=0$. So $\widetilde\varphi$ is surjective,
+being proper. By induction $X^{a}_{m}$, $X^{b}_{m}$, $X^{a-1}_{m}$ and
+$X^{b-1}_{m}$ lie in $\mathcal{A}$, hence so do their products, the blow-up
+by (i) and $X^{r}_{m}$ as a surjective image; one may take $a=r-1$, $b=1$.
+
+(iv) The transcendental part $T=T(S)_{\QQ}$ is an irreducible Hodge
+structure, and $H^{*}(S,\QQ)=T\oplus T^{\perp}$ with $T^{\perp}$ spanned by
+algebraic classes. Let $h$ be an ample class on $B$, $d=\dim B$, and let
+$\phi=\Gamma^{t}_{*}\circ(\,\cdot\cup h^{d-2})\circ\Gamma_{*}$, an algebraic
+correspondence from $S$ to itself and a morphism of Hodge structures. It
+preserves $T$, because a morphism from the irreducible structure $T$ to the
+algebraic part, which is of Tate type, vanishes; so $\phi|_{T}$ lies in the
+field $\End_{\mathrm{Hdg}}(T)$. For $0\ne\sigma\in H^{2,0}(S)$,
+$\Gamma_{*}\sigma\ne0$ because $T$ is irreducible and $\Gamma_{*}|_{T}\ne0$;
+it is a class of type $(2,0)$ on $B$, hence primitive, and by the
+Hodge--Riemann relations $\int_{S}\phi(\sigma)\,\bar\sigma=\int_{B}
+\Gamma_{*}\sigma\,\overline{\Gamma_{*}\sigma}\,h^{d-2}\ne0$. So
+$\phi|_{T}\ne0$, it is invertible, and $T\subseteq\Gamma^{t}_{*}H^{*}(B,\QQ)$.
+With $T^{\perp}$ algebraic, $S\in\mathcal{A}$.
+
+The last assertion is \Cref{prop:f3prime}(iii).
+\end{proof}
+
+The known cases of (iv) are recalled in \Cref{rem:mumfordks}; for the K3
+surfaces among them whose powers are covered by \cite{Var22} the Hodge
+conjecture itself holds on every power, which is stronger. What (iii) adds is
+a family on which \textup{(F3$'$)} is new in the sense that the conjecture is
+open: the Hodge conjecture for Fermat hypersurfaces is known in a range of
+degrees and dimensions \cite{Shi79b}, not in general, and by (iii) and
+\Cref{prop:f3prime}(i) it holds for $X^{r}_{m}$ as soon as it holds for the
+powers of the Jacobian of the Fermat curve of degree $m$. The inductive
+structure is Shioda and Katsura's, and the consequence for \textup{(F3$'$)}
+is immediate; we claim no priority for it. In low dimension the
+algebraicity results of Bloch--Srinivas and Conte--Murre give more.
+
+\begin{proposition}[Varieties whose zero-cycles are small]
+\label{prop:f3primesmall}
+Let $X$ be a smooth complex projective variety of dimension $n$ whose group
+$\mathrm{CH}_{0}(X)_{\QQ}$ is supported on a closed subvariety of dimension at
+most three. If $n\le5$, the Hodge conjecture holds for $X$, and so does
+\textup{(F3$'$)}. This applies to every uniruled fourfold and to every
+rationally connected fivefold.
+\end{proposition}
+
+\begin{proof}
+By Bloch and Srinivas \cite{BS83} every Hodge class of degree $4$ on $X$ is
+algebraic. By \Cref{prop:f3prime}(iv) the Hodge classes of degree $0$, $2$,
+$2n-2$ and $2n$ are algebraic, which settles $n\le4$. For $n=5$ the remaining
+degree is $6=2n-4$, and cup product with $h$, for $h$ ample, is an isomorphism
+$H^{4}(X,\QQ)\to H^{6}(X,\QQ)$ of Hodge structures up to a Tate twist by hard
+Lefschetz, so every Hodge class of degree $6$ is $h$ times one of degree $4$.
+A uniruled fourfold has $\mathrm{CH}_{0}$ supported on any ample divisor $D$,
+because a rational curve through a point meets $D$ and any two points of
+$\PP^{1}$ are rationally equivalent; this case is the theorem of Conte and
+Murre \cite{CM78}. A rationally connected variety has
+$\mathrm{CH}_{0}(X)_{\QQ}=\QQ$.
+\end{proof}
+
+\begin{remark}[Where \textup{(F3$'$)} now stops]\label{rem:f3primefrontier}
+With \Cref{prop:f3prime}, \Cref{prop:aclosure} and \Cref{prop:f3primesmall},
+\textup{(F3$'$)} holds on every variety of dimension at most three, on every
+fourfold whose zero-cycles are supported in dimension three (in particular
+every uniruled fourfold), on every rationally connected fivefold, and on
+every member of $\mathcal{A}$, a class now containing the Fermat
+hypersurfaces of every degree and dimension, the Hilbert schemes of points on
+abelian surfaces, on products of curves and on the K3 surfaces of
+\Cref{prop:aclosure}(iv), and every blow-up and projective bundle built from
+these. Its first open cases are unchanged: a non-uniruled fourfold outside
+$\mathcal{A}$, such as $S\times S$ for a K3 surface whose Kuga--Satake
+correspondence is not known to be algebraic, and, on the powers of a very
+general K3 surface, the single class $\det T(S)$ on $S^{21}$ of
+\Cref{prop:orthpowers}. None of these results touches the step that
+\Cref{rem:f3primeopen} identifies: putting a Hodge class into
+$\mathrm{Ab}^{p}(X)$ for a variety that no correspondence connects to an
+abelian variety. \textup{(F3$'$)} remains open, and \Cref{thm:closure} is
+unchanged, since every statement proved here is a special case of one of the
+open statements of its rule set, not a new rule.
+\end{remark}
+
 \begin{setupenv}[The rule set]\label{setup:rules}
 Item (XXXIII) of \Cref{sec:verification} carries forty-two statements and
 twenty-two rules; the propagation statement (P2) is carried family by
