@@ -235,6 +235,7 @@ not:splitcoords
 not:threeclasses
 not:totalspace
 not:wT
+prop:aclosure
 prop:chintermsofu
 prop:cmweil
 prop:composite
@@ -249,6 +250,7 @@ prop:evaluation
 prop:explicitobject
 prop:f3ishc
 prop:f3prime
+prop:f3primesmall
 prop:f3primestrength
 prop:firstorder
 prop:flatall
@@ -305,6 +307,7 @@ prop:scalaratiyah
 prop:secantprofile
 prop:separate
 prop:sexticcount
+prop:sexticintegral
 prop:signatureforced
 prop:smoothlocal
 prop:splitgeom
@@ -338,6 +341,7 @@ rem:dimensionbookkeeping
 rem:dimfour
 rem:divroute
 rem:f3collapse
+rem:f3primefrontier
 rem:f3primeopen
 rem:factorclosed
 rem:failuremode
@@ -414,6 +418,7 @@ rem:secantlesson
 rem:secantplace
 rem:semiregneed
 rem:semiregunavailable
+rem:sexticnoexclusion
 rem:sexticparity
 rem:signcheck
 rem:sizeconstant

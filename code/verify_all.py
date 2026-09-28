@@ -158,6 +158,10 @@ Contents
          form, the Euler form (-4)^m Nm(q) sum |w|^2, and the profile of a
          minimal object; the obstruction of degree four does not extend
          [sextic_count.py]
+  (LVII) integral flat characters in degree six: chi is even, the profile
+         threshold is at most 26 for every shape, and for sixteen cubic
+         fields every integral point of S(0,q) has chi <= -32
+         [sextic_lattice.py, with attack/gaps/sextic/s2_lattice.py]
 """
 
 import os
@@ -564,6 +568,9 @@ def main():
 
     head("(LVI) the dimension count for Orlov products over a sextic CM field")
     run_module("LVI", "sextic_count.py")
+
+    head("(LVII) integral flat characters in degree six")
+    run_module("LVII", "sextic_lattice.py")
 
     print()
     print("=" * 70)

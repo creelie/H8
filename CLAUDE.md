@@ -74,7 +74,16 @@ Lean Section 35, ninety-three theorems); round 17 replaced that proposition by
 the subsection `ssec:sextic` of `tex/sections/10d2_quartic.tex`
 (`prop:sexticcount`, with closed formulas for r^2 and r^3, the bound
 r(kappa) <= 252 < 264 and flatness, and `rem:sexticparity`), with item (LVI),
-`code/sextic_count.py`.
+`code/sextic_count.py`; round 18 tested that count on the lattice of integral
+characters (`prop:sexticintegral`, `rem:sexticnoexclusion`, item (LVII),
+`code/sextic_lattice.py` with `code/attack/gaps/sextic/s2_lattice.py`): chi is
+even, the threshold is at most 26 for every shape, and for sixteen cubic
+fields every integral flat character has chi <= -32, so nothing is excluded;
+and enlarged the domain of (F3') in `tex/sections/11b_closuregraph.tex`
+(`prop:aclosure`: blow-ups, projective bundles, Hilbert schemes, Fermat
+hypersurfaces, K3 surfaces with algebraic Kuga-Satake class;
+`prop:f3primesmall`: uniruled fourfolds, rationally connected fivefolds;
+`rem:f3primefrontier`). P2_split, (F2) and (F3') remain open.
 
 Release v1.0.0 (tag `v1.0.0`, commit `ef15bce`) is archived on Zenodo under
 DOI 10.5281/zenodo.22950276, recorded in the macro `\zenodoDOI` at the top of
