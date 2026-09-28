@@ -1689,6 +1689,27 @@ theorem quartic_sqrt2_units_mod4 :
     ((3 * 3 + 2 * 2 * 2) % 4 = 1 ∧ (2 * 3 * 2) % 4 = 0) ∧
     (5 % 8 ≠ 1 ∧ 5 % 8 ≠ 7) := by decide
 
+/-! ## 35.  Beyond degree four: the count leaves room
+
+For a sextic CM field the secant classes live on a sixfold, where Serre duality
+`e_k = e_{6-k}` leaves `e_3 = dim Ext^3(F,F)` free: for a minimal object
+(`e_0, e_1, e_2 = 1, 12, r^2`) one has `χ = 2(1 - 12 + r^2) - e_3`.  The
+computed profiles `(1, 12, r^2, r^3, r^2, 12, 1)` are listed below; the
+threshold `T = r^3 - 2 r^2 + 22` is what `-χ` must reach. -/
+
+/-- **The sextic thresholds.**  For the six computed pairs `(r^2, r^3)` the
+threshold `r^3 - 2 r^2 + 22` is `2, -6, 10, 26, 8, 12`; the Euler
+characteristic of a minimal object, `2(1 - 12 + r^2) - e_3`, is `-26` at the
+generic profile with `e_3 = r^3 = 112`, so there `-χ` must be at least `26`;
+and the factor of `χ` on a sextic secant space is `(-4)^3 = -64`. -/
+theorem sextic_thresholds :
+    ((40 : Int) - 2 * 30 + 22 = 2 ∧ (64 : Int) - 2 * 46 + 22 = -6 ∧
+      (96 : Int) - 2 * 54 + 22 = 10 ∧ (112 : Int) - 2 * 54 + 22 = 26 ∧
+      (88 : Int) - 2 * 51 + 22 = 8 ∧ (96 : Int) - 2 * 53 + 22 = 12) ∧
+    (2 * (1 - 12 + (54 : Int)) - 112 = -26) ∧
+    ((-4 : Int) ^ 3 = -64 ∧ (-4 : Int) ^ 2 = 16) := by
+  decide
+
 end HodgeObstruction
 
 /-! ## The axioms each theorem depends on
@@ -1790,3 +1811,4 @@ propositional extensionality enters through `decide`, and in no case
 #print axioms HodgeObstruction.quartic_rank_two_small_odd_parts
 #print axioms HodgeObstruction.quartic_rank_two_large_odd_part
 #print axioms HodgeObstruction.quartic_sqrt2_units_mod4
+#print axioms HodgeObstruction.sextic_thresholds

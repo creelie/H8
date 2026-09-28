@@ -304,6 +304,7 @@ prop:rigidity
 prop:scalaratiyah
 prop:secantprofile
 prop:separate
+prop:sexticroom
 prop:signatureforced
 prop:smoothlocal
 prop:splitgeom

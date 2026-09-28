@@ -692,6 +692,13 @@ def track_gaps():
           "(chi, rank V, r^2) = (4,1,18) or (6,2,20)",
           st == 0 and "scanned 1841 complex-secant planes" in out
           and "ADMISSIBLE: 0" in out)
+    out, st = run("gaps/sextic", "s1_profile.py")
+    check("the count beyond degree four (s1_profile.py): the secant profiles "
+          "of a sextic CM field are palindromic, r^2 = sum rho_j + "
+          "4 sum N_jk, chi = (-4)^3 N(q) sum |w|^2 < 0, and a minimal "
+          "object needs only -chi >= r^3 - 2 r^2 + 22; the quartic profile "
+          "(1, 8, 2 rho + 4 N_w, 8, 1) is reproduced",
+          summary_ok(out, st, 7))
     w = "gaps/orlov_growth"
     out, st = run(w, "lagrangian_check.py")
     check("flatness in every dimension (lagrangian_check.py): at n = 1 and "

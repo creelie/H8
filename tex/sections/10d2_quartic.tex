@@ -943,6 +943,70 @@ changes the Euler characteristic; a kernel on $X\times X$ that is not an
 external product; or a proof of the injectivity of $\sigma_{E}$ for some Orlov
 product that does not go through a dimension count.
 
+The count behind \Cref{thm:quarticobstruction} is special to quartic fields.
+For a CM field $F=F_{0}(\sqrt{-q})$ of degree $2g$, with $F_{0}$ totally real of
+degree $g$ and real places $\tau_{1},\dots,\tau_{g}$, the same construction
+starts from a principally polarised abelian $2g$-fold $X$ with real
+multiplication by $\cO_{F_{0}}$, the components $\theta_{j}$ of its polarisation,
+and the secant space $S(t,q)$ spanned by the $2^{g}$ classes
+$e_{\varepsilon}=\exp\bigl(\sum_{j}(\tau_{j}(t)+\varepsilon_{j}s_{j})\theta_{j}\bigr)$,
+$s_{j}=\sqrt{-1}\,\sqrt{\tau_{j}(q)}$. For $v=\sum_{\varepsilon}w_{\varepsilon}
+e_{\varepsilon}$ let $\rho_{j}$ be the rank of the $2\times2^{g-1}$ matrix of the
+$w_{\varepsilon}$ with rows indexed by $\varepsilon_{j}$, and $N_{jk}$ the number of
+pairs $(\varepsilon_{j},\varepsilon_{k})$ occurring among the $\varepsilon$ with
+$w_{\varepsilon}\ne0$.
+
+\begin{proposition}[Beyond degree four the count leaves room]
+\label{prop:sexticroom}
+In this setting, let $v\in S(t,q)$ be nonzero.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item $\chi(v,v)=(-4)^{g}\,\Nm(q)\sum_{\varepsilon}|w_{\varepsilon}|^{2}$ when $t=0$,
+  and $\chi$ is invariant under $e^{\theta_{t}}$; so $\chi$ is positive definite
+  on $S(t,q)$ for $g$ even and negative definite for $g$ odd.
+\item For $g=3$ the ranks of contraction into $v$ are palindromic,
+  $r^{k}(v)=r^{6-k}(v)$, with $r^{1}(v)=12$ and
+  $r^{2}(v)=\sum_{j}\rho_{j}+4\sum_{j<k}N_{jk}$; for a class with all eight
+  $w_{\varepsilon}$ nonzero in general position the profile is
+  $(1,12,54,112,54,12,1)$.
+\item Let $g=3$, and let $F$ be a perfect complex on $X$ with $\ch(F)=v$,
+  $\Ext^{<0}(F,F)=0$ and $\dim\Ext^{k}(F,F)=r^{k}(v)$ for $k=0,1,2$, which is
+  what an Orlov product $\Phi(F\boxtimes F^{\vee})$ meeting the criterion with
+  equality requires. Then Serre duality forces
+  $\dim\Ext^{3}(F,F)=2r^{2}(v)-22-\chi(v,v)$, and every bound
+  $\dim\Ext^{k}(F,F)\ge r^{k}(v)$ holds as soon as
+  $-\chi(v,v)\ge r^{3}(v)-2r^{2}(v)+22$. The right-hand side is $-6$, $2$, $8$,
+  $10$, $12$ or $26$ on the classes computed, and replacing $v$ by $Nv$
+  multiplies $\chi(v,v)$ by $N^{2}$ and leaves every $r^{k}$ unchanged; so no
+  integral secant class is excluded once it is replaced by a large multiple.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) As in \Cref{prop:quarticsecant}(iii), $\int_{X}\exp\bigl(\sum_{j}c_{j}\theta_{j}
+\bigr)=\prod_{j}c_{j}^{2}$ and $e_{\varepsilon}^{\vee}=e_{-\varepsilon}$ at $t=0$, so
+$\int_{X}e_{\varepsilon}^{\vee}e_{\varepsilon'}$ vanishes unless
+$\varepsilon'=-\varepsilon$, when it is $\prod_{j}(2s_{j})^{2}=(-4)^{g}\Nm(q)$; and a
+rational class has $w_{-\varepsilon}=\overline{w_{\varepsilon}}$. (ii) is computed
+exactly in item (LV) of \Cref{sec:verification}, at two independent choices of
+the coefficients, for every support closed under $\varepsilon\mapsto-\varepsilon$
+and for classes whose coefficient tensor has smaller flattening ranks; the same
+computation reproduces the profile $(1,8,2\rho+4N_{w},8,1)$ of
+\Cref{prop:quarticsecant}(ii) for $g=2$. (iii) With $e_{k}=\dim\Ext^{k}(F,F)$,
+Serre duality on the sixfold gives $e_{k}=e_{6-k}$, so
+$\chi(v,v)=\chi(F,F)=2(e_{0}-e_{1}+e_{2})-e_{3}=2(1-12+r^{2})-e_{3}$. By (ii),
+$e_{4}=e_{2}=r^{2}=r^{4}$, $e_{5}=e_{1}=r^{5}$ and $e_{6}=e_{0}=r^{6}$, so the
+only remaining bound is $e_{3}\ge r^{3}$, which is the inequality stated.
+\end{proof}
+
+So a minimal secant object of a sextic field, and with it an Orlov product
+meeting the corrected criterion with equality, is not excluded by any count
+used in this paper. Its twisted character is flat, by the argument of
+\Cref{thm:quarticobstruction}(iii) with three real places instead of two, so
+it would be a genuine certificate for the $(F,2,1)$-family. Whether such a
+complex exists is open; for fields of degree at least eight the Euler
+characteristic involves $\dim\Ext^{3}$ and $\dim\Ext^{4}$ with opposite signs
+and constrains even less.
+
 \begin{remark}[What is missing at $n=2$]\label{rem:quarticgap}
 The Weil classes of an $(F,2,\delta)$-family are known to be algebraic at the
 CM points, on $\mathrm{NL}(R_{F})$, and, for biquadratic $F$, on the

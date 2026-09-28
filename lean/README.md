@@ -27,10 +27,10 @@ per theorem. Every line must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
 through `decide` or the core lemmas on natural numbers, and none may mention `sorryAx`. The GitHub workflow in
 `.github/workflows/lean.yml` enforces all three, and fails the build if the
-number of theorems is not ninety-two or if any of them reaches for a further
+number of theorems is not ninety-three or if any of them reaches for a further
 axiom.
 
-## The ninety-two theorems
+## The ninety-three theorems
 
 | theorem | statement |
 | --- | --- |
@@ -126,6 +126,7 @@ axiom.
 | `quartic_rank_two_small_odd_parts` | the rank-two conditions on `m` in `[1, 8]` for `D = 3, 7` and `D = 6, 10, 14` have no solution, and for `D = 2` leave `m = 1, 5` |
 | `quartic_rank_two_large_odd_part` | for every modulus `n >= 10` no `m < 9` is `9` modulo `n` (for all natural numbers) |
 | `quartic_sqrt2_units_mod4` | `3` and `1 + 2 sqrt 2` are not squares modulo `4` in `Z[sqrt 2]`, `(1 + sqrt 2)^2 = 3 + 2 sqrt 2`, `(3 + 2 sqrt 2)^2 = 1` modulo `4`, and `5` is not `+-1` modulo `8` |
+| `sextic_thresholds` | the thresholds `r^3 - 2 r^2 + 22` of the six computed sextic secant profiles are `2, -6, 10, 26, 8, 12`, the generic minimal Euler characteristic is `-26`, and `(-4)^3 = -64` |
 
 
 ## Two statements that look true and are not
@@ -149,12 +150,12 @@ careful reading does not catch and a kernel check does.
 `code/verify_all.py` in the parent directory performs the same checks in exact
 rational arithmetic over Q, independently of Lean, together with the exterior
 algebra computations that Lean does not carry, and prints
-`1023 checks passed, 0 failed`.
+`1024 checks passed, 0 failed`.
 
 ## Transcript
 
 `axioms.txt` is the unedited output of `lean HodgeObstruction.lean` under
-Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): ninety-two lines, one per
-theorem, eighty reading `does not depend on any axioms` and twelve reading
+Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): ninety-three lines, one per
+theorem, eighty-one reading `does not depend on any axioms` and twelve reading
 `depends on axioms: [propext]`, exit status 0, no `sorryAx`. `lake build`
 completes with the same report. Each run takes about two minutes.
