@@ -78,3 +78,11 @@
 'HodgeObstruction.lefschetz_counts' depends on axioms: [propext]
 'HodgeObstruction.criterion_endomorphisms_n2' depends on axioms: [propext]
 'HodgeObstruction.criterion_endomorphisms_n3' depends on axioms: [propext]
+'HodgeObstruction.quartic_squares_mod4_phi' does not depend on any axioms
+'HodgeObstruction.quartic_no_square_phi' does not depend on any axioms
+'HodgeObstruction.quartic_squares_mod4_sqrt2' does not depend on any axioms
+'HodgeObstruction.quartic_no_square_sqrt2' does not depend on any axioms
+'HodgeObstruction.quartic_rank_two_congruences' does not depend on any axioms
+'HodgeObstruction.quartic_euler_minimal' does not depend on any axioms
+'HodgeObstruction.orlov_equality_count' does not depend on any axioms
+'HodgeObstruction.orlov_n4_euler' does not depend on any axioms

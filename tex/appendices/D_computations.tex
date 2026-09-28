@@ -1,15 +1,16 @@
-\enlargethispage{4pt}
-\section{Verification}\label{sec:verification}
+\section{Computations}\label{sec:verification}
 
-Every numerical assertion in this paper is checked by exact arithmetic.%
-\footnote{Exact arithmetic is not a scruple here. Several of the quantities are differences of large binomial coefficients, and at $n=7$ the semiregularity target exceeds $10^{11}$; in double precision the comparison in item (V) would be meaningless. Everything uses Python's \texttt{fractions} module or integers, and nothing converts to a float.} The
-scripts are described in \Cref{sec:verification}. They use the standard library of
-Python, together with \texttt{sympy} for exact symbolic linear algebra in
-several of them, \texttt{numpy} for integer arrays in a few and
-\texttt{python-flint} for exact rational matrices in item (LV); they work over $\QQ$ and
-its finite extensions with the \texttt{fractions} module or exact symbolic
-arithmetic, and they perform no floating-point operation; items (XXIX), (XXXI) and (XL) are $\Ext$
-computations over a polynomial ring, carried out in Macaulay2. We describe what is checked.
+Every numerical assertion in this paper is checked in exact arithmetic:
+rational, integer or exterior-algebra computations, and exact linear algebra
+over number fields and over function fields in one variable.%
+\footnote{Several of the quantities are differences of large binomial coefficients, and at $n=7$ the semiregularity target exceeds $10^{11}$, so the comparison in item (V) would be meaningless in floating point.}
+No floating-point operation occurs; where a rank is computed modulo a prime,
+it is used only as a bound in the direction in which reduction is safe, and
+the bound is matched by an exact computation in the other direction. Items
+(XXIX), (XXXI) and (XL) are $\Ext$ computations over a polynomial ring. The
+programs that carry out the computations, one for each item, are in the
+repository named in the statement on data availability, whose README lists
+them by item. We describe what is checked.
 
 \begin{enumerate}[label=\textup{(\Roman*)},leftmargin=*]
 \item \emph{The Fourier--Mukai transform on powers of the polarisation.}
@@ -37,7 +38,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
 
 \item \emph{The numerical comparison.} The values of $2n^{2}+2n$, $2^{2n}$
   and $3^{2n}$ are tabulated for $2\le n\le8$, confirming
-  \Cref{lem:chicompare}; the script also records, as a counterexample to the
+  \Cref{lem:chicompare}; the computation also records, as a counterexample to the
   inference that \Cref{rem:retract} retracts, the types $(1,3)$ and $(1,5)$ on
   an abelian surface with their Euler characteristics $3$ and $5$.
 
@@ -46,8 +47,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   \Cref{prop:target} is verified for $2\le n\le7$, with the growth rates of
   \Cref{cor:countnotbind}.
 
-\item \emph{The coordinate model.} The script \texttt{explicit\_weil.py}
-  builds the model of \Cref{setup:model} over $\QQ(\sqrt{-d})$ for
+\item \emph{The coordinate model.} The computation builds the model of \Cref{setup:model} over $\QQ(\sqrt{-d})$ for
   $(n,d)$ in a table covering $n\le3$ and $d\in\{1,2,3,5,7\}$, and checks
   eight things for each: that the $u^{s}_{j}$ of \eqref{eq:eigenvec} are
   eigenvectors of $S$; that $\omega_{+}+\omega_{-}$ and
@@ -61,15 +61,14 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   $\eta^{2n}\ne0$; and that the supports of $\omega_{1},\omega_{2}$ and
   $\eta^{n}$ are disjoint, which is \Cref{prop:disjoint}.
 
-\item \emph{The Hodge class count.} The script \texttt{hodge\_invariants.py}
-  computes, for $n\le4$ and every $(r,s)$, the dimension of the space of
+\item \emph{The Hodge class count.} The computation computes, for $n\le4$ and every $(r,s)$, the dimension of the space of
   $\mathfrak{sl}_{2n}$-invariants in
   $\bigwedge^{r}V_{+}\otimes\bigwedge^{s}V_{+}^{\vee}$, as the kernel of the
   raising operators on the weight-zero subspace, in exact rational arithmetic.
   It confirms $\dim\Hdg^{n}=3$ and $\dim\Hdg^{k}=1$ for $k\ne n$, which is
   \Cref{thm:hdgcount}, and the codimension count of \Cref{prop:weildomain}.
 
-\item \emph{The Clifford algebra.} The script \texttt{kugasatake.py} builds
+\item \emph{The Clifford algebra.} The computation builds
   $C(T,q)$ for forms of signature $(3,b-3)$ with $b\le8$, checks the Clifford
   relations and $v^{2}=q(v)$ for a general $v$, checks $J^{2}=-1$ and that
   left multiplication by $J$ squares to $-\id$ on $C^{+}$, which is
@@ -78,13 +77,12 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   Hodge numbers of \Cref{prop:h2pieces} together with the solution $n=1$ of
   \Cref{prop:normpart}.
 
-\item \emph{The family and the secant plane.} The scripts
-  \texttt{weiltype\_family.py} and \texttt{secant\_plane.py} verify
+\item \emph{The family and the secant plane.} The computations verify
   \Cref{thm:explicitweil} symbolically for $n\le5$ and several $d$, and
   derive the closed forms of \Cref{thm:plane} and
   \Cref{thm:secantinvariants}.
 
-\item \emph{The split member.} The script \texttt{split\_locus.py} builds
+\item \emph{The split member.} The computation builds
   $A=X\times\widehat{X}$ with the action \eqref{eq:Mdef} in coordinates and
   does two independent things. First it solves, by exact rational Gaussian
   elimination, for an expression of each of $\omega_{1},\omega_{2}$ as a
@@ -95,12 +93,9 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   eigenclass for $\tau^{2}$ respectively $\bbar{\tau}^{\,2}$, and that
   \eqref{eq:splitclosed} holds on the nose, for $n\le5$ and several $d$.
   Third it checks the formulas of \Cref{ex:splitsmall} as they are printed,
-  at $n=2$ for $d\le3$ and at $n=3$ for $d\in\{1,2,3,7\}$; this check was
-  added after an earlier printing of $\omega_{1}$ at $n=3$ was found to lack
-  the factor $d$, and it fails on that printing for $d\ne1$.
+  at $n=2$ for $d\le3$ and at $n=3$ for $d\in\{1,2,3,7\}$.
 
-\item \emph{The reach of the base case.} The script
-  \texttt{split\_geometry.py} settles the four assertions of
+\item \emph{The reach of the base case.} The computation settles the four assertions of
   \Cref{prop:splitgeom}. It verifies $M^{2}=-d$ and $M^{\top}Q+QM=0$ entry by
   entry for the block form $Q=\beta\oplus(\widehat\beta/d)$ on
   $H_{1}(A,\QQ)$, for $n\le4$, and checks that the action induced on
@@ -117,8 +112,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   finding rank three in degree two for $n\le4$ and agreement in the middle
   degree for $n\le3$.
 
-\item \emph{Quaternionic multiplication.} The script \texttt{quaternionic.py}
-  builds $B=(-d,b)$ and the module $B^{n}$ in coordinates and verifies
+\item \emph{Quaternionic multiplication.} The computation builds $B=(-d,b)$ and the module $B^{n}$ in coordinates and verifies
   \Cref{thm:quatweil} for nine choices of $(n,d,b,a)$ with $n\le3$: the
   relations $i^{2}=-d$, $j^{2}=b$, $ij=-ji$; that $E$ of \eqref{eq:quatE} is
   alternating and nondegenerate with $i$ anti-self-adjoint and $j$
@@ -135,8 +129,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   dimension $n^{2}$, so its codimension is $n(n-1)/2$, which is checked for
   $n\le10$ and is $1$ exactly at $n=2$.
 
-\item \emph{The semiregularity map of a sum of line bundles.} The script
-  \texttt{semiregularity.py} builds the split member with $X=E_{i}^{n}$, so
+\item \emph{The semiregularity map of a sum of line bundles.} The computation builds the split member with $X=E_{i}^{n}$, so
   that the Hodge decomposition is defined over $\QQ(i)$ and every step is
   exact, and verifies: that the six degree four monomials in
   $\beta,\widehat\beta,\ell$ are independent for $n\le4$, which is
@@ -159,13 +152,12 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   the six line bundles of \Cref{prop:explicitobject} have
   $\ch_{k}=0$ for $k\ne3$ and $\ch_{3}=12\,\omega_{1}$, and verifies that
   every difference of the six classes is nondegenerate of index three. The
-  companion \texttt{semireg\_fast.py} repeats the rank computations modulo a
+  a second computation repeats the rank computations modulo a
   prime congruent to $1$ mod $4$, which reaches $n=3$: it reproduces the $n=2$
   ranks exactly, finds $\Phi$ injective at $n=3$ for a general choice of up to
   ten classes, and finds rank $75$ of $90$ for the explicit object.
 
-\item \emph{The annihilator and the rank-zero obstruction.} The script
-  \texttt{weil\_annihilator.py} computes, modulo the same prime, the
+\item \emph{The annihilator and the rank-zero obstruction.} The computation computes, modulo the same prime, the
   dimension of the annihilator of each rational generator of the Weil line
   in $H^{0,2}$ at $n=2,3,4$ and finds $n^{2}$ in every case, which is
   \Cref{lem:annihilator}; splits the semiregularity map of the explicit
@@ -178,8 +170,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   finding eighteen configurations and rank $75$ of $90$ for all of them,
   which is \Cref{rem:familyuniform}.
 
-\item \emph{The Weil class under products.} The script
-  \texttt{weil\_product.py} verifies, in exact arithmetic over
+\item \emph{The Weil class under products.} The computation verifies, in exact arithmetic over
   $\QQ(\sqrt{-d})$, the two identities \eqref{eq:weilmult} for every pair
   $n_{1},n_{2}\le3$; their $K$-valued form
   $\omega(A_{1})\omega(A_{2})=2\,\omega(A_{1}\times A_{2})$ over the same
@@ -190,8 +181,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   dimension $n$ inside a family of dimension $n^{2}$ and is smaller than the
   quaternionic locus for every $n\ge2$.
 
-\item \emph{The annihilator as the tangent space.} The script
-  \texttt{weil\_tangent.py} builds a polarised Hodge structure of
+\item \emph{The annihilator as the tangent space.} The computation builds a polarised Hodge structure of
   $(K,-1,n)$-Weil type from scratch over the Gaussian rationals, with no
   reduction modulo a prime and no floating point anywhere, and checks five
   things at $n=2,3,4$. That the construction is what it claims to be: the
@@ -211,8 +201,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   eight distinct choices of the $n$-plane $V_{+}^{1,0}$ at $n=2$ and at $n=3$,
   and hold in all sixteen.
 
-\item \emph{The quaternionic locus as a Lagrangian Grassmannian.} The script
-  \texttt{lagrangian\_\allowbreak locus.py} verifies, over $\QQ$ in exact arithmetic and
+\item \emph{The quaternionic locus as a Lagrangian Grassmannian.} The computation verifies, over $\QQ$ in exact arithmetic and
   for $2\le n\le5$, the three statements of \Cref{prop:lagrangian}. That the
   form $\omega_{\psi}(x,y)=E(x,\psi y)$ attached to a Rosati-symmetric $\psi$
   is alternating on $V_{+}$, which is the identity $E(\psi x,y)=E(x,\psi y)$
@@ -227,21 +216,19 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   \Cref{rem:onlyrational}: over the reals the loci sweep the whole family, and
   only the rationality of $\psi$ prevents them from covering it.
 
-\item \emph{The size forced on an object carrying the class.} The script
-  \texttt{object\_\allowbreak size.py} verifies, in the exterior algebra over $\QQ$ for
+\item \emph{The size forced on an object carrying the class.} The computation verifies, in the exterior algebra over $\QQ$ for
   $1\le n\le4$, that $\alpha_{\pm}^{2}=0$ and hence
   $\omega_{1}^{2}=2\alpha_{+}\alpha_{-}$, that $\int\omega_{1}^{2}\ne0$, and
   that $\chi(E,E)=(-1)^{n}N^{2}\int\omega^{2}$ for every rank $r$ and every
   multiplicity $N$ in the ranges tested, the rank cancelling out of the
   identity. That is \Cref{prop:objectsize}, and with it the lower bound
-  $\sum_{i}\dim\Ext^{i}(E,E)\ge N^{2}|\int\omega^{2}|$. The script also records
+  $\sum_{i}\dim\Ext^{i}(E,E)\ge N^{2}|\int\omega^{2}|$. The computation also records
   that the constant is not dimension-free, since it depends on the
   normalisation of $\omega$ against $\eta$, so that no growth rate in $n$
   should be read off it; what the bound needs, and all that it needs, is that
   the Weil class is not isotropic.
 
-\item \emph{Infinitesimal rigidity of divisor classes.} The script
-  \texttt{rigidity.py} builds the four blocks of $H^{1,1}$ and the tangent
+\item \emph{Infinitesimal rigidity of divisor classes.} The computation builds the four blocks of $H^{1,1}$ and the tangent
   space of $\cD_{n,n}$ over $\QQ(i)$ and verifies, for $n=2,3,4$, the three
   parts of \Cref{prop:rigidity}. That the real span of the classes killed by
   contraction has dimension exactly one and is the polarisation, checked
@@ -253,8 +240,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   point. The dimension $n^{2}$ of the tangent space is recovered in the same
   computation rather than assumed.
 
-\item \emph{The invariants of the required object.} The script
-  \texttt{integrality.py} computes, for $1\le n\le8$, every squarefree
+\item \emph{The invariants of the required object.} The computation computes, for $1\le n\le8$, every squarefree
   $d\le11$ and every rank and twist in a range, the Chern classes of the
   Chern character $au+bv$ by Newton's identities, and finds every one of them
   integral; it also confirms the closed form
@@ -262,8 +248,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   That is \Cref{prop:notforbidden}: nothing numerical forbids the object the
   construction needs, in any dimension tested.
 
-\item \emph{A sheaf with the required Chern character exists.} The script
-  \texttt{secant\_\allowbreak exists.py} carries out, exactly over $\QQ$ and for
+\item \emph{A sheaf with the required Chern character exists.} The computation carries out, exactly over $\QQ$ and for
   $1\le n\le10$, the computation behind \Cref{thm:secantexists}. For every
   squarefree $d\le11$ and every rank and twist in a range it solves the
   Vandermonde system that expresses the rational point $au_{t}+bv_{t}$ of the
@@ -280,8 +265,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   and finds every coefficient integral, which is why the coordinates $c_{k}$
   are integers and hence why the problem is a lattice problem at all.
 
-\item \emph{Which split objects can be semiregular.} The script
-  \texttt{pte\_\allowbreak search.py} settles \Cref{thm:pterange} in exact integer
+\item \emph{Which split objects can be semiregular.} The computation settles \Cref{thm:pterange} in exact integer
   arithmetic. It enumerates the norms represented by $\cO_{K}$ below a bound,
   forms for every set of $n+1$ of them the forced level sums
   \eqref{eq:levelsums} and the least integral scale, and tests them against
@@ -290,20 +274,18 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   swept coordinate by coordinate. For $4\le n\le8$ and $d\le19$ nothing
   survives, with norms to $110$ at $n=4$ and to $30$ at $n=8$. At $n=3$ and
   norms to $200$ exactly eleven sets survive, all at $d=1$ or $d=2$, of the
-  three shapes recorded in \Cref{thm:pterange}(iii). The script then runs the
+  three shapes recorded in \Cref{thm:pterange}(iii). The computation then runs the
   whole system \eqref{eq:pteconditions} on those sets: for each it enumerates
   every assignment of signs to the elements of $\cO_{K}$ at those norms with
   the prescribed level sums, splitting the four levels into a tabulated half
   and a streamed half so that the enumeration is complete, and finds no
-  solution for eight of them. The companion script
-  \texttt{pte\_\allowbreak remaining.py} settles the other three, $d=1$ at
+  solution for eight of them. A second computation settles the other three, $d=1$ at
   $(13,52,117,130)$, $(17,68,153,170)$ and $(25,50,100,125)$, whose largest
   level has sixteen elements: it streams three levels against the fourth
   through a linear hash of the ten off-diagonal coordinates, re-checks every
   match exactly, and finds no solution. It also reruns two of the eight as a
   control. The largest search covers $4.29\times10^{14}$ sign patterns.
-\item \emph{The quaternionic Weil cycle.} The script
-  \texttt{quaternionic\_\allowbreak divisibility.py} checks
+\item \emph{The quaternionic Weil cycle.} The computation checks
   \Cref{prop:quatdivisible} on the lattice $\cO_{b}^{2}$. It confirms the
   ratios $-b/3$ and $4b^{2}/3$ and the value $1/12$ for $d\in\{1,3\}$, two
   weight vectors and fifteen values of $b$ up to $101$; the decomposition
@@ -316,8 +298,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   integral divisor classes, for $d\in\{1,2,3,7\}$, three weight vectors and
   seven values of $b$, and finds Gram matrix $\mathrm{diag}(8d,8d^{2})$ and
   index $2(a_{1}a_{2})^{2}$ throughout.
-\item \emph{The divisor route on a fixed lattice.} The script
-  \texttt{divisor\_\allowbreak route.py} checks \Cref{prop:pencil} on
+\item \emph{The divisor route on a fixed lattice.} The computation checks \Cref{prop:pencil} on
   $\Lambda=\cO^{2}$ with $j^{2}=1$, for $d\in\{1,3\}$. It computes the
   lattice of $K$-bilinear classes, of rank $12$, checks $t(x)=0$ on it and the
   identity $-\int xy\,\eta^{2}\big/\!\int\eta^{4}=\mathrm{tr}(\phi_{x}\phi_{y})/24$
@@ -343,8 +324,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   $6$ and that $[\mathfrak{c},J_{0}]$ together with its brackets spans all of
   $\mathfrak{c}$, which is the Lie algebra step in the proof of
   \Cref{prop:pencil}(iv).
-\item \emph{The obstruction map of a split object.} The script
-  \texttt{split\_\allowbreak obstruction.py} works in the model of item
+\item \emph{The obstruction map of a split object.} The computation works in the model of item
   (XIII), modulo the same prime, and checks \Cref{prop:splitobstruction}.
   For $(n,d)=(2,1),(2,3),(3,3)$ it computes the space $T$ of first-order
   deformations killing $\eta$ and both generators of the Weil line and
@@ -372,8 +352,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   $12$; recomputes the kernel of $\sigma_{E}$ as $15$; and checks that the
   components of every obstruction vector on $L_{i}$ and on $L_{i}^{-1}[3]$
   are negatives of each other.
-\item \emph{The evaluation map.} The script
-  \texttt{evaluation\_\allowbreak map.py} rewrites the model of item (XIII)
+\item \emph{The evaluation map.} The computation rewrites the model of item (XIII)
   in its Hodge basis and checks \Cref{prop:evaluation} for the explicit
   object at $n=3$. It builds a basis of $HT^{2}$, of dimension
   $15+36+15=66$, implements the three actions of \eqref{eq:HT2} as
@@ -390,8 +369,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   which it recomputes; and repeats the last comparison for every one of the
   eighteen configurations of item (XIV), finding $\dim\ker\sigma_{E}=15$ and
   $\dim(\ker\sigma_{E}\cap\image\operatorname{ev}_{E})=15$ in every case.
-\item \emph{Markman's candidate in dimension eight.} The script
-  \texttt{markman\_\allowbreak candidate.py} works in
+\item \emph{Markman's candidate in dimension eight.} The computation works in
   $\QQ[\Theta]/(\Theta^{5})$ with $\int\Theta^{4}=24$ and checks
   \Cref{prop:markman8} for every odd squarefree $d\le101$: the Euler
   characteristics $14$, $-36$ and $24$ from the Koszul complexes; the count
@@ -403,8 +381,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   discriminant $(d+9)\Theta^{2}$; and the ranks $8d(d-9)$ and $8d(d+9)$ of
   the two transforms, with the threefold control $-8q$ that reproduces
   Markman's rank at $n=3$.
-\item \emph{The classes preserving a secant Chern character.} The script
-  \texttt{secant\_\allowbreak kernel.py} works in the Hodge algebra of an
+\item \emph{The classes preserving a secant Chern character.} The computation works in the Hodge algebra of an
   abelian $n$-fold with $t=\sum_{a}p_{a}\wedge q_{a}$, modulo a large prime,
   and checks \Cref{thm:factor}(i), (ii) and \Cref{lem:bfield}(i) for
   $(n,d,a,b)$ equal to $(3,3,1,1)$, $(3,3,1,3)$, $(4,3,1,3)$, $(4,5,1,3)$,
@@ -421,8 +398,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   identity $x\lrcorner(we^{B})=((e^{B}x)\lrcorner w)e^{B}$ of
   \eqref{eq:bfield} on random even classes $w$, random $x\in HT^{2}$ and
   $B=kt$ for $n=3,4$, and the count $n(n+1)/2+n(n-1)/2=n^{2}$ for $n<40$.
-\item \emph{The local products at a double point.} The Macaulay2 script
-  \texttt{m2/local\_\allowbreak products.m2} recomputes
+\item \emph{The local products at a double point.} The computation recomputes
   \Cref{lem:localproducts} over $\QQ[x_{1},\dots,x_{4}]$. For each of the
   two local models, the ideal $I=(x_{1},x_{2})\cap(x_{3},x_{4})$ and the
   complex $K=[R\to R/(x_{1},x_{2})\oplus R/(x_{3},x_{4})]$, resolved by the
@@ -434,13 +410,9 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   zero; $\Ext^{2}=k^{2}$ for $K$, with the two same-plane products nonzero
   and spanning it and the mixed products zero; anticommutation
   $a_{a}a_{b}+a_{b}a_{a}=0$ in both models; and, for $I$, the same vanishing
-  pattern from the jet modules and \texttt{yonedaProduct}. This item needs
-  Macaulay2 (version 1.22 with the package \texttt{Complexes}) and is not
-  part of \texttt{verify\_all.py}; its transcript
-  \texttt{m2/local\_products.txt} is included with the code.
+  pattern from the jet modules and their Yoneda products.
 
-\item \emph{A rank one secant object with smooth support.} The script
-  \texttt{smooth\_\allowbreak support.py} expands $\ch(\cO_{S})=1-\ch(\cF)e^{-b\Theta}$
+\item \emph{A rank one secant object with smooth support.} The computation expands $\ch(\cO_{S})=1-\ch(\cF)e^{-b\Theta}$
   from scratch in $\QQ[\Theta]/(\Theta^{5})$, for every $b\le6$ and every
   squarefree $d<60$, and reads off the class $N\Theta^{2}$ with
   $N=\Nm_{K/\QQ}(b+\sqrt{-d})/2$, the pushforward
@@ -456,8 +428,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   $N$ an integer, and \Cref{tab:smoothsupport}. That is
   \Cref{thm:smoothinvariants} and \Cref{cor:fourdiscriminants}.
 
-\item \emph{Where the local obstruction lives.} The Macaulay2 script
-  \texttt{m2/lci\_\allowbreak products.m2} computes, for ten codimension two germs in
+\item \emph{Where the local obstruction lives.} The computation computes, for ten codimension two germs in
   $\CC^{4}$, the number of minimal generators, the projective dimension of
   $R/I$, the ranks of a minimal free resolution, and
   $\cE xt^{1}$, $\cE xt^{2}$ and $\cE xt^{3}$ of the ideal against itself; for
@@ -470,12 +441,9 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   two. The three that are not Cohen--Macaulay, namely two planes meeting at a
   point, three planes meeting pairwise at a point and a plane with an embedded
   point, have $\cE xt^{2}\ne0$ and nonzero products. That is
-  \Cref{thm:cmvanishing} and \Cref{rem:cmsharp}. The script runs separately
-  from \texttt{verify\_all.py} because it needs Macaulay2; its transcript is
-  distributed with it.
+  \Cref{thm:cmvanishing} and \Cref{rem:cmsharp}.
 
-\item \emph{Cohen--Macaulay supports with a split resolution.} The script
-  \texttt{hilbert\_\allowbreak burch.py} reads the coefficients
+\item \emph{Cohen--Macaulay supports with a split resolution.} The computation reads the coefficients
   $(1,b,-d,-db,d^{2})$ off $u_{\Theta}+bv_{\Theta}$ rather than quoting them,
   confirms the three identities $c_{k+2}+dc_{k}=0$ that make the weighted
   measures of \Cref{thm:noci} share mass, mean and variance, and checks that
@@ -487,20 +455,18 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   \Cref{lem:burchmoments}. Nothing survives at $r=2$ or $r=3$, for $b=3$ and
   every squarefree $d<24$ and also for every $b\le6$ over seven fields; at
   $r=4,5,6$ only $d=15$ and $d=23$ survive, and the first candidate at each
-  rank is printed. The script also records that the moment system alone is not
+  rank is printed. The computation also records that the moment system alone is not
   enough: at $r=4$, $d=23$ it has the solution $p=(-8,-5,0,1,2)$,
   $q=(-7,-6,-4,4)$, which only the injectivity of $\varphi$ removes.
 
-\item \emph{The closure graph.} The script \texttt{closure\_\allowbreak graph.py}
-  carries the rule set of \Cref{setup:rules} as data: forty-two statements,
+\item \emph{The closure graph.} The computation carries the rule set of \Cref{setup:rules} as data: forty-two statements,
   each marked proved here, quoted, open or derived, and twenty-two rules, each carrying
   the label of the theorem that proves it. It checks that every statement
   named in a rule is declared and every declared statement is used, that the
   rule set is acyclic, and that every one of the seventeen theorem labels it
   names, for its rules and for the consequences of $\mathbf{HC}$ it records,
-  is a label of this paper, against the list of all $584$ labels generated
-  from the sources and distributed with the script as
-  \texttt{paper\_\allowbreak labels.txt}. It then computes the forward closure
+  is a label of this paper, against the list of all $594$ labels generated
+  from the sources of this paper. It then computes the forward closure
   by iterating the one step map to a fixed point, and verifies that no
   statement marked proved rests at any depth on an open one, that
   $\mathbf{HC}$ is not in the closure of the proved and quoted statements,
@@ -538,7 +504,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   is absent from the rule set, being equivalent to its own conclusion. It
   then removes the rule of \Cref{prop:f3ishc} and the statement
   \textup{(F3$'$)} with its rule and repeats the search, which returns the
-  four sets of the earlier version of this paper,
+  four sets obtained without them,
   $\{\mathrm{L},\mathrm{M}\}$, $\{\mathrm{L},\mathrm{F3}\}$,
   $\{\mathrm{V},\mathrm{F3}\}$ and $\{\mathrm{P2}_{\mathrm{split}},\mathrm{F2},\mathrm{F3}\}$;
   so the change in the answer is those two additions and nothing else.
@@ -548,8 +514,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   each minimal sufficient set is printed, one rule per line. That is
   \Cref{thm:closure}, \Cref{prop:f3ishc}, \Cref{prop:f3prime} and
   \Cref{cor:fourremain}.
-\item \emph{No split resolution runs the criterion.} The script
-  \texttt{split\_\allowbreak resolution.py} records the data behind
+\item \emph{No split resolution runs the criterion.} The computation records the data behind
   \Cref{thm:nosplit}: that the scalar $(e^{2}+d)/2$ by which the compensated
   Poisson class acts on $\cO(e\Theta)$ is nonzero for every twist and every
   $d>0$ in a range; the vanishing pattern $H^{2}(\cO(m\Theta))=0$ for $m\ne0$
@@ -560,7 +525,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   Koszul resolution of a complete intersection, twisted by any $b\in[-6,12]$,
   is secant for $d<30$, which is \Cref{thm:noci} in that range.
 \item \emph{The two statements that are not reductions, and what the rank
-  forces.} The script \texttt{exceptional\_\allowbreak classes.py} has three
+  forces.} The computation has three
   parts. For an abelian fourfold $X$ of Mumford type it decomposes every
   $\bigwedge^{k}V$, $V=V_{1}\otimes V_{2}\otimes V_{3}$, under
   $\mathrm{SL}_{2}^{3}$ by peeling highest weights, finds one invariant in
@@ -587,8 +552,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   dimensions two and three that two subspaces spanning the space with all
   mixed wedge products zero cannot both be nonzero. That is
   \Cref{thm:p2forces}.
-\item \emph{The Weil classes of a CM field of degree four and six.} The
-  script \texttt{cm\_\allowbreak fields.py} builds the cyclotomic fields
+\item \emph{The Weil classes of a CM field of degree four and six.} The computation builds the cyclotomic fields
   $\QQ(\zeta_{5})$, $\QQ(\zeta_{7})$, $\QQ(\zeta_{8})$ and $\QQ(\zeta_{9})$
   exactly, as $\QQ[x]/(p)$ with elements stored as rational coordinate
   vectors, and carries out the construction of \Cref{thm:cmbasepoint} for six
@@ -612,8 +576,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   is the product of the two $F$-Weil classes above it and that $W_{K}$ lies in
   the span of the products of pairs from $W_{F}$, which is
   \Cref{prop:composite}.
-\item \emph{What the transport does along the orbit.} The script
-  \texttt{transport\_\allowbreak growth.py} works on the lattice
+\item \emph{What the transport does along the orbit.} The computation works on the lattice
   $\Lambda=\ZZ^{2G}$ with the standard alternating form. For a sample of
   rational symplectic elements drawn from the unipotent radical of the
   stabiliser of an isotropic line, with denominators up to $29$, it verifies
@@ -632,8 +595,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   \Cref{thm:p1forces}(ii) for stabilisers of order $1$, $2$ and $4$, which is
   strictly increasing and unbounded. That is \Cref{lem:transport},
   \Cref{lem:multiplicity} and \Cref{thm:p1forces}.
-\item \emph{The annihilator of a Weil class in Hochschild cohomology.} The
-  script \texttt{hochschild\_\allowbreak annihilator.py} builds
+\item \emph{The annihilator of a Weil class in Hochschild cohomology.} The computation builds
   $HH^{*}(A)=\bigwedge^{*}\bigl(H^{0,1}\oplus H^{0}(T_{A})\bigr)$, of
   dimension $2^{4n}$, as an exterior algebra on $4n$ operators indexed by bit
   masks, acting on $H^{*}(A,\CC)$ by wedging and contracting, and computes the
@@ -656,7 +618,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   \Cref{cor:hhfactor}.
 
 \item \emph{The criterion as a number, and the support of an object meeting
-  it.} The script \texttt{p2\_\allowbreak support.py} checks the finite
+  it.} The computation checks the finite
   linear algebra of \Cref{thm:p2numerical}, \Cref{lem:finiteproduct} and
   \Cref{thm:p2support} in five parts. (A) In the exterior algebra of
   $H^{*}(A,\CC)$ with $HH^{1}$ acting by wedging and contracting, the map
@@ -682,9 +644,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   $\bigwedge^{*}(V_{+}^{1,0}\oplus V_{-}^{0,1})$, so the Weil line meets the
   sum of the two subrings in zero.
 
-\item \emph{Two jet classes on a complex of finite length.} The Macaulay2
-  script \texttt{m2/finite\_\allowbreak length\_\allowbreak products.m2}
-  builds, for a bounded complex $M$ of free modules over $\QQ[x_{1},x_{2}]$ or
+\item \emph{Two jet classes on a complex of finite length.} The computation builds, for a bounded complex $M$ of free modules over $\QQ[x_{1},x_{2}]$ or
   $\QQ[x_{1},x_{2},x_{3}]$ with finite length cohomology, the jet chain maps
   $-\sum_{i}a_{i}\partial_{i}(d)$ and decides whether the composite of two of
   them is null homotopic. It first confirms that each input has finite
@@ -708,12 +668,10 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   complex with cohomology of lengths $1$ and $1$ and Euler characteristic
   zero, and that $J(\partial_{2})J(\partial_{1})$ is null homotopic on $C$,
   while on $k\oplus k[1]$, also of Euler characteristic zero, it is not. That
-  is the sharpness of the lemma. The transcript
-  \texttt{m2/finite\_\allowbreak length\_\allowbreak products.txt} is
-  distributed with the script.
+  is the sharpness of the lemma.
 
 \item \emph{The two classes on a Mumford fourfold, and the K3 surface that
-  would carry them.} The script \texttt{mumford\_\allowbreak rm.py} works on
+  would carry them.} The computation works on
   the split model $V=V_{1}\otimes V_{2}\otimes V_{3}$ of
   \Cref{setup:mumford}, with $\mathfrak{sl}_{2}^{3}$ acting through its nine
   generators and $\psi=\epsilon\otimes\epsilon\otimes\epsilon$, in five parts.
@@ -729,7 +687,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   image is all of $H^{2}$. (D) The Lefschetz pairing
   $\int\alpha\beta\theta^{2}$ is nondegenerate on $H^{2}$; $\mu\mu^{\dagger}$
   acts on the three $U_{ij}$ by one and the same nonzero rational number
-  $\nu$, which is $-1$ in the normalisation of the script; for three choices of
+  $\nu$, which is $-1$ in the normalisation used there; for three choices of
   the conjugates of $e$ and $\lambda$, $\mu_{e}\mu_{e}^{\dagger}$ acts on
   $U_{ij}$ by $\nu\sigma_{i}(g)\sigma_{j}(g)$ with $g=e^{2}/\lambda$ and
   preserves the line of $\theta$; the algebra it generates on $U$ is spanned by
@@ -748,8 +706,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   \Cref{lem:mumfordmu} and the shape of the Kuga--Satake map used in the proof
   of \Cref{thm:mumfordks}.
 
-\item \emph{The Lefschetz operator of an abelian scheme over a curve.} The
-  script \texttt{lefschetz\_\allowbreak family.py} works in exact exterior
+\item \emph{The Lefschetz operator of an abelian scheme over a curve.} The computation works in exact exterior
   algebra over $\QQ$ and assumes no sign convention. (A) On ten abelian
   varieties with $g\le4$ and polarisation types from $(1)$ to $(1,2,4)$ and
   $(1,1,2,2)$, the contraction by the dual bivector satisfies
@@ -768,8 +725,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   $1,0,1,0,1,0,1,0,1$. That is \Cref{prop:pontryaginlambda}, the algebra of
   \Cref{thm:lefschetzfamily} and the count in \Cref{cor:mumfordlefschetz}.
 
-\item \emph{The two remaining targets, reduced.} The script
-  \texttt{targets\_\allowbreak reduction.py} works in the split model
+\item \emph{The two remaining targets, reduced.} The computation works in the split model
   $H^{*}(X\times X)=\bigwedge^{*}(V\oplus V)$, sixteen generators, with
   exact rational arithmetic where a space is determined and ranks modulo the
   prime $1000003$ of integer vectors where a span is to be shown full, a rank
@@ -790,8 +746,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   used in \Cref{cor:mumfordequiv}, and the annihilators in the proof of
   \Cref{thm:nosum}.
 
-\item \emph{The exceptional classes of a Mumford square are rigid.} The
-  script \texttt{mumford\_\allowbreak rigidity.py} works in the model of
+\item \emph{The exceptional classes of a Mumford square are rigid.} The computation works in the model of
   \Cref{setup:omegaa} at a point of the Mumford curve, with $V^{1,0}$ the
   vectors of third weight $+1$, and in exact rational arithmetic with the
   coefficients $a_{0},\dots,a_{3}$ as symbols. (A) The Casimir operators
@@ -820,7 +775,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   the annihilator used in \Cref{thm:mumfordnumerical}.
 
 \item \emph{What an object with an exceptional Chern character must look
-  like.} The script \texttt{mumford\_\allowbreak object.py} works in the same
+  like.} The computation works in the same
   model. (A) At $a=(3,5,-7,11)$ the ranks of contraction into $\omega_{a}$ on
   $HT^{k}$, computed exactly over $\QQ$ block by block, are
   $1,16,119,328,560,328,119,16,1$ for $k=0,\dots,8$ and $0$ above. (B) The
@@ -838,8 +793,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   \Cref{lem:rankduality}, \Cref{thm:mumfordprofile} and
   \Cref{prop:mumforddivisor}.
 
-\item \emph{What line bundles generate on a Mumford square.} The script
-  \texttt{lefschetz\_\allowbreak closure.py} works in the same model, with
+\item \emph{What line bundles generate on a Mumford square.} The computation works in the same model, with
   $\mathfrak{sp}(V,\psi)$ spanned by the $36$ maps $x\mapsto\psi(u,x)v+
   \psi(v,x)u$ and the torus of diagonal matrices in $\Sp(V,\psi)$, of rank
   four. (A) The $36$ maps and the Lie algebra of $G$ lie in
@@ -865,7 +819,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   \Cref{thm:lefschetzclosure}.
 
 \item \emph{The Hodge locus of an exceptional class among all complex tori.}
-  The script \texttt{twistor\_\allowbreak locus.py} realises $V_{\RR}$ as the
+  The computation realises $V_{\RR}$ as the
   fixed space in $V_{1}\otimes V_{2}\otimes V_{3}$ of the real structure that
   is quaternionic on the first two factors and real on the third, in exact
   Gaussian integer arithmetic. (A) It is a real structure, $V_{\RR}$ has
@@ -885,8 +839,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   $\pi_{12}$ to $\pi_{23}$ and fixes $\pi_{0}$ and $\pi_{13}$. That is
   \Cref{prop:notwistor}.
 
-\item \emph{The square as a holomorphic symplectic variety.} The script
-  \texttt{hk\_\allowbreak pullback.py} works in the same split model, with
+\item \emph{The square as a holomorphic symplectic variety.} The computation works in the same split model, with
   $\iota(x)=(x\otimes1)\Psi$ for $x$ in $T=\bigoplus_{i}\mathfrak{sl}(V_{i})$.
   (A) $\iota(x)$ is symmetric and $\iota$ is equivariant, for all pairs of the
   nine generators. (B) The three Casimir operators split
@@ -906,8 +859,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   nondegenerate ternary form, of Gram determinant $-4$, and irreducible. That
   is \Cref{prop:hksquare}.
 
-\item \emph{Which of the open routes to the Mumford target are needed.} The
-  script \texttt{mumford\_\allowbreak routes.py} carries the implications into
+\item \emph{Which of the open routes to the Mumford target are needed.} The computation carries the implications into
   and out of the Mumford target as data, in the manner of item (XXXIII):
   sixteen statements, one of them proved (the Hodge conjecture at the CM
   points), and twenty-two Horn rules, each labelled by the theorem that proves
@@ -930,7 +882,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   contains the target. That is \Cref{cor:mumfordone} and
   \Cref{rem:mumfordneeded}.
 \item \emph{What an object meeting the numerical criterion must look like.}
-  The script \texttt{criterion\_\allowbreak shape.py} checks the finite
+  The computation checks the finite
   ingredients of \Cref{thm:p2endo}. (A) In the coordinate model of
   \Cref{sec:explicit}, for $n=2$ with $d=1,2,3,5,7$ and for $n=3$ with
   $d=1,2,3$, the rational Weil classes $\omega_{1}$, $\omega_{2}$ satisfy
@@ -954,8 +906,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   $n=5$ a profile with $e_{0}=1$ satisfies the same constraints, so the bound
   on $\End$ is special to $n\le3$; and the same identity with $\chi=0$ on the
   Mumford square returns the $800$ odd self-extensions of item (XLV).
-\item \emph{The Hodge classes of a very general Weil torus.} The script
-  \texttt{weil\_\allowbreak tori.py} checks the finite inputs of
+\item \emph{The Hodge classes of a very general Weil torus.} The computation checks the finite inputs of
   \Cref{lem:weiltorushodge}, \Cref{lem:weiltorussubsets} and
   \Cref{thm:p2false}, in the coordinate model of \Cref{sec:explicit}, for
   $n=2$ with $d=1,3$ and for $n=3$ with $d=2$. The members of the family $S$
@@ -984,8 +935,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   class $\kappa_{0}$ is a property of $V_{+}\otimes V_{-}$ and not of the
   coordinates.
 
-\item \emph{The corrected criterion as a number.} The script
-  \texttt{p2prime.py} works in the eigenbasis model of item (XXXVIII), with
+\item \emph{The corrected criterion as a number.} The computation works in the eigenbasis model of item (XXXVIII), with
   $\theta=i\sum_{j}s_{j}e_{j}\wedge f_{j}$ and
   $\gamma=\sum_{k}c_{k}\theta^{k}+u\alpha_{+}+\bbar u\alpha_{-}$, builds the
   image $\xi\lrcorner\gamma$ of every element of a basis of $HT^{2}$, and
@@ -1009,8 +959,8 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   $c_{1}=\dots=c_{2n-1}=0$, $2n^{2}$, for $n=3,4$ and all ten shapes; at $n=2$
   it is $5$ exactly at $c_{1}=c_{3}=0$, $|u|=4|c_{2}|$. (F)
   $\int\ch^{\vee}\ch=(2n)!\,Q(c)+2|u|^{2}$ in the normalisation
-  $\int\theta^{2n}=(2n)!$ for $n=2,3$, and in the rational model of
-  \texttt{explicit\_weil.py} at $n=2$, $\int\omega_{1}^{2}=8d^{2}$ and
+  $\int\theta^{2n}=(2n)!$ for $n=2,3$, and in the rational model of item (VI)
+  at $n=2$, $\int\omega_{1}^{2}=8d^{2}$ and
   $\int\eta^{4}=24$ for $d=1,2,3,5,7$. (G) At $n=2$ and the exceptional
   ratio $|u|=4|c_{2}|$, the stabiliser of $\omega+c_{2}\theta^{2}$ in
   $\mathfrak{gl}(H^{1})$ has dimension $21$, Hodge pieces $5$, $11$, $5$,
@@ -1022,15 +972,12 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   h_{01,23})\int\theta^{4}$ at eight random $h$, and the sign of
   $\int\gamma\,\kappa^{2}$ is that of $c_{2}$ at $150$ random K\"ahler
   classes, while at the ratio $R=3/16$ both signs occur. That is
-  \Cref{prop:p2primelocus} and \Cref{rem:p2primeexceptional}. With
-  \texttt{--extreme} the closed form
-  of (A) is checked exactly for $n=5,\dots,9$ on five shapes, and with
-  \texttt{--nmax=10} also at $n=10$, where $HT^{2}$ has dimension $780$ and
-  $\gamma$ has $2^{20}+2$ terms; that run takes $142$ minutes and its
-  transcript is in \texttt{code/extreme}. That is \Cref{thm:p2primenumber}.
+  \Cref{prop:p2primelocus} and \Cref{rem:p2primeexceptional}. In a longer
+  run the closed form of (A) is checked exactly for $n=5,\dots,9$ on five
+  shapes, and at $n=10$, where $HT^{2}$ has dimension $780$ and $\gamma$ has
+  $2^{20}+2$ terms. That is \Cref{thm:p2primenumber}.
 
-\item \emph{The Hochschild profile of a corrected character.} The script
-  \texttt{p2prime\_\allowbreak profile.py} computes, in the same model and by
+\item \emph{The Hochschild profile of a corrected character.} The computation computes, in the same model and by
   the same torus blocks, the rank $\rho_{k}$ of contraction into $\gamma$ on
   every $HT^{k}$, exactly over $\QQ(i)$. (A) For $n=2,3$, in every degree
   $0\le k\le4n$, on eight shapes and two values of $u$, the ranks equal
@@ -1042,13 +989,12 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   $|u|=\binom{n}{a}n!|c_{n}|$ and in no other degree. (D) On
   $\bigwedge^{2n}\ZZ^{4n}$, $n\le3$, the form $\int x\wedge y$ pairs each
   monomial only with its complement, so $\int x^{2}$ is even; at $n=2$ the
-  point $|u|=4|c_{2}|$ of $\theta^{2}+\omega$ has $\rho_{2}=23$. With
-  \texttt{--extreme} (A) is run for $n=4$ in every degree, where $HT^{8}$ has
+  point $|u|=4|c_{2}|$ of $\theta^{2}+\omega$ has $\rho_{2}=23$. In a longer
+  run (A) is checked for $n=4$ in every degree, where $HT^{8}$ has
   dimension $12870$, and for $n=5$ up to degree three. That is
   \Cref{prop:p2primeprofile}.
 
-\item \emph{Descent and scalar extension.} The script \texttt{descent.py}
-  models the cohomology of an abelian variety of $(F,n)$-Weil type, $F$ a CM
+\item \emph{Descent and scalar extension.} The computation models the cohomology of an abelian variety of $(F,n)$-Weil type, $F$ a CM
   field of degree $2m$, by alternating $\QQ$-multilinear forms on
   $H_{1}=F^{N}$, its Weil classes by the forms $\Tr_{F/\QQ}(a\det_{F})$ and its
   polarisation by $\Tr_{F/\QQ}(\xi H)$. (A) For $F=\QQ(i)$, $\QQ(\sqrt{-2})$,
@@ -1061,25 +1007,18 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   $(n+1,n+1)$ and normalised discriminant $t$ times that of $H_{B}$. (C) For
   $\QQ(i)\subset\QQ(\zeta_{8})$, $\QQ(\sqrt{-7})\subset\QQ(\zeta_{7})$ and
   $\QQ(\sqrt{-3})\subset\QQ(\zeta_{9})$, and $n=1,2$, the pull-back
-  $j^{*}W_{F}(B_{F})$ is all of $W_{K}(B)$. With \texttt{--extreme}, (A) is
-  run up to $n=5$ over $\QQ(i)$, up to $n=4$ over $\QQ(\sqrt{-2})$ and
+  $j^{*}W_{F}(B_{F})$ is all of $W_{K}(B)$. In a longer run (A) is checked up
+  to $n=5$ over $\QQ(i)$, up to $n=4$ over $\QQ(\sqrt{-2})$ and
   $\QQ(\sqrt{-3})$, up to $n=3$ over $\QQ(\sqrt{-5})$, $\QQ(\zeta_{5})$ and
   $\QQ(\zeta_{8})$, and up to $n=2$ over the sextic field $\QQ(\zeta_{7})$, and
   (C) up to $n=3$. That is \Cref{prop:descent}.
 
 \item \emph{Quartic fields, the Mumford fourfold, and the objects of the
-  criterion.} The directory \texttt{code/\allowbreak attack} holds four sets
-  of scripts, each with the scripts of an independent re-implementation in
-  \texttt{verify/} and the unedited transcripts of their runs in
-  \texttt{transcripts/}; its \texttt{README.md} states each claim with its
-  status (proved, computed, conditional or sketched). The item
-  \texttt{attack\_\allowbreak checks.py} runs a fast subset, in about two and a
-  half minutes, and turns the printed numbers into $48$ checks; the longer
-  runs are not repeated, and their transcripts are distributed. Where a space
-  of invariants is bounded above by a rank modulo a prime, which can only lower
-  a rank, the bound is matched by explicit invariants. (A)
-  \texttt{quartic\_\allowbreak cm}, where the scripts write $T$ for $R_{F}$:
-  for $F=\QQ(\zeta_{5})$ (cyclic, with no imaginary quadratic subfield),
+  criterion.} Each computation of this item is carried out twice, by
+  independent implementations; the fast part performs $58$ checks, and the
+  longer runs are recorded with the programs. Where a space of invariants is
+  bounded above by a rank modulo a prime, which can only lower a rank, the
+  bound is matched by explicit invariants. (A) Quartic fields: for $F=\QQ(\zeta_{5})$ (cyclic, with no imaginary quadratic subfield),
   $\QQ(\zeta_{8})$, $\QQ(\zeta_{12})$ (biquadratic) and
   $\QQ(\sqrt{-(3+\sqrt2)})$ (not Galois), and six hermitian forms in all,
   $\mathfrak{su}(V,H)$ has dimension $30$ and kills $W_{F}$, and its
@@ -1106,7 +1045,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   below $80$ in about $1800$ further exact trials. That is
   \Cref{prop:quarticquat}, \Cref{prop:quarticnl}(iii),
   \Cref{prop:quarticscalar}, \Cref{prop:quarticcasimir} and
-  \Cref{thm:quarticp2prime}. (B) \texttt{mumford\_\allowbreak target}: by
+  \Cref{thm:quarticp2prime}. (B) The Mumford fourfold: by
   peeling highest weights and, independently, by Weyl's alternating sum, no
   $\bigwedge^{k}V$ contains a summand $S^{2}V_{i}$, the multiplicity of
   $S^{2}V_{1}$ in $H^{n}(X\times X)$ is $1,6,16,24,16,6,1$ for
@@ -1128,9 +1067,9 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   and \Cref{prop:mumfordcmpowers}; \Cref{cor:mumfordksproducts},
   \Cref{prop:mumfordkslink}, \Cref{prop:mumfordcarrier} apart from its
   computation, and \Cref{prop:mumfordsurface} are proved in the text and have
-  no script. (C) \texttt{explicit\_\allowbreak objects}: the Hochschild
+  no computation. (C) Explicit objects on the split member: the Hochschild
   profile of a secant class for $n=2,\dots,5$ and the Euler characteristic for
-  $n=2,\dots,6$, at values of $d$ the first run did not use; the certificates
+  $n=2,\dots,6$, at further values of $d$; the certificates
   of \Cref{thm:twistedcert}, with profile $(1,8,18,8,1)$ for seven values of
   $d$ and $(1,12,48,74,\dots)$ for five; the flatness of
   $\ch(E)e^{\ell/2}$, the recursion $\mu_{m+2}=-\mu_{m}/(4d)$ and the Weil
@@ -1138,7 +1077,7 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   eight conventions for $\Phi$, and the dimensions $5$ and $9$ of the Hodge
   loci; $r(\ch G)=18$, $48$, $88$ at $n=2,3,4$; the parity numbers of
   \Cref{rem:untwisting}; and the correction to \Cref{ex:splitsmall} at $n=3$.
-  (D) \texttt{natural\_\allowbreak objects}: over $\QQ(i)$, exactly, $\dim T=16$,
+  (D) Natural objects at $n=4$: over $\QQ(i)$, exactly, $\dim T=16$,
   $T$ kills $\eta$ and the Weil plane, and $T\lrcorner\ch F$ has rank $6$ for
   the natural objects off $C_{\eta}$ and $0$ on it; modulo a prime,
   $r(\gamma)=56$, $72$, $88$, $104$ for $\rho=0,\dots,3$; the Hodge ring of
@@ -1154,14 +1093,31 @@ computations over a polynomial ring, carried out in Macaulay2. We describe what 
   four points off $C_{\eta}$ and the pure ones are those on a conic through
   $l_{W}$. \Cref{lem:p2primesummands}, \Cref{cor:naturalsums},
   \Cref{prop:secantprofile} and \Cref{prop:orlovfour} are proved in the text
-  and checked here in examples.
+  and checked here in examples. (E) The remaining inputs, through their
+  smallest cases: for a quartic CM field, the secant spaces $S(t,q)$ are
+  rational of dimension $4$, with Hochschild profile $(1,8,2\rho+4N_{w})$ and
+  the Euler characteristic of \Cref{prop:quarticsecant}(iii), in $49$ cases;
+  the integral classes of the ring $\mathcal{R}$ are the congruence lattice
+  $c\equiv g$ modulo the different, for the discriminants $5$, $8$, $13$ and
+  $17$; the twisted character of an Orlov product of such objects is
+  invariant under $G_{F}$, with nonzero Weil part, and $r(\kappa)=100$ exactly
+  for a rank-one pair; and the identities used in the proof of
+  \Cref{thm:quarticobstruction} hold on random integral classes. For
+  \Cref{prop:flatall}, the four identities at $n=1$ and $n=2$ with $d$ a symbol;
+  for \Cref{prop:orlovequality}, the Euler characteristic of a secant class
+  and the numbers $R_{n}$ for $n\le12$. For \Cref{prop:orthpowers}, the
+  dimensions of the $\SO(t)$- and $\mathrm{O}(t)$-invariants of $V^{\otimes j}$,
+  equal for $j<t$ and differing by one at $j=t$, for $t\le8$, with the
+  determinant invariant and odd under reflections; and for
+  \Cref{prop:f3primestrength}, the closure graph with the implication
+  $\textup{(F3$'$)}\Rightarrow\textup{(M)}$ added, whose five minimal
+  sufficient sets are unchanged.
 \end{enumerate}
 
 Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LV) are the ones
 on which theorems depend. Items (IV) and (V) support statements that no
 obstruction exists, and a failure there would strengthen rather than weaken
 the paper, so they are included for completeness rather than for safety.
-Running \texttt{verify\_all.py} executes the fifty-two Python items and
-prints \texttt{1007 checks passed, 0 failed}; items (XXIX), (XXXI) and
-(XL) need Macaulay2 and are run separately, and their transcripts are
-distributed with the scripts.
+The fifty-two items other than (XXIX), (XXXI) and (XL) perform $1017$
+checks, all of which pass; those three are $\Ext$ computations over a
+polynomial ring, recorded with their output.

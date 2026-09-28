@@ -1,13 +1,14 @@
 \section{The cohomological Fourier--Mukai transform}\label{sec:fm}
 
-The divisor obstruction rests on one computation: the cohomological
-Fourier--Mukai transform sends each power of the polarisation class to a
-rational multiple of a power of the polarisation class on the other side, and
-to nothing else.%
-\footnote{The Todd class of an abelian variety is trivial, since the tangent bundle is trivial, so Grothendieck--Riemann--Roch for a morphism of abelian varieties reduces to the statement that the Chern character commutes with pushforward. That is the one simplification which makes the closed form below a finite computation rather than an estimate, and it is the reason this paper can be precise where the general case would not be.} We prove this in closed form. The computation is universal,
-in the sense that it takes place in a cohomology ring whose isomorphism type
-is determined by the dimension alone, so a single calculation settles it for
-every principally polarised abelian variety at once.
+With the character obstruction proved, we turn to the divisor obstruction of
+\Cref{thm:divisor}. Its one nontrivial ingredient is a computation: the
+cohomological Fourier--Mukai transform sends each power of the polarisation
+class to a rational multiple of a power of the polarisation class on the
+other side, and to nothing else. We prove this in closed form. The
+computation takes place in a cohomology ring whose isomorphism type is
+determined by the dimension alone, so one calculation settles it for every
+principally polarised abelian variety at once, and the triviality of the
+Todd class reduces the passage from sheaves to cohomology to a formal step.
 
 \subsection{Grothendieck--Riemann--Roch on an abelian variety}
 
@@ -72,17 +73,15 @@ $\bigwedge^{2}(V\oplus V^{\vee})=\bigwedge^{2}V\oplus(V\otimes V^{\vee})\oplus\b
 The defining property of $\cP$ is that its restriction to $A\times\{\lambda\}$
 is the line bundle $\lambda$; on cohomology this says that the induced map
 $H^{1}(\Av,\QQ)\to H^{1}(A,\QQ)^{\vee}$ obtained by contracting $c_{1}(\cP)$ is
-the canonical identification. That is exactly the statement that the element
-of $\Hom(V,V)$ determined by $c_{1}(\cP)$ is the identity, which is
-\eqref{eq:ell}. Since $\cP$ is a line bundle, $\ch(\cP)=e^{c_{1}(\cP)}$.
+the canonical identification. Equivalently, the element of $\Hom(V,V)$
+determined by $c_{1}(\cP)$ is the identity, which is \eqref{eq:ell}. Since $\cP$ is a line bundle, $\ch(\cP)=e^{c_{1}(\cP)}$.
 \end{proof}
 
 \begin{remark}\label{rem:universal}
 Every principally polarised abelian variety of dimension $g$ gives the same
 data in \Cref{not:model}: a symplectic space of dimension $2g$ over $\QQ$, its
 dual, the symplectic form, and the canonical element. The constants computed
-below therefore depend only on $g$ and $k$ and not on $A$. This is why a
-single computation suffices.
+below therefore depend only on $g$ and $k$, and not on $A$.
 \end{remark}
 
 \subsection{The closed form}
@@ -137,7 +136,7 @@ $k$-subsets $T$ of $\{1,\dots,g\}$. Writing $U=\{1,\dots,g\}\setminus T$ we
 have $S=U\cup(g+U)$, so the $V$-part of the term indexed by $T$ is
 $\prod_{i\in U\cup(g+U)}e_{i}$, which up to sign is the term of
 \eqref{eq:thetappower} indexed by $U$. The bijection $T\leftrightarrow U$ is
-exactly the one between the terms of $\theta'^{\,k}/k!$ and those of
+the one between the terms of $\theta'^{\,k}/k!$ and those of
 $\theta^{\,g-k}/(g-k)!$.
 
 It remains to compute the sign $\sigma$ with which each term contributes, and
@@ -169,15 +168,14 @@ follows since the constants in \eqref{eq:fmtheta} are nonzero for every
 $0\le k\le g$.
 \end{proof}
 
-\begin{remark}[On the sign]\label{rem:signcheck}
+\begin{remark}[The sign]\label{rem:signcheck}
 The identity \eqref{eq:sign} is a finite permutation count for each pair
-$(g,k)$. It is verified independently, together with the uniformity of the
-sign over all $T$, for every $g\le12$ and every $k$ in
-\Cref{sec:verification}; the full expansion of the exterior algebra, which is the
-more expensive check and confirms the whole of \eqref{eq:fmtheta} including
-the factorials, is carried out there for $g\le4$. For even $g=2n$, which is
-the case relevant to Weil type, \eqref{eq:sign} reads
-$\sigma(2n,k)=(-1)^{n+k}$.
+$(g,k)$. It has been checked independently, together with the uniformity of
+the sign over all $T$, for every $g\le12$ and every $k$
+(\Cref{sec:verification}, item (II)), and the whole of \eqref{eq:fmtheta},
+factorials included, has been checked by expanding the exterior algebra for
+$g\le4$ (\Cref{sec:verification}, item (I)). For even $g=2n$, the case of
+Weil type, \eqref{eq:sign} reads $\sigma(2n,k)=(-1)^{n+k}$.
 \end{remark}
 
 \begin{corollary}[Stability of the divisor line]\label{cor:stability}
@@ -187,7 +185,7 @@ Then $\Phi_{\cP}(x)\in\QQ[\theta]$.
 \end{corollary}
 
 \begin{proof}
-$\QQ[\theta']$ is spanned by the powers $\theta'^{\,k}$, and
+The ring $\QQ[\theta']$ is spanned by the powers $\theta'^{\,k}$, and
 \Cref{thm:fmtheta} sends each to a multiple of a power of $\theta$; extend by
 linearity.
 \end{proof}
@@ -198,8 +196,7 @@ one, the isogeny $\phi_{\theta}\colon A\to\Av$ has degree $\delta^{2}$ and one
 has $\phi_{\theta}^{*}\theta'=\delta\theta$ for a suitable normalisation of
 $\theta'$. The argument of \Cref{thm:fmtheta} goes through with $\theta$
 replaced by $\delta^{-1}\phi_{\theta}^{*}\theta'$ and the constants changed by
-powers of $\delta$, all of which are nonzero rationals. Since all statements
-below concern only membership in $\QQ[\theta]$, and not the values of the
-constants, nothing changes. We therefore state the results for principal
-polarisations and use them in general.
+powers of $\delta$, all of which are nonzero rationals. The statements below
+concern only membership in $\QQ[\theta]$, not the values of the constants, so
+we state them for principal polarisations and use them in general.
 \end{remark}

@@ -2,78 +2,91 @@
 """
 make_frontier.py
 
-Five diagrams for the subsections on the Lefschetz standard conjecture and on
-the Mumford target.
+Seven figures for the sections on the closure of the rule set, the Lefschetz
+standard conjecture for abelian schemes over curves, and the Mumford target.
 
   fig_frontier       the rule set of the closure theorem with the rules of the
-                     literature added, drawn as a hypergraph: a rule with
-                     several premises is a junction marked with a wedge, and
-                     each arrow carries the result that proves it.  The five
-                     minimal sufficient sets, {F3}, {L, M}, {L, F3'},
-                     {V, F3'} and {P2, F2, F3'}, are drawn as nested ribbons
-                     under the arrows they use and listed as route cards
-                     below.
-                     Clay marks an open statement, grass what the paper
-                     proves, indigo a derived statement; a small indigo tag
-                     marks every open statement that the conjecture implies.
+                     literature, drawn as a hypergraph: a rule with several
+                     premises is a junction marked with a wedge, and each rule
+                     carries a letter (a)-(i) that the caption resolves into
+                     the result proving it.  The rule set of item (XXXIII) is
+                     carried below as data; the five minimal sufficient sets
+                     are computed here by exhaustive search, the derivation
+                     of HC from each is computed and pruned, and each is drawn
+                     as a thumbnail of the graph with the rules it uses
+                     highlighted.  Clay marks an open statement, a double
+                     frame an open statement that HC implies, grass what the
+                     paper proves, slate what it quotes, indigo a derived
+                     statement.
 
   fig_lefschetzgrid  the summands H^p(C,R^q) of the cohomology of an abelian
-                     scheme over a curve, for relative dimension four, with
-                     the eigenvalue 2^q of [2]^* on each row, the dashed
-                     diagonals that group the summands of one H^k(W), the
-                     hard Lefschetz axis, the four operators of the proof, the
-                     weight of the sl_2 action on each column, and the values
-                     of the outer columns for a Mumford family.
+                     scheme of relative dimension four over a curve: the
+                     eigenvalue 2^q of [2]^* and the rank C(8,q) of R^q on each
+                     row, the weights of H_rel and H_C, the diagonals k = p+q,
+                     the operators L_rel, Lambda_rel, L_C, Lambda_C, and in
+                     magenta the value of each outer summand for a Mumford
+                     family.
 
-  fig_propagation    propagation along a compact Shimura curve: an algebraic
-                     class at a CM point is carried by the Gysin map and the
-                     base operator to a global class, algebraic when the total
-                     space satisfies the Lefschetz standard conjecture, whose
-                     restriction to every fibre is the invariant part; the CM
-                     points and the isogenies between their fibres give a
-                     dense countable set only, which is why the spreading
-                     lemma needs uncountably many points.
+  fig_propagation    propagation along a compact Shimura curve, in 3D: the
+                     base C drawn as a closed surface of genus two, the CM
+                     points on it (visibility tested by ray casting), the
+                     fibres over a CM point c, a Hecke translate c' and a very
+                     general point t, the class y and its transports, and the
+                     global class u that B(W) makes algebraic.
 
-  fig_rigidity       the rigidity of the exceptional classes: the nested Hodge
-                     loci through the square of a Mumford fourfold in the
-                     Siegel space of dimension 36, with tangent dimensions 20,
-                     10 and 1, the compact Mumford curve with its CM points
-                     away from the boundary, and the nine weight blocks of
-                     sp^{-1,1} with their dimensions and the forms whose
-                     product is the Gram determinant of each block.
+  fig_rigidity       the tangent spaces at Y = X_c x X_c of the Hodge loci of
+                     three classes, block by block over the weight lattice of
+                     the torus of the first two factors, in 3D (one cube per
+                     dimension: kappa, then the tangent space at a1=a2=a3,
+                     then at a0=a1=a2=a3, then the rest of sp^{-1,1}); the
+                     Gram determinant of each of the nine blocks; and the sums
+                     of squares that certify the forms, checked here at random
+                     rational points.
 
-  fig_bypass         the audit of the bypass mechanisms for the Mumford
-                     target: each spoke is one mechanism, with its status
-                     and the result that settles it.
+  fig_bypass         the ten routes to the Mumford target that avoid the
+                     Lefschetz standard conjecture, numbered as in
+                     rem:bypassaudit, with the obstruction or the reduction
+                     that settles each.
+
+  fig_extprofile     the lower bounds r_k for dim Ext^k(E,E) when ch(E) is a
+                     multiple of an exceptional class, the upper envelope
+                     min(C(16,k), C(16,8-k)) from dim HT^k and Serre duality,
+                     the split 28 + 63 + 28 of the bar at k = 2, the values
+                     on the hyperplane L0 = 0, and the parity balance that
+                     chi(E,E) = 0 forces.
+
+  fig_hodgecount     the Hodge classes of X_t x X_t for a Mumford fourfold X_t,
+                     degree by degree, computed here from the representation
+                     theory of the Hodge group, against the subring generated
+                     by divisor classes, at a very general point and at a CM
+                     point.
 
 Every label is written as  \\node[...] at (x,y) {...};  so that checkfigs.py
-can read it back and test it for overlaps.
+can read it back.  Beyond that, every label is measured by TeX itself (one
+pdflatex run per figure, in a temporary directory) and tested against every
+other label, every stroke and every filled region before the file is
+written; the generator stops if any test fails.
+
+The helpers box, arrow, curve, line, ribbon, label, junction, dot, seg,
+ellipse and TIP are imported by other generators and are kept unchanged.
+
+Run:  python3 -B make_frontier.py        (from the figures directory)
 """
 import math
 import os
+import re
+import shutil
+import subprocess
+import sys
+import tempfile
+from math import comb
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+if HERE not in sys.path:
+    sys.path.insert(0, HERE)
 
-HEAD = r"""%% {name}.tex   (generated by make_frontier.py; do not edit by hand)
-%% {blurb}
-\documentclass[tikz,border=8pt]{{standalone}}
-\usepackage{{amsmath,amssymb}}
-\usetikzlibrary{{arrows.meta,calc,decorations.pathreplacing}}
-\input{{palette}}
-\newcommand{{\hcimp}}{{\,\textcolor{{PIndigo}}{{\tiny$\Leftarrow\mathbf{{HC}}$}}}}
-\begin{{document}}
-\begin{{tikzpicture}}[x=1cm,y=1cm,line join=round,line cap=round,
-  font=\small,text=PInk]
-"""
-TAIL = r"""\end{tikzpicture}
-\end{document}
-"""
-
+# ------------------------------------------------ helpers (shared)
 TIP = r"-{Stealth[length=5pt,width=4pt]}"
-# the number the paper gives the proposition that (F3) is the conjecture
-F3REF = "16.31"
-# and the one that (F3') with the abelian case gives the conjecture
-F3PREF = "16.33"
 
 
 def box(x, y, text, fill, draw, w=None, lw=0.6, h=None, font=None,
@@ -143,7 +156,6 @@ def dot(x, y, color, r=1.8, hollow=False):
     return r"  \fill[%s] (%.2f,%.2f) circle (%.1fpt);" % (color, x, y, r) + "\n"
 
 
-# ---------------------------------------------------------------- frontier
 def seg(spec):
     """The TikZ path of one edge: a straight segment or a cubic."""
     if len(spec) == 2:
@@ -154,583 +166,1724 @@ def seg(spec):
             % (a[0], a[1], c1[0], c1[1], c2[0], c2[1], b[0], b[1]))
 
 
-def frontier():
-    out = []
-    OPEN, OPENF = "PClay", "WClay"
-    DER, DERF = "PIndigo", "WBlue"
-    PRO, PROF = "PGrass", "WTeal"
-    # route colours: the five minimal sufficient sets
-    RC = {1: "POchre!40", 2: "PMag!22", 3: "PAmber!36", 4: "PTeal!30",
-          5: "PViolet!24"}
-    RD = {1: "POchre", 2: "PMag", 3: "PAmber", 4: "PTeal", 5: "PViolet"}
-    RW = {5: 15.0, 4: 11.0, 3: 6.5, 2: 8.0, 1: 8.0}
-
-    HC = (0.00, 7.70)
-    AV = (-3.40, 5.70)
-    F3P = (1.80, 5.70)
-    F3 = (-5.60, 7.70)
-    M = (5.40, 5.70)
-    WE = (-5.70, 3.70)
-    F2 = (-2.30, 3.70)
-    V = (1.80, 3.70)
-    L = (5.40, 1.50)
-    P2 = (-6.70, 1.50)
-    BA = (-3.60, 1.50)
-    J1 = (-0.85, 6.70)       # AV and F3' give HC
-    J2 = (3.70, 7.70)        # L and M give HC
-    J3 = (-4.05, 4.75)       # Weil classes and F2 give AV
-    J6 = (-5.25, 2.60)       # base points and P2 give the Weil classes
-
-    # every edge once, as a path; the ribbons and the arrows share it
-    E = {
-        "AV-J1": ((AV[0] + 0.55, AV[1] + 0.40), (J1[0] - 0.16, J1[1] - 0.09)),
-        "F3P-J1": ((F3P[0] - 0.55, F3P[1] + 0.40), (J1[0] + 0.16,
-                                                    J1[1] - 0.08)),
-        "F3-HC": ((F3[0] + 1.02, F3[1]), (HC[0] - 2.05, HC[1])),
-        "J1-HC": ((J1[0] + 0.10, J1[1] + 0.16), (HC[0] - 0.50, HC[1] - 0.42)),
-        "M-J2": ((M[0] - 0.35, M[1] + 0.40), (M[0] - 0.60, 7.10),
-                 (J2[0] + 0.45, 7.45), (J2[0] + 0.14, J2[1] - 0.10)),
-        "L-J2": ((L[0] + 1.10, L[1] + 0.05), (8.20, 2.40), (8.10, 7.70),
-                 (J2[0] + 0.19, J2[1] + 0.02)),
-        "J2-HC": ((J2[0] - 0.19, J2[1]), (HC[0] + 1.85, HC[1])),
-        "WE-J3": ((WE[0] + 0.40, WE[1] + 0.42), (J3[0] - 0.14, J3[1] - 0.12)),
-        "F2-J3": ((F2[0] - 0.45, F2[1] + 0.40), (J3[0] + 0.15, J3[1] - 0.10)),
-        "J3-AV": ((J3[0] + 0.10, J3[1] + 0.16), (AV[0] - 0.35, AV[1] - 0.40)),
-        "V-AV": ((V[0] - 0.70, V[1] + 0.40), (0.70, 4.80), (-1.30, 5.00),
-                 (AV[0] + 1.35, AV[1] - 0.25)),
-        "L-V": ((L[0] - 1.10, L[1] + 0.25), (V[0] + 0.55, V[1] - 0.42)),
-        "P2-J6": ((P2[0] + 0.35, P2[1] + 0.42), (J6[0] - 0.15, J6[1] - 0.11)),
-        "BA-J6": ((BA[0] - 0.65, BA[1] + 0.45), (J6[0] + 0.15, J6[1] - 0.10)),
-        "J6-WE": ((J6[0] - 0.06, J6[1] + 0.17), (WE[0] + 0.25, WE[1] - 0.42)),
-    }
-    ROUTES = {
-        5: ["P2-J6", "BA-J6", "J6-WE", "WE-J3", "F2-J3", "J3-AV", "AV-J1",
-            "F3P-J1", "J1-HC"],
-        4: ["V-AV", "AV-J1", "F3P-J1", "J1-HC"],
-        3: ["L-V", "V-AV", "AV-J1", "F3P-J1", "J1-HC"],
-        2: ["L-J2", "M-J2", "J2-HC"],
-        1: ["F3-HC"],
-    }
-    # ribbons, widest first, so that a shared edge shows nested bands
-    for r in (5, 4, 3, 2, 1):
-        for e in ROUTES[r]:
-            out.append(r"  \draw[%s,line width=%.1fpt,line cap=round] %s;"
-                       % (RC[r], RW[r], seg(E[e])) + "\n")
-
-    # nodes; the tag \hcimp marks an open statement that HC implies
-    out.append(box(HC[0], HC[1], r"$\mathbf{HC}$\\{\scriptsize "
-                   r"$\Hdg^{p}(X)=\mathrm{Alg}^{p}(X)$ for all $X$}",
-                   DERF, DER, lw=0.9))
-    out.append(box(AV[0], AV[1], r"conjecture for\\abelian varieties",
-                   DERF, DER))
-    out.append(box(F3[0], F3[1], r"(F3)\hcimp\\{\scriptsize $X$ not abelian}",
-                   OPENF, OPEN))
-    out.append(box(F3P[0], F3P[1], r"(F3$'$)\hcimp\\{\scriptsize "
-                   r"modulo abelian}", OPENF, OPEN))
-    out.append(box(M[0], M[1], r"(M)\hcimp\\{\scriptsize Hodge $=$ motivated}",
-                   OPENF, OPEN))
-    out.append(box(WE[0], WE[1], r"Weil classes\\{\scriptsize "
-                   r"$\textstyle\bigwedge^{2n}_{K}H^{1}$, every CM $K$}",
-                   DERF, DER))
-    out.append(box(F2[0], F2[1], r"(F2)\hcimp\\{\scriptsize beyond Weil lines}",
-                   OPENF, OPEN))
-    out.append(box(V[0], V[1], r"(V)\hcimp\\{\scriptsize alg.\ at $s\Rightarrow$ "
-                   r"alg.\ at $t$}", OPENF, OPEN))
-    out.append(box(L[0], L[1], r"(L)\hcimp\\{\scriptsize $B(X)$: "
-                   r"$\Lambda$ algebraic}", OPENF, OPEN))
-    out.append(box(P2[0], P2[1], r"(P2)\\{\scriptsize semiregular $E$}",
-                   OPENF, OPEN))
-    out.append(box(BA[0], BA[1], r"base points,\\reduction, orbits",
-                   PROF, PRO))
-
-    # arrows
-    col = {"AV-J1": DER, "F3P-J1": OPEN, "F3-HC": OPEN, "J1-HC": DER,
-           "M-J2": OPEN,
-           "L-J2": OPEN, "J2-HC": DER, "WE-J3": DER, "F2-J3": OPEN,
-           "J3-AV": DER, "V-AV": OPEN, "L-V": OPEN, "P2-J6": OPEN,
-           "BA-J6": PRO, "J6-WE": DER}
-    for e, spec in E.items():
-        lw = 1.0 if e in ("J1-HC", "J2-HC", "J3-AV", "J6-WE") else 0.8
-        out.append(r"  \draw[%s,line width=%.2fpt,%s] %s;"
-                   % (col[e], lw, TIP, seg(spec)) + "\n")
-    for j in (J1, J2, J3, J6):
-        out.append(junction(j[0], j[1], DER))
-
-    # rule labels, each naming the result that proves the rule
-    out.append(label(J1[0] - 0.42, J1[1] + 0.20, r"Prop.~%s" % F3PREF, DER,
-                     anchor="east"))
-    out.append(label(J3[0] - 0.42, J3[1] + 0.12, r"\S16.5", DER,
-                     anchor="east"))
-    out.append(label(J2[0], J2[1] + 0.62, r"Prop.~16.16\\Andr\'e", DER))
-    out.append(label(-0.64, 5.45, r"Thm.~16.18\\Deligne, Andr\'e", DER))
-    out.append(label(4.35, 2.85, r"Prop.~16.17\\Andr\'e", DER))
-    out.append(label(-6.75, 2.85, r"Thm.~14.81\\Thm.~15.6", PRO))
-    out.append(label(-3.33, 7.93, r"Prop.~%s" % F3REF, OPEN))
-
-    # route cards
-    cards = [(-5.84, 1, r"$\{$F3$\}$", r"(F3)$\Leftrightarrow\mathbf{HC}$"),
-             (-2.92, 2, r"$\{$L, M$\}$",
-              r"(L)$\wedge$(M)$\Rightarrow\mathbf{HC}$"),
-             (0.00, 3, r"$\{$L, F3$'$$\}$", r"(L)$\Rightarrow$(V)$\Rightarrow$ab."),
-             (2.92, 4, r"$\{$V, F3$'$$\}$", r"(V)$\Rightarrow$ab."),
-             (5.84, 5, r"$\{$P2, F2, F3$'$$\}$", r"this paper")]
-    for x, r, head, sub in cards:
-        out.append(box(x, -0.35, r"\textbf{%d}\enspace%s\\{\scriptsize %s}"
-                       % (r, head, sub), RC[r], RD[r], w=2.70, lw=0.8))
-    out.append(label(0.00, -1.25, r"the five minimal sufficient sets of the "
-                     r"closure theorem, drawn as nested ribbons above; "
-                     r"routes 3 to 5 end with ab.$\wedge$(F3$'$)"
-                     r"$\Rightarrow\mathbf{HC}$", "PInk"))
-
-    # legend
-    out.append(box(-6.20, -2.05, r"open", OPENF, OPEN, w=1.3))
-    out.append(box(-4.45, -2.05, r"proved here", PROF, PRO, w=2.0))
-    out.append(box(-2.55, -2.05, r"derived", DERF, DER, w=1.4))
-    out.append(label(-1.35, -2.05, r"\hcimp\ implied by $\mathbf{HC}$", "PInk",
-                     anchor="west"))
-    out.append(junction(2.35, -2.05, DER))
-    out.append(label(2.65, -2.05, r"rule with several premises", "PInk",
-                     anchor="west"))
-    return "".join(out)
-
-
-# ---------------------------------------------------------------- the grid
-def grid():
-    out = []
-    g = 4
-    xs = {0: 0.0, 1: 3.9, 2: 7.8}
-    dy = 0.66
-    W = 1.62
-    # the hard Lefschetz axis q = g, behind everything
-    out.append(line([(-2.45, g * dy), (xs[2] + 0.82, g * dy)], "PMag!55",
-                    lw=0.5, style=",dash pattern=on 3pt off 2pt"))
-    # the diagonals of constant total degree k = p + q, behind the boxes
-    for k in range(0, 2 * g + 3):
-        pts = [(xs[p], (k - p) * dy) for p in (0, 1, 2) if 0 <= k - p <= 2 * g]
-        if len(pts) >= 2:
-            out.append(line(pts, "PRule", lw=0.5,
-                            style=",dash pattern=on 1.5pt off 1.5pt"))
-    for p in (0, 1, 2):
-        for q in range(2 * g + 1):
-            y = q * dy
-            inv = (p in (0, 2)) and q % 2 == 0
-            fill = "WOchre" if inv else ("WSlate" if p == 1 else "WBlue")
-            draw = "POchre" if inv else "PSlate"
-            out.append(r"  \node[draw=%s,fill=%s,rounded corners=1.5pt,"
-                       r"minimum width=%.2fcm,minimum height=0.46cm,inner sep=1pt,"
-                       r"line width=0.5pt] at (%.2f,%.2f) {\scriptsize "
-                       r"$H^{%d}(C,R^{%d})$};" % (draw, fill, W, xs[p], y, p, q)
-                       + "\n")
-    # eigenvalues of [2]^* on each row
-    out.append(label(-2.95, 2 * g * dy + 0.72, r"$[2]^{*}$", "PInk",
-                     size=r"\small"))
-    for q in range(2 * g + 1):
-        out.append(label(-2.95, q * dy, r"$2^{%d}$" % q, "PSlate"))
-    out.append(label(-2.95, -0.62, r"weight", "PSlate"))
-    # the weights of H = H_rel + H_C on each column: (q-4)+(p-1)
-    for p in (0, 1, 2):
-        out.append(label(xs[p], -0.62, r"$H=q-%d%s$" %
-                         (g + (1 - p), "" if p != 1 else ""), "PInk"))
-    out.append(label(xs[0], -1.22, r"$p=0$: invariants $I_{q}$", "PInk"))
-    out.append(label(xs[1], -1.22, r"$p=1$: killed by $L_{C}$ and "
-                     r"$\Lambda_{C}$", "PInk"))
-    out.append(label(xs[2], -1.22, r"$p=2$: coinvariants $I_{q}\cup f$",
-                     "PInk"))
-    # relative operators on the left column, rows 2 and 4
-    out.append(arrow((xs[0] - 0.95, 2 * dy), (xs[0] - 0.95, 4 * dy), "PTeal",
-                     bend="left=35", lw=0.9))
-    out.append(arrow((xs[0] + 0.95, 4 * dy - 0.05), (xs[0] + 0.95, 2 * dy + 0.05),
-                     "PTeal", bend="left=35", lw=0.9))
-    out.append(label(xs[0] - 1.48, 3 * dy, r"$L_{\mathrm{rel}}$", "PTeal",
-                     anchor="east"))
-    out.append(label(xs[0] + 1.45, 3 * dy + 0.02, r"$\Lambda_{\mathrm{rel}}$",
-                     "PTeal", anchor="west"))
-    # base operators between the outer boxes of the top row
-    ytop = 2 * g * dy + 0.26
-    out.append(arrow((xs[0] + 0.35, ytop), (xs[2] - 0.35, ytop), "POchre",
-                     bend="left=18", lw=0.9))
-    out.append(arrow((xs[2] + 0.35, ytop), (xs[0] - 0.35, ytop), "POchre",
-                     bend="right=36", lw=0.9))
-    out.append(label(xs[1], ytop + 0.88, r"$L_{C}=\cup\,mf$", "POchre"))
-    out.append(label(xs[1], ytop + 1.98, r"$\Lambda_{C}=\sum(M^{-1})_{kj}"
-                     r"\,b_{k}\times a_{j}$", "POchre"))
-    # the formula panel
-    out.append(box(xs[1], ytop + 3.00,
-                   r"$\Lambda=\Lambda_{\mathrm{rel}}+\Lambda_{C}$,\quad "
-                   r"$\Lambda_{\mathrm{rel}}(x)=D^{-1}\,x\star\gamma$,\quad "
-                   r"$\gamma=\ell^{g-1}/(g-1)!$\\[1pt]"
-                   r"$[L_{W},\Lambda]=H_{\mathrm{rel}}+H_{C}$ acts on "
-                   r"$H^{p}(C,R^{q})$ by $(q-g)+(p-1)=\deg-\dim W$",
-                   "WSlate", "PSlate", lw=0.6))
-    # Mumford values of the outer columns
-    out.append(label(9.20, 2 * g * dy + 0.72, r"Mumford", "PMag",
-                     size=r"\small"))
-    for q in range(2 * g + 1):
-        txt = (r"$\QQ\,\ell^{%d}f$" % (q // 2)) if q % 2 == 0 else r"$0$"
-        if q == 0:
-            txt = r"$\QQ\,f$"
-        if q == 2:
-            txt = r"$\QQ\,\ell f$"
-        out.append(label(xs[2] + 0.98, q * dy, txt, "PMag", anchor="west"))
-    out.append(label(1.95, g * dy + 0.22, r"$q=g$", "PMag", size=r"\tiny"))
-    return "".join(out)
-
-
-# ---------------------------------------------------------------- propagation
-def propagation():
-    out = []
-
-    def cy(x):
-        return 0.28 * math.sin(0.55 * x) + 0.10 * math.sin(1.7 * x)
-
-    xs = [i * 0.1 for i in range(-4, 115)]
-    pts = " -- ".join("(%.2f,%.3f)" % (x, cy(x)) for x in xs)
-    out.append(r"  \draw[PInk,line width=1.1pt] %s;" % pts + "\n")
-    out.append(label(11.95, cy(11.4) + 0.05, r"$C=\Gamma\backslash\mathfrak{H}$",
-                     "PInk", size=r"\small", anchor="west"))
-    out.append(label(11.95, cy(11.4) - 0.45, r"compact", "PSlate",
-                     anchor="west"))
-    # CM points: a countable dense set, drawn as small hollow dots
-    cms = [0.35, 1.20, 2.05, 2.75, 3.55, 4.30, 6.05, 6.80, 7.50, 8.20, 9.95,
-           10.70, 11.25]
-    for x in cms:
-        out.append(dot(x, cy(x), "PGrass", r=1.5, hollow=True))
-    # isogeny arcs between CM fibres (Hecke orbit of the base point)
-    for a, b in ((1.20, 2.75), (2.75, 4.30), (1.20, 6.80), (6.80, 8.20)):
-        mid = 0.5 * (a + b)
-        dip = 0.16 + 0.035 * (b - a)
-        out.append(r"  \draw[PGrass!70,line width=0.5pt,dash pattern=on 2pt "
-                   r"off 1.5pt,-{Stealth[length=3pt,width=2.5pt]}] (%.2f,%.3f)"
-                   r" .. controls (%.2f,%.3f) and (%.2f,%.3f) .. (%.2f,%.3f);"
-                   % (a, cy(a) - 0.08, a + 0.3, cy(a) - dip - 0.12,
-                      b - 0.3, cy(b) - dip - 0.12, b, cy(b) - 0.08)
-                   + "\n")
-    out.append(label(4.70, -1.80, r"isogenies $X_{c}\to X_{c'}$ along Hecke "
-                     r"orbits carry $y$: a dense but countable set",
-                     "PGrass"))
-    # three fibres: a CM point, a general point, a very general point
-    fib = [(1.20, "PGrass", "WTeal", r"$y$", r"$X_{c}\times X_{c}$"),
-           (5.20, "PSlate", "WSlate", r"$H^{*}(W_{s})$", r"$W_{s}$"),
-           (9.20, "PClay", "WClay", r"$\xi_{t}$", r"$W_{t}$")]
-    for x, dr, fl, inner, name in fib:
-        y0 = cy(x)
-        out.append(r"  \draw[%s,fill=%s,line width=0.7pt,rounded corners=7pt]"
-                   r" (%.2f,%.2f) rectangle (%.2f,%.2f);"
-                   % (dr, fl, x - 0.62, y0 + 0.40, x + 0.62, y0 + 2.30) + "\n")
-        # a torus-like decoration inside the fibre
-        out.append(r"  \draw[%s!60,line width=0.5pt] (%.2f,%.2f) ellipse "
-                   r"(0.42 and 0.20);" % (dr, x, y0 + 1.85) + "\n")
-        out.append(r"  \draw[%s!60,line width=0.5pt] (%.2f,%.2f) arc (200:340:"
-                   r"0.20 and 0.07);" % (dr, x - 0.19, y0 + 1.87) + "\n")
-        out.append(r"  \draw[%s!60,line width=0.5pt] (%.2f,%.2f) arc (160:20:"
-                   r"0.14 and 0.05);" % (dr, x - 0.13, y0 + 1.83) + "\n")
-        out.append(r"  \draw[%s,line width=0.7pt] (%.2f,%.3f) -- (%.2f,%.2f);"
-                   % (dr, x, y0, x, y0 + 0.40) + "\n")
-        out.append(dot(x, y0, dr, r=2.0))
-        out.append(label(x, y0 + 1.05, inner, dr, size=r"\small"))
-    out.append(label(1.20, -1.05, r"CM point $c$: $y$ algebraic\\"
-                     r"(Thm.~16.26, via Markman)", "PGrass"))
-    out.append(label(5.20, -0.95, r"general point", "PSlate"))
-    out.append(label(9.20, -1.05, r"very general $t$:\\"
-                     r"$\xi_{t}=$ invariant part of $y$", "PClay"))
-    # the global class
-    out.append(box(5.20, 4.75, r"$u=m\,\Lambda_{C}(i_{c*}y)\in "
-                   r"H^{q}_{(q)}(W)$\\[1pt]{\scriptsize algebraic when $B(W)$ "
-                   r"holds; $f\cup u=i_{c*}y$}", "WOchre", "POchre", lw=0.8))
-    out.append(arrow((1.75, 2.80), (3.25, 4.40), "PGrass", bend="left=14",
-                     lw=0.9))
-    out.append(arrow((7.15, 4.40), (8.65, 2.80), "PClay", bend="left=14",
-                     lw=0.9))
-    out.append(label(1.55, 3.95, r"$i_{c*}$: Gysin,\\then $\Lambda_{C}$",
-                     "PGrass"))
-    out.append(label(8.95, 3.95, r"restrict:\\$u|_{W_{t}}=\xi_{t}$", "PClay"))
-    # the pairing that pins down the restriction
-    out.append(label(5.20, 3.30, r"$\int_{W_{c}}u\cup w=\int_{W_{c}}"
-                     r"y\cup w$, $w$ invariant", "POchre"))
-    # the spreading dichotomy
-    out.append(box(5.20, -2.85, r"Lemma~16.24: $\xi_{t}$ algebraic for "
-                   r"uncountably many $t$ $\Longrightarrow$ $d\,\xi_{t}$ "
-                   r"algebraic for every $t$\\[1pt]{\scriptsize so the CM points"
-                   r" alone never suffice; $B(W)$ supplies the global class "
-                   r"$u$ instead (Thm.~16.25)}", "WSlate", "PSlate", lw=0.6))
-    return "".join(out)
-
-
-# ---------------------------------------------------------------- rigidity
 def ellipse(cx, cy, rx, ry, draw, fill, lw=0.7, style=""):
     return (r"  \draw[%s,fill=%s,line width=%.2fpt%s] (%.2f,%.2f) ellipse "
             r"(%.2f and %.2f);" % (draw, fill, lw, style, cx, cy, rx, ry) + "\n")
 
 
-def rigidity():
+# ============================================= the measured canvas
+PT_PER_CM = 72.27 / 2.54
+
+PICTURE_OPTS = (r"x=1cm,y=1cm,line join=round,line cap=round,"
+                r"font=\small,text=PInk")
+
+MEAS_HEAD = r"""\documentclass{article}
+\usepackage{amsmath,amssymb}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,decorations.pathreplacing,patterns}
+\input{%(palette)s}
+%(macros)s
+\makeatletter
+\newcommand{\mfcorner}[2]{\pgfpointanchor{#1}{#2}%%
+  \typeout{MFMEAS #1 \strip@pt\pgf@x\space\strip@pt\pgf@y}}
+\newcommand{\mfmeasure}[1]{\mfcorner{#1}{south west}\mfcorner{#1}{south east}%%
+  \mfcorner{#1}{north east}\mfcorner{#1}{north west}}
+\makeatother
+\begin{document}
+\begin{tikzpicture}[%(popts)s]
+"""
+MEAS_TAIL = r"""\end{tikzpicture}
+\end{document}
+"""
+
+COORD = re.compile(r"\(\s*(-?\d+(?:\.\d*)?)\s*,\s*(-?\d+(?:\.\d*)?)\s*\)")
+NODE = re.compile(r"\\node\[([^\]]*)\]\s*at\s*\((-?[\d.]+),\s*(-?[\d.]+)\)"
+                  r"\s*\{(.*?)\};", re.S)
+
+
+def measure(specs, macros=""):
+    """TeX's own bounding box of each node (opts, text), in cm, relative to
+    the point at which the node is placed."""
+    if not specs:
+        return []
+    tmp = tempfile.mkdtemp(prefix="mfmeas_")
+    try:
+        pal = os.path.join(HERE, "palette").replace("\\", "/")
+        src = [MEAS_HEAD % dict(palette=pal, macros=macros,
+                                popts=PICTURE_OPTS)]
+        for i, (o, t) in enumerate(specs):
+            src.append(r"\node[%s] (mf%d) at (0,0) {%s};" % (o, i, t))
+            src.append(r"\mfmeasure{mf%d}" % i + "\n")
+        src.append(MEAS_TAIL)
+        with open(os.path.join(tmp, "m.tex"), "w") as f:
+            f.write("\n".join(src))
+        subprocess.run(["pdflatex", "-interaction=batchmode",
+                        "-halt-on-error", "m.tex"], cwd=tmp,
+                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        log = open(os.path.join(tmp, "m.log"), errors="replace").read()
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+    pts = {}
+    for name, x, y in re.findall(r"MFMEAS mf(\d+) (-?[\d.]+) (-?[\d.]+)",
+                                 log):
+        pts.setdefault(int(name), []).append((float(x) / PT_PER_CM,
+                                              float(y) / PT_PER_CM))
     out = []
-    # left panel: the Siegel space and the nested Hodge loci
-    out.append(r"  \draw[PSlate,fill=WSlate,line width=0.8pt,rounded corners=26pt]"
-               r" (-0.20,-0.30) rectangle (7.40,6.10);" + "\n")
-    # the boundary, drawn as a dashed rim with cusps
-    out.append(r"  \draw[PSlate!70,line width=0.6pt,dash pattern=on 3pt off 2pt,"
-               r"rounded corners=30pt] (-0.45,-0.55) rectangle (7.65,6.35);"
-               + "\n")
-    for x, y in ((-0.45, 2.90), (7.65, 2.90), (3.60, -0.55)):
-        out.append(r"  \fill[PSlate] (%.2f,%.2f) circle (1.6pt);" % (x, y) + "\n")
-    out.append(label(3.60, 6.72, r"$\mathfrak{S}_{8}$, $\dim 36$: principally "
-                     r"polarised $8$-folds near $X_{c}\times X_{c}$", "PInk",
-                     size=r"\small"))
-    out.append(label(3.60, -0.95, r"boundary with cusps: degenerations of "
-                     r"$\mathfrak{S}_{8}$", "PSlate"))
-    out.append(ellipse(3.70, 2.75, 3.05, 2.35, "PIndigo", "WBlue", lw=0.8))
-    out.append(ellipse(3.95, 2.45, 2.10, 1.55, "PTeal", "WTeal", lw=0.8))
-    out.append(label(3.70, 4.55, r"$T=20$: $a_{0}=a_{1}=a_{2}=a_{3}$",
-                     "PIndigo"))
-    out.append(label(3.95, 3.35, r"$T=10$: $a_{1}=a_{2}=a_{3}$\\"
-                     r"diagonal $\mathfrak{S}_{4}$", "PTeal"))
-    # the compact Mumford curve: a closed loop with CM points
-    loop = []
-    for i in range(0, 73):
-        th = 2 * math.pi * i / 72
-        r = 0.95 + 0.12 * math.cos(3 * th)
-        loop.append((4.10 + 1.25 * r * math.cos(th),
-                     2.05 + 0.55 * r * math.sin(th)))
-    out.append(r"  \draw[PClay,line width=1.3pt] %s -- cycle;"
-               % " -- ".join("(%.3f,%.3f)" % p for p in loop[:-1]) + "\n")
-    for i in range(0, 72, 7):
-        out.append(dot(loop[i][0], loop[i][1], "PGrass", r=1.4, hollow=True))
-    out.append(dot(loop[12][0], loop[12][1], "PClay", r=2.2))
-    out.append(label(4.10, 2.05, r"$C$: $T=1$", "PClay"))
-    out.append(label(1.45, 0.25, r"$T$ = tangent dimension\\of the Hodge locus",
-                     "PSlate"))
-    out.append(label(6.25, 0.30, r"no cusp: $D$\\is a division\\algebra",
-                     "PSlate"))
-    # right panel: the nine weight blocks
-    bx, by, s = 9.80, 0.55, 1.62
-    blocks = {(-2, -2): (3, r"$P_{1}P_{2}Q_{1}$"),
-              (-2, 0): (4, r"$P_{1}P_{2}Q_{1}Q_{2}$"),
-              (-2, 2): (3, r"$P_{1}P_{2}Q_{1}$"),
-              (0, -2): (4, r"$P_{1}P_{2}Q_{1}Q_{3}$"),
-              (0, 0): (8, r"$R\,P_{1}P_{2}$\\$Q_{1}Q_{2}Q_{3}Q_{4}$"),
-              (0, 2): (4, r"$P_{1}P_{2}Q_{1}Q_{3}$"),
-              (2, -2): (3, r"$P_{1}P_{2}Q_{1}$"),
-              (2, 0): (4, r"$P_{1}P_{2}Q_{1}Q_{2}$"),
-              (2, 2): (3, r"$P_{1}P_{2}Q_{1}$")}
-    for (m1, m2), (d, forms) in blocks.items():
-        i, j = (m1 + 2) // 2, (m2 + 2) // 2
-        x = bx + i * s
-        y = by + (2 - j) * s * 0.92
-        fill = "WClay" if (m1, m2) == (0, 0) else "WOchre"
-        draw = "PClay" if (m1, m2) == (0, 0) else "POchre"
-        head = (r"$8=7+1$" if (m1, m2) == (0, 0) else r"$%d$" % d)
-        out.append(r"  \node[draw=%s,fill=%s,rounded corners=2pt,line width=0.6pt,"
-                   r"minimum width=%.2fcm,minimum height=%.2fcm,inner sep=1pt,"
-                   r"align=center,font=\scriptsize] at (%.2f,%.2f) {%s\\%s};"
-                   % (draw, fill, s - 0.08, s * 0.92 - 0.08, x, y, head, forms)
-                   + "\n")
-    for k, m in enumerate((-2, 0, 2)):
-        out.append(label(bx + k * s, by + 2 * s * 0.92 + 0.98, r"$%+d$" % m
-                         if m else r"$0$", "PInk"))
-        out.append(label(bx - 1.10, by + (2 - k) * s * 0.92, r"$%+d$" % m
-                         if m else r"$0$", "PInk"))
-    out.append(label(bx + s, by + 2 * s * 0.92 + 1.45,
-                     r"weight $\mu_{1}$ of $\mathfrak{sl}_{2}(V_{1})$", "PInk"))
-    out.append(label(bx - 1.55, by + s * 0.92,
-                     r"weight $\mu_{2}$ of $\mathfrak{sl}_{2}(V_{2})$", "PInk",
-                     extra=",rotate=90"))
-    out.append(label(bx + s, by - 1.00,
-                     r"$\mathfrak{sp}^{-1,1}$: $3+4+3+4+8+4+3+4+3=36$",
-                     "PInk"))
-    out.append(label(bx + s, by - 1.50,
-                     r"in $(0,0)$ one kernel vector, the curve direction "
-                     r"$\kappa$", "PClay"))
-    out.append(label(bx + s, by - 2.00,
-                     r"$HT^{2}=28+64+28$: $46$ blocks, kernel $\CC\kappa$ "
-                     r"if $a_{0}+\mathrm{tr}\,\alpha\ne0$", "PIndigo"))
-    # the forms and their sums of squares
-    out.append(box(5.70, -2.55,
-                   r"$2P_{1}=\sum_{i<j}(a_{i}-a_{j})^{2}$,\quad "
-                   r"$2P_{2}=\sum_{i<j}(a_{i}+a_{j})^{2}$,\quad "
-                   r"$R=a_{2}^{2}+a_{3}^{2}$,\quad "
-                   r"$Q_{4}=(3a_{1}-a_{0}-a_{2}-a_{3})^{2}+16(a_{2}-a_{3})^{2}$"
-                   r"\\[1pt]"
-                   r"$33Q_{1}=3(11a_{1}-a_{0}-5a_{2}-5a_{3})^{2}"
-                   r"+8(6a_{2}-a_{0}-5a_{3})^{2}+88(a_{3}-a_{0})^{2}$,\quad "
-                   r"$S_{1}=(a_{0}-a_{2})^{2}+3(a_{1}-a_{3})^{2}$",
-                   "WSlate", "PSlate"))
-    out.append(label(5.70, -3.50, r"a rational exceptional class has "
-                     r"$(a_{1},a_{2},a_{3})=(\sigma_{1}\alpha,\sigma_{2}\alpha,"
-                     r"\sigma_{3}\alpha)$ with $\alpha\in F\setminus\QQ$: "
-                     r"pairwise distinct, so every block has full rank",
-                     "PInk"))
-    return "".join(out)
+    for i in range(len(specs)):
+        if i not in pts:
+            raise RuntimeError("could not measure node %d: %r" % (i, specs[i]))
+        xs = [p[0] for p in pts[i]]
+        ys = [p[1] for p in pts[i]]
+        out.append((min(xs), min(ys), max(xs), max(ys)))
+    return out
 
 
-# ---------------------------------------------------------------- bypass audit
-def bypass():
+# ------------------------------------------------------------ geometry tests
+def seg_hits_rect(p, q, r):
+    x0, y0, x1, y1 = r
+    dx, dy = q[0] - p[0], q[1] - p[1]
+    t0, t1 = 0.0, 1.0
+    for pp, qq in ((-dx, p[0] - x0), (dx, x1 - p[0]),
+                   (-dy, p[1] - y0), (dy, y1 - p[1])):
+        if abs(pp) < 1e-12:
+            if qq < 0:
+                return False
+        else:
+            t = qq / pp
+            if pp < 0:
+                t0 = max(t0, t)
+            else:
+                t1 = min(t1, t)
+            if t0 > t1:
+                return False
+    return True
+
+
+def point_in_poly(pt, poly):
+    x, y = pt
+    inside = False
+    n = len(poly)
+    for i in range(n):
+        (xa, ya), (xb, yb) = poly[i], poly[(i + 1) % n]
+        if (ya > y) != (yb > y):
+            xc = xa + (y - ya) * (xb - xa) / (yb - ya)
+            if xc > x:
+                inside = not inside
+    return inside
+
+
+def poly_hits_rect(poly, r):
+    x0, y0, x1, y1 = r
+    xs = [p[0] for p in poly]
+    ys = [p[1] for p in poly]
+    if max(xs) < x0 or min(xs) > x1 or max(ys) < y0 or min(ys) > y1:
+        return False
+    n = len(poly)
+    for i in range(n):
+        if seg_hits_rect(poly[i], poly[(i + 1) % n], r):
+            return True
+    return point_in_poly(((x0 + x1) / 2, (y0 + y1) / 2), poly)
+
+
+def rects_meet(a, b):
+    return a[0] < b[2] and b[0] < a[2] and a[1] < b[3] and b[1] < a[3]
+
+
+def bezier(a, c1, c2, b, n=48):
     out = []
-    out.append(box(0.0, 0.0, r"\textbf{target}\\$\omega$ algebraic on "
-                   r"$X_{t}\times X_{t}$\\{\scriptsize $t\in C$ very general}",
-                   "WOchre", "POchre", lw=1.0))
-    BLK, BLKF = "PClay", "WClay"
-    OPN, OPNF = "PIndigo", "WBlue"
-    PAR, PARF = "PGrass", "WTeal"
-    # nine spokes, clockwise from the top: (angle, radii of the box centre,
-    # text, colours, status, offset of the status from the box centre)
-    spokes = [
-        (90, (0.0, 4.05), r"\textbf{degeneration}\\{\scriptsize to a cusp of "
-         r"the base}", BLKF, BLK, r"blocked: $C$ is compact", (0.0, 0.80)),
-        (54, (4.20, 3.30), r"\textbf{larger Hodge locus}\\{\scriptsize deform "
-         r"$X_{c}\times X_{c}$ off the curve}", BLKF, BLK,
-         r"blocked: tangent space $\CC\kappa$", (0.0, 0.80)),
-        (18, (6.75, 1.35), r"\textbf{Hochschild deformations}\\{\scriptsize "
-         r"$B$-fields, bivectors, gerbes}", BLKF, BLK,
-         r"blocked: $\mathrm{Ann}_{HT^{2}}=\CC\kappa$", (0.0, 0.80)),
-        (-18, (6.75, -1.35), r"\textbf{twistor lines}\\{\scriptsize "
-         r"hyperholomorphic transport}", BLKF, BLK,
-         r"blocked: the locus is a disk", (0.0, -0.82)),
-        (-54, (4.70, -3.25), r"\textbf{built from line bundles}\\{\scriptsize "
-         r"cones, $\otimes$, $f^{*}$, $f_{*}$, Fourier--Mukai}", BLKF, BLK,
-         r"blocked: $\mathrm{ch}$ stays Lefschetz", (0.0, -0.82)),
-        (-90, (0.0, -4.85), r"\textbf{CM points, isogenies}\\{\scriptsize "
-         r"algebraic at every CM point}", PARF, PAR,
-         r"enough iff the\\degrees are bounded", (0.0, -0.95)),
-        (-126, (-4.70, -3.25), r"\textbf{reduction mod $p$}\\{\scriptsize "
-         r"cycles at every closed point}", PARF, PAR,
-         r"enough iff the degrees are\\bounded on a dense set", (0.0, -0.95)),
-        (-162, (-6.75, -1.35), r"\textbf{semiregularity}\\{\scriptsize one $E$ "
-         r"at one CM point}", OPNF, OPN, r"open: $\dim\mathrm{Ext}^{2}=119$,"
-         r"\\$e_{1}+e_{3}\ge400$", (0.0, -0.95)),
-        (162, (-6.75, 1.35), r"\textbf{Kuga--Satake}\\{\scriptsize the class "
-         r"of one K3 surface $S_{\lambda}$}", OPNF, OPN,
-         r"open: $\rho(S_{\lambda})=13$, cubic RM", (0.0, 0.80)),
-        (126, (-4.20, 3.30), r"\textbf{motivated classes}\\{\scriptsize "
-         r"Andr\'e, deformation}", OPNF, OPN,
-         r"equivalent: $B(W\times_{C}W)$", (0.0, 0.80)),
-    ]
-    TW, TH = 2.05, 0.66     # half sizes of the target box
-    BW, BH = 1.75, 0.43     # half sizes of a spoke box
-    for ang, pos, text, fill, draw, status, soff in spokes:
-        dx, dy = pos
-        # the spoke joins the two box boundaries along the line of centres
-        t0 = min(TW / abs(dx) if dx else 9e9, TH / abs(dy) if dy else 9e9)
-        t1 = min(BW / abs(dx) if dx else 9e9, BH / abs(dy) if dy else 9e9)
-        st = (dx * t0, dy * t0)
-        en = (dx * (1 - t1), dy * (1 - t1))
-        style = ",dash pattern=on 3pt off 2pt" if draw == BLK else ""
-        out.append(r"  \draw[%s,line width=0.9pt%s] (%.2f,%.2f) -- (%.2f,%.2f);"
-                   % (draw, style, st[0], st[1], en[0], en[1]) + "\n")
-        if draw == BLK:
-            mx, my = 0.5 * (st[0] + en[0]), 0.5 * (st[1] + en[1])
-            out.append(r"  \draw[%s,line width=1.2pt] (%.2f,%.2f) -- (%.2f,%.2f)"
-                       r" (%.2f,%.2f) -- (%.2f,%.2f);"
-                       % (draw, mx - 0.12, my - 0.12, mx + 0.12, my + 0.12,
-                          mx - 0.12, my + 0.12, mx + 0.12, my - 0.12) + "\n")
-        out.append(box(dx, dy, text, fill, draw, lw=0.8))
-        out.append(label(dx + soff[0], dy + soff[1], status, draw))
-    # legend
-    out.append(box(-5.40, -6.75, r"blocked by a theorem", BLKF, BLK))
-    out.append(box(-0.30, -6.75, r"partial", PARF, PAR))
-    out.append(box(4.40, -6.75, r"open, or equivalent", OPNF, OPN))
-    return "".join(out)
+    for k in range(n + 1):
+        t = k / n
+        s = 1 - t
+        out.append((s ** 3 * a[0] + 3 * s * s * t * c1[0] + 3 * s * t * t * c2[0]
+                    + t ** 3 * b[0],
+                    s ** 3 * a[1] + 3 * s * s * t * c1[1] + 3 * s * t * t * c2[1]
+                    + t ** 3 * b[1]))
+    return out
 
 
-# ---------------------------------------------------------------- Ext profile
-def extprofile():
-    out = []
-    r = [1, 16, 119, 328, 560, 328, 119, 16, 1]
-    H = 4.4 / 560.0
-    bw, dx = 0.62, 0.95
-    out.append(r"  \definecolor{BEven}{HTML}{4A56B0}" + "\n")
-    out.append(r"  \definecolor{BOdd}{HTML}{D67026}" + "\n")
-    # recessive grid and one axis
-    for v in (100, 200, 300, 400, 500):
-        out.append(line([(-0.55, v * H), (8 * dx + 0.55, v * H)], "PRule!60",
-                        lw=0.3))
-        out.append(label(-0.70, v * H, r"$%d$" % v, "PSlate", anchor="east",
-                         size=r"\tiny"))
-    out.append(line([(-0.55, 0.0), (8 * dx + 0.55, 0.0)], "PInk", lw=0.6))
-    # the Serre mirror
-    out.append(line([(4 * dx, 4.90), (4 * dx, 5.30)], "PMag!70", lw=0.5,
-                    style=",dash pattern=on 3pt off 2pt"))
-    out.append(line([(4 * dx, -0.08), (4 * dx, -0.14)], "PMag!70", lw=0.5))
-    out.append(label(4 * dx, 5.55, r"Serre duality: $\mathrm{Ext}^{k}\cong"
-                     r"(\mathrm{Ext}^{8-k})^{\vee}$, and $r_{k}=r_{8-k}$",
-                     "PMag"))
-    for k, v in enumerate(r):
-        x = k * dx
-        col = "BEven" if k % 2 == 0 else "BOdd"
-        h = max(v * H, 0.03)
-        out.append(r"  \fill[%s,rounded corners=0.8pt] (%.3f,0) rectangle "
-                   r"(%.3f,%.3f);" % (col, x - bw / 2, x + bw / 2, h) + "\n")
-        out.append(label(x, h + 0.20, r"$%d$" % v, "PInk", size=r"\scriptsize"))
-        out.append(label(x, -0.30, r"$%d$" % k, "PInk", size=r"\scriptsize"))
-    out.append(label(4 * dx, -0.75, r"degree $k$ of $HT^{k}$ and "
-                     r"$\mathrm{Ext}^{k}(E,E)$", "PInk"))
-    out.append(label(-1.55, 2.2, r"$r_{k}=\dim HT^{k}\lrcorner\,\omega$",
-                     "PInk", extra=",rotate=90"))
-    out.append(label(2 * dx, 119 * H + 0.72, r"$28+63+28$", "PSlate",
-                     size=r"\tiny"))
-    # legend
-    out.append(r"  \fill[BEven,rounded corners=0.8pt] (0.40,5.03) rectangle "
-               r"(0.62,5.21);" + "\n")
-    out.append(label(0.75, 5.12, r"even $k$", "PInk", anchor="west"))
-    out.append(r"  \fill[BOdd,rounded corners=0.8pt] (0.40,4.53) rectangle "
-               r"(0.62,4.71);" + "\n")
-    out.append(label(0.75, 4.62, r"odd $k$", "PInk", anchor="west"))
-    # right panel: the Euler characteristic balance
-    cx, cy = 12.2, 2.3
-    out.append(line([(cx - 2.2, cy + 0.6), (cx + 2.2, cy + 0.6)], "PInk",
-                    lw=1.0))
-    out.append(r"  \fill[PInk] (%.2f,%.2f) -- (%.2f,%.2f) -- (%.2f,%.2f) -- "
-               r"cycle;" % (cx - 0.22, cy - 0.05, cx + 0.22, cy - 0.05, cx,
-                            cy + 0.58) + "\n")
-    for sgn in (-1, 1):
-        px = cx + sgn * 2.0
-        out.append(line([(px, cy + 0.6), (px - 0.55, cy - 0.35)], "PSlate",
-                        lw=0.4))
-        out.append(line([(px, cy + 0.6), (px + 0.55, cy - 0.35)], "PSlate",
-                        lw=0.4))
-    out.append(box(cx - 2.0, cy - 0.75, r"$\sum_{k\ \mathrm{even}}e_{k}$\\"
-                   r"{\scriptsize$\ge2\cdot1+2\cdot119+560=800$}", "WBlue",
-                   "BEven", lw=0.8))
-    out.append(box(cx + 2.0, cy - 0.75, r"$\sum_{k\ \mathrm{odd}}e_{k}$\\"
-                   r"{\scriptsize$\ge688$ from $HT$}", "WOchre", "BOdd",
-                   lw=0.8))
-    out.append(label(cx, cy + 1.25, r"$\chi(E,E)=\int_{Y}\ch(E^{\vee})"
-                     r"\ch(E)=0$ balances the pans", "PInk"))
-    out.append(label(cx, cy - 2.05, r"so the odd side exceeds the "
-                     r"Hochschild bound $688$\\by at least $112$, and "
-                     r"$e_{1}+e_{3}\ge400$\\when "
-                     r"$\mathrm{Ext}^{<0}(E,E)=0$", "PClay"))
-    out.append(label(cx, 4.95, r"$\sum_{k}r_{k}=1488$,\quad"
-                     r" $\sum_{k}(-1)^{k}r_{k}=112\neq0$", "PInk"))
-    return "".join(out)
+def circle_pts(x, y, r, n=24):
+    return [(x + r * math.cos(2 * math.pi * k / n),
+             y + r * math.sin(2 * math.pi * k / n)) for k in range(n)]
 
 
-def write(name, blurb, body):
-    path = os.path.join(HERE, name + ".tex")
+def fmt(p):
+    return "(%.3f,%.3f)" % (p[0], p[1])
+
+
+# ------------------------------------------------------------------- canvas
+class Fig:
+    """The TikZ of one figure, with its geometry kept alongside, so that each
+    label can be measured by TeX and tested against every other label, every
+    stroke and every fill before the file is written."""
+
+    def __init__(self, name, blurb, pad=0.045):
+        self.name, self.blurb, self.pad = name, blurb, pad
+        self.preamble = ""    # definitions shared by the figure and the ruler
+        self.body = []
+        self.labels = []      # dict(x, y, opts, text, tag, allow)
+        self.segs = []        # (p, q, tag)
+        self.polys = []       # (pts, tag)
+
+    # -- emission ---------------------------------------------------------
+    def raw(self, s):
+        self.body.append(s if s.endswith("\n") else s + "\n")
+
+    def node(self, x, y, text, opts, tag=None, allow=()):
+        self.raw(r"  \node[%s] at (%.3f,%.3f) {%s};" % (opts, x, y, text))
+        self.labels.append(dict(x=x, y=y, opts=opts, text=text, tag=tag,
+                                allow=set(allow)))
+
+    def text(self, x, y, text, color="PInk", size=r"\footnotesize",
+             anchor=None, extra="", tag=None, allow=()):
+        opts = "text=%s,inner sep=1pt,align=center,font=%s" % (color, size)
+        if anchor:
+            opts += ",anchor=%s" % anchor
+        opts += extra
+        self.node(x, y, text, opts, tag=tag, allow=allow)
+
+    def size(self, text, color="PInk", size=r"\footnotesize", anchor=None,
+             extra="", opts=None):
+        """TeX's bounding box of a node placed at the origin."""
+        if opts is None:
+            opts = "text=%s,inner sep=1pt,align=center,font=%s" % (color,
+                                                                     size)
+            if anchor:
+                opts += ",anchor=%s" % anchor
+            opts += extra
+        key = (opts, text)
+        if not hasattr(self, "_cache"):
+            self._cache = {}
+        if key not in self._cache:
+            self._cache[key] = measure([key], self.preamble)[0]
+        return self._cache[key]
+
+    def premeasure(self, specs):
+        """Measure many (opts, text) nodes in one run of TeX."""
+        if not hasattr(self, "_cache"):
+            self._cache = {}
+        todo = [k for k in dict.fromkeys(specs) if k not in self._cache]
+        for k, b in zip(todo, measure(todo, self.preamble)):
+            self._cache[k] = b
+
+    @staticmethod
+    def box_opts(fill, draw, lw=0.6, size=r"\footnotesize", w=None, h=None,
+                 sharp=False, extra=""):
+        opts = ("draw=%s,fill=%s,%sinner sep=2.6pt,line width=%.2fpt,"
+                "align=center,font=%s"
+                % (draw, fill, "" if sharp else "rounded corners=2pt,", lw,
+                   size))
+        if w is not None:
+            opts += ",minimum width=%.2fcm" % w
+        if h is not None:
+            opts += ",minimum height=%.2fcm" % h
+        return opts + extra
+
+    def boxed(self, x, y, text, fill, draw, lw=0.6, size=r"\footnotesize",
+              w=None, h=None, sharp=False, tag=None, allow=(), extra=""):
+        opts = self.box_opts(fill, draw, lw, size, w, h, sharp, extra)
+        self.node(x, y, text, opts, tag=tag, allow=allow)
+        b = self.size(text, opts=opts)
+        return (x + b[0], y + b[1], x + b[2], y + b[3])
+
+    def path(self, pts, style, lw=0.6, closed=False, tag=None, record=True):
+        body = " -- ".join(fmt(p) for p in pts) + (" -- cycle" if closed
+                                                   else "")
+        self.raw(r"  \draw[%s,line width=%.2fpt] %s;" % (style, lw, body))
+        if record:
+            n = len(pts)
+            for i in range(n - 1 + (1 if closed else 0)):
+                self.segs.append((pts[i], pts[(i + 1) % n], tag))
+
+    def fill(self, pts, style, tag=None, record=True, draw=None, lw=0.5):
+        body = " -- ".join(fmt(p) for p in pts) + " -- cycle"
+        if draw:
+            self.raw(r"  \filldraw[%s,draw=%s,line width=%.2fpt] %s;"
+                     % (style, draw, lw, body))
+        else:
+            self.raw(r"  \fill[%s] %s;" % (style, body))
+        if record:
+            self.polys.append((list(pts), tag))
+
+    def rect(self, x0, y0, x1, y1, style, tag=None, draw=None, lw=0.5,
+             record=True):
+        self.fill([(x0, y0), (x1, y0), (x1, y1), (x0, y1)], style, tag=tag,
+                  draw=draw, lw=lw, record=record)
+
+    def disc(self, x, y, r, style, tag=None, draw=None, lw=0.5):
+        if draw:
+            self.raw(r"  \filldraw[%s,draw=%s,line width=%.2fpt] (%.3f,%.3f) "
+                     r"circle (%.3f);" % (style, draw, lw, x, y, r))
+        else:
+            self.raw(r"  \fill[%s] (%.3f,%.3f) circle (%.3f);"
+                     % (style, x, y, r))
+        self.polys.append((circle_pts(x, y, r + (lw / 72.27 * 2.54 / 2
+                                                 if draw else 0)), tag))
+
+    def scene(self, tikz, tag="scene", tagger=None):
+        """Record the output of a render3d scene: every closed path is a fill,
+        every open path a set of strokes.  tagger(statement) may name the
+        tag of each statement."""
+        self.raw(tikz.rstrip("\n"))
+        for st in tikz.split(";\n"):
+            st = st.strip()
+            if not st or st.startswith(r"\node"):
+                continue
+            tg = tagger(st) if tagger else tag
+            if "circle (" in st:
+                m = re.search(r"\((-?[\d.]+),(-?[\d.]+)\) circle \(([\d.]+)\)",
+                              st)
+                if m:
+                    self.polys.append((circle_pts(float(m.group(1)),
+                                                  float(m.group(2)),
+                                                  float(m.group(3)) + 0.01),
+                                       tg))
+                continue
+            head = st.split("]")[0] if "]" in st else ""
+            body = st[len(head) + 1:] if head else st
+            coords = [(float(a), float(b)) for a, b in COORD.findall(body)]
+            if not coords:
+                continue
+            if "cycle" in body:
+                if "fill=" in head and "fill=none" not in head:
+                    self.polys.append((coords, tg))
+                if "draw=none" not in head and head.startswith(r"\draw"):
+                    for i in range(len(coords)):
+                        self.segs.append((coords[i],
+                                          coords[(i + 1) % len(coords)], tg))
+            else:
+                for i in range(len(coords) - 1):
+                    self.segs.append((coords[i], coords[i + 1], tg))
+
+    # -- checking -----------------------------------------------------------
+    def measure(self):
+        specs = [(l["opts"], l["text"]) for l in self.labels]
+        for l, b in zip(self.labels, measure(specs, self.preamble)):
+            l["box"] = (l["x"] + b[0], l["y"] + b[1], l["x"] + b[2],
+                        l["y"] + b[3])
+
+    def check(self, verbose=True):
+        self.measure()
+        P = self.pad
+        bad = []
+        L = self.labels
+        for i, a in enumerate(L):
+            ra = (a["box"][0] - P, a["box"][1] - P, a["box"][2] + P,
+                  a["box"][3] + P)
+            for b in L[i + 1:]:
+                if rects_meet(ra, b["box"]):
+                    bad.append(("label/label", a["text"][:40], b["text"][:40]))
+            for p, q, tag in self.segs:
+                if tag is not None and (tag == a["tag"] or tag in a["allow"]):
+                    continue
+                if seg_hits_rect(p, q, ra):
+                    bad.append(("label/stroke", a["text"][:40], tag,
+                                "(%.2f,%.2f)-(%.2f,%.2f)" % (p[0], p[1], q[0],
+                                                             q[1])))
+                    break
+            for pts, tag in self.polys:
+                if tag == "bg" or (tag is not None and (tag == a["tag"]
+                                                        or tag in a["allow"])):
+                    continue
+                if poly_hits_rect(pts, ra):
+                    bad.append(("label/fill", a["text"][:40], tag))
+                    break
+        if verbose:
+            for b in bad:
+                print("   OVERLAP", b)
+            print("  %s: %d labels, %d strokes, %d fills, %d problems"
+                  % (self.name, len(L), len(self.segs), len(self.polys),
+                     len(bad)))
+        return bad
+
+    def tikz(self):
+        return "".join(self.body)
+
+
+# ======================================================== figures
+HEAD = r"""%% {name}.tex   (generated by make_frontier.py; do not edit by hand)
+%% {blurb}
+\documentclass[tikz,border=6pt]{{standalone}}
+\usepackage{{amsmath,amssymb}}
+\usetikzlibrary{{arrows.meta,calc,decorations.pathreplacing,patterns}}
+\input{{palette}}
+{preamble}\begin{{document}}
+\begin{{tikzpicture}}[x=1cm,y=1cm,line join=round,line cap=round,
+  font=\small,text=PInk]
+"""
+TAIL = r"""\end{tikzpicture}
+\end{document}
+"""
+STIP = r"-{Stealth[length=4pt,width=3.2pt]}"
+FS, SS = r"\footnotesize", r"\scriptsize"
+
+
+def write(fig):
+    path = os.path.join(HERE, fig.name + ".tex")
     with open(path, "w") as f:
-        f.write(HEAD.format(name=name, blurb=blurb))
-        f.write(body)
+        f.write(HEAD.format(name=fig.name, blurb=fig.blurb,
+                            preamble=fig.preamble))
+        f.write(fig.tikz())
         f.write(TAIL)
     print("wrote", path)
 
 
+# ================================================================ Ext profile
+def extprofile():
+    F = Fig("fig_extprofile",
+            "Lower bounds r_k for dim Ext^k(E,E) when ch(E) = N omega, with the "
+            "upper envelope from HT^k and Serre duality, and the parity "
+            "balance forced by chi(E,E) = 0.")
+    F.preamble = ("\\definecolor{BEven}{RGB}{58,64,140}\n"
+                  "\\definecolor{BOdd}{RGB}{214,112,38}\n")
+    r = [1, 16, 119, 328, 560, 328, 119, 16, 1]
+    assert r == r[::-1] and sum(r) == 1488
+    assert sum((-1) ** k * v for k, v in enumerate(r)) == 112
+    # the upper envelope: r_k <= dim HT^k = C(16,k), and r_k = r_{8-k}
+    U = [min(comb(16, k), comb(16, 8 - k)) for k in range(9)]
+    assert U == [1, 16, 120, 560, 1820, 560, 120, 16, 1]
+    # on the hyperplane L0 = 0, at a sample point (item (XLV))
+    r_L0 = {2: 110, 4: 548, 6: 110}
+    dx, bw = 0.88, 0.56
+    S = 4.50 / 600.0
+    X = [k * dx for k in range(9)]
+    ax0, ax1 = -0.50, 8 * dx + 0.50
+    DASH = "PSlate,dash pattern=on 2.2pt off 1.6pt"
+    # axes
+    F.path([(ax0, 0), (ax1, 0)], "PInk", lw=0.6, tag="axis")
+    F.path([(ax0, 0), (ax0, 600 * S + 0.08)], "PInk", lw=0.6, tag="axis")
+    for v in range(0, 601, 100):
+        F.path([(ax0 - 0.08, v * S), (ax0, v * S)], "PInk", lw=0.5,
+               tag="axis")
+        F.text(ax0 - 0.13, v * S, r"$%d$" % v, "PSlate", SS, anchor="east")
+    F.text(ax0 - 0.98, 300 * S, r"$r_{k}=\dim HT^{k}(Y)\lrcorner\,\omega$",
+           "PInk", FS, extra=",rotate=90")
+    for k in range(9):
+        F.path([(X[k], 0), (X[k], -0.07)], "PInk", lw=0.5, tag="axis")
+        F.text(X[k], -0.30, r"$%d$" % k, "PInk", SS)
+    F.text(4 * dx, -0.72, r"degree $k$ of $HT^{k}(Y)$ and of "
+           r"$\mathrm{Ext}^{k}(E,E)$", "PInk", FS)
+    # the envelope, dashed, drawn first
+    gw = bw / 2 + 0.07
+    top = 600 * S + 0.45
+    for k in range(9):
+        if U[k] == r[k]:
+            continue
+        h = U[k] * S
+        if h > top:
+            yb = top - 0.32
+            for sx in (-gw, gw):
+                F.path([(X[k] + sx, 0), (X[k] + sx, yb - 0.06)], DASH,
+                       lw=0.55, tag="env%d" % k)
+                F.path([(X[k] + sx, yb + 0.14), (X[k] + sx, top)], DASH,
+                       lw=0.55, tag="env%d" % k)
+            for d in (-0.02, 0.10):
+                F.path([(X[k] - gw - 0.07, yb + d - 0.05),
+                        (X[k] + gw + 0.07, yb + d + 0.05)], "PSlate",
+                       lw=0.6, tag="env%d" % k)
+            F.text(X[k], top + 0.20, r"$%d$" % U[k], "PSlate", SS)
+        else:
+            F.path([(X[k] - gw, 0), (X[k] - gw, h), (X[k] + gw, h),
+                    (X[k] + gw, 0)], DASH, lw=0.55, tag="env%d" % k)
+            if U[k] - r[k] > 50:
+                F.text(X[k], h + 0.20, r"$%d$" % U[k], "PSlate", SS)
+    # the bars; the bar at k = 2 split by type
+    for k in range(9):
+        col = "BEven" if k % 2 == 0 else "BOdd"
+        h = max(r[k] * S, 0.03)
+        if k == 2:
+            parts = [(28, "BEven!40"), (63, "BEven!70"), (28, "BEven")]
+            y = 0.0
+            for v, c in parts:
+                F.rect(X[k] - bw / 2, y, X[k] + bw / 2, y + v * S, c,
+                       tag="bar%d" % k)
+                y += v * S
+            for yy in (28 * S, 91 * S):
+                F.path([(X[k] - bw / 2, yy), (X[k] + bw / 2, yy)], "white",
+                       lw=0.5, tag="bar%d" % k)
+        else:
+            F.rect(X[k] - bw / 2, 0, X[k] + bw / 2, h, col, tag="bar%d" % k)
+        if k in r_L0:
+            yy = r_L0[k] * S
+            F.path([(X[k] - bw / 2 + 0.04, yy), (X[k] + bw / 2 - 0.04, yy)],
+                   "white,dash pattern=on 1.6pt off 1.2pt", lw=0.7,
+                   tag="l0%d" % k)
+        if r[k] * S > 1.5:
+            F.text(X[k], h - 0.40, r"$%d$" % r[k], "white", SS,
+                   allow=("bar%d" % k,))
+        elif k == 2:
+            pass
+        else:
+            F.text(X[k], max(h, U[k] * S) + 0.20, r"$%d$" % r[k], "PInk", SS)
+    # the three summands of the bar at k = 2, magnified above it
+    zs = 0.020
+    ib, iw, ix = 1.62, 0.40, X[2] - 0.10
+    parts = [(28, "BEven!40", r"$H^{0,2}(Y)$"),
+             (63, "BEven!70", r"$H^{1}(T_{Y})$"),
+             (28, "BEven", r"$H^{0}(\wedge^{2}T_{Y})$")]
+    # a framed inset, so that it is not read against the scale
+    fx0, fx1, fy0, fy1 = -0.34, ix + iw / 2 + 0.14, ib - 0.14, ib + 2.38 + 0.52
+    F.rect(fx0, fy0, fx1, fy1, "white", draw="PRule", lw=0.5, tag="bg")
+    F.segs += [((fx0, fy0), (fx1, fy0), "frame"), ((fx1, fy0), (fx1, fy1),
+               "frame"), ((fx1, fy1), (fx0, fy1), "frame"),
+               ((fx0, fy1), (fx0, fy0), "frame")]
+    y = ib
+    for v, c, name in parts:
+        F.rect(ix - iw / 2, y, ix + iw / 2, y + v * zs, c, tag="inset")
+        F.text(ix, y + v * zs / 2, r"$%d$" % v, "white", SS,
+               allow=("inset",))
+        F.text(ix - iw / 2 - 0.10, y + v * zs / 2, name, "PInk", SS,
+               anchor="east")
+        y += v * zs
+    for yy in (ib + 28 * zs, ib + 91 * zs):
+        F.path([(ix - iw / 2, yy), (ix + iw / 2, yy)], "white", lw=0.5,
+               tag="insetsep")
+    F.text(ix, y + 0.20, r"$119$", "PInk", SS)
+    # the zoom lines, from the top corners of the bar to the inset
+    for sx in (-1, 1):
+        F.path([(X[2] + sx * bw / 2, 119 * S + 0.03),
+                (ix + sx * iw / 2, ib - 0.03)], "PSlate!70", lw=0.4,
+               tag="zoom")
+    # legend
+    lx, ly = X[5] + gw + 0.30, 4.35
+    F.rect(lx, ly - 0.09, lx + 0.24, ly + 0.09, "BEven", tag="leg")
+    F.rect(lx + 0.30, ly - 0.09, lx + 0.54, ly + 0.09, "BOdd", tag="leg")
+    F.text(lx + 0.64, ly, r"$r_{k}$, even and odd $k$", "PInk", SS,
+           anchor="west")
+    ly2 = ly - 0.42
+    F.path([(lx, ly2 - 0.10), (lx, ly2 + 0.10), (lx + 0.54, ly2 + 0.10),
+            (lx + 0.54, ly2 - 0.10)], DASH, lw=0.55, tag="leg")
+    F.text(lx + 0.64, ly2, r"$\min\{\binom{16}{k},\binom{16}{8-k}\}$",
+           "PInk", SS, anchor="west")
+    ly3 = ly2 - 0.45
+    F.rect(lx, ly3 - 0.09, lx + 0.54, ly3 + 0.09, "BEven!70", tag="leg")
+    F.path([(lx + 0.05, ly3), (lx + 0.49, ly3)],
+           "white,dash pattern=on 1.6pt off 1.2pt", lw=0.7, tag="leg")
+    F.text(lx + 0.64, ly3, r"on $L_{0}=0$", "PInk", SS, anchor="west")
+
+    # ------------------------------------------------ right: the balance
+    x0 = 9.75
+    s = 4.70 / 800.0
+    yE, yO, hh = 3.05, 1.55, 0.46
+
+    def bx(v):
+        return x0 + v * s
+    ya = 0.12
+    F.path([(bx(0), ya), (bx(850), ya)], "PInk", lw=0.5, tag="axis2")
+    for v in range(0, 801, 200):
+        F.path([(bx(v), ya), (bx(v), ya - 0.07)], "PInk", lw=0.5,
+               tag="axis2")
+        F.text(bx(v), ya - 0.30, r"$%d$" % v, "PSlate", SS)
+    even = [(2, "BEven"), (238, "BEven!70"), (560, "BEven!42")]
+    v0 = 0
+    for v, c in even:
+        F.rect(bx(v0), yE, bx(v0 + v), yE + hh, c, tag="even")
+        v0 += v
+    odd = [(32, "BOdd"), (656, "BOdd!70")]
+    v0 = 0
+    for v, c in odd:
+        F.rect(bx(v0), yO, bx(v0 + v), yO + hh, c, tag="odd")
+        v0 += v
+    F.raw(r"  \fill[pattern=north east lines,pattern color=BOdd] "
+          r"(%.3f,%.3f) rectangle (%.3f,%.3f);"
+          % (bx(688), yO, bx(800), yO + hh))
+    F.path([(bx(688), yO), (bx(800), yO), (bx(800), yO + hh),
+            (bx(688), yO + hh), (bx(688), yO)], "BOdd", lw=0.6, tag="odd")
+    F.polys.append(([(bx(688), yO), (bx(800), yO), (bx(800), yO + hh),
+                     (bx(688), yO + hh)], "odd"))
+    F.text(bx(0) - 0.12, yE + hh / 2, r"$\sum_{k\ \mathrm{even}}e_{k}$",
+           "PInk", FS, anchor="east")
+    F.text(bx(0) - 0.12, yO + hh / 2, r"$\sum_{k\ \mathrm{odd}}e_{k}$",
+           "PInk", FS, anchor="east")
+    # the line chi = 0
+    F.path([(bx(800), yO - 0.20), (bx(800), yE + hh + 0.62)],
+           "PMag,dash pattern=on 3pt off 2pt", lw=0.7, tag="chi")
+    F.text(bx(800) + 0.06, yE + hh + 0.70, r"$\chi(E,E)=0$", "PMag", FS,
+           anchor="south east")
+    # even labels, above
+    F.text(bx(2 + 175), yE + hh + 0.22, r"$e_{2}+e_{6}\ge238$", "PInk", SS)
+    F.text(bx(240 + 270), yE + hh + 0.22, r"$e_{4}\ge560$", "PInk", SS)
+    F.path([(bx(1), yE + hh + 0.02), (bx(0) - 0.07, yE + hh + 0.34)],
+           "PSlate", lw=0.4, tag="l02")
+    F.text(bx(0) - 0.10, yE + hh + 0.34, r"$e_{0}+e_{8}\ge2$", "PInk", SS,
+           anchor="east", tag="l02")
+    F.text(bx(800) - 0.10, yE + hh / 2, r"$800$", "white", SS,
+           anchor="east", tag="even")
+    # odd labels, below
+    F.text(bx(32 + 300), yO - 0.25, r"$e_{3}+e_{5}\ge656$", "PInk", SS)
+    F.path([(bx(16), yO - 0.02), (bx(0) - 0.07, yO - 0.34)], "PSlate",
+           lw=0.4, tag="l17")
+    F.text(bx(0) - 0.10, yO - 0.34, r"$e_{1}+e_{7}\ge32$", "PInk", SS,
+           anchor="east", tag="l17")
+    F.path([(bx(688), yO - 0.02), (bx(688), yO - 0.20)], "PInk", lw=0.5,
+           tag="h688")
+    F.text(bx(688), yO - 0.38, r"$688$", "PInk", SS, tag="h688")
+    F.text(bx(800) - 0.08, yO + hh + 0.22, r"$\ge112$", "BOdd", SS,
+           anchor="east")
+    # e1 + e3 >= 400, a bracket between the rows
+    yb = yO + hh + 0.16
+    F.path([(bx(0), yb - 0.08), (bx(0), yb), (bx(400), yb),
+            (bx(400), yb - 0.08)], "PClay", lw=0.6, tag="br")
+    F.text(bx(200), yb + 0.20, r"$e_{1}+e_{3}\ge400$", "PClay", SS,
+           tag="br")
+    return F
+
+
+# ================================================================== frontier
+# The rule set of thm:closure as carried by item (XXXIII): the standing of
+# each statement and the Horn rules, each with the label of its theorem.
+STATUS = {
+    'HC': 'derived', 'HC_ab': 'derived', 'weil_all': 'derived',
+    'weil_iq': 'derived', 'weil_triv': 'derived', 'weil_nontriv': 'derived',
+    's1': 'derived', 'w4triv': 'derived', 'known': 'derived',
+    'red_ab': 'open', 'red_ab_mod': 'open', 'red_weil': 'open',
+    'weil_cm': 'derived', 'weil_cm_triv': 'derived',
+    'weil_cm_nontriv': 'derived', 'P2_iq_s': 'open', 'P2_iq_ns': 'open',
+    'P2_cm_s': 'open', 'P2_cm_ns': 'open', 'secant_all': 'open',
+    'Q114': 'open', 'smooth_exists': 'open', 'smooth_vanish': 'open',
+    'sing_exists': 'open', 'sing_vanish': 'open', 'base_point': 'proved',
+    'reduction': 'proved', 'orbit_dense': 'proved', 'factor': 'proved',
+    'class_cond': 'proved', 'cm_line': 'proved', 'ingredients': 'proved',
+    'base_point_cm': 'proved', 'reduction_cm': 'proved',
+    'orbit_dense_cm': 'proved', 'mar2': 'quoted', 'mar3': 'quoted',
+    'mot_def': 'quoted', 'acc_ab': 'quoted', 'lef_B': 'open', 'mot': 'open',
+    'vhc': 'open'}
+RULES = [
+    (('HC_ab', 'red_ab'), 'HC', 'ssec:closuremap'),
+    (('red_ab',), 'HC_ab', 'prop:f3ishc'),
+    (('HC_ab', 'red_ab_mod'), 'HC', 'prop:f3prime'),
+    (('weil_all', 'red_weil'), 'HC_ab', 'ssec:closuremap'),
+    (('weil_iq', 'weil_cm'), 'weil_all', 'app:albert'),
+    (('weil_triv', 'weil_nontriv'), 'weil_iq', 'prop:separate'),
+    (('base_point', 'reduction', 'orbit_dense', 'P2_iq_s'), 'weil_triv',
+     'thm:semiregclosure'),
+    (('base_point', 'reduction', 'orbit_dense', 'P2_iq_ns'), 'weil_nontriv',
+     'thm:semiregclosure'),
+    (('base_point_cm', 'reduction_cm', 'orbit_dense_cm', 'P2_cm_s'),
+     'weil_cm_triv', 'thm:cmpropagation'),
+    (('base_point_cm', 'reduction_cm', 'orbit_dense_cm', 'P2_cm_ns'),
+     'weil_cm_nontriv', 'thm:cmpropagation'),
+    (('weil_cm_triv', 'weil_cm_nontriv'), 'weil_cm', 'prop:cmweil'),
+    (('weil_triv',), 'weil_nontriv', 'prop:descent'),
+    (('weil_cm_triv',), 'weil_cm_nontriv', 'prop:descent'),
+    (('weil_cm_triv',), 'weil_triv', 'prop:descent'),
+    (('secant_all', 'Q114', 'factor', 'class_cond', 'ingredients',
+      'reduction'), 'weil_triv', 'prop:splitgeom'),
+    (('smooth_exists', 'smooth_vanish', 'cm_line'), 's1',
+     'cor:disjointroutes'),
+    (('sing_exists', 'sing_vanish', 'cm_line'), 's1', 'cor:disjointroutes'),
+    (('s1', 'Q114', 'factor', 'class_cond'), 'w4triv',
+     'cor:markmancondition'),
+    (('mar2', 'mar3'), 'known', 'rem:markmanscope'),
+    (('lef_B', 'mot'), 'HC', 'prop:lefmot'),
+    (('lef_B', 'mot_def'), 'vhc', 'prop:lefvhc'),
+    (('vhc', 'acc_ab'), 'HC_ab', 'thm:vhcab'),
+]
+BASE = {k for k, v in STATUS.items() if v in ('proved', 'quoted')}
+LEAVES = sorted(k for k, v in STATUS.items() if v == 'open')
+
+
+def cn(seed):
+    have = set(seed)
+    changed = True
+    while changed:
+        changed = False
+        for prem, conc, _ in RULES:
+            if conc not in have and all(p in have for p in prem):
+                have.add(conc)
+                changed = True
+    return have
+
+
+def minimal_sets():
+    from itertools import combinations
+    found = []
+    for k in range(1, len(LEAVES) + 1):
+        for S in combinations(LEAVES, k):
+            s = set(S)
+            if any(m <= s for m in found):
+                continue
+            if 'HC' in cn(BASE | s):
+                found.append(s)
+    return found
+
+
+def used_rules(seed, goal='HC'):
+    """the rules of a forward derivation of goal from seed, pruned to those
+    the goal depends on"""
+    have, steps = set(seed), []
+    while goal not in have:
+        fired = False
+        for i, (prem, conc, _) in enumerate(RULES):
+            if conc not in have and all(p in have for p in prem):
+                have.add(conc)
+                steps.append(i)
+                fired = True
+        if not fired:
+            return None
+    need, keep = {goal}, set()
+    for i in reversed(steps):
+        prem, conc, _ = RULES[i]
+        if conc in need:
+            keep.add(i)
+            need.update(prem)
+    return keep
+
+
+def rule_index(prem, conc):
+    for i, (p, c, _) in enumerate(RULES):
+        if set(p) == set(prem) and c == conc:
+            return i
+    raise KeyError((prem, conc))
+
+
+def ray_exit(box, toward, gap=0.07):
+    """the point where the ray from the centre of box towards a point leaves
+    the box enlarged by gap"""
+    x0, y0, x1, y1 = box[0] - gap, box[1] - gap, box[2] + gap, box[3] + gap
+    cx, cy = (box[0] + box[2]) / 2, (box[1] + box[3]) / 2
+    dx, dy = toward[0] - cx, toward[1] - cy
+    t = min((x1 - cx) / dx if dx > 0 else ((x0 - cx) / dx if dx < 0 else 9e9),
+            (y1 - cy) / dy if dy > 0 else ((y0 - cy) / dy if dy < 0 else 9e9))
+    return (cx + t * dx, cy + t * dy)
+
+
+def toward(p, q, d):
+    """the point at distance d from p towards q"""
+    L = math.hypot(q[0] - p[0], q[1] - p[1])
+    return (p[0] + d * (q[0] - p[0]) / L, p[1] + d * (q[1] - p[1]) / L)
+
+
+def frontier():
+    F = Fig("fig_frontier",
+            "The rule set of the closure theorem with the routes of the "
+            "literature, and the five minimal sufficient sets, computed.")
+    OPEN, PROV, QUOT, DER = (("PClay", "WClay"), ("PGrass", "WTeal"),
+                             ("PSlate", "WSlate"), ("PIndigo", "WBlue"))
+    IMPLIED = {"red_ab", "red_ab_mod", "red_weil", "lef_B", "mot", "vhc"}
+    sub = lambda t: r"{\scriptsize %s}" % t
+    N = {
+        "HC": (0.00, 8.35, r"$\mathbf{HC}$\\" + sub(
+            r"$\mathrm{Hdg}^{p}(X)=\mathrm{Alg}^{p}(X)$ for every $X$"), DER,
+            ["HC"]),
+        "AB": (-3.25, 5.75, r"$\mathbf{HC}$ for every\\abelian variety",
+               DER, ["HC_ab"]),
+        "F3": (-5.85, 7.65, r"(F3)\\" + sub(r"$\mathbf{HC}$ for $X$ not "
+                                           r"abelian"), OPEN, ["red_ab"]),
+        "F3P": (2.45, 5.75, r"(F3$'$)\\" + sub(
+            r"$\mathrm{Hdg}^{p}(X)=\mathrm{Ab}^{p}(X)$"), OPEN,
+            ["red_ab_mod"]),
+        "M": (5.95, 7.65, r"(M)\\" + sub(r"Hodge classes") + r"\\" +
+              sub(r"motivated"), OPEN,
+              ["mot"]),
+        "L": (5.85, 3.15, r"(L)\\" + sub(r"$B(X)$ for every $X$"), OPEN,
+              ["lef_B"]),
+        "V": (1.45, 3.15, r"(V)\\" + sub(r"algebraic at $s\Rightarrow$ at "
+                                         r"$t$"), OPEN, ["vhc"]),
+        "F2": (-3.45, 3.15, r"(F2)\\" + sub(r"beyond Weil lines"), OPEN,
+               ["red_weil"]),
+        "WA": (-6.10, 3.15, r"Weil classes\\" + sub(r"every CM field"), DER,
+               ["weil_all"]),
+        "WS": (-6.10, 1.45, r"$\mathbf{W}(F,n,\delta_{0})$\\" + sub(
+            r"$[F:\mathbb{Q}]\ge4$, split"), DER, ["weil_cm_triv"]),
+        "P2": (-6.30, -1.15, r"(P2)\\" + sub(r"split, $[F:\mathbb{Q}]\ge4$"),
+               OPEN, ["P2_cm_s"]),
+        "BP": (-3.75, -1.15, r"base points,\\reduction, orbits", PROV,
+               ["base_point_cm", "reduction_cm", "orbit_dense_cm"]),
+        "AC": (-1.30, 1.55, r"Hodge classes of abelian\\varieties "
+               r"accessible", QUOT, ["acc_ab"]),
+        "MD": (3.55, 1.55, r"motivated classes\\deform in families", QUOT,
+               ["mot_def"]),
+    }
+    # the drawn rules: letter -> (premises, conclusion, junction or None)
+    R = {
+        "a": (["F3"], "AB", None),
+        "b": (["AB", "F3"], "HC", (-2.95, 7.65)),
+        "c": (["AB", "F3P"], "HC", (0.00, 7.05)),
+        "d": (["L", "M"], "HC", (3.65, 7.65)),
+        "e": (["L", "MD"], "V", (3.55, 3.15)),
+        "f": (["V", "AC"], "AB", (-1.45, 4.45)),
+        "g": (["WA", "F2"], "AB", (-4.75, 4.45)),
+        "h": (["P2", "BP"], "WS", (-5.20, 0.15)),
+        "i": (["WS"], "WA", None),
+    }
+    # each drawn rule is one rule of the set, or (i) a chain of them
+    link = {}
+    for k, (prem, conc, _) in R.items():
+        if k == "i":
+            continue
+        ps = [s for p in prem for s in N[p][4]]
+        link[k] = {rule_index(ps, N[conc][4][0])}
+    link["i"] = {i for i, r in enumerate(RULES)
+                 if r[2] in ("prop:descent", "prop:cmweil", "prop:separate",
+                             "app:albert")}
+    # the five minimal sufficient sets, computed, in the order of the paper
+    mins = minimal_sets()
+    order = [{"red_ab"}, {"lef_B", "mot"}, {"lef_B", "red_ab_mod"},
+             {"vhc", "red_ab_mod"}, {"P2_cm_s", "red_weil", "red_ab_mod"}]
+    assert sorted(map(sorted, mins)) == sorted(map(sorted, order)), mins
+    routes = []
+    for S in order:
+        used = used_rules(BASE | S)
+        routes.append((S, {k for k, v in link.items() if v & used}))
+    assert [sorted(r[1]) for r in routes] == [
+        ["a", "b"], ["d"], ["c", "e", "f"], ["c", "f"],
+        ["c", "g", "h", "i"]], routes
+
+    # ---------------------------------------------------- the main graph
+    specs = {}
+    for key, (x, y, t, kind, sts) in N.items():
+        extra = ""
+        if any(s in IMPLIED for s in sts):
+            extra = ",double=%s,double distance=0.9pt" % kind[1]
+        lw = 0.9 if key == "HC" else 0.6
+        specs[key] = F.box_opts(kind[1], kind[0], lw=lw, extra=extra)
+    JOPT = (r"circle,draw=PIndigo,fill=white,line width=0.7pt,inner sep=0.5pt,"
+            r"font=\scriptsize")
+    F.premeasure([(specs[k], N[k][2]) for k in N] + [(JOPT, r"$\wedge$")])
+    B = {}
+    for key, (x, y, t, kind, sts) in N.items():
+        b = F.size(t, opts=specs[key])
+        B[key] = (x + b[0], y + b[1], x + b[2], y + b[3])
+    jb = F.size(r"$\wedge$", opts=JOPT)
+    RJ = (jb[2] - jb[0]) / 2
+    col = {k: v[3][0] for k, v in N.items()}
+    cen = {k: ((B[k][0] + B[k][2]) / 2, (B[k][1] + B[k][3]) / 2) for k in N}
+    edges = {}          # rule letter -> list of polylines (for thumbnails)
+    for k, (prem, conc, J) in R.items():
+        edges[k] = []
+        if J is None:
+            p = prem[0]
+            a = ray_exit(B[p], cen[conc])
+            b = ray_exit(B[conc], cen[p])
+            F.path([a, b], col[p] + "," + TIP, lw=0.9, tag="e" + k)
+            edges[k].append([cen[p], cen[conc]])
+            continue
+        for p in prem:
+            a = ray_exit(B[p], J)
+            b = toward(J, a, RJ + 0.03)
+            F.path([a, b], col[p], lw=0.8, tag="e" + k)
+            edges[k].append([cen[p], J])
+        a = toward(J, cen[conc], RJ + 0.03)
+        b = ray_exit(B[conc], J)
+        F.path([a, b], "PIndigo," + TIP, lw=1.0, tag="e" + k)
+        edges[k].append([J, cen[conc]])
+    for key, (x, y, t, kind, sts) in N.items():
+        F.node(x, y, t, specs[key])
+    for k, (prem, conc, J) in R.items():
+        if J is not None:
+            F.node(J[0], J[1], r"$\wedge$", JOPT, tag="e" + k)
+    # the letters of the rules
+    LET = {"a": (-5.15, 6.45), "b": (-2.95, 8.00), "c": (-0.40, 7.35),
+           "d": (3.65, 8.00), "e": (3.55, 3.55), "f": (-1.05, 4.75),
+           "g": (-5.15, 4.75), "h": (-4.72, 0.42), "i": (-6.53, 2.30)}
+    for k, (x, y) in LET.items():
+        F.text(x, y, r"(%s)" % k, "PIndigo", SS)
+
+    # ------------------------------------------------------------ legend
+    lg = [[(OPEN, "open", False), (OPEN, "open, implied by $\mathbf{HC}$",
+                                     True), (PROV, "proved here", False)],
+          [(QUOT, "quoted", False), (DER, "derived", False)]]
+    for row, yl in zip(lg, (-0.45, -1.12)):
+        x = -1.75
+        for kind, t, dbl in row:
+            extra = (",double=%s,double distance=0.9pt" % kind[1]) if dbl \
+                else ""
+            o = F.box_opts(kind[1], kind[0], size=SS, extra=extra +
+                           ",anchor=west")
+            F.node(x, yl, t, o)
+            x += F.size(t, opts=o)[2] + 0.30
+    x += 0.05
+    F.node(x + 0.13, -1.12, r"$\wedge$", JOPT)
+    F.text(x + 0.38, -1.12, r"a rule with several premises", "PInk", SS,
+           anchor="west")
+
+    # ------------------------------------------------------- the routes
+    RC = ["POchre", "PMag", "PAmber", "PTeal", "PViolet"]
+    NAMES = {"red_ab": r"\mathrm{F3}", "lef_B": r"\mathrm{L}",
+             "mot": r"\mathrm{M}", "red_ab_mod": r"\mathrm{F3}'",
+             "vhc": r"\mathrm{V}", "red_weil": r"\mathrm{F2}",
+             "P2_cm_s": r"\mathrm{P2}_{\mathrm{split}}"}
+    ORD = ["P2_cm_s", "red_weil", "lef_B", "mot", "vhc", "red_ab",
+           "red_ab_mod"]
+    gx0, gx1, gy0, gy1 = -7.6, 7.3, -1.7, 8.9
+    tw, th = 2.46, 2.46 * (gy1 - gy0) / (gx1 - gx0)
+    ty = -2.35 - th / 2
+    for n, (S, used) in enumerate(routes):
+        cx = -5.84 + n * 2.92  # five thumbnails, 2.92 apart
+        sc = tw / (gx1 - gx0)
+        T = lambda p: (cx + sc * (p[0] - (gx0 + gx1) / 2),
+                       ty + sc * (p[1] - (gy0 + gy1) / 2))
+        F.rect(cx - tw / 2 - 0.15, ty - th / 2 - 0.14, cx + tw / 2 + 0.15,
+               ty + th / 2 + 0.14, "white", draw="PRule", lw=0.4, tag="bg")
+        for k in R:
+            for pl in edges[k]:
+                if k not in used:
+                    F.path([T(p) for p in pl], "PRule", lw=0.35, tag="thumb")
+        for k in R:
+            for pl in edges[k]:
+                if k in used:
+                    F.path([T(p) for p in pl], RC[n], lw=1.1, tag="thumb")
+        reached = cn(BASE | S)
+        for key in N:
+            b = B[key]
+            p0, p1 = T((b[0], b[1])), T((b[2], b[3]))
+            sts = N[key][4]
+            if set(sts) & S:
+                st, dr = N[key][3][0], N[key][3][0]
+            elif all(s in reached for s in sts) and key in (
+                    set(q for k in used for q in R[k][0]) |
+                    {R[k][1] for k in used}):
+                st, dr = N[key][3][1], N[key][3][0]
+            else:
+                st, dr = "white", "PRule"
+            F.rect(p0[0], p0[1], p1[0], p1[1], st, draw=dr, lw=0.35,
+                   tag="thumb")
+        names = ",".join(NAMES[s] for s in ORD if s in S)
+        F.text(cx, ty - th / 2 - 0.36, r"$\{%s\}$" % names, "PInk", FS)
+        F.text(cx, ty - th / 2 - 0.78, ", ".join("(%s)" % k for k in
+                                                 sorted(used)),
+               RC[n], SS)
+    return F
+
+
+# ============================================================ Lefschetz grid
+def arc_pts(a, b, h, n=40):
+    """a circular-looking arc from a to b bulging by h to the left of a->b"""
+    mx, my = (a[0] + b[0]) / 2, (a[1] + b[1]) / 2
+    dx, dy = b[0] - a[0], b[1] - a[1]
+    L = math.hypot(dx, dy)
+    nx, ny = -dy / L, dx / L
+    c = (mx + 2 * h * nx, my + 2 * h * ny)
+    return bezier(a, (a[0] + (c[0] - a[0]) * 0.75, a[1] + (c[1] - a[1]) * 0.75),
+                  (b[0] + (c[0] - b[0]) * 0.75, b[1] + (c[1] - b[1]) * 0.75),
+                  b, n)
+
+
+def lefschetzgrid():
+    F = Fig("fig_lefschetzgrid",
+            "The summands H^p(C,R^q) of an abelian scheme of relative "
+            "dimension four over a curve, the operators of the proof, and "
+            "the values for a Mumford family.")
+    g = 4
+    D = 0.64                     # row pitch
+    XC = {0: 0.0, 1: 3.00, 2: 6.00}
+    WD = {0: 2.62, 1: 1.80, 2: 2.62}
+    HB = 0.46
+    Y = lambda q: q * D
+    # Mumford: the invariants I_q are Q l^{q/2} for q even, 0 for q odd
+    # (cor:mumfordlefschetz), and H^2(C,R^q) = f u H^q_(q)
+    def mum(p, q):
+        if q % 2:
+            return r"0"
+        e = q // 2
+        l = "" if e == 0 else (r"\ell" if e == 1 else r"\ell^{%d}" % e)
+        if p == 0:
+            return r"\mathbb{Q}" + (r"\,%s" % l if l else "")
+        return r"\mathbb{Q}\," + l + " f"
+    # the diagonals k = p + q, behind the boxes
+    for k in range(0, 2 * g + 3):
+        pts = [(XC[p], Y(k - p)) for p in (0, 1, 2) if 0 <= k - p <= 2 * g]
+        if len(pts) >= 2:
+            F.path(pts, "PRule,dash pattern=on 1.4pt off 1.4pt", lw=0.5,
+                   tag="diag")
+    # the labels k of the diagonals, in the first gap, above each line
+    gx0 = XC[0] + WD[0] / 2
+    gx1 = XC[1] - WD[1] / 2
+    xm = (gx0 + gx1) / 2
+    for k in range(1, 2 * g + 1):
+        yl = Y(k) + (Y(k - 1) - Y(k)) * (xm - XC[0]) / (XC[1] - XC[0])
+        F.text(xm, yl + 0.25, r"$%d$" % k, "PSlate", SS)
+    F.text(xm, -0.08, r"$k$", "PSlate", FS)
+    # the boxes
+    for p in (0, 1, 2):
+        for q in range(2 * g + 1):
+            inv = p in (0, 2) and q % 2 == 0
+            fill = "WOchre" if inv else ("WSlate" if p == 1 else "WBlue")
+            draw = "POchre" if inv else "PSlate"
+            t = r"$H^{%d}(C,R^{%d})$" % (p, q)
+            if p != 1:
+                t += r"\enspace\textcolor{PMag}{$%s$}" % mum(p, q)
+            o = F.box_opts(fill, draw, lw=0.5, size=SS, w=WD[p], h=HB,
+                           sharp=False)
+            o = o.replace("inner sep=2.6pt", "inner sep=1pt")
+            F.node(XC[p], Y(q), t, o, allow=("diag",))
+    # the axis q = g of hard Lefschetz on the fibres, outside the columns
+    xl = XC[0] - WD[0] / 2
+    xr = XC[2] + WD[2] / 2
+    F.path([(xl - 0.30, Y(g)), (xl - 0.06, Y(g))],
+           "PMag,dash pattern=on 2.4pt off 1.6pt", lw=0.6, tag="axis")
+    F.path([(xr + 0.06, Y(g)), (xr + 0.36, Y(g))],
+           "PMag,dash pattern=on 2.4pt off 1.6pt", lw=0.6, tag="axis")
+    F.text(xr + 0.42, Y(g), r"$q=g$", "PMag", SS, anchor="west")
+    # row headers: the eigenvalue of [2]^*, the rank of R^q, and H_rel
+    HX = [xl - 2.45, xl - 1.50, xl - 0.62]
+    for q in range(2 * g + 1):
+        F.text(HX[0], Y(q), r"$2^{%d}$" % q, "PInk", SS)
+        F.text(HX[1], Y(q), r"$%d$" % math.comb(2 * g, q), "PInk", SS)
+        F.text(HX[2], Y(q), r"$%+d$" % (q - g) if q != g else r"$0$",
+               "PInk", SS)
+    ytop = Y(2 * g) + 0.62
+    F.text(HX[0], ytop, r"$[2]^{*}$", "PInk", FS)
+    F.text(HX[1], ytop, r"$\mathrm{rk}\,R^{q}$", "PInk", FS)
+    F.text(HX[2], ytop, r"$H_{\mathrm{rel}}$", "PInk", FS)
+    # column footers
+    foot = [r"$H^{q}_{(q)}\cong I_{q}$", r"$L_{C}=\Lambda_{C}=0$",
+            r"$f\cup H^{q}_{(q)}$"]
+    for p in (0, 1, 2):
+        F.text(XC[p], -0.62, r"$p=%d$" % p, "PInk", FS)
+        F.text(XC[p], -1.04, r"$H_{C}=%s$" % ("-1", "0", "+1")[p], "PInk",
+               SS)
+        F.text(XC[p], -1.50, foot[p], "PSlate", SS)
+    # the relative operators, on the right of the last column
+    qa, qb = 5, 7
+    xo = xr + 0.26
+    F.path([(xo, Y(qa)), (xo, Y(qb))], "PTeal," + STIP, lw=0.8, tag="Lrel")
+    F.text(xo + 0.08, Y(qa + 1), r"$L_{\mathrm{rel}}$", "PTeal",
+           SS, anchor="west", tag="Lrel")
+    xo2 = xo + F.size(r"$L_{\mathrm{rel}}$", "PTeal", SS,
+                      anchor="west")[2] + 0.36
+    F.path([(xo2, Y(qb)), (xo2, Y(qa))], "PTeal," + STIP, lw=0.8,
+           tag="Lamrel")
+    F.text(xo2 + 0.08, Y(qa + 1), r"$\Lambda_{\mathrm{rel}}$", "PTeal", SS,
+           anchor="west", tag="Lamrel")
+    # the base operators over the top row
+    yt = Y(2 * g) + HB / 2 + 0.10
+    a = (XC[0] + 0.55, yt)
+    b = (XC[2] - 0.55, yt)
+    F.path(arc_pts(a, b, 0.55), "POchre," + STIP, lw=0.9, tag="LC")
+    F.path(arc_pts((XC[2] + 0.55, yt), (XC[0] - 0.55, yt), -1.00),
+           "POchre," + STIP, lw=0.9, tag="LC")
+    F.text(XC[1], yt + 0.84, r"$L_{C}=\cup\,mf$", "POchre", SS)
+    F.text(XC[1], yt + 1.72, r"$\Lambda_{C}=\sum_{j,k}(M^{-1})_{kj}\,"
+           r"b_{k}\times a_{j}$", "POchre", SS)
+    # Step 6 of the proof
+    F.boxed(XC[1], yt + 2.55,
+            r"$\Lambda=\Lambda_{\mathrm{rel}}+\Lambda_{C}$,\quad "
+            r"$\Lambda_{\mathrm{rel}}=D^{-1}(\,\cdot\,)\star\gamma$,\quad "
+            r"$\gamma=\ell^{g-1}/(g-1)!$\\[1pt]"
+            r"$[L_{W},\Lambda]=H_{\mathrm{rel}}+H_{C}=(q-g)+(p-1)="
+            r"\deg-\dim W$", "WSlate", "PSlate", lw=0.5, size=SS)
+    return F
+
+
+# ================================================================== rigidity
+import re as _re
+import random as _random
+from fractions import Fraction as _Fr
+
+_C = _re.compile(r"\((-?\d+(?:\.\d*)?),(-?\d+(?:\.\d*)?)\)")
+
+
+def shift_tikz(s, dx, dy):
+    return _C.sub(lambda m: "(%.4f,%.4f)" % (float(m.group(1)) + dx,
+                                             float(m.group(2)) + dy), s)
+
+
+def weight_blocks():
+    """sp^{-1,1} for Y = X x X under the torus of the first two factors:
+    H^{1,0}(Y) has the weights (+-1,+-1), each twice, and sp^{-1,1} is its
+    symmetric square; the diagonal Siegel space has the symmetric square of
+    one copy."""
+    W = [(a, b) for a in (1, -1) for b in (1, -1)]
+    two = W + W
+    full, diag = {}, {}
+    for i in range(len(two)):
+        for j in range(i, len(two)):
+            m = (two[i][0] + two[j][0], two[i][1] + two[j][1])
+            full[m] = full.get(m, 0) + 1
+    for i in range(len(W)):
+        for j in range(i, len(W)):
+            m = (W[i][0] + W[j][0], W[i][1] + W[j][1])
+            diag[m] = diag.get(m, 0) + 1
+    return full, diag
+
+
+def rigidity():
+    F = Fig("fig_rigidity",
+            "The tangent spaces at Y = X_c x X_c of the Hodge loci of three "
+            "classes, block by block, and the Gram determinants of the nine "
+            "weight blocks of sp^{-1,1}.")
+    from render3d import Camera, Scene
+    full, diag = weight_blocks()
+    assert sum(full.values()) == 36 and sum(diag.values()) == 10
+    # the kernels, block by block, as computed with the model of item
+    # (XLIV): at a generic exceptional class only kappa, in the block of
+    # weight (0,0); at a = (3,5,5,5) the tangent space of the diagonal Siegel
+    # space, one dimension in every block and two in the block (0,0); at
+    # a = (1,1,1,1) twice as much in every block (totals 1, 10, 20, as in
+    # rem:rigidcompare)
+    K1 = {m: (1 if m == (0, 0) else 0) for m in full}
+    K10 = dict(diag)
+    K20 = {m: 2 * diag[m] for m in full}
+    assert sum(K10.values()) == 10 and sum(K20.values()) == 20
+    assert all(K1[m] <= K10[m] <= K20[m] <= full[m] for m in full)
+    # Gram determinants (item (XLIV)): a positive constant times the forms
+    GRAM = {(-2, -2): ("1/2", "P_{1}P_{2}Q_{1}"),
+            (-2, 0): ("1/4", "P_{1}P_{2}Q_{1}Q_{2}"),
+            (-2, 2): ("1/2", "P_{1}P_{2}Q_{1}"),
+            (0, -2): ("1/4", "P_{1}P_{2}Q_{1}Q_{3}"),
+            (0, 0): ("9/256", "RP_{1}P_{2}Q_{1}Q_{2}Q_{3}Q_{4}"),
+            (0, 2): ("1/4", "P_{1}P_{2}Q_{1}Q_{3}"),
+            (2, -2): ("1/2", "P_{1}P_{2}Q_{1}"),
+            (2, 0): ("1/4", "P_{1}P_{2}Q_{1}Q_{2}"),
+            (2, 2): ("1/2", "P_{1}P_{2}Q_{1}")}
+    # ------------------------------------------------ the columns, in 3D
+    S, E = 1.45, 0.60                 # lattice pitch, cube edge
+    COL = [("PClay", 0.30, 0.48), ("PTeal", 0.30, 0.48),
+           ("PIndigo", 0.36, 0.46), ("PSlate", 0.78, 0.20)]
+    EDGE = "PInk!55,line width=0.25pt"
+    az, el, dist = math.radians(-128.0), math.radians(31.0), 34.0
+    tgt = (0.0, 0.0, 1.9)
+    eye = (tgt[0] + dist * math.cos(el) * math.cos(az),
+           tgt[1] + dist * math.cos(el) * math.sin(az),
+           tgt[2] + dist * math.sin(el))
+
+    def build(scale):
+        cam = Camera(eye=eye, target=tgt, focal=dist, scale=scale)
+        sc = Scene(cam, light=(-0.45, -0.75, 0.95))
+        R = 1.55 * S
+        # the floor and its lattice lie under everything: drawn first
+        pr = lambda p: "(%.4f,%.4f)" % cam.project(p)[0]
+        sc.add(1e9, "  \\fill[PSlate!4!white] %s -- %s -- %s -- %s -- cycle;\n"
+               % (pr((-R, -R, 0)), pr((R, -R, 0)), pr((R, R, 0)),
+                  pr((-R, R, 0))))
+        for t in (-1, 0, 1):
+            for a_, b_ in (((t * S, -R, 0), (t * S, R, 0)),
+                           ((-R, t * S, 0), (R, t * S, 0))):
+                sc.add(1e9 - 1, "  \\draw[PRule,line width=0.45pt] %s -- %s;"
+                       "\n" % (pr(a_), pr(b_)))
+        for (m1, m2), d in full.items():
+            x, y = m1 / 2 * S, m2 / 2 * S
+            for k in range(d):
+                top = d - 1 - k          # 0 for the top cube
+                if top < K1[(m1, m2)]:
+                    c = COL[0]
+                elif top < K10[(m1, m2)]:
+                    c = COL[1]
+                elif top < K20[(m1, m2)]:
+                    c = COL[2]
+                else:
+                    c = COL[3]
+                sc.box((x, y, E * (k + 0.5)), (E, E, E), base=c[0],
+                       ambient=c[1], diffuse=c[2], edge_style=EDGE)
+        return cam, sc.emit()
+    cam, body = build(1.0)
+    xs = [float(a) for a, b in _C.findall(body)]
+    cam, body = build(7.0 / (max(xs) - min(xs)))
+    xs = [float(a) for a, b in _C.findall(body)]
+    ys = [float(b) for a, b in _C.findall(body)]
+    dx, dy = -min(xs), -min(ys)
+    body = shift_tikz(body, dx, dy)
+    F.scene(body, tag="cubes")
+    P = lambda p: (cam.project(p)[0][0] + dx, cam.project(p)[0][1] + dy)
+    R = 1.55 * S
+    # the weights along two edges of the floor
+    for t in (-1, 0, 1):
+        q = P((t * S, -R - 0.42, 0))
+        F.text(q[0], q[1], r"$%s$" % ("-2", "0", "+2")[t + 1], "PInk", SS)
+        q = P((-R - 0.42, t * S, 0))
+        F.text(q[0], q[1], r"$%s$" % ("-2", "0", "+2")[t + 1], "PInk", SS)
+    q = P((0, -R - 1.15, 0))
+    F.text(q[0], q[1], r"$\mu_{1}$", "PInk", FS)
+    q = P((-R - 1.15, 0, 0))
+    F.text(q[0], q[1], r"$\mu_{2}$", "PInk", FS)
+
+    # ------------------------------------------------ the Gram table
+    W3 = max(xs) + dx
+    tx0 = W3 + 1.55
+    cw, ch = 2.28, 1.08
+    ty0 = max(ys) + dy - 1.05
+    for (m1, m2), (cst, forms) in GRAM.items():
+        i, j = (m1 + 2) // 2, (m2 + 2) // 2
+        x = tx0 + i * cw
+        y = ty0 - (2 - j) * ch
+        hot = (m1, m2) == (0, 0)
+        d = full[(m1, m2)]
+        num, den = cst.split("/")
+        cf = r"\tfrac{%s}{%s}" % (num, den)
+        if hot:
+            t = (r"$d=%d$, $\ker=\mathbb{C}\kappa$\\$%s\,R\,P_{1}P_{2}$\\"
+                 r"$Q_{1}Q_{2}Q_{3}Q_{4}$" % (d, cf))
+        else:
+            t = r"$d=%d$\\$%s\,%s$" % (d, cf, forms)
+        F.node(x, y, t,
+               F.box_opts("WClay" if hot else "WOchre",
+                          "PClay" if hot else "POchre", lw=0.5, size=SS,
+                          w=cw - 0.10, h=ch - 0.10)
+               .replace("inner sep=2.6pt", "inner sep=1.2pt"))
+    for i in range(3):
+        lab = r"$%s$" % ("-2", "0", "+2")[i]
+        F.text(tx0 + i * cw, ty0 + ch / 2 + 0.20, lab, "PInk", SS)
+        F.text(tx0 - cw / 2 - 0.25, ty0 - (2 - i) * ch, lab, "PInk", SS)
+    F.text(tx0 + cw, ty0 + ch / 2 + 0.68, r"$\mu_{1}$", "PInk", FS)
+    F.text(tx0 - cw / 2 - 0.66, ty0 - ch, r"$\mu_{2}$", "PInk", FS)
+    # legend, under the table
+    items = [(COL[0], r"$\omega_{a}$ exceptional: $\mathbb{C}\kappa$, "
+                      r"$\dim 1$"),
+             (COL[1], r"$a=(3,5,5,5)$: $\dim 10$"),
+             (COL[2], r"$a=(1,1,1,1)$: $\dim 20$"),
+             (COL[3], r"$T_{Y}\mathfrak{S}=\mathfrak{sp}^{-1,1}$: "
+                      r"$\dim 36$")]
+    ly = ty0 - 2.5 * ch - 0.86
+    F.text(tx0 - cw / 2 + 0.05, ly + 0.44, r"tangent space at $Y$ of the "
+           r"Hodge locus of $\omega_{a}$", "PSlate", SS, anchor="west")
+    for n, (c, t) in enumerate(items):
+        lx = tx0 - cw / 2 + 0.05
+        yy = ly - 0.42 * n
+        F.rect(lx, yy - 0.12, lx + 0.24, yy + 0.12, "%s!%d!white" % (
+            c[0], 62 if n < 3 else 18), draw="PInk!55", lw=0.3, tag="leg")
+        F.text(lx + 0.34, yy, t, "PInk", SS, anchor="west")
+    # ------------------------------------------------ the certificates
+    sos = (r"$2P_{1}=\sum_{i<j}(a_{i}-a_{j})^{2}$,\quad "
+           r"$2P_{2}=\sum_{i<j}(a_{i}+a_{j})^{2}$,\quad "
+           r"$R=a_{2}^{2}+a_{3}^{2}$,\quad "
+           r"$Q_{4}=(3a_{1}-a_{0}-a_{2}-a_{3})^{2}+16(a_{2}-a_{3})^{2}$\\[2pt]"
+           r"$33Q_{1}=3(11a_{1}-a_{0}-5a_{2}-5a_{3})^{2}+8(6a_{2}-a_{0}"
+           r"-5a_{3})^{2}+88(a_{3}-a_{0})^{2}$\\[2pt]"
+           r"$119Q_{2}=21(17a_{1}+a_{0}+5a_{2}+a_{3})^{2}+16(7a_{2}-2a_{0}"
+           r"+15a_{3})^{2}+272(3a_{3}+a_{0})^{2}$\\[2pt]"
+           r"$51Q_{3}=9(17a_{1}+a_{0}+a_{2}+5a_{3})^{2}+8(18a_{2}+a_{0}"
+           r"+5a_{3})^{2}+136(a_{3}-a_{0})^{2}$")
+    _check_sos()
+    xmid = (0 + tx0 + 2.5 * cw) / 2
+    F.boxed(xmid, -1.25, sos, "WSlate", "PSlate", lw=0.5, size=SS)
+    return F
+
+
+def _check_sos():
+    """the sums of squares of the figure, checked at random rational points
+    against the forms of item (XLIV)"""
+    rnd = _random.Random(7)
+    for _ in range(40):
+        a0, a1, a2, a3 = [_Fr(rnd.randint(-40, 40), rnd.randint(1, 9))
+                          for _ in range(4)]
+        P1 = a1**2 + a2**2 + a3**2 - a1*a2 - a1*a3 - a2*a3
+        P2 = a1**2 + a2**2 + a3**2 + a1*a2 + a1*a3 + a2*a3
+        Q1 = (3*a0**2 - 2*a0*a1 - 2*a0*a2 - 2*a0*a3 + 11*a1**2 - 10*a1*a2
+              - 10*a1*a3 + 11*a2**2 - 10*a2*a3 + 11*a3**2)
+        Q2 = (3*a0**2 + 6*a0*a1 - 2*a0*a2 + 6*a0*a3 + 51*a1**2 + 30*a1*a2
+              + 6*a1*a3 + 11*a2**2 + 30*a2*a3 + 51*a3**2)
+        Q3 = (3*a0**2 + 6*a0*a1 + 6*a0*a2 - 2*a0*a3 + 51*a1**2 + 6*a1*a2
+              + 30*a1*a3 + 51*a2**2 + 30*a2*a3 + 11*a3**2)
+        Q4 = (a0**2 - 6*a0*a1 + 2*a0*a2 + 2*a0*a3 + 9*a1**2 - 6*a1*a2
+              - 6*a1*a3 + 17*a2**2 - 30*a2*a3 + 17*a3**2)
+        assert 2*P1 == (a1-a2)**2 + (a1-a3)**2 + (a2-a3)**2
+        assert 2*P2 == (a1+a2)**2 + (a1+a3)**2 + (a2+a3)**2
+        assert 33*Q1 == (3*(11*a1-a0-5*a2-5*a3)**2 + 8*(6*a2-a0-5*a3)**2
+                         + 88*(a3-a0)**2)
+        assert 119*Q2 == (21*(17*a1+a0+5*a2+a3)**2 + 16*(7*a2-2*a0+15*a3)**2
+                          + 272*(3*a3+a0)**2)
+        assert 51*Q3 == (9*(17*a1+a0+a2+5*a3)**2 + 8*(18*a2+a0+5*a3)**2
+                         + 136*(a3-a0)**2)
+        assert Q4 == (3*a1-a0-a2-a3)**2 + 16*(a2-a3)**2
+
+
+# ================================================================== bypass
+def wedge_pts(rx, ry, r0, r1, a0, a1, n=60):
+    """an annular sector of the ellipse (rx, ry), radii r0 < r1 (fractions),
+    angles a0 > a1 in degrees, clockwise"""
+    out = []
+    for k in range(n + 1):
+        t = math.radians(a0 + (a1 - a0) * k / n)
+        out.append((r1 * rx * math.cos(t), r1 * ry * math.sin(t)))
+    for k in range(n + 1):
+        t = math.radians(a1 + (a0 - a1) * k / n)
+        out.append((r0 * rx * math.cos(t), r0 * ry * math.sin(t)))
+    return out
+
+
+def bypass():
+    F = Fig("fig_bypass",
+            "The ten routes to the Mumford target that avoid the Lefschetz "
+            "standard conjecture, with the status of each.")
+    BLK, SPC, ONE = ("PClay", "WClay"), ("PGrass", "WTeal"), ("PIndigo",
+                                                             "WBlue")
+    rx, ry = 5.55, 3.40
+    # (item of rem:bypassaudit, position, title, obstruction, kind, mark)
+    R = [
+        (1, (0.00, 3.40), r"degeneration", r"$C$ compact: no cusp", BLK,
+         "bar"),
+        (2, (3.95, 2.72), r"larger Hodge locus",
+         r"tangent space $\mathbb{C}\kappa$", BLK, "bar"),
+        (3, (5.55, 0.98), r"Hochschild deformations",
+         r"$\mathrm{Ann}_{HH^{2}(Y)}(\omega)=\mathbb{C}\kappa$", BLK, "bar"),
+        (4, (5.55, -0.98), r"built from line bundles",
+         r"$\mathrm{ch}(E)$ is $L(X)$-invariant", BLK, "bar"),
+        (5, (5.00, -2.72), r"twistor lines",
+         r"none keeps $\omega$ of Hodge type", BLK, "bar"),
+        (6, (0.00, -3.30), r"CM points, isogenies",
+         r"algebraic at every CM point\\enough iff degrees bounded", SPC,
+         "dash"),
+        (7, (-5.00, -2.72), r"reduction modulo $p$",
+         r"cycles at every closed point\\enough iff bounded on a dense set",
+         SPC, "dash"),
+        (8, (-5.55, -0.98), r"semiregularity",
+         r"one $E$, $\dim\mathrm{Ext}^{2}(E,E)=119$", ONE, "arrow"),
+        (9, (-5.55, 0.98), r"Kuga--Satake",
+         r"one K3 surface, $\rho(S_{\lambda})=13$", ONE, "arrow"),
+        (10, (-3.95, 2.72), r"motivated classes",
+         r"$\Leftrightarrow B(W\times_{C}W)$", ONE, "both"),
+    ]
+    ang = {k: math.degrees(math.atan2(p[1] / ry, p[0] / rx))
+           for k, p, *_ in R}
+
+    def mid(i, j):
+        a_, b_ = ang[i], ang[j]
+        if b_ > a_:
+            b_ -= 360
+        return (a_ + b_) / 2
+    s1, s2, s3 = mid(10, 1) + 360, mid(5, 6), mid(7, 8)
+    s1 = s1 if s1 < 180 else s1 - 360
+    for (a0, a1, c) in ((s1, s2, "WClay!55"), (s2, s3, "WTeal!70"),
+                        (s3, s1 - 360, "WBlue!60")):
+        F.fill(wedge_pts(rx, ry, 0.47, 1.20, a0, a1), c, tag="bg")
+    # the target
+    tb = F.boxed(0.0, 0.0, r"$\omega_{t}$ algebraic on $X_{t}\times X_{t}$"
+                 r"\\{\scriptsize $t\in C$ very general}", "WOchre", "POchre",
+                 lw=1.0, allow=("bg",))
+    for k, (cx, cy), title, obs, kind, mark in R:
+        txt = r"\textbf{(%d)} %s" % (k, title) + "".join(
+            r"\\{\scriptsize %s}" % s for s in obs.split(r"\\"))
+        bb = F.boxed(cx, cy, txt, kind[1], kind[0], lw=0.7, allow=("bg",))
+        a = ray_exit(bb, (0, 0), gap=0.06)
+        b = ray_exit(tb, (cx, cy), gap=0.08)
+        tag = "s%d" % k
+        if mark == "bar":
+            # blocked: the spoke stops at a bar short of the target
+            L = math.hypot(a[0] - b[0], a[1] - b[1])
+            m = toward(b, a, 0.40)
+            F.path([a, m], kind[0], lw=0.9, tag=tag)
+            ux, uy = (a[0] - b[0]) / L, (a[1] - b[1]) / L
+            F.path([(m[0] - 0.17 * uy, m[1] + 0.17 * ux),
+                    (m[0] + 0.17 * uy, m[1] - 0.17 * ux)], kind[0], lw=1.6,
+                   tag=tag)
+        elif mark == "dash":
+            F.path([a, b], kind[0] + ",dash pattern=on 3pt off 2pt," + TIP,
+                   lw=0.9, tag=tag)
+        elif mark == "arrow":
+            F.path([a, b], kind[0] + "," + TIP, lw=0.9, tag=tag)
+        else:
+            F.path([a, b], kind[0] + ",{Stealth[length=5pt,width=4pt]}-"
+                   "{Stealth[length=5pt,width=4pt]}", lw=0.9, tag=tag)
+    # legend, two rows
+    leg = [(BLK, "bar", r"closed off by a theorem"),
+           (SPC, "dash", r"works at special points only"),
+           (ONE, "arrow", r"reduced to one open statement"),
+           (ONE, "both", r"equivalent to the target")]
+    for n, (kind, mark, t) in enumerate(leg):
+        x = -4.9 + (n % 2) * 5.4
+        ly = -ry - 1.15 - 0.45 * (n // 2)
+        if mark == "bar":
+            F.path([(x, ly), (x + 0.50, ly)], kind[0], lw=0.9, tag="leg")
+            F.path([(x + 0.50, ly - 0.15), (x + 0.50, ly + 0.15)], kind[0],
+                   lw=1.6, tag="leg")
+        elif mark == "dash":
+            F.path([(x, ly), (x + 0.62, ly)], kind[0] + ",dash pattern=on "
+                   "3pt off 2pt," + TIP, lw=0.9, tag="leg")
+        elif mark == "both":
+            F.path([(x, ly), (x + 0.62, ly)], kind[0] + ",{Stealth[length="
+                   "5pt,width=4pt]}-{Stealth[length=5pt,width=4pt]}", lw=0.9,
+                   tag="leg")
+        else:
+            F.path([(x, ly), (x + 0.62, ly)], kind[0] + "," + TIP, lw=0.9,
+                   tag="leg")
+        F.text(x + 0.78, ly, t, "PInk", SS, anchor="west")
+    return F
+
+
+# =============================================================== propagation
+def shade_poly(sc, P, base, ambient, diffuse, normal=None):
+    """one facet with the Lambert shading of render3d"""
+    from render3d import cross, sub, unit, dot, norm, smul
+    c = tuple(sum(p[k] for p in P) / len(P) for k in range(3))
+    n = normal if normal is not None else cross(sub(P[1], P[0]),
+                                                sub(P[-1], P[0]))
+    if norm(n) < 1e-12:
+        return
+    n = unit(n)
+    if dot(n, sc.cam.towards(c)) < 0:
+        n = smul(-1.0, n)
+    lam = max(0.0, dot(n, sc.light))
+    pct = int(max(4, min(96, round(100 * (1.0 - ambient - diffuse * lam)))))
+    pts, depths = zip(*[sc.cam.project(p) for p in P])
+    sc.add(sum(depths) / len(depths),
+           "  \\path[draw=%s!%d!white,line width=0.1pt,fill=%s!%d!white] %s "
+           "-- cycle;\n" % (base, pct, base, pct,
+                            " -- ".join("(%.3f,%.3f)" % q for q in pts)))
+
+
+class Torus:
+    """a torus with an elliptic tube: centre, major radius R, tube radii
+    (rh, rv); axis 'z' (lying flat) or 'y' (standing, facing the camera)"""
+
+    def __init__(self, centre, R, rh, rv, axis="z"):
+        self.c, self.R, self.rh, self.rv, self.axis = centre, R, rh, rv, axis
+
+    def pt(self, u, v, off=0.0):
+        rr = self.R + (self.rh + off) * math.cos(v)
+        a, b, h = rr * math.cos(u), rr * math.sin(u), (self.rv + off) * \
+            math.sin(v)
+        cx, cy, cz = self.c
+        if self.axis == "z":
+            return (cx + a, cy + b, cz + h)
+        return (cx + a, cy + h, cz + b)
+
+    def normal(self, u, v):
+        a = math.cos(v) * math.cos(u) / self.rh
+        b = math.cos(v) * math.sin(u) / self.rh
+        h = math.sin(v) / self.rv
+        return (a, b, h) if self.axis == "z" else (a, h, b)
+
+    def value(self, p):
+        x, y, z = p[0] - self.c[0], p[1] - self.c[1], p[2] - self.c[2]
+        if self.axis != "z":
+            y, z = z, y
+        d = math.hypot(x, y) - self.R
+        return (d / self.rh) ** 2 + (z / self.rv) ** 2 - 1.0
+
+    def draw(self, sc, nu, nv, base, ambient, diffuse, minus=None):
+        """the part outside the torus minus, refined along the junction;
+        back faces culled"""
+        from render3d import dot, unit
+
+        def rec(ua, ub, va, vb, lev):
+            P = [self.pt(ua, va), self.pt(ub, va), self.pt(ub, vb),
+                 self.pt(ua, vb)]
+            um, vm = (ua + ub) / 2, (va + vb) / 2
+            if minus is not None:
+                ins = [minus.value(p) < 0 for p in P]
+                cin = minus.value(self.pt(um, vm)) < 0
+                if all(ins) and cin:
+                    return
+                if any(ins) and lev < 3:
+                    for a_, b_, c_, d_ in ((ua, um, va, vm), (um, ub, va, vm),
+                                           (um, ub, vm, vb), (ua, um, vm, vb)):
+                        rec(a_, b_, c_, d_, lev + 1)
+                    return
+                if cin:
+                    return
+            pc = self.pt(um, vm)
+            n = unit(self.normal(um, vm))
+            if dot(n, sc.cam.towards(pc)) < -0.08:
+                return
+            shade_poly(sc, P, base, ambient, diffuse, normal=n)
+        for i in range(nu):
+            for j in range(nv):
+                rec(2 * math.pi * i / nu, 2 * math.pi * (i + 1) / nu,
+                    2 * math.pi * j / nv, 2 * math.pi * (j + 1) / nv, 0)
+
+
+def propagation():
+    F = Fig("fig_propagation",
+            "Propagation of algebraicity along a compact Shimura curve under "
+            "the Lefschetz standard conjecture for the total space.")
+    from render3d import Camera, Scene, dot, unit
+    R, RH, RV, CX = 1.78, 0.74, 0.40, 2.02
+    A = Torus((-CX, 0.0, 0.0), R, RH, RV)
+    B = Torus((CX, 0.0, 0.0), R, RH, RV)
+    az, el, dist = math.radians(-97.0), math.radians(31.0), 34.0
+    tgt = (0.0, 0.0, 1.35)
+    eye = (tgt[0] + dist * math.cos(el) * math.cos(az),
+           tgt[1] + dist * math.cos(el) * math.sin(az),
+           tgt[2] + dist * math.sin(el))
+    # the three points: a CM point c, a Hecke translate c', and t
+    pts = {"c": (A, math.radians(-118)), "cp": (A, math.radians(-38)),
+           "t": (B, math.radians(-70))}
+    H, RR, rr = 2.95, 0.52, 0.17
+    COLS = {"c": ("PGrass", 0.42, 0.50), "cp": ("PGrass", 0.50, 0.45),
+            "t": ("PClay", 0.42, 0.50)}
+
+    def build(scale):
+        cam = Camera(eye=eye, target=tgt, focal=dist, scale=scale)
+        sc = Scene(cam, light=(-0.45, -0.60, 0.85))
+        A.draw(sc, 64, 26, "PBlue", 0.52, 0.44, minus=B)
+        B.draw(sc, 64, 26, "PBlue", 0.52, 0.44, minus=A)
+        info = {}
+        for key, (T, u) in pts.items():
+            base = T.pt(u, math.pi / 2)
+            ctr = (base[0], base[1], base[2] + H)
+            ring = Torus(ctr, RR, rr, rr, axis="y")
+            col = COLS[key]
+            ring.draw(sc, 40, 14, col[0], col[1], col[2])
+            # the stalk, in short pieces so that it sorts with the facets
+            top = (base[0], base[1], ctr[2] - RR - rr)
+            n = 18
+            for k in range(n):
+                p = [tuple(base[m] + (top[m] - base[m]) * (k + s) / n
+                           for m in range(3)) for s in (0, 1)]
+                sc.polyline(p, "%s,line width=0.7pt" % col[0], priority=2)
+            # the class on the fibre: the front longitude of the ring
+            cyc = [ring.pt(2 * math.pi * k / 72, -math.pi / 2, off=0.012)
+                   for k in range(73)]
+            for k in range(72):
+                sc.polyline([cyc[k], cyc[k + 1]], "%s!80!black,line width="
+                            "1.3pt" % col[0], priority=3)
+            info[key] = (base, ctr, ring)
+        # CM points: hollow dots on the visible part of the base
+        import random
+        rnd = random.Random(11)
+        cms = []
+        while len(cms) < 46:
+            T, O = (A, B) if rnd.random() < 0.5 else (B, A)
+            u = rnd.uniform(0, 2 * math.pi)
+            v = rnd.uniform(math.radians(15), math.radians(165))
+            p = T.pt(u, v, off=0.02)
+            if O.value(p) < 0.15:
+                continue
+            if dot(unit(T.normal(u, v)), cam.towards(p)) < 0.35:
+                continue
+            if any(math.dist(p, q) < 0.42 for q in cms):
+                continue
+            if any(math.dist(p, info[k][0]) < 0.75 for k in info):
+                continue
+            cms.append(p)
+        solids = [A, B] + [info[k][2] for k in info]
+
+        def visible(p):
+            """no solid meets the segment from p to the eye"""
+            for k in range(1, 160):
+                s = 0.03 + 0.06 * k
+                q = tuple(p[m] + s * (eye[m] - p[m]) / dist for m in range(3))
+                if any(T.value(q) < 0 for T in solids):
+                    return False
+            return True
+        # the dots lie on the surface and are drawn last, if visible and
+        # clear of the stalks
+        def segdist(p, a_, b_):
+            ax, ay = a_
+            bx_, by_ = b_
+            L2 = (bx_ - ax) ** 2 + (by_ - ay) ** 2
+            t = max(0.0, min(1.0, ((p[0] - ax) * (bx_ - ax) +
+                                   (p[1] - ay) * (by_ - ay)) / L2))
+            return math.hypot(p[0] - ax - t * (bx_ - ax),
+                              p[1] - ay - t * (by_ - ay))
+        stalks = [(cam.project(info[k][0])[0],
+                   cam.project((info[k][0][0], info[k][0][1],
+                                info[k][1][2]))[0]) for k in info]
+        for p in cms:
+            if not visible(p):
+                continue
+            (x, y), d = cam.project(p)
+            if any(segdist((x, y), s0, s1) < 0.13
+                   for s0, s1 in stalks):
+                continue
+            sc.add(-1e6, "  \\draw[PGrass,fill=white,line width=0.45pt] "
+                   "(%.3f,%.3f) circle (0.045);\n" % (x, y), 3)
+        for key, (base, ctr, ring) in info.items():
+            assert visible(base)
+            (x, y), d = cam.project(base)
+            sc.add(-1e6, "  \\fill[%s] (%.3f,%.3f) circle (0.065);\n"
+                   % (COLS[key][0], x, y), 3)
+        return cam, sc.emit(), info, cms
+    cam, body, info, cms = build(1.0)
+    xs = [float(a) for a, b in _C.findall(body)]
+    cam, body, info, cms = build(9.2 / (max(xs) - min(xs)))
+    xs = [float(a) for a, b in _C.findall(body)]
+    ys = [float(b) for a, b in _C.findall(body)]
+    dx, dy = -min(xs) + 2.05, -min(ys) + 1.55
+
+    def tagger(st):
+        if "circle (0.045)" in st:
+            return "cm"
+        if "circle (0.065)" in st:
+            return "pt"
+        if "line width=0.7pt" in st:
+            return "stalk"
+        if "line width=1.3pt" in st:
+            return "cycle"
+        if "PBlue" in st:
+            return "base"
+        return "fibre"
+    body = shift_tikz(body, dx, dy)
+    F.scene(body, tagger=tagger)
+    P = lambda p: (cam.project(p)[0][0] + dx, cam.project(p)[0][1] + dy)
+    X0, X1 = min(xs) + dx, max(xs) + dx
+    Y0, Y1 = min(ys) + dy, max(ys) + dy
+    # the projected extent of each ring
+    ext = {}
+    for key, (base, ctr, ring) in info.items():
+        q = [P(ring.pt(2 * math.pi * i / 24, 2 * math.pi * j / 12))
+             for i in range(24) for j in range(12)]
+        ext[key] = (min(p[0] for p in q), min(p[1] for p in q),
+                    max(p[0] for p in q), max(p[1] for p in q))
+    # -- the global class and the two maps
+    xm = (ext["c"][2] + ext["t"][0]) / 2
+    ub = F.boxed(xm, Y1 + 0.95,
+                 r"$u=m\,\Lambda_{C}(i_{c*}y)\in H^{q}_{(q)}(W)$\\"
+                 r"{\scriptsize algebraic when $B(W)$ holds;\enspace "
+                 r"$f\cup u=i_{c*}y$}\\{\scriptsize "
+                 r"$\int_{W_{c}}u\cup w=\int_{W_{c}}y\cup w$ for every "
+                 r"invariant $w$}", "WOchre", "POchre", lw=0.8)
+    ec, et = ext["c"], ext["t"]
+    a = ((ec[0] + ec[2]) / 2 - 0.10, ec[3] + 0.08)
+    b = (ub[0] - 0.08, (ub[1] + ub[3]) / 2)
+    F.path(bezier(a, (a[0], b[1] - 0.10), (b[0] - 0.80, b[1]), b),
+           "PGrass," + TIP, lw=1.0, tag="gysin")
+    F.text(a[0] - 0.22, (a[1] + b[1]) / 2 + 0.05, r"$i_{c*}$, then "
+           r"$\Lambda_{C}$", "PGrass", SS, anchor="east")
+    a2 = (ub[2] + 0.08, (ub[1] + ub[3]) / 2)
+    b2 = ((et[0] + et[2]) / 2 + 0.10, et[3] + 0.08)
+    F.path(bezier(a2, (a2[0] + 0.80, a2[1]), (b2[0], a2[1] - 0.10), b2),
+           "PClay," + TIP, lw=1.0, tag="restr")
+    F.text(b2[0] + 0.24, (a2[1] + b2[1]) / 2 + 0.05, r"restrict: "
+           r"$u|_{W_{t}}=\xi_{t}$", "PClay", SS, anchor="west")
+    # -- the isogeny between the two CM fibres
+    ep = ext["cp"]
+    a3 = (ec[2] + 0.07, (ec[1] + ec[3]) / 2 + 0.05)
+    b3 = (ep[0] - 0.07, (ep[1] + ep[3]) / 2 + 0.05)
+    F.path(bezier(a3, (a3[0] + 0.25, a3[1] + 0.42), (b3[0] - 0.25,
+                  b3[1] + 0.42), b3),
+           "PGrass,dash pattern=on 2.4pt off 1.6pt," + STIP, lw=0.8,
+           tag="isog")
+    F.text((a3[0] + b3[0]) / 2, max(a3[1], b3[1]) + 0.52, r"isogeny",
+           "PGrass", SS)
+    # -- names of the fibres and of the classes
+    F.text(ec[0] - 0.10, (ec[1] + ec[3]) / 2, r"$y$ on $W_{c}$", "PGrass", FS,
+           anchor="east")
+    F.text(ep[2] + 0.10, (ep[1] + ep[3]) / 2 + 0.12, r"$y'$ on $W_{c'}$",
+           "PGrass", FS, anchor="west")
+    F.text(et[2] + 0.10, (et[1] + et[3]) / 2, r"$\xi_{t}$ on $W_{t}$",
+           "PClay", FS, anchor="east" if False else "west")
+    # -- the base points
+    for key, name, col in (("c", r"$c$", "PGrass"), ("cp", r"$c'$", "PGrass"),
+                           ("t", r"$t$", "PClay")):
+        q = P(info[key][0])
+        F.text(q[0] + 0.14, q[1] - 0.14, name, col, FS, anchor="north west",
+               allow=("base",))
+    # -- the curve and the CM points
+    F.text(X0 - 0.05, Y0 + 0.55, r"$C=\Gamma\backslash\mathfrak{H}$"
+           r"\\{\scriptsize compact}", "PInk", FS, anchor="east")
+    F.disc(X1 - 1.85, Y0 - 0.40, 0.06, "white", draw="PGrass", lw=0.45)
+    F.text(X1 - 1.70, Y0 - 0.40, r"CM points: dense, countable", "PGrass",
+           SS, anchor="west")
+    # -- the spreading lemma
+    F.boxed((X0 + X1) / 2, Y0 - 1.25,
+            r"$\xi_{t}$ algebraic for uncountably many $t$ "
+            r"$\Longrightarrow$ $d\,\xi_{t}$ algebraic for every $t\in C$\\"
+            r"{\scriptsize the CM points and their Hecke orbits are "
+            r"countable, so they alone never suffice}", "WSlate", "PSlate",
+            lw=0.6)
+    return F
+
+
+# ================================================================ Hodge count
+def hodge_counts():
+    """Hodge classes of Y = X x X for a Mumford fourfold X, degree by degree:
+    the invariants of the Hodge group in wedge^{2p}(V + V), V the tensor
+    product of the three standard representations of SL(2)^3 over C.  At a
+    point that is not CM the group is SL(2)^3, and the invariants are counted
+    by the Weyl character formula (for SL(2): m(0) - m(2)); at a CM point it
+    is a maximal torus, and they are the monomials of weight zero."""
+    from itertools import product
+    from collections import Counter
+    W = list(product((1, -1), repeat=3))
+    V2 = W + W
+    mult = [Counter() for _ in range(len(V2) + 1)]
+    for mask in range(1 << len(V2)):
+        s = [0, 0, 0]
+        k = 0
+        for i in range(len(V2)):
+            if mask >> i & 1:
+                k += 1
+                for j in range(3):
+                    s[j] += V2[i][j]
+        mult[k][tuple(s)] += 1
+    gen, cm = [], []
+    for k in range(0, len(V2) + 1, 2):
+        m = mult[k]
+        gen.append(sum((-1) ** sum(e) * m[tuple(2 * x for x in e)]
+                       for e in product((0, 1), repeat=3)))
+        cm.append(m[(0, 0, 0)])
+    return gen, cm
+
+
+def hodgecount():
+    F = Fig("fig_hodgecount",
+            "Hodge classes of the square of a Mumford fourfold, degree by "
+            "degree, against the subring generated by divisor classes.")
+    gen, cm = hodge_counts()
+    # the subring generated by divisor classes (thm:lefschetzclosure(ii)):
+    # at a point that is not CM the Sp(V,psi)-invariants, at a CM point the
+    # coefficients of (1 + 4y + y^2)^4
+    dgen = [1, 3, 6, 10, 15, 10, 6, 3, 1]
+    c = [1]
+    for _ in range(4):
+        c = [sum(c[i - j] * [1, 4, 1][j] for j in range(3)
+                 if 0 <= i - j < len(c)) for i in range(len(c) + 2)]
+    dcm = c
+    # what the paper states: prop:mumfordproduct, prop:mumforddivisor
+    assert gen[:3] == [1, 3, 8] and cm[:3] == [1, 16, 132]
+    assert dcm == [1, 16, 100, 304, 454, 304, 100, 16, 1]
+    assert all(a >= b for a, b in zip(gen, dgen)) and all(
+        a >= b for a, b in zip(cm, dcm))
+    pitch, bw, Hh = 0.66, 0.40, 3.30
+    panels = [(0.0, gen, dgen, 30, 10, r"$t\in C$ very general"),
+              (7.95, cm, dcm, 700, 100, r"$c\in C$ a CM point")]
+    for x0, tot, sub, top, step, title in panels:
+        S = Hh / top
+        X = [x0 + 0.55 + p * pitch for p in range(9)]
+        ax = x0 + 0.10
+        F.path([(ax, 0), (X[-1] + 0.45, 0)], "PInk", lw=0.6, tag="ax")
+        F.path([(ax, 0), (ax, top * S + 0.05)], "PInk", lw=0.6, tag="ax")
+        for v in range(0, top + 1, step):
+            F.path([(ax - 0.07, v * S), (ax, v * S)], "PInk", lw=0.5,
+                   tag="ax")
+            F.text(ax - 0.12, v * S, r"$%d$" % v, "PSlate", SS,
+                   anchor="east")
+        for p in range(9):
+            a, b = sub[p] * S, tot[p] * S
+            F.rect(X[p] - bw / 2, 0, X[p] + bw / 2, max(a, 0.02),
+                   "PIndigo!55", tag="bar")
+            if tot[p] > sub[p]:
+                F.raw(r"  \fill[pattern=north east lines,pattern color="
+                      r"PClay] (%.3f,%.3f) rectangle (%.3f,%.3f);"
+                      % (X[p] - bw / 2, a, X[p] + bw / 2, b))
+                F.path([(X[p] - bw / 2, a), (X[p] - bw / 2, b),
+                        (X[p] + bw / 2, b), (X[p] + bw / 2, a)], "PClay",
+                       lw=0.5, tag="bar")
+                F.polys.append(([(X[p] - bw / 2, a), (X[p] + bw / 2, a),
+                                 (X[p] + bw / 2, b), (X[p] - bw / 2, b)],
+                                "bar"))
+            F.path([(X[p], 0), (X[p], -0.07)], "PInk", lw=0.5, tag="ax")
+            F.text(X[p], -0.36, r"$%d$" % p, "PInk", SS)
+            F.text(X[p], -0.80, r"$%d$" % tot[p], "PInk", SS)
+            F.text(X[p], -1.22, r"$%d$" % sub[p], "PIndigo", SS)
+        F.text(ax - 0.12, -0.80, r"$\dim\mathrm{Hdg}^{p}$", "PInk", SS,
+               anchor="east")
+        F.text(ax - 0.12, -1.22, r"$\dim D^{p}$", "PIndigo", SS,
+               anchor="east")
+        F.text(ax - 0.12, -0.40, r"$p$", "PInk", SS, anchor="east")
+        F.text((X[0] + X[-1]) / 2, top * S + 0.45, title, "PInk", FS)
+    # legend
+    ly = -1.80
+    F.rect(1.2, ly - 0.10, 1.48, ly + 0.10, "PIndigo!55", tag="leg")
+    F.text(1.58, ly, r"$D^{p}$: spanned by products of divisor classes; it "
+           r"contains $\mathrm{ch}_{p}(E)$ for every $E\in\mathcal{L}$",
+           "PInk", SS, anchor="west")
+    ly2 = ly - 0.42
+    F.raw(r"  \fill[pattern=north east lines,pattern color=PClay] "
+          r"(1.20,%.3f) rectangle (1.48,%.3f);" % (ly2 - 0.10, ly2 + 0.10))
+    F.path([(1.2, ly2 - 0.10), (1.48, ly2 - 0.10), (1.48, ly2 + 0.10),
+            (1.2, ly2 + 0.10), (1.2, ly2 - 0.10)], "PClay", lw=0.5,
+           tag="leg")
+    F.text(1.58, ly2, r"Hodge classes outside $D^{p}$: reached by no object "
+           r"of $\mathcal{L}$", "PInk", SS, anchor="west")
+    return F
+
+
+FIGURES = [frontier, lefschetzgrid, propagation, rigidity, bypass,
+           extprofile, hodgecount]
+
 if __name__ == "__main__":
-    write("fig_frontier",
-          "The rule set with the routes of the literature: five minimal "
-          "sufficient sets.", frontier())
-    write("fig_propagation",
-          "Propagation of algebraicity along a compact Shimura curve under the "
-          "Lefschetz standard conjecture for the total space.", propagation())
-    write("fig_lefschetzgrid",
-          "The summands H^p(C,R^q) of an abelian scheme over a curve and the "
-          "four operators of the proof.", grid())
-    write("fig_rigidity",
-          "Rigidity of the exceptional classes on the square of a Mumford "
-          "fourfold: nested Hodge loci and the nine weight blocks.",
-          rigidity())
-    write("fig_bypass",
-          "The audit of the bypass mechanisms for the Mumford target.",
-          bypass())
-    write("fig_extprofile",
-          "Lower bounds for the self-Ext of an object with the Chern character "
-          "of an exceptional class, and the Euler characteristic balance.",
-          extprofile())
+    names = sys.argv[1:]
+    bad = 0
+    for make in FIGURES:
+        if names and make.__name__ not in names:
+            continue
+        F = make()
+        problems = F.check()
+        bad += len(problems)
+        write(F)
+    if bad:
+        print("%d placement problems: fix them before building" % bad)
+        sys.exit(1)

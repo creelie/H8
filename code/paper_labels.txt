@@ -1,7 +1,6 @@
 app:albert
 app:cdk
 app:exterior
-app:scripts
 cor:R2
 cor:allornothing
 cor:blind
@@ -249,7 +248,9 @@ prop:evaluation
 prop:explicitobject
 prop:f3ishc
 prop:f3prime
+prop:f3primestrength
 prop:firstorder
+prop:flatall
 prop:genus3
 prop:grading
 prop:grr
@@ -281,7 +282,9 @@ prop:notpoly
 prop:notwistor
 prop:objectsize
 prop:orbitplane
+prop:orlovequality
 prop:orlovfour
+prop:orthpowers
 prop:p2flat
 prop:p2primelocus
 prop:p2primeprofile
@@ -293,6 +296,7 @@ prop:quarticnl
 prop:quarticnogo
 prop:quarticquat
 prop:quarticscalar
+prop:quarticsecant
 prop:quatdivisible
 prop:rigidity
 prop:scalaratiyah
@@ -436,10 +440,13 @@ rem:whereunbounded
 rem:whystable
 rem:whyterminal
 rem:witness
+sec:basepoints
+sec:beyond
 sec:characters
 sec:cmfields
 sec:construction
 sec:conventions
+sec:corrected
 sec:divisor
 sec:escape
 sec:explicit
@@ -450,8 +457,10 @@ sec:intro
 sec:ks
 sec:lean
 sec:numerology
+sec:propagation
 sec:reduction
 sec:scope
+sec:secantobjects
 sec:semireg
 sec:verification
 sec:weiltype
@@ -567,6 +576,7 @@ thm:p2support
 thm:plane
 thm:positivity
 thm:pterange
+thm:quarticobstruction
 thm:quarticp2prime
 thm:quatweil
 thm:rankzero

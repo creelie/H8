@@ -525,7 +525,8 @@ The profile says what the corrected criterion does not constrain. For the pure
 form, \Cref{thm:p2endo}(iv) forced $\dim\End(E)\ge3$ at $n=2$ and $n=3$ out of
 $\chi(E,E)>0$. For a corrected character $\chi(E,E)=VQ(c)+W$ can have either
 sign, and when it is small enough the Euler characteristic forces nothing: at
-$n=2$ in the model of \texttt{explicit\_weil.py} with $d=1$, the character with
+$n=2$ in the coordinate model of item (VI) of \Cref{sec:verification} with
+$d=1$, the character with
 $c=(2,1,0,1,-1)$ has $\chi(E,E)=-136$, and a simple object is not excluded.
 
 \begin{proposition}[The Hodge locus of a corrected character]
@@ -549,7 +550,8 @@ $c=(2,1,0,1,-1)$ has $\chi(E,E)=-136$, and a simple object is not excluded.
   polarised by $\theta$.
 \item For $n=2$ the same holds, with one exception: if $c_{1}=c_{3}=0$ and
   $c_{2}^{2}\int_{A}\theta^{4}=\tfrac34\int_{A}\omega^{2}$, the germ has
-  dimension $5$. In the rational model of \texttt{explicit\_weil.py} this is
+  dimension $5$. In the rational model of item (VI) of
+  \Cref{sec:verification} this is
   the character $N\omega_{1}\pm\tfrac{d}{2}N\eta^{2}+c_{0}+c_{4}\eta^{4}$;
   with rational data the ratio is attained exactly in the families of trivial
   discriminant.
@@ -829,9 +831,7 @@ natural objects needs at least eight of them, on one conic
 (\Cref{thm:minimalsupport}). None of this is a new case of the Hodge
 conjecture: the certificates are in families where Markman's theorem already
 holds, and they are certificates for twisted objects. Item (LV) of
-\Cref{sec:verification} checks the computations; its scripts are in
-\texttt{code/\allowbreak attack/\allowbreak explicit\_\allowbreak objects} and
-\texttt{code/\allowbreak attack/\allowbreak natural\_\allowbreak objects}.
+\Cref{sec:verification} checks the computations.
 
 \begin{lemma}[The summands of an object meeting the criterion]
 \label{lem:p2primesummands}
@@ -1061,18 +1061,98 @@ $\chi(F_{1},F_{1})=1-8+12-8+1=-2$, while \Cref{prop:secantprofile} gives
 $\chi(F_{1},F_{1})=8d(a^{2}d+b^{2})>0$.
 \end{proof}
 
-Without $\Ext^{<0}=0$ the count does not close, because negative Ext groups
-of $F_{i}$ contribute products $e_{-j}e_{2+j}'$ and change the Euler
-characteristic. For every $n$ the same count says what a secant object would
-have to be for its Orlov product to meet the criterion with equality: a
-complex $F$ with $\ch(F)\in P_{\theta}\setminus\{0\}$,
-$\Ext^{<0}(F,F)=0$ and $\dim\Ext^{k}(F,F)=1,2n,n(n-1)$ for $k=0,1,2$. For
-$n=4$ that is excluded above; for $n$ odd, and for even $n\ge6$, the Euler
-characteristic leaves room. If such $F$ existed for a fixed $d$ and unboundedly
-many $n$, and $\kappa=\ch(E)e^{\ell/2}$ is killed by $T$, which item (LV)
-checks for $n\le5$, then with a twisted form of \Cref{thm:semiregclosure} and
-\Cref{prop:descent} the Weil classes of every family of $\QQ(\sqrt{-d})$ would
-be algebraic. That is the secant route of (C1) and (C2) in
+Without $\Ext^{<0}=0$ the count changes, because negative Ext groups of the
+$F_{i}$ contribute products $e_{-j}e_{2+j}'$ to $\Ext^{2}(E,E)$ and change the
+Euler characteristic. The next two results settle the template in every
+dimension: the twisted character is always flat, and the count says exactly
+which secant objects would give equality.
+
+\begin{proposition}[Flatness in every dimension]\label{prop:flatall}
+Let $(X,\theta)$ be a principally polarised abelian $n$-fold, $n\ge1$, let
+$d\ge1$ and $s=\sqrt{-d}$, and put $\Psi(Z)=\ch\bigl(\Phi(Z)\bigr)e^{\ell/2}$
+for classes $Z$ on $X\times X$, extended linearly, with $\gamma=d\beta-\widehat\beta$
+as in \Cref{thm:splitclosed}. For $\sigma=\pm1$, $\Psi(e^{\sigma s\theta}\boxtimes
+e^{\sigma s\theta})$ is a nonzero multiple of $e^{\sigma(s/2d)\eta}$, and
+$\Psi(e^{\sigma s\theta}\boxtimes e^{-\sigma s\theta})$ is a nonzero multiple of the
+Weil class $(\gamma-\sigma s\ell)^{n}$. Consequently, for perfect complexes
+$F_{1},F_{2}$ with $\ch(F_{i})\in P_{\theta}$, the class
+$\kappa=\ch\bigl(\Phi(F_{1}\boxtimes F_{2}^{\vee})\bigr)e^{\ell/2}$ lies in
+$\QQ[\eta]\oplus\HW(A)$, is killed by $T=T_{[A]}\cD_{n,n}$, and has Hankel rank
+$\rho\le2$; for $F_{1}=F_{2}\ne0$ its Weil part is nonzero.
+\end{proposition}
+
+\begin{proof}
+A symplectic basis of $H^{1}(X,\ZZ)$ for $\theta$ identifies $H^{*}(X,\QQ)$,
+with $\theta$, with the tensor product of $n$ copies of the cohomology of an
+elliptic curve with its class $\theta_{i}$, $\theta=\sum_{i}\theta_{i}$. The
+action of $\Phi$ on cohomology is the correspondence $(1\times\Phi_{P})\circ
+\mu_{*}$ with $\mu(a,b)=(a-b,b)$, and $\mu$, the Poincar\'e class
+$\ell=\sum_{i}\ell_{i}$, the classes $\eta$ and $\gamma$, and the exponentials
+$e^{\pm s\theta}=\bigotimes_{i}e^{\pm s\theta_{i}}$ all decompose as tensor
+products over $i$ of classes of even degree, so no signs arise. Each identity
+is therefore the tensor product of $n$ copies of the identity for $n=1$, up to
+a nonzero scalar, where for the Weil class one uses
+$(\gamma-\sigma s\ell)^{n}=n!\prod_{i}(\gamma_{i}-\sigma s\ell_{i})$, valid because
+$(\gamma_{i}-\sigma s\ell_{i})^{2}=0$ (\Cref{thm:weilmult}). The four identities
+for $n=1$ are checked exactly, with $d$ a symbol, in item (LV) of
+\Cref{sec:verification}. For the consequence, write
+$\ch(F_{1})=w_{1}e^{s\theta}+\bbar w_{1}e^{-s\theta}$ and
+$\ch(F_{2}^{\vee})=w_{2}e^{-s\theta}+\bbar w_{2}e^{s\theta}$ as in the proof of
+\Cref{prop:secantprofile}; the terms $e^{\pm s\theta}\boxtimes e^{\pm s\theta}$
+give multiples of $e^{\pm(s/2d)\eta}$ and the mixed terms give the Weil part
+$w_{1}w_{2}c_{+}\alpha_{+}+\bbar w_{1}\bbar w_{2}c_{-}\alpha_{-}$, with
+$c_{\pm}\ne0$. The classes of $\QQ[\eta]\oplus\HW(A)$ are Hodge classes on
+every member of the family, so $T$ kills $\kappa$, and the $\eta$-part lies in
+the span of the two exponentials $e^{\pm(s/2d)\eta}$, which gives $\rho\le2$.
+\end{proof}
+
+\begin{proposition}[The equality criterion for the Orlov template]
+\label{prop:orlovequality}
+Let $(X,t)$ be a polarised abelian $n$-fold, $n\ge2$, $d\ge1$, and $F_{1}$,
+$F_{2}$ perfect complexes with characters in $P_{t}\setminus\{0\}$; put
+$e_{k}=\dim\Ext^{k}(F_{1},F_{1})$ and $e_{k}'=\dim\Ext^{k}(F_{2},F_{2})$ for all
+$k\in\ZZ$, and $E=\Phi(F_{1}\boxtimes F_{2}^{\vee})$.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item $\dim\Ext^{2}(E,E)=\sum_{k\in\ZZ}e_{k}e_{2-k}'\ge R_{n}$, where
+  $R_{n}=6n^{2}-2n$ for $n\ge3$ and $R_{2}=18$, and $R_{n}=r(\ch E)=r(\kappa)$.
+\item Equality holds if and only if $(e_{0},e_{1},e_{2})=(e_{0}',e_{1}',e_{2}')
+  =(1,2n,r_{2})$, with $r_{2}=n(n-1)$ for $n\ge3$ and $r_{2}=1$ for $n=2$, and
+  $e_{-j}e_{2+j}'=e_{2+j}e_{-j}'=0$ for every $j\ge1$.
+\item For $F_{1}=F_{2}=F$ and $n\ge3$ the last condition says that the set
+  $S=\{j\ge1:\Ext^{-j}(F,F)\ne0\}$ lies in $[n-1,\infty)$ and that $j\in S$
+  implies $j-(n-2)\notin S$; for $n=2$ it says $\Ext^{<0}(F,F)=0$.
+\item Equality implies that $\sigma_{E}$ is injective.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $\Phi$ is an equivalence and the K\"unneth formula holds in all degrees,
+negative ones included, and dualising is an anti-equivalence, so
+$\Ext^{*}(E,E)=\Ext^{*}(F_{1},F_{1})\otimes\Ext^{*}(F_{2},F_{2})$. By
+\Cref{prop:secantprofile}, $e_{0}\ge1$, $e_{1}\ge2n$ and $e_{2}\ge r_{2}$, so the
+three terms with $k=0,1,2$ already give $R_{n}$; the equality $R_{n}=r(\ch E)$ is
+the K\"unneth count of \Cref{thm:factor}(iv) and \Cref{thm:twistedcert}, and
+$r(\kappa)=r(\ch E)$ by \Cref{lem:bfield}(i). (ii) Every term is nonnegative,
+and $e_{0}e_{2}'\ge e_{2}'\ge r_{2}>0$ with equality only if $e_{0}=1$ and
+$e_{2}'=r_{2}$, and likewise for the other two terms; every other product must
+vanish. (iii) Serre duality gives $e_{k}=e_{n-k}$. For $1\le j\le n-2$, $e_{2+j}$ is
+at least the rank of contraction from $HT^{2+j}(X)$ into $\ch(F)$, which is
+positive by \Cref{prop:secantprofile}, because the characteristic morphism is
+compatible with contraction into the Chern character in every degree
+\cite{CRV12}; so $e_{-j}=0$. For $j\ge n-1$, $e_{2+j}=e_{-(j-(n-2))}$. (iv) The composite $\sigma_{E}\circ\operatorname{ev}_{E}$
+is contraction into $\ch(E)$, of rank $R_{n}\le\operatorname{rk}\sigma_{E}\le
+\dim\Ext^{2}(E,E)$, so equality forces $\sigma_{E}$ to be injective. The counts
+are certified in \Cref{sec:lean} for $n\le64$.
+\end{proof}
+
+For $n=2$ and $n=3$ the certificates of \Cref{thm:twistedcert} attain the
+equality; for $n=4$ it is excluded when $\Ext^{<0}=0$ by \Cref{prop:orlovfour},
+and with negative Ext groups in degrees at most $-(n-1)$ the Euler
+characteristic leaves room in every dimension. If such an $F$ existed for one
+$d$ and unboundedly many $n$, then, since $\kappa$ is flat in every dimension by
+\Cref{prop:flatall}, a twisted form of \Cref{thm:semiregclosure} together with
+\Cref{prop:descent} would make the Weil classes of every family of
+$\QQ(\sqrt{-d})$ algebraic. That is the secant route of (C1) and (C2) in
 \Cref{ssec:closuremap}, with the question of \cite{Mar25b} replaced by a
 dimension count, and it lies off every minimal route (\Cref{thm:closure}(iv)).
 

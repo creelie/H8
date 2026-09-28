@@ -637,12 +637,67 @@ def track_T4():
                         % (r[0], r[1], r[4], r[5]) for r in rows))
 
 
+# ---------------------------------------------------------------- (E) gaps
+def track_gaps():
+    print()
+    print("  (E) gaps/: the three remaining inputs, attacked through their "
+          "smallest cases")
+    w = "gaps/quartic_obstruction"
+    for script, n, what in (
+            ("a1_secant.py", 49, "the secant space S(t,q) of a quartic field: "
+             "it is rational of dimension 4, its Hochschild profile is "
+             "(1, 8, 2 rho + 4 N_w) and chi = 4(N(q)a^2 + c^2 + Tr(qbar f^2)), "
+             "in 49 cases"),
+            ("a1_lattice.py", 2, "the integral classes of the F_0-Hodge ring: "
+             "the saturation lies in the congruence lattice c = g mod d"),
+            ("a1_Lgen.py", 8, "the congruence lattice is spanned by integral "
+             "classes, for d_F = 5, 8, 13, 17"),
+            ("a1_flat.py", 59, "the twisted character of an Orlov product of "
+             "F-secant objects is invariant under G_F, so a Hodge class on "
+             "the whole (F,2,1)-family, with a nonzero Weil part"),
+            ("a1_rkappa.py", 8, "r(kappa) = 100 exactly for a rank-one "
+             "secant pair, from an exact annihilator over Q(i)"),
+            ("a1_theorem_check.py", 4, "the identities of the quartic "
+             "obstruction on random integral classes: 20 | chi in rank one; "
+             "adj V = mu lbar l^T, sigma_2 = mu^2 N(Delta) and "
+             "chi^2 = 4 mu^2 N(Delta) mod 5 in rank two; strict inequality "
+             "on the complex-secant classes")):
+        out, st = run(w, script)
+        check("%s (%s): %d checks passed, 0 failed" % (what, script, n),
+              summary_ok(out, st, n))
+    w = "gaps/orlov_growth"
+    out, st = run(w, "lagrangian_check.py")
+    check("flatness in every dimension (lagrangian_check.py): at n = 1 and "
+          "n = 2, with d a symbol, the four images of e^{+-st} [x] e^{+-st} "
+          "are the pure spinors e^{+-(s/2d) eta} and the Weil classes",
+          st == 0 and "ALL four images are pure spinors" in out
+          and out.rstrip().endswith("True"))
+    out, st = run(w, "euler.py")
+    check("the equality count (euler.py): chi(F,F) in closed form for "
+          "n = 2..12, the Hochschild profile of a secant class and "
+          "R_n = 6n^2 - 2n (n >= 3), R_2 = 18, for n = 2..12",
+          st == 0 and "False" not in out
+          and count(r"matches closed form: True", out) >= 11
+          and count(r"check True", out) >= 11)
+    w = "gaps/f3prime"
+    out, st = run(w, "invariants.py")
+    check("the orthogonal determinant (invariants.py): SO(t)- and "
+          "O(t)-invariants of V^(x)j agree for j < t and differ by one at "
+          "j = t, t = 3..8, and det is invariant and reflection-odd",
+          summary_ok(out, st, 48))
+    out, st = run(w, "closure_f3prime_mot.py")
+    check("the closure graph with the rule (F3') => (M) added "
+          "(closure_f3prime_mot.py): the five minimal sufficient sets are "
+          "unchanged", summary_ok(out, st, 6))
+
+
 def main():
     t0 = time.time()
     track_T1()
     track_T2()
     track_T3()
     track_T4()
+    track_gaps()
     print("  run time %.0f s (the slowest: %s)" % (
         time.time() - t0, ", ".join("%s %.0f s" % r for r in sorted(
             RUNS, key=lambda r: -r[1])[:3])))

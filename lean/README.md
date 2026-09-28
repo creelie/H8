@@ -27,10 +27,10 @@ per theorem. Every line must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
 through `decide` or the core lemmas on natural numbers, and none may mention `sorryAx`. The GitHub workflow in
 `.github/workflows/lean.yml` enforces all three, and fails the build if the
-number of theorems is not eighty or if any of them reaches for a further
+number of theorems is not eighty-eight or if any of them reaches for a further
 axiom.
 
-## The eighty theorems
+## The eighty-eight theorems
 
 | theorem | statement |
 | --- | --- |
@@ -141,7 +141,7 @@ algebra computations that Lean does not carry, and prints
 ## Transcript
 
 `axioms.txt` is the unedited output of `lean HodgeObstruction.lean` under
-Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): eighty lines, one per
-theorem, sixty-nine reading `does not depend on any axioms` and eleven reading
+Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): eighty-eight lines, one per
+theorem, seventy-seven reading `does not depend on any axioms` and eleven reading
 `depends on axioms: [propext]`, exit status 0, no `sorryAx`. `lake build`
 completes with the same report. Each run takes about two minutes.

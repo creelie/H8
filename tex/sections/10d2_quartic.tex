@@ -23,8 +23,7 @@ shape the corrected criterion asks $\dim\Ext^{2}(E,E)=112$ of one complex
 (\Cref{thm:quarticp2prime}). None of this is a new case of the Hodge
 conjecture, and $\mathbf{W}(F,2,\delta)$ remains open for every quartic $F$
 and every $\delta$. Item (LV) of \Cref{sec:verification} checks the
-statements in exact arithmetic; its scripts are in
-\texttt{code/attack/quartic\_cm}.
+statements in exact arithmetic.
 
 Throughout, $F$ is a quartic CM field and $F_{0}$ its real quadratic subfield,
 with real places $\tau_{1},\tau_{2}$, and $(V,H)$ is of $(F,2)$-Weil type with
@@ -619,6 +618,135 @@ $T_{\rho}$. We have not extended \Cref{thm:p2false} to fields of degree four,
 so we do not know whether the pure shape is excluded here as it is for $m=1$;
 nothing below uses it.
 
+The natural candidates for the complex are Markman's secant objects
+\cite{Mar25c}, and the dimension count that works for imaginary quadratic
+fields (\Cref{thm:twistedcert}) can be tested on them exactly. Let $X$ be a
+principally polarised abelian fourfold with real multiplication by the ring of
+integers $\cO_{F_{0}}$, write $\theta_{1},\theta_{2}\in H^{2}(X,\RR)$ for the
+components of the polarisation at the two real places of $F_{0}$, so that
+$\theta=\theta_{1}+\theta_{2}$ and $\theta_{j}^{3}=0$, and let $\mathcal{R}$ be
+the $\QQ$-subalgebra of $H^{\mathrm{ev}}(X,\QQ)$ spanned by the rational
+combinations of the $\theta_{1}^{a}\theta_{2}^{b}$, $0\le a,b\le2$. A class
+$v=\sum_{a,b}V_{ab}\,\theta_{1}^{a}\theta_{2}^{b}/(a!\,b!)$ of $\mathcal{R}$ has a
+$3\times3$ matrix $V$ with entries in $F_{0}\otimes\RR$.
+
+\begin{proposition}[The secant space of a quartic field]\label{prop:quarticsecant}
+Let $F=F_{0}(\sqrt{-q})$ with $q\in F_{0}$ totally positive, let $t\in F_{0}$,
+$s_{j}=\sqrt{-1}\,\sqrt{\tau_{j}(q)}$, and for $\varepsilon\in\{\pm1\}^{2}$ put
+$e_{\varepsilon}=\exp\bigl(\sum_{j}(\tau_{j}(t)+\varepsilon_{j}s_{j})\theta_{j}\bigr)$.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item The span $S(t,q)$ of the four $e_{\varepsilon}$ is a rational subspace of
+  $\mathcal{R}$ of dimension $4=2^{[F_{0}:\QQ]}$, secant to the spinor variety;
+  every $F$-structure of Markman's type on $X\times\widehat X$, for every
+  rational $F_{0}$-$B$-field, gives one of these spaces.
+\item For $v=\sum_{\varepsilon}w_{\varepsilon}e_{\varepsilon}\in S(t,q)$ let
+  $\rho=\rk V$ and $N_{w}=\#\{\varepsilon:w_{\varepsilon}\ne0\}$. The ranks of
+  contraction from $HT^{k}(X)$ into $v$ are $1$, $8$ and $2\rho+4N_{w}$ for
+  $k=0,1,2$, with $(\rho,N_{w})\in\{(1,4),(2,4),(2,2)\}$, and $N_{w}=2$ only for
+  biquadratic $F$ and $v$ in a secant plane of its imaginary quadratic subfield.
+\item For $v=e^{\theta_{t}}(a\,u+v_{f}+c\,w)$ in the basis
+  $u=(1-\tfrac12q_{1}\theta_{1}^{2})(1-\tfrac12q_{2}\theta_{2}^{2})$,
+  $v_{f}=\theta_{f}-\tfrac12\theta_{\bar fq}\theta_{1}\theta_{2}$,
+  $w=\theta_{1}\theta_{2}$ of $e^{-\theta_{t}}S(t,q)$, one has
+  $\chi(v,v)=\int_{X}v^{\vee}v=4\bigl(\Nm(q)a^{2}+c^{2}+\Tr(\bar q f^{2})\bigr)$,
+  which is positive definite.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) The Galois group permutes the four exponentials as it permutes the CM
+types of $F$, so their span is rational; since $\theta_{j}^{3}=0$,
+$e^{\pm s_{j}\theta_{j}}=(1-\tfrac12\tau_{j}(q)\theta_{j}^{2})\pm s_{j}\theta_{j}$, and
+the four classes are independent. The conjugates in
+$\mathfrak{so}\cap\End^{0}(X\times\widehat X)$ of the standard structure have
+eigenvalues $t\pm s$, and the pure spinors of their eigenspaces are the
+$e_{\varepsilon}$. (ii) Over $\CC$, $H^{1}(X)=U_{1}\oplus U_{2}$ with $U_{j}$ the
+eigenspaces of $F_{0}$, and $HT^{*}(X)$ and $H^{*}(X)$ are tensor products over
+$j$, compatibly with contraction. By \Cref{lem:bfield}(i),
+$\xi\lrcorner e^{\lambda\theta_{j}}=y^{\lambda}(\xi)e^{\lambda\theta_{j}}$, and the
+blocks $HT_{1}^{a}\otimes HT_{2}^{b}$ have independent images because they
+shift the two Hodge bidegrees by $(a,b)$ while $v$ is balanced. The block
+$(1,1)$ contributes $4N_{w}$, by the invertibility of the Hadamard matrix of
+the signs; the blocks $(2,0)$ and $(0,2)$ contribute $\rho$ each; the blocks
+$(1,0)$ and $(0,1)$ contribute $4$ each in degree one. Reality gives
+$w_{-\varepsilon}=\overline{w_{\varepsilon}}$, and when $F$ is not biquadratic
+the Galois group acts transitively on the CM types, so $N_{w}=4$. (iii)
+$\int_{X}e^{c_{1}\theta_{1}+c_{2}\theta_{2}}=c_{1}^{2}c_{2}^{2}$, and $\chi$ is
+invariant under $e^{\theta_{t}}$. Item (LV) of \Cref{sec:verification} checks
+(ii) and (iii) in $49$ cases.
+\end{proof}
+
+\begin{theorem}[No dimension-count certificate for four quartic fields]
+\label{thm:quarticobstruction}
+Let $F_{0}$ be one of $\QQ(\sqrt5)$, $\QQ(\sqrt2)$, $\QQ(\sqrt{13})$,
+$\QQ(\sqrt{17})$, let $X$ be a principally polarised abelian fourfold with real
+multiplication by $\cO_{F_{0}}$, let $F\supset F_{0}$ be a quartic CM field,
+and give $A=X\times\widehat X$ the action of $F$ of \cite{Mar25c} for a rational
+$F_{0}$-$B$-field. Let $F_{1},F_{2}$ be perfect complexes on $X$ with
+$\Ext^{<0}(F_{i},F_{i})=0$, for instance sheaves, whose Chern characters lie in
+spaces $S(t,q)$ of \Cref{prop:quarticsecant}, and let
+$E=\Phi(F_{1}\boxtimes F_{2}^{\vee})$. Then the class
+$\kappa=\ch(E)e^{\ell/2}$ is a Hodge class on every member of the
+$(F,2,1)$-family, $r(\kappa)=r(\ch E)\in\{100,102,104\}$, and
+\[
+  \dim\Ext^{2}(E,E)>r(\kappa).
+\]
+So the injectivity of $\sigma_{E}$ cannot be obtained from a dimension count
+for any such $E$.
+\end{theorem}
+
+\begin{proof}
+That $\kappa$ is invariant under $G_{F}$, hence a Hodge class along the whole
+family, and that $r(\kappa)=r^{2}(v_{1})+r^{1}(v_{1})r^{1}(v_{2})+r^{2}(v_{2})$, are
+computed in item (LV) of \Cref{sec:verification}; with
+\Cref{prop:quarticsecant}(ii) the values are $100$, $102$, $104$. By the
+K\"unneth formula, as in \Cref{prop:orlovfour},
+$\dim\Ext^{2}(E,E)=e_{0}e_{2}'+e_{1}e_{1}'+e_{2}e_{0}'\ge r(\kappa)$, with equality
+only if each $F_{i}$ is minimal, $\dim\Ext^{k}(F_{i},F_{i})=1,8,r^{2}(\ch F_{i})$
+for $k=0,1,2$. For such $F_{i}$, Serre duality gives
+$\chi(F_{i},F_{i})=r^{2}-14$, that is $4$, $6$ or $-2$ for $r^{2}=18,20,12$; the
+last is impossible because $\chi$ is positive on $S(t,q)$. It remains to show
+that no integral class $v$ of $S(t,q)$ has $\chi(v,v)=4$ with $\rho=1$, or
+$\chi(v,v)=6$ with $\rho=2$ and $N_{w}=4$.
+
+The integral classes of $\mathcal{R}$ are computed in item (LV): in
+coordinates $V=\bigl(\begin{smallmatrix}r&\bar h&\bar g\\ h&c&\bar k\\ g&k&m
+\end{smallmatrix}\bigr)$ they are the matrices with $r,c,m\in\ZZ$ and
+$h,g,k\in\cO_{F_{0}}$ satisfying $c\equiv g$ modulo the different
+$\mathfrak d$ of $F_{0}$. If $\rho=1$, then $V=\lambda\alpha\bar\alpha^{T}$ with
+$\alpha\in\cO_{F_{0}}^{3}$ primitive and $\lambda\in\ZZ$, the congruence gives
+$\lambda D\in\mathfrak d$ with $D=\alpha_{1}^{2}-\alpha_{0}\alpha_{2}$, and
+$\chi=4\lambda^{2}\Nm(D)$; $\chi=4$ forces $\lambda=\pm1$ and $\Nm(D)=1$, so the
+discriminant of $F_{0}$ divides $\Nm(D)=1$, which is absurd. If $\rho=2$, let
+$l\in\cO_{F_{0}}^{3}$ be primitive with $l^{T}V=0$ and
+$\Delta=l_{1}^{2}-4l_{0}l_{2}$, totally negative; then $\operatorname{adj}V=
+\mu\,\bar l\,l^{T}$ with $\mu\in\ZZ\setminus\{0\}$, and one has
+$\chi^{2}-4\mu^{2}\Nm(\Delta)=16\Nm(\delta)^{2}|w_{++}|^{2}|w_{+-}|^{2}\ge0$,
+with equality exactly when $N_{w}=2$, and $\chi\equiv\pm2\mu\Delta$ modulo
+$\mathfrak d$. At $\chi=6$ the first gives $m=\mu^{2}\Nm(\Delta)\le8$ and the
+second, squared, $4m\equiv36$ modulo $\mathfrak d$. For $\QQ(\sqrt{13})$ and
+$\QQ(\sqrt{17})$ this asks for $m\equiv9$ modulo $13$ or $17$ with $1\le m\le8$,
+which has no solution. For $\QQ(\sqrt5)$ it gives $m=4$, so $\Delta$ is $-2$
+times a unit or minus the square of a unit, and $\Delta\equiv l_{1}^{2}$ modulo
+$4$; but neither $-1$ nor twice a unit is a square modulo $4$ in $\ZZ[\varphi]$.
+For $\QQ(\sqrt2)$ it gives $\mu=\pm1$ and $\Nm(\Delta)\in\{1,7\}$, which asks
+for $3$, $1+3\sqrt2$ or $1+\sqrt2$ to be a square modulo $4$ in $\ZZ[\sqrt2]$,
+and none is. These finite statements are certified in \Cref{sec:lean}, and
+the identities used are checked exactly on random integral classes in item
+(LV).
+\end{proof}
+
+For the other real quadratic subfields the same argument excludes $\rho=1$
+whenever the description of the integral classes holds, and excludes $\rho=2$
+whenever the discriminant of $F_{0}$ has a prime factor at least $11$ or two
+distinct odd prime factors; the fields $\QQ(\sqrt3)$, $\QQ(\sqrt6)$,
+$\QQ(\sqrt7)$, $\QQ(\sqrt{10})$ and $\QQ(\sqrt{14})$ remain. What
+\Cref{thm:quarticobstruction} leaves for $\mathbf{W}(F,2,\delta)$ is one of
+three things: a complex with Ext groups in degrees at most $-3$, which changes
+the Euler characteristic; a kernel on $X\times X$ that is not an external
+product; or a proof of the injectivity of $\sigma_{E}$ for some Orlov product
+that does not go through a dimension count.
+
 \begin{remark}[What is missing at $n=2$]\label{rem:quarticgap}
 The Weil classes of an $(F,2,\delta)$-family are known to be algebraic at the
 CM points, on $\mathrm{NL}(R_{F})$, and, for biquadratic $F$, on the
@@ -636,9 +764,11 @@ Weil class plus a polynomial in the $\eta_{t}$, and with
 $\dim\Ext^{2}(E,E)=r(\ch E)$, which is $112$ for a general shape; every such
 complex has $\dim\Ext^{2}(E,E)\ge68$. When $\delta$ is trivial the secant
 sheaves of \cite{Mar25c}, on $X\times\widehat{X}$ with $X$ an abelian fourfold
-with real multiplication by $F_{0}$, are natural candidates; we do not know
-whether their Chern characters have this form, or whether they are
-semiregular. Even $\mathbf{W}(F,2,\delta)$ for every quartic $F$ and every
+with real multiplication by $F_{0}$, are natural candidates. For objects of
+the form $\Phi(F_{1}\boxtimes F_{2}^{\vee})$ with $F_{1},F_{2}$ sheaves the
+twisted character is flat, and by \Cref{thm:quarticobstruction} their
+semiregularity, if it holds, cannot be proved by a dimension count for the
+four fields named there. Even $\mathbf{W}(F,2,\delta)$ for every quartic $F$ and every
 $\delta$ would be only the first case of the conclusion of
 $\mathrm{P2}_{\mathrm{split}}$, which concerns every field of degree at least
 four in infinitely many dimensions, and it would leave (F2) and (F3$'$) of
