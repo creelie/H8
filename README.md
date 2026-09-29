@@ -1,6 +1,6 @@
 # Density of the Algebraic Locus of Weil Classes on Abelian Varieties
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22950276.svg)](https://doi.org/10.5281/zenodo.22950276)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22950275.svg)](https://doi.org/10.5281/zenodo.22950275)
 
 Verification code and figure sources for the paper *Density of the Algebraic
 Locus of Weil Classes on Abelian Varieties*, by Deep
@@ -12,8 +12,8 @@ own version DOI, and gathers all of them under one concept DOI:
 
 | | DOI |
 | --- | --- |
-| release v2.0.0 (version DOI) | to be added once Zenodo mints it |
-| all versions (concept DOI) | to be added once Zenodo mints it |
+| release v2.0.0 (version DOI) | 10.5281/zenodo.23038895 (https://doi.org/10.5281/zenodo.23038895) |
+| all versions (concept DOI) | 10.5281/zenodo.22950275 (https://doi.org/10.5281/zenodo.22950275) |
 | release v1.0.0 (version DOI) | 10.5281/zenodo.22950276 (https://doi.org/10.5281/zenodo.22950276) |
 
 Cite the version DOI of the release you used, or the concept DOI for the

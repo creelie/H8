@@ -164,17 +164,17 @@ on a smooth curve, or the ideal of a curve in a smooth divisor, fails at such
 points, so both sheaves of the example fail; Question 11.2.2 itself stays
 open), with item (LXVIII), `code/quartic_local.py` and
 `m2/local_germs.m2`, `fig_quarticlocal` from `figures/make_round24.py`, and
-Lean Section 40 (one hundred and ten theorems). Release v2.0.0 was never
-published, so the next GitHub release is still v2.0.0. P2_split, (F2) and
-(F3') remain open. Never use agents or
+Lean Section 40 (one hundred and ten theorems); round 25 recorded the Zenodo
+DOIs of release v2.0.0. P2_split, (F2) and (F3') remain open. Never use agents or
 workflows in this repository's sessions: do the work directly.
 
 Release v1.0.0 (tag `v1.0.0`, commit `ef15bce`) is archived on Zenodo under
 DOI 10.5281/zenodo.22950276, recorded in the macro `\zenodoFirstDOI` at the
 top of `tex/declarations.tex`, in `CITATION.cff` and in `README.md`. Release
-v2.0.0 (not yet published; it accompanies round 24); its version DOI and the concept DOI go in
-`\zenodoVersionDOI` and `\zenodoConceptDOI`, the README table and
-`CITATION.cff` once Deep supplies them. A later GitHub
+v2.0.0 (tag `v2.0.0`, published by Deep; it accompanies round 24) has the
+version DOI 10.5281/zenodo.23038895, and the concept DOI of all versions is
+10.5281/zenodo.22950275; they are in `\zenodoVersionDOI` and
+`\zenodoConceptDOI`, the README table and `CITATION.cff`. A later GitHub
 release gets a new version DOI from Zenodo; update all three places then. There is no separate AI declaration: the use of Claude
 for the Python and Lean computations is stated in the Data availability
 section.
