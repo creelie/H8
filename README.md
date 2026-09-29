@@ -52,7 +52,7 @@ Lean check:
 
 The last lines are
 
-    1278 checks passed, 0 failed
+    1986 checks passed, 0 failed
     overall: PASS
 
 and the exit status is zero. The driver runs five self-contained checks and
@@ -112,6 +112,7 @@ then calls the companion scripts in the same directory:
 | `delsarte.py` | item (LXVI): Delsarte fourfolds: the 29 sextic shapes built from Fermat terms, chains and loops, their Fermat covers (A adj(A) = det(A) I, rows of adj(A) summing to det(A)/6, the least covering degree 24 or 30 for six shapes), smoothness by Groebner bases, and the Jacobian ring (1, 426, 1751, 426, 1) of the loop sextic; sympy and numpy |
 | `simplex_type.py` | item (LXVII): hypersurfaces of simplex type: the lattice degree e of the 29 Delsarte sextic shapes by the Smith normal form (e = least d except 3125 for the chain C6 and 2604 for the loop), the Klein quartic (e = 7, the Fermat septic), the Euler numbers of 197 Delsarte hypersurfaces as sums over the orbits of P^{r+1}, the holomorphic forms of top degree as invariant characters of the Fermat cover for 119 hypersurfaces and 40 cyclic covers, nondegeneracy of random polynomials of simplex type, and the smooth adapted fan of the Klein quartic; sympy |
 | `quartic_local.py` | item (LXVIII): Markman's candidate for a quartic CM field against the weakened criterion: the classes alpha_0 = Theta - (q/6) Theta^3 and beta' = g^* Theta - (q/6) (g^{-1})^* Theta^3 in the secant space S(0,q), their pure spinor coefficients, the compensated classes x_j = ((q/2) pi_j _| theta_j^2, 0, pi_j) and their B-field transports, the annihilators of dimension 16 and 8 and the ranks 12 and 20, int alpha_0 beta' = -4q Tr(f^2), the Euler pairings, the rank 96 on X x X modulo two primes, and the character Theta - (d/6) Theta^3 and chi = 8d of the first factor; exact rational arithmetic |
+| `lattice_congruence.py` | item (LXIX): the secant plane and the lattice of line bundles on a principally polarised abelian fourfold: binomial moments of a class in Q[Theta]/(Theta^5) against the closed formula, u + 3v in the lattice spanned by the e^{j Theta} exactly for d = 15, 23 mod 24 (d < 400, and a second decision by the Vandermonde basis for d < 60), the witness 6(u + v) at d = 3, the defect of m_4 at the smooth discriminants 1, 3, 5, 7, the non-integral moments of O_S for N = 5 to 8, and e(S) != [S]^2 for N <= 40; exact rational arithmetic |
 | `transport_growth.py` | the transport of the base cycle along the rational orbit: det(phi) = c^{2G}, phi^* E = c^2 E and phi^* omega = c^{2n} omega on an explicit sample of rational symplectic elements with denominators to 29; the multiplicity of a component as the order of the stabiliser its kernel meets, computed as a lattice index by Smith normal form, against the image degree computed as a Pfaffian; and the contrast between a subtorus the isogeny preserves, where the image degree is constant, and one it does not, where it grows |
 | `cm_fields.py` | the Weil classes of a CM field of degree four and six: the CM base point of every family, the balanced divisor classes delta_i(f), the identity that the balanced n-fold product of them is the Weil class w(f) = sum_sigma sigma(f) alpha_sigma, checked for six pairs (F, n) with m = 2, 3 and n = 1, 2, 3, and the identity that the Weil classes of a composite field generate those of its imaginary quadratic subfield |
 | `exceptional_classes.py` | the exceptional Hodge classes on the self-product of a Mumford fourfold (eight invariants against six divisor products), the Hodge numbers and adjoint weights that keep the H^3 of a quintic threefold outside abelian type, and the 4n^2-dimensional annihilator of the Weil class in Hochschild cohomology with the two linear-algebra lemmas behind the theorem on the semiregularity form of propagation |
@@ -151,7 +152,7 @@ number of theorems is not one hundred and ten, or if any of them depends on an a
 
 ## The computations of Appendix D, item by item
 
-Appendix D of the paper describes its computations as items (I) to (LXVIII). The
+Appendix D of the paper describes its computations as items (I) to (LXIX). The
 programs that carry them out are:
 
 | item | program |
@@ -224,6 +225,7 @@ programs that carry them out are:
 | (LXVI) | `code/delsarte.py` |
 | (LXVII) | `code/simplex_type.py` |
 | (LXVIII) | `code/quartic_local.py`, with `m2/local_germs.m2` for the local part |
+| (LXIX) | `code/lattice_congruence.py` |
 
 Items (I) to (V) are computed inside `code/verify_all.py` itself; items
 (XXIX), (XXXI) and (XL) are the Macaulay2 computations described below; item

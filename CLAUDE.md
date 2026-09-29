@@ -171,8 +171,13 @@ the Fourier-Mukai transforms T_b, S_beta act through an sl_2 at each real
 place, and the exponential rank-88 characters with lambda^{-1} in the lattice
 of the member are excluded; the linear shape and lambda^{-1} outside that
 lattice stay open; `mukai_place.py`, 30 checks, and `smooth_support.py`, 25
-checks of another session's smooth-support note), with the paper unchanged.
-P2_split, (F2) and (F3') remain open. Never use agents or
+checks of another session's smooth-support note), and merged Deep's
+Hodge_tex_v25 upload into `tex/sections/10c8_supports.tex` (`lem:smoothinjective`,
+`rem:gysinkernel`, `lem:blochduality`, `prop:smoothrank`, `rem:smoothrank`,
+`lem:binomialmoments`, `thm:lattice`, `cor:latticeburch`, `rem:latticedefect`;
+the injectivity is automatic only on a simple fourfold, and h^0(N) >= 4 comes
+from e(S) != 0), with item (LXIX), `code/lattice_congruence.py` (708 checks,
+1986 in all; 401 pages; 684 labels). P2_split, (F2) and (F3') remain open. Never use agents or
 workflows in this repository's sessions: do the work directly.
 
 Release v1.0.0 (tag `v1.0.0`, commit `ef15bce`) is archived on Zenodo under

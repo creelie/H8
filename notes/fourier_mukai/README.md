@@ -15,7 +15,9 @@ the paper).
 - **Open.** The exponential shape with λ^{-1} ∉ 𝔞, the linear shape, and so
   P2_split, (F2) and (F3').
 - **Earlier notes.** Section 7 checks and folds in the smooth-support note and
-  the status note written in other sessions.
+  the status note written in other sessions. The smooth-support statements are
+  now in the paper (Lemmas 18.43, 18.56, Remark 18.44, Proposition 18.46,
+  Theorem 18.57, Corollary 18.58), and Section 7.1 cites them there.
 
 ## Programs
 

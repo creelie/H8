@@ -476,7 +476,7 @@ computed, how it is computed, and which statements of the paper it supports.
   is declared and every declared statement is used, that the rule set is
   acyclic, and that each of the seventeen theorem labels it names, for its
   rules and for the consequences of $\mathbf{HC}$ it records, is a label of
-  this paper, against the list of all $673$ labels generated from the
+  this paper, against the list of all $684$ labels generated from the
   sources. It then computes the forward closure by iterating the one step map
   to a fixed point, and verifies the following. No statement marked proved
   rests at any depth on an open one, and $\mathbf{HC}$ is not in the closure
@@ -1703,12 +1703,34 @@ computed, how it is computed, and which statements of the paper it supports.
   of its pieces. That is \Cref{lem:freegerm}, \Cref{lem:divisorgerm},
   \Cref{thm:quarticlocal}, \Cref{prop:markmanquarticclasses} and
   \Cref{cor:markmanquarticfails}.
+
+\item \emph{The secant plane and the lattice of line bundles.} The binomial
+  moments of \Cref{lem:binomialmoments} are computed from the coefficients
+  $(a,b,-ad,-bd,ad^{2})$ of $a\,u_{\Theta}+b\,v_{\Theta}$ by solving
+  \eqref{eq:stirling} in exact arithmetic, and compared with the closed
+  formula of \Cref{thm:lattice} for $a\in\{1,2\}$, $b\in\{1,3\}$ and
+  $1\le d\le48$. For $b=3$, $a=1$ and every $d<400$ the integrality of the
+  five moments is compared with the congruence $d\equiv15,23\pmod{24}$, and
+  for $d<60$ the membership of $(1,3,-d,-3d,d^{2})$ in the lattice is
+  decided a second time by solving against the unimodular basis
+  $e^{j\Theta}$, $0\le j\le4$. The witness
+  $-23[\cO_{X}]+66[\cO_{X}(t)]-54[\cO_{X}(2t)]+20[\cO_{X}(3t)]-3[\cO_{X}(4t)]$
+  of \Cref{thm:secantexists} is checked to have the moments of
+  $6(u_{\Theta}+v_{\Theta})$ at $d=3$, with $6$ the least common denominator
+  of the moments of $u_{\Theta}+v_{\Theta}$. For $d\in\{1,3,5,7\}$ the
+  defect of $m_{4}$ is recorded, the divisibility $24\mid3(d+9)(d-1)$ of
+  \Cref{rem:latticedefect} is confirmed, and the moments of $\cO_{S}$ for a
+  smooth support are computed and found non-integral in $m_{4}$; finally
+  $e(S)\ne[S]^{2}$ is confirmed for $1\le N\le40$ at $b=3$, for
+  \Cref{lem:smoothinjective}. That is \Cref{thm:lattice},
+  \Cref{cor:latticeburch}, \Cref{rem:latticedefect} and
+  \Cref{lem:smoothinjective}.
 \end{enumerate}
 
-Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LXVIII) are the ones
+Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LXIX) are the ones
 on which theorems depend. Items (IV) and (V) support statements that no
 obstruction exists; a failure there would strengthen the paper rather than
 weaken it, and they are included for completeness.
-The sixty-five items other than (XXIX), (XXXI) and (XL) perform $1278$
+The sixty-six items other than (XXIX), (XXXI) and (XL) perform $1986$
 checks, all of which pass; those three, and the local part of (LXVIII), are
 $\Ext$ computations over a polynomial ring, recorded with their output.

@@ -16,6 +16,7 @@ cor:fourremain
 cor:hhfactor
 cor:kernelfamily
 cor:ksboundary
+cor:latticeburch
 cor:lefschetzsmall
 cor:localobstruction
 cor:markmancondition
@@ -133,6 +134,7 @@ eq:smoothinvariants
 eq:splitVpm
 eq:splitclosed
 eq:splitsigma
+eq:stirling
 eq:thetamodel
 eq:thetapmodel
 eq:thetappower
@@ -209,6 +211,8 @@ lem:appsign
 lem:balanced
 lem:basecase
 lem:bfield
+lem:binomialmoments
+lem:blochduality
 lem:blocks
 lem:boundednorm
 lem:burchmoments
@@ -251,6 +255,7 @@ lem:semiregsum
 lem:sexticweil
 lem:simplexchart
 lem:sixmonomials
+lem:smoothinjective
 lem:splitcm
 lem:splitsemireg
 lem:spreading
@@ -358,6 +363,7 @@ prop:sexticintegral
 prop:sexticweilmin
 prop:signatureforced
 prop:smoothlocal
+prop:smoothrank
 prop:splitgeom
 prop:splitobstruction
 prop:target
@@ -401,11 +407,13 @@ rem:failuremode
 rem:familyuniform
 rem:flatsums
 rem:genericcase
+rem:gysinkernel
 rem:hkroute
 rem:killsreduction
 rem:ksscope
 rem:kstransport
 rem:lattice
+rem:latticedefect
 rem:leavel
 rem:lmvknown
 rem:markmancheck
@@ -484,6 +492,7 @@ rem:sextictargets
 rem:signcheck
 rem:sizeconstant
 rem:sizeofloss
+rem:smoothrank
 rem:smoothremains
 rem:special
 rem:splitconsistent
@@ -623,10 +632,12 @@ thm:fmtheta
 thm:hdgcount
 thm:hhsplitting
 thm:hyperplane
+thm:lattice
 thm:lefschetzclosure
 thm:lefschetzfamily
 thm:lefschetzpropagation
 thm:linebundle
+thm:main
 thm:massgap
 thm:minimalsupport
 thm:model
