@@ -507,7 +507,11 @@ in every dimension (\Cref{lem:weiltorushodge}, \Cref{lem:weiltorussubsets},
 \Cref{prop:weiltorussheaves}). So the minimum $2n(2n-1)$ is attained by no
 complex, and the descriptions of a complex meeting the pure criterion
 (\Cref{thm:p2forces}, \Cref{thm:p2numerical}, \Cref{thm:p2endo},
-\Cref{thm:p2support}) are true implications with no instance.
+\Cref{thm:p2support}) are true implications with no instance. The argument
+extends to the Weil tori of every CM field: their Hodge ring is larger, but a
+very general one has no analytic subset of codimension $n$, so the pure form
+is never met for any CM field (\Cref{lem:cmweiltori},
+\Cref{thm:cmpurefalse}).
 \Cref{rem:tworemain} records, for each of the two criteria, what it asks for
 and what is known of it.
 
@@ -756,11 +760,17 @@ group. The Casimir class of the natural quadratic form in degree two is
 algebraic if and only if the Weil classes are; correspondences with abelian
 varieties whose simple factors have dimension at most seven cannot help at a
 member with full Hodge group; and for a general shape the corrected criterion
-asks $\dim\Ext^{2}(E,E)=112$ of one complex, every complex of that shape
-having $\dim\Ext^{2}(E,E)\ge68$ (\Cref{prop:quarticnl},
+asks $\dim\Ext^{2}(E,E)=112$ of one complex (\Cref{prop:quarticnl},
 \Cref{prop:quarticscalar}, \Cref{rem:quarticprym},
 \Cref{prop:quarticcasimir}, \Cref{prop:quarticnogo},
-\Cref{thm:quarticp2prime}).
+\Cref{thm:quarticp2prime}). We compute the rank the criterion asks for
+exactly, for every shape: it takes fifteen values, the least being $80$, taken
+only when the polynomial part is constant, and the pure shape is excluded for
+every CM field and every $n\ge2$ by a deformation argument over Weil tori, as
+in the quadratic case. So a complex meeting the criterion at a quartic field
+has a polynomial part that is not constant and $\dim\Ext^{2}(E,E)\ge88$
+(\Cref{thm:quarticrank}, \Cref{thm:cmpurefalse},
+\Cref{cor:quarticleast}).
 
 Orlov products of objects with secant Chern characters have flat twisted
 characters for every quartic CM field when the $B$-field is trivial
@@ -856,7 +866,14 @@ birational invariants that depend only on the maximal rationally connected
 quotient, and with Markman's theorem the conjecture holds on every fourfold
 birational to an abelian fourfold (\Cref{prop:aclosure},
 \Cref{prop:f3primesmall}, \Cref{prop:f3primefibration},
-\Cref{rem:f3primefrontier}). Zero-cycles alone go no further: (F3$'$) for
+\Cref{rem:f3primefrontier}). In degree four the conditions also descend
+along every dominant rational map; so (F3$'$) holds on every fourfold and
+fivefold dominated by a member of that class, the conjecture on every
+fourfold dominated by an abelian fourfold, and, through Shioda's monomial
+cover by a Fermat hypersurface, (F3$'$) holds on every smooth fourfold of
+Delsarte type, among them $28$ sextic fourfolds besides the Fermat one, on
+which zero-cycles give nothing (\Cref{prop:f3primedominant},
+\Cref{prop:delsarte}). Zero-cycles alone go no further: (F3$'$) for
 uniruled fivefolds, or for rational sixfolds, is equivalent to (F3$'$) for
 all fourfolds (\Cref{rem:f3primesharp}).
 

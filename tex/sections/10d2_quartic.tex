@@ -594,19 +594,17 @@ $T_{\sigma}=(V_{\sigma}^{1,0})^{\vee}\subseteq T_{0}A$.
   value $112$ is also taken at a general element, with nonzero component in
   $W_{F}\otimes\CC$, of the complexified Hodge ring of a member with
   $\Hg(A)=G_{F}$.
-\item $r(\gamma)\ge68$ for every $p$.
-\item At the classes $\omega$ and coefficients computed in item (LV): for $p$
-  a multiple of one monomial $\theta_{1}^{i}\theta_{2}^{j}$, $0\le i,j\le4$,
-  the rank $r(\gamma)$ takes the six values $80$, $84$, $88$, $104$, $108$,
-  $112$; for $p$ a sum of two such terms the values $92$ and $96$ occur as
-  well, for instance $r(\omega+\theta_{2}+t\theta_{1}^{2})=92$ and
-  $r(\omega+\theta_{1}^{2}+t\theta_{2}^{2})=96$ for each of the seven nonzero
-  values of $t$ tested. No value below $80$ has been found, and whether the
-  bound of \textup{(iii)} is attained is open.
+\item $r(\gamma)\ge80$ for every $p$, with equality exactly when $p$ is a
+  constant.
+\item The rank $r(\gamma)$ takes exactly the fifteen values $80$, $84$, $87$,
+  $88$, $91$, $92$, $94$, $95$, $96$, $104$, $107$, $108$, $110$, $111$,
+  $112$; \Cref{thm:quarticrank} computes it for every $p$. On the monomials
+  $\theta_{1}^{i}\theta_{2}^{j}$ with a general coefficient it takes the
+  six values $80$, $84$, $88$, $104$, $108$, $112$.
 \item Let $E$ be a perfect complex on $A$ with $\ch(E)=N\omega_{1}+P$, where
   $N\ne0$, $\omega_{1}$ is a nonzero rational Weil class and $P$ is a
   polynomial with rational coefficients in the classes $\eta_{t}$. Then
-  $\dim\Ext^{2}(E,E)\ge r(\ch E)\ge68$. If $\dim\Ext^{2}(E,E)=r(\ch E)$, then
+  $\dim\Ext^{2}(E,E)\ge r(\ch E)\ge80$. If $\dim\Ext^{2}(E,E)=r(\ch E)$, then
   $\operatorname{ev}_{E}$ is onto with kernel $\Ann_{HT^{2}}(\ch E)$ and
   $\sigma_{E}$ is injective, so that $\mathbf{W}(F,2,\delta)$ follows by
   \Cref{thm:cmpropagation}(v).
@@ -650,30 +648,18 @@ lower semicontinuous in $p$, and item (LV) finds $r(\gamma)=112$ exactly at
 explicit rational $\omega$ and $p$, and at explicit elements of the Hodge ring
 with nonzero Weil component.
 
-(iii) In such a basis each basis element of $HT^{2}$ carries a monomial to a
-multiple of a monomial. Let $G$ be the set of monomials that are not of the
-form $\xi_{0}\lrcorner\mu$ for a basis element $\xi_{0}$ and a monomial $\mu$
-occurring in some $\theta_{1}^{i}\theta_{2}^{j}$. The coordinates of
-$\xi\lrcorner\gamma$ along $G$ are those of $\xi\lrcorner\omega$, whatever $p$
-is, and the map $\xi\mapsto(\xi\lrcorner\omega)|_{G}$ has rank $68$, computed
-exactly in item (LV); the rank of a projection bounds $r(\gamma)$ from below.
-The full torus acts on the monomials of $G$ by scalars and moves any $\omega$
-to any other, so the rank $68$ does not depend on $\omega$.
-
-(iv) is computed exactly in item (LV), on the $25$ monomials and on all $300$
-pairs of them with seven ratios of coefficients. By the torus of (ii) the
-value on a monomial of total degree other than two does not depend on its
-coefficient or on $\omega$; for $\theta_{1}^{2}$, $\theta_{1}\theta_{2}$ and
-$\theta_{2}^{2}$ the ratio of the coefficient to $\omega$ is an invariant, as
-at the exceptional ratio of \Cref{rem:p2primeexceptional}, and only the ratios
-computed are asserted.
+(iii) and (iv) are \Cref{thm:quarticrank}(iii) and (iv) below. The
+monomial values were found first by exact computation in item (LV), on the
+$25$ monomials and on all $300$ pairs of them with seven ratios of
+coefficients; the part of the contraction that no $p$ reaches has rank only
+$68$, so the columns that $p$ does reach are needed for the bound.
 
 (v) By the commutative square $\sigma_{E}\circ\operatorname{ev}_{E}=(\,\cdot\,)
 \lrcorner\ch(E)$ of \Cref{setup:criterion}, which holds on every abelian
 variety, $\dim\Ext^{2}(E,E)\ge\operatorname{rk}\operatorname{ev}_{E}\ge
 r(\ch E)$, and equality forces $\operatorname{ev}_{E}$ to be onto with kernel
 the annihilator and $\sigma_{E}$ to be injective, as in
-\Cref{thm:p2primenumber}(iv); and $r(\ch E)\ge68$ by (iii), since the
+\Cref{thm:p2primenumber}(iv); and $r(\ch E)\ge80$ by (iii), since the
 complexification of $\ch(E)$ is a $\gamma$ as above with $\omega=N\omega_{1}$.
 The last implication is \Cref{thm:cmpropagation}(v), whose character is
 exactly of this form.
@@ -687,9 +673,234 @@ of $HT^{2}$ minus that of the family. For the pure shape the argument of
 $A_{\theta}A_{\theta'}=0$ for $\theta\in T_{\rho}$, $\theta'\in T_{\rho'}$,
 $\rho\ne\rho'$, and a smooth component of the support of codimension at least
 two along which $E$ is locally free of positive rank would be tangent to three
-of the four $T_{\rho}$. We do not know whether the pure shape is excluded
-here, as it is for $m=1$ by \Cref{thm:p2false}, whose proof we have not
-extended to fields of degree four; nothing below uses it.
+of the four $T_{\rho}$. The pure shape is in fact excluded, for every CM
+field, by \Cref{thm:cmpurefalse}.
+
+The rank $r(\gamma)$ can be computed for every $p$. In the basis of the
+proof of \Cref{thm:quarticp2prime}(ii) write $x_{\sigma,1},x_{\sigma,2}$ for
+the basis of $V_{\sigma}^{1,0}$, $y_{\sigma,1},y_{\sigma,2}$ for that of
+$V_{\sigma}^{0,1}$, and $\partial_{\sigma,1},\partial_{\sigma,2}$ for the dual
+basis of $T_{\sigma}$, so that $\theta_{j}=\sum_{\sigma|\tau_{j}}\sum_{k}
+x_{\sigma,k}\,y_{\bbar\sigma,k}$ and $\alpha_{\sigma}=x_{\sigma,1}x_{\sigma,2}
+y_{\sigma,1}y_{\sigma,2}$, and use the torus of that proof to make every
+$u_{\sigma}$ equal to $1$. Expand
+$p=\sum_{i,j=0}^{4}e_{ij}\,\theta_{1}^{i}\theta_{2}^{j}/(i!\,j!)$, so that
+$e_{ij}$ is a derivative of $p$ at $0$, and put:
+\begin{itemize}[leftmargin=1.6em,itemsep=1pt]
+\item $\mu(p)=0$ if $\partial_{1}\partial_{2}p=0$ and $\mu(p)=1$ otherwise,
+  the derivatives taken in $\CC[\theta_{1},\theta_{2}]$;
+\item $\rho_{1}(p)$ the dimension of the span of $\partial_{1}p$ and
+  $\partial_{1}^{2}p$ modulo $\theta_{1}^{3}$, which is the rank of the
+  $2\times15$ matrix whose columns are the pairs $(e_{i,j},e_{i+1,j})$,
+  $1\le i\le3$, $0\le j\le4$; and $\rho_{2}(p)$ likewise, with the two indices
+  exchanged;
+\item for $t=1,2$, with $\sigma,\bbar\sigma$ the embeddings over $\tau_{t}$,
+  $W_{t}\subseteq HT^{2}(A)$ the span of the eight elements
+  $y_{\sigma,1}\wedge y_{\sigma,2}$, $y_{\bbar\sigma,1}\wedge
+  y_{\bbar\sigma,2}$, $\partial_{\sigma,1}\wedge\partial_{\sigma,2}$,
+  $\partial_{\bbar\sigma,1}\wedge\partial_{\bbar\sigma,2}$ and
+  $y_{\sigma,k}\otimes\partial_{\bbar\sigma,l}$,
+  $y_{\bbar\sigma,k}\otimes\partial_{\sigma,l}$ with $k\ne l$, and $R_{t}(p)$
+  the rank of $\xi\mapsto\xi\lrcorner\gamma$ on $W_{t}$;
+\item $h_{1}=e_{1}e_{3}-e_{2}^{2}$, $h_{2}=e_{2}e_{4}-e_{3}^{2}$,
+  $h_{3}=e_{1}e_{4}-e_{2}e_{3}$ on $\CC^{4}$, and $V_{\pm}\subset\CC^{4}$ the
+  set where $h_{3}=\pm e_{3}$, $2h_{2}=\pm e_{4}$ and $2h_{1}+1=\pm e_{2}$.
+\end{itemize}
+
+\begin{theorem}[The rank of the criterion at a quartic field]
+\label{thm:quarticrank}
+In this notation:
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item $r(\gamma)=64+16\mu(p)+4\rho_{1}(p)+4\rho_{2}(p)+R_{1}(p)+R_{2}(p)$.
+\item $R_{t}(p)\in\{7,8\}$. If $R_{1}(p)=7$, then
+  $(e_{10},e_{20},e_{30},e_{40})$ lies on $V_{+}\cup V_{-}$ and
+  $\rho_{1}(p)=2$; conversely, if $p$ depends on $\theta_{1}$ alone and
+  $(e_{10},\dots,e_{40})$ lies on $V_{+}\cup V_{-}$, then $R_{1}(p)=7$, as for
+  $p=\theta_{1}^{2}/2$. The same holds for $R_{2}$ with
+  $(e_{01},\dots,e_{04})$. Each $V_{\pm}$ contains the surface of points
+  $(w\lambda\pm\frac{3}{2\lambda},\,w\lambda^{2}\pm\frac12,\,w\lambda^{3},
+  \,w\lambda^{4})$, $w\in\CC$, $\lambda\in\CC^{\times}$.
+\item $r(\gamma)\ge80$, with equality exactly when $p$ is a constant, and
+  $r(\gamma)$ takes exactly the fifteen values
+  \[
+    80,\ 84,\ 87,\ 88,\ 91,\ 92,\ 94,\ 95,\ 96,\ 104,\ 107,\ 108,\ 110,\ 111,\
+    112 ,
+  \]
+  the values $87$, $91$, $94$, $95$, $107$, $110$ and $111$ only when $R_{1}$
+  or $R_{2}$ is $7$. The value $100$ is not taken.
+\item For $\omega=\sum_{\sigma}u_{\sigma}\alpha_{\sigma}$ with arbitrary
+  nonzero $u_{\sigma}$, the same holds with $e_{ij}$ replaced by
+  $\kappa_{1}^{i}\kappa_{2}^{j}e_{ij}$, where $\kappa_{t}^{4}=
+  (u_{\sigma}u_{\bbar\sigma})^{-1}$ for the embeddings over $\tau_{t}$. The
+  four choices of $\kappa_{t}$ fix $V_{+}\cup V_{-}$, and $\mu$, $\rho_{1}$,
+  $\rho_{2}$ do not depend on them.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) Let $S$ be the torus of the basis that fixes $\theta_{1}$, $\theta_{2}$
+and every $\alpha_{\sigma}$. If $x_{\sigma,k}$ has weight $a_{\sigma,k}$, then
+$y_{\sigma,k}$ has weight $-a_{\bbar\sigma,k}$ and $\partial_{\sigma,k}$ has
+weight $-a_{\sigma,k}$, and the only relations are
+$a_{\sigma,1}+a_{\sigma,2}=a_{\bbar\sigma,1}+a_{\bbar\sigma,2}$, one for each
+real place; so $S$ has dimension six. Attach to $y_{\sigma,k}$ the label
+$(\bbar\sigma,k)$ and to $\partial_{\sigma,k}$ the label $(\sigma,k)$. A basis
+element of $HT^{2}$ is a product of two of these and has weight
+$-(a_{P}+a_{Q})$ for its two labels $P,Q$, and two such weights agree exactly
+when the pairs of labels coincide or are $\{(\sigma,1),(\sigma,2)\}$ and
+$\{(\bbar\sigma,1),(\bbar\sigma,2)\}$. So $HT^{2}$ splits into $34$ weight
+spaces: the eight lines spanned by $y_{\sigma,k}\otimes
+\partial_{\bbar\sigma,k}$; sixteen spaces of dimension four, one for each
+pair of labels over different real places; eight of dimension four, one for
+each pair $\{(\sigma,k),(\bbar\sigma,l)\}$ over one place; and $W_{1}$,
+$W_{2}$. The class $\gamma$ is invariant under $S$, so contraction carries
+each weight space into the same weight of $H^{*}(A,\CC)$, and $r(\gamma)$ is
+the sum of the ranks on the $34$ spaces. A line $y_{\sigma,k}\otimes
+\partial_{\bbar\sigma,k}$ kills every $\theta_{1}^{i}\theta_{2}^{j}$, since
+$x_{\bbar\sigma,k}$ occurs in $\theta_{1}$ and $\theta_{2}$ only multiplied by
+$y_{\sigma,k}$, and it does not kill $\alpha_{\bbar\sigma}$: rank one. On a
+space of the second kind three basis elements carry $\omega$ to independent
+vectors on monomials that no image of $p$ meets, and the coordinates of the
+image of the fourth, the bivector, are up to sign the $e_{ij}$ with
+$i,j\ge1$: rank $3+\mu(p)$. On a space of the third kind over $\tau_{1}$ one
+basis element carries $\omega$ to a vector that no image of $p$ meets, the
+two elements of $H^{0,1}\otimes T_{0}A$ have opposite images, and the
+coordinates of the images of one of them and of the bivector are, after one
+global sign, the pairs $\pm(e_{i,j},e_{i+1,j})$: rank $1+\rho_{1}(p)$, and
+$1+\rho_{2}(p)$ over $\tau_{2}$. These descriptions are exact computations in
+the basis, item (LXV), and the total is
+$8+16(3+\mu)+4(1+\rho_{1})+4(1+\rho_{2})+R_{1}+R_{2}$.
+
+(ii) The matrix of the contraction on $W_{1}$, also computed in item (LXV),
+reduces by elementary operations to the direct sum of an invertible
+$4\times4$ block that does not involve $p$ and the matrix
+$K=\bigl(K^{0}\,\big|\,\mathrm{diag}(H,H)\bigr)$, where, with $e_{k}=e_{k0}$,
+\[
+  K^{0}=\begin{pmatrix}
+  e_{1}&e_{2}&-e_{3}&0&-\frac12&0\\
+  e_{2}&e_{3}&-e_{4}&-1&0&0\\
+  0&\frac12&0&e_{1}&-e_{2}&-e_{3}\\
+  -1&0&0&e_{2}&-e_{3}&-e_{4}
+  \end{pmatrix}
+\]
+and $H$ is the $2\times12$ matrix of the pairs $(e_{i,j},e_{i+1,j})$,
+$1\le i\le3$, $1\le j\le4$; so $R_{1}=4+\operatorname{rk}K$. Let
+$(a,b,c,d)$ annihilate the columns of $K^{0}$. The first two columns give
+$d=ae_{1}+be_{2}$ and $c=-2(ae_{2}+be_{3})$, and the other four then say that
+$(a,b)$ is orthogonal to the rows of
+\[
+  Q=\begin{pmatrix}
+  e_{3}&e_{4}\\
+  -e_{1}e_{2}&e_{2}^{2}-2e_{1}e_{3}-1\\
+  2e_{2}^{2}-e_{1}e_{3}-\frac12&e_{2}e_{3}\\
+  e_{1}e_{4}-2e_{2}e_{3}&e_{2}e_{4}-2e_{3}^{2}
+  \end{pmatrix},
+\]
+so $\operatorname{rk}K^{0}=2+\operatorname{rk}Q$. If $Q$ were zero, then
+$e_{3}=e_{4}=0$ by its first row, $e_{2}^{2}=\frac14$ by its third, and the
+second row would have the entry $-\frac34$. So $\operatorname{rk}K\ge3$ and
+$R_{1}\ge7$. If $R_{1}=7$, then $\operatorname{rk}Q=1$, and the $2\times2$
+minors of $Q$ vanish exactly on $V_{+}\cup V_{-}$: they lie in the ideals of
+both, and the squares of the products of their generators lie in the ideal of
+the minors (item (LXV); the minor of the first two rows, for instance, is
+$e_{2}h_{3}-2e_{3}h_{1}-e_{3}$). If moreover $\rho_{1}(p)\le1$, then
+$h_{1}=h_{2}=h_{3}=0$, and the minors of the second and third rows and of the
+first and third rows become $(e_{2}^{2}-1)/2$ and, once $e_{2}^{2}=1$,
+$e_{4}/2$; so $e_{4}=0$, $e_{3}^{2}=e_{2}e_{4}=0$ and $e_{1}e_{3}=0\ne
+e_{2}^{2}$, against $h_{1}=0$. Hence $\rho_{1}(p)=2$. If $p$ depends on
+$\theta_{1}$ alone, then $H=0$ and $R_{1}=6+\operatorname{rk}Q$, which is $7$
+on $V_{\pm}$; the point $(0,1,0,0)$ of $p=\theta_{1}^{2}/2$ lies on $V_{-}$.
+The parametrised points satisfy $h_{1}=\pm\frac12w\lambda^{2}-\frac14$,
+$h_{2}=\pm\frac12w\lambda^{4}$ and $h_{3}=\pm w\lambda^{3}$, which are the
+equations of $V_{\pm}$. The space $W_{2}$ is the same with the indices
+exchanged.
+
+(iii) A nonzero $e_{ij}$ with $i,j\ge1$ enters both Hankel matrices, so
+$\mu=1$ forces $\rho_{1},\rho_{2}\ge1$, and by (ii) $R_{t}=7$ forces
+$\rho_{t}=2$. The tuples $(\mu,\rho_{1},\rho_{2},R_{1},R_{2})$ allowed by
+these two conditions give exactly the fifteen values, and $80$ only for
+$(0,0,0,8,8)$; $\rho_{1}=\rho_{2}=0$ means that $e_{ij}=0$ unless $i=j=0$,
+that is, $p$ is constant. Each value is taken, at explicit $p$ computed on
+all $120$ basis elements at once in item (LXV): $p=0$, $\theta_{1}$,
+$\theta_{1}^{2}$, $\theta_{1}^{2}+\theta_{2}$, $\theta_{1}^{2}+
+\theta_{2}^{2}$, $\theta_{1}\theta_{2}$, $\theta_{1}\theta_{2}^{2}$ and
+$\theta_{1}^{2}\theta_{2}^{2}$ give $80$, $84$, $88$, $92$, $96$, $104$, $108$
+and $112$, and adding to $\theta_{1}^{2}/2$ nothing, $\theta_{2}$,
+$\theta_{2}^{2}$, $\theta_{2}^{2}/2$, $\theta_{1}\theta_{2}$,
+$\theta_{1}\theta_{2}+\theta_{2}^{2}$ and $\theta_{1}\theta_{2}+
+\theta_{2}^{2}/2$ gives $87$, $91$, $95$, $94$, $107$, $111$ and $110$.
+
+(iv) The element of the torus of the proof of \Cref{thm:quarticp2prime}(ii)
+that multiplies $x_{\sigma,k}$ by $s_{\sigma}$ and $y_{\sigma,k}$ by
+$t_{\sigma}$, with $s_{\sigma}t_{\bbar\sigma}=\kappa_{t}$ for $\sigma$ over
+$\tau_{t}$, multiplies $\theta_{t}$ by $\kappa_{t}$ and $\alpha_{\sigma}$ by
+$(s_{\sigma}t_{\sigma})^{2}$, and these can be chosen to make every
+$u_{\sigma}(s_{\sigma}t_{\sigma})^{2}$ equal to $1$ exactly when
+$\kappa_{t}^{4}=(u_{\sigma}u_{\bbar\sigma})^{-1}$. It carries $\omega+p$ to the
+normalised class with coefficients $\kappa_{1}^{i}\kappa_{2}^{j}e_{ij}$, and
+contraction is equivariant. Replacing $\kappa_{t}$ by $-\kappa_{t}$ changes the
+signs of $e_{1}$ and $e_{3}$, which fixes $V_{+}$ and $V_{-}$, and replacing
+it by $\sqrt{-1}\,\kappa_{t}$ exchanges them; scaling the columns and the
+second row of the Hankel matrices does not change their ranks.
+\end{proof}
+
+The count of (i), drawn in \Cref{fig:quarticrank}, is the analogue of the
+dimension counts of \Cref{thm:p2primenumber} for a field of degree four: sixty-four of the rank
+come from the Weil class alone, the Hankel terms measure how far $p$ is from
+an exponential in each variable, and the two eight-dimensional spaces
+$W_{t}$ carry the exceptional coefficients, the analogue of the exceptional
+ratio of \Cref{rem:p2primeexceptional}. Indeed $\rho_{1}(p)\le1$ exactly when
+$(e_{10},\dots,e_{40})$ lies on the cone over the twisted cubic, that is,
+when the part of $p$ in $\theta_{1}$ alone is, up to a constant, a multiple
+of $e^{\lambda\theta_{1}}-1$, of $\theta_{1}$ or of $\theta_{1}^{4}$.
+
+\begin{figure}[tbp]
+\centering
+  \includegraphics[width=\textwidth]{fig_quarticrank}
+\caption{The rank $r(\gamma)$ of \Cref{thm:quarticrank}, over the plane of
+the Hankel part $16\mu+4\rho_{1}+4\rho_{2}$ and of $R_{1}+R_{2}$. The fifteen
+points are the tuples allowed by the two conditions of the theorem, and each
+carries its value. Filled points are reached with $\rho_{1}=\rho_{2}$, as the
+character of a complex with rational coefficients is
+(\Cref{cor:quarticleast}(ii)); red points need an exceptional coefficient
+at one place at least. The value $80$ is the pure shape, excluded for every
+CM field by \Cref{thm:cmpurefalse}; so $88$ is the least rank a complex
+meeting the criterion can have. The level $r=100$ meets no point.}
+\label{fig:quarticrank}
+\end{figure}
+
+\begin{corollary}[The least object the criterion asks for]
+\label{cor:quarticleast}
+Let $E$ be as in \Cref{thm:quarticp2prime}\textup{(v)}.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item $\dim\Ext^{2}(E,E)\ge81$.
+\item The coefficients of $P$ satisfy $e_{ji}=\iota(e_{ij})$ for the
+  nontrivial automorphism $\iota$ of $F_{0}$, so $\rho_{1}=\rho_{2}$, and
+  $r(\ch E)$ is one of $80$, $88$, $94$, $95$, $96$, $104$, $110$, $111$,
+  $112$.
+\item If $\dim\Ext^{2}(E,E)=r(\ch E)$, then $P$ is not constant and
+  $\dim\Ext^{2}(E,E)$ is one of $88$, $94$, $95$, $96$, $104$, $110$, $111$,
+  $112$. The value $88$ requires $\mu=0$ and $\rho_{1}=\rho_{2}=1$, and it is
+  the rank of $N\omega_{1}+\eta_{s}$ for every $s\in F_{0}^{\times}$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+(i) By \Cref{thm:quarticp2prime}(v), $\dim\Ext^{2}(E,E)\ge r(\ch E)\ge80$. If
+$r(\ch E)=80$, then $P$ is a constant by \Cref{thm:quarticrank}(iii), so
+$\ch(E)=c+N\omega_{1}$ and \Cref{thm:cmpurefalse} makes the inequality
+strict. (ii) Write $\eta_{t}=\tau_{1}(t)\theta_{1}+\tau_{2}(t)\theta_{2}$
+as before \Cref{prop:quarticquat}. A polynomial with rational coefficients in the
+$\eta_{t}$ becomes, after exchanging $\theta_{1}$ and $\theta_{2}$, the
+polynomial whose coefficients are the images under $\iota$ of the old ones,
+so $e_{ji}=\iota(e_{ij})$; the Hankel matrix of $\rho_{2}$ is then the image
+under $\iota$ of that of $\rho_{1}$, which has the same rank. The values are
+those of \Cref{thm:quarticrank}(iii) with $\rho_{1}=\rho_{2}$, the scaling
+of (iv) there changing neither $\mu$ nor the $\rho_{t}$. (iii) If $P$ were
+constant, \Cref{thm:cmpurefalse} would give $\dim\Ext^{2}(E,E)>r(\ch E)$.
+For $P=\eta_{s}$ the pairs are $(\tau_{t}(s),0)$, so $\rho_{1}=\rho_{2}=1$,
+$\mu=0$, and $R_{t}=8$ by \Cref{thm:quarticrank}(ii).
+\end{proof}
 
 The natural candidates are Markman's secant objects \cite{Mar25c}, in the
 twisted form in which he states his reduction. For them a $B$-field twist of
@@ -1331,8 +1542,10 @@ $k=0,\dots,4$. Let $Z''$ be the class on $X\times X$ with correspondence
   of \Cref{prop:quarticexclusions} and scalar multiplication on each $V_{j}$,
   which commute with the complex structure and carry the class for
   $(\tau_{1}(q),\tau_{2}(q))$ to a multiple of that for any other pair of
-  positive reals, place by place. The value $94$ is not among those of
-  \Cref{thm:quarticp2prime}(iv). The annihilator in $H^{1}(T_{A})$ has
+  positive reals, place by place. The value $94$ is the one of
+  \Cref{thm:quarticrank}(iii) with $R_{1}=R_{2}=7$, taken for instance at
+  $p=(\theta_{1}^{2}+\theta_{2}^{2})/2$: the class is exceptional at both
+  places. The annihilator in $H^{1}(T_{A})$ has
   dimension $10>8$, and the Hodge locus of the class near $A$ contains the
   product of the orbits of $\mathrm{Spin}(4,3)$ at the two places, of
   dimension $10$: it leaves $\cD_{F}$, as at the exceptional ratio of
@@ -1375,8 +1588,10 @@ of $F$, if it has any, whose fourfolds are settled by Markman. What is missing
 is propagation, in the form of \Cref{thm:quarticp2prime}(v): one perfect
 complex on one member, with Chern character a nonzero multiple of a rational
 Weil class plus a polynomial in the $\eta_{t}$, and with
-$\dim\Ext^{2}(E,E)=r(\ch E)$, which is $112$ for a general shape; every such
-complex has $\dim\Ext^{2}(E,E)\ge68$. When $\delta$ is trivial the secant
+$\dim\Ext^{2}(E,E)=r(\ch E)$, which is $112$ for a general shape. Every such
+complex has $\dim\Ext^{2}(E,E)\ge81$, and one that meets the criterion has a
+polynomial part that is not constant and $\dim\Ext^{2}(E,E)\ge88$
+(\Cref{cor:quarticleast}). When $\delta$ is trivial the secant
 sheaves of \cite{Mar25c}, on $X\times\widehat{X}$ with $X$ an abelian fourfold
 with real multiplication by $F_{0}$, are natural candidates for the twisted
 form of that criterion, which is the form of Markman's reduction

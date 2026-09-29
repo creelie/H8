@@ -7,14 +7,14 @@ computational content is checked in exact arithmetic by the computations of
 \Cref{sec:verification}. The certificate is a single Lean~4 file that
 accompanies the paper. It compiles against a bare Lean~4 toolchain, contains
 no \texttt{sorry}, and depends on no library, Mathlib included. The axiom
-report at the end of the file lists, for each of its ninety-eight theorems,
-the axioms on which it depends. Eighty-five depend on none, and the remaining
-thirteen on propositional extensionality alone, which enters when
+report at the end of the file lists, for each of its one hundred and one theorems,
+the axioms on which it depends. Eighty-six depend on none, and the remaining
+fifteen on propositional extensionality alone, which enters when
 \texttt{decide} reduces an equality of Booleans or when a bound is proved from
 the lemmas on natural numbers in the core library; no theorem uses anything
 else. The annihilator dimension and the rank-zero obstruction of
 \Cref{ssec:rankzero}, \Cref{lem:annihilator} and \Cref{thm:rankzero}, are not
-among the ninety-eight: they are proved by hand, and the dimension count of
+among the one hundred and one: they are proved by hand, and the dimension count of
 the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \Cref{sec:verification}.
 
@@ -24,7 +24,7 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \small
 \renewcommand{\arraystretch}{1.06}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.31\linewidth}>{\raggedright\arraybackslash}p{0.62\linewidth}@{}}
-\caption{The ninety-eight machine-checked theorems.}\label{tab:lean}\\
+\caption{The one hundred and one machine-checked theorems.}\label{tab:lean}\\
 \toprule
 \textbf{theorem} & \textbf{statement} \\
 \midrule
@@ -139,6 +139,9 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \texttt{cm\_tetrahedron\_}\allowbreak\texttt{pairs} & the six two-element subsets of $T_{+}$ differ in exactly two coordinates, a subset and its complement have the same difference set, and each of $\{1,2\}$, $\{1,3\}$, $\{2,3\}$ occurs for exactly two subsets, \Cref{prop:cmsource}(ii) \\
 \texttt{cm\_profile\_}\allowbreak\texttt{forces\_equal} & on $[-10,10]^{3}$, equal values of $|a_{2}-a_{3}|$, $|a_{1}-a_{3}|$, $|a_{1}-a_{2}|$ force $a_{1}=a_{2}=a_{3}$, and two of them agree exactly along $a_{1}=a_{2}$ or $a_{1}+a_{2}=2a_{3}$ and the two analogous pairs of relations, \Cref{prop:cmsource}(ii) and (iii) \\
 \texttt{cm\_pairs\_}\allowbreak\texttt{three\_cycle} & a permutation of the four diagonals of the cube that fixes none of the three pairings of the diagonals is one of the eight cycles of length three, of order three with exactly one fixed diagonal, \Cref{lem:splitcm} \\
+\texttt{cm\_abelian\_}\allowbreak\texttt{semiregular\_}\allowbreak\texttt{count} & for $n\le60$ the annihilator of the class of an abelian subvariety of half dimension has dimension $2\binom{2n}{2}-2\binom{n}{2}+3n^{2}=6n^{2}-n$, and its complement in $HT^{2}$ has dimension $\binom{2n}{2}$, that of $\Ext^{2}(\cO_{B},\cO_{B})$, \Cref{lem:absemireg} \\
+\texttt{quartic\_rank\_}\allowbreak\texttt{values} & the tuples $(\mu,\rho_{1},\rho_{2},R_{1},R_{2})$ allowed at a quartic CM field give exactly fifteen values of $r(\gamma)$, the least $80$ only for $(0,0,0,8,8)$, never $100$, and nine when $\rho_{1}=\rho_{2}$, \Cref{thm:quarticrank}, \Cref{cor:quarticleast} \\
+\texttt{delsarte\_loop\_}\allowbreak\texttt{sextic} & for the loop sextic $AB=15624\,I$ with $B$ the circulant $(3125,-625,125,-25,5,-1)$, whose rows sum to $2604$, and the Jacobian ring has dimensions $1$, $426$, $1751$, $426$, $1$ and $15625$ in all, \Cref{prop:delsarte} \\
 \end{longtable}
 \endgroup
 

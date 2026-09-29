@@ -1923,6 +1923,114 @@ theorem cm_pairs_three_cycle :
     := by
   decide
 
+/-- the binomial coefficient `C(m, 2)`. -/
+def cmChoose2 (m : Nat) : Nat := m * (m - 1) / 2
+
+/-- **Abelian subvarieties of half dimension are semiregular: the count.**
+For `1 <= n <= 60`, the annihilator of the class of an abelian subvariety of
+dimension `n` in an abelian `2n`-fold has dimension
+`2 C(2n,2) - 2 C(n,2) + 3 n^2 = 6 n^2 - n`, and the complement in
+`HT^2`, of dimension `2 C(2n,2) + 4 n^2`, has dimension `C(2n,2)`, the
+dimension of `Ext^2(O_B, O_B)`. -/
+theorem cm_abelian_semiregular_count :
+    ((List.range 60).all fun k =>
+      let n := k + 1
+      (2 * cmChoose2 (2 * n) - 2 * cmChoose2 n + 3 * n * n == 6 * n * n - n)
+      && (2 * cmChoose2 (2 * n) + 4 * n * n - (6 * n * n - n)
+            == cmChoose2 (2 * n))) = true := by
+  decide
+
+/-! ## 37.  The exact rank at a quartic field, and a Delsarte sextic
+
+(i) The theorem on the rank of the criterion at a quartic CM field writes
+`r(γ) = 64 + 16 μ + 4 ρ_1 + 4 ρ_2 + R_1 + R_2` with `μ ∈ {0, 1}`,
+`ρ_t ∈ {0, 1, 2}`, `R_t ∈ {7, 8}`, subject to two conditions proved there:
+`μ = 1` forces `ρ_1, ρ_2 ≥ 1`, and `R_t = 7` forces `ρ_t = 2`.  The allowed
+tuples give exactly fifteen values, the least being `80`, reached only at
+`(0, 0, 0, 8, 8)`; `100` is not a value; with `ρ_1 = ρ_2` the values are the
+nine of the corollary on the least object.
+
+(ii) The loop sextic `x_0^5 x_1 + x_1^5 x_2 + ... + x_5^5 x_0` has exponent
+matrix `A = 5 I + P`, `P` the cyclic shift, and `A B = 15624 I` for the
+circulant `B` with first row `(3125, -625, 125, -25, 5, -1)`, whose row sums
+are all `2604 = 15624 / 6`; so the monomial map with exponents `B` carries the
+Fermat sextic of degree `15624` onto the loop sextic.  The coefficients of
+`(1 + t + t^2 + t^3 + t^4)^6` in the degrees `0, 6, 12, 18, 24` are
+`1, 426, 1751, 426, 1`, and their total is `5^6 = 15625`, the dimension of
+the Jacobian ring. -/
+
+/-- the value of the rank at a tuple `(μ, ρ_1, ρ_2, R_1, R_2)`. -/
+def qrValue (m r1 r2 R1 R2 : Nat) : Nat := 64 + 16 * m + 4 * r1 + 4 * r2 + R1 + R2
+
+/-- the tuples allowed by the two conditions of the theorem. -/
+def qrTuples : List (List Nat) :=
+  [0, 1].flatMap fun m => [0, 1, 2].flatMap fun r1 => [0, 1, 2].flatMap fun r2 =>
+    [7, 8].flatMap fun R1 => [7, 8].flatMap fun R2 =>
+      if (m == 1 && (r1 == 0 || r2 == 0)) || (R1 == 7 && r1 != 2)
+          || (R2 == 7 && r2 != 2) then [] else [[m, r1, r2, R1, R2]]
+
+/-- the value at a tuple given as a list. -/
+def qrVal (t : List Nat) : Nat :=
+  qrValue (t.getD 0 0) (t.getD 1 0) (t.getD 2 0) (t.getD 3 0) (t.getD 4 0)
+
+/-- **The fifteen values of the rank at a quartic field.**  The values over
+the allowed tuples are exactly the fifteen listed; `80` is the least and is
+reached only at `(0, 0, 0, 8, 8)`; `100` is not a value; and with
+`ρ_1 = ρ_2` the values are the nine listed in the corollary. -/
+theorem quartic_rank_values :
+    ([80, 84, 87, 88, 91, 92, 94, 95, 96, 104, 107, 108, 110, 111, 112].all
+        fun v => qrTuples.any fun t => qrVal t == v) = true
+    /\ (qrTuples.all fun t =>
+        [80, 84, 87, 88, 91, 92, 94, 95, 96, 104, 107, 108, 110, 111,
+          112].contains (qrVal t)) = true
+    /\ (qrTuples.all fun t => 80 ≤ qrVal t) = true
+    /\ (qrTuples.filter fun t => qrVal t == 80) = [[0, 0, 0, 8, 8]]
+    /\ (qrTuples.all fun t => qrVal t != 100) = true
+    /\ ((qrTuples.filter fun t => t.getD 1 0 == t.getD 2 0).all fun t =>
+        [80, 88, 94, 95, 96, 104, 110, 111, 112].contains (qrVal t)) = true
+    /\ ([80, 88, 94, 95, 96, 104, 110, 111, 112].all fun v =>
+        (qrTuples.filter fun t => t.getD 1 0 == t.getD 2 0).any
+          fun t => qrVal t == v) = true := by
+  decide
+
+/-- the exponent matrix `A = 5 I + P` of the loop sextic. -/
+def loopA (i j : Nat) : Int := if j == i then 5 else if j == (i + 1) % 6 then 1 else 0
+
+/-- the circulant `B` with first row `(3125, -625, 125, -25, 5, -1)`. -/
+def loopB (i j : Nat) : Int :=
+  [3125, -625, 125, -25, 5, -1].getD ((j + 6 - i) % 6) 0
+
+/-- the product of two `6 × 6` integer matrices given as functions. -/
+def mat6Mul (M N : Nat → Nat → Int) (i j : Nat) : Int :=
+  (List.range 6).foldl (fun acc k => acc + M i k * N k j) 0
+
+/-- multiplication of polynomials with natural coefficients, as lists. -/
+def natPolyMul (f g : List Nat) : List Nat :=
+  (List.range (f.length + g.length - 1)).map fun k =>
+    (List.range (k + 1)).foldl (fun acc i => acc + f.getD i 0 * g.getD (k - i) 0) 0
+
+/-- `(1 + t + t^2 + t^3 + t^4)^6`, the Hilbert series of the Jacobian ring. -/
+def loopHilbert : List Nat :=
+  (List.range 6).foldl (fun acc _ => natPolyMul acc [1, 1, 1, 1, 1]) [1]
+
+/-- **The Delsarte cover of the loop sextic.**  `A B = 15624 I` with
+`15624 = 5^6 - 1`, every row of `B` sums to `2604 = 15624 / 6`, the Jacobian
+ring has dimensions `1, 426, 1751, 426, 1` in the degrees `0, 6, 12, 18, 24`
+and total dimension `5^6 = 15625`, and `(-5)^6 ≠ 1`, which is what the product
+of the partial derivatives needs for smoothness. -/
+theorem delsarte_loop_sextic :
+    ((List.range 6).all fun i => (List.range 6).all fun j =>
+        mat6Mul loopA loopB i j == if i == j then 15624 else 0) = true
+    /\ (15624 : Int) = 5 ^ 6 - 1
+    /\ ((List.range 6).all fun i =>
+        (List.range 6).foldl (fun acc j => acc + loopB i j) 0 == 2604) = true
+    /\ 6 * 2604 = 15624
+    /\ ([0, 6, 12, 18, 24].map fun k => loopHilbert.getD k 0) = [1, 426, 1751, 426, 1]
+    /\ loopHilbert.foldl (· + ·) 0 = 15625
+    /\ loopHilbert.length = 25
+    /\ ((-5 : Int) ^ 6 != 1) = true := by
+  decide
+
 end HodgeObstruction
 
 /-! ## The axioms each theorem depends on
@@ -2030,3 +2138,6 @@ propositional extensionality enters through `decide`, and in no case
 #print axioms HodgeObstruction.cm_tetrahedron_pairs
 #print axioms HodgeObstruction.cm_profile_forces_equal
 #print axioms HodgeObstruction.cm_pairs_three_cycle
+#print axioms HodgeObstruction.cm_abelian_semiregular_count
+#print axioms HodgeObstruction.quartic_rank_values
+#print axioms HodgeObstruction.delsarte_loop_sextic

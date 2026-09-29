@@ -27,10 +27,10 @@ per theorem. Every line must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
 through `decide` or the core lemmas on natural numbers, and none may mention `sorryAx`. The GitHub workflow in
 `.github/workflows/lean.yml` enforces all three, and fails the build if the
-number of theorems is not ninety-eight or if any of them reaches for a further
+number of theorems is not one hundred and one or if any of them reaches for a further
 axiom.
 
-## The ninety-eight theorems
+## The one hundred and one theorems
 
 | theorem | statement |
 | --- | --- |
@@ -132,6 +132,9 @@ axiom.
 | `cm_tetrahedron_pairs` | the six two-element subsets of `T_+` fall into three pairs by the set of coordinates in which their weights differ |
 | `cm_profile_forces_equal` | on the box `[-10, 10]^3`, equal values of `abs(a_2 - a_3)`, `abs(a_1 - a_3)`, `abs(a_1 - a_2)` force `a_1 = a_2 = a_3` |
 | `cm_pairs_three_cycle` | a permutation of the four diagonals of the cube fixing none of the three pairings is a three-cycle |
+| `cm_abelian_semiregular_count` | for `1 <= n <= 60`, the annihilator of the class of an abelian `n`-fold in an abelian `2n`-fold has dimension `6n^2 - n`, and its complement in `HT^2` has dimension `C(2n, 2)` |
+| `quartic_rank_values` | the tuples `(mu, rho_1, rho_2, R_1, R_2)` allowed at a quartic CM field give exactly fifteen values of `64 + 16 mu + 4 rho_1 + 4 rho_2 + R_1 + R_2`, the least `80` only at `(0, 0, 0, 8, 8)`, never `100`, and nine values when `rho_1 = rho_2` |
+| `delsarte_loop_sextic` | for the loop sextic, `A B = 15624 I` with `B` the circulant `(3125, -625, 125, -25, 5, -1)`, rows of `B` summing to `2604`, and Jacobian ring dimensions `1, 426, 1751, 426, 1`, total `15625` |
 
 
 ## Two statements that look true and are not
@@ -155,12 +158,12 @@ careful reading does not catch and a kernel check does.
 `code/verify_all.py` in the parent directory performs the same checks in exact
 rational arithmetic over Q, independently of Lean, together with the exterior
 algebra computations that Lean does not carry, and prints
-`1203 checks passed, 0 failed`.
+`1231 checks passed, 0 failed`.
 
 ## Transcript
 
 `axioms.txt` is the unedited output of `lean HodgeObstruction.lean` under
-Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): ninety-eight lines, one per
-theorem, eighty-five reading `does not depend on any axioms` and thirteen reading
+Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and one lines, one per
+theorem, eighty-six reading `does not depend on any axioms` and fifteen reading
 `depends on axioms: [propext]`, exit status 0, no `sorryAx`. `lake build`
 completes with the same report. Each run takes a few minutes.

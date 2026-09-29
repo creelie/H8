@@ -476,7 +476,7 @@ computed, how it is computed, and which statements of the paper it supports.
   is declared and every declared statement is used, that the rule set is
   acyclic, and that each of the seventeen theorem labels it names, for its
   rules and for the consequences of $\mathbf{HC}$ it records, is a label of
-  this paper, against the list of all $642$ labels generated from the
+  this paper, against the list of all $655$ labels generated from the
   sources. It then computes the forward closure by iterating the one step map
   to a fixed point, and verifies the following. No statement marked proved
   rests at any depth on an open one, and $\mathbf{HC}$ is not in the closure
@@ -1552,12 +1552,65 @@ computed, how it is computed, and which statements of the paper it supports.
   monomial; and the component of a scalar pull-back with two factors from
   each copy has six coefficients of absolute value one. That is
   \Cref{prop:cmsource}.
+
+\item \emph{The exact rank at a quartic field.} The computation works in the
+  model of item (LV), with the basis of $H^{1}(A,\CC)$ adapted to the four
+  embeddings and the $120$ basis elements of $HT^{2}$. (A) The torus that
+  fixes $\theta_{1}$, $\theta_{2}$ and the four $\alpha_{\sigma}$ has
+  dimension six and splits $HT^{2}$ into $34$ weight spaces, of dimensions
+  one (eight), four (twenty-four, sixteen of them mixing the two real
+  places) and eight (two), whose images lie in disjoint sets of monomials.
+  (B) The lines have rank one. (C) On each mixed space three columns free
+  of $p$ span three coordinates, and the fourth coordinates of the other
+  columns are, up to sign, the sixteen $e_{ij}$ with $i,j\ge1$. (D) On each
+  unmixed space of dimension four the pairs $\pm(e_{i,j},e_{i+1,j})$, or
+  $\pm(e_{i,j},e_{i,j+1})$, appear after one global sign. (E) On $W_{1}$
+  and $W_{2}$ the part depending on $p$ involves only the coefficients of
+  one variable; the $5\times5$ minors of the $6\times8$ matrix that remains
+  generate the unit ideal, its $6\times6$ minors lie in the ideals of
+  $V_{+}$ and $V_{-}$, the squares of the products of generators lie in the
+  ideal of the minors, and with the $2\times2$ minors of the Hankel matrix
+  they generate the unit ideal; after two row operations the block is two
+  unit columns, two columns reaching the new rows and the matrix $K$ of the
+  proof, and the reduction of $K^{0}$ to $Q$ is confirmed at thirty-three
+  points, with the ideal computations for $Q$, all by Gr\"obner bases over
+  $\QQ$. (F) The formula of \Cref{thm:quarticrank}(i) agrees with the rank
+  computed on all $120$ columns at forty random $p$. (G) The fifteen
+  explicit $p$ of the proof have the fifteen values, and the tuples allowed
+  by (C) to (E) give exactly these, the least $80$ only for constant $p$,
+  and never $100$. (H) For $\omega$ with coefficients $4$, $1$, $1$, $1$ the exceptional coefficient moves as in
+  \Cref{thm:quarticrank}(iv): $r=87$ at $e_{20}=2$ and $r=88$ at
+  $e_{20}=3$. (I) For $\kappa_{0}=\theta_{1}+\theta_{2}$,
+  $\int\alpha_{\sigma}\kappa_{0}^{6}=0$, $\int\alpha_{\sigma}\alpha_{\sigma'}
+  \alpha_{\sigma''}\kappa_{0}^{2}=0$ and $\int\alpha_{\sigma}
+  \alpha_{\sigma'}\kappa_{0}^{4}\ne0$ exactly when $\sigma'=\bbar\sigma$.
+  That is \Cref{thm:quarticrank}, \Cref{lem:cmweiltori}(ii) for
+  $m=n=2$, and \Cref{cor:quarticleast}.
+
+\item \emph{Delsarte fourfolds.} (A) The sums of terms $x^{6}$, chains and
+  loops in six variables have $29$ shapes, the coefficient of $t^{6}$ in the
+  generating function of \Cref{prop:delsarte}. (B) For each of them $A$ is
+  invertible, $A\operatorname{adj}(A)=\det(A)I$, the rows of
+  $\operatorname{adj}(A)$ sum to $\det(A)/6$, and after the shift by $c$ the
+  exponent vectors of $F_{A}(\psi(y))$ are those of
+  $(y_{0}\cdots y_{5})^{6c}\sum_{i}y_{i}^{d}$, both for $d=|\det A|$ and for
+  the least $d$, which is $24$ or $30$ for six shapes and at least $120$ for
+  the others. (C) The reduced Gr\"obner basis over $\QQ$ of the partial
+  derivatives has a pure power of every variable among its leading
+  monomials, for the $29$ sextics and for the chains and loops of lengths
+  $2$ to $6$ and degrees $3$ to $8$ completed by terms $x^{m}$; so these
+  hypersurfaces are smooth. (D) For the loop sextic $\det A=5^{6}-1$,
+  $\operatorname{adj}(A)$ is the circulant with first row
+  $(3125,-625,125,-25,5,-1)$, and the standard monomials number $1$, $426$,
+  $1751$, $426$, $1$ in degrees $0$, $6$, $12$, $18$, $24$, none in degree
+  $25$, and $5^{6}$ in all. (E) The identity behind the product argument
+  for loops holds for $k\le8$, $m\le12$. That is \Cref{prop:delsarte}.
 \end{enumerate}
 
-Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LXIV) are the ones
+Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LXVI) are the ones
 on which theorems depend. Items (IV) and (V) support statements that no
 obstruction exists; a failure there would strengthen the paper rather than
 weaken it, and they are included for completeness.
-The sixty-one items other than (XXIX), (XXXI) and (XL) perform $1203$
+The sixty-three items other than (XXIX), (XXXI) and (XL) perform $1231$
 checks, all of which pass; those three are $\Ext$ computations over a
 polynomial ring, recorded with their output.

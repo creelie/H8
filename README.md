@@ -48,7 +48,7 @@ Lean check:
 
 The last lines are
 
-    1203 checks passed, 0 failed
+    1231 checks passed, 0 failed
     overall: PASS
 
 and the exit status is zero. The driver runs five self-contained checks and
@@ -104,6 +104,8 @@ then calls the companion scripts in the same directory:
 | `f3prime_chow.py` | item (LXII): the Hodge numbers behind the reach of the zero-cycle arguments for (F3'): Jacobian rings of smooth hypersurfaces, the primitive Hodge numbers (1, 426, 1751, 426, 1) of a sextic fourfold, the Euler numbers, and the degrees in which a blow-up or a uniruled fivefold needs a class in degree four on a fourfold |
 | `mumford_mass.py` | item (LXIII): the Wirtinger bound on a Mumford square in the split model: theta^4 = 24 vol on X and theta_Y^8 = 8! vol on the square, the primitivity of U_12, U_13, U_23, the pairings int pi_ij theta_Y^6 = 0 and int pi_0 theta_Y^6 = 2880, so L(omega_a) = 4 a_0, and L(theta_Y^2) = 56 |
 | `cm_source.py` | item (LXIV): the Weil structure of a Mumford fourfold at a CM point and the cycles on its square: the tetrahedra T_+ and T_- = -T_+, 132 = 100 + 32 Hodge classes of degree four, pull-backs of the Weil line along homomorphisms with components in the CM field spanning 110 with the divisor products and no exceptional class, Rosati-symmetric pairs spanning all 132, and the coefficient profile of an exceptional class |
+| `quartic_rank.py` | item (LXV): the exact rank of contraction into omega + p(theta_1, theta_2) at a quartic CM field: 34 weight spaces of a six-dimensional torus, r = 64 + 16 mu + 4 rho_1 + 4 rho_2 + R_1 + R_2 with R_t in {7, 8}, the exceptional loci V_+ and V_- by Groebner bases over Q, the fifteen values 80 to 112 (never 100, least 80 only for constant p), and the Kaehler class integrals on the Weil tori of the field; sympy |
+| `delsarte.py` | item (LXVI): Delsarte fourfolds: the 29 sextic shapes built from Fermat terms, chains and loops, their Fermat covers (A adj(A) = det(A) I, rows of adj(A) summing to det(A)/6, the least covering degree 24 or 30 for six shapes), smoothness by Groebner bases, and the Jacobian ring (1, 426, 1751, 426, 1) of the loop sextic; sympy and numpy |
 | `transport_growth.py` | the transport of the base cycle along the rational orbit: det(phi) = c^{2G}, phi^* E = c^2 E and phi^* omega = c^{2n} omega on an explicit sample of rational symplectic elements with denominators to 29; the multiplicity of a component as the order of the stabiliser its kernel meets, computed as a lattice index by Smith normal form, against the image degree computed as a Pfaffian; and the contrast between a subtorus the isogeny preserves, where the image degree is constant, and one it does not, where it grows |
 | `cm_fields.py` | the Weil classes of a CM field of degree four and six: the CM base point of every family, the balanced divisor classes delta_i(f), the identity that the balanced n-fold product of them is the Weil class w(f) = sum_sigma sigma(f) alpha_sigma, checked for six pairs (F, n) with m = 2, 3 and n = 1, 2, 3, and the identity that the Weil classes of a composite field generate those of its imaginary quadratic subfield |
 | `exceptional_classes.py` | the exceptional Hodge classes on the self-product of a Mumford fourfold (eight invariants against six divisor products), the Hodge numbers and adjoint weights that keep the H^3 of a quintic threefold outside abelian type, and the 4n^2-dimensional annihilator of the Weil class in Hochschild cohomology with the two linear-algebra lemmas behind the theorem on the semiregularity form of propagation |
@@ -136,10 +138,10 @@ reduction at all.
 No Mathlib and no dependencies. The file ends with one `#print axioms` line
 per theorem; every one must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
-through `decide`, and none may mention `sorryAx`. There are ninety-eight theorems. `lean/README.md` lists them
+through `decide`, and none may mention `sorryAx`. There are one hundred and one theorems. `lean/README.md` lists them
 and says what each one does and does not establish. The workflow in
 `.github/workflows/lean.yml` runs the check on every push and fails if the
-number of theorems is not ninety-eight, or if any of them depends on an axiom other than propext.
+number of theorems is not one hundred and one, or if any of them depends on an axiom other than propext.
 
 ## The computations of Appendix D, item by item
 
@@ -212,6 +214,8 @@ programs that carry them out are:
 | (LXII) | `code/f3prime_chow.py` |
 | (LXIII) | `code/mumford_mass.py` |
 | (LXIV) | `code/cm_source.py` |
+| (LXV) | `code/quartic_rank.py` |
+| (LXVI) | `code/delsarte.py` |
 
 Items (I) to (V) are computed inside `code/verify_all.py` itself; items
 (XXIX), (XXXI) and (XL) are the Macaulay2 computations described below; item
@@ -361,8 +365,11 @@ class to be algebraic modulo images of Hodge classes of abelian varieties
 under algebraic correspondences. It holds on every variety whose cohomology
 is reached from abelian varieties in that way (curves, abelian varieties,
 products, surjective images), in degrees 0, 2, 2n-2, 2n, and in dimension at
-most three; beyond that it is open, and nothing here closes it (Proposition
-prop:f3prime and Remark rem:f3primeopen). With (F3') the three statements are
+most three; in degree four it descends along dominant rational maps, which
+puts every smooth Delsarte fourfold in its domain, among them 28 sextic
+fourfolds besides the Fermat one (Propositions prop:f3primedominant and
+prop:delsarte, `delsarte.py`); beyond that it is open, and nothing here
+closes it (Proposition prop:f3prime and Remark rem:f3primeopen). With (F3') the three statements are
 a minimal route again (`closure_graph.py`, and Section 24 of the Lean file).
 The second and
 third are not reductions: the self-product of a
@@ -466,8 +473,10 @@ algebra (F/F_0, det H^{-1}); for biquadratic F Markman's theorem reaches them
 on a locus of dimension four; the Casimir class of R_F is algebraic exactly
 when the Weil classes are; correspondences with abelian varieties of
 dimension at most seven cannot help at a Hodge-generic member; and the
-corrected criterion asks dim Ext^2 = 112 of one complex, every complex of that
-shape having dim Ext^2 >= 68. If the two exceptional classes of a Mumford
+corrected criterion asks dim Ext^2 = 112 of one complex for a general shape;
+the rank it asks for takes fifteen values, the least being 80 and only for a
+constant polynomial part, the pure shape is excluded for every CM field, and
+so a complex meeting the criterion has dim Ext^2 >= 88. If the two exceptional classes of a Mumford
 fourfold X are algebraic on X x X, every Hodge class on every power of X is
 (one hyperdeterminant class needs a composite of correspondences); the
 Kuga-Satake route asks for that and a link besides, and no link passes

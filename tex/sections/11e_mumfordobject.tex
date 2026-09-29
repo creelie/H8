@@ -315,8 +315,8 @@ $Z$. On $\Ext^{2}(E_{1}\oplus E_{2},E_{1}\oplus E_{2})=\bigoplus_{i,j}
 \Ext^{2}(E_{j},E_{i})$ the semiregularity map is
 $\sigma_{E_{1}\oplus E_{2}}(\zeta)=\sigma_{E_{1}}(\zeta_{11})
 +\sigma_{E_{2}}(\zeta_{22})$. So $\sigma_{E_{1}\oplus E_{2}}$ is injective if
-and only if $\sigma_{E_{1}}$ and $\sigma_{E_{2}}$ are, and
-$\Ext^{2}(E_{1},E_{2})=\Ext^{2}(E_{2},E_{1})=0$.
+and only if $\sigma_{E_{1}}$ and $\sigma_{E_{2}}$ are injective, their images
+meet only in zero, and $\Ext^{2}(E_{1},E_{2})=\Ext^{2}(E_{2},E_{1})=0$.
 \end{lemma}
 
 \begin{proof}
@@ -326,8 +326,91 @@ $\sigma(\zeta)=\sum_{q}\frac1{q!}\operatorname{tr}(\zeta\circ\mathrm{At}^{q})$
 of \Cref{thm:BF} the composite $\zeta\circ\mathrm{At}^{q}$ has diagonal blocks
 $\zeta_{ii}\circ\mathrm{At}(E_{i})^{q}$, and the trace of a block matrix of
 morphisms is the sum of the traces of its diagonal blocks. In particular the
-off-diagonal blocks $\zeta_{12}$ and $\zeta_{21}$ lie in the kernel.
+off-diagonal blocks $\zeta_{12}$ and $\zeta_{21}$ lie in the kernel, so
+injectivity forces them to vanish; on the diagonal blocks the map is
+$(\zeta_{11},\zeta_{22})\mapsto\sigma_{E_{1}}(\zeta_{11})+\sigma_{E_{2}}
+(\zeta_{22})$, which is injective exactly when both summands are injective
+and their images meet only in zero.
 \end{proof}
+
+The condition on the images cannot be dropped, and the objects that show it
+are the simplest ones: the structure sheaves of abelian subvarieties of half
+dimension, each of which is semiregular on its own.
+
+\begin{lemma}[Abelian subvarieties of half dimension are semiregular]
+\label{lem:absemireg}
+Let $A$ be an abelian variety of dimension $2n$ and $B\subseteq A$ an abelian
+subvariety of dimension $n$. Then $\operatorname{ev}_{\cO_{B}}\colon
+HT^{2}(A)\to\Ext^{2}(\cO_{B},\cO_{B})$ is surjective, its kernel is
+$\Ann_{HT^{2}}([B])$, of dimension $6n^{2}-n$, and $\sigma_{\cO_{B}}$ is
+injective.
+\end{lemma}
+
+\begin{proof}
+The normal bundle of $B$ is trivial, so $\ch(\cO_{B})=[B]$ by the
+Grothendieck--Riemann--Roch theorem for the embedding, and
+$\Ext^{*}(\cO_{B},\cO_{B})\cong{\textstyle\bigwedge^{*}}\CC^{2n}$ (proof of
+\Cref{cor:naturalsums}), so $\dim\Ext^{2}(\cO_{B},\cO_{B})=\binom{2n}{2}
+=2n^{2}-n$, while $\dim HT^{2}(A)=2\binom{2n}{2}+4n^{2}=8n^{2}-2n$. Choose a
+complementary abelian subvariety $B'$; the isogeny $B\times B'\to A$
+identifies $H^{1}(A,\CC)$ with $H^{1}(B)\oplus H^{1}(B')$ compatibly with the
+Hodge decompositions, identifies $HT^{2}(A)$ with $HT^{2}(B\times B')$
+compatibly with contraction, and carries $[B]$ to a nonzero multiple of
+$1\otimes[\mathrm{pt}_{B'}]$, where $[\mathrm{pt}_{B'}]$ spans
+${\textstyle\bigwedge^{2n}}H^{1}(B')$. Write $T=T_{B}\oplus T_{B'}$ for the
+tangent space and $H^{0,1}(A)=H^{0,1}(B)\oplus H^{0,1}(B')$. A class
+$\zeta\in H^{0,2}(A)={\textstyle\bigwedge^{2}}H^{0,1}(A)$ has
+$\zeta\cup[B]=\zeta_{BB}\otimes[\mathrm{pt}_{B'}]$, with $\zeta_{BB}$ its
+component in ${\textstyle\bigwedge^{2}}H^{0,1}(B)$, because every factor from
+$H^{0,1}(B')$ is killed by the top class of $B'$; so the annihilator in
+$H^{0,2}$ has dimension $\binom{2n}{2}-\binom{n}{2}$. For $a\otimes v\in
+H^{0,1}(A)\otimes T=H^{1}(T_{A})$ the contraction is $a\wedge(v\lrcorner[B])
+=a_{B}\otimes(v_{B'}\lrcorner[\mathrm{pt}_{B'}])$, since $v_{B}$ kills
+$[\mathrm{pt}_{B'}]$ and $a_{B'}\wedge(v_{B'}\lrcorner[\mathrm{pt}_{B'}])$
+would have type $(n-1,n+1)$ on the $n$-fold $B'$; the map
+$v\mapsto v_{B'}\lrcorner[\mathrm{pt}_{B'}]$ has rank $n$, as does
+$a\mapsto a_{B}$, so the contraction has rank $n^{2}$ on the space
+$H^{0,1}(A)\otimes T$ of dimension $4n^{2}$ and the annihilator there has
+dimension $3n^{2}$. For $\vartheta\in{\textstyle\bigwedge^{2}}T$ only the
+component in ${\textstyle\bigwedge^{2}}T_{B'}$ contracts $[\mathrm{pt}_{B'}]$
+nontrivially, and injectively; so the annihilator in
+${\textstyle\bigwedge^{2}}T$ has dimension $\binom{2n}{2}-\binom{n}{2}$.
+Altogether $\dim\Ann_{HT^{2}}([B])=2\binom{2n}{2}-2\binom{n}{2}+3n^{2}
+=6n^{2}-n$. By the square $\sigma_{E}\circ\operatorname{ev}_{E}=
+(\,\cdot\,)\lrcorner\ch(E)$ of \Cref{setup:criterion} the kernel of
+$\operatorname{ev}_{\cO_{B}}$ lies in $\Ann_{HT^{2}}([B])$, so
+$\operatorname{ev}_{\cO_{B}}$ has rank at least $(8n^{2}-2n)-(6n^{2}-n)
+=2n^{2}-n=\dim\Ext^{2}(\cO_{B},\cO_{B})$: it is surjective and its kernel is
+the annihilator. If $\sigma_{\cO_{B}}(y)=0$, write $y=\operatorname{ev}(x)$;
+then $x\lrcorner[B]=0$, so $x$ lies in the annihilator, which is the kernel,
+and $y=0$.
+\end{proof}
+
+\begin{remark}[Sums of abelian subvarieties]\label{rem:absums}
+Let $B_{1},\dots,B_{r}\subseteq A$ be abelian subvarieties of dimension
+$n\ge3$, translated so that any two of them meet in finitely many points or
+not at all, which generic translates achieve, and let $E=\bigoplus_{j}
+\cO_{B_{j}}[k_{j}]$. The sheaves $\mathcal{E}xt^{q}(\cO_{B_{i}},\cO_{B_{j}})$
+for $i\ne j$ are supported on $B_{i}\cap B_{j}$ and vanish for $q\ne n$,
+by the Koszul resolution of $\cO_{B_{i}}$ restricted to $B_{j}$, so
+$\Ext^{2}(\cO_{B_{i}}[k_{i}],\cO_{B_{j}}[k_{j}])=H^{2+k_{j}-k_{i}-n}
+(B_{i}\cap B_{j},\mathcal{E}xt^{n})$ vanishes when all $k_{j}$ are equal and
+$n\ge3$, and when $|k_{i}-k_{j}|\le1$ and $n\ge4$; and each
+$\sigma_{\cO_{B_{j}}}$ is injective by \Cref{lem:absemireg}. In these cases
+every hypothesis of \Cref{lem:semiregsum}, applied to one summand and the
+sum of the others, holds except the one on the images. Now let $v\in HT^{2}(A)$
+satisfy $v\lrcorner\ch(E)=\sum_{j}(-1)^{k_{j}}v\lrcorner[B_{j}]=0$ with
+$v\lrcorner[B_{1}]\ne0$. Then $\zeta=\bigoplus_{j}\operatorname{ev}_{\cO_{B_{j}}}(v)$
+is nonzero, because $v$ is not in the annihilator of $[B_{1}]$, and
+$\sigma_{E}(\zeta)=\sum_{j}(-1)^{k_{j}}v\lrcorner[B_{j}]=0$: the images of
+the $\sigma_{\cO_{B_{j}}}$ meet, and $E$ is not semiregular. This is exactly
+the situation at a member of a Weil family on which a Weil class is a
+combination of classes of abelian subvarieties of dimension $n$, as on a
+product of elliptic curves: a tangent direction $v$ of the family keeps
+$\ch(E)$ of Hodge type but moves any $[B_{j}]$ outside
+$\QQ\theta^{n}\oplus\HW(A)$, and \Cref{cor:naturalsums} excludes such sums
+for this reason. The sum is obstructed although its summands are not.
+\end{remark}
 
 \begin{corollary}[Hochschild deformations and direct summands]
 \label{cor:mumfordsplit}

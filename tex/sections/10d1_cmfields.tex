@@ -471,3 +471,159 @@ for $m\ge2$ the $F$-family is a proper subvariety of the $K$-family, and the
 $K$-Weil classes on it are products that carry no information about their
 factors.
 \end{proof}
+
+\subsection{Weil tori of a CM field and the pure form}
+\label{ssec:cmweiltori}
+
+The argument of \Cref{thm:p2false} uses the field only through the
+eigenspaces of its action, and it extends to every CM field. For $m\ge2$ the
+Hodge ring of a very general Weil torus is larger than for an imaginary
+quadratic field, since products of Weil classes over a set of embeddings
+closed under conjugation are Hodge classes there, and a Weil torus may carry
+subvarieties of codimension $2n$; but it carries none of codimension $n$, and
+that is all the argument needs.
+
+\begin{setupenv}[Weil tori of a CM field]\label{setup:cmweiltori}
+Keep \Cref{setup:cmfield}, let $n\ge2$ and let $A$ be of $(F,n,\delta)$-Weil
+type, with $V_{\CC}=\bigoplus_{\sigma}V_{\sigma}$ as there. Complex
+conjugation carries $V_{\bbar\sigma}$ onto $V_{\sigma}$. A complex structure on
+$V_{\RR}$ commuting with $F$, with $H^{1,0}\cap V_{\sigma}$ of dimension $n$
+for every $\sigma$, is the same as a choice, for each real place $\tau$, of
+complementary $n$-dimensional subspaces $X_{\tau},Y_{\tau}\subset
+V_{\sigma_{\tau}}$: then $H^{1,0}\cap V_{\sigma_{\tau}}=X_{\tau}$,
+$H^{0,1}\cap V_{\sigma_{\tau}}=Y_{\tau}$, and on $V_{\bbar\sigma_{\tau}}$ the
+two parts are the conjugates of $Y_{\tau}$ and $X_{\tau}$. Call the complex
+torus obtained in this way a Weil torus of $F$, and let $S_{F}$ be the
+connected complex manifold of these choices, of dimension $2mn^{2}$. Its
+tangent space at $A$ is $\Hom_{F}(H^{1,0},H^{0,1})$, the polarised family
+$\cD_{F}$ is the submanifold on which $E$ is of type $(1,1)$, and $S_{F}$
+contains non-algebraic tori. For $\sigma=\sigma_{\tau}$ the line
+$\bigwedge^{2n}V_{\sigma}=\bigwedge^{n}X_{\tau}\otimes\bigwedge^{n}Y_{\tau}$ is
+of type $(n,n)$, and likewise for $\bbar\sigma_{\tau}$, so $W_{F}$ consists
+of Hodge classes on every member of $S_{F}$. For a set $\Sigma$ of
+embeddings write $\alpha_{\Sigma}=\prod_{\sigma\in\Sigma}\alpha_{\sigma}$,
+with $\alpha_{\sigma}$ spanning $\bigwedge^{2n}V_{\sigma}$.
+\end{setupenv}
+
+\begin{lemma}[Hodge classes and subvarieties of a very general Weil torus]
+\label{lem:cmweiltori}
+Let $T$ be a very general member of $S_{F}$ and $d=2mn=\dim T$.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item Every Hodge class of $T$ lies in the span of the $\alpha_{\Sigma}$. In
+  particular $\Hdg^{k}(T)=0$ unless $n$ divides $k$, and
+  $\Hdg^{n}(T)=W_{F}(T)$.
+\item Let $\kappa_{0}$ be the K\"ahler class of a hermitian form on the
+  tangent space that is block diagonal for the splitting of $H^{1,0}$ into
+  the $H^{1,0}\cap V_{\sigma}$. Then $\int_{T}\alpha_{\Sigma}\,
+  \kappa_{0}^{\,d-n|\Sigma|}=0$ unless $\Sigma$ is closed under conjugation.
+\item Every irreducible analytic subset of $T$ other than a point and $T$
+  itself has codimension $ns$ with $s$ even, hence at least $2n$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) As in the proof of \Cref{lem:weiltorushodge}: a rational class of Hodge
+type at a very general member is of Hodge type on all of $S_{F}$, and the
+Mumford--Tate group $M$ of a very general member lies in
+$G=\Res_{F/\QQ}\mathrm{GL}_{F}(V)$, since $F$ acts by endomorphisms. Here
+$G(\RR)=\prod_{\tau}\mathrm{GL}(V_{\sigma_{\tau}})$ acts transitively on
+$S_{F}$, and the $\mathrm{Ad}\,G(\RR)$-span of the complex structure of one
+member is an ideal of $\bigoplus_{\tau}\mathfrak{gl}_{2n}(\CC)$ whose
+projection to every factor contains a non-central element, $i$ on $X_{\tau}$
+and $-i$ on $Y_{\tau}$. An ideal of a sum of simple real Lie algebras is a
+sum of some of them, and each $\mathfrak{sl}_{2n}(\CC)$ is simple as a real
+Lie algebra, so the span contains $\bigoplus_{\tau}\mathfrak{sl}_{2n}(\CC)$
+and $M$ contains $\Res_{F/\QQ}\mathrm{SL}_{F}(V)$. Over $\CC$ this group is
+$\prod_{\sigma}\mathrm{SL}(V_{\sigma})$ acting on
+$\bigwedge^{*}V_{\CC}=\bigotimes_{\sigma}\bigwedge^{*}V_{\sigma}$, and the
+invariants of $\mathrm{SL}(V_{\sigma})$ in $\bigwedge^{*}V_{\sigma}$ are
+$\bigwedge^{0}$ and $\bigwedge^{2n}$. So the invariants are spanned by the
+$\alpha_{\Sigma}$, of degree $2n|\Sigma|$, and a rational class in the span
+of the $\alpha_{\sigma}$ lies in $W_{F}$.
+
+(ii) Choose the hermitian form so that $\kappa_{0}=
+\sqrt{-1}\sum_{\sigma}\sum_{k}\xi_{\sigma,k}\wedge\bbar\xi_{\sigma,k}$ with
+$\xi_{\sigma,k}$ a basis of $H^{1,0}\cap V_{\sigma}$; each term lies in
+$V_{\sigma}\otimes V_{\bbar\sigma}$. A product of classes has nonzero
+integral only if its degree in every $V_{\rho}$ is $2n$. The factor
+$\alpha_{\Sigma}$ has degree $2n$ in $V_{\rho}$ for $\rho\in\Sigma$ and $0$
+otherwise, and every term of a power of $\kappa_{0}$ has the same degree in
+$V_{\rho}$ as in $V_{\bbar\rho}$. For $\rho\in\Sigma$ that degree must be
+$0$, so $V_{\bbar\rho}$ must be filled by $\alpha_{\Sigma}$, that is
+$\bbar\rho\in\Sigma$.
+
+(iii) Let $Z$ be irreducible of codimension $c$ with $0<c<d$. For a K\"ahler
+class $\kappa$, $\int_{T}[Z]\,\kappa^{d-c}=\int_{Z}\kappa^{d-c}>0$, so $[Z]$ is
+a nonzero Hodge class of degree $2c$, and by (i) $c=ns$ and $[Z]$ is a
+combination of the $\alpha_{\Sigma}$ with $|\Sigma|=s$. Complex conjugation
+permutes the embeddings without fixed points, so a set closed under it has
+even size; if $s$ were odd, (ii) would give $\int_{T}[Z]\,\kappa_{0}^{d-c}=0$.
+\end{proof}
+
+\begin{proposition}[Coherent sheaves on a very general Weil torus of $F$]
+\label{prop:cmweiltorussheaves}
+Let $T$ be a very general member of $S_{F}$. Every coherent analytic sheaf
+$\mathcal{F}$ on $T$ has $\ch_{k}(\mathcal{F})=0$ in $H^{2k}(T,\QQ)$ for
+$1\le k\le2n-1$.
+\end{proposition}
+
+\begin{proof}
+The Chern classes of \cite{Gri10} are Hodge classes, additive, and
+compatible with restriction to open subsets, so by
+\Cref{lem:cmweiltori}(i) only $k=n$ needs an argument. First let
+$\mathcal{F}$ be supported on a proper analytic subset $W$. Its restriction to
+$T\smallsetminus W$ is zero, so $\ch_{n}(\mathcal{F})$ comes from
+$H^{2n}_{W}(T,\QQ)$, which is isomorphic to the Borel--Moore homology
+$H_{2d-2n}(W,\QQ)$; by \Cref{lem:cmweiltori}(iii) every component of $W$ has
+codimension at least $2n$, so $W$ has real dimension at most $2d-4n<2d-2n$
+and that group vanishes. In general, the torsion of $\mathcal{F}$ is of this
+kind, and so is the cokernel of the inclusion of a torsion-free sheaf in its
+reflexive hull. Every coherent sheaf has $c_{1}=0$, since $\Hdg^{1}(T)=0$, so
+as in the proof of \Cref{prop:weiltorussheaves} a torsion-free sheaf has a
+Jordan--H\"older filtration whose factors $Q_{j}$ are stable for every
+K\"ahler class, and $\ch_{n}(Q_{j})=\ch_{n}(Q_{j}^{**})$. By Bando and Siu
+\cite{BS94}, $\int_{T}c_{2}(Q_{j}^{**})\,\kappa_{0}^{d-2}\ge0$, with equality
+exactly when $Q_{j}^{**}$ is a projectively flat bundle. Here
+$c_{2}(Q_{j}^{**})$ lies in $\Hdg^{2}(T)$, which is zero for $n\ge3$ and is
+$W_{F}(T)$ for $n=2$, where the integral vanishes by
+\Cref{lem:cmweiltori}(ii) with $|\Sigma|=1$. So $Q_{j}^{**}$ is projectively
+flat with $c_{1}=0$, hence flat, and $\ch_{n}(Q_{j})=0$. Summing over the
+factors and adding the torsion gives $\ch_{n}(\mathcal{F})=0$.
+\end{proof}
+
+\begin{theorem}[The pure form is never met, for any CM field]
+\label{thm:cmpurefalse}
+Let $n\ge2$, let $A$ be of $(F,n,\delta)$-Weil type, and let $E$ be a
+perfect complex on $A$ whose Chern character stays of Hodge type on every
+member of $S_{F}$ and has $\ch_{n}(E)\ne0$; for instance
+$\ch(E)=c+N\omega$ with $c\in\QQ$, $N\ne0$ and $\omega$ a nonzero rational
+Weil class. Then $\sigma_{E}$ is not injective, and
+$\dim\Ext^{2}(E,E)>r(\ch E)$. In particular no complex of the pure form
+$\ch(E)=N\omega_{s_{0}}$ in \Cref{thm:cmpropagation}(v), with or without a
+rank, has injective semiregularity map, whatever the CM field.
+\end{theorem}
+
+\begin{proof}
+The proof of \Cref{thm:p2false} applies with $S_{F}$ in place of $S$: an
+injective $\sigma_{E}$ would let $E$ deform, by the theorem of Buchweitz and
+Flenner in Pridham's form and Kuranishi's method, to a bounded complex of
+holomorphic vector bundles on every member of a neighbourhood of $A$ in
+$S_{F}$, with Chern character the parallel transport of $\ch(E)$; at a very
+general member $\ch_{n}$ of that complex vanishes by
+\Cref{prop:cmweiltorussheaves}, while it is the transport of
+$\ch_{n}(E)\ne0$. A class $c+N\omega$ is of Hodge type on all of $S_{F}$ by
+\Cref{setup:cmweiltori}. The inequality follows from the square
+$\sigma_{E}\circ\operatorname{ev}_{E}=(\,\cdot\,)\lrcorner\ch(E)$, since
+$\dim\Ext^{2}(E,E)\ge\operatorname{rk}\operatorname{ev}_{E}\ge r(\ch E)$ and
+equality in both forces $\operatorname{ev}_{E}$ onto with kernel the
+annihilator, and then $\sigma_{E}$ injective, as in
+\Cref{thm:p2primenumber}(iv).
+\end{proof}
+
+For $m=1$ this is \Cref{thm:p2false}, and for $m=1$, $n=2$ the vanishing of
+\Cref{prop:cmweiltorussheaves} is Voisin's theorem \cite[Theorem~10]{Voi02b}.
+So the criterion of \Cref{thm:cmpropagation}(v) needs a polynomial $P$ in the
+classes $\eta_{t}$ that is not constant, for every CM field and every
+$n\ge2$. At a quartic field and $n=2$ this pushes the least possible value of
+$\dim\Ext^{2}(E,E)$ for a complex meeting it from $80$ to $88$
+(\Cref{cor:quarticleast}).
