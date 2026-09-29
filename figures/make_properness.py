@@ -266,14 +266,14 @@ def main():
         y = C(1, 10.0 ** ex)[1]
         F.path([(cx0 - 0.07, y), (cx0, y)], "PInk", lw=0.45, tag="axes")
         F.path([(cx0, y), (cx0 + cw, y)], "PRule!60", lw=0.25, tag="grid")
-        F.text(cx0 - 0.12, y, r"$10^{%d}$" % ex, "PInk", FS, anchor="east",
+        F.text(cx0 - 0.24, y, r"$10^{%d}$" % ex, "PInk", FS, anchor="east",
                tag="ytick")
     for H in range(1, 11):
         x = C(H, 1e-3)[0]
         F.path([(x, cy0), (x, cy0 - 0.07)], "PInk", lw=0.45, tag="axes")
         if H in (1, 2, 4, 6, 8, 10):
-            F.text(x, cy0 - 0.25, r"$%d$" % H, "PInk", FS, tag="xtick")
-    F.text(cx0 + cw / 2, cy0 - 0.62, r"$H$", "PInk", SM, tag="xname")
+            F.text(x, cy0 - 0.27, r"$%d$" % H, "PInk", FS, tag="xtick")
+    F.text(cx0 + cw / 2, cy0 - 0.72, r"$H$", "PInk", SM, tag="xname")
     stair = []
     for H in range(1, 11):
         a = C(H, D[H - 1])

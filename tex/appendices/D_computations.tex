@@ -476,7 +476,7 @@ computed, how it is computed, and which statements of the paper it supports.
   is declared and every declared statement is used, that the rule set is
   acyclic, and that each of the seventeen theorem labels it names, for its
   rules and for the consequences of $\mathbf{HC}$ it records, is a label of
-  this paper, against the list of all $627$ labels generated from the
+  this paper, against the list of all $642$ labels generated from the
   sources. It then computes the forward closure by iterating the one step map
   to a fixed point, and verifies the following. No statement marked proved
   rests at any depth on an open one, and $\mathbf{HC}$ is not in the closure
@@ -1497,12 +1497,67 @@ computed, how it is computed, and which statements of the paper it supports.
   the diagonal of a uniruled fivefold needs one only in degree four on a
   fourfold. This is the computational part of \Cref{prop:f3primefibration}
   and \Cref{rem:f3primesharp}.
+
+\item \emph{The Wirtinger bound on a Mumford square.} The computation works
+  in the split model of item (XLIV), with $\theta=\psi$ the class of the
+  principal polarisation of $X$, $\theta_{Y}=\theta\otimes1+1\otimes\theta$
+  on $Y=X\times X$, and the volume forms normalised by $\int_{X}\theta^{4}=4!$
+  and $\int_{Y}\theta_{Y}^{8}=8!$. (A) $\psi$ is nondegenerate,
+  $\theta^{4}=24\,\mathrm{vol}$ and $\theta_{Y}^{8}=8!\,\mathrm{vol}$.
+  (B) Every element of $U_{12}$, $U_{13}$, $U_{23}$ is primitive,
+  $x\theta^{3}=0$, while $\theta^{4}=24\,\mathrm{vol}$. (C) The pairings
+  $\int_{Y}\pi_{ij}\theta_{Y}^{6}$ vanish for the three nontrivial summands and
+  $\int_{Y}\pi_{0}\theta_{Y}^{6}=2880$, where
+  $\pi_{0}=\frac14\,\theta\otimes\theta$ in this model; so
+  $\int_{Y}\omega_{a}\theta_{Y}^{6}=2880\,a_{0}$, checked on five random
+  integer vectors $a$, and $L_{\theta_{Y}}(\omega_{a})=4a_{0}$. (D)
+  $L_{\theta_{Y}}(\theta_{Y}^{2})=8!/6!=56$ and
+  $L_{\theta_{Y}}(4\theta_{Y}^{2})=224$. That is \Cref{ex:mumfordmass}.
+
+\item \emph{The Weil structure at a CM point and the cycles on the square.}
+  In the model of item (XLIV) the Hodge group at a CM point is the diagonal
+  torus of the weight basis, and the checks are in exact rational arithmetic
+  in the exterior algebra of $H^{1}(X\times X)$. (A) The monomials of weight
+  zero number $16$ in degree two and $132$ in degree four; the products of
+  the $16$ divisor classes span $100$ dimensions and those of the three
+  $\Sp$-invariant divisor classes $6$; the zero-sum four-sets of weights are
+  the six unions of two opposite pairs and the two tetrahedra $T_{+}$,
+  $T_{-}=-T_{+}$, each meeting every opposite pair once; the $32$ monomials
+  of weight zero that are not products of two divisor classes are exactly the
+  tetrahedron monomials $e^{(1)}_{S}e^{(2)}_{T\setminus S}$. (B) The
+  pull-backs of $t_{\pm}$ along the maps $(x,y)\mapsto ax+by$ have five
+  homogeneous components each, spanning $10$ dimensions; with the products
+  of divisor classes they span $110$ of the $132$, with the $\Sp$-invariant
+  products $16$; pull-backs along forty random pairs of diagonal matrices
+  constant on each tetrahedron add nothing. (C) The classes
+  $\pi_{12}-\pi_{13}$, $\pi_{12}-\pi_{23}$ and four random $\omega_{a}$
+  with $a_{0}=0$ and $a_{1},a_{2},a_{3}$ not all equal lie outside the
+  $110$-dimensional span, $\pi_{0}$ and $\pi_{12}+\pi_{13}+\pi_{23}$ inside
+  it, and adding the four $\pi$ raises the dimension by two. (D) Pull-backs
+  along forty random pairs with $\varphi_{w}=\varphi_{-w}$ and
+  $\psi_{w}=\psi_{-w}$ span, with the products of divisor classes, all
+  $132$ classes. (E) With $s_{t}$ the exchange of the $t$-th tensor factors,
+  $s_{1}s_{2}s_{3}=-1$ on ${\textstyle\bigwedge^{2}}V$, and
+  $\pi_{0},\pi_{12},\pi_{13},\pi_{23}$ are the classes of the operators
+  $(1-s_{1}-s_{2}-s_{3})/4$, $(1+s_{1}+s_{2}-s_{3})/4$,
+  $(1+s_{1}-s_{2}+s_{3})/4$, $(1-s_{1}+s_{2}+s_{3})/4$. (F) An $\omega_{a}$
+  with $a_{0}=0$ is supported on the $12$ mixed tetrahedron monomials and on
+  $24$ products of two divisor classes, $16$ of the form
+  $e^{(1)}_{u}e^{(1)}_{v}e^{(2)}_{-u}e^{(2)}_{-v}$ and $8$ of the form
+  $e^{(1)}_{w}e^{(1)}_{-w}e^{(2)}_{w'}e^{(2)}_{-w'}$; on each tetrahedron its
+  coefficients have absolute values $|a_{2}-a_{3}|/2$, $|a_{1}-a_{3}|/2$,
+  $|a_{1}-a_{2}|/2$ on the pairs of monomials indexed by $\{1,2\}$,
+  $\{1,3\}$, $\{2,3\}$, checked for $\pi_{12}-\pi_{13}$ and six random
+  $a$; $\pi_{0}$ and $\pi_{12}+\pi_{13}+\pi_{23}$ contain no tetrahedron
+  monomial; and the component of a scalar pull-back with two factors from
+  each copy has six coefficients of absolute value one. That is
+  \Cref{prop:cmsource}.
 \end{enumerate}
 
-Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LXII) are the ones
+Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LXIV) are the ones
 on which theorems depend. Items (IV) and (V) support statements that no
 obstruction exists; a failure there would strengthen the paper rather than
 weaken it, and they are included for completeness.
-The fifty-nine items other than (XXIX), (XXXI) and (XL) perform $1193$
+The sixty-one items other than (XXIX), (XXXI) and (XL) perform $1203$
 checks, all of which pass; those three are $\Ext$ computations over a
 polynomial ring, recorded with their output.

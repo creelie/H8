@@ -1710,6 +1710,219 @@ theorem sextic_thresholds :
     ((-4 : Int) ^ 3 = -64 ∧ (-4 : Int) ^ 2 = 16) := by
   decide
 
+/-! ## 36.  The Weil structure at a CM point and the cycles on the square
+
+The eight weights of the Hodge torus of a Mumford fourfold at a CM point are
+the vectors `(+-1, +-1, +-1)`, indexed here by `i < 8` with coordinates
+`1 - 2 b_t(i)` for the three bits of `i`, so that the opposite of `i` is
+`7 - i`.  The proposition on the Weil structure at a CM point turns on the
+following finite facts, which the kernel checks by enumeration.
+
+(i) The four-element sets of weights with sum zero are the six unions of two
+opposite pairs and two further sets, the tetrahedra: `T_+`, whose elements
+have an even number of entries `-1`, and `T_- = -T_+`; each tetrahedron
+meets every opposite pair exactly once.
+
+(ii) On the square the monomials of weight zero in the sixteen classes
+`e_w^(1), e_w^(2)` are the four-element subsets of `{0, ..., 15}` (weight
+`j % 8`, copy `j / 8`) whose weights sum to zero.  They number `132`; `100`
+of them contain an opposite pair, and the remaining `32` are the tetrahedron
+monomials, whose weights form `T_+` or `T_-`, `16` for each tetrahedron,
+distributed `1, 4, 6, 4, 1` by the number of factors from the first copy.
+
+(iii) The six two-element subsets `S` of `T_+` fall into three pairs
+`{S, T_+ - S}` by the set `D(S)` of coordinates in which the two weights of
+`S` differ, which has two elements and is the same for `S` and for its
+complement.  The coefficients of an exceptional class `omega_a` on the pair
+indexed by `{1,2}`, `{1,3}`, `{2,3}` have absolute values `|a_2 - a_3|/2`,
+`|a_1 - a_3|/2`, `|a_1 - a_2|/2`; the three values are equal only when
+`a_1 = a_2 = a_3`, and two of them are equal exactly along a linear relation
+among `a_1, a_2, a_3` with coefficients that are not all equal.
+
+(iv) For the lemma on split CM points: a permutation of the four diagonals of
+the cube that permutes the three pairings of the diagonals into two pairs
+without fixing any of them is a cycle of length three on the diagonals, and
+fixes exactly one diagonal.
+-/
+
+/-- the `t`-th coordinate, `t = 0, 1, 2`, of the weight with index `i < 8`. -/
+def cmCoord (i t : Nat) : Int := 1 - 2 * ((i / 2 ^ (2 - t)) % 2)
+
+/-- the index of the opposite weight. -/
+def cmNeg (i : Nat) : Nat := 7 - i
+
+/-- the number of entries `-1` of the weight `i`. -/
+def cmMinusCount (i : Nat) : Nat := i % 2 + (i / 2) % 2 + (i / 4) % 2
+
+/-- the four-element subsets of `{0, ..., n - 1}`, as increasing lists. -/
+def cmQuads (n : Nat) : List (List Nat) :=
+  (List.range n).flatMap fun a =>
+    (List.range n).flatMap fun b =>
+      (List.range n).flatMap fun c =>
+        (List.range n).filterMap fun d =>
+          if a < b && b < c && c < d then some [a, b, c, d] else none
+
+/-- the sum of the `t`-th coordinates of the weights `j % 8`, `j` in `S`. -/
+def cmSum (S : List Nat) (t : Nat) : Int :=
+  S.foldl (fun acc j => acc + cmCoord (j % 8) t) 0
+
+/-- weight zero: all three coordinate sums vanish. -/
+def cmZero (S : List Nat) : Bool :=
+  cmSum S 0 == 0 && cmSum S 1 == 0 && cmSum S 2 == 0
+
+/-- whether the weights of `S` contain an opposite pair. -/
+def cmHasOpposite (S : List Nat) : Bool :=
+  S.any fun j => S.any fun k => (j % 8) + (k % 8) == 7
+
+/-- the sets of four weights with sum zero. -/
+def cmZeroSets : List (List Nat) := (cmQuads 8).filter cmZero
+
+/-- the tetrahedra: zero-sum sets without an opposite pair. -/
+def cmTets : List (List Nat) :=
+  cmZeroSets.filter fun S => !(cmHasOpposite S)
+
+/-- `T_+` and `T_-`, read off the enumeration. -/
+def cmTplus : List Nat := [0, 3, 5, 6]
+def cmTminus : List Nat := [1, 2, 4, 7]
+
+/-- **The tetrahedra.**  Eight zero-sum sets, six with two opposite pairs,
+and two without, `T_+` with even and `T_-` with odd numbers of entries
+`-1`, `T_- = -T_+`, each meeting every opposite pair once. -/
+theorem cm_tetrahedra :
+    cmZeroSets.length = 8
+    /\ (cmZeroSets.filter cmHasOpposite).length = 6
+    /\ cmTets = [cmTplus, cmTminus]
+    /\ cmTplus.all (fun i => cmMinusCount i % 2 == 0) = true
+    /\ cmTminus.all (fun i => cmMinusCount i % 2 == 1) = true
+    /\ cmTminus = (cmTplus.map cmNeg).reverse
+    /\ (List.range 4).all (fun p =>
+        (cmTplus.filter fun i => i == p || i == cmNeg p).length == 1) = true
+    /\ (List.range 4).all (fun p =>
+        (cmTminus.filter fun i => i == p || i == cmNeg p).length == 1) = true
+    := by
+  decide
+
+/-- the monomials of weight zero on the square. -/
+def cmSquare : List (List Nat) := (cmQuads 16).filter cmZero
+
+/-- the sorted list of weights of a monomial on the square. -/
+def cmWeights (S : List Nat) : List Nat :=
+  (List.range 8).filter fun i => S.any fun j => j % 8 == i
+
+/-- the number of factors from the first copy. -/
+def cmFirst (S : List Nat) : Nat := (S.filter fun j => j < 8).length
+
+/-- **The 132 Hodge classes of the square.**  `100` monomials with an
+opposite pair, `32` tetrahedron monomials, `16` for each tetrahedron,
+`1, 4, 6, 4, 1` by the number of factors from the first copy. -/
+theorem cm_square_monomials :
+    cmSquare.length = 132
+    /\ (cmSquare.filter cmHasOpposite).length = 100
+    /\ (cmSquare.filter fun S => !(cmHasOpposite S)).length = 32
+    /\ (cmSquare.filter fun S =>
+        !(cmHasOpposite S) && (cmWeights S == cmTplus)).length = 16
+    /\ (cmSquare.filter fun S =>
+        !(cmHasOpposite S) && (cmWeights S == cmTminus)).length = 16
+    /\ (cmSquare.all fun S =>
+        cmHasOpposite S || cmWeights S == cmTplus || cmWeights S == cmTminus)
+        = true
+    /\ (List.range 5).map (fun k => (cmSquare.filter fun S =>
+        !(cmHasOpposite S) && (cmWeights S == cmTplus) && cmFirst S == k).length)
+        = [1, 4, 6, 4, 1]
+    := by
+  decide
+
+/-- the set of coordinates in which two weights differ, as a bit mask. -/
+def cmDiff (a b : Nat) : Nat :=
+  (List.range 3).foldl (fun acc t =>
+    if cmCoord a t == cmCoord b t then acc else acc + 2 ^ t) 0
+
+/-- the two-element subsets of `T_+` with their difference sets. -/
+def cmPairsOfTplus : List (Prod Nat (Prod Nat Nat)) :=
+  [(0, 3, cmDiff 0 3), (0, 5, cmDiff 0 5), (0, 6, cmDiff 0 6),
+   (3, 5, cmDiff 3 5), (3, 6, cmDiff 3 6), (5, 6, cmDiff 5 6)]
+
+/-- the number of coordinates in a difference mask. -/
+def cmMaskSize (m : Nat) : Nat := m % 2 + (m / 2) % 2 + (m / 4) % 2
+
+/-- **The three pairs.**  Every two-element subset of `T_+` differs in
+exactly two coordinates, the complement has the same difference set, and
+the three difference sets `{1,2}`, `{1,3}`, `{2,3}` (masks `3`, `5`, `6`)
+each occur for exactly two subsets. -/
+theorem cm_tetrahedron_pairs :
+    (cmPairsOfTplus.all fun p => cmMaskSize p.2.2 == 2) = true
+    /\ cmDiff 0 3 = cmDiff 5 6 /\ cmDiff 0 5 = cmDiff 3 6 /\ cmDiff 0 6 = cmDiff 3 5
+    /\ (cmPairsOfTplus.filter fun p => p.2.2 == 3).length = 2
+    /\ (cmPairsOfTplus.filter fun p => p.2.2 == 5).length = 2
+    /\ (cmPairsOfTplus.filter fun p => p.2.2 == 6).length = 2
+    := by
+  decide
+
+/-- the integers `-b, ..., b`. -/
+def cmBox (b : Nat) : List Int :=
+  (List.range (2 * b + 1)).map fun (k : Nat) => (Int.ofNat k) - (Int.ofNat b)
+
+/-- **The coefficient profile of an exceptional class.**  For integers
+`a_1, a_2, a_3` in the box `[-10, 10]`, the three absolute values
+`|a_2 - a_3|`, `|a_1 - a_3|`, `|a_1 - a_2|` coincide only when
+`a_1 = a_2 = a_3`, and any two of them coincide exactly along one of two
+linear relations, each with coefficients that are not all equal. -/
+theorem cm_profile_forces_equal :
+    ((cmBox 10).all fun a1 => (cmBox 10).all fun a2 => (cmBox 10).all fun a3 =>
+      (!((a2 - a3).natAbs == (a1 - a3).natAbs
+          && (a1 - a3).natAbs == (a1 - a2).natAbs)
+        || (a1 == a2 && a2 == a3))
+      && (((a2 - a3).natAbs == (a1 - a3).natAbs)
+          == (a1 == a2 || a1 + a2 == 2 * a3))
+      && (((a2 - a3).natAbs == (a1 - a2).natAbs)
+          == (2 * a2 == a1 + a3 || a1 == a3))
+      && (((a1 - a3).natAbs == (a1 - a2).natAbs)
+          == (a2 == a3 || 2 * a1 == a2 + a3))) = true := by
+  decide
+
+/-- the permutations of `{0, 1, 2, 3}`, as lists of images. -/
+def cmPerms : List (List Nat) :=
+  (cmQuadsPerm 4)
+where
+  cmQuadsPerm (n : Nat) : List (List Nat) :=
+    (List.range n).flatMap fun a =>
+      (List.range n).flatMap fun b =>
+        (List.range n).flatMap fun c =>
+          (List.range n).filterMap fun d =>
+            if a != b && a != c && a != d && b != c && b != d && c != d
+            then some [a, b, c, d] else none
+
+/-- the image of `i` under the permutation `p`. -/
+def cmAct (p : List Nat) (i : Nat) : Nat := p.getD i 0
+
+/-- the pairing of the four diagonals into two pairs is recorded by the
+partner of `0`, one of `1, 2, 3`; `cmPairingAct p q` is the partner of `0`
+in the image of the pairing `q` under `p`. -/
+def cmPairingAct (p : List Nat) (q : Nat) : Nat :=
+  let a := cmAct p 0
+  let b := cmAct p q
+  if a == 0 then b else if b == 0 then a
+  else (List.range 4).foldl (fun acc x =>
+    if x != 0 && x != a && x != b then x else acc) 0
+
+/-- the composite `p (p (p i))`. -/
+def cmCube (p : List Nat) (i : Nat) : Nat := cmAct p (cmAct p (cmAct p i))
+
+/-- **Three-cycles on the diagonals.**  A permutation of the four diagonals
+that fixes none of the three pairings has order three and exactly one fixed
+diagonal; and it is one of the eight three-cycles. -/
+theorem cm_pairs_three_cycle :
+    cmPerms.length = 24
+    /\ (cmPerms.all fun p =>
+        ([1, 2, 3].all fun q => cmPairingAct p q != q) ==
+        (([0, 1, 2, 3].all fun i => cmCube p i == i)
+          && ([0, 1, 2, 3].filter fun i => cmAct p i == i).length == 1
+          && ([0, 1, 2, 3].any fun i => cmAct p i != i))) = true
+    /\ (cmPerms.filter fun p =>
+        [1, 2, 3].all fun q => cmPairingAct p q != q).length = 8
+    := by
+  decide
+
 end HodgeObstruction
 
 /-! ## The axioms each theorem depends on
@@ -1812,3 +2025,8 @@ propositional extensionality enters through `decide`, and in no case
 #print axioms HodgeObstruction.quartic_rank_two_large_odd_part
 #print axioms HodgeObstruction.quartic_sqrt2_units_mod4
 #print axioms HodgeObstruction.sextic_thresholds
+#print axioms HodgeObstruction.cm_tetrahedra
+#print axioms HodgeObstruction.cm_square_monomials
+#print axioms HodgeObstruction.cm_tetrahedron_pairs
+#print axioms HodgeObstruction.cm_profile_forces_equal
+#print axioms HodgeObstruction.cm_pairs_three_cycle

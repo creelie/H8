@@ -110,8 +110,10 @@ eq:obdef
 eq:omegaexp
 eq:omegagens
 eq:phidelta
+eq:pimodulo
 eq:pteconditions
 eq:ptepure
+eq:pullbacktet
 eq:quarticstar
 eq:quatE
 eq:secantkernel
@@ -134,8 +136,10 @@ eq:transversality
 eq:uv
 eq:wedge
 eq:weilmult
+eq:wirtinger
 ex:fourteen
 ex:ksdims
+ex:mumfordmass
 ex:planes
 ex:splitsmall
 fig:albert
@@ -144,6 +148,8 @@ fig:bmywindow
 fig:bypass
 fig:charactergrid
 fig:closure
+fig:cmcube
+fig:cmsource
 fig:descent
 fig:doublepoint
 fig:escape
@@ -161,6 +167,7 @@ fig:ks
 fig:ladder
 fig:lagsweep
 fig:lefschetzgrid
+fig:massgap
 fig:minimalsupport
 fig:moment
 fig:mumford
@@ -196,6 +203,7 @@ lem:boundednorm
 lem:burchmoments
 lem:charsdiffer
 lem:chicompare
+lem:cibig
 lem:cliffJ
 lem:cliffdim
 lem:conjugates
@@ -228,6 +236,7 @@ lem:rosatiauto
 lem:semiregsum
 lem:sexticweil
 lem:sixmonomials
+lem:splitcm
 lem:splitsemireg
 lem:spreading
 lem:tensorrank
@@ -244,6 +253,7 @@ not:totalspace
 not:wT
 prop:aclosure
 prop:chintermsofu
+prop:cmsource
 prop:cmweil
 prop:composite
 prop:concentrated
@@ -306,6 +316,7 @@ prop:p2primelocus
 prop:p2primeprofile
 prop:pencil
 prop:pontryaginlambda
+prop:positivitynotest
 prop:powers
 prop:quarticcasimir
 prop:quarticexclusions
@@ -349,6 +360,7 @@ rem:chosencycle
 rem:cmmember
 rem:cmquadratic
 rem:cmsharp
+rem:cmsource
 rem:cmwhatisnew
 rem:coniveauscope
 rem:deformation
@@ -408,6 +420,7 @@ rem:onlyoneclass
 rem:onlyrational
 rem:otherambient
 rem:othermethods
+rem:outside
 rem:p1collapse
 rem:p1meaning
 rem:p2endo
@@ -530,6 +543,7 @@ ssec:mumford
 ssec:mumfordobject
 ssec:mumfordrigid
 ssec:newlefschetz
+ssec:outside
 ssec:products
 ssec:properness
 ssec:pte
@@ -585,6 +599,7 @@ thm:lefschetzclosure
 thm:lefschetzfamily
 thm:lefschetzpropagation
 thm:linebundle
+thm:massgap
 thm:minimalsupport
 thm:model
 thm:modpdensity

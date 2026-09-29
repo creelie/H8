@@ -690,6 +690,567 @@ equivalent to the target; without it the CM points, being countably many,
 say nothing about a very general member (\Cref{lem:spreading} needs
 uncountably many points).
 
+The next proposition says which endomorphisms those pull-backs have to use.
+At a CM point the fourfold is of Weil type, its two Hodge classes of degree
+four that are not products of divisor classes form its Weil line, and the
+exceptional classes of the square are out of reach of everything built from
+that line with the Weil field alone: they need the real multiplication by the
+totally real quartic algebra of Rosati-fixed endomorphisms, and all of it.
+
+\begin{proposition}[The Weil structure at a CM point, and what the cycles
+must use]\label{prop:cmsource}
+Let $c\in C$ be a CM point, $X=X_{c}$, $Y=X\times X$, and let $e_{w}$,
+$w\in\{\pm1\}^{3}$, be a weight basis of $V=H^{1}(X,\CC)$ for the Hodge torus
+$T$ of $X$, as in the proof of \Cref{thm:mumfordcm}, normalised so that
+$\psi(e_{w},e_{-w})=\pm1$, with $e^{(1)}_{w}$, $e^{(2)}_{w}$ its two copies in
+$H^{1}(Y,\CC)$. Let $T_{+}$ be the set of the four weights with an even
+number of entries $-1$, let $T_{-}=-T_{+}$ be the set of the other four, let
+$t_{\pm}=\prod_{w\in T_{\pm}}e_{w}\in H^{4}(X,\CC)$, the factors in a fixed
+order, and let $\dagger$ be the Rosati involution of $\theta$ on
+$\End^{0}(X)$. For $\varphi\in\End^{0}(X)$ write $\varphi_{w}$ for its
+eigenvalue on $e_{w}$.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item $T_{+}$ and $T_{-}$ are the only sets of four weights with sum zero
+  that contain no pair of opposite weights, and $\Hdg^{2}(X)\otimes\CC$ is
+  the direct sum of the span of the products of divisor classes and of
+  $\CC t_{+}\oplus\CC t_{-}$. The elements of $\End^{0}(X)$ with
+  $\varphi_{w}$ constant on $T_{+}$ and constant on $T_{-}$ form an imaginary
+  quadratic field $k_{c}$; $(X,k_{c},\theta)$ is of $(k_{c},-1,2)$-Weil type,
+  and its Weil line is $\HW(X)=(\CC t_{+}\oplus\CC t_{-})\cap H^{4}(X,\QQ)$.
+  The fixed algebra $K_{c}^{+}$ of $\dagger$ consists of the elements with
+  $\varphi_{w}=\varphi_{-w}$ for every $w$; it is a product of totally real
+  fields of total degree four, and $\End^{0}(X)=K_{c}^{+}\otimes_{\QQ}k_{c}$.
+\item For $\varphi,\psi\in\End^{0}(X)$ let $f_{\varphi,\psi}^{*}$ be the ring
+  homomorphism $H^{*}(X,\QQ)\to H^{*}(Y,\QQ)$ that sends $e\in H^{1}(X,\QQ)$
+  to $\mathrm{pr}_{1}^{*}\varphi^{*}e+\mathrm{pr}_{2}^{*}\psi^{*}e$; for
+  $\varphi,\psi\in\End(X)$ it is the pull-back along the homomorphism
+  $\varphi\circ\mathrm{pr}_{1}+\psi\circ\mathrm{pr}_{2}\colon Y\to X$, and
+  every homomorphism $Y\to X$ is of this form. For a $\QQ$-subalgebra
+  $R\subseteq\End^{0}(X)$ let $\Sigma_{R}\subseteq\Hdg^{2}(Y)$ be the
+  $\QQ$-span of the products of two divisor classes of $Y$ and of the classes
+  $f_{\varphi,\psi}^{*}\HW(X)$ with $\varphi,\psi\in R$. Then
+  $\Sigma_{k_{c}}=\Sigma_{\QQ}$, the span obtained from the maps
+  $(x,y)\mapsto ax+by$ alone, has dimension $110$ and meets the span of
+  $\pi_{0},\pi_{12},\pi_{13},\pi_{23}$ in the plane of the classes with
+  $a_{1}=a_{2}=a_{3}$; it contains no exceptional class.
+\item For a $\QQ$-subalgebra $R\subseteq\End^{0}(X)$ the following are
+  equivalent: \textup{(a)} $\Sigma_{R}$ contains an exceptional class;
+  \textup{(b)} $\Sigma_{R}=\Hdg^{2}(Y)$, which has dimension $132$;
+  \textup{(c)} $R$ separates the weights of $T_{+}$, that is, for any two
+  distinct $w,w'\in T_{+}$ some $\varphi\in R$ has
+  $\varphi_{w}\ne\varphi_{w'}$; equivalently, $R$ and $k_{c}$ generate
+  $\End^{0}(X)$. In particular $\Sigma_{K_{c}^{+}}=\Hdg^{2}(Y)$, while
+  $\Sigma_{R}$ contains no exceptional class if $R$ is a proper subalgebra
+  of $K_{c}^{+}$ or a subalgebra of $k_{c}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) The four weights $d_{1}=(1,1,1)$, $d_{2}=(1,-1,-1)$, $d_{3}=(-1,1,-1)$,
+$d_{4}=(-1,-1,1)$ of $T_{+}$ have sum zero, and any three of them are
+linearly independent, so every linear relation among them is a multiple of
+$d_{1}+d_{2}+d_{3}+d_{4}=0$. A set of four weights containing no opposite
+pair contains exactly one of $d_{i}$, $-d_{i}$ for each $i$, say
+$\varepsilon_{i}d_{i}$, and has sum zero only if
+$\sum_{i}\varepsilon_{i}d_{i}=0$, that is, if all $\varepsilon_{i}$ are
+equal: the set is $T_{+}$ or $T_{-}$. The Hodge classes of $X$ of degree
+four, tensored with $\CC$, are spanned by the monomials $\prod_{w\in S}e_{w}$
+over the sets $S$ of four weights with sum zero (proof of
+\Cref{thm:mumfordcm}); the divisor classes are spanned by the four monomials
+$e_{w}e_{-w}$ of weight zero and degree two, their products are the six
+monomials of the sets that are unions of two opposite pairs, and the two
+remaining sets are $T_{+}$ and $T_{-}$.
+
+The torus $T$ is defined over $\QQ$, so the Galois group of $\bar{\QQ}$ acts
+linearly on its character lattice and permutes the set of the eight weights
+of $V$. A linear map that permutes the weights carries opposite pairs to
+opposite pairs and sets with sum zero to sets with sum zero, hence carries
+$\{T_{+},T_{-}\}$ to itself. Over $\bar{\QQ}$ the algebra
+$\End^{0}(X)\otimes\bar{\QQ}=\End_{T}(V_{\bar{\QQ}})$ consists of the
+diagonal matrices $\sum_{w}x_{w}p_{w}$ in the weight basis, $p_{w}$ the
+projection to the weight space of $w$, and $\gamma\in\Gal(\bar{\QQ}/\QQ)$
+acts by $\gamma(\sum_{w}x_{w}p_{w})=\sum_{w}\gamma(x_{w})p_{\gamma w}$,
+because $\gamma$ carries the weight space of $w$ to that of $\gamma w$. As
+$\psi$ is $T$-invariant, $\psi(e_{w},e_{w'})=0$ unless $w'=-w$, so the
+adjoint of $\sum_{w}x_{w}p_{w}$ for $\psi$, which is the Rosati involution,
+is $\sum_{w}x_{-w}p_{w}$. The subalgebra $A_{W}$ of the diagonal matrices
+that are constant on $T_{+}$ and on $T_{-}$, and the subalgebra $A^{+}$ of
+those with $x_{w}=x_{-w}$ for all $w$, are therefore stable under the Galois
+group and under $\dagger$; so $k_{c}=A_{W}\cap\End^{0}(X)$ and
+$K_{c}^{+}=A^{+}\cap\End^{0}(X)$ are $\QQ$-forms of $A_{W}$ and $A^{+}$, of
+dimensions $2$ and $4$, and $K_{c}^{+}$ is the fixed algebra of $\dagger$.
+On $A_{W}$ the involution $\dagger$ exchanges the two scalars. The Rosati
+involution is positive: $\Tr(xx^{\dagger})>0$ for $x\ne0$, with $\Tr$ the
+trace on $V$ \cite[Section~5.1]{BL04}. If $k_{c}$ were not a field it would
+contain the idempotent $p_{+}=\sum_{w\in T_{+}}p_{w}$, and
+$\Tr(p_{+}p_{+}^{\dagger})=\Tr(p_{+}p_{-})=0$; so $k_{c}$ is a quadratic
+field on which $\dagger$ is the nontrivial automorphism. If $k_{c}$ were
+real, $x=\sqrt{d}\in k_{c}$ would satisfy $x^{\dagger}=-x$ and
+$\Tr(xx^{\dagger})=-\Tr(x^{2})=-8d<0$. So $k_{c}$ is imaginary quadratic and
+$\dagger$ is complex conjugation on it, which is condition (iii) of
+\Cref{def:weiltype}. The eigenspaces of $k_{c}\otimes\CC$ on $V$ are
+$V_{\pm}=\bigoplus_{w\in T_{\pm}}\CC e_{w}$. The Hodge decomposition of $V$
+is the eigenspace decomposition of the Hodge cocharacter, which takes values
+in the diagonal torus $T_{\CC}\cdot\mathbb{G}_{m}$, so every $e_{w}$ is of
+pure type $(1,0)$ or $(0,1)$, and $t_{+}$ is of type $(p,4-p)$ with
+$p=\dim(V_{+}\cap H^{1,0}(X))$. Since $t_{+}$ is a Hodge class, $p=2$: each
+eigenvalue of $\sqrt{-d}$ has multiplicity two on $H^{1,0}(X)$, which is
+condition (ii) of \Cref{def:weiltype}, and condition (i) is $\dim X=4$. The
+Weil line of \Cref{def:weilline} is
+$(\bigwedge^{4}V_{+}\oplus\bigwedge^{4}V_{-})\cap H^{4}(X,\QQ)
+=(\CC t_{+}\oplus\CC t_{-})\cap H^{4}(X,\QQ)$; it has dimension two by
+\Cref{prop:weilline}(i), so it is a rational complement of the products of
+divisor classes in $\Hdg^{2}(X)$. The algebra $K_{c}^{+}$ is commutative and
+semisimple, being a subalgebra of $\End^{0}(X)$, whose complexification is
+commutative, and its trace form $\Tr(xy)=\Tr(xy^{\dagger})$ is positive
+definite; so every factor field $E$ of $K_{c}^{+}$ has
+$\Tr_{E/\QQ}(x^{2})>0$ for $x\ne0$ and is totally real. Finally the
+multiplication map $K_{c}^{+}\otimes_{\QQ}k_{c}\to\End^{0}(X)$ is an
+isomorphism, because over $\bar{\QQ}$ it is the isomorphism
+$\bar{\QQ}^{\{\text{opposite pairs}\}}\otimes\bar{\QQ}^{\{T_{+},T_{-}\}}
+\to\bar{\QQ}^{\{\text{weights}\}}$ induced by the bijection that sends a
+weight to the pair and the tetrahedron containing it, a bijection because
+the two weights of a pair lie in different tetrahedra, $T_{-}$ being $-T_{+}$.
+
+(ii) Extend the notation: for diagonal $\varphi,\psi\in\End^{0}(X)\otimes\CC$
+with entries $\varphi_{w}$, $\psi_{w}$ let $f_{\varphi,\psi}^{*}$ be the ring
+homomorphism $H^{*}(X,\CC)\to H^{*}(Y,\CC)$ with
+$e_{w}\mapsto\varphi_{w}e^{(1)}_{w}+\psi_{w}e^{(2)}_{w}$; for
+$\varphi,\psi\in\End^{0}(X)$ this is the map of the statement, since
+$\varphi^{*}e_{w}=\varphi_{w}e_{w}$, and every homomorphism $Y\to X$ is
+$\varphi\circ\mathrm{pr}_{1}+\psi\circ\mathrm{pr}_{2}$ for its restrictions
+$\varphi,\psi$ to the two factors. Then
+\begin{equation}\label{eq:pullbacktet}
+  f_{\varphi,\psi}^{*}t_{\pm}
+  =\prod_{w\in T_{\pm}}\bigl(\varphi_{w}e^{(1)}_{w}+\psi_{w}e^{(2)}_{w}\bigr)
+  =\sum_{S\subseteq T_{\pm}}\pm\Bigl(\prod_{w\in S}\varphi_{w}\Bigr)
+  \Bigl(\prod_{w\in T_{\pm}\setminus S}\psi_{w}\Bigr)\,
+  e^{(1)}_{S}\,e^{(2)}_{T_{\pm}\setminus S},
+\end{equation}
+where $e^{(1)}_{S}e^{(2)}_{T\setminus S}$ is the product of the $e^{(1)}_{w}$,
+$w\in S$, and the $e^{(2)}_{w}$, $w\in T\setminus S$, taken in the order of
+$T$, and the sign is that of the shuffle. We call these $32$ products the
+tetrahedron monomials. The Hodge classes of $Y$ of degree four, tensored with
+$\CC$, are spanned by the monomials of weight zero in the sixteen classes
+$e^{(i)}_{w}$ (proof of \Cref{thm:mumfordcm}). Such a monomial whose four
+weights contain an opposite pair is the product of two monomials of weight
+zero and degree two, that is, of two divisor classes: there are four of the
+form $e^{(1)}_{w}e^{(2)}_{w}e^{(1)}_{-w}e^{(2)}_{-w}$ and $96$ with two
+distinct opposite pairs and a choice of copy for each of the four weights.
+A weight repeated twice, $2w+w'+w''=0$, forces $w'=w''=-w$, so the remaining
+monomials have four distinct weights with no opposite pair, and by (i) they
+are the tetrahedron monomials. Hence $\dim\Hdg^{2}(Y)=132$, the products of
+divisor classes span the $100$ monomials of the first two kinds, and the
+tetrahedron monomials form a basis of the quotient $\Xi$ of
+$\Hdg^{2}(Y)\otimes\CC$ by the span of the products of divisor classes. Two
+distinct weights of a tetrahedron $T$ differ in exactly two coordinates, and
+for $S=\{a,b\}\subseteq T$ the complement $T\setminus S$ has the same set of
+differing coordinates, because $a+b$ and the sum of the complement are
+opposite. Writing $D(a,b)\subseteq\{1,2,3\}$ for the set of coordinates in
+which two weights differ, the six tetrahedron monomials of $T$ with two
+factors from each copy fall into three pairs
+$\{e^{(1)}_{S}e^{(2)}_{T\setminus S},e^{(1)}_{T\setminus S}e^{(2)}_{S}\}$,
+indexed by the two-element set $D(S)=D(T\setminus S)$.
+
+For $\varphi,\psi\in k_{c}\otimes\CC=A_{W}$, with values $\varphi_{\pm}$,
+$\psi_{\pm}$ on $T_{\pm}$, \eqref{eq:pullbacktet} reads
+$f_{\varphi,\psi}^{*}t_{\pm}=\sum_{k=0}^{4}\varphi_{\pm}^{k}\psi_{\pm}^{4-k}
+s_{\pm,k}$, where $s_{\pm,k}$ is the sum, with the signs of
+\eqref{eq:pullbacktet}, of the tetrahedron monomials of $T_{\pm}$ with $k$
+factors from the first copy. Conversely the classes
+$(a\,\mathrm{pr}_{1}+b\,\mathrm{pr}_{2})^{*}t_{\pm}$ for five values of $a/b$
+span the $s_{\pm,k}$, a Vandermonde matrix being invertible. Since
+$\HW(X)\otimes\CC=\CC t_{+}\oplus\CC t_{-}$, the complexifications of
+$\Sigma_{k_{c}}$ and of $\Sigma_{\QQ}$ are both spanned by the products of
+divisor classes and the ten classes $s_{\pm,k}$, which are supported on
+disjoint nonempty sets of tetrahedron monomials; so
+$\Sigma_{k_{c}}=\Sigma_{\QQ}$ has dimension $100+10=110$.
+
+For the four $\pi$ we use the description of \Cref{setup:omegaa}. Fix a
+total order on the weights, and for an endomorphism $A$ of
+$H^{2}(X,\CC)={\textstyle\bigwedge^{2}}V$ let
+\[
+  c(A)=\sum_{a<b}A(e_{a}e_{b})\otimes(e_{a}e_{b})^{\vee}
+  \in H^{2}(X)\otimes H^{2}(X)
+\]
+be its class, where $(e_{a}e_{b})^{\vee}$ is the dual basis for the form
+${\textstyle\bigwedge^{2}}\psi$. As
+${\textstyle\bigwedge^{2}}\psi(e_{a}e_{b},e_{c}e_{d})
+=\psi(e_{a},e_{c})\psi(e_{b},e_{d})-\psi(e_{a},e_{d})\psi(e_{b},e_{c})$
+vanishes unless $\{c,d\}=\{-a,-b\}$, we have
+$(e_{a}e_{b})^{\vee}=\chi(a)\chi(b)\,e_{-a}e_{-b}$ with
+$\chi(w)=\psi(e_{w},e_{-w})=\pm1$, the two factors in the order matching
+$(a,b)$. Let $s_{t}$, $t=1,2,3$, be the involution of
+$V\otimes V=\bigotimes_{u=1}^{3}(V_{u}\otimes V_{u})$ that exchanges the two
+factors $V_{t}$. The three $s_{t}$ commute, and $s_{1}s_{2}s_{3}$ is the
+exchange of the two slots of $V\otimes V$, which is $-1$ on
+${\textstyle\bigwedge^{2}}V$; so each $s_{t}$ preserves
+${\textstyle\bigwedge^{2}}V$, on which $s_{1}s_{2}s_{3}=-1$, and
+${\textstyle\bigwedge^{2}}V$ is the sum of the four joint eigenspaces with
+eigenvalues $(\varepsilon_{1},\varepsilon_{2},\varepsilon_{3})$ of product
+$-1$: these are $\CC\theta={\textstyle\bigwedge^{2}}V_{1}\otimes
+{\textstyle\bigwedge^{2}}V_{2}\otimes{\textstyle\bigwedge^{2}}V_{3}$ for
+$(-1,-1,-1)$ and $U_{ij}=S^{2}V_{i}\otimes S^{2}V_{j}\otimes
+{\textstyle\bigwedge^{2}}V_{k}$ for $\varepsilon_{i}=\varepsilon_{j}=1$,
+$\varepsilon_{k}=-1$. The projection onto the eigenspace of
+$(\varepsilon_{1},\varepsilon_{2},\varepsilon_{3})$ is
+$\prod_{t}(1+\varepsilon_{t}s_{t})/2$, which by the relation
+$s_{1}s_{2}s_{3}=-1$ equals
+$(1+\varepsilon_{1}s_{1}+\varepsilon_{2}s_{2}+\varepsilon_{3}s_{3})/4$. So
+\[
+  \pi_{0}=c\Bigl(\frac{1-s_{1}-s_{2}-s_{3}}{4}\Bigr),\qquad
+  \pi_{12}=c\Bigl(\frac{1+s_{1}+s_{2}-s_{3}}{4}\Bigr),
+\]
+and $\pi_{13}$, $\pi_{23}$ likewise, with the plus signs at $s_{1},s_{3}$
+and at $s_{2},s_{3}$. Let $a^{t}$ be the weight $a$ with its $t$-th
+coordinate changed; then $s_{t}(e_{a}e_{b})=e_{a}e_{b}$ if $t\notin D(a,b)$
+and $s_{t}(e_{a}e_{b})=e_{a^{t}}e_{b^{t}}$ if $t\in D(a,b)$. Under the
+K\"unneth map to $H^{4}(Y,\CC)$ the term of the pair $\{a,b\}$ in $c(s_{t})$
+is, up to sign, the monomial $e^{(1)}_{a'}e^{(1)}_{b'}e^{(2)}_{-a}e^{(2)}_{-b}$
+with $\{a',b'\}=\{a,b\}$ if $t\notin D(a,b)$ and $\{a',b'\}=\{a^{t},b^{t}\}$
+otherwise. If $t\notin D(a,b)$, or $D(a,b)=\{t\}$, in which case $a^{t}=b$,
+or $D(a,b)=\{1,2,3\}$, in which case $b=-a$ and the monomial is
+$e^{(1)}_{a^{t}}e^{(1)}_{-a^{t}}e^{(2)}_{-a}e^{(2)}_{a}$, the monomial
+contains an opposite pair and is a product of two divisor classes. In the
+remaining case $D(a,b)=\{t,t'\}$ with $t'\ne t$; then $b=a^{tt'}$, and the
+four weights $a^{t}$, $b^{t}=a^{t'}$, $-a$, $-b=a^{t''}$, where
+$\{t,t',t''\}=\{1,2,3\}$, are pairwise non-opposite, since any two of them
+differ in exactly two coordinates, and they have sum zero, because
+$a^{t}+b^{t}$ and $a+b$ agree outside the $t$-th coordinate, where both
+vanish. So
+\[
+  m_{ab}=\chi(a)\chi(b)\,e^{(1)}_{a^{t}}e^{(1)}_{b^{t}}e^{(2)}_{-a}e^{(2)}_{-b},
+  \qquad t=\min D(a,b),
+\]
+is a tetrahedron monomial with $D(a^{t},b^{t})=D(-a,-b)=D(a,b)$, and since
+$s_{t'}(e_{a}e_{b})=e_{a^{t'}}e_{b^{t'}}=e_{b^{t}}e_{a^{t}}=-e_{a^{t}}e_{b^{t}}$,
+the term of the pair in $c(s_{t'})$ is $-m_{ab}$, while its term in
+$c(s_{t''})$ is a product of divisor classes. For each two-element set $D$
+put $u_{D}=\sum_{D(a,b)=D}m_{ab}$, a sum over the four pairs with difference
+set $D$: two of these pairs lie in each tetrahedron and $a^{t}$ lies in the
+other one, so $u_{D}$ has two monomials in each tetrahedron, all with
+coefficients $\pm1$, and the three $u_{D}$ are supported on disjoint sets of
+monomials; the two monomials of $u_{D}$ in $T$ are those of the pair of
+$T$ indexed by $D$. In $\Xi$ this gives $c(1)\equiv0$,
+$c(s_{1})\equiv u_{12}+u_{13}$, $c(s_{2})\equiv-u_{12}+u_{23}$,
+$c(s_{3})\equiv-u_{13}-u_{23}$, hence
+\begin{equation}\label{eq:pimodulo}
+  \pi_{0}\equiv0,\quad
+  \pi_{12}\equiv\tfrac12(u_{13}+u_{23}),\quad
+  \pi_{13}\equiv\tfrac12(u_{12}-u_{23}),\quad
+  \pi_{23}\equiv-\tfrac12(u_{12}+u_{13}),
+\end{equation}
+and $\omega_{a}\equiv\frac12\bigl((a_{2}-a_{3})u_{12}+(a_{1}-a_{3})u_{13}
++(a_{1}-a_{2})u_{23}\bigr)$ in $\Xi$: on the monomials of the pair of
+$T_{\pm}$ indexed by $\{1,2\}$, $\{1,3\}$, $\{2,3\}$ the class $\omega_{a}$
+has coefficients of absolute values $|a_{2}-a_{3}|/2$, $|a_{1}-a_{3}|/2$,
+$|a_{1}-a_{2}|/2$.
+
+Now suppose that $\omega_{a}\in\Sigma_{\QQ}\otimes\CC$. Its image in $\Xi$
+is a combination of the $s_{\pm,k}$, and since every monomial of
+$\omega_{a}$ has two factors from each copy, only $s_{+,2}$ and $s_{-,2}$
+occur: $\omega_{a}\equiv x\,s_{+,2}+y\,s_{-,2}$. On the six monomials of
+$T_{+}$ the right side has coefficients of absolute value $|x|$. So the
+three differences $a_{2}-a_{3}$, $a_{1}-a_{3}$, $a_{1}-a_{2}$ have a common
+absolute value $r$, and as $a_{1}-a_{3}=(a_{1}-a_{2})+(a_{2}-a_{3})$,
+$r\in\{0,2r\}$; hence $r=0$ and $a_{1}=a_{2}=a_{3}$. Conversely the classes
+with $a_{1}=a_{2}=a_{3}$ are products of divisor classes
+(\Cref{prop:mumforddivisor}) and lie in $\Sigma_{\QQ}$. An exceptional class
+has for $(a_{1},a_{2},a_{3})$ the three distinct conjugates of an element of
+$F\setminus\QQ$ (\Cref{lem:conjugates}), so it does not lie in
+$\Sigma_{\QQ}$. Item (LXIV) of \Cref{sec:verification} checks the
+description of the four $\pi$ by the $s_{t}$, the dimensions and the
+supports in exact arithmetic.
+
+(iii) We first show that (c) is equivalent to $R$ and $k_{c}$ generating
+$\End^{0}(X)$, and that $R$ separates the weights of $T_{+}$ if and only if
+it separates those of $T_{-}$. For $\varphi\in\End^{0}(X)$ the eigenvalue on
+$e_{-w}$ is $\varphi_{-w}=(\varphi^{\dagger})_{w}$; since $\End^{0}(X)$ is a
+product of CM fields on which $\dagger$ is complex conjugation, and every
+embedding of a CM field into $\CC$ commutes with complex conjugation,
+$\varphi_{-w}=\bbar{\varphi_{w}}$. Hence $\varphi_{w}=\varphi_{w'}$ if and
+only if $\varphi_{-w}=\varphi_{-w'}$, and $R$ separates $T_{+}$ if and only
+if it separates $T_{-}$. The elements of $k_{c}$ are constant on each
+tetrahedron and separate the two, and a subalgebra of
+$\bar{\QQ}^{\{\text{weights}\}}$ containing the constants is the algebra of
+functions constant on the blocks of the partition it induces; so $R$
+separates $T_{+}$ exactly when $R\cdot k_{c}\otimes\bar{\QQ}$ separates all
+eight weights, that is, when $R\cdot k_{c}=\End^{0}(X)$.
+
+(c) implies (b). If $R$ separates $T_{+}$, then $R\otimes\CC$ maps onto
+$\CC^{T_{+}}$ under $\varphi\mapsto(\varphi_{w})_{w\in T_{+}}$, so the
+entries $\varphi_{w}$, $\psi_{w}$, $w\in T_{+}$, are eight independent
+coordinates on the image of $(R\otimes\CC)^{2}$. The sixteen coefficients in
+\eqref{eq:pullbacktet} are distinct monomials in these coordinates, hence
+linearly independent functions of $(\varphi,\psi)\in(R\otimes\CC)^{2}$; so
+no nonzero linear form on the span of the sixteen tetrahedron monomials of
+$T_{+}$ vanishes on all $f_{\varphi,\psi}^{*}t_{+}$, and these classes span
+that space. The same holds for $T_{-}$, and with the $100$ products of
+divisor classes this is all of $\Hdg^{2}(Y)\otimes\CC$. The map
+$(\varphi,\psi)\mapsto f_{\varphi,\psi}^{*}t_{\pm}$ is polynomial and
+$R\times R$ is Zariski dense in $(R\otimes\CC)^{2}$, so a linear form
+vanishing on its values at rational pairs vanishes on all values, and
+finitely many pairs $\varphi,\psi\in R$ give the same span. The $\QQ$-span of
+the rational classes $f_{\varphi,\psi}^{*}\HW(X)$, $\varphi,\psi\in R$, and
+of the products of divisor classes is then a $\QQ$-subspace of
+$\Hdg^{2}(Y)$ whose complexification is the whole space, hence is
+$\Hdg^{2}(Y)$.
+
+(b) implies (a), as $\Hdg^{2}(Y)$ contains the exceptional classes.
+
+(a) implies (c). Suppose that two distinct weights $u,u'\in T_{+}$ have
+$\varphi_{u}=\varphi_{u'}$ for every $\varphi\in R$, and let $v,v'$ be the
+other two weights of $T_{+}$. In \eqref{eq:pullbacktet} the sets
+$S=\{u,v\}$ and $S'=\{u',v\}$ then have the same coefficient for every
+$\varphi,\psi\in R$, up to the signs of the shuffles, which do not depend on
+$\varphi,\psi$. Hence every class in $\Sigma_{R}\otimes\CC$ has coefficients
+of equal absolute value on the tetrahedron monomials $e^{(1)}_{S}e^{(2)}_{T_{+}\setminus S}$ and $e^{(1)}_{S'}e^{(2)}_{T_{+}\setminus S'}$, the products
+of divisor classes involving no tetrahedron monomial. The pairs
+$\{S,T_{+}\setminus S\}$ and $\{S',T_{+}\setminus S'\}$ are different
+partitions of $T_{+}$, so $D(S)\ne D(S')$, and for an exceptional class
+$\omega_{a}$ in $\Sigma_{R}$ two of the three numbers $|a_{2}-a_{3}|$,
+$|a_{1}-a_{3}|$, $|a_{1}-a_{2}|$ would be equal. Each of the six resulting
+equations, $a_{2}-a_{3}=\pm(a_{1}-a_{3})$ and the four others, is a linear
+relation $c_{1}a_{1}+c_{2}a_{2}+c_{3}a_{3}=0$ with rational coefficients not
+all equal, which \Cref{lem:conjugates} forbids for the conjugates of an
+element of $F\setminus\QQ$. So (a) fails, and this proves the equivalence.
+
+For the last assertions: $K_{c}^{+}\otimes\bar{\QQ}$ consists of all
+functions on the opposite pairs, and $T_{+}$ meets every pair once, so
+$K_{c}^{+}$ separates $T_{+}$; a proper subalgebra $R$ of $K_{c}^{+}$ has
+$R\otimes\bar{\QQ}$ a proper subalgebra of the functions on the four pairs,
+which identifies two pairs and hence two weights of $T_{+}$; and a
+subalgebra of $k_{c}$ is constant on $T_{+}$.
+\end{proof}
+
+\begin{figure}[tbp]
+\centering
+  \includegraphics[width=0.96\textwidth]{fig_cmcube}
+\caption{\Cref{prop:cmsource}(i). The eight weights $(\pm1,\pm1,\pm1)$ of the
+Hodge torus at a CM point are the vertices of a cube. The four diagonals are
+the pairs of opposite weights, paired by the polarisation; the two inscribed
+tetrahedra $T_{+}$ (an even number of entries $-1$) and $T_{-}=-T_{+}$ are
+the only zero-sum four-sets without an opposite pair, and $t_{\pm}=\prod_{w\in
+T_{\pm}}e_{w}$ span the Weil line. The Galois group acts by linear maps
+permuting the vertices, so it preserves the diagonals and the pair of
+tetrahedra: the functions constant on the tetrahedra form the imaginary
+quadratic Weil field $k_{c}$, those constant on the diagonals the totally real
+quartic algebra $K_{c}^{+}$ of Rosati-fixed endomorphisms, and
+$\End^{0}(X_{c})=K_{c}^{+}\otimes k_{c}$ because a vertex is determined by
+its diagonal and its tetrahedron.}
+\label{fig:cmcube}
+\end{figure}
+
+\begin{figure}[tbp]
+\centering
+  \includegraphics[width=\textwidth]{fig_cmsource}
+\caption{\Cref{prop:cmsource}(ii) and (iii). Top: the $132$ Hodge classes of
+degree four on the square at a CM point, one cell per monomial of weight
+zero. The $100$ products of divisor classes are the cells with an opposite
+pair; the $32$ tetrahedron monomials $e^{(1)}_{S}e^{(2)}_{T\setminus S}$ are
+arranged by tetrahedron and by the number $|S|$ of factors from the first
+copy. Pull-backs of the Weil line along homomorphisms with components in
+$k_{c}$ add only the ten symmetric sums $s_{\pm,k}$, one per column, giving
+$110$; components separating the four weights of a tetrahedron, as those of
+$K_{c}^{+}$ do, separate the monomials and give all $132$. Bottom: on the six
+mixed monomials of one tetrahedron, grouped in the three pairs by the
+coordinates in which the two weights of $S$ differ, the symmetric sum
+$s_{+,2}$ has coefficients $\pm1$ throughout, while an exceptional class
+$\omega_{a}$ has coefficients of absolute value $|a_{2}-a_{3}|/2$,
+$|a_{1}-a_{3}|/2$, $|a_{1}-a_{2}|/2$, drawn for $\pi_{12}-\pi_{13}$; two
+equal absolute values would be a linear relation among the conjugates of an
+irrational element of $F$.}
+\label{fig:cmsource}
+\end{figure}
+
+The CM points fall into two kinds, according to whether the fourfold is
+simple; at the points of the second kind the real multiplication comes from
+the fixed cubic field $F$.
+
+\begin{lemma}[Split CM points]\label{lem:splitcm}
+Let $c\in C$ be a CM point, and let $L\subset D$ be the quadratic extension
+of $F$ whose norm one torus $\Res_{F/\QQ}\ker(\Nm_{L/F})$ is the Hodge group
+of $X_{c}$ (proof of \Cref{thm:mumfordcm}). Then $L$ is a CM field, and the
+following are equivalent: \textup{(a)} $X_{c}$ is not simple; \textup{(b)}
+$K_{c}^{+}$ is not a field; \textup{(c)} $L=Fk$ for an imaginary quadratic
+field $k\subseteq L$. In that case $k_{c}\cong k$, $K_{c}^{+}\cong\QQ\times F$,
+and $X_{c}$ is isogenous to $E\times B$, where $E$ is an elliptic curve with
+complex multiplication by $k$ and $B$ is an abelian threefold of CM type on
+which the factor $F$ of $K_{c}^{+}$ acts, a real multiplication by $F$; the
+Weil line $\HW(X_{c})$ lies in $H^{1}(E)\otimes H^{3}(B)$. At every other CM
+point $K_{c}^{+}$ is a totally real quartic field. Points of the second kind
+exist for infinitely many $k$: for every imaginary quadratic field $k$ such
+that $k\otimes_{\QQ}F_{v}$ is a field at each finite place $v$ of $F$ at
+which $D$ is ramified.
+\end{lemma}
+
+\begin{proof}
+Write $T$ for the Hodge group. By \Cref{prop:cmsource}(i), $\End^{0}(X_{c})
+=K_{c}^{+}\otimes k_{c}$ is a product of CM fields on which $\dagger$ is
+complex conjugation, and $T$ lies in the centraliser of $\End^{0}(X_{c})$,
+which over $\bar{\QQ}$ is the diagonal torus, and in $\Sp(V,\psi)$; so
+$T(\RR)$ lies in the compact group of the $x\in(\End^{0}(X_{c})\otimes\RR)
+^{\times}$ with $xx^{\dagger}=1$. If $L\otimes_{F,\sigma}\RR$ were
+$\RR\times\RR$ at a real place $\sigma$, the factor of $T(\RR)$ at $\sigma$
+would be the norm one group of $\RR\times\RR$ over $\RR$, which is not
+compact. Hence $L\otimes_{F,\sigma}\RR=\CC$ at each real place, and $L$ is a
+CM field.
+
+Over $\bar{\QQ}$, $T=\prod_{\sigma}T_{\sigma}$ with $T_{\sigma}
+=\ker(\Nm_{L/F})\otimes_{F,\sigma}\bar{\QQ}$ the diagonal torus of
+$\SL_{2}(\bar{\QQ})=(D\otimes_{F,\sigma}\bar{\QQ})^{1}$ for the decomposition
+$L\otimes_{F,\sigma}\bar{\QQ}=\bar{\QQ}\times\bar{\QQ}$ by the two embeddings
+of $L$ over $\sigma$, one of them chosen and called $\tau_{\sigma}$, the
+other $\bar{\tau}_{\sigma}$. The factor $V_{\sigma}$ of
+$V=\bigotimes_{\sigma}V_{\sigma}$ (\Cref{setup:mumford}) has the weights
+$\tau_{\sigma}$ and $\bar{\tau}_{\sigma}=\tau_{\sigma}^{-1}$ on $T_{\sigma}$,
+with eigenvectors $v_{\sigma,\pm}$, and $e_{w}=\bigotimes_{\sigma}
+v_{\sigma,w_{\sigma}}$. An element $\gamma$ of the Galois group carries
+$V_{\sigma}$ to $V_{\gamma\sigma}$ and $v_{\sigma,+}$ to
+$v_{\gamma\sigma,\varepsilon_{\gamma}(\sigma)}$, where
+$\varepsilon_{\gamma}(\sigma)=1$ if $\gamma\tau_{\sigma}=\tau_{\gamma\sigma}$
+and $-1$ if $\gamma\tau_{\sigma}=\bar{\tau}_{\gamma\sigma}$; so it acts on
+the weights by $(\gamma w)_{\gamma\sigma}=\varepsilon_{\gamma}(\sigma)
+w_{\sigma}$.
+
+If $L=Fk$, then $\operatorname{Hom}(L,\bar{\QQ})=\operatorname{Hom}(F,\bar{\QQ})
+\times\operatorname{Hom}(k,\bar{\QQ})$ with the Galois group acting on both
+factors, and with $\tau_{\sigma}=\sigma\otimes\iota_{0}$ for a fixed
+embedding $\iota_{0}$ of $k$ the sign $\varepsilon_{\gamma}(\sigma)
+=\varepsilon_{\gamma}$ does not depend on $\sigma$: it is $1$ if $\gamma$
+fixes $k$ and $-1$ otherwise. Then $\gamma$ permutes the coordinates of a
+weight and changes all its signs when it moves $k$. It preserves each
+tetrahedron if it fixes $k$ and exchanges the two otherwise, so
+$k_{c}\otimes\bar{\QQ}=\bar{\QQ}^{\{T_{+},T_{-}\}}$ is the algebra of the
+Galois set $\operatorname{Hom}(k,\bar{\QQ})$, and $k_{c}\cong k$. It carries
+the pair $\{\pm(1,1,1)\}$ to itself, so the projection $p_{E}$ onto
+$\CC e_{(1,1,1)}\oplus\CC e_{(-1,-1,-1)}$ lies in $\End^{0}(X_{c})$, and by
+Poincar\'e reducibility $X_{c}$ is isogenous to $E\times B$ with
+$H^{1}(E,\CC)$ the image of $p_{E}$, of dimension two, so $E$ is an
+elliptic curve, on whose $H^{1}$ the field $k_{c}$ acts by two conjugate
+scalars: $E$ has complex multiplication by $k$. The threefold $B$ has
+$\End^{0}(B)\otimes\bar{\QQ}$ containing the diagonal algebra of the six
+remaining weights, of dimension $6=2\dim B$, so $B$ is of CM type. Each of
+the six remaining weights has exactly one coordinate different from the
+other two, and $\gamma$ carries the opposite pair of the weight with
+distinguished coordinate $t$ to the pair with distinguished coordinate
+$\gamma t$; so the Galois set of the four opposite pairs is the fixed point
+$\{\pm(1,1,1)\}$ together with a copy of $\operatorname{Hom}(F,\bar{\QQ})$,
+and $K_{c}^{+}\cong\QQ\times F$, the factor $\QQ$ acting on $H^{1}(E)$ and
+the factor $F$ on $H^{1}(B)$. Finally $T_{+}$ consists of $(1,1,1)$ and
+three weights of $B$, and $T_{-}$ of $(-1,-1,-1)$ and three weights of $B$,
+so $t_{\pm}\in H^{1}(E)\otimes H^{3}(B)$ and $\HW(X_{c})$ lies there. This
+proves that (c) implies (a) and (b), with the asserted structure.
+
+$X_{c}$ is simple exactly when $\End^{0}(X_{c})=K_{c}^{+}\otimes k_{c}$ is a
+field, and since every factor field $E'$ of $K_{c}^{+}$ is totally real,
+$E'\otimes k_{c}$ is a field; so (a) and (b) are equivalent. Suppose (b).
+Then the Galois group does not act transitively on the four opposite pairs,
+whose algebra is $K_{c}^{+}$. It acts transitively on the three
+coordinates, as on the embeddings of $F$, so some $\gamma$ permutes them
+cyclically. For each coordinate $t$ the four pairs fall into two sets of
+two, according to the value of the coordinate $t$ on the representatives in
+$T_{+}$, and this assigns the three coordinates bijectively to the three
+partitions of the four pairs into two sets of two, compatibly with the
+Galois action, which preserves or exchanges $T_{+}$ and $T_{-}$. So the
+permutation of the pairs induced by $\gamma$ has order divisible by three,
+hence equal to three: it is a cycle of length three and fixes exactly one
+pair. The orbits of the Galois group on the pairs are therefore either one
+orbit or two, of sizes one and three, and by hypothesis some pair
+$\{w,-w\}$ is fixed: $\gamma w=\delta_{\gamma}w$ with
+$\delta_{\gamma}=\pm1$ for every $\gamma$. Replace the choice of
+$\tau_{\sigma}$ by $\tau'_{\sigma}=\tau_{\sigma}$ if $w_{\sigma}=1$ and
+$\tau'_{\sigma}=\bar{\tau}_{\sigma}$ if $w_{\sigma}=-1$; for the new choice
+$w$ becomes $(1,1,1)$, and the new signs are
+$\varepsilon'_{\gamma}(\sigma)=\varepsilon_{\gamma}(\sigma)w_{\sigma}
+w_{\gamma\sigma}=\delta_{\gamma}$ for all $\sigma$. So $\gamma$ carries the
+set $\Phi=\{\tau'_{\sigma}\}$ of three embeddings of $L$ to $\Phi$ if
+$\delta_{\gamma}=1$ and to $\bar{\Phi}$ if $\delta_{\gamma}=-1$. The map
+$\gamma\mapsto\delta_{\gamma}$ is a character of the Galois group; it is
+nontrivial, for otherwise $\Phi$ would be a Galois stable set of three of the
+six embeddings and $L$ would not be a field; and complex conjugation carries
+every embedding $\tau$ of the CM field $L$ to $\bar{\tau}$, hence $\Phi$ to
+$\bar{\Phi}$, so the quadratic field $k$ cut out by the character is
+imaginary. Let $\iota_{0}$, $\bar{\iota}_{0}$ be the embeddings of $k$, with
+$\iota_{0}$ fixed by the kernel of the character. Then $\tau\mapsto(\tau|_{F},
+\iota_{0}\text{ if }\tau\in\Phi\text{ and }\bar{\iota}_{0}\text{ otherwise})$
+is a Galois equivariant bijection $\operatorname{Hom}(L,\bar{\QQ})\to
+\operatorname{Hom}(F,\bar{\QQ})\times\operatorname{Hom}(k,\bar{\QQ})$, so
+$L\cong F\otimes_{\QQ}k$, that is, $L=Fk$ for a copy of $k$ in $L$, which is
+(c). At a CM point where (c) fails, $K_{c}^{+}$ is therefore a field, quartic
+and totally real by \Cref{prop:cmsource}(i).
+
+Existence. Let $k$ be imaginary quadratic. By the theorem of Albert, Brauer,
+Hasse and Noether \cite[\S1.5]{PR94}, the CM field $Fk$ splits $D$, and so
+embeds in $D$ over $F$, exactly when $Fk\otimes_{F}F_{v}$ is a field at
+every place $v$ of $F$ at which $D$ is ramified, a quadratic extension of a
+local field splitting the local quaternion division algebra. At the two real
+places where $D$ is definite this holds because $k$ is imaginary, and at the
+finite ramified places it is the hypothesis. Given the finitely many
+residue characteristics $p$ of these places, choose for each a quadratic
+extension $k_{p}$ of $\QQ_{p}$ not contained in $F_{v}$ for any $v$ above
+$p$: this is possible since the completions $F_{v}$ above $p$ have degrees
+over $\QQ_{p}$ adding up to three, so at most one of them contains a
+quadratic extension of $\QQ_{p}$, and then exactly one, while $\QQ_{p}$ has
+at least three. Infinitely many imaginary quadratic fields $k$ have the
+completions $k_{p}$ at these $p$, and for them
+$F_{v}\otimes_{\QQ_{p}}k_{p}$ is a field. For such $k$ let
+$T_{k}=\Res_{F/\QQ}\ker(\Nm_{Fk/F})\subset G$, a maximal torus with
+$T_{k}(\RR)$ compact. A compact subgroup of $G(\RR)$ fixes a point $x$ of the
+symmetric space of $G(\RR)$, and the stabiliser of $x$ is the centraliser of
+$h_{x}(\mathbb{S})$; so $h_{x}(\mathbb{S})$ centralises $T_{k}(\RR)$, which
+is Zariski dense in $T_{k}$, and lies in $T_{k}(\RR)$. The Hodge group of
+the fibre $X_{c}$ over the image $c$ of $x$ is the smallest $\QQ$-subgroup
+of $G$ containing $h_{x}(U(1))$, so it lies in $T_{k}$; it has rank three
+(proof of \Cref{thm:mumfordcm}), so it equals $T_{k}$, and $c$ is a CM
+point with $L=Fk$.
+\end{proof}
+
+\begin{remark}[What the degree bound has to control]\label{rem:cmsource}
+\leavevmode
+\begin{enumerate}[label=\textup{(\arabic*)},leftmargin=2.6em,itemsep=3pt]
+\item Markman's theorem \cite{Mar25a}, which the proof of
+  \Cref{thm:mumfordcm} invokes, produces the cycles on $X_{c}$ through its
+  Weil structure for $k_{c}$. \Cref{prop:cmsource} says that this structure
+  is blind to the exceptional classes of the square: everything obtained
+  from the Weil line and from divisors by pull-back along homomorphisms with
+  components in $k_{c}$, in particular along the maps $(x,y)\mapsto ax+by$,
+  and by products, spans $110$ of the $132$ Hodge classes and misses every
+  exceptional class; and a representation of an exceptional class by
+  pull-backs of the Weil line and products of divisors must use
+  homomorphisms whose components, with $k_{c}$, generate the whole
+  endomorphism algebra. At a CM point the exceptional classes are thus a
+  statement about the real multiplication $K_{c}^{+}$, as they are at a
+  general point about the real multiplication by $F$
+  (\Cref{prop:mumfordrm}).
+\item For $\varphi,\psi\in\End(X_{c})$ and a cycle $Z$ of codimension two on
+  $X_{c}$, the degree $\int_{Y}f_{\varphi,\psi}^{*}[Z]\cup\theta_{Y}^{6}$
+  is, by \eqref{eq:pullbacktet} applied to the monomials of $[Z]$, a
+  polynomial of degree four in the eigenvalues $\varphi_{w}$, $\psi_{w}$,
+  which are algebraic integers. For cycles of this shape the bound of
+  \Cref{cor:mumfordbounded} therefore asks, at infinitely many CM points,
+  for endomorphisms with bounded eigenvalues whose components generate
+  $\End^{0}(X_{c})$ over $k_{c}$. Only finitely many algebraic integers of
+  degree at most eight have bounded conjugates, so the same finitely many
+  minimal polynomials would have to occur at infinitely many points. At
+  the split points of \Cref{lem:splitcm} the algebra $K_{c}^{+}=\QQ\times F$
+  does not depend on the point and the real multiplication is by $F$ on the
+  threefold factor; the representation of the proof of \Cref{thm:mumfordcm}
+  then uses, besides elements of $F$, the isogeny $X_{c}\to E\times B$, a
+  cycle representing the Weil line of $E\times B$ in
+  $H^{1}(E)\otimes H^{3}(B)$, and divisor classes, and these three are what
+  varies with the point.
+\item At a split point the Weil line is a Hodge class in $H^{1}(E)\otimes
+  H^{3}(B)$, a correspondence between an elliptic curve with complex
+  multiplication by $k$ and a CM threefold with real multiplication by $F$,
+  and its algebraicity is again Markman's theorem for the fourfold
+  $E\times B$. A construction of that correspondence with a degree bounded
+  independently of $k$, together with a bound on the isogeny and on the
+  divisor classes, would give the target through \Cref{cor:mumfordbounded}.
+  We do not have one.
+\end{enumerate}
+\end{remark}
+
 \begin{remark}[Routes to the Mumford target]\label{rem:bypassaudit}
 We list the routes to the Mumford target that avoid the Lefschetz standard
 conjecture, with what is known about each; \Cref{fig:bypass} summarises
@@ -724,7 +1285,12 @@ them.
 \item \emph{Specialisation.} The class is algebraic at every CM point
   (\Cref{thm:mumfordcm}), on every power of $X_{c}$ \cite[Theorem~1.3]{Li26};
   this suffices exactly when the degrees are bounded
-  (\Cref{cor:mumfordbounded}), and no bound is known.
+  (\Cref{cor:mumfordbounded}), and no bound is known. The cycles that
+  represent the class at a CM point must use the real multiplication by the
+  Rosati-fixed algebra $K_{c}^{+}$, all of it; the Weil structure of the
+  fourfold, with which Markman's theorem produces its cycles, reaches $110$
+  of the $132$ Hodge classes and none of the exceptional ones
+  (\Cref{prop:cmsource}, \Cref{rem:cmsource}).
 \item \emph{Reduction modulo $p$.} At every closed point of every reduction
   of the curve the class is a $\QQ_{\ell}$-combination of algebraic cycles
   (\Cref{prop:modp}), by Li's theorem \cite[Theorem~1.1]{Li26}; this
