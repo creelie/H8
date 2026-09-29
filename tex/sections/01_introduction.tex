@@ -736,7 +736,12 @@ variance, and a one-atom measure has variance zero, so the two divisor degrees
 would have to coincide and the resolution would cancel (\Cref{thm:noci}). At
 $r=2$ and $r=3$ an exact search over the twists finds nothing; at $r=4,5,6$
 solutions appear, but only at $d=15$ and $d=23$ (\Cref{thm:burchsearch}).
-None of them survives. A morphism from a secant object that satisfies the
+The two values are forced by a congruence: the class
+$u_{\Theta}+3v_{\Theta}$ is an integer combination of classes of line
+bundles if and only if $d\equiv15$ or $23\pmod{24}$ (\Cref{thm:lattice}), so
+no resolution by bundles built from line bundles exists at any rank or twist
+for the four discriminants that allow a smooth support
+(\Cref{cor:latticeburch}). None of them survives. A morphism from a secant object that satisfies the
 criterion to a power of the polarisation is killed by $H^{2}(\cO)$
 (\Cref{lem:annihilation}), and for the cone of a map between sums of such
 powers the summand inclusions are not, because the relevant $H^{2}$ of a
@@ -748,7 +753,13 @@ remains is a support that is either smooth, with $d$ one of four values, or
 singular and Cohen--Macaulay, in both cases with a Hilbert--Burch resolution
 over a bundle that is not projectively flat and a restriction
 $H^{2}(\cO_{X})\to H^{2}(\cO_{Z})$ that is injective
-(\Cref{cor:disjointroutes}). \Cref{rem:routemap} writes the two remaining
+(\Cref{cor:disjointroutes}). For a smooth support on a simple fourfold the
+injectivity is automatic, because the surface would otherwise be Lagrangian
+for an invariant symplectic form and its Chern numbers forbid that
+(\Cref{lem:smoothinjective}), and the requirement that the object extend
+along every polarised deformation of the fourfold is the statement that the
+semiregularity map of Bloch of the surface has the least rank possible
+(\Cref{prop:smoothrank}). \Cref{rem:routemap} writes the two remaining
 questions in the form a construction would have to answer.
 
 \subsection{Weil classes of CM fields}
