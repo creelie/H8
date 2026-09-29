@@ -7,14 +7,14 @@ computational content is checked in exact arithmetic by the computations of
 \Cref{sec:verification}. The certificate is a single Lean~4 file that
 accompanies the paper. It compiles against a bare Lean~4 toolchain, contains
 no \texttt{sorry}, and depends on no library, Mathlib included. The axiom
-report at the end of the file lists, for each of its one hundred and one theorems,
+report at the end of the file lists, for each of its one hundred and three theorems,
 the axioms on which it depends. Eighty-six depend on none, and the remaining
-fifteen on propositional extensionality alone, which enters when
+seventeen on propositional extensionality alone, which enters when
 \texttt{decide} reduces an equality of Booleans or when a bound is proved from
 the lemmas on natural numbers in the core library; no theorem uses anything
 else. The annihilator dimension and the rank-zero obstruction of
 \Cref{ssec:rankzero}, \Cref{lem:annihilator} and \Cref{thm:rankzero}, are not
-among the one hundred and one: they are proved by hand, and the dimension count of
+among the one hundred and three: they are proved by hand, and the dimension count of
 the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \Cref{sec:verification}.
 
@@ -24,7 +24,7 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \small
 \renewcommand{\arraystretch}{1.06}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.31\linewidth}>{\raggedright\arraybackslash}p{0.62\linewidth}@{}}
-\caption{The one hundred and one machine-checked theorems.}\label{tab:lean}\\
+\caption{The one hundred and three machine-checked theorems.}\label{tab:lean}\\
 \toprule
 \textbf{theorem} & \textbf{statement} \\
 \midrule
@@ -142,6 +142,8 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \texttt{cm\_abelian\_}\allowbreak\texttt{semiregular\_}\allowbreak\texttt{count} & for $n\le60$ the annihilator of the class of an abelian subvariety of half dimension has dimension $2\binom{2n}{2}-2\binom{n}{2}+3n^{2}=6n^{2}-n$, and its complement in $HT^{2}$ has dimension $\binom{2n}{2}$, that of $\Ext^{2}(\cO_{B},\cO_{B})$, \Cref{lem:absemireg} \\
 \texttt{quartic\_rank\_}\allowbreak\texttt{values} & the tuples $(\mu,\rho_{1},\rho_{2},R_{1},R_{2})$ allowed at a quartic CM field give exactly fifteen values of $r(\gamma)$, the least $80$ only for $(0,0,0,8,8)$, never $100$, and nine when $\rho_{1}=\rho_{2}$, \Cref{thm:quarticrank}, \Cref{cor:quarticleast} \\
 \texttt{delsarte\_loop\_}\allowbreak\texttt{sextic} & for the loop sextic $AB=15624\,I$ with $B$ the circulant $(3125,-625,125,-25,5,-1)$, whose rows sum to $2604$, and the Jacobian ring has dimensions $1$, $426$, $1751$, $426$, $1$ and $15625$ in all, \Cref{prop:delsarte} \\
+\texttt{simplex\_klein\_}\allowbreak\texttt{quartic} & for the Klein quartic $x^{3}y+y^{3}z+z^{3}x$, $\det A=28$, the differences $R$ of its exponents have $\det R=7$ and $CR=7I$ for an integer matrix $C$ not divisible by $7$, so $e_{A}=7$, and the sum over the orbits gives $4$ times the Euler number $-4$, \Cref{cor:delsarteall} \\
+\texttt{simplex\_loop\_}\allowbreak\texttt{sextic} & for the loop sextic $\det R=2604=2^{2}\cdot3\cdot7\cdot31$ and $CR=2604\,I$ with, for each of $2,3,7,31$, an entry of $C$ it does not divide, so $e_{A}=2604$; the sums over the orbits for the loop and the Fermat sextic are $6\cdot2610$, the Euler number of a smooth sextic fourfold, \Cref{lem:simplexchart}, \Cref{cor:delsarteall} \\
 \end{longtable}
 \endgroup
 

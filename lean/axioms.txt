@@ -99,3 +99,5 @@
 'HodgeObstruction.cm_abelian_semiregular_count' does not depend on any axioms
 'HodgeObstruction.quartic_rank_values' depends on axioms: [propext]
 'HodgeObstruction.delsarte_loop_sextic' depends on axioms: [propext]
+'HodgeObstruction.simplex_klein_quartic' depends on axioms: [propext]
+'HodgeObstruction.simplex_loop_sextic' depends on axioms: [propext]

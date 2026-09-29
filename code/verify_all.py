@@ -194,6 +194,10 @@ Contents
          Kaehler class of the Weil tori  [quartic_rank.py]
   (LXVI) Delsarte fourfolds: the 29 sextic shapes, their Fermat covers,
          smoothness, the Jacobian ring of the loop sextic  [delsarte.py]
+  (LXVII) hypersurfaces of simplex type: the lattice degree e of the
+         Delsarte shapes, Euler numbers through the orbits, holomorphic
+         forms of the Fermat cover, cyclic covers, the Klein quartic
+         [simplex_type.py]
 """
 
 import os
@@ -630,6 +634,9 @@ def main():
 
     head("(LXVI) Delsarte fourfolds and their Fermat covers")
     run_module("LXVI", "delsarte.py")
+
+    head("(LXVII) hypersurfaces of simplex type")
+    run_module("LXVII", "simplex_type.py")
 
     print()
     print("=" * 70)

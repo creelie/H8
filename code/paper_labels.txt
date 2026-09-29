@@ -6,6 +6,7 @@ cor:allornothing
 cor:blind
 cor:cmdichotomy
 cor:countnotbind
+cor:delsarteall
 cor:disjointroutes
 cor:equivariant
 cor:exactform
@@ -62,6 +63,7 @@ def:modelHS
 def:positive
 def:secantplane
 def:signature
+def:simplextype
 def:vhs
 def:weilline
 def:weiltype
@@ -184,6 +186,7 @@ fig:rigidity
 fig:roadmap
 fig:route
 fig:sexticweil
+fig:simplextype
 fig:spinor
 fig:support
 fig:tangent
@@ -240,11 +243,13 @@ lem:rankduality
 lem:rosatiauto
 lem:semiregsum
 lem:sexticweil
+lem:simplexchart
 lem:sixmonomials
 lem:splitcm
 lem:splitsemireg
 lem:spreading
 lem:tensorrank
+lem:toricmod
 lem:totallyreal
 lem:transport
 lem:weilchar
@@ -334,6 +339,7 @@ prop:quarticother
 prop:quarticquat
 prop:quarticscalar
 prop:quarticsecant
+prop:quarticweiltori
 prop:quatdivisible
 prop:rigidity
 prop:scalaratiyah
@@ -646,6 +652,7 @@ thm:returntrip
 thm:secantexists
 thm:secantinvariants
 thm:semiregclosure
+thm:simplextype
 thm:smoothinvariants
 thm:splitclosed
 thm:twistedcert

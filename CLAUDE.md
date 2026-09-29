@@ -125,8 +125,19 @@ descends along dominant rational maps (`prop:f3primedominant`), which with
 Shioda's monomial cover puts every smooth Delsarte fourfold in the domain of
 (F3') (`prop:delsarte`, 29 sextic shapes; item (LXVI), `code/delsarte.py`;
 Lean Section 37, one hundred and one theorems), with the figures of
-`figures/make_round21.py` (`fig_quarticrank`, `fig_delsarte`). P2_split, (F2) and (F3')
-remain open. Never use agents or
+`figures/make_round21.py` (`fig_quarticrank`, `fig_delsarte`); round 22 proved,
+by Khovanskii's toric compactification, that a hypersurface of simplex type
+(`def:simplextype`, `lem:simplexchart`, `lem:toricmod`, `thm:simplextype` in
+`tex/sections/11b_closuregraph.tex`) smooth in a projective toric variety lies
+in the domain of (F3') and has its Hodge conjecture reduced to Fermat varieties
+of the lattice degree e, so every smooth Delsarte hypersurface of every
+dimension and the cyclic covers branched along them are covered
+(`cor:delsarteall`, Klein quartic e = 7, loop sextic e = 2604; item (LXVII),
+`code/simplex_type.py`; Lean Section 38, one hundred and three theorems;
+`fig_simplextype` from `figures/make_round22.py`), and excluded at rank 88 the
+characters of theta^4 shape by the Weil tori (`prop:quarticweiltori` in
+`tex/sections/10d2_quartic.tex`, check (J) of `code/quartic_rank.py`).
+P2_split, (F2) and (F3') remain open. Never use agents or
 workflows in this repository's sessions: do the work directly.
 
 Release v1.0.0 (tag `v1.0.0`, commit `ef15bce`) is archived on Zenodo under
@@ -144,7 +155,7 @@ section.
 - `cd code && python3 verify_all.py` ends with `N checks passed, 0 failed`;
   keep the count in `README.md`, `.zenodo.json`, `.github/workflows/lean.yml`,
   `tex/appendices/D_computations.tex` and `tex/declarations.tex` in step.
-- `cd lean && lean HodgeObstruction.lean`: 101 theorems, each axiom-free or
+- `cd lean && lean HodgeObstruction.lean`: 103 theorems, each axiom-free or
   depending on `propext` only.
 - `cd tex && latexmk -pdf main.tex`: 0 errors, 0 overfull or underfull boxes,
   no undefined references.

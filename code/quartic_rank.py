@@ -84,6 +84,14 @@ What is checked:
       when r is conjugate to s, the facts used for the subvarieties of the
       Weil tori in the proof that the pure form is never met.
 
+  (J) theta_1^4 and theta_2^4 are nonzero multiples of alpha_0 alpha_1 and
+      alpha_2 alpha_3, so a polynomial in the theta_1^i theta_2^j with
+      i, j in {0, 4} stays of Hodge type on every Weil torus of the field,
+      while theta_1, theta_1^2, theta_1^3 are not such multiples; and
+      r(omega + theta_1^4/24 + theta_2^4/24) = 88 (mu = 0, rho = 1, 1),
+      r = 104 with theta_1^4 theta_2^4 / 576 added: the characters at the
+      values 88 and 104 that the Weil tori exclude.
+
 Everything is exact rational arithmetic, with Groebner bases over Q.
 
 Run:  python3 quartic_rank.py
@@ -705,6 +713,28 @@ def main():
     check("with kappa_0 = theta_1 + theta_2: int alpha_s kappa_0^6 = 0, "
           "int alpha_s alpha_r alpha_q kappa_0^2 = 0, and int alpha_s alpha_r "
           "kappa_0^4 is nonzero exactly for r conjugate to s", ok)
+
+    print("(J) the characters that stay of Hodge type on the Weil tori")
+
+    def proportional(f, g):
+        if not f or set(f) != set(g):
+            return False
+        k = next(iter(f))
+        c = Fr(f[k]) / Fr(g[k])
+        return c != 0 and all(Fr(f[m]) == c * Fr(g[m]) for m in f)
+    ok = proportional(powf(TH[0], 4), wedge(al[0], al[1]))
+    ok &= proportional(powf(TH[1], 4), wedge(al[2], al[3]))
+    ok &= all(not proportional(powf(TH[0], i), wedge(al[0], al[1]))
+              for i in (1, 2, 3))
+    e88 = {(4, 0): 1, (0, 4): 1}
+    e104 = {(4, 0): 1, (0, 4): 1, (4, 4): 1}
+    r88, r104 = direct_rank(e88), direct_rank(e104)
+    ok &= (r88, mu(e88), rho(e88, 1), rho(e88, 2)) == (88, 0, 1, 1)
+    ok &= (r104, mu(e104), rho(e104, 1), rho(e104, 2)) == (104, 1, 1, 1)
+    check("theta_1^4 and theta_2^4 are nonzero multiples of alpha_0 alpha_1 "
+          "and alpha_2 alpha_3; r(omega + theta_1^4/24 + theta_2^4/24) = 88 "
+          "with mu = 0, rho_1 = rho_2 = 1, and adding theta_1^4 theta_2^4/576 "
+          "gives 104", ok, "r = %d, %d" % (r88, r104))
 
     print()
     print("%d checks passed, %d failed" % (len(PASS), len(FAIL)))

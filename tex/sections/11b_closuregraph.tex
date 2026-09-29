@@ -1216,8 +1216,365 @@ fourfold follows from that for one Fermat fourfold. For six of the sextic
 shapes that Fermat fourfold has degree $24$ or $30$, inside the range claimed
 in the preprint \cite{MMMV26}, so if it is correct the Hodge conjecture
 itself holds on these six; for the others the degree ranges from $120$ to
-$18750$, beyond every known or claimed range \cite{Shi79b,MMMV26,Jum26}.
+$18750$, and from $120$ to $3750$ with the lattice degree of
+\Cref{cor:delsarteall}, beyond every known or claimed range
+\cite{Shi79b,MMMV26,Jum26}.
 The monomial cover is Shioda's, and we claim no priority for it.
+
+\Cref{prop:delsarte} uses the covering map only in degree four, where
+algebraicity modulo abelian varieties descends along every dominant rational
+map. In higher degrees a birational modification can add classes, so the
+boundary of a compactification has to be controlled. For a hypersurface of a
+torus defined by affinely independent monomials the boundary is again of the
+same kind, and the whole cohomology can be traced back to Fermat varieties
+of a single degree. We use toric varieties as in \cite{CLS11}: a torus $T$
+with character lattice $M$ and cocharacter lattice $N$, a fan $\Sigma$ in
+$N_{\RR}$ and its toric variety $Y_{\Sigma}$, and for a cone
+$\tau\in\Sigma$ the orbit $O(\tau)$, whose character lattice is
+$\tau^{\perp}\cap M$, and its closure $V(\tau)$, the toric variety of the
+fan formed by the images of the cones containing $\tau$ in
+$N_{\RR}/\RR\tau$ \cite[Chapter~3]{CLS11}; for a ray $\rho$ we write
+$D_{\rho}=V(\rho)$. In what follows varieties need not be connected: a
+smooth projective variety lies in $\mathcal{A}$ when each of its connected
+components does, and the closure properties of \Cref{prop:f3prime}(iii) and
+\Cref{prop:aclosure} hold component by component.
+
+\begin{definition}[Simplex type]\label{def:simplextype}
+Let $T$ be a torus of dimension $n$ with character lattice $M$. A Laurent
+polynomial $f=\sum_{i=0}^{k}c_{i}\chi^{u_{i}}$ on $T$ is of \emph{simplex
+type} if every $c_{i}$ is nonzero and $u_{0},\dots,u_{k}\in M$ are affinely
+independent. Let $L'\subseteq M$ be the lattice spanned by the
+$u_{i}-u_{0}$, $L$ its saturation, the set of $x\in M$ with a nonzero
+multiple in $L'$, and $e(f)$ the exponent of the finite group $L/L'$; put
+$V_{f}=\{f=0\}\subseteq T$. A fan $\Sigma$ in $N_{\RR}$ is \emph{adapted} to
+$f$ if for every cone $\sigma\in\Sigma$ there is an index $i_{\sigma}$ with
+$\langle u_{i_{\sigma}},v\rangle\le\langle u_{j},v\rangle$ for all $j$ and
+all $v\in\sigma$, that is, if every cone of $\Sigma$ lies in a cone of the
+normal fan of the simplex spanned by the $u_{i}$. For a cone $\tau$ of an
+adapted fan let $I_{\tau}$ be the set of indices $i$ with
+$\langle u_{i},v\rangle=\min_{j}\langle u_{j},v\rangle$ for every
+$v\in\tau$, fix $i_{\tau}\in I_{\tau}$, and let
+$f_{\tau}=\sum_{i\in I_{\tau}}c_{i}\chi^{u_{i}-u_{i_{\tau}}}$, a Laurent
+polynomial of simplex type on the torus $O(\tau)$, since its exponents lie
+in $\tau^{\perp}\cap M$.
+\end{definition}
+
+The compactification is Khovanskii's \cite{Kho77}; for a simplex the proof
+is short, and we give it.
+
+\begin{lemma}[The compactification]\label{lem:simplexchart}
+Let $f$ be of simplex type on $T$, let $\Sigma$ be a smooth fan adapted to
+$f$, and let $Z$ be the closure of $V_{f}$ in $Y_{\Sigma}$.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item $V_{f}$ is empty if $k=0$. If $k\ge1$, it is a finite \'etale cover,
+  of degree $[L:L']$, of the product of a torus of dimension $n-k$ and the
+  complement of $k+1$ hyperplanes in general position in $\PP^{k-1}$; in
+  particular it is smooth.
+\item $Z$ is smooth, and for every $\tau\in\Sigma$, $Z\cap O(\tau)=V_{f_{\tau}}$
+  and $Z$ meets $V(\tau)$ transversally: $Z\cap V(\tau)$ is empty or smooth of
+  codimension $\dim\tau$ in $Z$, and it is the closure of $V_{f_{\tau}}$ in
+  $V(\tau)$. So the divisors $Z\cap D_{\rho}$ of $Z$ are smooth and cross
+  normally, and $Z\cap D_{\rho}$ is empty when $I_{\rho}$ has one element.
+\item The fan of $V(\tau)$ is smooth and adapted to $f_{\tau}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) If $k=0$, $f$ is a monomial and has no zero on $T$. Let $k\ge1$, choose a
+complement $C$ of the saturated lattice $L$ in $M$ and a basis
+$b_{k+1},\dots,b_{n}$ of $C$. The characters $u_{1}-u_{0},\dots,u_{k}-u_{0},
+b_{k+1},\dots,b_{n}$ span a sublattice of index $[L:L']$ in $M$, so the map
+$T\to(\CC^{\times})^{n}$ that they define is an isogeny of that degree. The
+function $\chi^{-u_{0}}f$ is the pull-back of $c_{0}+c_{1}z_{1}+\dots+c_{k}
+z_{k}$, so $V_{f}$ is the full preimage of the product of
+$(\CC^{\times})^{n-k}$ and the set $H$ of points of $(\CC^{\times})^{k}$ with
+$c_{0}+\sum_{i}c_{i}z_{i}=0$. The projective closure of this affine hyperplane is a hyperplane
+$\PP^{k-1}$ of $\PP^{k}$, with homogeneous coordinates $w_{0},\dots,w_{k}$,
+on which the $k+1$ linear forms $w_{i}$ satisfy the single relation
+$\sum_{i}c_{i}w_{i}=0$, with every $c_{i}\ne0$; so any $k$ of them are
+independent, the hyperplanes $\{w_{i}=0\}$ of $\PP^{k-1}$ are in general
+position, and $H$ is their complement.
+
+(ii) Let $\sigma\in\Sigma$, spanned by part $v_{1},\dots,v_{s}$ of a basis
+$v_{1},\dots,v_{n}$ of $N$, let $w_{1},\dots,w_{n}$ be the dual basis of $M$,
+and let $t_{j}=\chi^{w_{j}}$, the coordinates of
+$U_{\sigma}\cong\CC^{s}\times(\CC^{\times})^{n-s}$. Put $i=i_{\sigma}$. Every
+$u_{j}-u_{i}$ lies in the dual cone of $\sigma$, so
+$g=\chi^{-u_{i}}f=\sum_{j}c_{j}\chi^{u_{j}-u_{i}}$ is a regular function on
+$U_{\sigma}$, and $Z\cap U_{\sigma}\subseteq\{g=0\}$. A face $\tau$ of
+$\sigma$ is spanned by the $v_{j}$ with $j$ in a subset $J$, and $O(\tau)$ is
+the locus where exactly the $t_{j}$ with $j\in J$ vanish. A character
+$\chi^{x}$ regular on $U_{\sigma}$ restricts to $O(\tau)$ as $\chi^{x}$ if
+$x\in\tau^{\perp}$ and as $0$ otherwise \cite[Chapter~3]{CLS11}; since
+$\langle u_{j}-u_{i},v\rangle\ge0$ on $\sigma$, $u_{j}-u_{i}\in\tau^{\perp}$
+exactly when $j\in I_{\tau}$. So $h=g|_{O(\tau)}$ is
+$\chi^{u_{i_{\tau}}-u_{i}}f_{\tau}$, a unit times $f_{\tau}$. Let $p\in
+O(\tau)$ with $h(p)=0$ and put $a_{j}=c_{j}\chi^{u_{j}-u_{i}}(p)$ for $j\in
+I_{\tau}$. The derivative of $h$ at $p$ along the one-parameter subgroup of
+$O(\tau)$ given by $y$ in its cocharacter lattice is $\sum_{j}a_{j}\langle
+u_{j}-u_{i},y\rangle$. If all of these vanished, then, with
+$\sum_{j}a_{j}=h(p)=0$, the vector $\sum_{j}a_{j}(1,u_{j}-u_{i})$ of
+$\CC\oplus(\tau^{\perp}\cap M)\otimes\CC$ would be zero, as the cocharacter
+lattice of $O(\tau)$ is dual to $\tau^{\perp}\cap M$; affine independence
+would give every $a_{j}=0$, which is impossible at a point of the torus
+$O(\tau)$. So $dh(p)\ne0$. Hence $\{g=0\}$ is smooth at $p$ and transversal
+to $O(\tau)$ and to every $\{t_{j}=0,\ j\in J'\}$ with $J'\subseteq J$, whose
+tangent space at $p$ contains that of $O(\tau)$. No component of $\{g=0\}$
+lies in a divisor $\{t_{j}=0\}$, since $g$ restricted to the orbit of the
+ray of $v_{j}$ is a unit times a nonzero Laurent polynomial; so every
+component meets $T$, where $\{g=0\}$ is $V_{f}$, and
+$\{g=0\}=Z\cap U_{\sigma}$. This shows that $Z$ is smooth, that
+$Z\cap O(\tau)=V_{f_{\tau}}$ and that $Z\cap V(\tau)$ is smooth of
+codimension $\dim\tau$. As $Z\cap O(\tau')$ has codimension at least
+$\dim\tau'$ in $Z$ for every cone $\tau'\supsetneq\tau$, no component of
+$Z\cap V(\tau)$ lies in the smaller orbits, and $Z\cap V(\tau)$ is the
+closure of $V_{f_{\tau}}$. If $I_{\rho}$ has one element, $f_{\rho}$ is a
+nonzero constant.
+
+(iii) The fan of $V(\tau)$ is smooth because $\Sigma$ is. Let $\sigma\supseteq
+\tau$. The index $i_{\sigma}$ attains the minimum on $\sigma$, hence on
+$\tau$, so $i_{\sigma}\in I_{\tau}$, and for $j\in I_{\tau}$ and $v\in\sigma$,
+$\langle u_{i_{\sigma}}-u_{i_{\tau}},v\rangle\le\langle
+u_{j}-u_{i_{\tau}},v\rangle$. Both sides depend only on the image of $v$ in
+$N_{\RR}/\RR\tau$, because the exponents of $f_{\tau}$ lie in $\tau^{\perp}$;
+so the image of $\sigma$ satisfies the condition of adaptedness for
+$f_{\tau}$.
+\end{proof}
+
+\begin{lemma}[Cohomology across a toric modification]\label{lem:toricmod}
+Let $f$ be of simplex type on $T$, let $\Sigma_{1}$ and $\Sigma_{0}$ be
+smooth projective fans adapted to $f$, with $\Sigma_{1}$ refining
+$\Sigma_{0}$, let $\varphi\colon Y_{1}=Y_{\Sigma_{1}}\to Y_{0}=Y_{\Sigma_{0}}$
+be the toric morphism, and let $Z_{1}$ and $Z_{0}$ be the closures of
+$V_{f}$. For each ray $\rho$ of $\Sigma_{1}$ that is not a ray of
+$\Sigma_{0}$ let $E_{\rho}=Z_{1}\cap D_{\rho}$, with inclusion $i_{\rho}$.
+Then the kernel of $\varphi_{*}\colon H^{k}(Z_{1},\QQ)\to H^{k}(Z_{0},\QQ)$ is
+contained in $\sum_{\rho}i_{\rho*}H^{k-2}(E_{\rho},\QQ)$, and
+\[
+  H^{k}(Z_{1},\QQ)=\varphi^{*}H^{k}(Z_{0},\QQ)
+  +\sum_{\rho}i_{\rho*}H^{k-2}(E_{\rho},\QQ).
+\]
+\end{lemma}
+
+\begin{proof}
+Let $W\subseteq Y_{0}$ be the union of the open sets $U_{\tau}$ with
+$\tau\in\Sigma_{0}\cap\Sigma_{1}$. A cone of $\Sigma_{1}$ contained in such a
+$\tau$ is a face of it, since two cones of a fan meet in a common face; so
+$\varphi^{-1}(U_{\tau})=U_{\tau}$, and $\varphi$ is an isomorphism over $W$. A
+cone of $\Sigma_{1}$ whose rays are all rays of $\Sigma_{0}$ lies in a cone
+$\tau_{0}$ of $\Sigma_{0}$, its rays are rays of $\tau_{0}$, and $\tau_{0}$
+is simplicial, so it is a face of $\tau_{0}$ and lies in $\Sigma_{0}$. Hence
+$Y_{1}\smallsetminus\varphi^{-1}(W)$ is the union of the orbits of the cones
+with a ray not in $\Sigma_{0}$, that is, of the divisors $D_{\rho}$ of those
+rays. So $U_{1}=Z_{1}\smallsetminus\bigcup_{\rho}E_{\rho}$ is the closure of
+$V_{f}$ in $\varphi^{-1}(W)$, and $\varphi$ maps it isomorphically onto
+$U_{0}=Z_{0}\cap W$, with $U_{1}=Z_{1}\cap\varphi^{-1}(U_{0})$. The morphism
+$Z_{1}\to Z_{0}$ is birational on each component, so $\varphi_{*}\varphi^{*}
+=\id$ by the projection formula, and every class is $\varphi^{*}\varphi_{*}a$
+plus a class in the kernel of $\varphi_{*}$. Let $\varphi_{*}b=0$.
+Push-forward along a proper map commutes with restriction to an open set and
+its preimage, so $b|_{U_{1}}=(\varphi|_{U_{1}})^{*}\bigl((\varphi_{*}b)|_{U_{0}}
+\bigr)=0$. By \Cref{lem:simplexchart}(ii), $\bigcup_{\rho}E_{\rho}$ is a
+divisor with normal crossings and smooth components in the smooth projective
+variety $Z_{1}$, and by Deligne \cite[\S3.2]{Del71} the weight spectral
+sequence of its complement $U_{1}$ degenerates at $E_{2}$; its term
+$E_{2}^{0,k}$, the cokernel of the Gysin map
+$\bigoplus_{\rho}H^{k-2}(E_{\rho},\QQ)\to H^{k}(Z_{1},\QQ)$, is the image of
+$H^{k}(Z_{1},\QQ)$ in $H^{k}(U_{1},\QQ)$. So $b$ lies in the image of the
+Gysin map.
+\end{proof}
+
+\begin{theorem}[Hypersurfaces of simplex type]\label{thm:simplextype}
+Let $f$ be a Laurent polynomial of simplex type on a torus $T$ of dimension
+$n$, with $e=e(f)$, let $Y$ be a projective toric variety with torus $T$,
+not necessarily smooth, and let $Z$ be the closure of $V_{f}$ in $Y$.
+Suppose that $Z$ is smooth.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item $Z\in\mathcal{A}$, so \textup{(F3$'$)} holds on $Z$ in every degree.
+\item If the Hodge conjecture holds for the Fermat varieties $X^{j}_{e}$
+  with $j\le\dim Z$, then it holds for $Z$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+By induction on $n$. If $k=0$, $Z$ is empty; let $k\ge1$.
+
+\emph{The Fermat form.} With $C$ and $b_{j}$ as in the proof of
+\Cref{lem:simplexchart}(i), let $\widetilde M$ be the lattice with basis
+$w_{i}=(u_{i}-u_{0})/e$ for $1\le i\le k$ and $w_{j}=b_{j}$ for $k<j\le n$.
+It contains $M$, since $eL\subseteq L'$ gives $L\subseteq\frac1eL'$. Let
+$\widetilde T$ be the torus with character lattice $\widetilde M$,
+$\widetilde N\subseteq N$ its cocharacter lattice and
+$\pi\colon\widetilde T\to T$ the isogeny dual to $M\subseteq\widetilde M$.
+In the coordinates $z_{i}=\chi^{w_{i}}$ of $\widetilde T$,
+$\pi^{*}(\chi^{-u_{0}}f)=c_{0}+\sum_{i\le k}c_{i}z_{i}^{e}$; call it
+$\widetilde f$. It is of simplex type, $V_{\widetilde f}=\pi^{-1}(V_{f})$,
+and after the $z_{i}$ are rescaled it is $c_{0}(1+\sum_{i\le k}z_{i}^{e})$.
+
+\emph{The model.} Let $\Sigma_{0}$ be the fan in $\widetilde N_{\RR}$ of
+$Y_{0}=\PP^{k}\times\PP^{n-k}$, on whose torus $z_{1},\dots,z_{k}$ are the
+affine coordinates of the first factor and $z_{k+1},\dots,z_{n}$ those of the
+second. The closure of $V_{\widetilde f}$ in $Y_{0}$ is, after the
+rescaling, $Z_{0}=X^{k-1}_{e}\times\PP^{n-k}$, since the part of the Fermat
+variety in the torus is dense in it; $Z_{0}\in\mathcal{A}$ by
+\Cref{prop:aclosure}(iii) and \Cref{prop:f3prime}(iii), $\PP^{n-k}$ being
+the Fermat variety $X^{n-k}_{1}$. The fan $\Sigma_{0}$ is adapted to
+$\widetilde f$: $\min(0,e\langle w_{1},v\rangle,\dots,e\langle
+w_{k},v\rangle)$ depends only on the image of $v$ in the fan of $\PP^{k}$,
+the normal fan of the standard simplex, on whose cones it is linear.
+
+\emph{The common refinement.} Let $\Sigma_{Y}$ be the fan of $Y$, the normal
+fan of a polytope $P$, as $Y$ is projective \cite[Chapter~2]{CLS11}, and
+$\Sigma_{0}$ that of a polytope $Q$. The face of $P+Q$ on which a vector $v$
+attains its minimum is the sum of those of $P$ and of $Q$, so the normal fan
+of $P+Q$ consists of the intersections of cones of $\Sigma_{Y}$ and
+$\Sigma_{0}$; it has a smooth projective refinement $\Sigma_{1}$ with
+respect to $\widetilde N$ \cite[Chapter~11]{CLS11}. It is adapted to
+$\widetilde f$, because $\Sigma_{0}$ is. Let
+$Y_{1}=Y_{\Sigma_{1},\widetilde N}$ and $Z_{1}$ the closure of
+$V_{\widetilde f}$ in it, smooth by \Cref{lem:simplexchart}(ii). The
+inclusion $\widetilde N\subseteq N$ maps each cone of $\Sigma_{1}$ into a cone
+of $\Sigma_{Y}$ and defines a proper toric morphism $\psi\colon Y_{1}\to Y$
+extending $\pi$ \cite[Chapter~3]{CLS11}; $\psi(Z_{1})$ is closed, contains
+$\pi(V_{\widetilde f})=V_{f}$ and lies in $Z$, so $\psi$ maps $Z_{1}$ onto
+$Z$. The identity of $\widetilde N$ defines the toric morphism
+$\varphi\colon Y_{1}\to Y_{0}$, which maps $Z_{1}$ onto $Z_{0}$ and is an
+isomorphism over $V_{\widetilde f}$.
+
+\emph{The boundary.} By \Cref{lem:simplexchart}, each $E_{\rho}=Z_{1}\cap
+D_{\rho}$ is the smooth closure of $V_{\widetilde f_{\rho}}$ in the smooth
+projective toric variety $D_{\rho}$ of dimension $n-1$. The exponents of
+$\widetilde f_{\rho}$ are the $e(w_{i}-w_{i_{\rho}})$ with $i\in I_{\rho}$,
+where $w_{0}=0$. The vectors $w_{i}-w_{i_{\rho}}$ with $i\le k$,
+$i\ne i_{\rho}$, together with $w_{k+1},\dots,w_{n}$, form a basis of
+$\widetilde M$, so those with $i\in I_{\rho}$ span a saturated sublattice of
+$\widetilde M$, which lies in $\rho^{\perp}\cap\widetilde M$ and is
+saturated there. Hence $e(\widetilde f_{\rho})=e$ if $I_{\rho}$ has at least
+two elements, and $E_{\rho}$ is empty otherwise. By induction every
+$E_{\rho}$ lies in $\mathcal{A}$, and it satisfies the Hodge conjecture if
+the $X^{j}_{e}$ with $j\le n-2$ do.
+
+(i) By \Cref{lem:toricmod}, $H^{*}(Z_{1},\QQ)$ is spanned by the images of
+$H^{*}(Z_{0},\QQ)$ and of the $H^{*}(E_{\rho},\QQ)$ under $\varphi^{*}$ and
+the $i_{\rho*}$, which are induced by algebraic cycles, the transposed
+graph of $\varphi$ and the graphs of the $i_{\rho}$. So
+$Z_{1}\in\mathcal{A}$ by \Cref{prop:aclosure}(v), and $Z\in\mathcal{A}$ by
+\Cref{prop:f3prime}(iii), as the image of $Z_{1}$ under $\psi$.
+
+(ii) By the K\"unneth formula every Hodge class on $X^{k-1}_{e}\times
+\PP^{n-k}$ is a sum of pull-backs of Hodge classes on $X^{k-1}_{e}$
+multiplied by powers of the hyperplane class, so the conjecture holds on
+$Z_{0}$, as $k-1\le n-1=\dim Z$; it holds on the $E_{\rho}$ by induction.
+Let $a$ be a Hodge class on $Z_{1}$. Then $\varphi_{*}a$ is a Hodge class,
+hence algebraic, and so is $\varphi^{*}\varphi_{*}a$. The class
+$b=a-\varphi^{*}\varphi_{*}a$ is a Hodge class in the kernel of
+$\varphi_{*}$, hence in the image of the Gysin map of
+\Cref{lem:toricmod}, a morphism of polarisable Hodge structures after a
+Tate twist; as in the proof of \Cref{prop:f3prime}(iii) it is the image of a
+Hodge class, which is algebraic, so $b$ is algebraic. So the conjecture
+holds on $Z_{1}$, and it passes to $Z$ along $\psi$: for a Hodge class $x$
+on $Z$, $\psi^{*}x$ is algebraic, and $\Psi_{*}\psi^{*}x=c\,x$ with $c>0$ for
+the algebraic correspondence $\Psi$ of the proof of
+\Cref{prop:f3prime}(iii).
+\end{proof}
+
+\begin{corollary}[Delsarte hypersurfaces of every dimension]
+\label{cor:delsarteall}
+Let $X_{A}\subset\PP^{r+1}$, $r\ge1$, be a smooth Delsarte hypersurface of
+degree $m$ as in \Cref{prop:delsarte}, let $M=\{x\in\ZZ^{r+2}:\sum_{j}x_{j}=0\}$,
+and let $e_{A}$ be the exponent of $M/M'$, where $M'$ is spanned by the
+differences $a_{i}-a_{0}$ of the rows of $A$.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item $X_{A}\in\mathcal{A}$, so \textup{(F3$'$)} holds on $X_{A}$ in every
+  degree, and the Hodge conjecture holds on $X_{A}$ if it holds on the Fermat
+  varieties $X^{j}_{e_{A}}$ with $j\le r$. The number $e_{A}$ divides every
+  $d$ of \Cref{prop:delsarte}, and $[M:M']=|\det A|/m$.
+\item The same holds, with $j\le r+1$, for the cyclic cover
+  $\{y^{k}=F_{A}(x)\}$ of $\PP^{r+1}$ in the weighted projective space
+  $\PP(1,\dots,1,m/k)$, for every $k$ dividing $m$, with
+  $M=\{x\in\ZZ^{r+3}:\sum_{j\le r+1}x_{j}+(m/k)x_{r+2}=0\}$ and $M'$ spanned
+  by the differences of the exponents of $F_{A}-y^{k}$; it is smooth
+  because $X_{A}$ is.
+\item For the $29$ sextic shapes of \Cref{prop:delsarte}(iii), $e_{A}$ is the
+  least $d$ there, except for the chain $x_{0}^{5}x_{1}+x_{1}^{5}x_{2}+\dots
+  +x_{4}^{5}x_{5}+x_{5}^{6}$ and the loop, for which it is $3125$ and $2604$
+  instead of $18750$ and $15624$. For the Klein quartic
+  $x^{3}y+y^{3}z+z^{3}x$ it is $7$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+(i) On the torus of $\PP^{r+1}$, with character lattice $M$, $X_{A}$ is the
+closure of $V_{f}$ for $f=\chi^{-a_{0}}F_{A}$, as in the proof of
+\Cref{prop:delsarte}(i). The rows of $A$ are linearly independent and lie on
+the affine hyperplane $\sum_{j}x_{j}=m$, which does not contain $0$, so they
+are affinely independent, $f$ is of simplex type, $L'=M'$ has rank $r+1$ and
+$L=M$; so $e(f)=e_{A}$, and \Cref{thm:simplextype} gives the first two
+assertions. If $dA^{-1}$ is integral and $x\in M$, then $dx=\lambda A$ with
+$\lambda=dxA^{-1}$ integral and $\sum_{i}\lambda_{i}=d\sum_{j}x_{j}/m=0$,
+as $A^{-1}\mathbf{1}=\mathbf{1}/m$; so $dx=\sum_{i}\lambda_{i}(a_{i}-a_{0})
+\in M'$, and $e_{A}$ divides $d$. The lattice $M'$ is the intersection of $M$
+with the lattice $R$ spanned by the rows, whose image under
+$x\mapsto\sum_{j}x_{j}$ is $m\ZZ$; the exact sequence $0\to M/M'\to
+\ZZ^{r+2}/R\to\ZZ/m\ZZ\to0$ gives $[M:M']=|\det A|/m$.
+
+(ii) The exponents of $F_{A}-y^{k}$ are linearly independent and lie on the
+hyperplane of weighted degree $m$, so the polynomial is of simplex type on
+the torus of $\PP(1,\dots,1,m/k)$, a projective toric variety whose
+character lattice is the given $M$. On the affine cone, the partial
+derivatives vanish together with $y^{k}-F_{A}$ only where $y=0$ and $x$ is a
+singular point of the cone over $X_{A}$, that is $x=0$; so the cover is
+quasi-smooth, and it misses the only singular point $(0:\dots:0:1)$ of the
+weighted projective space, where $y^{k}=F_{A}(0)$ would force $y=0$. So it is
+smooth. It is irreducible, $F_{A}$ being irreducible, and not contained in a
+coordinate hyperplane, so it is the closure of its part in the torus, and
+\Cref{thm:simplextype} applies.
+
+(iii) The invariant factors of $M/M'$ are computed from the Smith normal form
+of the matrix of the $a_{i}-a_{0}$ in item (LXVII) of
+\Cref{sec:verification}. For the Klein quartic, $\det A=28$, so
+$[M:M']=7$ and $e_{A}=7$.
+\end{proof}
+
+For the Klein quartic the construction is classical: the isogeny has kernel
+of order $e_{A}^{2}/[M:M']=7$, and the Klein quartic is the quotient of the
+Fermat septic curve by a group of order seven; \Cref{fig:simplextype} draws
+its Newton triangle and the smooth adapted fan of the proof. For $r=4$,
+\Cref{cor:delsarteall}(i) recovers \Cref{prop:delsarte}(ii), with the Fermat
+degree lowered to $e_{A}$. Its content lies in dimension five and more, where
+this paper had covered only the Fermat hypersurfaces, and in the cyclic
+covers, among them the Calabi--Yau
+varieties $\{y^{2}=F_{A}(x)\}$ with $F_{A}$ of degree $2r+4$ in $r+2$
+variables. Item (LXVII) of \Cref{sec:verification} checks the ingredients:
+the invariant factors for the $29$ sextic shapes; the Euler number
+$((1-m)^{r+2}-1)/m+r+2$ of $X_{A}$, recomputed as the sum over the orbits of
+$\PP^{r+1}$ of the Euler numbers $(-1)^{s}|\det A_{R,S}|/m$ that
+\Cref{lem:simplexchart}(i) gives, for the $29$ shapes and $168$ chains and
+loops; the holomorphic forms of top degree, as the characters of the Fermat
+variety of degree $e_{A}$ trivial on the kernel of the isogeny, for the $29$
+shapes, $90$ chains and loops and $40$ cyclic covers; and the fan of the Klein
+quartic. Khovanskii's compactification and Shioda's cover are classical, and
+we claim no priority for the two lemmas. What \Cref{thm:simplextype} adds is
+that the boundary of the compactification is again of simplex type with the
+same exponent $e$, so that the whole cohomology, not only its part of top
+Hodge level, comes from Fermat varieties of one degree; it does not reach a
+general sextic fourfold, and \textup{(F3$'$)} stays open.
+
+\begin{figure}[tbp]
+\centering
+  \includegraphics[width=\textwidth]{fig_simplextype}
+\caption{The Klein quartic $x^{3}y+y^{3}z+z^{3}x$ in the proof of
+\Cref{thm:simplextype}. Left: its Newton triangle in the lattice $M$ of the
+torus of $\PP^{2}$, in the chart $z=1$, with normalised area $7=[M:M']$ and
+three interior points, the genus. Right: the rays of a smooth fan adapted to
+it, the three rays of $\PP^{2}$, the three inner normals of the triangle and
+the six rays inserted to make every cone unimodular. The curve meets only
+the three divisors of the inner normals, in one point each, the lattice
+length of the edge, so its Euler number is $-7+3=-4$. With $e_{A}=7$ the
+isogeny of the proof makes it the quotient of the Fermat septic by a group
+of order seven.}
+\label{fig:simplextype}
+\end{figure}
 
 \begin{remark}[Where \textup{(F3$'$)} stops]\label{rem:f3primefrontier}
 With \Cref{prop:f3prime}, \Cref{prop:aclosure} and \Cref{prop:f3primesmall},
@@ -1227,11 +1584,12 @@ every uniruled fourfold), on every fivefold whose zero-cycles are supported
 in dimension at most three, on every fourfold and fivefold whose maximal
 rationally connected quotient is birational to a variety satisfying
 \textup{(F3$'$)} in degree four (\Cref{prop:f3primefibration}), on every
-fourfold and fivefold dominated by a rational map from such a variety, among
-them the smooth Delsarte fourfolds of every degree
-(\Cref{prop:f3primedominant}, \Cref{prop:delsarte}), and on
+fourfold and fivefold dominated by a rational map from such a variety
+(\Cref{prop:f3primedominant}), and on
 every member of $\mathcal{A}$, a class containing the Fermat
-hypersurfaces of every degree and dimension, the Hilbert schemes of points on
+hypersurfaces, and the smooth Delsarte hypersurfaces with the cyclic covers
+branched along them (\Cref{cor:delsarteall}), of every degree and
+dimension, the Hilbert schemes of points on
 abelian surfaces, on products of curves and on the K3 surfaces of
 \Cref{prop:aclosure}(iv), the generalised Kummer varieties $K_{n}(A)$ and the
 other varieties of \Cref{prop:aclosure}(v), and every blow-up and projective bundle
@@ -1291,8 +1649,8 @@ hold in degree four for every fourfold; the sixfold $\mathrm{Bl}_{Y}\PP^{6}$
 of a smooth sextic fourfold $Y$ in a hyperplane carries the Hodge numbers
 listed. The rings are first open cases (\Cref{rem:f3primefrontier}): the
 sextic fourfolds, the first family of smooth hypersurfaces not covered
-(the Fermat sextic lies in $\mathcal{A}$, and the other $28$ Delsarte
-sextics are covered by \Cref{prop:delsarte}); $S\times S$ and $S^{[2]}$ for a K3
+(the $29$ Delsarte sextics lie in $\mathcal{A}$ by
+\Cref{cor:delsarteall}); $S\times S$ and $S^{[2]}$ for a K3
 surface $S$ whose real multiplication is not known to be algebraic, such as
 $S_{\lambda}$; the fourfolds of K3$^{[2]}$ type with real multiplication,
 among them $F(Y)$; and, beyond the breaks of the axes, $S^{[231]}$ for a very

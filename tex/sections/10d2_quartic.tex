@@ -902,6 +902,55 @@ For $P=\eta_{s}$ the pairs are $(\tau_{t}(s),0)$, so $\rho_{1}=\rho_{2}=1$,
 $\mu=0$, and $R_{t}=8$ by \Cref{thm:quarticrank}(ii).
 \end{proof}
 
+The Weil tori of \Cref{setup:cmweiltori} exclude more than the pure shape.
+A polynomial in $\theta_{1},\theta_{2}$ can stay of Hodge type on all of
+$S_{F}$, and then the argument of \Cref{thm:cmpurefalse} applies to it.
+
+\begin{proposition}[The characters that the Weil tori exclude]
+\label{prop:quarticweiltori}
+Let $E$ be as in \Cref{thm:quarticp2prime}\textup{(v)}, and suppose that $P$
+lies in the span of the $\theta_{1}^{i}\theta_{2}^{j}$ with
+$i,j\in\{0,4\}$, as for $\ch(E)=c+N\omega_{1}+b\,\theta_{1}^{4}+
+\iota(b)\,\theta_{2}^{4}$ with $b\in F_{0}$. Then $\sigma_{E}$ is not
+injective and $\dim\Ext^{2}(E,E)>r(\ch E)$. Consequently, if
+$\dim\Ext^{2}(E,E)=r(\ch E)=88$, then $P=c+f(\theta_{1})+f^{\iota}(\theta_{2})$
+with $c\in\QQ$, where $f(\theta)$ is a nonzero multiple either of $\theta$ or
+of $e^{\lambda\theta}-1$ for some $\lambda\ne0$, and $f^{\iota}$ is obtained
+by applying $\iota$ to the coefficients of $f$.
+\end{proposition}
+
+\begin{proof}
+In the basis before \Cref{thm:quarticrank}, $\theta_{1}$ is a sum of four
+products of two classes, one from $V_{\sigma}$ and one from $V_{\bbar\sigma}$
+for the two embeddings over $\tau_{1}$, in disjoint sets of basis vectors.
+So $\theta_{1}^{4}$ is $4!$ times their product, a nonzero element of
+$\bigwedge^{4}V_{\sigma}\otimes\bigwedge^{4}V_{\bbar\sigma}$, that is a
+nonzero multiple of $\alpha_{\sigma}\alpha_{\bbar\sigma}$, and likewise for
+$\theta_{2}^{4}$. Hence $\ch(E)=N\omega_{1}+P$ lies in the span of the
+classes $\alpha_{\Sigma}$, which are of type $(p,p)$ on every member of
+$S_{F}$ (\Cref{setup:cmweiltori}); being rational, it is a Hodge class on
+every member. Its component of degree four is $N\omega_{1}\ne0$, since $P$
+has none, and \Cref{thm:cmpurefalse} applies. If $\dim\Ext^{2}(E,E)=
+r(\ch E)=88$, then $\mu=0$ and $\rho_{1}=\rho_{2}=1$ by
+\Cref{cor:quarticleast}(iii), so $P$ has no mixed monomials, and by the
+paragraph after \Cref{thm:quarticrank} its part in $\theta_{1}$ alone is a
+multiple of $e^{\lambda\theta_{1}}-1$, of $\theta_{1}$ or of $\theta_{1}^{4}$;
+its part in $\theta_{2}$ alone is obtained by $\iota$, by
+\Cref{cor:quarticleast}(ii). In the third case $P$ lies in the span of
+$1$, $\theta_{1}^{4}$ and $\theta_{2}^{4}$, which the first part excludes.
+\end{proof}
+
+The shape $c+b\,\theta_{1}^{4}+\iota(b)\,\theta_{2}^{4}$ has rank $88$, and
+with a multiple of $\theta_{1}^{4}\theta_{2}^{4}$ added it has rank $104$
+(item (LXV) of \Cref{sec:verification}); \Cref{prop:quarticweiltori} removes
+both. What remains at $88$ is a Chern character whose polynomial part is
+exponential or linear in each $\theta_{t}$ separately, such as
+$c+\eta_{s}+N\omega_{1}$. For these the classes $\theta_{t}$ are not of
+Hodge type on the Weil tori, and the argument gives nothing: a family along
+which $\eta_{s}$ stays of type $(1,1)$ and the member is not algebraic would
+be needed, together with a vanishing theorem for its coherent sheaves with
+$c_{1}$ a multiple of $\eta_{s}$, and we have neither.
+
 The natural candidates are Markman's secant objects \cite{Mar25c}, in the
 twisted form in which he states his reduction. For them a $B$-field twist of
 $\ch(E)$, the class $\kappa$ of \Cref{thm:quarticobstruction}, is flat, and
@@ -1591,7 +1640,9 @@ Weil class plus a polynomial in the $\eta_{t}$, and with
 $\dim\Ext^{2}(E,E)=r(\ch E)$, which is $112$ for a general shape. Every such
 complex has $\dim\Ext^{2}(E,E)\ge81$, and one that meets the criterion has a
 polynomial part that is not constant and $\dim\Ext^{2}(E,E)\ge88$
-(\Cref{cor:quarticleast}). When $\delta$ is trivial the secant
+(\Cref{cor:quarticleast}); at $88$ that part is exponential or linear in
+each $\theta_{t}$, the shape $b\,\theta_{1}^{4}+\iota(b)\,\theta_{2}^{4}$
+being excluded by the Weil tori as well (\Cref{prop:quarticweiltori}). When $\delta$ is trivial the secant
 sheaves of \cite{Mar25c}, on $X\times\widehat{X}$ with $X$ an abelian fourfold
 with real multiplication by $F_{0}$, are natural candidates for the twisted
 form of that criterion, which is the form of Markman's reduction
