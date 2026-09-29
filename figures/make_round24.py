@@ -130,7 +130,7 @@ def fig_quarticlocal():
             "The support of E' near a point of the glued curve, the two "
             "eigenplanes of the real multiplication at that point, and the "
             "table of nonzero products of translation classes for the ten "
-            "germs of item (LXVIII) (lem:freegerm, thm:quarticlocal, "
+            "germs of the computation (lem:freegerm, thm:quarticlocal, "
             "cor:markmanquarticfails).", cam, gen=GEN)
     # the two divisor sheets that C' crosses, at y = +-1.6
     ys = 1.6
@@ -243,7 +243,7 @@ def fig_quarticlocal():
                 anchor="center", color="PInk", font=SN)
     ybot = top - len(GERMS) * rowh
     F.label(tx, ybot - 0.30,
-            r"coordinates adapted to the germ, as in item (LXVIII): a filled cell is a "
+            r"coordinates adapted to the germ: a filled cell is a "
             r"nonzero Yoneda", anchor="north west", color="PSlate", font=SN)
     F.label(tx, ybot - 0.74,
             r"square in the local $\Ext^{2}$; at a point of $C'$ the pairs of "

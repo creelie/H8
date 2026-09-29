@@ -173,7 +173,7 @@ def hankel():
                          size=r"\tiny"))
     out.append(dot(X(2), 24 * H, "PClay", r=1.5, hollow=True))
     out.append(label(3.95, 5.60, r"$(4+\rho)\,n^{2}-2n$, exact over $\QQ(i)$ "
-                     r"for $n\le10$ (item (LII))", "PInk"))
+                     r"for $n\le10$", "PInk"))
     out.append(label(3.05, 4.45, r"at $n=2$: $r\in\{12,16,18,20,22,23,24\}$,"
                      r"\\$24$ for a general shape", "PClay", size=r"\tiny"))
     out.append(label(3.05, 3.70, r"pure form $\rho=0$: $2n(2n-1)$,\\"

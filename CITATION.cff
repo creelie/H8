@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
-title: "Verification code and figure sources for the paper Density of the Algebraic Locus of Weil Classes on Abelian Varieties"
+title: "Verification code and figure sources for the paper Density of Algebraic Loci of Weil Classes on Abelian Varieties"
 abstract: "Exact-arithmetic verification code, a kernel-checked Lean 4 certificate of the finite arithmetic, Macaulay2 computations and the TikZ sources of every figure accompanying the paper of the same name."
 type: software
 license: MIT
@@ -23,8 +23,8 @@ keywords:
   - abelian varieties
   - Cohen-Macaulay supports
   - Lean 4
-version: "2.0.0"
-doi: "10.5281/zenodo.23038895"
+version: "3.0.0"
+doi: "10.5281/zenodo.22950275"
 date-released: "2026-09-29"
 repository-code: "https://github.com/creelie/H8"
 identifiers:
@@ -37,4 +37,4 @@ identifiers:
   - type: doi
     value: "10.5281/zenodo.22950276"
     description: "Version DOI of release v1.0.0"
-url: "https://doi.org/10.5281/zenodo.23038895"
+url: "https://doi.org/10.5281/zenodo.22950275"

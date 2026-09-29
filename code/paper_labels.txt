@@ -48,6 +48,7 @@ cor:splitalgebraic
 cor:splitsatisfies
 cor:stability
 cor:surfacecase
+cor:verygeneral
 cor:weilalgebraic
 cor:weilequiv
 cor:whatisleft
@@ -176,6 +177,7 @@ fig:ks
 fig:ladder
 fig:lagsweep
 fig:lefschetzgrid
+fig:mainlocus
 fig:massgap
 fig:minimalsupport
 fig:moment
@@ -196,6 +198,7 @@ fig:simplextype
 fig:spinor
 fig:support
 fig:tangent
+fig:twohalves
 fig:weilcoeff
 lem:Ginvariance
 lem:HgSU
@@ -221,6 +224,7 @@ lem:chicompare
 lem:cibig
 lem:cliffJ
 lem:cliffdim
+lem:cmgeneric
 lem:cmweiltori
 lem:conjugates
 lem:divisorgerm
@@ -272,6 +276,11 @@ not:splitcoords
 not:threeclasses
 not:totalspace
 not:wT
+part:basepoints
+part:beyond
+part:cmfields
+part:obstructions
+part:semiregularity
 prop:aclosure
 prop:chintermsofu
 prop:cmsource
@@ -513,7 +522,6 @@ rem:universal
 rem:untwisting
 rem:variational
 rem:weakerscope
-rem:whatclosure
 rem:whatitmustbe
 rem:whatmeasures
 rem:whatsleftnow
@@ -536,14 +544,12 @@ sec:fm
 sec:hyperplane
 sec:intro
 sec:ks
-sec:lean
 sec:numerology
 sec:propagation
 sec:reduction
 sec:scope
 sec:secantobjects
 sec:semireg
-sec:verification
 sec:weiltype
 setup:burch
 setup:cmfield
@@ -569,13 +575,13 @@ ssec:bullseye
 ssec:cdknot
 ssec:closure
 ssec:closuremap
+ssec:cmpropagation
 ssec:cmweiltori
 ssec:depth
 ssec:divcrit
 ssec:everyfamily
 ssec:exactform
 ssec:hilbertburch
-ssec:introscope
 ssec:lagrangian
 ssec:mumford
 ssec:mumfordobject
@@ -596,7 +602,6 @@ ssec:targets
 ssec:thirdexists
 ssec:whatobject
 tab:burch
-tab:lean
 tab:n3coeffs
 tab:rules
 tab:scope
@@ -620,7 +625,6 @@ thm:degreebound
 thm:deligneAH
 thm:divcriterion
 thm:divisor
-thm:divisor-body
 thm:equalnorms
 thm:equivalence
 thm:equivsuffices

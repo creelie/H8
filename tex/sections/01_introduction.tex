@@ -54,7 +54,13 @@ Weil classes form a flat local system of rank $2m$ over it
 \]
 the \emph{algebraic locus} of the family. A property holds for the
 \emph{very general member} if it holds outside a countable union of proper
-closed analytic subsets of $\cD_{F}$.
+closed analytic subsets of $\cD_{F}$.%
+\footnote{A subset of $\cD_{F}$ is \emph{meagre} if it is contained in a
+countable union of closed subsets with empty interior. Since $\cD_{F}$ is a
+complex manifold, the Baire category theorem shows that a meagre set has
+dense complement, so a statement that holds off a meagre set holds on a dense
+set of members; the very general members are those off a particular meagre
+set, a countable union of proper analytic subsets.}
 
 \begin{theorem}[Main theorem]\label{thm:main}
 For every CM field $F$, every $n\ge2$ and every discriminant $\delta$, the
@@ -65,7 +71,15 @@ properties.
   to a product of abelian varieties with complex multiplication by $F$, and
   at which the Weil classes are polynomials with rational coefficients in
   divisor classes.
-\item It is dense in $\cD_{F}$.
+\item It is dense in $\cD_{F}$.%
+\footnote{Density comes from the Hecke orbit of $s_{0}$: the group
+$G_{F}(\QQ)$ of rational points of the unitary group of the hermitian form
+acts on $\cD_{F}$ through isogenies that respect the $F$-action and the
+polarisation up to a scalar, so it preserves the algebraicity of the Weil
+classes, and the closure of $G_{F}(\QQ)$ contains the identity component of
+$G_{F}(\RR)$, which acts transitively on $\cD_{F}$; the proof uses the
+rational isotropic vectors of the hermitian form, which exist by the Hasse
+principle.}
 \item It is the preimage of a countable union of Zariski closed subsets of the
   Shimura variety of the family, and either $\Sigma_{F}=\cD_{F}$ or
   $\Sigma_{F}$ is meagre.
@@ -102,13 +116,15 @@ Weil classes inside the whole conjecture.
 \centering
 \includegraphics[width=\textwidth]{fig_mainlocus}
 \caption{The algebraic locus of \Cref{thm:main}, drawn over a real slice of the
-period domain $\cD_{F}$. The explicit base point $s_{0}$ of part (i) lies on
-the stratum $\Sigma_{\underline{P},\underline{q}}$ of one tuple of Hilbert
-polynomials; the Hecke orbit $G_{F}(\QQ)\cdot s_{0}$ is dense (part (ii)); and
-every stratum is closed and algebraic (part (iii)). The locus is the union of
-the strata. By part (iv) it is closed exactly when one stratum is the whole
-domain, and then the Hodge conjecture holds at every point off the countably
-many Noether--Lefschetz loci, one of which is shaded.}
+period domain $\cD_{F}$. Left: the explicit CM base point $s_{0}$ of part (i);
+its Hecke orbit $G_{F}(\QQ)\cdot s_{0}$, which is dense by part (ii); three of
+the strata $\Sigma_{\underline{P},\underline{q}}$ of part (iii), each closed
+and algebraic, through points of the orbit; the Hodge loci $Z_{t}$, dashed,
+one of them through $s_{0}$, off which the Hodge group of the member is all of
+$G_{F}$ (\Cref{lem:cmgeneric}); and a very general point $s$. Right: the two
+cases of the dichotomy of part (iii). By part (iv) the Hodge conjecture holds
+for the very general member exactly in the upper case, where one stratum is
+the whole domain.}
 \label{fig:mainlocus}
 \end{figure}
 
