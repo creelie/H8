@@ -2130,6 +2130,111 @@ theorem simplex_loop_sextic :
     /\ (6 : Int) * 2610 = (1 - 6) ^ 6 - 1 + 6 * 6 := by
   decide
 
+/-! ## Section 39. The exceptional places of a character at a quartic field
+
+The annihilator in `H^1(T_A)` of a character `omega + p` at a quartic CM field
+(`prop:quarticlocus`) gains a deformation that is not `F`-linear at a real
+place `tau_t` exactly when the only monomial of `p` with `theta_t`-exponent
+`1`, `2` or `3` is `c_t theta_t^2` and `16 c_t^2 = u_s u_s'`.  The computation
+lives in the exterior algebra of `V_s + V_s'`, on the eight generators
+`a_{s,k}` (bit `k`), `b_{s,k}` (bit `2 + k`), `a_{s',k}` (bit `4 + k`) and
+`b_{s',k}` (bit `6 + k`), with `theta = sum_k a_{s,k} b_{s',k} + a_{s',k} b_{s,k}`
+and `alpha_s`, `alpha_s'` the products of the four generators of `V_s`,
+`V_s'`.  An element is a list of pairs (bit mask, integer coefficient), and
+`vOp x y` replaces the generator `y` by `x`, the action of an element of
+`H^1(T_A)`.  The theorem checks:
+
+(i) `theta^4 = 24 alpha_s alpha_s'` and `(alpha_s + alpha_s')^2 = 2 alpha_s alpha_s'`,
+so `16 c^2 = u_s u_s'` is `c^2 theta^4 = (3/4) omega_t^2`;
+
+(ii) `theta^3 D = 0` for the four `D = b_{s,k} b_{s',l}`, and the `theta^2 D`
+are single monomials with distinct masks, so multiplication by `theta^2` is
+injective on `V_s^{0,1} (x) V_s'^{0,1}`;
+
+(iii) the element `xi'_0 = (a_{s,1} -> b_{s',0}) - (a_{s,0} -> b_{s',1})` has
+`xi'_0 _| alpha_s = theta b_{s,0} b_{s,1}`, `xi'_0 _| theta = 2 b_{s',0} b_{s',1}`
+and `xi'_0 _| theta^2 = 4 theta b_{s',0} b_{s',1}`, and `xi''_0`, with `s` and
+`s'` exchanged, the same; so for `xi' = x xi'_0`, `xi'' = y xi''_0` the two
+equations are `u_s x + 4 c y = 0` and `u_s' y + 4 c x = 0`, of determinant
+`u_s u_s' - 16 c^2`;
+
+(iv) the counts: the rational exceptional characters have rank
+`64 + 16 mu + 4 * 2 + 4 * 2 + 7 + 7`, that is `94` or `110`; the annihilator
+has dimension `8 + 4 a + b`, the values `8, 9, 10, 12, 13, 16`; and
+`so(4,3)` has dimension `21` with maximal compact `so(4) + so(3)` of dimension
+`9`, against `15` and `7` for `su(2,2)`, the orbits having dimension
+`21 - 16 = 5` and `15 - 11 = 4`. -/
+abbrev Ext8 := List (Nat × Int)
+
+/-- the number of set bits of `m` below position `g`. -/
+def popBelow (m g : Nat) : Nat :=
+  ((List.range g).filter fun i => (m >>> i) % 2 == 1).length
+
+/-- collect equal monomials and drop zero coefficients. -/
+def norm8 (f : Ext8) : Ext8 :=
+  (List.range 256).filterMap fun m =>
+    let c := (f.filter fun p => p.1 == m).foldl (fun a p => a + p.2) 0
+    if c == 0 then none else some (m, c)
+
+/-- the sign of the product of the monomials `m1` and `m2`. -/
+def wSign (m1 m2 : Nat) : Int :=
+  let cnt := (List.range 8).foldl
+    (fun acc i => if (m1 >>> i) % 2 == 1 then acc + popBelow m2 i else acc) 0
+  if cnt % 2 == 0 then 1 else -1
+
+def wedge8 (f g : Ext8) : Ext8 :=
+  norm8 (f.flatMap fun p => g.filterMap fun q =>
+    if p.1 &&& q.1 != 0 then none else some (p.1 ||| q.1, wSign p.1 q.1 * p.2 * q.2))
+
+def gen8 (i : Nat) : Ext8 := [(2 ^ i, 1)]
+def mono8 (l : List Nat) : Ext8 := l.foldl (fun f i => wedge8 f (gen8 i)) [(0, 1)]
+def add8 (f g : Ext8) : Ext8 := norm8 (f ++ g)
+def smul8 (c : Int) (f : Ext8) : Ext8 := norm8 (f.map fun p => (p.1, c * p.2))
+
+/-- replace the generator `y` by `x`: contract `y`, then wedge `x`. -/
+def vOp (x y : Nat) (f : Ext8) : Ext8 :=
+  norm8 (f.filterMap fun p =>
+    if (p.1 >>> y) % 2 == 0 then none else
+    let s1 : Int := if popBelow p.1 y % 2 == 0 then 1 else -1
+    let mm := p.1 - 2 ^ y
+    if (mm >>> x) % 2 == 1 then none else
+    let s2 : Int := if popBelow mm x % 2 == 0 then 1 else -1
+    some (mm + 2 ^ x, s1 * s2 * p.2))
+
+def thetaQ : Ext8 :=
+  add8 (add8 (mono8 [0, 6]) (mono8 [1, 7])) (add8 (mono8 [4, 2]) (mono8 [5, 3]))
+def alphaS : Ext8 := mono8 [0, 1, 2, 3]
+def alphaS' : Ext8 := mono8 [4, 5, 6, 7]
+def xiP (f : Ext8) : Ext8 := add8 (vOp 6 1 f) (smul8 (-1) (vOp 7 0 f))
+def xiPP (f : Ext8) : Ext8 := add8 (vOp 2 5 f) (smul8 (-1) (vOp 3 4 f))
+def theta2Q : Ext8 := wedge8 thetaQ thetaQ
+def theta3Q : Ext8 := wedge8 theta2Q thetaQ
+def theta4Q : Ext8 := wedge8 theta3Q thetaQ
+def dPairs : List Ext8 := [mono8 [2, 6], mono8 [2, 7], mono8 [3, 6], mono8 [3, 7]]
+
+theorem quartic_exceptional_pair :
+    theta4Q = smul8 24 (wedge8 alphaS alphaS')
+    /\ wedge8 (add8 alphaS alphaS') (add8 alphaS alphaS') = smul8 2 (wedge8 alphaS alphaS')
+    /\ (dPairs.all fun d => (wedge8 theta3Q d).isEmpty) = true
+    /\ (dPairs.map fun d => ((wedge8 theta2Q d).map Prod.fst)) = [[238], [237], [222], [221]]
+    /\ xiP alphaS = wedge8 thetaQ (mono8 [2, 3])
+    /\ xiP thetaQ = smul8 2 (mono8 [6, 7])
+    /\ xiP theta2Q = smul8 4 (wedge8 thetaQ (mono8 [6, 7]))
+    /\ xiPP alphaS' = wedge8 thetaQ (mono8 [6, 7])
+    /\ xiPP thetaQ = smul8 2 (mono8 [2, 3])
+    /\ xiPP theta2Q = smul8 4 (wedge8 thetaQ (mono8 [2, 3])) := by
+  decide
+
+theorem quartic_locus_counts :
+    ([0, 1].map fun mu => 64 + 16 * mu + 4 * 2 + 4 * 2 + 7 + 7) = [94, 110]
+    /\ ([(0, 0), (0, 1), (0, 2), (1, 0), (1, 1), (2, 0)].map fun ab : Nat × Nat =>
+          8 + 4 * ab.1 + ab.2) = [8, 9, 10, 12, 13, 16]
+    /\ 7 * 6 / 2 = 21 /\ 4 * 3 / 2 + 3 * 2 / 2 = 9 /\ 21 - 9 = 12
+    /\ 4 * 4 - 1 = 15 /\ 2 * 2 + 2 * 2 - 1 = 7 /\ 15 - 7 = 8
+    /\ 21 - 16 = 5 /\ 15 - 11 = 4 /\ 21 - 11 = 2 * 5
+    /\ 2 ^ 3 = 8 /\ 4 * 24 = 3 * 2 * 16 := by
+  decide
+
 end HodgeObstruction
 
 /-! ## The axioms each theorem depends on
@@ -2242,3 +2347,5 @@ propositional extensionality enters through `decide`, and in no case
 #print axioms HodgeObstruction.delsarte_loop_sextic
 #print axioms HodgeObstruction.simplex_klein_quartic
 #print axioms HodgeObstruction.simplex_loop_sextic
+#print axioms HodgeObstruction.quartic_exceptional_pair
+#print axioms HodgeObstruction.quartic_locus_counts

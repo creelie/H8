@@ -41,6 +41,7 @@ cor:prodalg
 cor:pteobstructed
 cor:quarticbase
 cor:quarticleast
+cor:quarticlocus
 cor:splitalgebraic
 cor:splitsatisfies
 cor:stability
@@ -333,6 +334,7 @@ prop:positivitynotest
 prop:powers
 prop:quarticcasimir
 prop:quarticexclusions
+prop:quarticlocus
 prop:quarticnl
 prop:quarticnogo
 prop:quarticother
@@ -379,6 +381,7 @@ rem:cmsource
 rem:cmwhatisnew
 rem:coniveauscope
 rem:deformation
+rem:delsartequotient
 rem:dimensionbookkeeping
 rem:dimfour
 rem:divroute
