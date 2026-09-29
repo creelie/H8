@@ -48,7 +48,7 @@ Lean check:
 
 The last lines are
 
-    1231 checks passed, 0 failed
+    1243 checks passed, 0 failed
     overall: PASS
 
 and the exit status is zero. The driver runs five self-contained checks and
@@ -106,6 +106,7 @@ then calls the companion scripts in the same directory:
 | `cm_source.py` | item (LXIV): the Weil structure of a Mumford fourfold at a CM point and the cycles on its square: the tetrahedra T_+ and T_- = -T_+, 132 = 100 + 32 Hodge classes of degree four, pull-backs of the Weil line along homomorphisms with components in the CM field spanning 110 with the divisor products and no exceptional class, Rosati-symmetric pairs spanning all 132, and the coefficient profile of an exceptional class |
 | `quartic_rank.py` | item (LXV): the exact rank of contraction into omega + p(theta_1, theta_2) at a quartic CM field: 34 weight spaces of a six-dimensional torus, r = 64 + 16 mu + 4 rho_1 + 4 rho_2 + R_1 + R_2 with R_t in {7, 8}, the exceptional loci V_+ and V_- by Groebner bases over Q, the fifteen values 80 to 112 (never 100, least 80 only for constant p), and the Kaehler class integrals on the Weil tori of the field; sympy |
 | `delsarte.py` | item (LXVI): Delsarte fourfolds: the 29 sextic shapes built from Fermat terms, chains and loops, their Fermat covers (A adj(A) = det(A) I, rows of adj(A) summing to det(A)/6, the least covering degree 24 or 30 for six shapes), smoothness by Groebner bases, and the Jacobian ring (1, 426, 1751, 426, 1) of the loop sextic; sympy and numpy |
+| `simplex_type.py` | item (LXVII): hypersurfaces of simplex type: the lattice degree e of the 29 Delsarte sextic shapes by the Smith normal form (e = least d except 3125 for the chain C6 and 2604 for the loop), the Klein quartic (e = 7, the Fermat septic), the Euler numbers of 197 Delsarte hypersurfaces as sums over the orbits of P^{r+1}, the holomorphic forms of top degree as invariant characters of the Fermat cover for 119 hypersurfaces and 40 cyclic covers, nondegeneracy of random polynomials of simplex type, and the smooth adapted fan of the Klein quartic; sympy |
 | `transport_growth.py` | the transport of the base cycle along the rational orbit: det(phi) = c^{2G}, phi^* E = c^2 E and phi^* omega = c^{2n} omega on an explicit sample of rational symplectic elements with denominators to 29; the multiplicity of a component as the order of the stabiliser its kernel meets, computed as a lattice index by Smith normal form, against the image degree computed as a Pfaffian; and the contrast between a subtorus the isogeny preserves, where the image degree is constant, and one it does not, where it grows |
 | `cm_fields.py` | the Weil classes of a CM field of degree four and six: the CM base point of every family, the balanced divisor classes delta_i(f), the identity that the balanced n-fold product of them is the Weil class w(f) = sum_sigma sigma(f) alpha_sigma, checked for six pairs (F, n) with m = 2, 3 and n = 1, 2, 3, and the identity that the Weil classes of a composite field generate those of its imaginary quadratic subfield |
 | `exceptional_classes.py` | the exceptional Hodge classes on the self-product of a Mumford fourfold (eight invariants against six divisor products), the Hodge numbers and adjoint weights that keep the H^3 of a quintic threefold outside abelian type, and the 4n^2-dimensional annihilator of the Weil class in Hochschild cohomology with the two linear-algebra lemmas behind the theorem on the semiregularity form of propagation |
@@ -138,14 +139,14 @@ reduction at all.
 No Mathlib and no dependencies. The file ends with one `#print axioms` line
 per theorem; every one must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
-through `decide`, and none may mention `sorryAx`. There are one hundred and one theorems. `lean/README.md` lists them
+through `decide`, and none may mention `sorryAx`. There are one hundred and three theorems. `lean/README.md` lists them
 and says what each one does and does not establish. The workflow in
 `.github/workflows/lean.yml` runs the check on every push and fails if the
-number of theorems is not one hundred and one, or if any of them depends on an axiom other than propext.
+number of theorems is not one hundred and three, or if any of them depends on an axiom other than propext.
 
 ## The computations of Appendix D, item by item
 
-Appendix D of the paper describes its computations as items (I) to (LXIV). The
+Appendix D of the paper describes its computations as items (I) to (LXVII). The
 programs that carry them out are:
 
 | item | program |
@@ -216,6 +217,7 @@ programs that carry them out are:
 | (LXIV) | `code/cm_source.py` |
 | (LXV) | `code/quartic_rank.py` |
 | (LXVI) | `code/delsarte.py` |
+| (LXVII) | `code/simplex_type.py` |
 
 Items (I) to (V) are computed inside `code/verify_all.py` itself; items
 (XXIX), (XXXI) and (XL) are the Macaulay2 computations described below; item

@@ -2031,6 +2031,105 @@ theorem delsarte_loop_sextic :
     /\ ((-5 : Int) ^ 6 != 1) = true := by
   decide
 
+/-! ## 38.  Hypersurfaces of simplex type
+
+A Laurent polynomial whose exponents are affinely independent has, on the
+torus, the lattice `M' ⊆ M` spanned by the differences of its exponents; the
+exponent `e` of `M / M'` is the degree of the Fermat variety from which the
+whole cohomology of a smooth toric compactification comes.  For a Delsarte
+hypersurface with exponent matrix `A` the rows `a_i - a_0`, in the
+coordinates `1, ..., N-1` of `M = {x : Σ x_j = 0}`, form a matrix `R`, and
+`e` is the least integer with `e R^{-1}` integral.
+
+(i) The Klein quartic `x^3 y + y^3 z + z^3 x`: `det A = 28`, `det R = 7`, and
+`C R = 7 I` for an integer matrix `C` not divisible by `7`, so `e = 7`.
+
+(ii) The loop sextic: `det R = 2604 = 2^2 · 3 · 7 · 31`, `C R = 2604 I` for
+an integer matrix `C` with, for each of the primes `2, 3, 7, 31`, an entry
+that it does not divide, so `e = 2604`, not `15624`.
+
+(iii) The Euler number through the orbits: on the orbit where exactly the
+coordinates in `S` are nonzero, the hypersurface meets the torus in the zero
+set of the rows supported on `S`; the paper's lemma gives its Euler number,
+and the sum is `m` times the Euler number `((1 - m)^N - 1)/m + N` of a smooth
+hypersurface of degree `m` in `P^{N-1}`: `-4` for the Klein quartic and `2610`
+for the loop sextic and the Fermat sextic. -/
+/-- the determinant of a square integer matrix, given as its list of rows, by
+expansion along the first row; the first argument bounds the recursion. -/
+def detF : Nat → List (List Int) → Int
+  | 0, _ => 1
+  | n + 1, rows =>
+    match rows with
+    | [] => 1
+    | r :: rs =>
+      (List.range r.length).foldl (fun acc j =>
+        acc + (if j % 2 == 0 then 1 else -1) * r.getD j 0
+          * detF n (rs.map fun row => row.eraseIdx j)) 0
+
+/-- the product of two integer matrices given as lists of rows. -/
+def matMulL (P Q : List (List Int)) : List (List Int) :=
+  P.map fun row => (List.range (Q.headD []).length).map fun j =>
+    (List.range row.length).foldl (fun acc k => acc + row.getD k 0 * (Q.getD k []).getD j 0) 0
+
+/-- `c` times the identity matrix of size `n`. -/
+def scalarL (n : Nat) (c : Int) : List (List Int) :=
+  (List.range n).map fun i => (List.range n).map fun j => if i == j then c else 0
+
+/-- `m` times the Euler number of the Delsarte hypersurface of `A`, summed
+over the orbits of the torus of `P^{N-1}`: a coordinate point on which no
+monomial survives contributes `m`, a stratum with coordinates `S` on which
+exactly `|S| ≥ 2` monomials survive contributes `(-1)^{|S|} |det A_{R,S}|`,
+and every other stratum contributes `0`. -/
+def eulerTimesM (N m : Nat) (A : List (List Int)) : Int :=
+  (List.range (2 ^ N)).foldl (fun acc mask =>
+    let S := (List.range N).filter fun j => (mask >>> j) % 2 == 1
+    let rows := A.filter fun row =>
+      (List.range N).all fun j => S.contains j || row.getD j 0 == 0
+    if S.length == 0 then acc
+    else if S.length == 1 then acc + (if rows.isEmpty then (m : Int) else 0)
+    else if rows.length == S.length then
+      acc + (if S.length % 2 == 0 then 1 else -1)
+        * ((detF N (rows.map fun row => S.map fun j => row.getD j 0)).natAbs : Int)
+    else acc) 0
+
+/-- the Klein quartic `x^3 y + y^3 z + z^3 x`. -/
+def kleinA : List (List Int) := [[3, 1, 0], [0, 3, 1], [1, 0, 3]]
+def kleinR : List (List Int) := [[2, 1], [-1, 3]]
+def kleinC : List (List Int) := [[3, -1], [1, 2]]
+
+/-- the loop sextic, its differences `R` and `C = 2604 R^{-1}`. -/
+def loopRows : List (List Int) :=
+  (List.range 6).map fun i => (List.range 6).map fun j =>
+    if j == i then 5 else if j == (i + 1) % 6 then 1 else 0
+def loopR : List (List Int) :=
+  [[4, 1, 0, 0, 0], [-1, 5, 1, 0, 0], [-1, 0, 5, 1, 0], [-1, 0, 0, 5, 1],
+    [-1, 0, 0, 0, 5]]
+def loopC : List (List Int) :=
+  [[625, -125, 25, -5, 1], [104, 500, -100, 20, -4], [105, -21, 525, -105, 21],
+    [100, -20, 4, 520, -104], [125, -25, 5, -1, 521]]
+
+/-- the Fermat sextic. -/
+def fermatRows : List (List Int) := scalarL 6 6
+
+theorem simplex_klein_quartic :
+    matMulL kleinC kleinR = scalarL 2 7
+    /\ detF 2 kleinR = 7
+    /\ detF 3 kleinA = 28
+    /\ (kleinC.any fun row => row.any fun x => x % 7 != 0) = true
+    /\ eulerTimesM 3 4 kleinA = 4 * (-4)
+    /\ (4 : Int) * (-4) = (1 - 4) ^ 3 - 1 + 4 * 3 := by
+  decide
+
+theorem simplex_loop_sextic :
+    matMulL loopC loopR = scalarL 5 2604
+    /\ detF 5 loopR = 2604
+    /\ ([2, 3, 7, 31].all fun p => loopC.any fun row => row.any fun x => x % p != 0) = true
+    /\ 2604 = 2 ^ 2 * 3 * 7 * 31
+    /\ eulerTimesM 6 6 loopRows = 6 * 2610
+    /\ eulerTimesM 6 6 fermatRows = 6 * 2610
+    /\ (6 : Int) * 2610 = (1 - 6) ^ 6 - 1 + 6 * 6 := by
+  decide
+
 end HodgeObstruction
 
 /-! ## The axioms each theorem depends on
@@ -2141,3 +2240,5 @@ propositional extensionality enters through `decide`, and in no case
 #print axioms HodgeObstruction.cm_abelian_semiregular_count
 #print axioms HodgeObstruction.quartic_rank_values
 #print axioms HodgeObstruction.delsarte_loop_sextic
+#print axioms HodgeObstruction.simplex_klein_quartic
+#print axioms HodgeObstruction.simplex_loop_sextic

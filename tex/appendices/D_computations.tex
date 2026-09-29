@@ -476,7 +476,7 @@ computed, how it is computed, and which statements of the paper it supports.
   is declared and every declared statement is used, that the rule set is
   acyclic, and that each of the seventeen theorem labels it names, for its
   rules and for the consequences of $\mathbf{HC}$ it records, is a label of
-  this paper, against the list of all $655$ labels generated from the
+  this paper, against the list of all $662$ labels generated from the
   sources. It then computes the forward closure by iterating the one step map
   to a fixed point, and verifies the following. No statement marked proved
   rests at any depth on an open one, and $\mathbf{HC}$ is not in the closure
@@ -1584,8 +1584,14 @@ computed, how it is computed, and which statements of the paper it supports.
   $\int\alpha_{\sigma}\kappa_{0}^{6}=0$, $\int\alpha_{\sigma}\alpha_{\sigma'}
   \alpha_{\sigma''}\kappa_{0}^{2}=0$ and $\int\alpha_{\sigma}
   \alpha_{\sigma'}\kappa_{0}^{4}\ne0$ exactly when $\sigma'=\bbar\sigma$.
+  (J) $\theta_{1}^{4}$ and $\theta_{2}^{4}$ are nonzero multiples of
+  $\alpha_{\sigma}\alpha_{\bbar\sigma}$ for the two pairs of conjugate
+  embeddings, while $\theta_{1}$, $\theta_{1}^{2}$ and $\theta_{1}^{3}$ are
+  not, and $\omega+\theta_{1}^{4}/24+\theta_{2}^{4}/24$ has rank $88$, with
+  $\mu=0$ and $\rho_{1}=\rho_{2}=1$, and rank $104$ when
+  $\theta_{1}^{4}\theta_{2}^{4}/576$ is added.
   That is \Cref{thm:quarticrank}, \Cref{lem:cmweiltori}(ii) for
-  $m=n=2$, and \Cref{cor:quarticleast}.
+  $m=n=2$, \Cref{cor:quarticleast} and \Cref{prop:quarticweiltori}.
 
 \item \emph{Delsarte fourfolds.} (A) The sums of terms $x^{6}$, chains and
   loops in six variables have $29$ shapes, the coefficient of $t^{6}$ in the
@@ -1605,12 +1611,42 @@ computed, how it is computed, and which statements of the paper it supports.
   $1751$, $426$, $1$ in degrees $0$, $6$, $12$, $18$, $24$, none in degree
   $25$, and $5^{6}$ in all. (E) The identity behind the product argument
   for loops holds for $k\le8$, $m\le12$. That is \Cref{prop:delsarte}.
+
+\item \emph{Hypersurfaces of simplex type.} (A) For the $29$ sextic shapes
+  the Smith normal form of the matrix $R$ of the differences $a_{i}-a_{0}$
+  gives the invariant factors of $M/M'$; $e_{A}R^{-1}$ is integral and
+  $(e_{A}/p)R^{-1}$ is not, for each prime $p$ dividing $e_{A}$;
+  $[M:M']=|\det A|/6$; and $e_{A}$ divides the least $d$ of
+  \Cref{prop:delsarte} and equals it except for the chain of length six and
+  the loop, where it is $3125$ and $2604$. It is $6$ for the Fermat sextic,
+  $24$ or $30$ for six shapes and between $120$ and $3750$ for the others.
+  (B) For the Klein quartic $\det A=28$, $[M:M']=e_{A}=7$, the kernel of the
+  isogeny has order $7$, and exactly three of the invariant characters of
+  the Fermat septic have type $(1,0)$, the genus. (C) The sum over the
+  orbits of $\PP^{r+1}$ of the Euler numbers of
+  \Cref{lem:simplexchart}(i) equals $((1-m)^{r+2}-1)/m+r+2$, for the $29$
+  sextics, where it is $2610$, and for $168$ chains and loops in $3$ to $6$
+  variables and degrees $3$ to $8$. (D) The characters of the Fermat
+  variety of degree $e_{A}$ trivial on the kernel of the isogeny, the
+  classes $e_{A}xA^{-1}$ modulo $e_{A}$ with $x\in M$, form a group of order
+  $[M:M']$, and those with all entries nonzero and entries summing to $e_{A}$
+  number $\binom{m-1}{r+1}=h^{r,0}(X_{A})$, for the $29$ sextics and for
+  $90$ chains and loops in $3$ to $5$ variables and degrees $3$ to $7$.
+  (E) The same count gives the geometric genus of $40$ cyclic covers
+  $y^{k}=F_{A}(x)$ in five variables, of degrees $8$ and $10$. (F) Random
+  polynomials of simplex type in two and three variables have no singular
+  zero on the torus, and a singular control polynomial is detected. (G) The
+  smooth adapted fan of the Klein quartic has $12$ rays and unimodular
+  adapted cones, and the curve meets only the three divisors of the inner
+  normals, in one point each, so that its Euler number is $-7+3=-4$. That is
+  \Cref{lem:simplexchart}, \Cref{thm:simplextype} and
+  \Cref{cor:delsarteall}.
 \end{enumerate}
 
-Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LXVI) are the ones
+Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LXVII) are the ones
 on which theorems depend. Items (IV) and (V) support statements that no
 obstruction exists; a failure there would strengthen the paper rather than
 weaken it, and they are included for completeness.
-The sixty-three items other than (XXIX), (XXXI) and (XL) perform $1231$
+The sixty-four items other than (XXIX), (XXXI) and (XL) perform $1243$
 checks, all of which pass; those three are $\Ext$ computations over a
 polynomial ring, recorded with their output.
