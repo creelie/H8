@@ -39,6 +39,7 @@ cor:p2shape
 cor:prodalg
 cor:pteobstructed
 cor:quarticbase
+cor:quarticleast
 cor:splitalgebraic
 cor:splitsatisfies
 cor:stability
@@ -150,6 +151,7 @@ fig:charactergrid
 fig:closure
 fig:cmcube
 fig:cmsource
+fig:delsarte
 fig:descent
 fig:doublepoint
 fig:escape
@@ -177,6 +179,7 @@ fig:product
 fig:propagation
 fig:properness
 fig:quarticloci
+fig:quarticrank
 fig:rigidity
 fig:roadmap
 fig:route
@@ -191,6 +194,7 @@ lem:Kspace
 lem:LambdaL
 lem:NSchar
 lem:Rendomorphism
+lem:absemireg
 lem:ambient
 lem:annihilation
 lem:annihilator
@@ -206,6 +210,7 @@ lem:chicompare
 lem:cibig
 lem:cliffJ
 lem:cliffdim
+lem:cmweiltori
 lem:conjugates
 lem:edge
 lem:eigenbasis
@@ -255,9 +260,11 @@ prop:aclosure
 prop:chintermsofu
 prop:cmsource
 prop:cmweil
+prop:cmweiltorussheaves
 prop:composite
 prop:concentrated
 prop:corestriction
+prop:delsarte
 prop:densealg
 prop:descent
 prop:disjoint
@@ -268,6 +275,7 @@ prop:explicitobject
 prop:f2isab
 prop:f3ishc
 prop:f3prime
+prop:f3primedominant
 prop:f3primefibration
 prop:f3primesmall
 prop:f3primestrength
@@ -348,6 +356,7 @@ prop:whichtypes
 q:higher
 q:residual
 rem:NShyp
+rem:absums
 rem:abundant
 rem:balancecount
 rem:blocks
@@ -511,6 +520,7 @@ sec:verification
 sec:weiltype
 setup:burch
 setup:cmfield
+setup:cmweiltori
 setup:construction
 setup:criterion
 setup:family
@@ -532,6 +542,7 @@ ssec:bullseye
 ssec:cdknot
 ssec:closure
 ssec:closuremap
+ssec:cmweiltori
 ssec:depth
 ssec:divcrit
 ssec:everyfamily
@@ -576,6 +587,7 @@ thm:closedlocus
 thm:closure
 thm:cmbasepoint
 thm:cmpropagation
+thm:cmpurefalse
 thm:cmvanishing
 thm:degreebound
 thm:deligneAH
@@ -626,6 +638,7 @@ thm:positivity
 thm:pterange
 thm:quarticobstruction
 thm:quarticp2prime
+thm:quarticrank
 thm:quatweil
 thm:rankzero
 thm:residual

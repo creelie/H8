@@ -1048,6 +1048,177 @@ conjecture these equivalences are folklore, and we claim no priority for
 them.
 \end{remark}
 
+Surjective morphisms carry $\mathcal{A}$ to itself (\Cref{prop:f3prime}(iii)).
+In degree four the morphism can be replaced by any dominant rational map,
+which reaches some of these sextic fourfolds.
+
+\begin{proposition}[Degree four along dominant rational maps]
+\label{prop:f3primedominant}
+Let $\varphi\colon Y\dashrightarrow X$ be a dominant rational map of smooth
+complex projective varieties.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item If $\Hdg^{2}(Y)=\mathrm{Ab}^{2}(Y)$, then
+  $\Hdg^{2}(X)=\mathrm{Ab}^{2}(X)$; if every Hodge class of degree four on
+  $Y$ is algebraic, so is every one on $X$.
+\item \textup{(F3$'$)} holds on every fourfold and every fivefold that
+  admits a dominant rational map from a variety $Y$ with
+  $\Hdg^{2}(Y)=\mathrm{Ab}^{2}(Y)$, for instance from a member of
+  $\mathcal{A}$. The Hodge conjecture holds on every fourfold that admits a
+  dominant rational map from an abelian fourfold, such as a smooth
+  projective model of the quotient of an abelian fourfold by a finite group,
+  and on every fivefold that admits one from the product of an abelian
+  fourfold and a projective space.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) Let $\Gamma\subset Y\times X$ be the closure of the graph of $\varphi$
+and $\widetilde Y\to\Gamma$ a resolution of singularities \cite{Hir64}. The
+projections give a birational morphism $\widetilde Y\to Y$ and a morphism
+$g\colon\widetilde Y\to X$, which is surjective, being proper and dominant.
+Both properties are birational invariants (\Cref{prop:f3primefibration}),
+so they hold for $\widetilde Y$. Let $x\in\Hdg^{2}(X)$, let $h$ be ample on
+$\widetilde Y$ and $r=\dim\widetilde Y-\dim X$, and let
+$\Psi=[\Gamma_{g}]\cdot\mathrm{pr}_{\widetilde Y}^{*}h^{r}$, so that
+$\Psi_{*}g^{*}x=c\,x$ with $c>0$, as in the proof of
+\Cref{prop:f3prime}(iii). The class $g^{*}x$ is a Hodge class of degree four
+on $\widetilde Y$, hence a sum of classes $\Gamma_{j*}\gamma_{j}$ as in
+\Cref{def:f3prime}, or algebraic. So $x=c^{-1}\sum_{j}(\Psi\circ
+\Gamma_{j})_{*}\gamma_{j}$ lies in $\mathrm{Ab}^{2}(X)$, or $x$ is
+algebraic, since composites of algebraic correspondences are algebraic
+\cite[Chapter~16]{Ful98}.
+
+(ii) On a fourfold or a fivefold the degrees other than four and six are
+settled by \Cref{prop:f3prime}(iv), and the same argument, the Lefschetz
+theorem on $(1,1)$ classes and hard Lefschetz, makes the Hodge classes of
+those degrees algebraic; on a fivefold cup product with an ample class is an
+isomorphism from $H^{4}$ onto $H^{6}$ of Hodge structures up to a Tate twist,
+so degree six follows from degree four. Members of $\mathcal{A}$ satisfy
+\textup{(F3$'$)} (\Cref{prop:f3prime}(iii)). An abelian fourfold $B$
+satisfies the Hodge conjecture \cite{Mar25a,Mar25b}, and by the K\"unneth
+formula a Hodge class of degree four on $B\times\PP^{k}$ is a sum of
+pull-backs of Hodge classes of degrees four, two and zero on $B$ multiplied
+by powers of the hyperplane class, so it is algebraic. A quotient $B/G$ by a
+finite group is dominated by $B$, and so is every smooth projective model of
+it.
+\end{proof}
+
+A hypersurface of Delsarte type is defined by as many monomials as
+variables. Shioda observed that such a surface is dominated by a Fermat
+surface \cite{Shi86}; the same monomial substitution works in every
+dimension, and with \Cref{prop:f3primedominant} it gives the following.
+
+\begin{proposition}[Delsarte fourfolds]\label{prop:delsarte}
+Let $A=(a_{ij})_{0\le i,j\le r+1}$ be an invertible matrix of non-negative
+integers whose rows all sum to $m\ge2$, let $F_{A}=\sum_{i}\prod_{j}
+x_{j}^{a_{ij}}$, suppose that $X_{A}=\{F_{A}=0\}\subset\PP^{r+1}$ is smooth,
+and let $d$ be a positive integer with $dA^{-1}$ integral, such as
+$|\det A|$.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item There is a dominant rational map from the Fermat hypersurface
+  $X^{r}_{d}$ onto $X_{A}$, given by monomials.
+\item $\Hdg^{2}(X_{A})=\mathrm{Ab}^{2}(X_{A})$. For $r=4$, $X_{A}$
+  satisfies \textup{(F3$'$)}, and it satisfies the Hodge conjecture if
+  $X^{4}_{d}$ does.
+\item If $m\ge3$ and $F_{A}$ is a sum, in disjoint sets of variables, of
+  terms $x^{m}$, chains $x_{1}^{m-1}x_{2}+\dots+x_{k-1}^{m-1}x_{k}+x_{k}^{m}$
+  and loops $x_{1}^{m-1}x_{2}+\dots+x_{k-1}^{m-1}x_{k}+x_{k}^{m-1}x_{1}$
+  with $k\ge2$, then $A$ is invertible and $X_{A}$ is smooth. For $r=4$ and
+  $m=6$ these polynomials have $29$ shapes up to a renumbering of the
+  variables, the Fermat sextic being one; each defines a smooth sextic
+  fourfold, with $h^{4,0}=1$, $h^{3,1}=426$ and primitive $h^{2,2}$ equal
+  to $1751$. The least $d$ is $6$ for the Fermat sextic, $24$ or $30$ for
+  six others, those whose terms other than $x^{m}$ are all loops of length
+  two or all chains of length two, at least $120$ for the remaining
+  twenty-two, and $5^{6}-1=15624$ for the loop
+  $x_{0}^{5}x_{1}+x_{1}^{5}x_{2}+\dots+x_{5}^{5}x_{0}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) The matrix $dA^{-1}$ is integral for $d=|\det A|$, by the formula
+for the inverse through the adjugate. Let $B=dA^{-1}$. From
+$A\mathbf{1}=m\mathbf{1}$, with $\mathbf{1}$ the vector of ones,
+$B\mathbf{1}=(d/m)\mathbf{1}$, so the rows of the integral matrix $B$ all
+sum to the integer $d/m$, and $AB=d\cdot I$. Choose $c\ge0$
+with every $b_{jk}+c\ge0$ and let $\psi(y)_{j}=\prod_{k}y_{k}^{b_{jk}+c}$;
+the coordinates of $\psi$ are monomials of the same degree, so $\psi$ is a
+rational map $\PP^{r+1}\dashrightarrow\PP^{r+1}$, and
+\[
+  F_{A}(\psi(y))=\sum_{i}\prod_{k}y_{k}^{\sum_{j}a_{ij}(b_{jk}+c)}
+  =(y_{0}\cdots y_{r+1})^{cm}\sum_{i}y_{i}^{d}.
+\]
+On the torus $T$ of points with all coordinates nonzero, $\psi$ is induced
+by the homomorphism $y\mapsto(\prod_{k}y_{k}^{b_{jk}})_{j}$ of
+$\mathbb{G}_{m}^{r+2}$, which is surjective because $\det B\ne0$. So every
+$z\in X_{A}\cap T$ is $\psi(y)$ for some $y\in T$, and the identity puts $y$
+on $X^{r}_{d}$. A smooth hypersurface of degree at least two and positive
+dimension is irreducible, so it is not contained in a coordinate hyperplane,
+and $X_{A}\cap T$ and $X^{r}_{d}\cap T$ are dense. Hence $\psi$ restricts to
+a dominant rational map $X^{r}_{d}\dashrightarrow X_{A}$.
+
+(ii) $X^{r}_{d}$ lies in $\mathcal{A}$ by \Cref{prop:aclosure}(iii), so (i)
+and \Cref{prop:f3primedominant} give both assertions, the degrees other than
+four being settled as in the proof of \Cref{prop:f3primedominant}(ii).
+
+(iii) The exponent matrix is block diagonal, with blocks $m$,
+$(m-1)I+N+E$ for a chain, $N$ the nilpotent shift and $E$ the matrix whose
+only nonzero entry is a $1$ in the last diagonal place, and $(m-1)I+P$ for a
+loop, $P$ the cyclic shift; their determinants are $m$, $m(m-1)^{k-1}$ and
+$(m-1)^{k}-(-1)^{k}$, which are nonzero. The partial derivatives of a sum in
+disjoint sets of variables are those of the summands, so it suffices that
+the partials of each summand vanish together only at $0$. For $x^{m}$ this
+is clear. For a chain, $\partial F/\partial x_{1}=(m-1)x_{1}^{m-2}x_{2}$
+vanishes only if $x_{1}=0$ or $x_{2}=0$, and if $x_{2}=0$ then
+$\partial F/\partial x_{2}=x_{1}^{m-1}$; so $x_{1}=0$, the same argument
+applies to $x_{2},\dots,x_{k-1}$, and then $\partial F/\partial
+x_{k}=mx_{k}^{m-1}$ gives $x_{k}=0$. For a loop, $\partial F/\partial
+x_{j}=(m-1)x_{j}^{m-2}x_{j+1}+x_{j-1}^{m-1}$, indices modulo $k$. If one
+coordinate vanishes, so does the one before it, hence all of them; if none
+vanishes, the product of the relations $x_{j-1}^{m-1}=-(m-1)x_{j}^{m-2}
+x_{j+1}$ gives $\prod_{j}x_{j}^{m-1}=(1-m)^{k}\prod_{j}x_{j}^{m-1}$, which
+is impossible because $|1-m|\ge2$. The number of shapes, drawn in \Cref{fig:delsarte}, is the
+coefficient of $t^{6}$ in $(1-t)^{-1}\prod_{k\ge2}(1-t^{k})^{-2}$, which is $29$, and
+the least $d$ is the least common multiple of the denominators of the
+entries of $A^{-1}$, computed block by block. The
+Hodge numbers are those of every smooth sextic fourfold, read off from the
+Jacobian ring \cite[Chapter~6]{Voi03}. Item (LXVI) of \Cref{sec:verification} checks
+the identity of (i) for the $29$ shapes, with $d=|\det A|$ and with the
+least $d$, and for the chains and loops of
+lengths $2$ to $6$ and degrees $3$ to $8$, their smoothness independently by
+Gr\"obner bases, and the Jacobian ring of the loop sextic, of dimensions
+$1$, $426$, $1751$, $426$, $1$ in degrees $0$, $6$, $12$, $18$, $24$; the
+Lean certificate checks $AB=15624\cdot I$ for the loop.
+\end{proof}
+
+\begin{figure}[tbp]
+\centering
+  \includegraphics[width=\textwidth]{fig_delsarte}
+\caption{The $29$ smooth sextic fourfolds of \Cref{prop:delsarte}(iii), up
+to a renumbering of the variables. Each is drawn on its six variables: an
+arrow from $x_{i}$ to $x_{j}$ is a term $x_{i}^{5}x_{j}$, and a ring is a
+term $x^{6}$, so a chain is a path of arrows ending at a ring and a loop is
+a cycle of arrows. Under each is the least $d$ with $dA^{-1}$ integral, the
+degree of the Fermat fourfold that covers it. All of them satisfy
+\textup{(F3$'$)}.}
+\label{fig:delsarte}
+\end{figure}
+
+A sextic fourfold has $h^{4,0}=1$, so no hypothesis on zero-cycles or on
+rationally connected fibrations reaches it (\Cref{rem:f3primesharp}), and
+among the smooth sextic fourfolds only the Fermat one was covered before
+\Cref{prop:delsarte}. The Delsarte sextics are finitely many
+up to isomorphism, since the torus rescales the coefficients of a Delsarte
+polynomial to $1$, so they are isolated points in the $426$-dimensional
+moduli of smooth sextic fourfolds: \Cref{prop:delsarte} adds points, not a
+family. By \Cref{prop:delsarte}(ii) the Hodge conjecture for a Delsarte
+fourfold follows from that for one Fermat fourfold. For six of the sextic
+shapes that Fermat fourfold has degree $24$ or $30$, inside the range claimed
+in the preprint \cite{MMMV26}, so if it is correct the Hodge conjecture
+itself holds on these six; for the others the degree ranges from $120$ to
+$18750$, beyond every known or claimed range \cite{Shi79b,MMMV26,Jum26}.
+The monomial cover is Shioda's, and we claim no priority for it.
+
 \begin{remark}[Where \textup{(F3$'$)} stops]\label{rem:f3primefrontier}
 With \Cref{prop:f3prime}, \Cref{prop:aclosure} and \Cref{prop:f3primesmall},
 \textup{(F3$'$)} holds on every variety of dimension at most three, on every
@@ -1055,7 +1226,10 @@ fourfold whose zero-cycles are supported in dimension three (in particular
 every uniruled fourfold), on every fivefold whose zero-cycles are supported
 in dimension at most three, on every fourfold and fivefold whose maximal
 rationally connected quotient is birational to a variety satisfying
-\textup{(F3$'$)} in degree four (\Cref{prop:f3primefibration}), and on
+\textup{(F3$'$)} in degree four (\Cref{prop:f3primefibration}), on every
+fourfold and fivefold dominated by a rational map from such a variety, among
+them the smooth Delsarte fourfolds of every degree
+(\Cref{prop:f3primedominant}, \Cref{prop:delsarte}), and on
 every member of $\mathcal{A}$, a class containing the Fermat
 hypersurfaces of every degree and dimension, the Hilbert schemes of points on
 abelian surfaces, on products of curves and on the K3 surfaces of
@@ -1116,8 +1290,9 @@ every uniruled fivefold, and for every rational sixfold, if and only if they
 hold in degree four for every fourfold; the sixfold $\mathrm{Bl}_{Y}\PP^{6}$
 of a smooth sextic fourfold $Y$ in a hyperplane carries the Hodge numbers
 listed. The rings are first open cases (\Cref{rem:f3primefrontier}): the
-sextic fourfolds, the first family of smooth hypersurfaces not covered (the
-Fermat sextic lies in $\mathcal{A}$); $S\times S$ and $S^{[2]}$ for a K3
+sextic fourfolds, the first family of smooth hypersurfaces not covered
+(the Fermat sextic lies in $\mathcal{A}$, and the other $28$ Delsarte
+sextics are covered by \Cref{prop:delsarte}); $S\times S$ and $S^{[2]}$ for a K3
 surface $S$ whose real multiplication is not known to be algebraic, such as
 $S_{\lambda}$; the fourfolds of K3$^{[2]}$ type with real multiplication,
 among them $F(Y)$; and, beyond the breaks of the axes, $S^{[231]}$ for a very
@@ -2060,9 +2235,14 @@ Semiregularity dimension count
   & none \\
 Semiregularity of an object whose Chern character sits on the Weil line
   & closed by \Cref{thm:rankzero} and \Cref{cor:kernelfamily} for direct
-    sums, and for every object by \Cref{thm:p2false}
+    sums, and for every object by \Cref{thm:p2false}, for every CM field by
+    \Cref{thm:cmpurefalse}
   & objects of positive rank; the weaker hypothesis of
     \cite[Question 11.4]{Mar25b} \\
+The corrected criterion at a quartic CM field, $n=2$
+  & computed for every shape, \Cref{thm:quarticrank}: a complex meeting it
+    has $\dim\Ext^{2}(E,E)\ge88$, \Cref{cor:quarticleast}
+  & existence of such a complex \\
 Induction through hyperplane sections
   & closed by \Cref{thm:hyperplane}, \Cref{thm:returntrip}
   & correspondences, degenerations, coniveau \\

@@ -38,8 +38,8 @@ jobs:
           if [ "$bad" -ne "$m" ]; then
             echo "a theorem depends on an axiom other than propext"; exit 1
           fi
-          if [ "$((n + m))" -ne 98 ]; then
-            echo "expected 98 theorems, found $((n + m))"; exit 1
+          if [ "$((n + m))" -ne 101 ]; then
+            echo "expected 101 theorems, found $((n + m))"; exit 1
           fi
 
   scripts:

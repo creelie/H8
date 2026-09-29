@@ -96,3 +96,6 @@
 'HodgeObstruction.cm_tetrahedron_pairs' does not depend on any axioms
 'HodgeObstruction.cm_profile_forces_equal' does not depend on any axioms
 'HodgeObstruction.cm_pairs_three_cycle' depends on axioms: [propext]
+'HodgeObstruction.cm_abelian_semiregular_count' does not depend on any axioms
+'HodgeObstruction.quartic_rank_values' depends on axioms: [propext]
+'HodgeObstruction.delsarte_loop_sextic' depends on axioms: [propext]

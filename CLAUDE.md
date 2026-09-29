@@ -110,8 +110,23 @@ Mumford fourfold at a CM point (`prop:cmsource`, `lem:splitcm`,
 `code/cm_source.py`; Lean Section 36, ninety-eight theorems), the figures of
 `figures/make_round20.py`, an ethics statement, and Zenodo placeholders for
 release v2.0.0 (macros `\zenodoVersionDOI`, `\zenodoConceptDOI` in
-`tex/declarations.tex`, and the DOI table in `README.md`). P2_split, (F2) and
-(F3') remain open. Never use agents or
+`tex/declarations.tex`, and the DOI table in `README.md`); round 21 computed
+the rank of the corrected criterion at a quartic CM field exactly
+(`thm:quarticrank`: r = 64 + 16 mu + 4 rho_1 + 4 rho_2 + R_1 + R_2, fifteen
+values, least 80 only for constant p, never 100; item (LXV),
+`code/quartic_rank.py`), extended `thm:p2false` to every CM field and every
+n >= 2 through the Weil tori of the field (`ssec:cmweiltori` of
+`tex/sections/10d1_cmfields.tex`: `lem:cmweiltori`,
+`prop:cmweiltorussheaves`, `thm:cmpurefalse`), so that a complex meeting the
+quartic criterion has non-constant polynomial part and dim Ext^2 >= 88
+(`cor:quarticleast`); merged Deep's `lem:absemireg`, `rem:absums` and the
+Lean theorem `cm_abelian_semiregular_count`; and proved that Hdg^2 = Ab^2
+descends along dominant rational maps (`prop:f3primedominant`), which with
+Shioda's monomial cover puts every smooth Delsarte fourfold in the domain of
+(F3') (`prop:delsarte`, 29 sextic shapes; item (LXVI), `code/delsarte.py`;
+Lean Section 37, one hundred and one theorems), with the figures of
+`figures/make_round21.py` (`fig_quarticrank`, `fig_delsarte`). P2_split, (F2) and (F3')
+remain open. Never use agents or
 workflows in this repository's sessions: do the work directly.
 
 Release v1.0.0 (tag `v1.0.0`, commit `ef15bce`) is archived on Zenodo under
@@ -129,7 +144,7 @@ section.
 - `cd code && python3 verify_all.py` ends with `N checks passed, 0 failed`;
   keep the count in `README.md`, `.zenodo.json`, `.github/workflows/lean.yml`,
   `tex/appendices/D_computations.tex` and `tex/declarations.tex` in step.
-- `cd lean && lean HodgeObstruction.lean`: 98 theorems, each axiom-free or
+- `cd lean && lean HodgeObstruction.lean`: 101 theorems, each axiom-free or
   depending on `propext` only.
 - `cd tex && latexmk -pdf main.tex`: 0 errors, 0 overfull or underfull boxes,
   no undefined references.

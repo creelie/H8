@@ -188,6 +188,12 @@ Contents
   (LXIV) the Weil structure at a CM point and the cycles on the square:
          tetrahedra T_+ and T_-, 132 = 100 + 32, the span 110 of the
          pull-backs, Rosati-symmetric pairs  [cm_source.py]
+  (LXV) the exact rank of the contraction at a quartic CM field:
+         r = 64 + 16 mu + 4 rho_1 + 4 rho_2 + R_1 + R_2, fifteen values, least
+         80 only for constant p, the exceptional loci V_+ and V_-, and the
+         Kaehler class of the Weil tori  [quartic_rank.py]
+  (LXVI) Delsarte fourfolds: the 29 sextic shapes, their Fermat covers,
+         smoothness, the Jacobian ring of the loop sextic  [delsarte.py]
 """
 
 import os
@@ -618,6 +624,12 @@ def main():
 
     head("(LXIV) the Weil structure at a CM point and the cycles on the square")
     run_module("LXIV", "cm_source.py")
+
+    head("(LXV) the exact rank of the contraction at a quartic field")
+    run_module("LXV", "quartic_rank.py")
+
+    head("(LXVI) Delsarte fourfolds and their Fermat covers")
+    run_module("LXVI", "delsarte.py")
 
     print()
     print("=" * 70)
