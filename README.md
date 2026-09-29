@@ -12,7 +12,7 @@ version DOI, and gathers all of them under one concept DOI:
 
 | | DOI |
 | --- | --- |
-| release v3.0.0 (version DOI) | assigned by Zenodo when the release is published |
+| release v3.0.0 (version DOI) | 10.5281/zenodo.23047883 (https://doi.org/10.5281/zenodo.23047883) |
 | release v2.0.0 (version DOI) | 10.5281/zenodo.23038895 (https://doi.org/10.5281/zenodo.23038895) |
 | all versions (concept DOI) | 10.5281/zenodo.22950275 (https://doi.org/10.5281/zenodo.22950275) |
 | release v1.0.0 (version DOI) | 10.5281/zenodo.22950276 (https://doi.org/10.5281/zenodo.22950276) |

@@ -24,13 +24,16 @@ keywords:
   - Cohen-Macaulay supports
   - Lean 4
 version: "3.0.0"
-doi: "10.5281/zenodo.22950275"
+doi: "10.5281/zenodo.23047883"
 date-released: "2026-09-29"
 repository-code: "https://github.com/creelie/H8"
 identifiers:
   - type: doi
     value: "10.5281/zenodo.22950275"
     description: "Concept DOI of all versions"
+  - type: doi
+    value: "10.5281/zenodo.23047883"
+    description: "Version DOI of release v3.0.0"
   - type: doi
     value: "10.5281/zenodo.23038895"
     description: "Version DOI of release v2.0.0"
