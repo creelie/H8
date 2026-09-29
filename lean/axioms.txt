@@ -91,3 +91,8 @@
 'HodgeObstruction.quartic_rank_two_large_odd_part' depends on axioms: [propext]
 'HodgeObstruction.quartic_sqrt2_units_mod4' does not depend on any axioms
 'HodgeObstruction.sextic_thresholds' does not depend on any axioms
+'HodgeObstruction.cm_tetrahedra' does not depend on any axioms
+'HodgeObstruction.cm_square_monomials' does not depend on any axioms
+'HodgeObstruction.cm_tetrahedron_pairs' does not depend on any axioms
+'HodgeObstruction.cm_profile_forces_equal' does not depend on any axioms
+'HodgeObstruction.cm_pairs_three_cycle' depends on axioms: [propext]

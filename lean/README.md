@@ -27,10 +27,10 @@ per theorem. Every line must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
 through `decide` or the core lemmas on natural numbers, and none may mention `sorryAx`. The GitHub workflow in
 `.github/workflows/lean.yml` enforces all three, and fails the build if the
-number of theorems is not ninety-three or if any of them reaches for a further
+number of theorems is not ninety-eight or if any of them reaches for a further
 axiom.
 
-## The ninety-three theorems
+## The ninety-eight theorems
 
 | theorem | statement |
 | --- | --- |
@@ -127,6 +127,11 @@ axiom.
 | `quartic_rank_two_large_odd_part` | for every modulus `n >= 10` no `m < 9` is `9` modulo `n` (for all natural numbers) |
 | `quartic_sqrt2_units_mod4` | `3` and `1 + 2 sqrt 2` are not squares modulo `4` in `Z[sqrt 2]`, `(1 + sqrt 2)^2 = 3 + 2 sqrt 2`, `(3 + 2 sqrt 2)^2 = 1` modulo `4`, and `5` is not `+-1` modulo `8` |
 | `sextic_thresholds` | the thresholds `r^3 - 2 r^2 + 22` of the six computed sextic secant profiles are `2, -6, 10, 26, 8, 12`, the generic minimal Euler characteristic is `-26`, and `(-4)^3 = -64` |
+| `cm_tetrahedra` | the zero-sum four-sets of the eight weights `(+-1, +-1, +-1)` are six unions of opposite pairs and the two tetrahedra `T_+`, `T_- = -T_+`, each meeting every opposite pair once |
+| `cm_square_monomials` | on the square, `132 = 100 + 32` monomials of weight zero, the `32` being tetrahedron monomials distributed `1, 4, 6, 4, 1` on each tetrahedron |
+| `cm_tetrahedron_pairs` | the six two-element subsets of `T_+` fall into three pairs by the set of coordinates in which their weights differ |
+| `cm_profile_forces_equal` | on the box `[-10, 10]^3`, equal values of `abs(a_2 - a_3)`, `abs(a_1 - a_3)`, `abs(a_1 - a_2)` force `a_1 = a_2 = a_3` |
+| `cm_pairs_three_cycle` | a permutation of the four diagonals of the cube fixing none of the three pairings is a three-cycle |
 
 
 ## Two statements that look true and are not
@@ -150,12 +155,12 @@ careful reading does not catch and a kernel check does.
 `code/verify_all.py` in the parent directory performs the same checks in exact
 rational arithmetic over Q, independently of Lean, together with the exterior
 algebra computations that Lean does not carry, and prints
-`1193 checks passed, 0 failed`.
+`1203 checks passed, 0 failed`.
 
 ## Transcript
 
 `axioms.txt` is the unedited output of `lean HodgeObstruction.lean` under
-Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): ninety-three lines, one per
-theorem, eighty-one reading `does not depend on any axioms` and twelve reading
+Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): ninety-eight lines, one per
+theorem, eighty-five reading `does not depend on any axioms` and thirteen reading
 `depends on axioms: [propext]`, exit status 0, no `sorryAx`. `lake build`
-completes with the same report. Each run takes about two minutes.
+completes with the same report. Each run takes a few minutes.

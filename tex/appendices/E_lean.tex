@@ -7,14 +7,14 @@ computational content is checked in exact arithmetic by the computations of
 \Cref{sec:verification}. The certificate is a single Lean~4 file that
 accompanies the paper. It compiles against a bare Lean~4 toolchain, contains
 no \texttt{sorry}, and depends on no library, Mathlib included. The axiom
-report at the end of the file lists, for each of its ninety-three theorems,
-the axioms on which it depends. Eighty-one depend on none, and the remaining
-twelve on propositional extensionality alone, which enters when
+report at the end of the file lists, for each of its ninety-eight theorems,
+the axioms on which it depends. Eighty-five depend on none, and the remaining
+thirteen on propositional extensionality alone, which enters when
 \texttt{decide} reduces an equality of Booleans or when a bound is proved from
 the lemmas on natural numbers in the core library; no theorem uses anything
 else. The annihilator dimension and the rank-zero obstruction of
 \Cref{ssec:rankzero}, \Cref{lem:annihilator} and \Cref{thm:rankzero}, are not
-among the ninety-three: they are proved by hand, and the dimension count of
+among the ninety-eight: they are proved by hand, and the dimension count of
 the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \Cref{sec:verification}.
 
@@ -24,7 +24,7 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \small
 \renewcommand{\arraystretch}{1.06}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.31\linewidth}>{\raggedright\arraybackslash}p{0.62\linewidth}@{}}
-\caption{The ninety-three machine-checked theorems.}\label{tab:lean}\\
+\caption{The ninety-eight machine-checked theorems.}\label{tab:lean}\\
 \toprule
 \textbf{theorem} & \textbf{statement} \\
 \midrule
@@ -134,6 +134,11 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \texttt{sextic\_}\allowbreak\texttt{thresholds} & the thresholds $r^{3}-2r^{2}+22$ of the six computed sextic profiles are $2$, $-6$, $10$, $26$, $8$, $12$, a minimal object with the generic profile has $2(1-12+54)-112=-26$, and $(-4)^{3}=-64$, \Cref{prop:sexticcount} \\
 \texttt{orlov\_}\allowbreak\texttt{equality\_}\allowbreak\texttt{count} & $n(n-1)+(2n)^{2}+n(n-1)=6n^{2}-2n$ for $3\le n\le64$, and $1+16+1=18$, \Cref{prop:orlovequality} \\
 \texttt{orlov\_}\allowbreak\texttt{n4\_}\allowbreak\texttt{euler} & the minimal profile at $n=4$ has $\chi=-2$, while every secant character has $\chi=8d(a^{2}d+b^{2})\ge8$, \Cref{prop:orlovfour} \\
+\texttt{cm\_tetrahedra} & the zero-sum four-sets of weights at a CM point are the six unions of two opposite pairs and the two tetrahedra $T_{+}$, $T_{-}=-T_{+}$, with even and odd numbers of entries $-1$, each meeting every opposite pair once, \Cref{prop:cmsource}(i) \\
+\texttt{cm\_square\_}\allowbreak\texttt{monomials} & on the square, $132$ monomials of weight zero, $100$ with an opposite pair and $32$ tetrahedron monomials, $16$ for each tetrahedron, distributed $1,4,6,4,1$ by the number of factors from the first copy, \Cref{prop:cmsource}(ii) \\
+\texttt{cm\_tetrahedron\_}\allowbreak\texttt{pairs} & the six two-element subsets of $T_{+}$ differ in exactly two coordinates, a subset and its complement have the same difference set, and each of $\{1,2\}$, $\{1,3\}$, $\{2,3\}$ occurs for exactly two subsets, \Cref{prop:cmsource}(ii) \\
+\texttt{cm\_profile\_}\allowbreak\texttt{forces\_equal} & on $[-10,10]^{3}$, equal values of $|a_{2}-a_{3}|$, $|a_{1}-a_{3}|$, $|a_{1}-a_{2}|$ force $a_{1}=a_{2}=a_{3}$, and two of them agree exactly along $a_{1}=a_{2}$ or $a_{1}+a_{2}=2a_{3}$ and the two analogous pairs of relations, \Cref{prop:cmsource}(ii) and (iii) \\
+\texttt{cm\_pairs\_}\allowbreak\texttt{three\_cycle} & a permutation of the four diagonals of the cube that fixes none of the three pairings of the diagonals is one of the eight cycles of length three, of order three with exactly one fixed diagonal, \Cref{lem:splitcm} \\
 \end{longtable}
 \endgroup
 

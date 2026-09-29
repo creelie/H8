@@ -182,6 +182,12 @@ Contents
   (LXII) zero-cycles and hypersurfaces: Jacobian rings, the Hodge numbers
          of the sextic fourfold and of the rational sixfold Bl_Y P^6, and
          h^{4,0} of hypersurface fourfolds  [f3prime_chow.py]
+  (LXIII) the Wirtinger bound on a Mumford square: theta^4 = 24 vol,
+         primitivity of U_12, U_13, U_23, int pi_0 theta_Y^6 = 2880
+         [mumford_mass.py]
+  (LXIV) the Weil structure at a CM point and the cycles on the square:
+         tetrahedra T_+ and T_-, 132 = 100 + 32, the span 110 of the
+         pull-backs, Rosati-symmetric pairs  [cm_source.py]
 """
 
 import os
@@ -606,6 +612,12 @@ def main():
 
     head("(LXII) zero-cycles, hypersurfaces and the rational sixfold Bl_Y P^6")
     run_module("LXII", "f3prime_chow.py")
+
+    head("(LXIII) the Wirtinger bound for the exceptional classes on a Mumford square")
+    run_module("LXIII", "mumford_mass.py")
+
+    head("(LXIV) the Weil structure at a CM point and the cycles on the square")
+    run_module("LXIV", "cm_source.py")
 
     print()
     print("=" * 70)

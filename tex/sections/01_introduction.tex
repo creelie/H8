@@ -914,6 +914,26 @@ The computation behind these statements is item (XXXIII) of
 \Cref{sec:verification}, and it is part of the formal certificate of
 \Cref{sec:lean}.
 
+Routes from outside algebraic geometry are placed against the same two
+statements in \Cref{ssec:outside}. Positivity, which is what analysis sees
+first, sees nothing here: every real $(p,p)$-class becomes the class of a
+smooth strongly positive form once a multiple of a complete intersection
+class is added, so no property implied by positivity separates the algebraic
+Hodge classes from the others (\Cref{prop:positivitynotest}). What analysis
+does give is an exact reformulation. For a Hodge class $\alpha$ and suitable
+integers $N$ and $M$, the mass of a closed integral current in the class of
+$N(\alpha+Mh^{p})$ is at least the Wirtinger bound, which a smooth positive
+form attains; $\alpha$ is algebraic if and only if some integral current
+attains it, and then every mass minimising integral current in the class is
+an effective algebraic cycle (\Cref{thm:massgap}). So the conjecture is the
+vanishing of the integrality gap of a variational problem whose real version
+is solved; for the Mumford square it asks whether copies of a complete
+intersection can be replaced, at the same mass, by an integral current whose
+class differs by an exceptional class (\Cref{ex:mumfordmass}). Tame geometry,
+the Tate conjecture, finite dimensional motives and derived equivalences are
+examined in the same way, and each lands on an open statement without
+producing a cycle (\Cref{rem:outside}).
+
 Neither (F2) nor (F3$'$) is a reduction, to Weil classes or to abelian
 varieties, in any sense that would help. The self-product of an abelian
 fourfold of Mumford type has eight Hodge classes in $H^{4}$ against six
@@ -1001,7 +1021,21 @@ the compact Mumford curve, and no degeneration or larger family reaches it
 curve follows from one perfect complex at one CM point with $\Ext^{2}$ of
 dimension $119$, the least its Chern character allows, or from a degree bound
 at infinitely many CM points (\Cref{thm:mumfordnumerical},
-\Cref{cor:mumfordbounded}). Such an object is heavily constrained: for a
+\Cref{cor:mumfordbounded}). At a CM point the fourfold is of Weil type for
+an imaginary quadratic field $k_{c}\subset\End^{0}(X_{c})$, its two Hodge
+classes of degree four beyond the divisors are its Weil line, and the cycles
+that represent the exceptional classes of the square must use the real
+multiplication by the totally real quartic algebra of Rosati-fixed
+endomorphisms, all of it: pull-backs of the Weil line along homomorphisms
+with components in $k_{c}$, with products of divisors, span $110$ of the
+$132$ Hodge classes and no exceptional class, and a set of homomorphisms
+reaches an exceptional class exactly when its components, with $k_{c}$,
+generate the endomorphism algebra (\Cref{prop:cmsource}). The fourfold is
+not simple exactly at the CM points whose Hodge torus comes from $Fk$ with
+$k$ imaginary quadratic, infinitely many of them; there it is isogenous to
+the product of an elliptic curve with complex multiplication by $k$ and a
+threefold with real multiplication by the fixed field $F$
+(\Cref{lem:splitcm}). Such an object is heavily constrained: for a
 dense set of classes its self-extensions have dimension at least
 $1,16,119,328,560,328,119,16,1$ in degrees $0$ to $8$, the Euler
 characteristic forces at least $800$ in odd degrees when there are none in

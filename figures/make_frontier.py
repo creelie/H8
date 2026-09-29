@@ -903,13 +903,13 @@ def frontier():
               ["vhc"]),
         "F2": (-3.05, 3.25, r"(F2)\\" + sub(r"classes beyond Weil lines"),
                OPEN, ["red_weil"]),
-        "WA": (-5.90, 3.25, r"Weil classes\\" + sub(r"every CM field"), DER,
+        "WA": (-6.35, 3.25, r"Weil classes\\" + sub(r"every CM field"), DER,
                ["weil_all"]),
-        "WS": (-5.90, 1.10, r"$\mathbf{W}(F,n,\delta_{0})$\\" + sub(
+        "WS": (-6.35, 1.10, r"$\mathbf{W}(F,n,\delta_{0})$\\" + sub(
             r"$[F:\mathbb{Q}]\ge4$, split"), DER, ["weil_cm_triv"]),
         "P2": (-6.05, -1.25, r"$\mathrm{P2}_{\mathrm{split}}$\\" + sub(
             r"(P2$'$), split, $[F:\mathbb{Q}]\ge4$"), OPEN, ["P2_cm_s"]),
-        "BP": (-3.20, -1.25, r"base point,\\reduction, orbit", PROV,
+        "BP": (-2.95, -1.25, r"base point,\\reduction, orbit", PROV,
                ["base_point_cm", "reduction_cm", "orbit_dense_cm"]),
         "AC": (-1.05, 1.25, r"accessibility of\\Hodge classes on\\"
                r"abelian varieties", QUOT, ["acc_ab"]),
@@ -997,7 +997,7 @@ def frontier():
            "c": (-0.28, 7.62, "east"), "d": (3.45, 8.30, None),
            "e": (3.60, 3.62, None), "f": (-0.78, 4.84, "west"),
            "g": (-4.72, 4.84, "east"), "h": (-4.47, 0.30, "west"),
-           "i": (-6.08, 2.18, "east")}
+           "i": (-6.53, 2.18, "east")}
     for k, (x, y, an) in LET.items():
         F.text(x, y, r"(%s)" % k, "PInk", FS, anchor=an)
 

@@ -100,12 +100,26 @@ adjoined the minimal sets are {F3}, {L,M}, {L,F3'}, {V,F3'}, {F2,F3'} and
 P2_split lies in none (checked in `code/closure_graph.py`, the rule set itself
 is unchanged); it also made the paper journal-shaped (60-word abstract, the
 figures of `figures/make_round19.py`, redrawn `fig_closure` and
-`fig_frontier`). P2_split, (F2) and (F3') remain open. Never use agents or
+`fig_frontier`); round 20 added the routes from outside algebraic geometry
+(`ssec:outside` of `tex/sections/11b_closuregraph.tex`: `prop:positivitynotest`,
+`lem:cibig`, `thm:massgap`, the conjecture as the vanishing of an integrality
+gap for mass-minimising currents, stated for M large, `ex:mumfordmass`,
+`rem:outside`; item (LXIII), `code/mumford_mass.py`), the Weil structure of a
+Mumford fourfold at a CM point (`prop:cmsource`, `lem:splitcm`,
+`rem:cmsource` in `tex/sections/11d_mumfordrigid.tex`; item (LXIV),
+`code/cm_source.py`; Lean Section 36, ninety-eight theorems), the figures of
+`figures/make_round20.py`, an ethics statement, and Zenodo placeholders for
+release v2.0.0 (macros `\zenodoVersionDOI`, `\zenodoConceptDOI` in
+`tex/declarations.tex`, and the DOI table in `README.md`). P2_split, (F2) and
+(F3') remain open. Never use agents or
 workflows in this repository's sessions: do the work directly.
 
 Release v1.0.0 (tag `v1.0.0`, commit `ef15bce`) is archived on Zenodo under
-DOI 10.5281/zenodo.22950276, recorded in the macro `\zenodoDOI` at the top of
-`tex/declarations.tex`, in `CITATION.cff` and in `README.md`. A later GitHub
+DOI 10.5281/zenodo.22950276, recorded in the macro `\zenodoFirstDOI` at the
+top of `tex/declarations.tex`, in `CITATION.cff` and in `README.md`. Release
+v2.0.0 accompanies round 20; its version DOI and the concept DOI go in
+`\zenodoVersionDOI` and `\zenodoConceptDOI`, the README table and
+`CITATION.cff` once Deep supplies them. A later GitHub
 release gets a new version DOI from Zenodo; update all three places then. There is no separate AI declaration: the use of Claude
 for the Python and Lean computations is stated in the Data availability
 section.
@@ -115,7 +129,7 @@ section.
 - `cd code && python3 verify_all.py` ends with `N checks passed, 0 failed`;
   keep the count in `README.md`, `.zenodo.json`, `.github/workflows/lean.yml`,
   `tex/appendices/D_computations.tex` and `tex/declarations.tex` in step.
-- `cd lean && lean HodgeObstruction.lean`: 93 theorems, each axiom-free or
+- `cd lean && lean HodgeObstruction.lean`: 98 theorems, each axiom-free or
   depending on `propext` only.
 - `cd tex && latexmk -pdf main.tex`: 0 errors, 0 overfull or underfull boxes,
   no undefined references.
