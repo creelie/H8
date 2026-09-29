@@ -208,6 +208,10 @@ Contents
          moments, the congruence d = 15, 23 mod 24 for u + 3v, the witness
          6(u + v) at d = 3, the defect of m_4 at the smooth discriminants,
          e(S) != [S]^2  [lattice_congruence.py]
+  (LXX) resolutions of rank one and two: c(I_Z(b Theta)) by Newton's
+         identities, hard Lefschetz on H^2 -> H^6, c_4(G) != 0 at r = 1,
+         the parity condition d = 3 mod 4 at r = 2 and b = 3, the route
+         note's example  [burch_rank.py]
 """
 
 import os
@@ -653,6 +657,9 @@ def main():
 
     head("(LXIX) the secant plane and the lattice of line bundles")
     run_module("LXIX", "lattice_congruence.py")
+
+    head("(LXX) resolutions of rank one and two")
+    run_module("LXX", "burch_rank.py")
 
     print()
     print("=" * 70)

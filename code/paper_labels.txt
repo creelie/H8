@@ -312,6 +312,7 @@ prop:leadingconstant
 prop:lefmot
 prop:lefschetzdecomp
 prop:lefvhc
+prop:lowrankburch
 prop:markman8
 prop:markmanquarticclasses
 prop:modp
@@ -416,6 +417,7 @@ rem:lattice
 rem:latticedefect
 rem:leavel
 rem:lmvknown
+rem:lowrankburch
 rem:markmancheck
 rem:markmanconsistent
 rem:markmanpositivity
