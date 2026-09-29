@@ -24,7 +24,7 @@ Both use exact rational arithmetic and need Python 3 with `sympy`.
 | program | what it checks | output |
 |---|---|---|
 | `mukai_place.py` | items (A) to (L) of Section 8: the sl_2-triples, the Weil classes, the cusp formula, the transform of Theorem 4.3, the invariance of r, the ranks 88 and 104, the linear shape | `30 checks passed, 0 failed` |
-| `smooth_support.py` | every numerical statement of Section 7.1 | `25 checks passed, 0 failed` |
+| `smooth_support.py` | the numerical statements of Section 7.1 | `25 checks passed, 0 failed` |
 
 `mukai_place.py` imports the model of `code/quartic_rank.py` (item (LXV) of the
 paper) from `../../code`. Run from this directory:
