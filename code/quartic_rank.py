@@ -92,6 +92,35 @@ What is checked:
       r = 104 with theta_1^4 theta_2^4 / 576 added: the characters at the
       values 88 and 104 that the Weil tori exclude.
 
+  (K) the first order deformations of A that keep gamma of Hodge type: on
+      the 64 operators of H^1(T_A) = H^{0,1} (x) T the kernel of
+      xi -> xi _| (omega + p) consists of F-linear operators (those between
+      V_s^{1,0} and V_s^{0,1}), and it is the space of F-linear xi with
+      xi _| theta_t = 0 at every place t at which p has a monomial whose
+      exponent of theta_t is 1, 2 or 3; so its dimension is 8 + 4 (number
+      of places without such a monomial), for the nine patterns of
+      exponents and two choices of omega; the characters left at 88
+      (linear or exponential in each theta_t) and a quadratic one give 8,
+      the tangent space of the polarised family, and the constant and the
+      theta^4 shapes give 16, all F-linear deformations.
+
+  (L) the exceptional places: a place t at which p has a monomial with
+      theta_t-exponent 1, 2 or 3 adds one first order deformation that is
+      not F-linear exactly when the only such monomial is c_t theta_t^2 and
+      16 c_t^2 = u_s u_s' (s, s' over tau_t), that is c_t^2 theta_t^4 =
+      (3/4) omega_t^2 with theta_t^4 = 24 alpha_s alpha_s' and omega_t^2 =
+      2 u_s u_s' alpha_s alpha_s'; the rational shapes exceptional at both
+      places have rank 94 or 110 and annihilator of dimension 10 in
+      H^1(T_A); the stabiliser of omega_t + c_t theta_t^2 in gl(V_s + V_s')
+      is so(4,3) (dimension 21, orbit of dimension 5, trace form of signature
+      (12, 9)) at the exceptional value and su(2,2) (15, 4, (8, 7)) at an
+      ordinary one; along the locus no class of degree two and exactly the
+      span of the two classes X_t = omega_t + c_t theta_t^2 of degree four
+      stay of Hodge type; and int X_1 kappa^6 has the constant sign of -c_1
+      (theta_t here is sqrt(-1) times a real class) on the Kaehler classes of
+      six positive hermitian forms on the whole tangent space, with Gaussian
+      rational entries, while both signs occur at c = 1/10.
+
 Everything is exact rational arithmetic, with Groebner bases over Q.
 
 Run:  python3 quartic_rank.py
@@ -735,6 +764,373 @@ def main():
           "and alpha_2 alpha_3; r(omega + theta_1^4/24 + theta_2^4/24) = 88 "
           "with mu = 0, rho_1 = rho_2 = 1, and adding theta_1^4 theta_2^4/576 "
           "gives 104", ok, "r = %d, %d" % (r88, r104))
+
+    print("(K) the first order deformations that keep gamma of Hodge type")
+    V1 = [i for i, op in enumerate(OPS) if op[0][0] == "v"]
+
+    def emb(g):
+        return g // 4
+
+    FLIN = [i for i in V1 if emb(OPS[i][0][1]) == emb(OPS[i][0][2])]
+
+    def kernel(vectors):
+        keys = sorted({k for v in vectors for k in v})
+        M = sympy.Matrix([[sympy.Rational(v.get(k, 0).numerator,
+                                          v.get(k, 0).denominator)
+                           if isinstance(v.get(k, 0), Fr)
+                           else v.get(k, 0) for k in keys]
+                          for v in vectors]).T
+        return M.nullspace()
+
+    def ann_h1(e, u):
+        g = gamma_form(e, u)
+        return kernel([apply_op(OPS[i], g) for i in V1])
+
+    def d_theta(ops_idx, t):
+        """the F-linear operators, as columns, and their images of theta_t"""
+        return [apply_op(OPS[i], TH[t]) for i in ops_idx]
+
+    def mid(e, t):
+        return any(c != 0 and (ij[t] in (1, 2, 3)) for ij, c in e.items())
+
+    def predicted(e):
+        """F-linear xi with xi _| theta_t = 0 at each place t where p has a
+        monomial whose exponent of theta_t is 1, 2 or 3"""
+        vecs = []
+        for i in FLIN:
+            v = {}
+            for t in (0, 1):
+                if mid(e, t):
+                    for m, c in apply_op(OPS[i], TH[t]).items():
+                        v[(t, m)] = v.get((t, m), 0) + c
+            vecs.append(v)
+        if not any(vecs):
+            return len(FLIN)
+        keys = sorted({k for v in vecs for k in v})
+        M = sympy.Matrix([[v.get(k, 0) for k in keys] for v in vecs]).T
+        return len(FLIN) - M.rank()
+
+    ok = len(V1) == 64 and len(FLIN) == 16
+    rnd = random.Random(20260930)
+    allowed = {"none": (0,), "four": (0, 4), "mid": (0, 1, 2, 3, 4)}
+    seen = []
+    for c1 in ("none", "four", "mid"):
+        for c2 in ("none", "four", "mid"):
+            for u in ((1, 1, 1, 1), (2, -3, 5, 7)):
+                e = {}
+                for i in allowed[c1]:
+                    for j in allowed[c2]:
+                        if (i, j) != (0, 0):
+                            e[(i, j)] = Fr(rnd.randint(1, 9) *
+                                           rnd.choice([-1, 1]),
+                                           rnd.randint(1, 4))
+                ker = ann_h1(e, u)
+                dim = len(ker)
+                want = 8 + 4 * (c1 != "mid") + 4 * (c2 != "mid")
+                inflin = all(all(vec[r] == 0 for r in range(64)
+                                 if V1[r] not in FLIN) for vec in ker)
+                for vec in ker:
+                    for t in (0, 1):
+                        if not mid(e, t):
+                            continue
+                        img = {}
+                        for r in range(64):
+                            if vec[r] != 0:
+                                for m, c in apply_op(OPS[V1[r]],
+                                                     TH[t]).items():
+                                    img[m] = img.get(m, 0) + vec[r] * c
+                        inflin &= all(c == 0 for c in img.values())
+                ok &= dim == want == predicted(e) and inflin
+                seen.append(dim)
+    check("on H^1(T_A) the annihilator of omega + p consists of F-linear "
+          "deformations, and it is cut out by xi _| theta_t = 0 at each place "
+          "where p has a monomial with theta_t-exponent 1, 2 or 3: dimension "
+          "8 + 4 (places without one), for all nine patterns and two omega",
+          ok, "dimensions %s" % sorted(set(seen)))
+
+    ok = True
+    shapes = [({(1, 0): 1, (0, 1): 1}, 8), ({(1, 0): 2, (0, 1): -3}, 8),
+              ({(2, 0): 1, (0, 2): 1}, 8), ({}, 16),
+              ({(4, 0): 1, (0, 4): 1}, 16), ({(4, 4): 1}, 16)]
+    for lam, b in ((2, 1), (Fr(1, 3), 5), (-1, 2)):
+        e = {}
+        for i in range(1, 5):
+            e[(i, 0)] = Fr(b) * Fr(lam) ** i
+            e[(0, i)] = Fr(b + 1) * Fr(2 * lam + 1) ** i
+        shapes.append((e, 8))
+    dims = []
+    for e, want in shapes:
+        d = len(ann_h1(e, (1, 1, 1, 1)))
+        dims.append(d)
+        ok &= d == want
+    check("the characters left at 88, c + f(theta_1) + f'(theta_2) with f "
+          "linear or exponential, and a quadratic one have annihilator of "
+          "dimension 8 on H^1(T_A), the tangent space of the family; the "
+          "constant and the theta^4 shapes have 16, all F-linear deformations",
+          ok, "dimensions %s" % dims)
+
+    print("(L) the exceptional places and the Hodge locus of the character")
+
+    def nonflin(vecs):
+        return sum(1 for vec in vecs
+                   if any(vec[r] != 0 and V1[r] not in FLIN
+                          for r in range(64)))
+
+    h, t4 = Fr(1, 2), Fr(1, 4)
+    cases = [({(2, 0): h}, (1, 1, 1, 1), 13, 1),
+             ({(2, 0): -h}, (1, 1, 1, 1), 13, 1),
+             ({(2, 0): 1}, (4, 1, 1, 1), 13, 1),
+             ({(2, 0): -1}, (4, 1, 1, 1), 13, 1),
+             ({(2, 0): h, (4, 0): 3}, (1, 1, 1, 1), 13, 1),
+             ({(2, 0): 1}, (1, 1, 1, 1), 12, 0),
+             ({(2, 0): -1}, (1, 1, 1, 1), 12, 0),
+             ({(2, 0): Fr(1, 3)}, (1, 1, 1, 1), 12, 0),
+             ({(2, 0): 2}, (4, 1, 1, 1), 12, 0),
+             ({(2, 0): h, (1, 0): 1}, (1, 1, 1, 1), 12, 0),
+             ({(2, 0): h, (3, 0): 1}, (1, 1, 1, 1), 12, 0),
+             ({(2, 0): h, (2, 4): 1}, (1, 1, 1, 1), 12, 0),
+             ({(2, 0): h, (2, 1): 1}, (1, 1, 1, 1), 8, 0),
+             ({(2, 0): h, (0, 2): h}, (1, 1, 1, 1), 10, 2),
+             ({(2, 0): h, (0, 2): -h}, (1, 1, 1, 1), 10, 2),
+             ({(2, 0): -h, (0, 2): -h, (4, 0): 3, (0, 4): 3, (4, 4): 5},
+              (1, 1, 1, 1), 10, 2),
+             ({(2, 0): h, (0, 2): 1}, (1, 1, 1, 1), 9, 1)]
+    ok = True
+    got = []
+    for e, u, want, extra in cases:
+        ker = ann_h1(e, u)
+        got.append((len(ker), nonflin(ker)))
+        ok &= (len(ker), nonflin(ker)) == (want, extra)
+    check("a mid place t is exceptional, with one more first order deformation "
+          "that is not F-linear, exactly when the only monomial with "
+          "theta_t-exponent 1, 2 or 3 is theta_t^2 itself and 16 c_t^2 = "
+          "u_s u_s' for its coefficient c_t = e/2 (e_20 = +-1/2 at u = 1, "
+          "+-1 at u = (4,1,1,1)); theta_t^4 terms keep it, any other mid "
+          "monomial kills it", ok, "(dim, not F-linear) %s" % got)
+
+    t14 = powf(TH[0], 4)
+    a01 = wedge(alpha(0), alpha(1))
+    om1 = addf(alpha(0), alpha(1), 1)
+    ok = (t14 == {m: 24 * c for m, c in a01.items()} and
+          wedge(om1, om1) == {m: 2 * c for m, c in a01.items()})
+    check("theta_1^4 = 24 alpha_0 alpha_1 and omega_1^2 = 2 u_0 u_1 alpha_0 "
+          "alpha_1, so 16 c^2 = u_0 u_1 reads c^2 theta_1^4 = (3/4) "
+          "omega_1^2, the ratio of rem:p2primeexceptional place by place", ok)
+
+    r94 = direct_rank({(2, 0): h, (0, 2): h})
+    r94b = direct_rank({(2, 0): -h, (0, 2): -h, (4, 0): 3, (0, 4): 3})
+    r110 = direct_rank({(2, 0): h, (0, 2): h, (4, 4): 1})
+    check("a character exceptional at both places with rational shape has "
+          "rank 94, or 110 with theta_1^4 theta_2^4, never 88",
+          (r94, r94b, r110) == (94, 94, 110),
+          "r = %d, %d, %d" % (r94, r94b, r110))
+
+    # the stabiliser of omega_1 + c theta_1^2 in gl(V_0 + V_1)
+    G8 = [gen(s, k, l) for s in (0, 1) for k in (0, 1) for l in (0, 1)]
+    ISA = [(g % 4) // 2 == 0 for g in G8]
+    POS = {g: t for t, g in enumerate(G8)}
+
+    def der8(i, j, f):
+        out = {}
+        for m, c in f.items():
+            s1, mm = contract_gen(m, G8[j])
+            if not s1:
+                continue
+            s2, mm2 = wedge_gen(mm, G8[i])
+            if not s2:
+                continue
+            out[mm2] = out.get(mm2, 0) + s1 * s2 * c
+        return {m: c for m, c in out.items() if c != 0}
+
+    PERM = sympy.zeros(8, 8)
+    for k in range(2):
+        for x, y in ((gen(0, 0, k), gen(1, 1, k)), (gen(1, 0, k), gen(0, 1, k))):
+            PERM[POS[x], POS[y]] = 1
+            PERM[POS[y], POS[x]] = 1
+
+    def inertia(Gm):
+        Gm = sympy.Matrix(Gm)
+        pos = neg = 0
+        n = Gm.shape[0]
+        while n:
+            piv = next((i for i in range(n) if Gm[i, i] != 0), None)
+            if piv is None:
+                pr = next(((i, j) for i in range(n) for j in range(n)
+                           if Gm[i, j] != 0), None)
+                if pr is None:
+                    break
+                i, j = pr
+                Gm[:, i] = Gm[:, i] + Gm[:, j]
+                Gm[i, :] = Gm[i, :] + Gm[j, :]
+                piv = i
+            d = Gm[piv, piv]
+            pos, neg = pos + int(bool(d > 0)), neg + int(bool(d < 0))
+            v = Gm[:, piv]
+            Gm = Gm - v * v.T / d
+            keep = [i for i in range(n) if i != piv]
+            Gm = Gm.extract(keep, keep)
+            n -= 1
+        return pos, neg
+
+    def stab_data(c):
+        th2 = wedge(TH[0], TH[0])
+        X1 = addf(addf(addf({}, alpha(0), 1), alpha(1), 1), th2, c)
+        idx = [(i, j) for i in range(8) for j in range(8)]
+        vecs = [der8(i, j, X1) for (i, j) in idx]
+        keys = sorted({k for v in vecs for k in v})
+        M = sympy.Matrix([[v.get(k, 0) for v in vecs] for k in keys])
+        ns = M.nullspace()
+        d = len(ns)
+        B = sympy.Matrix.hstack(*ns)
+        rows_p = [r for r, (i, j) in enumerate(idx) if ISA[j] and not ISA[i]]
+        in_p = d - B.extract(rows_p, list(range(d))).rank()
+        mats = [sympy.Matrix(8, 8, lambda i, j: v[8 * i + j]) for v in ns]
+        sym = [m + PERM * m * PERM for m in mats]
+        asym = [m - PERM * m * PERM for m in mats]
+        basis = []
+        for group, sgn in ((sym, 1), (asym, -1)):
+            flat = sympy.Matrix([list(m) for m in group])
+            rr = flat.rref()[0]
+            for r in range(flat.rank()):
+                basis.append((sympy.Matrix(8, 8, list(rr.row(r))), sgn))
+        # the real form is spanned by the m + PmP and the i(m - PmP), and
+        # the trace form pairs the two kinds to zero
+        Gm = [[(-1 if sa == sb == -1 else 1) * (X * Y).trace()
+               for (Y, sb) in basis] for (X, sa) in basis]
+        cross = all((X * Y).trace() == 0 for (X, sa) in basis
+                    for (Y, sb) in basis if sa != sb)
+        if not cross:
+            return None
+        return d, d - in_p, len(basis), inertia(Gm)
+
+    ex, ordn = stab_data(t4), stab_data(h)
+    check("the stabiliser of omega_1 + c theta_1^2 in gl(V_0 + V_1) has "
+          "dimension 21, orbit of dimension 5 in the Grassmannian and a real "
+          "form whose trace form has signature (12, 9), so(4,3), at the "
+          "exceptional c = 1/4; dimension 15, orbit 4 and signature (8, 7), "
+          "su(2,2), at c = 1/2",
+          ex == (21, 5, 21, (12, 9)) and ordn == (15, 4, 15, (8, 7)),
+          "exceptional %s, ordinary %s" % (ex, ordn))
+
+    # Hodge classes of degree 2 and 4 kept along the locus
+    e_ex = {(2, 0): h, (0, 2): h}
+    ker = ann_h1(e_ex, (1, 1, 1, 1))
+    ops_ker = []
+    for vec in ker:
+        ops_ker.append({V1[r]: vec[r] for r in range(64) if vec[r] != 0})
+
+    def kept(classes):
+        cols = []
+        for cl in classes:
+            col = {}
+            for n, opsv in enumerate(ops_ker):
+                for i, c in opsv.items():
+                    for m, x in apply_op(OPS[i], cl).items():
+                        col[(n, m)] = col.get((n, m), 0) + c * x
+            cols.append(col)
+        keys = sorted({k for v in cols for k in v})
+        if not keys:
+            return len(classes)
+        M = sympy.Matrix([[v.get(k, 0) for v in cols] for k in keys])
+        return len(classes) - M.rank()
+
+    deg4 = [wedge(TH[0], TH[0]), wedge(TH[0], TH[1]), wedge(TH[1], TH[1])] + \
+        [alpha(s) for s in range(4)]
+    k2, k4 = kept(TH), kept(deg4)
+    x1 = addf(addf(addf({}, alpha(0), 1), alpha(1), 1), THP[(2, 0)], h)
+    x2 = addf(addf(addf({}, alpha(2), 1), alpha(3), 1), THP[(0, 2)], h)
+    k4x = kept([x1, x2])
+    check("for omega + (theta_1^2 + theta_2^2)/4, exceptional at both places, "
+          "no combination of theta_1, theta_2 stays of type (1,1) along the "
+          "locus, and of theta_1^2, theta_1 theta_2, theta_2^2 and the four "
+          "alpha_s exactly the span of X_t = omega_t + theta_t^2/4 stays of "
+          "Hodge type", (k2, k4, k4x) == (0, 2, 2),
+          "kept: %d of 2, %d of 7, %d of X_1, X_2" % (k2, k4, k4x))
+
+    # the sign of int X_1 kappa^6 on Kaehler classes
+    class GQ:
+        __slots__ = ("re", "im")
+
+        def __init__(s, re=0, im=0):
+            s.re, s.im = Fr(re), Fr(im)
+
+        @staticmethod
+        def _c(o):
+            return o if isinstance(o, GQ) else GQ(o)
+
+        def __add__(s, o):
+            o = GQ._c(o)
+            return GQ(s.re + o.re, s.im + o.im)
+        __radd__ = __add__
+
+        def __mul__(s, o):
+            o = GQ._c(o)
+            return GQ(s.re * o.re - s.im * o.im, s.re * o.im + s.im * o.re)
+        __rmul__ = __mul__
+
+        def __eq__(s, o):
+            o = GQ._c(o)
+            return s.re == o.re and s.im == o.im
+
+        def __ne__(s, o):
+            return not s == o
+
+        def conj(s):
+            return GQ(s.re, -s.im)
+
+    AG = [gen(s, 0, k) for s in range(4) for k in range(2)]
+    CJ = {}
+    for k in range(2):
+        CJ[gen(0, 0, k)], CJ[gen(1, 0, k)] = gen(1, 1, k), gen(0, 1, k)
+        CJ[gen(2, 0, k)], CJ[gen(3, 0, k)] = gen(3, 1, k), gen(2, 1, k)
+
+    def kappa_h(H):
+        f = {}
+        for j in range(8):
+            for l in range(8):
+                if H[j][l] != 0:
+                    f = addf(f, mono([AG[j], CJ[AG[l]]]), GQ(0, 1) * H[j][l])
+        return f
+
+    def total(f):
+        s = GQ(0)
+        for c in f.values():
+            s = s + c
+        return s
+
+    def eye8():
+        return [[GQ(1) if j == l else GQ(0) for l in range(8)]
+                for j in range(8)]
+
+    vol = total(powf(kappa_h(eye8()), 8))
+    hs = [eye8()]
+    for z in (Fr(9, 10), Fr(-9, 10)):
+        H = eye8()
+        H[0][2] = H[2][0] = GQ(Fr(9, 10))
+        H[1][3] = H[3][1] = GQ(z)
+        hs.append(H)
+    rng = random.Random(20260929)
+    for _ in range(3):
+        Mx = [[GQ(rng.randint(-3, 3), rng.randint(-3, 3)) for _ in range(8)]
+              for _ in range(8)]
+        hs.append([[total({k: Mx[j][k] * Mx[l][k].conj() for k in range(8)})
+                    for l in range(8)] for j in range(8)])
+    th2 = wedge(TH[0], TH[0])
+    signs = {t4: set(), -t4: set(), Fr(1, 10): set()}
+    for H in hs:
+        k6 = powf(kappa_h(H), 6)
+        for c in signs:
+            X1 = addf(addf(addf({}, alpha(0), 1), alpha(1), 1), th2, c)
+            v = total(wedge(X1, k6))
+            ok_real = v.im == 0 and vol.im == 0
+            signs[c].add((v.re / vol.re > 0) - (v.re / vol.re < 0)
+                         if ok_real else None)
+    check("int X_1 kappa^6 has the constant sign of -c at the exceptional "
+          "c = +-1/4, for the Kaehler classes of six positive hermitian forms "
+          "on the whole tangent space, and takes both signs at c = 1/10",
+          signs[t4] == {-1} and signs[-t4] == {1} and
+          signs[Fr(1, 10)] == {-1, 1},
+          "signs %s" % {str(c): sorted(s) for c, s in signs.items()})
 
     print()
     print("%d checks passed, %d failed" % (len(PASS), len(FAIL)))

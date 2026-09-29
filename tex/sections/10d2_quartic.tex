@@ -945,11 +945,208 @@ with a multiple of $\theta_{1}^{4}\theta_{2}^{4}$ added it has rank $104$
 (item (LXV) of \Cref{sec:verification}); \Cref{prop:quarticweiltori} removes
 both. What remains at $88$ is a Chern character whose polynomial part is
 exponential or linear in each $\theta_{t}$ separately, such as
-$c+\eta_{s}+N\omega_{1}$. For these the classes $\theta_{t}$ are not of
-Hodge type on the Weil tori, and the argument gives nothing: a family along
-which $\eta_{s}$ stays of type $(1,1)$ and the member is not algebraic would
-be needed, together with a vanishing theorem for its coherent sheaves with
-$c_{1}$ a multiple of $\eta_{s}$, and we have neither.
+$c+\eta_{s}+N\omega_{1}$. For these the classes $\theta_{t}$ are not of Hodge
+type on the Weil tori, and the argument needs a family of complex tori along
+which the character stays of Hodge type and whose members are not algebraic.
+The next proposition, the analogue for a quartic field of
+\Cref{prop:p2primelocus}(iii) and (iv), shows that there is none: the Hodge
+locus of such a character is the polarised family itself.
+
+\begin{proposition}[The Hodge locus of a character at a quartic field]
+\label{prop:quarticlocus}
+Keep the notation before \Cref{thm:quarticrank}, with $\gamma=\omega+p$ and
+every $u_{\sigma}\ne0$, and for the embeddings $\sigma,\bbar\sigma$ over
+$\tau_{t}$ put $\omega_{t}=u_{\sigma}\alpha_{\sigma}+u_{\bbar\sigma}
+\alpha_{\bbar\sigma}$. Call $\tau_{t}$ a \emph{mid place} of $p$ if $p$ has a
+monomial $\theta_{1}^{i}\theta_{2}^{j}$ with nonzero coefficient whose exponent
+of $\theta_{t}$ is $1$, $2$ or $3$, and call a mid place \emph{exceptional} if
+the only such monomial is $\theta_{t}^{2}$ itself and its coefficient $c_{t}$
+in $p$ satisfies $c_{t}^{2}\theta_{t}^{4}=\frac34\,\omega_{t}^{2}$, the ratio
+of \Cref{prop:p2primelocus}(iv).
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item The annihilator of $\gamma$ in $H^{1}(T_{A})$ is the space of $F$-linear
+  $\xi\in\bigoplus_{\sigma}\Hom(V_{\sigma}^{1,0},V_{\sigma}^{0,1})$ with
+  $\xi\lrcorner\theta_{t}=0$ at every mid place, plus, at each exceptional
+  place, a line spanned by an element of $\Hom(V_{\sigma}^{1,0},
+  V_{\bbar\sigma}^{0,1})\oplus\Hom(V_{\bbar\sigma}^{1,0},V_{\sigma}^{0,1})$
+  with both components nonzero. Its dimension is $8+4a+b$, where $a$ is the
+  number of places that are not mid places and $b$ the number of exceptional
+  places.
+\item The connected component through $A$ of the Hodge locus of $\gamma$, in
+  the space of complex structures on the real torus underlying $A$, is
+  $S_{F}$ when neither place is a mid place, that is when $p$ lies in the
+  span of the $\theta_{1}^{i}\theta_{2}^{j}$ with $i,j\in\{0,4\}$; and it is
+  $\cD_{F}$ when both places are mid places and neither is exceptional. In
+  the second case all its members are abelian varieties polarised by
+  $\theta_{1}+\theta_{2}$.
+\item If both places are exceptional, then near $A$ the Hodge locus is the
+  orbit of $A$ under $G_{1}\times G_{2}$, where $G_{t}\cong\mathrm{Spin}(4,3)$
+  is the connected stabiliser of $X_{t}=\omega_{t}+c_{t}\theta_{t}^{2}$ in the
+  real linear group of $V_{\sigma}\oplus V_{\bbar\sigma}$, and it has
+  dimension $10$. A very general member $T$ of it has $\NS(T)=0$ and
+  $\Hdg^{2}(T)\otimes\CC$ contained in the span of $X_{1}$ and $X_{2}$, and on
+  every member, for every K\"ahler class $\kappa$, $\int X_{t}\,\kappa^{6}$ is
+  nonzero with the sign of $c_{t}$, in the normalisation in which
+  $\theta_{t}$ is a real class with $\theta_{t}^{2}$ positive.
+\item If $\gamma$ is the complexified character of \Cref{thm:quarticp2prime}(v),
+  then both places are mid places or neither is, and both are exceptional or
+  neither is; and an exceptional $\gamma$ has $r(\gamma)=94$, or $110$ when
+  $p$ contains $\theta_{1}^{4}\theta_{2}^{4}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) Grade $\bigwedge^{*}H^{1}$ by the degrees in the four $V_{\sigma}$, and
+write $\xi_{\sigma\sigma'}$ for the component of $\xi$ in
+$\Hom(V_{\sigma'}^{1,0},V_{\sigma}^{0,1})$, which raises the degree in
+$V_{\sigma}$ by one and lowers that in $V_{\sigma'}$ by one. The monomial
+$\theta_{1}^{i}\theta_{2}^{j}$ has degree $i$ in the two embeddings over
+$\tau_{1}$ and $j$ in those over $\tau_{2}$, and $\alpha_{\sigma}$ has degree
+$4$ in $V_{\sigma}$. By the proof of \Cref{thm:quarticp2prime}(i),
+$\xi_{\sigma\sigma}\lrcorner\omega=0$, and for $\sigma\ne\sigma'$ the only
+term of $\xi_{\sigma\sigma'}\lrcorner\omega$ is
+$u_{\sigma'}\xi_{\sigma\sigma'}\lrcorner\alpha_{\sigma'}$, of degree $3$ in
+$V_{\sigma'}$ and $1$ in $V_{\sigma}$, which determines $\xi_{\sigma\sigma'}$.
+A term $\xi_{\rho\rho'}\lrcorner\theta_{1}^{i}\theta_{2}^{j}$ has that degree
+only if $\sigma,\sigma'$ lie over the same place $\tau_{t}$, $(i,j)$ is
+$(2,0)$ or $(0,2)$ with the $2$ at $t$, and $(\rho,\rho')=(\sigma',\sigma)$.
+So every component $\xi_{\sigma\sigma'}$ with $\sigma,\sigma'$ over different
+places vanishes, and the equations split into the $F$-linear part and, at
+each place, the pair $\xi'=\xi_{\bbar\sigma\sigma}$, $\xi''=\xi_{\sigma\bbar\sigma}$.
+
+For $F$-linear $\xi$ put $D_{t}=\xi\lrcorner\theta_{t}\in V_{\sigma}^{0,1}
+\otimes V_{\bbar\sigma}^{0,1}$; the map $\xi\mapsto(D_{1},D_{2})$ is onto, with
+kernel $T_{[A]}\cD_{F}$. Then $\xi\lrcorner\theta_{1}^{i}\theta_{2}^{j}
+=i\,\theta_{1}^{i-1}\theta_{2}^{j}D_{1}+j\,\theta_{1}^{i}\theta_{2}^{j-1}D_{2}$,
+the monomials lie in different degrees, and the two terms have different
+Hodge types at the two places, so each vanishes. Now $\theta_{t}^{3}D_{t}=0$
+for every $D_{t}$, as a degree count shows, while multiplication by
+$\theta_{t}^{k}$ is injective on $V_{\sigma}^{0,1}\otimes V_{\bbar\sigma}^{0,1}$
+for $k\le2$: $\theta_{t}^{2}y_{\sigma,k}y_{\bbar\sigma,l}$ is $2$ times the
+product of $y_{\sigma,k}y_{\bbar\sigma,l}$ with the two terms of $\theta_{t}$
+that avoid $y_{\sigma,k}$ and $y_{\bbar\sigma,l}$, and different $(k,l)$ give
+different monomials. Multiplication by $\theta_{t'}^{j}$, $j\le4$, acts on the
+other factor of $\bigwedge^{*}H^{1}=\bigwedge^{*}(V_{\sigma}\oplus
+V_{\bbar\sigma})\otimes\bigwedge^{*}(V_{\sigma'}\oplus V_{\bbar\sigma'})$ and is
+nonzero there. So the conditions on the $F$-linear part are exactly $D_{t}=0$
+at the mid places, a space of dimension $16-4(2-a)=8+4a$.
+
+At a place $\tau_{t}$ let $c_{t}$ be the coefficient of $\theta_{t}^{2}$ in $p$.
+The terms involving $\xi''$ are $u_{\bbar\sigma}\xi''\lrcorner
+\alpha_{\bbar\sigma}+c_{t}\,\xi'\lrcorner\theta_{t}^{2}$, of degree $3$ in
+$V_{\bbar\sigma}$ and $1$ in $V_{\sigma}$, the same with $\sigma$ and
+$\bbar\sigma$ and with $\xi'$ and $\xi''$ exchanged, and
+$i\,\theta_{t}^{i-1}\theta_{t'}^{j}(\xi'\lrcorner\theta_{t})$ and its analogue
+for $\xi''$ for every other monomial with exponent $i\in\{1,2,3\}$ of
+$\theta_{t}$. Here $\xi'\lrcorner\theta_{t}$ lies in the line
+$\bigwedge^{2}V_{\bbar\sigma}^{0,1}$, on which multiplication by
+$\theta_{t}^{i-1}\theta_{t'}^{j}$ is injective for $i\le3$ by the same count. If
+such another monomial occurs, $\xi'\lrcorner\theta_{t}=\xi''\lrcorner
+\theta_{t}=0$, and then $\xi'=\xi''=0$, the maps $\xi'\mapsto
+\xi'\lrcorner\alpha_{\sigma}$ and $\xi''\mapsto\xi''\lrcorner\alpha_{\bbar\sigma}$
+being injective. Otherwise $\xi''\lrcorner\theta_{t}^{2}=2\theta_{t}\,
+(\xi''\lrcorner\theta_{t})$ is a multiple of $\theta_{t}\,y_{\sigma,1}
+y_{\sigma,2}$, which is $\xi'_{0}\lrcorner\alpha_{\sigma}$ for one element
+$\xi'_{0}$, and likewise with $\sigma$ and $\bbar\sigma$ exchanged; so $\xi'$
+and $\xi''$ are multiples of $\xi'_{0}$ and $\xi''_{0}$, and the two remaining
+equations form a $2\times2$ linear system whose determinant, with the
+constants $\xi'_{0}\lrcorner\theta_{t}$ and $\xi''_{0}\lrcorner\theta_{t}$
+computed in item (LXV)(L), vanishes exactly when
+$16c_{t}^{2}=u_{\sigma}u_{\bbar\sigma}$. Since $\theta_{t}^{4}=24\,
+\alpha_{\sigma}\alpha_{\bbar\sigma}$ and $\omega_{t}^{2}=2u_{\sigma}
+u_{\bbar\sigma}\alpha_{\sigma}\alpha_{\bbar\sigma}$, that is the condition
+$c_{t}^{2}\theta_{t}^{4}=\frac34\omega_{t}^{2}$, and the solutions then form a
+line on which both components are nonzero.
+
+(ii) By \Cref{prop:p2primelocus}(i), applied to each homogeneous component,
+the Hodge locus of $\gamma$ in the chart at $A$ is the linear space
+$\Ann_{H^{1}(T_{A})}(\gamma)$. If neither place is a mid place, that space is
+the space of all $F$-linear $\xi$, which is also the part of $S_{F}$ in the
+chart; $\gamma$ is of Hodge type on all of $S_{F}$, as in the proof of
+\Cref{prop:quarticweiltori}, and at every member of $S_{F}$ its component of
+degree four is $\omega$, whose annihilator in $H^{1}(T)$ is again the space of
+$F$-linear deformations (\Cref{thm:quarticp2prime}(i), whose proof uses only
+the decomposition into the $V_{\sigma}$). So $S_{F}$ is open in the Hodge locus;
+it is closed in the space of complex structures, since commuting with $F$ is a
+closed condition and the dimensions of the $H^{1,0}\cap V_{\sigma}$ are
+locally constant on it; and it is connected. If both places are mid places
+and neither is exceptional, the annihilator is $T_{[A]}\cD_{F}$ by (i), at
+every member of $\cD_{F}$, since the conditions of (i) are stated in terms of
+the flat classes $\theta_{t}$ and $\omega_{t}$; and the argument of
+\Cref{prop:p2primelocus}(iii) shows that $\cD_{F}$ is open, closed and
+connected in the Hodge locus.
+
+(iii) At each place $X_{t}$ is, in the $8$-dimensional space
+$V_{\sigma}\oplus V_{\bbar\sigma}$ with the form $\theta_{t}$, the class of
+\Cref{rem:p2primeexceptional}, and item (LXV)(L) computes its stabiliser
+again: $\mathfrak{so}(4,3)$, with an orbit of dimension $5$ in the
+Grassmannian. The other components of $\gamma$ are constants, multiples of
+$\theta_{t}^{4}$, which is $24$ times the volume form of
+$V_{\sigma}\oplus V_{\bbar\sigma}$, and of $\theta_{1}^{4}\theta_{2}^{4}$, all
+fixed by $G_{1}\times G_{2}$. So the orbit of $A$ lies in the Hodge locus,
+and it has dimension $10$, which by (i) is that of the locus near $A$. A
+rational class of Hodge type at a very general member is of Hodge type on the
+whole orbit, hence killed by the complex structures of all its members,
+which lie in $\mathfrak{g}_{1}\oplus\mathfrak{g}_{2}$ and generate an ideal
+projecting nontrivially to both simple factors, that is all of it. The
+invariants of $\mathfrak{so}(7,\CC)$ in the exterior algebra of its spin
+representation are $1$, $X_{t}$ and the volume form
+(\Cref{rem:p2primeexceptional}), so in degree two there are none and in
+degree four only $X_{1}$ and $X_{2}$. For the sign, a K\"ahler class is
+$\kappa_{h}$ for a positive hermitian form $h$ on the tangent space; only the
+terms of $\kappa_{h}^{6}$ that contain the whole volume of the other place pair
+with $X_{t}$, and they give $\det(h_{t'})$ times $\kappa_{h'}^{2}$ for the
+Schur complement $h'$ of $h_{t'}$ in $h$, a positive hermitian form on the
+tangent space at $\tau_{t}$. So $\int X_{t}\kappa_{h}^{6}$ is a positive
+multiple of the integral of \Cref{rem:p2primeexceptional} for $h'$, which has
+the sign of $c_{t}$; and $G_{1}\times G_{2}$ fixes $X_{t}$ and carries K\"ahler
+cones to K\"ahler cones.
+
+(iv) An automorphism of $\bbar\QQ$ inducing $\iota$ on $F_{0}$ fixes the
+rational class $\gamma$ and exchanges $\theta_{1}$ with $\theta_{2}$ and
+$\omega_{1}$ with $\omega_{2}$, so it carries the conditions at $\tau_{1}$ to
+those at $\tau_{2}$. An exceptional $p$ lies in the span of $1$,
+$\theta_{t}^{2}$, $\theta_{t}^{4}$ and $\theta_{1}^{4}\theta_{2}^{4}$ with
+$c_{t}\ne0$, so $\rho_{1}=\rho_{2}=2$, $\mu=1$ exactly when
+$\theta_{1}^{4}\theta_{2}^{4}$ occurs, and $(e_{10},\dots,e_{40})$ lies on
+$V_{+}\cup V_{-}$, so $R_{1}=R_{2}=7$ by \Cref{thm:quarticrank}(ii); the
+formula of \Cref{thm:quarticrank}(i) gives $94$ or $110$. Item (LXV)(L)
+checks (i) on seventeen shapes, the stabilisers, the classes kept along the
+locus, and the sign.
+\end{proof}
+
+\begin{corollary}[The Weil tori at rank $88$]\label{cor:quarticlocus}
+Let $E$ be as in \Cref{thm:quarticp2prime}\textup{(v)} with
+$\dim\Ext^{2}(E,E)=r(\ch E)=88$, so that $\ch(E)=N\omega_{1}+c+f(\theta_{1})
++f^{\iota}(\theta_{2})$ as in \Cref{prop:quarticweiltori}. Then the connected
+component through $A$ of the Hodge locus of $\ch(E)$ is $\cD_{F}$, and every
+complex torus reached from $A$ by a deformation along which $\ch(E)$ stays of
+Hodge type is an abelian variety of the family. So no argument that deforms
+$E$ itself to a torus that is not algebraic can exclude it; the characters
+that such an argument excludes at $88$ are exactly those of
+\Cref{prop:quarticweiltori}.
+\end{corollary}
+
+\begin{proof}
+The coefficient $e_{10}$ of $f$ is nonzero, both for a multiple of $\theta$
+and for one of $e^{\lambda\theta}-1$, and $e_{01}=\iota(e_{10})$, so both
+places are mid places, with the monomials $\theta_{1}$ and $\theta_{2}$, and
+neither is exceptional. \Cref{prop:quarticlocus}(ii) applies.
+\end{proof}
+
+As after \Cref{prop:p2primelocus}, this concerns $E$ itself: an
+autoequivalence of $D^{b}(A)$ changes the character, and the proposition then
+applies to the new one. For the exceptional characters of
+\Cref{prop:quarticlocus}(iii), of rank $94$ or $110$, the proof of
+\Cref{thm:cmpurefalse} can be started, since the locus contains tori without
+divisors, but it breaks down as in \Cref{rem:p2primeexceptional}: the classes
+$X_{t}$ have integrals of constant sign against every K\"ahler class, so
+Bando and Siu give no vanishing: they bound the signs of the coefficients of
+$\ch_{2}$ of a torsion-free sheaf along $X_{1}$ and $X_{2}$, which a complex,
+an alternating sum, need not respect. So at a
+quartic field the Weil tori and their exceptional analogues exclude exactly
+the characters of \Cref{prop:quarticweiltori}, and what the criterion still
+asks for, at $88$ and above, is the construction of an object.
 
 The natural candidates are Markman's secant objects \cite{Mar25c}, in the
 twisted form in which he states his reduction. For them a $B$-field twist of
@@ -1642,7 +1839,10 @@ complex has $\dim\Ext^{2}(E,E)\ge81$, and one that meets the criterion has a
 polynomial part that is not constant and $\dim\Ext^{2}(E,E)\ge88$
 (\Cref{cor:quarticleast}); at $88$ that part is exponential or linear in
 each $\theta_{t}$, the shape $b\,\theta_{1}^{4}+\iota(b)\,\theta_{2}^{4}$
-being excluded by the Weil tori as well (\Cref{prop:quarticweiltori}). When $\delta$ is trivial the secant
+being excluded by the Weil tori as well (\Cref{prop:quarticweiltori}), and
+for the characters left there the Hodge locus is $\cD_{F}$ itself, so that no
+deformation of $A$ to a torus that is not algebraic can exclude them
+(\Cref{cor:quarticlocus}). When $\delta$ is trivial the secant
 sheaves of \cite{Mar25c}, on $X\times\widehat{X}$ with $X$ an abelian fourfold
 with real multiplication by $F_{0}$, are natural candidates for the twisted
 form of that criterion, which is the form of Markman's reduction

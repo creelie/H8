@@ -7,14 +7,14 @@ computational content is checked in exact arithmetic by the computations of
 \Cref{sec:verification}. The certificate is a single Lean~4 file that
 accompanies the paper. It compiles against a bare Lean~4 toolchain, contains
 no \texttt{sorry}, and depends on no library, Mathlib included. The axiom
-report at the end of the file lists, for each of its one hundred and three theorems,
-the axioms on which it depends. Eighty-six depend on none, and the remaining
-seventeen on propositional extensionality alone, which enters when
+report at the end of the file lists, for each of its one hundred and five theorems,
+the axioms on which it depends. Eighty-seven depend on none, and the remaining
+eighteen on propositional extensionality alone, which enters when
 \texttt{decide} reduces an equality of Booleans or when a bound is proved from
 the lemmas on natural numbers in the core library; no theorem uses anything
 else. The annihilator dimension and the rank-zero obstruction of
 \Cref{ssec:rankzero}, \Cref{lem:annihilator} and \Cref{thm:rankzero}, are not
-among the one hundred and three: they are proved by hand, and the dimension count of
+among the one hundred and five: they are proved by hand, and the dimension count of
 the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \Cref{sec:verification}.
 
@@ -24,7 +24,7 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \small
 \renewcommand{\arraystretch}{1.06}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.31\linewidth}>{\raggedright\arraybackslash}p{0.62\linewidth}@{}}
-\caption{The one hundred and three machine-checked theorems.}\label{tab:lean}\\
+\caption{The one hundred and five machine-checked theorems.}\label{tab:lean}\\
 \toprule
 \textbf{theorem} & \textbf{statement} \\
 \midrule
@@ -144,6 +144,8 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \texttt{delsarte\_loop\_}\allowbreak\texttt{sextic} & for the loop sextic $AB=15624\,I$ with $B$ the circulant $(3125,-625,125,-25,5,-1)$, whose rows sum to $2604$, and the Jacobian ring has dimensions $1$, $426$, $1751$, $426$, $1$ and $15625$ in all, \Cref{prop:delsarte} \\
 \texttt{simplex\_klein\_}\allowbreak\texttt{quartic} & for the Klein quartic $x^{3}y+y^{3}z+z^{3}x$, $\det A=28$, the differences $R$ of its exponents have $\det R=7$ and $CR=7I$ for an integer matrix $C$ not divisible by $7$, so $e_{A}=7$, and the sum over the orbits gives $4$ times the Euler number $-4$, \Cref{cor:delsarteall} \\
 \texttt{simplex\_loop\_}\allowbreak\texttt{sextic} & for the loop sextic $\det R=2604=2^{2}\cdot3\cdot7\cdot31$ and $CR=2604\,I$ with, for each of $2,3,7,31$, an entry of $C$ it does not divide, so $e_{A}=2604$; the sums over the orbits for the loop and the Fermat sextic are $6\cdot2610$, the Euler number of a smooth sextic fourfold, \Cref{lem:simplexchart}, \Cref{cor:delsarteall} \\
+\texttt{quartic\_exceptional\_}\allowbreak\texttt{pair} & in $\bigwedge(V_{\sigma}\oplus V_{\bar\sigma})$ at a real place of a quartic CM field, $\theta^{4}=24\,\alpha_{\sigma}\alpha_{\bar\sigma}$ and $(\alpha_{\sigma}+\alpha_{\bar\sigma})^{2}=2\,\alpha_{\sigma}\alpha_{\bar\sigma}$; $\theta^{3}D=0$ and the four $\theta^{2}D$ are distinct monomials for $D$ in $V_{\sigma}^{0,1}\otimes V_{\bar\sigma}^{0,1}$; the two deformations that are not $F$-linear send $\alpha_{\sigma},\theta,\theta^{2}$ to $\theta b_{\sigma,0}b_{\sigma,1}$, $2b_{\bar\sigma,0}b_{\bar\sigma,1}$, $4\theta b_{\bar\sigma,0}b_{\bar\sigma,1}$ and symmetrically, so that a place is exceptional exactly when $16c^{2}=u_{\sigma}u_{\bar\sigma}$, \Cref{prop:quarticlocus} \\
+\texttt{quartic\_locus\_}\allowbreak\texttt{counts} & the rational characters with both places exceptional have rank $94$ or $110$; the annihilator has dimension $8+4a+b\in\{8,9,10,12,13,16\}$; $\mathfrak{so}(4,3)$ has dimension $21$ and maximal compact subalgebra of dimension $9$, against $15$ and $7$ for $\mathfrak{su}(2,2)$, and the orbits have dimension $21-16=5$ and $15-11=4$, \Cref{prop:quarticlocus}, \Cref{cor:quarticlocus} \\
 \end{longtable}
 \endgroup
 

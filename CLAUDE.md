@@ -136,8 +136,18 @@ dimension and the cyclic covers branched along them are covered
 `code/simplex_type.py`; Lean Section 38, one hundred and three theorems;
 `fig_simplextype` from `figures/make_round22.py`), and excluded at rank 88 the
 characters of theta^4 shape by the Weil tori (`prop:quarticweiltori` in
-`tex/sections/10d2_quartic.tex`, check (J) of `code/quartic_rank.py`).
-P2_split, (F2) and (F3') remain open. Never use agents or
+`tex/sections/10d2_quartic.tex`, check (J) of `code/quartic_rank.py`);
+round 23 computed the Hodge locus of every character at a quartic CM field
+(`prop:quarticlocus`: the first-order locus is linear, of dimension 8 + 4a + b
+with a mid places and b exceptional ones, 16 c_t^2 = u_s u_s'; it is the Weil
+tori S_F only for the theta^4 span, the polarised family D_F when both places
+are mid, and a Spin(4,3) x Spin(4,3) orbit with NS = 0 when both are
+exceptional, ranks 94 or 110), so that the Weil tori exclude exactly the
+theta^4 shape at 88 and every other character there needs an object
+(`cor:quarticlocus`; check (L) of `code/quartic_rank.py`; Lean Section 39,
+one hundred and five theorems), and added `rem:delsartequotient` on quotients
+of Delsarte hypersurfaces by diagonal groups (no gain for Greene-Plesser
+mirrors). P2_split, (F2) and (F3') remain open. Never use agents or
 workflows in this repository's sessions: do the work directly.
 
 Release v1.0.0 (tag `v1.0.0`, commit `ef15bce`) is archived on Zenodo under
@@ -155,7 +165,7 @@ section.
 - `cd code && python3 verify_all.py` ends with `N checks passed, 0 failed`;
   keep the count in `README.md`, `.zenodo.json`, `.github/workflows/lean.yml`,
   `tex/appendices/D_computations.tex` and `tex/declarations.tex` in step.
-- `cd lean && lean HodgeObstruction.lean`: 103 theorems, each axiom-free or
+- `cd lean && lean HodgeObstruction.lean`: 105 theorems, each axiom-free or
   depending on `propext` only.
 - `cd tex && latexmk -pdf main.tex`: 0 errors, 0 overfull or underfull boxes,
   no undefined references.

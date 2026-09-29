@@ -48,7 +48,7 @@ Lean check:
 
 The last lines are
 
-    1243 checks passed, 0 failed
+    1251 checks passed, 0 failed
     overall: PASS
 
 and the exit status is zero. The driver runs five self-contained checks and
@@ -104,7 +104,7 @@ then calls the companion scripts in the same directory:
 | `f3prime_chow.py` | item (LXII): the Hodge numbers behind the reach of the zero-cycle arguments for (F3'): Jacobian rings of smooth hypersurfaces, the primitive Hodge numbers (1, 426, 1751, 426, 1) of a sextic fourfold, the Euler numbers, and the degrees in which a blow-up or a uniruled fivefold needs a class in degree four on a fourfold |
 | `mumford_mass.py` | item (LXIII): the Wirtinger bound on a Mumford square in the split model: theta^4 = 24 vol on X and theta_Y^8 = 8! vol on the square, the primitivity of U_12, U_13, U_23, the pairings int pi_ij theta_Y^6 = 0 and int pi_0 theta_Y^6 = 2880, so L(omega_a) = 4 a_0, and L(theta_Y^2) = 56 |
 | `cm_source.py` | item (LXIV): the Weil structure of a Mumford fourfold at a CM point and the cycles on its square: the tetrahedra T_+ and T_- = -T_+, 132 = 100 + 32 Hodge classes of degree four, pull-backs of the Weil line along homomorphisms with components in the CM field spanning 110 with the divisor products and no exceptional class, Rosati-symmetric pairs spanning all 132, and the coefficient profile of an exceptional class |
-| `quartic_rank.py` | item (LXV): the exact rank of contraction into omega + p(theta_1, theta_2) at a quartic CM field: 34 weight spaces of a six-dimensional torus, r = 64 + 16 mu + 4 rho_1 + 4 rho_2 + R_1 + R_2 with R_t in {7, 8}, the exceptional loci V_+ and V_- by Groebner bases over Q, the fifteen values 80 to 112 (never 100, least 80 only for constant p), and the Kaehler class integrals on the Weil tori of the field; sympy |
+| `quartic_rank.py` | item (LXV): the exact rank of contraction into omega + p(theta_1, theta_2) at a quartic CM field: 34 weight spaces of a six-dimensional torus, r = 64 + 16 mu + 4 rho_1 + 4 rho_2 + R_1 + R_2 with R_t in {7, 8}, the exceptional loci V_+ and V_- by Groebner bases over Q, the fifteen values 80 to 112 (never 100, least 80 only for constant p), the Kaehler class integrals on the Weil tori of the field, and the Hodge locus of every character: first order deformations, exceptional places, the stabiliser so(4,3) and the sign of int X kappa^6; sympy |
 | `delsarte.py` | item (LXVI): Delsarte fourfolds: the 29 sextic shapes built from Fermat terms, chains and loops, their Fermat covers (A adj(A) = det(A) I, rows of adj(A) summing to det(A)/6, the least covering degree 24 or 30 for six shapes), smoothness by Groebner bases, and the Jacobian ring (1, 426, 1751, 426, 1) of the loop sextic; sympy and numpy |
 | `simplex_type.py` | item (LXVII): hypersurfaces of simplex type: the lattice degree e of the 29 Delsarte sextic shapes by the Smith normal form (e = least d except 3125 for the chain C6 and 2604 for the loop), the Klein quartic (e = 7, the Fermat septic), the Euler numbers of 197 Delsarte hypersurfaces as sums over the orbits of P^{r+1}, the holomorphic forms of top degree as invariant characters of the Fermat cover for 119 hypersurfaces and 40 cyclic covers, nondegeneracy of random polynomials of simplex type, and the smooth adapted fan of the Klein quartic; sympy |
 | `transport_growth.py` | the transport of the base cycle along the rational orbit: det(phi) = c^{2G}, phi^* E = c^2 E and phi^* omega = c^{2n} omega on an explicit sample of rational symplectic elements with denominators to 29; the multiplicity of a component as the order of the stabiliser its kernel meets, computed as a lattice index by Smith normal form, against the image degree computed as a Pfaffian; and the contrast between a subtorus the isogeny preserves, where the image degree is constant, and one it does not, where it grows |
@@ -139,10 +139,10 @@ reduction at all.
 No Mathlib and no dependencies. The file ends with one `#print axioms` line
 per theorem; every one must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
-through `decide`, and none may mention `sorryAx`. There are one hundred and three theorems. `lean/README.md` lists them
+through `decide`, and none may mention `sorryAx`. There are one hundred and five theorems. `lean/README.md` lists them
 and says what each one does and does not establish. The workflow in
 `.github/workflows/lean.yml` runs the check on every push and fails if the
-number of theorems is not one hundred and three, or if any of them depends on an axiom other than propext.
+number of theorems is not one hundred and five, or if any of them depends on an axiom other than propext.
 
 ## The computations of Appendix D, item by item
 
@@ -350,7 +350,12 @@ character is the polarised family itself, so that obstruction does not
 extend, and at n = 2 one exceptional ratio gives a five-dimensional locus
 whose stabiliser is so(4,3) (`p2prime.py`, `p2prime_profile.py`, exact to n = 9, and to
 n = 10 in `code/extreme/`). This is a number an object would have to reach;
-nothing here constructs one or decides whether one exists.
+nothing here constructs one or decides whether one exists. At a quartic CM
+field the rank is at least 80, a complex meeting the criterion has
+dim Ext^2 >= 88, and the Hodge locus of each character, computed to first
+order, is the family of Weil tori only for the theta^4 shape, which is
+therefore excluded, and the polarised family itself for every other character
+left at 88, so deformation cannot exclude those (`quartic_rank.py`).
 
 The Hodge conjecture follows from that statement together with two more, the
 algebraicity of the Hodge classes on abelian varieties that divisor and Weil

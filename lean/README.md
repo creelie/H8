@@ -27,10 +27,10 @@ per theorem. Every line must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
 through `decide` or the core lemmas on natural numbers, and none may mention `sorryAx`. The GitHub workflow in
 `.github/workflows/lean.yml` enforces all three, and fails the build if the
-number of theorems is not one hundred and three or if any of them reaches for a further
+number of theorems is not one hundred and five or if any of them reaches for a further
 axiom.
 
-## The one hundred and three theorems
+## The one hundred and five theorems
 
 | theorem | statement |
 | --- | --- |
@@ -137,6 +137,8 @@ axiom.
 | `delsarte_loop_sextic` | for the loop sextic, `A B = 15624 I` with `B` the circulant `(3125, -625, 125, -25, 5, -1)`, rows of `B` summing to `2604`, and Jacobian ring dimensions `1, 426, 1751, 426, 1`, total `15625` |
 | `simplex_klein_quartic` | for the Klein quartic, `C R = 7 I` with `R` the exponent matrix in the chart `z = 1` and `C` explicit, `det R = 7`, `det A = 28` for the full exponent matrix, and `C` not zero modulo `7`, so the lattice exponent is `7`; the Euler number summed over the torus strata is `-4`, the value `((1 - 4)^3 - 1 + 12) / 4` of a smooth plane quartic |
 | `simplex_loop_sextic` | for the loop sextic, `C R = 2604 I` with `C` explicit, `det R = 2604 = 2^2 * 3 * 7 * 31`, and `C` not zero modulo any of these primes, so the lattice exponent is `2604`; the Euler number summed over the torus strata is `2610` for the loop and for the Fermat sextic, the value `((1 - 6)^6 - 1 + 36) / 6` of a smooth sextic fourfold |
+| `quartic_exceptional_pair` | in the exterior algebra of `V_s + V_s'` at a real place of a quartic CM field, `theta^4 = 24 alpha_s alpha_s'` and `(alpha_s + alpha_s')^2 = 2 alpha_s alpha_s'`; `theta^3 D = 0` and the `theta^2 D` are four distinct monomials for `D` in `V_s^{0,1} (x) V_s'^{0,1}`; and the two deformations `xi'_0`, `xi''_0` that are not `F`-linear send `alpha_s`, `theta`, `theta^2` to `theta b_{s,0} b_{s,1}`, `2 b_{s',0} b_{s',1}`, `4 theta b_{s',0} b_{s',1}` and symmetrically, so the place is exceptional exactly when `16 c^2 = u_s u_s'` |
+| `quartic_locus_counts` | the rational characters with both places exceptional have rank `94` or `110`; the annihilator of a character has dimension `8 + 4a + b`, one of `8, 9, 10, 12, 13, 16`; `so(4,3)` has dimension `21` and maximal compact subalgebra of dimension `9`, `su(2,2)` has `15` and `7`, and the orbits have dimension `21 - 16 = 5` and `15 - 11 = 4` |
 
 
 ## Two statements that look true and are not
@@ -160,12 +162,12 @@ careful reading does not catch and a kernel check does.
 `code/verify_all.py` in the parent directory performs the same checks in exact
 rational arithmetic over Q, independently of Lean, together with the exterior
 algebra computations that Lean does not carry, and prints
-`1243 checks passed, 0 failed`.
+`1251 checks passed, 0 failed`.
 
 ## Transcript
 
 `axioms.txt` is the unedited output of `lean HodgeObstruction.lean` under
-Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and three lines, one per
-theorem, eighty-six reading `does not depend on any axioms` and seventeen reading
+Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and five lines, one per
+theorem, eighty-seven reading `does not depend on any axioms` and eighteen reading
 `depends on axioms: [propext]`, exit status 0, no `sorryAx`. `lake build`
 completes with the same report. Each run takes a few minutes.
