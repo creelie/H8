@@ -177,8 +177,19 @@ Hodge_tex_v25 upload into `tex/sections/10c8_supports.tex` (`lem:smoothinjective
 `lem:binomialmoments`, `thm:lattice`, `cor:latticeburch`, `rem:latticedefect`;
 the injectivity is automatic only on a simple fourfold, and h^0(N) >= 4 comes
 from e(S) != 0), with item (LXIX), `code/lattice_congruence.py` (708 checks,
-1986 in all; 401 pages; 684 labels). P2_split, (F2) and (F3') remain open. Never use agents or
-workflows in this repository's sessions: do the work directly.
+1986 in all; 401 pages; 684 labels); round 27 proved that a Hilbert-Burch
+resolution of a secant support has rank r >= 2, and r >= 3 at d = 1, 5 when
+its Chern classes are polynomials in Theta (`prop:lowrankburch`,
+`rem:lowrankburch` in `tex/sections/10c8_supports.tex`; item (LXX),
+`code/burch_rank.py`, 18 checks, 2004 in all; 403 pages; 686 labels), and
+corrected Deep's route note on those supports as the working note
+`notes/route/` (`route_note.tex`, 6 pages; `route_checks.py`, 19 checks; the
+toy search of the first version in `notes/route/toy/`): the fourfolds of Weil
+type are Markman's theorem, the route aims at W(K,4,delta) on eightfolds and
+needs [Mar25b, Question 11.4], condition (a) runs over all ten polarised
+directions, [S] = N Theta^2, and its numerical lemma omitted the vanishing of
+Chern classes above the rank. P2_split, (F2) and (F3') remain open. Never use
+agents or workflows in this repository's sessions: do the work directly.
 
 Release v1.0.0 (tag `v1.0.0`, commit `ef15bce`) is archived on Zenodo under
 DOI 10.5281/zenodo.22950276, recorded in the macro `\zenodoFirstDOI` at the

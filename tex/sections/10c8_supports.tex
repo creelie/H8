@@ -935,6 +935,93 @@ the semi-homogeneous bundles need the separate argument of
 \Cref{thm:noblocks}.
 \end{remark}
 
+The lattice constrains the classes of the two terms of a resolution; their
+ranks constrain the Chern classes, because a vector bundle of rank $s$ has
+$c_{k}=0$ for $k>s$, and on a fourfold this bites for $s\le3$.
+
+\begin{proposition}[Resolutions of rank one and two]\label{prop:lowrankburch}
+Let $(X,\Theta)$ be a principally polarised abelian fourfold, let $b\ge1$
+and $d>0$, and let $Z\subset X$ be of codimension two with a resolution
+\[
+  0\longrightarrow E_{1}\longrightarrow E_{0}\longrightarrow\cI_{Z}
+  \longrightarrow0
+\]
+by vector bundles of ranks $r$ and $r+1$, and with
+$\ch(\cI_{Z}(b\Theta))=u_{\Theta}+b\,v_{\Theta}$.
+\begin{enumerate}[label=\textup{(\roman*)},nosep,leftmargin=2.2em]
+\item $r\ge2$, whatever the bundles. Equivalently, $Z$ is not the zero locus
+  of a section of a vector bundle of rank two.
+\item If $r=2$ and the Chern classes of $E_{1}$ are polynomials in $\Theta$,
+  as they are when $\Hdg^{2}(X)=\QQ\Theta$ and $\Hdg^{4}(X)=\QQ\Theta^{2}$,
+  then
+  \[
+    3d-b^{2}-4ab\equiv0\pmod{12},\qquad c_{1}(E_{1}(b\Theta))=a\Theta .
+  \]
+  At $b=3$ this says $d\equiv3\pmod4$.
+\end{enumerate}
+In particular, at the discriminants $d=1$ and $d=5$ of
+\Cref{cor:fourdiscriminants}, a resolution whose Chern classes are
+polynomials in $\Theta$ has $r\ge3$.
+\end{proposition}
+
+\begin{proof}
+Put $E=E_{1}(b\Theta)$, $G=E_{0}(b\Theta)$ and $F=\cI_{Z}(b\Theta)$, so that
+$0\to E\to G\to F\to0$ is exact and $c(G)=c(E)\,c(F)$. Newton's identities
+applied to $\ch(F)=1+b\Theta-\frac d2\Theta^{2}-\frac{db}{6}\Theta^{3}
++\frac{d^{2}}{24}\Theta^{4}$ give, with $N=\frac12(b^{2}+d)$,
+\[
+  c(F)=1+b\Theta+N\Theta^{2}+\tfrac{bN}{3}\Theta^{3}
+  +\tfrac{N(b^{2}-3d)}{12}\Theta^{4}.
+\]
+Since $E$ and $G$ are vector bundles, $c_{k}(E)=0$ for $k>r$ and
+$c_{k}(G)=0$ for $k>r+1$.
+
+(i) Let $r=1$ and $\ell=c_{1}(E)$, so that $c(G)=(1+\ell)\,c(F)$. The rank
+two bundle $G$ has $c_{3}(G)=\frac{bN}{3}\Theta^{3}+N\ell\,\Theta^{2}=0$, and
+cup product with $\Theta^{2}$ is an isomorphism $H^{2}(X,\QQ)\to H^{6}(X,\QQ)$
+by hard Lefschetz, so $\ell=-\frac b3\Theta$. Then
+\[
+  c_{4}(G)=c_{4}(F)+\ell\,c_{3}(F)
+  =N\Bigl(\frac{b^{2}-3d}{12}-\frac{b^{2}}{9}\Bigr)\Theta^{4}
+  =-\frac{N(b^{2}+9d)}{36}\,\Theta^{4},
+\]
+which is not zero, since $N>0$ and $d>0$. A section of a rank two bundle $V$
+vanishing in codimension two exactly on $Z$ gives the Koszul resolution
+$0\to\det V^{\vee}\to V^{\vee}\to\cI_{Z}\to0$, which has $r=1$; conversely,
+at $r=1$ the map $E_{1}\to E_{0}$ is a section of $E_{0}\otimes E_{1}^{\vee}$
+with zero locus $Z$.
+
+(ii) Let $r=2$, and write $c_{1}(E)=a\Theta$ and $c_{2}(E)=\frac m2\Theta^{2}$
+with $a,m\in\ZZ$, since $\Theta$ and $\frac12\Theta^{2}$ are primitive
+integral classes. Now $c_{3}(E)=c_{4}(E)=0$, and the rank three bundle $G$
+has
+\[
+  c_{4}(G)=c_{4}(F)+c_{1}(E)\,c_{3}(F)+c_{2}(E)\,c_{2}(F)=0 .
+\]
+Integrating, with $\int_{X}\Theta^{4}=24$, and dividing by $2N$ gives
+$6m=3d-b^{2}-4ab$. By Riemann--Roch with trivial Todd class,
+$\chi(E)=\int_{X}\ch_{4}(E)=a^{4}-2a^{2}m+\frac12m^{2}$ is an integer, so $m$
+is even, which is the congruence. At $b=3$ it reads $3(d-3)\equiv12a\equiv0$
+modulo $12$, that is, $d\equiv3\pmod4$. Item (LXX) of
+\Cref{sec:verification} checks these formulas and confirms, by an
+independent search over the Chern data at $b=3$ and $d\le40$, that rank two
+data exist exactly for $d\equiv3\pmod4$.
+\end{proof}
+
+\begin{remark}[What the ranks exclude]\label{rem:lowrankburch}
+Part (i) extends \Cref{thm:noci} from two divisors to the zero locus of a
+section of any rank two bundle, stable or not, so the construction of Serre
+produces no secant support; it holds for every $X$, with no condition on
+$\NS(X)$. Part (ii) extends the row $r=2$ of \Cref{tab:burch} from sums of
+line bundles to arbitrary bundles at $d\equiv1\pmod4$. The integrality of
+the Chern classes of $E_{0}$ is automatic, since
+$c(E_{0}(b\Theta))=c(E_{1}(b\Theta))\,c(F)$ and $c(F)$ is integral, so it is
+the vanishing above the rank, and not integrality, that constrains. Neither
+condition restricts $r\ge3$: a bundle of rank four has no vanishing Chern
+class on a fourfold, and at $r=3$ the only condition, $c_{4}(E)=0$, involves
+$E$ alone.
+\end{remark}
+
 The search of \Cref{thm:burchsearch} records where a split resolution can
 have the right Chern character, and \Cref{cor:latticeburch} removes the
 bound on the twists from it. A stronger statement needs neither a search
@@ -1214,9 +1301,11 @@ ideal has projective dimension one, and exactly two shapes remain.
 
 The first is a smooth support. Every invariant is then forced, the
 discriminant is one of four (\Cref{cor:fourdiscriminants}), the resolution
-cannot split, for any $d$ and any rank (\Cref{thm:nosplit}), and its two
+cannot split, for any $d$ and any rank (\Cref{thm:nosplit}), its two
 terms cannot both have classes in the subring generated by line bundles
-(\Cref{cor:latticeburch}). What is needed is the existence of such a surface
+(\Cref{cor:latticeburch}), and it has $r\ge2$, and $r\ge3$ at $d=1,5$ when
+its Chern classes are polynomials in $\Theta$ (\Cref{prop:lowrankburch}).
+What is needed is the existence of such a surface
 on a principally polarised abelian fourfold, with a Hilbert--Burch matrix
 over a bundle whose class lies outside that subring, which moves with the
 fourfold to first order in every polarised direction, that is, whose
