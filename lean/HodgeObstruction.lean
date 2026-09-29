@@ -2,7 +2,7 @@
 HodgeObstruction.lean
 
 A machine check, by Lean 4's kernel, of the finite arithmetic behind the
-results of "Explicit Base Points and Obstructions to Propagation for Weil Classes on Abelian Varieties".
+results of "Density of the Algebraic Locus of Weil Classes on Abelian Varieties".
 
 The two theorems are statements of algebraic geometry and are not formalised
 here; what is formalised is the arithmetic on which each of them turns, and in
@@ -74,7 +74,19 @@ both cases that arithmetic is finite and integral.
     Section 21 checks both, so that the local obstruction always has a point
     to act at.
 
-Everything is settled by `decide`, so the kernel checks it.  There is no
+  * Markman's candidate for a quartic CM field turns on four finite facts:
+    the Koszul squares of the jet classes of a line bundle on a smooth curve
+    and of a skyscraper are the projections to wedge^2 of the normal space,
+    the compensated bivectors of the two eigenplanes of the real
+    multiplication annihilate the quartic secant space, the contraction
+    matrices of the two classes of the candidate have invertible 20 x 20 and
+    12 x 12 minors modulo a prime, and the Chern character of the first
+    factor is Theta - (d/6) Theta^3 by the bookkeeping of its construction.
+    Section 40 checks them, the second and third in the exterior algebra on
+    eight generators.
+
+Everything is settled by `decide`, in two cases by its kernel-only form
+`decide +kernel`, so the kernel checks it.  There is no
 `sorry` and no dependence on Mathlib.
 -/
 
@@ -2235,6 +2247,309 @@ theorem quartic_locus_counts :
     /\ 2 ^ 3 = 8 /\ 4 * 24 = 3 * 2 * 16 := by
   decide
 
+/-! ## 40.  The local obstruction for a quartic secant character
+
+Three finite facts behind Lemma (Free germs on smooth supports), Theorem (The
+local obstruction for a quartic secant character) and Proposition (The classes
+of Markman's candidate).
+
+(a) The Koszul computation.  For `k = R/(x_1,...,x_c)` over `R = Q[x_1..x_4]`
+the resolution is the Koszul complex, the jet chain map of `d/dx_k` is
+`-(d/dx_k)` of the differential, and the Yoneda square of two jet classes is
+represented by the constant matrix `(-D_k d_1)(-D_l d_2)`, a vector indexed by
+the pairs `a < b <= c`; the coboundaries vanish at the origin because every
+entry of `d_2` is a linear form.  The theorem computes the vector for every
+`k, l <= 4` and `c = 3, 4` and finds it nonzero exactly when `k != l` and both
+are at most `c`: the products of the translation classes of a line bundle on
+a smooth curve, or of a skyscraper, are the projections to `wedge^2 N`.
+
+(b) The exterior algebra on `H^1(X) = U_1 + U_2` with generators
+`0 p_11, 1 p_12, 2 q_11, 3 q_12, 4 p_21, 5 p_22, 6 q_21, 7 q_22`, the classes
+`theta_j = p_j1 q_j1 + p_j2 q_j2`, `A_j = 1 - theta_j^2` (the value `q = 2`),
+the four classes `A_1 A_2`, `theta_1 theta_2`, `theta_1 A_2`, `theta_2 A_1`
+spanning `S(0,2)`, and the action of `HT^2`: a class of `H^{0,2}` by
+multiplication, a class of `Hom(H^{1,0},H^{0,1})` as a derivation, a bivector
+`d_a d_b` by the composite interior product.  The theorem checks that the
+compensated bivectors `x_j = (pi_j _| theta_j^2, 0, pi_j)`, `j = 1, 2`,
+annihilate the four spanning classes, and that the six symmetric maps at the
+two places annihilate `theta_1` and `theta_2`.
+
+(c) Two rank certificates.  With the stand-in values `f_1 = 2`, `f_2 = 1/2`,
+`4 beta' = 16 theta_1 A_2 + theta_2 A_1` and `alpha_0 = theta_1 A_2 + theta_2 A_1`
+are integral, and the contraction matrices `HT^2 -> H^*` have `20 x 20` and
+`12 x 12` minors that are nonzero modulo the prime `1000003`; the rows and
+columns are the ones item (LXVIII) found, and the kernel recomputes the entries
+and the rank of the minors.  Rank does not go up under reduction modulo a
+prime, so the contraction has rank at least `20`, resp. `12`, over `Q`; with
+the `8`, resp. `16`, independent annihilating classes of (b) and of Theorem
+(Reduction to the factor) this is equality.
+-/
+
+/-- the number of set bits of `m` in positions `[0, a)`. -/
+def qBitsBelow (m a : Nat) : Nat := (List.range a).countP (fun i => m.testBit i)
+
+/-- the number of set bits of `m` in positions `(j, 8)`. -/
+def qBitsAbove (m j : Nat) : Nat :=
+  (List.range 8).countP (fun i => j < i && m.testBit i)
+
+/-- the sign of `e_a e_b -> e_{a | b}` for disjoint masks `a`, `b`, with the
+generators written in increasing order. -/
+def qShuffleSign (a b : Nat) : Int :=
+  if ((List.range 8).foldl (fun s j => if b.testBit j then s + qBitsAbove a j else s) 0) % 2 == 0
+  then 1 else -1
+
+/-- an element of the exterior algebra on eight generators: the coefficient
+of every monomial `m < 256`. -/
+abbrev QElt := List Int
+
+def qZero : QElt := List.replicate 256 0
+def qOne : QElt := (List.range 256).map (fun m => if m == 0 then 1 else 0)
+def qMono (m : Nat) : QElt := (List.range 256).map (fun k => if k == m then 1 else 0)
+
+def qGet (u : QElt) (m : Nat) : Int := u.getD m 0
+
+def qAdd (u v : QElt) : QElt := List.zipWith (fun a b => a + b) u v
+def qScale (c : Int) (u : QElt) : QElt := u.map (fun a => c * a)
+def qNeg (u : QElt) : QElt := u.map (fun a => -a)
+
+/-- `c e_m` wedge `u`. -/
+def qWedgeMono (m : Nat) (c : Int) (u : QElt) : QElt :=
+  (List.range 256).map fun k =>
+    if k &&& m == m then
+      let n := k ^^^ m
+      qShuffleSign m n * c * qGet u n
+    else 0
+
+/-- `u` wedge `v`, summing over the nonzero monomials of `u`. -/
+def qWedge (u v : QElt) : QElt :=
+  (List.range 256).foldl
+    (fun acc m => let c := qGet u m; if c == 0 then acc else qAdd acc (qWedgeMono m c v))
+    qZero
+
+/-- the interior product with the generator `a`. -/
+def qInterior (a : Nat) (u : QElt) : QElt :=
+  (List.range 256).map fun k =>
+    if k.testBit a then 0
+    else
+      let n := k ||| (1 <<< a)
+      (if qBitsBelow n a % 2 == 0 then 1 else -1) * qGet u n
+
+/-- the even derivation `e_i -> e_k`, `e_j -> 0` for `j != i`. -/
+def qDeriv (i k : Nat) (u : QElt) : QElt :=
+  (List.range 256).map fun m' =>
+    if m'.testBit k && !(m'.testBit i) then
+      let m := (m' ^^^ (1 <<< k)) ||| (1 <<< i)
+      let lo := if i < k then i else k
+      let hi := if i < k then k else i
+      let between := (List.range 8).countP (fun j => lo < j && j < hi && m.testBit j)
+      (if between % 2 == 0 then 1 else -1) * qGet u m
+    else 0
+
+def qIsZero (u : QElt) : Bool := u.all (fun a => a == 0)
+
+/-- `theta_1 = p_11 q_11 + p_12 q_12`, `theta_2 = p_21 q_21 + p_22 q_22`. -/
+def qTheta1 : QElt := qAdd (qMono ((1 <<< 0) ||| (1 <<< 2))) (qMono ((1 <<< 1) ||| (1 <<< 3)))
+def qTheta2 : QElt := qAdd (qMono ((1 <<< 4) ||| (1 <<< 6))) (qMono ((1 <<< 5) ||| (1 <<< 7)))
+def qTheta1Sq : QElt := qWedge qTheta1 qTheta1
+def qTheta2Sq : QElt := qWedge qTheta2 qTheta2
+/-- `A_j = 1 - theta_j^2`, the value `q = 2`. -/
+def qA1 : QElt := qAdd qOne (qNeg qTheta1Sq)
+def qA2 : QElt := qAdd qOne (qNeg qTheta2Sq)
+/-- the four classes spanning `S(0,2)`. -/
+def qSpan : List QElt :=
+  [qWedge qA1 qA2, qWedge qTheta1 qTheta2, qWedge qTheta1 qA2, qWedge qTheta2 qA1]
+/-- `alpha_0` and `4 beta'` for `f_1 = 2`, `f_2 = 1/2`. -/
+def qAlpha0 : QElt := qAdd (qWedge qTheta1 qA2) (qWedge qTheta2 qA1)
+def qBeta4 : QElt := qAdd (qScale 16 (qWedge qTheta1 qA2)) (qWedge qTheta2 qA1)
+
+/-- the bivector `pi_j` acting as `i_a i_b` with `(a,b) = (0,1)` or `(4,5)`. -/
+def qPi (a b : Nat) (u : QElt) : QElt := qInterior a (qInterior b u)
+
+/-- `x_j _| v = (pi_j _| theta_j^2) v + pi_j _| v`, the value `q = 2`. -/
+def qXapply (a b : Nat) (thSq v : QElt) : QElt :=
+  qAdd (qWedge (qPi a b thSq) v) (qPi a b v)
+
+/-- **The compensated bivectors annihilate the secant space.**  For
+`q = 2` the classes `x_1 = (pi_1 _| theta_1^2, 0, pi_1)` and
+`x_2 = (pi_2 _| theta_2^2, 0, pi_2)` kill the four classes spanning `S(0,2)`,
+and the six symmetric maps at the two places kill `theta_1` and `theta_2`. -/
+theorem quartic_compensated_bivectors :
+    ((qSpan.all fun v => qIsZero (qXapply 0 1 qTheta1Sq v) && qIsZero (qXapply 4 5 qTheta2Sq v))
+      && ([qTheta1, qTheta2].all fun t =>
+          qIsZero (qDeriv 0 2 t) && qIsZero (qDeriv 1 3 t)
+          && qIsZero (qAdd (qDeriv 0 3 t) (qDeriv 1 2 t))
+          && qIsZero (qDeriv 4 6 t) && qIsZero (qDeriv 5 7 t)
+          && qIsZero (qAdd (qDeriv 4 7 t) (qDeriv 5 6 t)))) = true := by
+  decide +kernel
+
+/-! ### The rank certificates -/
+
+/-- the `28` rows of the contraction matrix of `v`: six products with the
+`(0,2)`-forms `q_a q_b`, sixteen derivations `p_i -> q_k`, six bivectors. -/
+def qRows (v : QElt) : List QElt :=
+  ([(2,3),(2,6),(2,7),(3,6),(3,7),(6,7)].map fun ab => qWedge (qMono ((1 <<< ab.1) ||| (1 <<< ab.2))) v)
+  ++ ((([0,1,4,5].map fun i => [2,3,6,7].map fun k => qDeriv i k v).foldl (fun acc l => acc ++ l) []))
+  ++ ([(0,1),(0,4),(0,5),(1,4),(1,5),(4,5)].map fun ab => qPi ab.1 ab.2 v)
+
+def qPrime : Nat := 1000003
+
+def qModP (x : Int) : Nat := (Int.emod x (Int.ofNat qPrime)).toNat
+
+/-- the submatrix on the given rows and columns, reduced modulo the prime. -/
+def qMinor (v : QElt) (rows cols : List Nat) : List (List Nat) :=
+  let R := qRows v
+  rows.map fun i => cols.map fun c => qModP (qGet (R.getD i qZero) c)
+
+/-- modular exponentiation by squaring, with fuel. -/
+def qPowModAux : Nat -> Nat -> Nat -> Nat -> Nat
+  | 0, _, _, acc => acc
+  | fuel + 1, b, e, acc =>
+    if e == 0 then acc
+    else qPowModAux fuel (b * b % qPrime) (e / 2) (if e % 2 == 1 then acc * b % qPrime else acc)
+
+/-- the inverse modulo the prime, by Fermat. -/
+def qInv (a : Nat) : Nat := qPowModAux 40 (a % qPrime) (qPrime - 2) 1
+
+/-- subtract `f` times the normalised pivot row, where `f` is the leading
+entry of `row`, so that the leading entry becomes zero. -/
+def qEliminate (pivot row : List Nat) : List Nat :=
+  let f := row.getD 0 0
+  List.zipWith (fun r p => (r + (qPrime - f % qPrime) * p) % qPrime) row pivot
+
+/-- the rank modulo the prime: Gaussian elimination on the first column,
+which is then dropped. -/
+def qRankAux : Nat -> List (List Nat) -> Nat
+  | 0, _ => 0
+  | fuel + 1, M =>
+    match M with
+    | [] => 0
+    | row0 :: _ =>
+      if row0.length == 0 then 0
+      else
+        match M.find? (fun row => row.getD 0 0 != 0) with
+        | none => qRankAux fuel (M.map fun row => row.drop 1)
+        | some p =>
+          let inv := qInv (p.getD 0 0)
+          let pnorm := p.map fun x => x * inv % qPrime
+          let rest := (M.filter fun row => row != p).map fun row => (qEliminate pnorm row).drop 1
+          1 + qRankAux fuel rest
+
+def qRank (M : List (List Nat)) : Nat := qRankAux 64 M
+
+def qRowsBeta : List Nat := [0, 1, 2, 3, 4, 5, 7, 8, 9, 12, 13, 14, 15, 17, 18, 19, 23, 24, 25, 26]
+def qColsBeta : List Nat :=
+  [12, 68, 72, 77, 78, 92, 132, 136, 141, 142, 192, 197, 212, 216, 221, 222, 228, 232, 237, 238]
+def qRowsAlpha : List Nat := [0, 1, 2, 3, 4, 5, 7, 8, 9, 12, 13, 17]
+def qColsAlpha : List Nat := [12, 68, 72, 77, 78, 92, 132, 136, 141, 142, 192, 197]
+
+/-- **The contraction ranks of Markman's classes.**  A `20 x 20` minor of the
+contraction matrix of `4 beta'` and a `12 x 12` minor of that of `alpha_0` are
+invertible modulo `1000003`, so the ranks over `Q` are at least `20` and `12`;
+they are at most that by the annihilating classes. -/
+theorem quartic_rank_certificates :
+    ((qRank (qMinor qBeta4 qRowsBeta qColsBeta) == 20)
+      && (qRank (qMinor qAlpha0 qRowsAlpha qColsAlpha) == 12)) = true := by
+  decide +kernel
+
+/-! ### The Koszul computation -/
+
+/-- a linear form in `x_1..x_4`: its constant term and four coefficients. -/
+abbrev QLin := List Int
+
+def qVar (k : Nat) : QLin := (List.range 5).map fun i => if i == k then 1 else 0
+def qLinZero : QLin := List.replicate 5 0
+def qLinNeg (l : QLin) : QLin := l.map (fun a => -a)
+/-- `d/dx_k` of a linear form, `k = 1..4`. -/
+def qDiff (k : Nat) (l : QLin) : Int := l.getD k 0
+
+/-- the pairs `a < b <= c`. -/
+def qPairs (c : Nat) : List (Prod Nat Nat) :=
+  ((List.range c).map fun a => (List.range c).filterMap fun b =>
+      if a + 1 <= b then some (a + 1, b + 1) else none).foldl (fun acc l => acc ++ l) []
+
+/-- `d_1 = (x_1, ..., x_c)`: entry `i`. -/
+def qD1 (c i : Nat) : QLin := if i < c then qVar (i + 1) else qLinZero
+
+/-- `d_2 (e_a e_b) = x_a e_b - x_b e_a`: the entry in row `i` and column `(a,b)`. -/
+def qD2 (i : Nat) (ab : Prod Nat Nat) : QLin :=
+  if i + 1 == ab.2 then qVar ab.1 else if i + 1 == ab.1 then qLinNeg (qVar ab.2) else qLinZero
+
+/-- the constant matrix `(-D_k d_1)(-D_l d_2)` as a vector over the pairs. -/
+def qSquare (c k l : Nat) : List Int :=
+  (qPairs c).map fun ab =>
+    (List.range c).foldl (fun s i => s + qDiff k (qD1 c i) * qDiff l (qD2 i ab)) 0
+
+/-- **The Koszul squares of a line bundle on a smooth curve and of a
+skyscraper.**  For `c = 3` and `c = 4` every entry of `d_2` has zero constant
+term, and the vector representing `a_k a_l` is nonzero exactly when `k != l`
+and both are at most `c`. -/
+theorem quartic_koszul_squares :
+    ([3, 4].all fun c =>
+      ((qPairs c).all fun ab => (List.range c).all fun i => (qD2 i ab).getD 0 0 == 0)
+      && ((List.range 4).all fun k => (List.range 4).all fun l =>
+            ((qSquare c (k + 1) (l + 1)).any (fun x => x != 0))
+              == (k != l && k + 1 <= c && l + 1 <= c))) = true := by
+  decide
+
+/-- **A line lies in at most one of two complementary planes.**  For every
+nonzero `l` in `[-6,6]^4`, the bivector of the plane `(e_1,e_2)` or that of
+`(e_3,e_4)` has nonzero wedge with `l`, that is, nonzero image in
+`wedge^2 (T/l)`. -/
+theorem quartic_line_two_planes :
+    ((List.range 13).all fun a => (List.range 13).all fun b =>
+      (List.range 13).all fun c => (List.range 13).all fun d =>
+        let l := [Int.ofNat a - 6, Int.ofNat b - 6, Int.ofNat c - 6, Int.ofNat d - 6]
+        (l.all fun x => x == 0)
+        || ((l.getD 2 0 != 0 || l.getD 3 0 != 0) || (l.getD 0 0 != 0 || l.getD 1 0 != 0))) = true := by
+  decide
+
+/-! ### The character of Markman's first factor
+
+In `Q[Theta]/(Theta^5)` with `[pt] = Theta^4/24`, a class is a list of five
+coefficients; scaled by `24` they are integers.  The theorem repeats the
+bookkeeping of Example 8.2.4 of the paper cited as [Mar25a]: `e_* O_Theta(Theta)`
+has `24 ch = (0,24,12,4,1)`, `O_{W_2}` has `24 ch = (0,0,12,-8,3)`, the
+twist by `e^Theta` gives `(0,0,12,4,1)`, so the ideal of the Weil divisor
+`W_{2,p}` twisted by `Theta` has character exactly `Theta`; `O_{W_1}` has
+`24 ch = (0,0,0,4,-3)` and its twist `(0,0,0,4,1)`; and removing `d` curves
+meeting the surface in one point each gives `24 ch(F_d) = (0,24,0,-4d,0)`,
+that is `ch(F_d) = Theta - (d/6) Theta^3`, with `chi(F_d,F_d) = 8d`. -/
+
+/-- truncated product of two classes scaled by `24`: the result is scaled by `576`. -/
+def qTrunc (a b : List Int) : List Int :=
+  (List.range 5).map fun k =>
+    (List.range (k + 1)).foldl (fun s i => s + a.getD i 0 * b.getD (k - i) 0) 0
+
+def qE24 : List Int := [24, 24, 12, 4, 1]          -- 24 e^Theta
+def qOThetaT : List Int := [0, 24, 12, 4, 1]       -- 24 ch(e_* O_Theta(Theta))
+def qOW2 : List Int := [0, 0, 12, -8, 3]           -- 24 ch(O_{W_2})
+def qOW1 : List Int := [0, 0, 0, 4, -3]            -- 24 ch(O_{W_1})
+def qPt : List Int := [0, 0, 0, 0, 1]              -- 24 [pt]
+
+def qListSub (a b : List Int) : List Int := List.zipWith (fun x y => x - y) a b
+def qListScale (c : Int) (a : List Int) : List Int := a.map (fun x => c * x)
+def qDual (a : List Int) : List Int :=
+  (List.range 5).map fun k => if k % 2 == 0 then a.getD k 0 else - a.getD k 0
+
+/-- `24 ch(O_{W_2}(Theta))` and `24 ch(O_{W_1}(Theta))`, as `(24 e^Theta)(24 ch)/24`. -/
+def qOW2T : List Int := (qTrunc qE24 qOW2).map (fun x => x / 24)
+def qOW1T : List Int := (qTrunc qE24 qOW1).map (fun x => x / 24)
+/-- `24 ch(F_d)`. -/
+def qFd (d : Nat) : List Int :=
+  qListSub (qListSub qOThetaT qOW2T) (qListSub (qListScale (Int.ofNat d) qOW1T) (qListScale (Int.ofNat d) qPt))
+
+/-- **The character of Markman's first factor.**  The twisted classes are the
+ones of Example 8.2.4, the ideal of the Weil divisor has character `Theta`,
+and `ch(F_d) = Theta - (d/6) Theta^3` with `chi(F_d, F_d) = 8 d`, for `d <= 60`. -/
+theorem quartic_first_factor_character :
+    ((qTrunc qE24 qOW2).all (fun x => x % 24 == 0) && (qTrunc qE24 qOW1).all (fun x => x % 24 == 0)
+      && (qOW2T == [0, 0, 12, 4, 1]) && (qOW1T == [0, 0, 0, 4, 1])
+      && (qListSub qOThetaT qOW2T == [0, 24, 0, 0, 0])
+      && ((List.range 61).all fun d =>
+            (qFd d == [0, 24, 0, -4 * Int.ofNat d, 0])
+            && ((qTrunc (qDual (qFd d)) (qFd d)).getD 4 0 == 576 * 8 * Int.ofNat d / 24))) = true := by
+  decide
+
 end HodgeObstruction
 
 /-! ## The axioms each theorem depends on
@@ -2349,3 +2664,8 @@ propositional extensionality enters through `decide`, and in no case
 #print axioms HodgeObstruction.simplex_loop_sextic
 #print axioms HodgeObstruction.quartic_exceptional_pair
 #print axioms HodgeObstruction.quartic_locus_counts
+#print axioms HodgeObstruction.quartic_compensated_bivectors
+#print axioms HodgeObstruction.quartic_rank_certificates
+#print axioms HodgeObstruction.quartic_koszul_squares
+#print axioms HodgeObstruction.quartic_line_two_planes
+#print axioms HodgeObstruction.quartic_first_factor_character

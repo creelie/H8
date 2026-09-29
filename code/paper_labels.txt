@@ -19,6 +19,7 @@ cor:ksboundary
 cor:lefschetzsmall
 cor:localobstruction
 cor:markmancondition
+cor:markmanquarticfails
 cor:meagre
 cor:mumfordbounded
 cor:mumfordequiv
@@ -118,6 +119,7 @@ eq:pimodulo
 eq:pteconditions
 eq:ptepure
 eq:pullbacktet
+eq:quarticcompensated
 eq:quarticstar
 eq:quatE
 eq:secantkernel
@@ -181,6 +183,7 @@ fig:pencil
 fig:product
 fig:propagation
 fig:properness
+fig:quarticlocal
 fig:quarticloci
 fig:quarticrank
 fig:rigidity
@@ -216,9 +219,11 @@ lem:cliffJ
 lem:cliffdim
 lem:cmweiltori
 lem:conjugates
+lem:divisorgerm
 lem:edge
 lem:eigenbasis
 lem:finiteproduct
+lem:freegerm
 lem:genericNS
 lem:gysinrestrict
 lem:hermform
@@ -303,6 +308,7 @@ prop:lefmot
 prop:lefschetzdecomp
 prop:lefvhc
 prop:markman8
+prop:markmanquarticclasses
 prop:modp
 prop:mumfordcarrier
 prop:mumfordcmpowers
@@ -458,6 +464,7 @@ rem:quarticnegext
 rem:quarticprym
 rem:quarticsecantshape
 rem:quatdivisible
+rem:question1122
 rem:question114
 rem:remaindershape
 rem:residualmap
@@ -645,6 +652,7 @@ thm:p2support
 thm:plane
 thm:positivity
 thm:pterange
+thm:quarticlocal
 thm:quarticobstruction
 thm:quarticp2prime
 thm:quarticrank

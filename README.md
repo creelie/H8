@@ -1,9 +1,9 @@
-# Explicit Base Points and Obstructions to Propagation for Weil Classes on Abelian Varieties
+# Density of the Algebraic Locus of Weil Classes on Abelian Varieties
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22950276.svg)](https://doi.org/10.5281/zenodo.22950276)
 
-Verification code and figure sources for the paper *Explicit Base Points and
-Obstructions to Propagation for Weil Classes on Abelian Varieties*, by Deep
+Verification code and figure sources for the paper *Density of the Algebraic
+Locus of Weil Classes on Abelian Varieties*, by Deep
 Bhattacharjee, Priyabrata Mandal and Ushashi Bhattacharya.
 
 Release v2.0.0 (https://github.com/creelie/H8/releases/tag/v2.0.0) accompanies
@@ -48,7 +48,7 @@ Lean check:
 
 The last lines are
 
-    1251 checks passed, 0 failed
+    1278 checks passed, 0 failed
     overall: PASS
 
 and the exit status is zero. The driver runs five self-contained checks and
@@ -107,6 +107,7 @@ then calls the companion scripts in the same directory:
 | `quartic_rank.py` | item (LXV): the exact rank of contraction into omega + p(theta_1, theta_2) at a quartic CM field: 34 weight spaces of a six-dimensional torus, r = 64 + 16 mu + 4 rho_1 + 4 rho_2 + R_1 + R_2 with R_t in {7, 8}, the exceptional loci V_+ and V_- by Groebner bases over Q, the fifteen values 80 to 112 (never 100, least 80 only for constant p), the Kaehler class integrals on the Weil tori of the field, and the Hodge locus of every character: first order deformations, exceptional places, the stabiliser so(4,3) and the sign of int X kappa^6; sympy |
 | `delsarte.py` | item (LXVI): Delsarte fourfolds: the 29 sextic shapes built from Fermat terms, chains and loops, their Fermat covers (A adj(A) = det(A) I, rows of adj(A) summing to det(A)/6, the least covering degree 24 or 30 for six shapes), smoothness by Groebner bases, and the Jacobian ring (1, 426, 1751, 426, 1) of the loop sextic; sympy and numpy |
 | `simplex_type.py` | item (LXVII): hypersurfaces of simplex type: the lattice degree e of the 29 Delsarte sextic shapes by the Smith normal form (e = least d except 3125 for the chain C6 and 2604 for the loop), the Klein quartic (e = 7, the Fermat septic), the Euler numbers of 197 Delsarte hypersurfaces as sums over the orbits of P^{r+1}, the holomorphic forms of top degree as invariant characters of the Fermat cover for 119 hypersurfaces and 40 cyclic covers, nondegeneracy of random polynomials of simplex type, and the smooth adapted fan of the Klein quartic; sympy |
+| `quartic_local.py` | item (LXVIII): Markman's candidate for a quartic CM field against the weakened criterion: the classes alpha_0 = Theta - (q/6) Theta^3 and beta' = g^* Theta - (q/6) (g^{-1})^* Theta^3 in the secant space S(0,q), their pure spinor coefficients, the compensated classes x_j = ((q/2) pi_j _| theta_j^2, 0, pi_j) and their B-field transports, the annihilators of dimension 16 and 8 and the ranks 12 and 20, int alpha_0 beta' = -4q Tr(f^2), the Euler pairings, the rank 96 on X x X modulo two primes, and the character Theta - (d/6) Theta^3 and chi = 8d of the first factor; exact rational arithmetic |
 | `transport_growth.py` | the transport of the base cycle along the rational orbit: det(phi) = c^{2G}, phi^* E = c^2 E and phi^* omega = c^{2n} omega on an explicit sample of rational symplectic elements with denominators to 29; the multiplicity of a component as the order of the stabiliser its kernel meets, computed as a lattice index by Smith normal form, against the image degree computed as a Pfaffian; and the contrast between a subtorus the isogeny preserves, where the image degree is constant, and one it does not, where it grows |
 | `cm_fields.py` | the Weil classes of a CM field of degree four and six: the CM base point of every family, the balanced divisor classes delta_i(f), the identity that the balanced n-fold product of them is the Weil class w(f) = sum_sigma sigma(f) alpha_sigma, checked for six pairs (F, n) with m = 2, 3 and n = 1, 2, 3, and the identity that the Weil classes of a composite field generate those of its imaginary quadratic subfield |
 | `exceptional_classes.py` | the exceptional Hodge classes on the self-product of a Mumford fourfold (eight invariants against six divisor products), the Hodge numbers and adjoint weights that keep the H^3 of a quintic threefold outside abelian type, and the 4n^2-dimensional annihilator of the Weil class in Hochschild cohomology with the two linear-algebra lemmas behind the theorem on the semiregularity form of propagation |
@@ -139,14 +140,14 @@ reduction at all.
 No Mathlib and no dependencies. The file ends with one `#print axioms` line
 per theorem; every one must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
-through `decide`, and none may mention `sorryAx`. There are one hundred and five theorems. `lean/README.md` lists them
+through `decide`, and none may mention `sorryAx`. There are one hundred and ten theorems. `lean/README.md` lists them
 and says what each one does and does not establish. The workflow in
 `.github/workflows/lean.yml` runs the check on every push and fails if the
-number of theorems is not one hundred and five, or if any of them depends on an axiom other than propext.
+number of theorems is not one hundred and ten, or if any of them depends on an axiom other than propext.
 
 ## The computations of Appendix D, item by item
 
-Appendix D of the paper describes its computations as items (I) to (LXVII). The
+Appendix D of the paper describes its computations as items (I) to (LXVIII). The
 programs that carry them out are:
 
 | item | program |
@@ -218,6 +219,7 @@ programs that carry them out are:
 | (LXV) | `code/quartic_rank.py` |
 | (LXVI) | `code/delsarte.py` |
 | (LXVII) | `code/simplex_type.py` |
+| (LXVIII) | `code/quartic_local.py`, with `m2/local_germs.m2` for the local part |
 
 Items (I) to (V) are computed inside `code/verify_all.py` itself; items
 (XXIX), (XXXI) and (XL) are the Macaulay2 computations described below; item
@@ -226,7 +228,7 @@ each of their results with its status.
 
 ## The Macaulay2 items
 
-Three items of the paper are Ext computations over a polynomial ring and are
+Four items of the paper are Ext computations over a polynomial ring and are
 carried out in Macaulay2 1.22 with the package `Complexes`:
 
 | script | item | what it settles |
@@ -234,6 +236,7 @@ carried out in Macaulay2 1.22 with the package `Complexes`:
 | `m2/local_products.m2` | (XXIX) | the local Ext modules and the products of the translation classes at an isolated double point of the support of Markman's candidate, in both local models |
 | `m2/lci_products.m2` | (XXXI) | that the local obstruction lives exactly at the germs that are not Cohen-Macaulay: Ext^2(I,I) vanishes at seven Cohen-Macaulay germs, two of them not complete intersections, and not at three that are not Cohen-Macaulay |
 | `m2/finite_length_products.m2` | (XL) | that two independent jet classes on a complex with finite length cohomology multiply to a nonzero class whenever its Euler characteristic is nonzero, on eighteen modules and three complexes in two and three variables, and that the hypothesis is sharp: on the cone of the product on the Koszul complex of a point the product vanishes |
+| `m2/local_germs.m2` | (LXVIII) | for ten germs in C^4, the projective dimension and the pairs of coordinate directions whose jet classes have nonzero Yoneda product in the local Ext^2: the second exterior power of the normal space for a bundle on a smooth curve, exactly {1} x {2,3} for the ideal of a curve in a divisor, none for a smooth divisor or a maximal Cohen-Macaulay module on a node; the local part of the theorem that Markman's quartic candidate fails the weakened criterion |
 
 Each runs in under a minute:
 
@@ -241,6 +244,7 @@ Each runs in under a minute:
     M2 --script local_products.m2
     M2 --script lci_products.m2
     M2 --script finite_length_products.m2
+    M2 --script local_germs.m2
 
 Their unedited transcripts are the `.txt` files beside them, and
 `m2/README.md` says what each line means. They are not part of
@@ -275,6 +279,14 @@ Their unedited transcripts are the `.txt` files beside them, and
     python3 make_round12.py     # minimal support at n = 4, and the loci
                                 # where quartic CM Weil classes are known
                                 # to be algebraic
+    python3 make_round19.py     # the sextic Weil part, the motivic groups of
+                                # a Mumford fourfold, the reach of (F3'), the
+                                # K3 threshold
+    python3 make_round20.py     # the CM cube, the CM source, the mass gap
+    python3 make_round21.py     # the quartic rank, the Delsarte shapes
+    python3 make_round22.py     # hypersurfaces of simplex type
+    python3 make_round24.py     # the local obstruction at a point of
+                                # Markman's glued curve, and the ten germs
     for f in fig_*.tex; do pdflatex -interaction=nonstopmode "$f"; done
     python3 checkfigs.py        # must print 0 overlapping label pairs
 
@@ -355,7 +367,15 @@ field the rank is at least 80, a complex meeting the criterion has
 dim Ext^2 >= 88, and the Hodge locus of each character, computed to first
 order, is the family of Weil tori only for the theta^4 shape, which is
 therefore excluded, and the polarised family itself for every other character
-left at 88, so deformation cannot exclude those (`quartic_rank.py`).
+left at 88, so deformation cannot exclude those (`quartic_rank.py`). Markman's
+explicit pair for a biquadratic field does not meet the weakened criterion:
+two compensated classes in HT^2, one for each real place, preserve every
+quartic secant character, and at a point where a sheaf is locally free on a
+smooth curve, or is the ideal of a curve in a smooth divisor, the square of
+the Atiyah class along one of the two eigenplanes has a nonzero germ; the
+curves Markman glues in to correct the character have such points
+(`quartic_local.py`, `m2/local_germs.m2`). Whether another sheaf with the same
+character meets the criterion, Markman's Question 11.2.2, stays open.
 
 The Hodge conjecture follows from that statement together with two more, the
 algebraicity of the Hodge classes on abelian varieties that divisor and Weil

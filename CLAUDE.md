@@ -147,13 +147,32 @@ theta^4 shape at 88 and every other character there needs an object
 (`cor:quarticlocus`; check (L) of `code/quartic_rank.py`; Lean Section 39,
 one hundred and five theorems), and added `rem:delsartequotient` on quotients
 of Delsarte hypersurfaces by diagonal groups (no gain for Greene-Plesser
-mirrors). P2_split, (F2) and (F3') remain open. Never use agents or
+mirrors); round 24 rebuilt the paper around one proved target, `thm:main`
+at the head of the introduction (for every CM field, n >= 2 and discriminant,
+the algebraic locus of the Weil classes contains an explicit CM base point, is
+dense, and is either the whole domain or meagre, so the Weil classes are
+algebraic on every member iff it is closed), retitled it "Density of the
+Algebraic Locus of Weil Classes on Abelian Varieties" (Deep asked for no
+"and", colon or comma in the title and a single bullseye target), wrote a
+50-word "we prove" abstract of that one statement, and decided Markman's explicit quartic
+pair [Mar25c, Example 11.2.7] against the weakened criterion
+(`lem:freegerm`, `lem:divisorgerm`, `thm:quarticlocal`,
+`prop:markmanquarticclasses`, `cor:markmanquarticfails`, `rem:question1122`
+before `rem:quarticgap` in `tex/sections/10d2_quartic.tex`: compensated
+classes x_j preserve every quartic secant character, and a sheaf locally free
+on a smooth curve, or the ideal of a curve in a smooth divisor, fails at such
+points, so both sheaves of the example fail; Question 11.2.2 itself stays
+open), with item (LXVIII), `code/quartic_local.py` and
+`m2/local_germs.m2`, `fig_quarticlocal` from `figures/make_round24.py`, and
+Lean Section 40 (one hundred and ten theorems). Release v2.0.0 was never
+published, so the next GitHub release is still v2.0.0. P2_split, (F2) and
+(F3') remain open. Never use agents or
 workflows in this repository's sessions: do the work directly.
 
 Release v1.0.0 (tag `v1.0.0`, commit `ef15bce`) is archived on Zenodo under
 DOI 10.5281/zenodo.22950276, recorded in the macro `\zenodoFirstDOI` at the
 top of `tex/declarations.tex`, in `CITATION.cff` and in `README.md`. Release
-v2.0.0 accompanies round 20; its version DOI and the concept DOI go in
+v2.0.0 (not yet published; it accompanies round 24); its version DOI and the concept DOI go in
 `\zenodoVersionDOI` and `\zenodoConceptDOI`, the README table and
 `CITATION.cff` once Deep supplies them. A later GitHub
 release gets a new version DOI from Zenodo; update all three places then. There is no separate AI declaration: the use of Claude
@@ -165,7 +184,7 @@ section.
 - `cd code && python3 verify_all.py` ends with `N checks passed, 0 failed`;
   keep the count in `README.md`, `.zenodo.json`, `.github/workflows/lean.yml`,
   `tex/appendices/D_computations.tex` and `tex/declarations.tex` in step.
-- `cd lean && lean HodgeObstruction.lean`: 105 theorems, each axiom-free or
+- `cd lean && lean HodgeObstruction.lean`: 110 theorems, each axiom-free or
   depending on `propext` only.
 - `cd tex && latexmk -pdf main.tex`: 0 errors, 0 overfull or underfull boxes,
   no undefined references.

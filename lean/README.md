@@ -1,4 +1,4 @@
-# Machine verification for *Explicit Base Points and Obstructions to Propagation for Weil Classes on Abelian Varieties*
+# Machine verification for *Density of the Algebraic Locus of Weil Classes on Abelian Varieties*
 
 `HodgeObstruction.lean` is a certificate, checked by the Lean 4 kernel, of the
 finite arithmetic on which the results of the paper turn.
@@ -27,10 +27,10 @@ per theorem. Every line must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
 through `decide` or the core lemmas on natural numbers, and none may mention `sorryAx`. The GitHub workflow in
 `.github/workflows/lean.yml` enforces all three, and fails the build if the
-number of theorems is not one hundred and five or if any of them reaches for a further
+number of theorems is not one hundred and ten or if any of them reaches for a further
 axiom.
 
-## The one hundred and five theorems
+## The one hundred and ten theorems
 
 | theorem | statement |
 | --- | --- |
@@ -139,6 +139,11 @@ axiom.
 | `simplex_loop_sextic` | for the loop sextic, `C R = 2604 I` with `C` explicit, `det R = 2604 = 2^2 * 3 * 7 * 31`, and `C` not zero modulo any of these primes, so the lattice exponent is `2604`; the Euler number summed over the torus strata is `2610` for the loop and for the Fermat sextic, the value `((1 - 6)^6 - 1 + 36) / 6` of a smooth sextic fourfold |
 | `quartic_exceptional_pair` | in the exterior algebra of `V_s + V_s'` at a real place of a quartic CM field, `theta^4 = 24 alpha_s alpha_s'` and `(alpha_s + alpha_s')^2 = 2 alpha_s alpha_s'`; `theta^3 D = 0` and the `theta^2 D` are four distinct monomials for `D` in `V_s^{0,1} (x) V_s'^{0,1}`; and the two deformations `xi'_0`, `xi''_0` that are not `F`-linear send `alpha_s`, `theta`, `theta^2` to `theta b_{s,0} b_{s,1}`, `2 b_{s',0} b_{s',1}`, `4 theta b_{s',0} b_{s',1}` and symmetrically, so the place is exceptional exactly when `16 c^2 = u_s u_s'` |
 | `quartic_locus_counts` | the rational characters with both places exceptional have rank `94` or `110`; the annihilator of a character has dimension `8 + 4a + b`, one of `8, 9, 10, 12, 13, 16`; `so(4,3)` has dimension `21` and maximal compact subalgebra of dimension `9`, `su(2,2)` has `15` and `7`, and the orbits have dimension `21 - 16 = 5` and `15 - 11 = 4` |
+| `quartic_compensated_bivectors` | in the exterior algebra on `H^1(X) = U_1 + U_2`, with `q = 2`, the classes `x_j = (pi_j _| theta_j^2, 0, pi_j)` annihilate the four classes spanning `S(0,2)`, and the six symmetric maps at the two places annihilate `theta_1` and `theta_2` (`decide +kernel`) |
+| `quartic_rank_certificates` | a `20 x 20` minor of the contraction matrix of `4 beta'` and a `12 x 12` minor of that of `alpha_0`, for `f_1 = 2`, `f_2 = 1/2`, are invertible modulo `1000003` (`decide +kernel`) |
+| `quartic_koszul_squares` | for the Koszul resolution of `R/(x_1,...,x_c)`, `c = 3, 4`, the Yoneda square `a_k a_l` is represented by a nonzero vector exactly when `k != l` and `k, l <= c`, and the coboundaries vanish at the origin |
+| `quartic_line_two_planes` | a nonzero vector of `[-6,6]^4` has a nonzero component outside one of two complementary coordinate planes |
+| `quartic_first_factor_character` | the pieces of Markman's Example 8.2.4 have the characters used there, `ch(F_d) = Theta - (d/6) Theta^3` and `chi(F_d, F_d) = 8 d` for `d <= 60` |
 
 
 ## Two statements that look true and are not
@@ -162,12 +167,12 @@ careful reading does not catch and a kernel check does.
 `code/verify_all.py` in the parent directory performs the same checks in exact
 rational arithmetic over Q, independently of Lean, together with the exterior
 algebra computations that Lean does not carry, and prints
-`1251 checks passed, 0 failed`.
+`1278 checks passed, 0 failed`.
 
 ## Transcript
 
 `axioms.txt` is the unedited output of `lean HodgeObstruction.lean` under
-Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and five lines, one per
-theorem, eighty-seven reading `does not depend on any axioms` and eighteen reading
+Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and ten lines, one per
+theorem, eighty-seven reading `does not depend on any axioms` and twenty-three reading
 `depends on axioms: [propext]`, exit status 0, no `sorryAx`. `lake build`
 completes with the same report. Each run takes a few minutes.

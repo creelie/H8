@@ -7,14 +7,14 @@ computational content is checked in exact arithmetic by the computations of
 \Cref{sec:verification}. The certificate is a single Lean~4 file that
 accompanies the paper. It compiles against a bare Lean~4 toolchain, contains
 no \texttt{sorry}, and depends on no library, Mathlib included. The axiom
-report at the end of the file lists, for each of its one hundred and five theorems,
+report at the end of the file lists, for each of its one hundred and ten theorems,
 the axioms on which it depends. Eighty-seven depend on none, and the remaining
-eighteen on propositional extensionality alone, which enters when
+twenty-three on propositional extensionality alone, which enters when
 \texttt{decide} reduces an equality of Booleans or when a bound is proved from
 the lemmas on natural numbers in the core library; no theorem uses anything
 else. The annihilator dimension and the rank-zero obstruction of
 \Cref{ssec:rankzero}, \Cref{lem:annihilator} and \Cref{thm:rankzero}, are not
-among the one hundred and five: they are proved by hand, and the dimension count of
+among the one hundred and ten: they are proved by hand, and the dimension count of
 the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \Cref{sec:verification}.
 
@@ -24,7 +24,7 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \small
 \renewcommand{\arraystretch}{1.06}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.31\linewidth}>{\raggedright\arraybackslash}p{0.62\linewidth}@{}}
-\caption{The one hundred and five machine-checked theorems.}\label{tab:lean}\\
+\caption{The one hundred and ten machine-checked theorems.}\label{tab:lean}\\
 \toprule
 \textbf{theorem} & \textbf{statement} \\
 \midrule
@@ -146,13 +146,21 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \texttt{simplex\_loop\_}\allowbreak\texttt{sextic} & for the loop sextic $\det R=2604=2^{2}\cdot3\cdot7\cdot31$ and $CR=2604\,I$ with, for each of $2,3,7,31$, an entry of $C$ it does not divide, so $e_{A}=2604$; the sums over the orbits for the loop and the Fermat sextic are $6\cdot2610$, the Euler number of a smooth sextic fourfold, \Cref{lem:simplexchart}, \Cref{cor:delsarteall} \\
 \texttt{quartic\_exceptional\_}\allowbreak\texttt{pair} & in $\bigwedge(V_{\sigma}\oplus V_{\bar\sigma})$ at a real place of a quartic CM field, $\theta^{4}=24\,\alpha_{\sigma}\alpha_{\bar\sigma}$ and $(\alpha_{\sigma}+\alpha_{\bar\sigma})^{2}=2\,\alpha_{\sigma}\alpha_{\bar\sigma}$; $\theta^{3}D=0$ and the four $\theta^{2}D$ are distinct monomials for $D$ in $V_{\sigma}^{0,1}\otimes V_{\bar\sigma}^{0,1}$; the two deformations that are not $F$-linear send $\alpha_{\sigma},\theta,\theta^{2}$ to $\theta b_{\sigma,0}b_{\sigma,1}$, $2b_{\bar\sigma,0}b_{\bar\sigma,1}$, $4\theta b_{\bar\sigma,0}b_{\bar\sigma,1}$ and symmetrically, so that a place is exceptional exactly when $16c^{2}=u_{\sigma}u_{\bar\sigma}$, \Cref{prop:quarticlocus} \\
 \texttt{quartic\_locus\_}\allowbreak\texttt{counts} & the rational characters with both places exceptional have rank $94$ or $110$; the annihilator has dimension $8+4a+b\in\{8,9,10,12,13,16\}$; $\mathfrak{so}(4,3)$ has dimension $21$ and maximal compact subalgebra of dimension $9$, against $15$ and $7$ for $\mathfrak{su}(2,2)$, and the orbits have dimension $21-16=5$ and $15-11=4$, \Cref{prop:quarticlocus}, \Cref{cor:quarticlocus} \\
+\texttt{quartic\_compensated\_}\allowbreak\texttt{bivectors} & in the exterior algebra on $H^{1}(X)=U_{1}\oplus U_{2}$, with $q=2$, the classes $x_{1}$, $x_{2}$ of \eqref{eq:quarticcompensated} annihilate the four classes spanning $S(0,2)$, and the six symmetric maps at the two places annihilate $\theta_{1}$ and $\theta_{2}$, \Cref{thm:quarticlocal}(i) \\
+\texttt{quartic\_rank\_}\allowbreak\texttt{certificates} & a $20\times20$ minor of the contraction matrix of $4\beta'$ and a $12\times12$ minor of that of $\alpha_{0}$, for $f_{1}=2$, $f_{2}=\tfrac12$, are invertible modulo $1000003$, so the ranks are $20$ and $12$, \Cref{prop:markmanquarticclasses}(ii) \\
+\texttt{quartic\_koszul\_}\allowbreak\texttt{squares} & for the Koszul resolution of $R/(x_{1},\dots,x_{c})$, $c=3,4$, the product $a_{\partial_{k}}a_{\partial_{l}}$ is represented by a nonzero vector exactly when $k\ne l$ and $k,l\le c$, and the coboundaries vanish at the origin, \Cref{lem:freegerm} \\
+\texttt{quartic\_line\_}\allowbreak\texttt{two\_planes} & a nonzero vector of $[-6,6]^{4}$ has a nonzero component outside one of two complementary coordinate planes, the step of \Cref{thm:quarticlocal}(iii) \\
+\texttt{quartic\_first\_}\allowbreak\texttt{factor\_character} & the pieces of \cite[Example~8.2.4]{Mar25a} have the characters used there, and $\ch(F_{d})=\Theta-\frac d6\Theta^{3}$ with $\chi(F_{d},F_{d})=8d$ for $d\le60$, \Cref{cor:markmanquarticfails}(ii) \\
 \end{longtable}
 \endgroup
 
 An element of $\ZZ[\sqrt{-d}]$ is represented by a pair of integers, with
 multiplication and conjugation the evident operations. With four exceptions,
 every statement in the table is a closed Boolean expression and is proved by
-\texttt{decide}, which asks the kernel to evaluate it by reduction. This is
+\texttt{decide}, which asks the kernel to evaluate it by reduction; for the
+two computations in the exterior algebra on eight generators, of the
+compensated bivectors and of the rank certificates, the form
+\texttt{decide +kernel} hands the evaluation to the kernel directly. This is
 the strongest check available and the least flexible: it works only over
 finite ranges, which is why each of these theorems carries an explicit bound,
 and why none of them can be the general statement that the paper proves. The
