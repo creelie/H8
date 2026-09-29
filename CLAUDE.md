@@ -165,7 +165,14 @@ points, so both sheaves of the example fail; Question 11.2.2 itself stays
 open), with item (LXVIII), `code/quartic_local.py` and
 `m2/local_germs.m2`, `fig_quarticlocal` from `figures/make_round24.py`, and
 Lean Section 40 (one hundred and ten theorems); round 25 recorded the Zenodo
-DOIs of release v2.0.0. P2_split, (F2) and (F3') remain open. Never use agents or
+DOIs of release v2.0.0; round 26 added, beside the paper and outside
+`verify_all.py`, the working note `notes/fourier_mukai/` (`rank88_note.tex`:
+the Fourier-Mukai transforms T_b, S_beta act through an sl_2 at each real
+place, and the exponential rank-88 characters with lambda^{-1} in the lattice
+of the member are excluded; the linear shape and lambda^{-1} outside that
+lattice stay open; `mukai_place.py`, 30 checks, and `smooth_support.py`, 25
+checks of another session's smooth-support note), with the paper unchanged.
+P2_split, (F2) and (F3') remain open. Never use agents or
 workflows in this repository's sessions: do the work directly.
 
 Release v1.0.0 (tag `v1.0.0`, commit `ef15bce`) is archived on Zenodo under

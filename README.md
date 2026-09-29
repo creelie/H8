@@ -34,6 +34,10 @@ licence, or a package other than those named below.
     code/extreme/ longer runs of several items, with transcripts
     verify.ps1  the whole verification on Windows, Python suite then Lean
     lean/       a kernel-checked certificate of the finite arithmetic, Lean 4
+    notes/      working notes beside the paper, each with its own programs:
+                notes/fourier_mukai/ excludes the exponential characters of
+                rank 88 at a quartic CM field whose inverse exponent lies in
+                an explicit lattice (not part of verify_all.py)
     figures/    the generators and TikZ sources of every figure in the paper
 
 ## Running the verification
