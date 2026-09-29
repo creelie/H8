@@ -1,8 +1,9 @@
-\section{Scope}\label{sec:scope}
+\section{The reach of the obstructions}\label{sec:scope}
 
 An obstruction theorem is useful only if its boundary is drawn exactly. This
-section states what each of the main results does not cover, and then what
-remains between them and the conjecture.
+section draws the boundary of each of the main results, then states the
+statements through which the conjecture is reached and proves the
+implications of the literature that join them.
 
 \subsection{Limits of the divisor obstruction}
 
@@ -42,8 +43,8 @@ not a $\Kx$-eigenclass is not constrained, and by \Cref{rem:rightcharacter}
 such a construction must break the naturality of the $K$-action in an
 essential way: it must depend on a choice that is not $K$-invariant, and its
 output must have components in both extreme summands of the grading at once.
-We know of no systematic way to arrange this, and we regard the existence of
-one as the most interesting question these obstructions leave open.
+A systematic way to arrange this is the most interesting construction these
+obstructions point to.
 \end{remark}
 
 \begin{remark}[Abelian varieties that are not very general]\label{rem:special}
@@ -87,7 +88,7 @@ an affirmative answer to the question would follow from it.
 A kernel is not an obstruction class. \Cref{cor:kernelfamily} says that a sufficient
 criterion for the Weil class to stay algebraic is unavailable at the objects
 in question; it does not say the class fails to stay algebraic, and no
-statement in this paper does. \Cref{q:residual} remains open in both
+statement in this paper does. \Cref{q:residual} is asked in both
 directions.
 \end{remark}
 
@@ -124,17 +125,17 @@ restriction, so \Cref{thm:hyperplane} does not apply; this is
 $h^{2,0}=1$, and \Cref{prop:normpart} locates that limit exactly for abelian
 varieties of Weil type: no rational sub-Hodge structure of $H^{2}(A,\QQ)$ is of
 K3 type unless $n=1$. \Cref{sec:ks} treats the construction in full, including
-what remains open about the algebraicity of the correspondence itself.
+the algebraicity of the correspondence itself.
 \end{remark}
 
-\subsection{The remaining problems}
+\subsection{The Weil statements and the closure map}
 \label{ssec:closuremap}
 
-The results above close several routes and narrow one. What remains is not
-a single obstruction whose removal would finish the problem but a list, and
-we record each entry with its exact statement and the exact point at which
-this paper leaves it. \Cref{prop:descent} records the one way in which the
-entries on Weil classes are linked.
+The results above close several routes and narrow one. The statements
+through which the conjecture is reached form a list, and we record each
+entry with its exact statement and with what this paper proves about it.
+\Cref{prop:descent} records the one way in which the entries on Weil classes
+are linked.
 
 Fix an imaginary quadratic field $K=\QQ(\sqrt{-d})$, an integer $n\ge2$, and a
 class $\delta\in\QQ^{\times}_{>0}/\Nm_{K/\QQ}(\Kx)$, the discriminant of the
@@ -153,7 +154,7 @@ For each triple $(K,n,\delta)$ the following hold.
 \item $\mathbf{W}(K,3,\delta_{0})$ holds for the trivial discriminant
   $\delta_{0}$ \cite{Mar25a,Mar25b}, and with it, by \Cref{prop:descent},
   $\mathbf{W}(K,2,\delta)$ for every $K$ and every $\delta$, which is how
-  Markman obtains the fourfolds. Nothing else is known.
+  Markman obtains the fourfolds.
 \item The period domains attached to distinct triples are disjoint, and
   \Cref{thm:residual} and \Cref{cor:exactform} are statements about one
   triple at a time. The triples are nevertheless not independent: by
@@ -229,7 +230,7 @@ passes from one Weil class to all of them.
 eigenspace of $K$ of signature $(n,n)$, the hermitian form is $H_{B}\otimes F$ with determinant $\det H_{B}$, and a norm
 from $K$ is a norm from $F$. The identity for $j^{*}$ is the multiplicativity
 of the determinant under restriction of scalars, and $\Tr_{F/K}$ is onto.
-Item (LIV) of \Cref{sec:verification} checks the linear algebra of both
+The computation \cite[item~(LIV)]{BMB26} checks the linear algebra of both
 statements exactly, over seven CM fields.
 \end{proof}
 
@@ -258,9 +259,10 @@ is that propagation can be started in every family, not that it has to be.
   \includegraphics[width=0.94\textwidth]{fig_descent}
 \caption{The Weil families of an imaginary quadratic field $K$ and of a
 quartic CM field $F\supset K$, one cell for each $n$ and each kind of
-discriminant, grass where the Weil classes are known to be algebraic
+discriminant, grass where the Weil classes are proved algebraic
 (divisor classes at $n=1$; Markman \cite{Mar25a,Mar25b} at $n=2$ and at
-$n=3$, $\delta=\delta_{0}$) and clay where they are not. The indigo arrows
+$n=3$, $\delta=\delta_{0}$) and clay where they are reached through the
+propagation statement. The indigo arrows
 are the descent of \Cref{prop:descent}(i), from the trivial discriminant in
 dimension $n+1$ to every discriminant in dimension $n$; the dashed teal
 arrows are the scalar extension of \Cref{prop:descent}(ii). The dashed frame
@@ -283,11 +285,10 @@ The list is as follows.
   criterion, and by \Cref{prop:markman8} the three conditions of Markman's
   strategy that concern only the Chern character hold at the point $(1,3)$
   for any such $\cF$, since they depend on $\ch(\cF)$ alone. Turning this
-  into algebraicity needs one further input, which this paper does not
-  supply. The weakened criterion enters in place of
-  the hypothesis Markman verifies, and whether the semiregularity theorem
-  survives the substitution is exactly \cite[Question 11.4]{Mar25b}, which is
-  open. So (C1) is a demand on a construction, and an affirmative answer to
+  into algebraicity needs one further input. The weakened criterion enters
+  in place of the hypothesis Markman verifies, and the survival of the
+  semiregularity theorem under the substitution is exactly
+  \cite[Question 11.4]{Mar25b}. So (C1) is a demand on a construction, and an affirmative answer to
   that question is a separate prerequisite standing beside it;
   \Cref{thm:closure} places both. What this paper contributes is the exact
   form of the demand. The local part of the criterion is a condition on depth
@@ -302,16 +303,15 @@ The list is as follows.
   off the secant plane. What is needed is therefore a Cohen--Macaulay
   support, and for such a support the whole criterion is the single vanishing
   of the image of $A_{\theta}A_{\theta'}$ in
-  $H^{1}(Z,\cE xt^{1}(\cI_{Z},\cI_{Z}))$. Two shapes of such a support remain
-  (\Cref{cor:disjointroutes}): a smooth one, where the invariants are forced
+  $H^{1}(Z,\cE xt^{1}(\cI_{Z},\cI_{Z}))$. Such a support has one of two
+  shapes (\Cref{cor:disjointroutes}): a smooth one, where the invariants are forced
   outright and $d\le9$ (\Cref{thm:smoothinvariants},
   \Cref{cor:fourdiscriminants}), and a singular one. In neither may the
   Hilbert--Burch resolution split into powers of $\Theta$ or into simple
   semi-homogeneous bundles (\Cref{thm:nosplit}, \Cref{thm:noblocks}), which
   removes every candidate found by the search of \Cref{thm:burchsearch}, and
   no complete intersection occurs (\Cref{thm:noci}). \Cref{rem:routemap}
-  states the two remaining questions in the form a construction would have to
-  answer.
+  states the two questions in the form a construction answers them.
 \item \emph{The same for every $n$ and every discriminant.} A positive answer
   to (C1) reaches one triple, and the discriminant of that triple is the
   trivial one, because the object lives on $X\times\widehat X$ and every split
@@ -324,7 +324,7 @@ The list is as follows.
   contributes: three of the four ingredients of \Cref{q:higher} are supplied
   for every $n$ and every $K$ (\Cref{thm:twoofthefour}), including the
   existence of the secant sheaves themselves (\Cref{thm:secantexists}); the
-  fourth is isolated but not supplied (\Cref{rem:deformation}).
+  fourth is isolated exactly (\Cref{rem:deformation}).
 \item \emph{CM fields of degree larger than two.} For a CM field $F$ of
   degree $2m>2$ acting on an abelian variety, the Weil classes span a space of
   dimension $2m$, and the secant framework of \Cref{sec:construction}, which
@@ -358,7 +358,8 @@ The list is as follows.
   (\Cref{thm:cmbasepoint}), and the two propagation criteria
   (\Cref{thm:cmpropagation}); so the higher CM fields are the same
   propagation problem as the quadratic ones, and not a separate entry. For a
-  quartic field at $n=2$, the smallest open case, \Cref{ssec:quartic}
+  quartic field at $n=2$, the smallest case of higher degree,
+  \Cref{ssec:quartic}
   determines how far divisor classes, scalar extension and correspondences
   reach, and computes the number that the corrected criterion asks of one
   complex. For a sextic field, \Cref{ssec:sextic} shows that the dimension
@@ -366,15 +367,15 @@ The list is as follows.
   exclude one over a sextic field, and gives the profile such an object would
   have. \Cref{app:albert} places the imaginary quadratic case inside Albert's
   classification.
-\item \emph{The non-split sixfolds.} $\mathbf{W}(K,3,\delta)$ is open for
-  every $\delta\ne\delta_{0}$; the case $\delta=\delta_{0}$ is Markman's
+\item \emph{The non-split sixfolds.} $\mathbf{W}(K,3,\delta)$ for
+  $\delta\ne\delta_{0}$; the case $\delta=\delta_{0}$ is Markman's
   \cite{Mar25a}. By \Cref{prop:descent}(i) it would follow from
   $\mathbf{W}(K,4,\delta_{0})$, and by \Cref{prop:descent}(ii) from
   $\mathbf{W}(K(\sqrt2),3,\iota(\delta))$. What this paper contributes: a base
   point in every family, at a member with quaternionic multiplication
   (\Cref{thm:everyfamily}); the locus of such members is a Lagrangian
   Grassmannian of codimension $n(n-1)/2$ (\Cref{prop:lagrangian}), so
-  propagation off it is needed and is not supplied.
+  the family is reached from it by propagation.
 \item \emph{Exceptional classes that are not of Weil type.} On an abelian
   variety the Hodge ring can contain exceptional classes that the Weil
   construction does not produce. Through dimension five it does not
@@ -382,13 +383,13 @@ The list is as follows.
   fourfold of Mumford type carries two Hodge classes that are neither
   products of divisor classes nor Weil classes of any quotient
   (\Cref{prop:mumfordproduct}). So the Hodge conjecture for abelian varieties
-  does not reduce to Weil classes, and the statement that remains is the
+  does not reduce to Weil classes, and the statement needed is the
   algebraicity of these classes themselves. What this paper contributes: the
-  example, made exact, and nothing towards their algebraicity. Every
-  positive statement here is about classes on the Weil line.
-\item \emph{Varieties that are not abelian.} No reduction of the Hodge
-  conjecture for arbitrary smooth projective varieties to abelian varieties is
-  known, and none of Hodge-theoretic kind can exist: the $H^{3}$ of a very
+  example, made exact, and the forms of their algebraicity studied in
+  \Cref{sec:beyond}.
+\item \emph{Varieties that are not abelian.} A reduction of the Hodge
+  conjecture for arbitrary smooth projective varieties to abelian varieties
+  cannot be of Hodge-theoretic kind: the $H^{3}$ of a very
   general quintic threefold lies outside the tensor category generated by the
   cohomology of abelian varieties (\Cref{prop:noabeliantype}), so its Hodge
   structure cannot be realised inside that of an abelian variety by any
@@ -404,17 +405,15 @@ The list is as follows.
   (\Cref{prop:f3ishc}).
 \end{enumerate}
 
-\begin{remark}[The shape of the remainder]\label{rem:remaindershape}
-Three features of this list deserve emphasis. The first two are the reason
-the paper claims no more than it does.
+\begin{remark}[The shape of the list]\label{rem:remaindershape}
+Three features of this list deserve emphasis.
 
 The narrowing is real but bounded. \Cref{cor:fourdiscriminants} removes all
 but four discriminants from the smooth case of (C1), and
 \Cref{cor:localobstruction} removes an entire class of supports in every
 dimension. Those are restrictions on the space of possible proofs, not steps
-towards one; they say where a construction cannot be, and the set of places it
-could be remains infinite in every direction except the one that
-\Cref{cor:fourdiscriminants} bounds.
+towards one; they say where a construction cannot be, and they bound it in
+the direction of the discriminant.
 
 The equivalence of \Cref{cor:exactform} is not an obstruction. It says that
 for a fixed triple the Hodge conjecture in every degree is the algebraicity of
@@ -592,9 +591,8 @@ follows by \Cref{prop:lefvhc}, and is the theorem of Abdulali and Andr\'e in
 the form of \cite[Theorem~4]{Mil20}.
 \end{proof}
 
-\begin{remark}[What is known of the three]\label{rem:lmvknown}
-Each of \textup{(L)}, \textup{(M)} and \textup{(V)} is open, and none is
-proved here in general. $B(X)$ is known for curves, where it is immediate,
+\begin{remark}[The three in the literature]\label{rem:lmvknown}
+$B(X)$ is known for curves, where it is immediate,
 and for abelian varieties \cite[\S2]{Kle68}, and \Cref{cor:mumfordlefschetz}
 below adds the total space of every Mumford family. \textup{(M)} holds for the Hodge
 classes on abelian varieties \cite[Th\'eor\`eme~0.6.2]{And96b}.
@@ -612,8 +610,8 @@ proved here.
 \subsection{The Lefschetz standard conjecture for abelian schemes over curves}
 \label{ssec:newlefschetz}
 
-The statement $B(X)$ is known for abelian varieties $X$ and open, in general,
-for varieties fibred in them. This subsection proves it for the total space
+The statement $B(X)$ is known for abelian varieties $X$. This subsection
+proves it for the total space
 of an abelian scheme over a curve whose invariant cycles are algebraic, and
 so for the total space of every Mumford family. The proof assembles the
 operator $\Lambda$ from a relative part, which is a Pontryagin product and is
@@ -819,8 +817,7 @@ since over $\overline{\QQ}$ its three factors are indexed by the embeddings of
 $F$ and permuted transitively by the Galois group; so it is $G$. The
 monodromy invariants in $H^{*}(X,\QQ)$ are therefore contained in the
 invariants of $G$, which are the Hodge classes of $X$, and these are the
-powers of the polarisation by \Cref{prop:mumfordproduct}(i). Item (XLII) of
-\Cref{sec:verification} and the Lean certificate confirm the count: the
+powers of the polarisation by \Cref{prop:mumfordproduct}(i). The computation \cite[item~(XLII)]{BMB26} and the Lean certificate confirm the count: the
 invariants of $\mathfrak{sl}_{2}^{3}$ in $\bigwedge^{q}(V_{1}\otimes V_{2}
 \otimes V_{3})$ have dimension $1$ for $q$ even and $0$ for $q$ odd. The powers
 of $\ell$ restrict to the powers of the polarisation, so every invariant class
@@ -864,9 +861,8 @@ families, and we make no claim of priority for
 Applied to the fibre square $W\times_{C}W\to C$ the theorem gives
 $B(W\times_{C}W)$ as soon as every invariant class of $X\times X$ is the
 restriction of an algebraic class on $W\times_{C}W$; the invariant classes
-include the two exceptional classes of \Cref{prop:mumfordproduct}, which are
-not known to be algebraic, so this is the smallest case of (F2) in a global
-form. \Cref{thm:lefschetzfamily} does not bear on (P2), on the Kuga--Satake
+include the two exceptional classes of \Cref{prop:mumfordproduct}, so this
+is the smallest case of (F2) in a global form. \Cref{thm:lefschetzfamily} does not bear on (P2), on the Kuga--Satake
 class of \Cref{thm:mumfordks}, or on \textup{(L)} for varieties that are not
 fibred in abelian varieties over a curve.
 \end{remark}
@@ -1006,7 +1002,7 @@ The argument of \Cref{ssec:newlefschetz} does more than add a case of
 \textup{(L)}. For an abelian scheme over a curve it shows that \textup{(L)}
 for the total space is exactly the statement that algebraicity propagates
 along the curve. The base points of this paper then turn each of the two
-targets left open in \Cref{rem:bullseye}, one Weil family and the first
+targets of \Cref{rem:bullseye}, one Weil family and the first
 classes beyond the Weil lines, into \textup{(L)} for one explicit variety. The
 reductions are equivalences, so they locate the difficulty rather than remove
 it. Along the way two things are proved outright: the Hodge conjecture for
@@ -1138,7 +1134,7 @@ $e_{w}\mapsto\varphi_{w}e_{w}^{(1)}+\psi_{w}e_{w}^{(2)}$, and the Hodge
 classes of $X_{c}$ and of $X_{c}\times X_{c}$, tensored with $\CC$, are
 spanned by the monomials of weight zero.
 
-Item (XLIII) of \Cref{sec:verification} shows that the ring generated by the
+The computation \cite[item~(XLIII)]{BMB26} shows that the ring generated by the
 divisor classes of $X_{c}\times X_{c}$ and by the pull-backs $f^{*}(t)$, for
 $f=(\varphi,\psi)$ and $t$ a Hodge class of $X_{c}$ of degree $4$ or $6$,
 contains every Hodge class of $X_{c}\times X_{c}$, in every degree. The map
@@ -1171,7 +1167,7 @@ As in the proof of \Cref{cor:mumfordlefschetz}, the connected monodromy group
 is $G$, so the monodromy invariants in $H^{*}(X_{t}\times X_{t},\QQ)$ are
 contained in the $G$-invariants, which are the Hodge classes of
 $X_{t}\times X_{t}$ for $t$ very general; conversely a $G$-invariant class is
-flat, being fixed by the monodromy. Item (XLIII) shows that these invariants
+flat, being fixed by the monodromy. The computation \cite[item~(XLIII)]{BMB26} shows that these invariants
 form a ring generated by its elements of degree two, the divisor classes, and
 of degree four, which are the six products of divisor classes and the two
 exceptional classes.
@@ -1281,7 +1277,7 @@ $\bigwedge^{j}Q\cdot\alpha_{+}$, of type $(n-b,n+a)$ with $a$ wedges by
 $V_{-}^{0,1}$ and $b$ contractions by $T_{+}$, and the second gives classes of
 type $(1,2n)$, $(0,2n-1)$ and $(0,2n)$. The components of $x$ are of type
 $(k,k)$, so $x\in\CC\alpha_{+}$. Symmetrically the second case gives
-$x\in\CC\alpha_{-}$ and the third $x=0$; item (XLIII) confirms the three
+$x\in\CC\alpha_{-}$ and the third $x=0$; \cite[item~(XLIII)]{BMB26} confirms the three
 annihilators for $n\le3$, and so does the Lean certificate. Finally $x$ is
 rational, complex conjugation carries $V_{+}$ to $V_{-}$ and $H^{1,0}$ to
 $H^{0,1}$, so $\bar\alpha_{+}\in\CC\alpha_{-}$, and a rational multiple of

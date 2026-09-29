@@ -1,8 +1,11 @@
 \section{The hyperplane obstruction}\label{sec:hyperplane}
 
 This section sets the constructions on abelian varieties aside and turns to
-the geometric approach described in the introduction: induction on the
-dimension of the variety through hyperplane sections. Each ingredient of such
+the other classical approach: induction on the dimension of the variety
+through hyperplane sections. One places the variety in a family of hyperplane
+sections, uses the algebraicity of the Hodge locus to control where a class
+stays of type $(p,p)$, appeals to the conjecture in one dimension lower, and
+transports the resulting cycles back up. Each ingredient of such
 an argument is a theorem: the Lefschetz hyperplane theorem, hard Lefschetz,
 the algebraicity of the Hodge locus \cite{CDK95}, and the properness of
 relative Hilbert schemes. The question is whether they compose into an
@@ -46,6 +49,14 @@ $2d-k-2\le d-2$, that is whenever $k\ge d$.
 \end{proof}
 
 \subsection{The middle degree}
+
+\begin{theorem}[Hyperplane obstruction]\label{thm:hyperplane}
+Let $d=2p$ and let $\alpha\in H^{2p}(X,\QQ)$ be primitive. Then
+$j^{*}\alpha=0$ for every smooth ample hypersurface $j\colon Y\hookrightarrow X$.
+\end{theorem}
+
+The primitive middle degree is where the Hodge conjecture is hard, and it is
+where the restriction map returns nothing. The proof takes three lines.
 
 \begin{proof}[Proof of \Cref{thm:hyperplane}]
 Let $d=2p$ and let $\alpha\in H^{2p}(X,\QQ)$ be primitive. A class of degree
@@ -110,6 +121,14 @@ $\Lambda L\alpha=L\Lambda\alpha-[L,\Lambda]\alpha=0-(k-d)\alpha
 =(d-k)\alpha$.
 \end{proof}
 
+\begin{theorem}[The return trip]\label{thm:returntrip}
+Let $2p\le d-2$, so that $j^{*}\colon H^{2p}(X,\QQ)\to H^{2p}(Y,\QQ)$ is an
+isomorphism. If $j^{*}\alpha$ is algebraic on $Y$, then $L\alpha$ is algebraic
+on $X$. The implication ``$L\alpha$ algebraic $\Rightarrow$ $\alpha$
+algebraic'', asked of all smooth projective $X$ and all $\alpha$, is
+equivalent to the Lefschetz standard conjecture.
+\end{theorem}
+
 \begin{proof}[Proof of \Cref{thm:returntrip}]
 Let $2p\le d-2$, so $j^{*}\colon H^{2p}(X,\QQ)\to H^{2p}(Y,\QQ)$ is an
 isomorphism by \Cref{thm:LHT}. If $j^{*}\alpha=\cl(W)$ for some
@@ -143,6 +162,17 @@ class under $L^{e-k}$ is a Hodge class. This is Kleiman's conjecture $A$ for
 every smooth projective variety, and $A$ for $X\times X$ implies $B(X)$
 \cite{Kle68,Kle94}.
 \end{proof}
+
+Together the two theorems give the following.
+
+\begin{corollary}[No dimensional induction through hyperplane sections]%
+\label{cor:noinduction}
+Let $X$ be smooth projective of dimension $d$ and let $\alpha\in\Hdg^{p}(X)$.
+An argument that deduces the algebraicity of $\alpha$ from the Hodge
+conjecture for smooth ample hypersurfaces of $X$, using only $j^{*}$ and
+$j_{*}$, returns no information when $2p=d$ and $\alpha$ is primitive, and
+otherwise establishes the algebraicity of $L\alpha$ rather than of $\alpha$.
+\end{corollary}
 
 \begin{proof}[Proof of \Cref{cor:noinduction}]
 Suppose the argument uses only $j^{*}$ and $j_{*}$ to relate classes on $X$ to

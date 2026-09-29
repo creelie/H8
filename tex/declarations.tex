@@ -1,12 +1,18 @@
-% Zenodo DOIs of the repository. Release v1.0.0 was archived under
+% Zenodo DOIs of the code archive. Release v1.0.0 was archived under
 % 10.5281/zenodo.22950276 and release v2.0.0 under 10.5281/zenodo.23038895;
 % both are versions of the concept record 10.5281/zenodo.22950275.
+% \zenodoCodeID is the DOI the paper cites for the code. Until the version
+% DOI of release v3.0.0 is minted it is the concept DOI, which resolves to
+% the latest version; replace it by the version DOI once Zenodo assigns it.
 \newcommand{\zenodoFirstDOI}{%
   \href{https://doi.org/10.5281/zenodo.22950276}{\texttt{10.5281/zenodo.22950276}}}
 \newcommand{\zenodoVersionDOI}{%
   \href{https://doi.org/10.5281/zenodo.23038895}{\texttt{10.5281/zenodo.23038895}}}
 \newcommand{\zenodoConceptDOI}{%
   \href{https://doi.org/10.5281/zenodo.22950275}{\texttt{10.5281/zenodo.22950275}}}
+\newcommand{\zenodoCodeID}{10.5281/zenodo.22950275}
+\newcommand{\zenodoCodeDOI}{%
+  \href{https://doi.org/\zenodoCodeID}{\texttt{\zenodoCodeID}}}
 
 \section*{Declarations}
 
@@ -19,29 +25,22 @@ The authors have no competing interests to declare.
 \subsection*{Ethics approval and consent}
 This article reports no research involving human participants, human data or
 animals, so ethics approval and consent to participate or to publish were not
-required. The results are original and have not been published elsewhere;
-the earlier preprint described on the first page is superseded by this paper,
+required. The results are original and have not been published elsewhere,
 and the work of others is credited by citation throughout.
 
 \subsection*{Data availability}
-All code and data supporting the results of this paper are openly available
-in the public GitHub repository \url{https://github.com/creelie/H8}. The
-version that accompanies this paper is release v2.0.0,
-\begin{center}
-\url{https://github.com/creelie/H8/releases/tag/v2.0.0},
-\end{center}
-archived on Zenodo under the version DOI \zenodoVersionDOI. All versions of
-the repository are gathered under the concept DOI \zenodoConceptDOI, which
-always resolves to the latest one; the first release, v1.0.0, has the version
-DOI \zenodoFirstDOI. The repository contains the programs that carry out the
-computations of \Cref{sec:verification}, one for each item, with a README
-that lists them by item; the Lean~4 certificate of \Cref{sec:lean}; the
-Macaulay2 computations of local $\Ext$ algebras, with their output; the
-sources of this paper; and the generators and TikZ sources of every figure.
-The programs perform $2004$ checks, all of which pass, and the Lean kernel
-checks one hundred and ten theorems, each depending on no axiom or on propositional
-extensionality alone. The code and the computations were written and run
-with the assistance of Claude Code. Every result they certify can be
-reproduced from the repository with the programs and the Lean kernel, and the
-authors are responsible for the mathematical statements and their proofs. No
-other data were generated or analysed.
+The programs that carry out the computations cited in this paper as
+\cite{BMB26}, the Lean~4 certificate of the finite arithmetic, the Macaulay2
+computations of local $\Ext$ algebras with their output, the sources of the
+paper, and the generators and TikZ sources of every figure are openly
+available on Zenodo under the DOI \zenodoCodeDOI. The version that
+accompanies this paper is release 3.0.0 of that archive. A document in the
+archive lists the computations by the item numbers under which they are
+cited here. The programs perform $2004$ checks, all of which pass, and the
+Lean kernel checks one hundred and ten theorems, each depending on no axiom
+or on propositional extensionality alone. The code and the computations were
+written and run with the assistance of Claude Code, an AI model developed by
+Anthropic. Every result they certify can be reproduced from the archive
+with the programs and the Lean kernel, and the authors are responsible for
+the mathematical statements and their proofs. No other data were generated
+or analysed.

@@ -304,8 +304,7 @@ with a nonzero Weil component; the tuples of at most four that do satisfy the
 Chern character condition with a nonzero Weil component, $888$ of them at
 $d=1$ and $30$ at $d=2$, all have exactly four terms, and all of them fail
 \Cref{lem:splitsemireg}(iii): the kernel has dimension $2$, $3$, $4$ or $6$
-at $d=1$ and $3$ or $6$ at $d=2$, never $0$. Item (XIII) of
-\Cref{sec:verification} carries both computations.
+at $d=1$ and $3$ or $6$ at $d=2$, never $0$. The computation \cite[item~(XIII)]{BMB26} carries both computations.
 
 So the object of \Cref{thm:semiregclosure}, if it exists at a split member, is
 not a sum of line bundles in any arrangement of signs and shifts, and
@@ -458,7 +457,7 @@ zero sum of squares,
 while the sums of cubes are $-3$ and $+3$. A search over the norm circles of
 $\cO_{K}$ with $\Nm\le200$ and $|g|,|h|\le25$, for $K=\QQ(\sqrt{-d})$ with
 $d=1,2,3,7$, finds this solution and its conjugate at $n=3$, one further pair
-at $d=1$ and $n=4$, and nothing else; item (XIII) of \Cref{sec:verification}
+at $d=1$ and $n=4$, and nothing else; the computation \cite[item~(XIII)]{BMB26}
 records the search.
 
 \begin{proposition}[An explicit object at $n=3$]\label{prop:explicitobject}
@@ -490,8 +489,7 @@ $15=\dim H^{2}(\cO_{A_{0}})$.
 \end{proposition}
 
 \begin{proof}
-Everything asserted is a finite exact computation, carried out in item (XIII)
-of \Cref{sec:verification}. The classes are the images under
+Everything asserted is a finite exact computation, carried out in \cite[item~(XIII)]{BMB26}. The classes are the images under
 $\theta(u)=2g\gamma+2dh\,\ell$, $u=g+h\sqrt{-3}$, of the six roots of unity
 of $K$ scaled by $2$; the Chern character is \Cref{prop:chintermsofu} with the
 Prouhet--Tarry--Escott data above; the index computation and the rank of
@@ -694,8 +692,8 @@ $v\lrcorner\,(-\lambda_{i})=-v\lrcorner\,\lambda_{i}$, so an element of the
 image of the shape $(z,\dots,z)$ has $z=-z$, hence is zero; this is
 $\Delta\cap\image\ob_{E}=0$, and with $\dim\ker\sigma_{E}=15$ from
 \Cref{prop:explicitobject} the dimension count follows. Every number in (iv)
-is also computed directly in item (XXV) of \Cref{sec:verification}, in the
-model of item (XIII).
+is also computed directly in the computation \cite[item~(XXV)]{BMB26}, in the
+model of \cite[item~(XIII)]{BMB26}.
 \end{proof}
 
 \begin{remark}[Meaning of the obstruction classes]\label{rem:obstructionmeaning}
@@ -862,7 +860,7 @@ lies in $\ker\sigma_{E}$ if and only if $x\lrcorner\,\ch(E)=0$.
 $4n^{2}$ and $\binom{2n}{2}$. The inequality
 $s\binom{2n}{2}>2\binom{2n}{2}+4n^{2}$ is $(s-2)(2n-1)>4n$, and
 $4n/(2n-1)\le8/3$ for $n\ge2$, so it holds for $s\ge5$; it is checked for
-$2\le n\le30$ and $5\le s\le40$ in \Cref{sec:lean}.
+$2\le n\le30$ and $5\le s\le40$ in the Lean certificate of \cite{BMB26}.
 
 (iv) Since $\ch(E)=12\omega_{1}$ is of type $(3,3)$, the three summands of
 $x\lrcorner\,\ch(E)$ have types $(3,5)$, $(2,4)$ and $(1,3)$, so the kernel
@@ -917,8 +915,8 @@ By (ii), $\Delta\oplus\Sigma\subseteq\ker\sigma_{E}\cap\image\operatorname{ev}_{
 and its dimension $9+6=15$ equals $\dim\ker\sigma_{E}$ by
 \Cref{prop:explicitobject}, so the three spaces coincide. The rank of
 $\operatorname{ev}_{E}$ and the statement for the eighteen configurations
-are the computations of item (XXVI) of \Cref{sec:verification}, which also
-recomputes every dimension in this proof in the model of item (XIII).
+are the computations \cite[item~(XXVI)]{BMB26}, which also
+recomputes every dimension in this proof in the model of \cite[item~(XIII)]{BMB26}.
 \end{proof}
 
 \begin{figure}[tbp]
@@ -986,7 +984,7 @@ $r_{K}(N)=\#\{u\in\cO_{K}:\Nm_{K/\QQ}(u)=N\}$.
   Multiplicity one, \Cref{lem:splitsemireg}(i), forces
   $|M_{j}|\le r_{K}(N_{j})$ for every $j$.
 \item For $4\le n\le8$, every $d\in\{1,2,3,7,11,19\}$ and every choice of
-  norms below the bounds recorded in item (XXII) of \Cref{sec:verification},
+  norms below the bounds recorded in the computation \cite[item~(XXII)]{BMB26},
   no set of $n+1$ norms and no set of $n+2$ norms satisfies those constraints.
   In that range no split object of the shape of \Cref{setup:pte} is
   semiregular, and the reason is arithmetic rather than geometric: the least
@@ -1017,8 +1015,7 @@ $S_{\min}$ is the definition of a least common multiple, and the bound on
 $|M_{j}|$ holds because each $u$ of norm $N_{j}$ contributes at most one term
 $m_{i}=\pm1$ to $M_{j}$.
 
-(ii), (iii) and (iv) are the computations of item (XXII) of
-\Cref{sec:verification}, carried out in exact integer arithmetic. For (ii) and
+(ii), (iii) and (iv) are the computations \cite[item~(XXII)]{BMB26}, carried out in exact integer arithmetic. For (ii) and
 (iii) the computation enumerates every set of $n+1$ norms represented by $\cO_{K}$
 below the bound, forms $D_{j}$ and $S_{\min}$, and tests
 $|M_{j}|\le r_{K}(N_{j})$; at $\nu=n+2$ the solution space of the diagonal
@@ -1100,7 +1097,7 @@ gives a flat Chern character with a nonzero Weil component by
 \Cref{prop:chintermsofu}.
 \end{proof}
 
-\begin{remark}[What the corollary leaves open]\label{rem:nolinemeaning}
+\begin{remark}[What the corollary asks of an object]\label{rem:nolinemeaning}
 \Cref{cor:noline} ends the search that \Cref{thm:pterange} began: there is no
 sum of line bundles, at any member of any Weil family in any dimension, that
 could run the semiregularity argument in either form, and the arithmetic of
@@ -1110,7 +1107,7 @@ only divisor class that stays of type $(1,1)$ across the whole family is the
 polarisation, so every line bundle summand off that line is obstructed in
 some direction of the family, and the semiregularity map, whose composite
 with the obstruction is contraction with the flat class $\ch(E)$, cannot see
-it. What remains open is the object the argument needs: one with no rank one
+it. The object the argument needs is one with no rank one
 summand off the polarisation line, of positive rank, indecomposable enough
 that its Atiyah class contracted with every direction of $T$ vanishes.
 Markman's reflexive sheaves at $n=3$ are of that kind, and nothing here

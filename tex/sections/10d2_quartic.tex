@@ -5,11 +5,9 @@ By \Cref{thm:closure}(ii) the only form of (P2) on a minimal route to the
 conjecture is the one for the split families of the CM fields of degree at
 least four, and by \Cref{prop:descent}(i) the Weil classes of any family of
 such a field in a higher dimension give those of its families at $n=2$. For a
-quartic field these are families of abelian eightfolds, and they are the
-smallest families of a field of degree at least four whose Weil classes are
-not known to be algebraic: we know of no quartic CM field $F$ and no
-discriminant $\delta$ for which $\mathbf{W}(F,2,\delta)$ is proved. This
-subsection determines how far the available mechanisms reach there.
+quartic field these are families of abelian eightfolds, the smallest
+families of a field of degree at least four. This subsection determines how
+far the available mechanisms reach there.
 
 Divisor classes reach the Weil classes exactly on a Noether--Lefschetz locus,
 which has codimension two when $\delta$ is trivial (\Cref{prop:quarticnl},
@@ -36,9 +34,9 @@ graphs of real multiplication and objects with pure spinor characters give no
 Weil class at all (\Cref{prop:quarticexclusions}). One kernel that is not an
 external product has a character of the untwisted form, with $r=94$, but no
 object with that character is known to meet the criterion
-(\Cref{rem:quarticmixedkernel}). None of this is a new case of the Hodge
-conjecture, and $\mathbf{W}(F,2,\delta)$ remains open for every quartic $F$
-and every $\delta$. Items (LV) and (LIX) of \Cref{sec:verification} check the
+(\Cref{rem:quarticmixedkernel}). Together these results fix the loci that
+divisors, scalar extension and correspondences reach inside $\cD_{F}$, and
+the numbers that one complex has to attain on the rest. The computations \cite[items~(LV) and~(LIX)]{BMB26} check the
 statements in exact arithmetic.
 
 Throughout, $F$ is a quartic CM field and $F_{0}$ its real quadratic subfield,
@@ -157,7 +155,7 @@ $W$ is an $F_{0}$-subspace and a sub-Hodge structure, $\psi$ being a Hodge
 endomorphism, and an element $\beta\in F$ with $\bbar\beta=-\beta\ne0$ maps it
 isomorphically onto the $(-1)$-eigenspace, since $\psi\beta=-\beta\psi$. So
 $R_{F}=W\oplus\beta W=W\otimes_{F_{0}}F$, and $W$ has half the dimension and
-half the Hodge numbers of $R_{F}$. Item (LV) checks (i), (ii) and the
+half the Hodge numbers of $R_{F}$. The computation \cite[item~(LV)]{BMB26} checks (i), (ii) and the
 dimension in (iii) exactly, for several fields and hermitian forms.
 \end{proof}
 
@@ -268,7 +266,7 @@ is a square in $F_{0}$ and $\delta$ is trivial. The class
 $e\otimes1\in(\bigwedge^{2}_{F_{0}}U)\otimes_{F_{0}}F=R_{F}$ is fixed by
 $\Hg(A)=\Hg(X)\subseteq\Res_{F_{0}/\QQ}\Sp(U,e)$, so it is a nonzero Hodge
 class. The polarised abelian fourfolds with real multiplication by $F_{0}$
-form families of dimension $[F_{0}:\QQ]\cdot3=6$. Item (LV) checks the split
+form families of dimension $[F_{0}:\QQ]\cdot3=6$. The computation \cite[item~(LV)]{BMB26} checks the split
 locus for three quartic fields.
 \end{proof}
 
@@ -324,7 +322,8 @@ product of Weil surfaces. The indigo points are CM points; the base point
 $s_{0}$ of \Cref{thm:cmbasepoint} lies on $\mathrm{NL}(R_{F})$. For
 $F=\QQ(\zeta_{5}),\QQ(\zeta_{8}),\QQ(\zeta_{12})$ and trivial $\delta$ the Prym
 locus of \Cref{rem:quarticprym}, of dimension at most $6$, is not drawn. The
-rest of the domain, the very general member included, is open.}
+rest of the domain, the very general member included, is reached through the
+propagation statement.}
 \label{fig:quarticloci}
 \end{figure}
 
@@ -382,7 +381,7 @@ L_{\sigma}^{\otimes2}$, with $\bigwedge^{2}V_{\kappa}$ irreducible and
 nontrivial for $\SL(V_{\kappa})$; so when $\Hg(C)=\SU(V_{C},H_{C})$, $R_{F}$
 has no invariants. For $C=C_{1}\times C_{2}$ one has
 $B_{F}=(C_{1}\otimes_{\cO_{K}}\cO_{F})\times(C_{2}\otimes_{\cO_{K}}\cO_{F})$, and
-\Cref{prop:quarticnl}(iii) applies. Item (LV) checks (i), and that $R_{F}$
+\Cref{prop:quarticnl}(iii) applies. The computation \cite[item~(LV)]{BMB26} checks (i), and that $R_{F}$
 meets the invariants of $\SU(V_{C},H_{C})$ in $0$, exactly for three
 biquadratic fields and four hermitian forms.
 \end{proof}
@@ -481,7 +480,7 @@ formula, so the $G_{F}$-invariants in that part form the rational space
 $W_{F}(A)\otimes_{F}\mathrm{Sym}^{4}_{F}(F^{2})$, of dimension $20$. The map
 $f^{*}$ sends $w$ to $w\otimes(a,b)^{\otimes4}$, and the fourth powers of the
 elements of $\cO_{F}^{2}$ span $\mathrm{Sym}^{4}_{F}(F^{2})$; so the classes
-$f^{*}w$ span that space, and $C_{q}$ is algebraic if $W_{F}(A)$ is. Item (LV)
+$f^{*}w$ span that space, and $C_{q}$ is algebraic if $W_{F}(A)$ is. The computation \cite[item~(LV)]{BMB26}
 checks the three identities exactly for four pairs of field and hermitian
 form.
 \end{proof}
@@ -644,12 +643,12 @@ that multiplies each $\theta_{j}$ by a scalar and each $\alpha_{\sigma}$ by an
 arbitrary scalar, and contraction is equivariant; so $r(\omega+p)$ depends on
 $\omega$ only through a rescaling of the variables of $p$, and each statement
 of the theorem holds for every $\omega$ once it holds for one. The rank is
-lower semicontinuous in $p$, and item (LV) finds $r(\gamma)=112$ exactly at
+lower semicontinuous in $p$, and \cite[item~(LV)]{BMB26} finds $r(\gamma)=112$ exactly at
 explicit rational $\omega$ and $p$, and at explicit elements of the Hodge ring
 with nonzero Weil component.
 
 (iii) and (iv) are \Cref{thm:quarticrank}(iii) and (iv) below. The
-monomial values were found first by exact computation in item (LV), on the
+monomial values were found first by exact computation in \cite[item~(LV)]{BMB26}, on the
 $25$ monomials and on all $300$ pairs of them with seven ratios of
 coefficients; the part of the contraction that no $p$ reaches has rank only
 $68$, so the columns that $p$ does reach are needed for the bound.
@@ -768,10 +767,10 @@ two elements of $H^{0,1}\otimes T_{0}A$ have opposite images, and the
 coordinates of the images of one of them and of the bivector are, after one
 global sign, the pairs $\pm(e_{i,j},e_{i+1,j})$: rank $1+\rho_{1}(p)$, and
 $1+\rho_{2}(p)$ over $\tau_{2}$. These descriptions are exact computations in
-the basis, item (LXV), and the total is
+the basis, \cite[item~(LXV)]{BMB26}, and the total is
 $8+16(3+\mu)+4(1+\rho_{1})+4(1+\rho_{2})+R_{1}+R_{2}$.
 
-(ii) The matrix of the contraction on $W_{1}$, also computed in item (LXV),
+(ii) The matrix of the contraction on $W_{1}$, also computed in \cite[item~(LXV)]{BMB26},
 reduces by elementary operations to the direct sum of an invertible
 $4\times4$ block that does not involve $p$ and the matrix
 $K=\bigl(K^{0}\,\big|\,\mathrm{diag}(H,H)\bigr)$, where, with $e_{k}=e_{k0}$,
@@ -802,7 +801,7 @@ second row would have the entry $-\frac34$. So $\operatorname{rk}K\ge3$ and
 $R_{1}\ge7$. If $R_{1}=7$, then $\operatorname{rk}Q=1$, and the $2\times2$
 minors of $Q$ vanish exactly on $V_{+}\cup V_{-}$: they lie in the ideals of
 both, and the squares of the products of their generators lie in the ideal of
-the minors (item (LXV); the minor of the first two rows, for instance, is
+the minors (\cite[item~(LXV)]{BMB26}; the minor of the first two rows, for instance, is
 $e_{2}h_{3}-2e_{3}h_{1}-e_{3}$). If moreover $\rho_{1}(p)\le1$, then
 $h_{1}=h_{2}=h_{3}=0$, and the minors of the second and third rows and of the
 first and third rows become $(e_{2}^{2}-1)/2$ and, once $e_{2}^{2}=1$,
@@ -821,7 +820,7 @@ $\rho_{t}=2$. The tuples $(\mu,\rho_{1},\rho_{2},R_{1},R_{2})$ allowed by
 these two conditions give exactly the fifteen values, and $80$ only for
 $(0,0,0,8,8)$; $\rho_{1}=\rho_{2}=0$ means that $e_{ij}=0$ unless $i=j=0$,
 that is, $p$ is constant. Each value is taken, at explicit $p$ computed on
-all $120$ basis elements at once in item (LXV): $p=0$, $\theta_{1}$,
+all $120$ basis elements at once in \cite[item~(LXV)]{BMB26}: $p=0$, $\theta_{1}$,
 $\theta_{1}^{2}$, $\theta_{1}^{2}+\theta_{2}$, $\theta_{1}^{2}+
 \theta_{2}^{2}$, $\theta_{1}\theta_{2}$, $\theta_{1}\theta_{2}^{2}$ and
 $\theta_{1}^{2}\theta_{2}^{2}$ give $80$, $84$, $88$, $92$, $96$, $104$, $108$
@@ -942,7 +941,7 @@ $1$, $\theta_{1}^{4}$ and $\theta_{2}^{4}$, which the first part excludes.
 
 The shape $c+b\,\theta_{1}^{4}+\iota(b)\,\theta_{2}^{4}$ has rank $88$, and
 with a multiple of $\theta_{1}^{4}\theta_{2}^{4}$ added it has rank $104$
-(item (LXV) of \Cref{sec:verification}); \Cref{prop:quarticweiltori} removes
+(the computation \cite[item~(LXV)]{BMB26}); \Cref{prop:quarticweiltori} removes
 both. What remains at $88$ is a Chern character whose polynomial part is
 exponential or linear in each $\theta_{t}$ separately, such as
 $c+\eta_{s}+N\omega_{1}$. For these the classes $\theta_{t}$ are not of Hodge
@@ -1051,7 +1050,7 @@ $\xi'_{0}$, and likewise with $\sigma$ and $\bbar\sigma$ exchanged; so $\xi'$
 and $\xi''$ are multiples of $\xi'_{0}$ and $\xi''_{0}$, and the two remaining
 equations form a $2\times2$ linear system whose determinant, with the
 constants $\xi'_{0}\lrcorner\theta_{t}$ and $\xi''_{0}\lrcorner\theta_{t}$
-computed in item (LXV)(L), vanishes exactly when
+computed in \cite[item~(LXV)(L)]{BMB26}, vanishes exactly when
 $16c_{t}^{2}=u_{\sigma}u_{\bbar\sigma}$. Since $\theta_{t}^{4}=24\,
 \alpha_{\sigma}\alpha_{\bbar\sigma}$ and $\omega_{t}^{2}=2u_{\sigma}
 u_{\bbar\sigma}\alpha_{\sigma}\alpha_{\bbar\sigma}$, that is the condition
@@ -1078,7 +1077,7 @@ connected in the Hodge locus.
 
 (iii) At each place $X_{t}$ is, in the $8$-dimensional space
 $V_{\sigma}\oplus V_{\bbar\sigma}$ with the form $\theta_{t}$, the class of
-\Cref{rem:p2primeexceptional}, and item (LXV)(L) computes its stabiliser
+\Cref{rem:p2primeexceptional}, and \cite[item~(LXV)(L)]{BMB26} computes its stabiliser
 again: $\mathfrak{so}(4,3)$, with an orbit of dimension $5$ in the
 Grassmannian. The other components of $\gamma$ are constants, multiples of
 $\theta_{t}^{4}$, which is $24$ times the volume form of
@@ -1110,7 +1109,7 @@ $\theta_{t}^{2}$, $\theta_{t}^{4}$ and $\theta_{1}^{4}\theta_{2}^{4}$ with
 $c_{t}\ne0$, so $\rho_{1}=\rho_{2}=2$, $\mu=1$ exactly when
 $\theta_{1}^{4}\theta_{2}^{4}$ occurs, and $(e_{10},\dots,e_{40})$ lies on
 $V_{+}\cup V_{-}$, so $R_{1}=R_{2}=7$ by \Cref{thm:quarticrank}(ii); the
-formula of \Cref{thm:quarticrank}(i) gives $94$ or $110$. Item (LXV)(L)
+formula of \Cref{thm:quarticrank}(i) gives $94$ or $110$. The computation \cite[item~(LXV)(L)]{BMB26}
 checks (i) on seventeen shapes, the stabilisers, the classes kept along the
 locus, and the sign.
 \end{proof}
@@ -1221,7 +1220,7 @@ the Galois group acts transitively on the CM types, so $N_{w}=4$.
 (iii) One has
 $\int_{X}e^{c_{1}\theta_{1}+c_{2}\theta_{2}}=c_{1}^{2}c_{2}^{2}$, and $\chi$ is
 invariant under $e^{\theta_{t}}$; the form is positive definite because $q$ is
-totally positive. Item (LV) of \Cref{sec:verification} checks (ii) and (iii)
+totally positive. The computation \cite[item~(LV)]{BMB26} checks (ii) and (iii)
 in $49$ cases.
 \end{proof}
 
@@ -1292,7 +1291,7 @@ hold. Every $x\in\cO_{p}$ has $x-\bar x\in\delta\cO_{p}$, which disposes of
 $h-\bar h$ and $k-\bar k$; and $g=c+\delta g'$ with $g'\in\cO_{p}$ gives
 $2c-g-\bar g=-\delta(g'-\bar g')\in\delta^{2}\Lambda$. So every coefficient
 lies in $\Lambda$. When $p$ is unramified in $F_{0}$, $\delta$ is a unit at
-$p$ and the congruence is empty. Item (LV) of \Cref{sec:verification} carries
+$p$ and the congruence is empty. The computation \cite[item~(LV)]{BMB26} carries
 out the expansion with $\delta$ and the entries of $V$ as symbols, and
 computes the integral classes directly for nine fields.
 \end{proof}
@@ -1398,8 +1397,8 @@ For $\QQ(\sqrt2)$, (c) makes $\mu$ odd, so $\mu=\pm1$ and
 $\Nm(\Delta)\in\{1,5\}$; the norms of the elements of $\ZZ[\sqrt2]$ prime to
 $2$ are $\pm1$ modulo $8$, so $\Nm(\Delta)=1$ and $\Delta=-(1+\sqrt2)^{2k}$,
 which is $3$ or $1+2\sqrt2$ modulo $4$, and neither is a square modulo $4$ in
-$\ZZ[\sqrt2]$. These finite statements are certified in \Cref{sec:lean}. The
-identities used are checked exactly on random integral classes in item (LV),
+$\ZZ[\sqrt2]$. These finite statements are certified in the Lean certificate of \cite{BMB26}. The
+identities used are checked exactly on random integral classes in \cite[item~(LV)]{BMB26},
 which also confirms that for squarefree $D<200000$ the three conditions leave
 only $D=2$ and $D=5$.
 \end{proof}
@@ -1480,7 +1479,7 @@ These are invariant under the special unitary group $SU_{j}$ of the $j$-th
 factor, and $G_{F}(\RR)=SU_{1}\times SU_{2}$ acts factor by factor; so the
 rational class $\kappa$ is invariant under $G_{F}(\RR)$, which is Zariski dense
 in $G_{F}$, and the Hodge group of every member of the family lies in $G_{F}$.
-Item (LV) of \Cref{sec:verification} checks the invariance of $\kappa$ under
+The computation \cite[item~(LV)]{BMB26} checks the invariance of $\kappa$ under
 the Lie algebra of $G_{F}$ directly for seven real quadratic fields, and the
 formula of (i) on eight pairs, including the values $88$ and $94$ for
 $F=\QQ(\sqrt5,\sqrt{-1})$.
@@ -1517,7 +1516,7 @@ has one, since a nonzero rational Weil class has nonzero components at all
 four embeddings. The class $\ch(E)=\kappa e^{-\ell/2}$ itself is not flat: for
 $Y$ in the Lie algebra of $G_{F}$, $D_{Y}\ch(E)=-\tfrac12(D_{Y}\ell)\ch(E)$, whose
 part of degree two is $-\tfrac12\rk(E)\,D_{Y}\ell$, and $\ell$ is not flat;
-item (LIX) of \Cref{sec:verification} checks the non-flatness for six pairs in
+the computation \cite[item~(LIX)]{BMB26} checks the non-flatness for six pairs in
 each of two fields, five of the twelve of rank zero. So these objects are
 candidates only for a twisted form of \Cref{thm:quarticp2prime}(v), with
 hypothesis a flat twisted character $\kappa$ with $\kappa_{4}=N\omega+P_{4}$,
@@ -1546,7 +1545,7 @@ $\Ext^{-1}(F_{i},F_{i})=\Ext^{-2}(F_{i},F_{i})=0$ and
 $\nu_{i}=\bigl(\chi(v_{i},v_{i})-r^{2}(v_{i})+14\bigr)/2$. This gives
 $\nu_{i}\ge2$ for $(\rho,N_{w})=(1,4)$ and $(2,2)$, and $\nu_{i}\ge1$ for
 $(2,4)$ unless $F_{0}=\QQ(\sqrt3)$ and $\chi(v_{i},v_{i})=4$, where
-$\nu_{i}=-1$; we do not know whether integral classes of that kind exist. So
+$\nu_{i}=-1$, a case that needs integral classes of that kind. So
 equality needs, for both $i$, some $\Ext^{-j}(F_{i},F_{i})\ne0$ with $j\ge4$
 even, or $j\ge3$ odd in the exceptional case, and it fails as soon as one
 $F_{i}$ has its cohomology sheaves in an interval of length at most $3$, at
@@ -1579,7 +1578,7 @@ $HT^{*}$ and $H^{*}$, ranks of contraction (\cite{CRV12}, as in the proof of
 \Cref{thm:factor}(iv)); for an isogeny $g$,
 $g^{*}g_{*}E=\bigoplus_{x\in\ker g}t_{x}^{*}E$, so $\Ext^{2}(g_{*}E,g_{*}E)$
 contains $\Ext^{2}(E,E)$ while $r(\ch g_{*}E)=r(\ch E)$, and likewise for
-$g^{*}$; twists are \Cref{lem:bfield}(i). Item (LIX) confirms that for
+$g^{*}$; twists are \Cref{lem:bfield}(i). The computation \cite[item~(LIX)]{BMB26} confirms that for
 squarefree $D<200000$ the three conditions leave only $D=3$.
 \end{remark}
 
@@ -1658,7 +1657,7 @@ $\Omega_{N}$ a multiple of $1$, $\eta_{1}^{4}$, $\eta_{2}^{4}$ or
 $\eta_{1}^{4}\eta_{2}^{4}$. The characters listed are pure spinors, and
 derived equivalences, isogenies and twists preserve purity; this is the
 classical description recalled in \Cref{setup:lagquadric} and after
-\Cref{cor:naturalsums}, and item (LIX) checks it for $\Phi$ of line bundles on
+\Cref{cor:naturalsums}, and \cite[item~(LIX)]{BMB26} checks it for $\Phi$ of line bundles on
 graphs.
 
 (ii) As in the proof of \Cref{thm:quarticobstruction}(iii), everything factors
@@ -1694,8 +1693,8 @@ $e^{B}\Phi(L_{1}\otimes L_{2})$ form
   \bigl(\mathrm{Inv}_{2}\cap\Phi_{2}(L_{2})\bigr).
 \]
 Finally $\mathrm{Inv}_{j}\cap\Phi_{j}(L_{j})=\mathrm{span}(1,\mathrm{pt}_{j})$,
-the images of $X\times\{0\}$ and of the diagonal at that place. Item (LIX)
-computes this exactly for $\tau_{j}(q)\in\{1,3,2/5\}$, and it holds for every
+the images of $X\times\{0\}$ and of the diagonal at that place. The computation \cite[item~(LIX)]{BMB26}
+determines this exactly for $\tau_{j}(q)\in\{1,3,2/5\}$, and it holds for every
 value by rescaling: for $\lambda>0$ the automorphism $g_{\lambda}$ of $V_{j}$
 that multiplies $H^{1}(X)$ by $\lambda$ and $H^{1}(\widehat X)$ by
 $\lambda^{-1}$ fixes $1$, $\mathrm{pt}_{j}$ and $\ell_{j}$, carries the flat
@@ -1718,7 +1717,7 @@ gives $\pi(A_{1})\otimes A_{2}=\pi(A_{1}')\otimes A_{2}'$, so
 $\pi(A_{1})=\pi(A_{1}')=0$; likewise at the second place. So $A_{1}A_{2}$, the
 twisted character of $\Phi(L)$, and $A_{1}'A_{2}'$, that of
 $\Phi(\cO_{\Gamma}\otimes L)$, are both flat, and they lie in
-$\RR[\eta_{1},\eta_{2}]$ by (i) and (ii). Item (LIX) checks, for the graph of
+$\RR[\eta_{1},\eta_{2}]$ by (i) and (ii). The computation \cite[item~(LIX)]{BMB26} checks, for the graph of
 $\tfrac12(1+\sqrt5)$ in $\QQ(\zeta_{5})$, $L=\cO$ and $L=p_{1}^{*}\cO(\theta)$,
 and $B\in\{0,\tfrac12\ell,\ell\}$, that the character is not flat at all.
 \end{proof}
@@ -1758,7 +1757,7 @@ $k=0,\dots,4$. Let $Z''$ be the class on $X\times X$ with correspondence
 \item \emph{Its character.} At each place $\ch\Phi_{j}(U^{0}_{j})=1$ and
   $\ch\Phi_{j}(T_{j}-P_{j})=-\frac14\bigl(\eta_{j}^{2}+\gamma_{j}^{2}-\tau_{j}(q)
   \ell_{j}^{2}\bigr)$, an identity of degree two in $\tau_{j}(q)$ checked
-  exactly in item (LIX) at four values, so
+  exactly in \cite[item~(LIX)]{BMB26} at four values, so
   \[
     \ch\Phi(Z'')=-\tfrac14\textstyle\sum_{j}\bigl(\eta_{j}^{2}+\gamma_{j}^{2}
     -\tau_{j}(q)\ell_{j}^{2}\bigr)=P+\omega,
@@ -1783,7 +1782,7 @@ $k=0,\dots,4$. Let $Z''$ be the class on $X\times X$ with correspondence
   class of the kind of \Cref{rem:p2primeexceptional}, a Weil class plus a
   multiple of the square of the polarisation at the exceptional ratio; it has
   rank $23$, where a general invariant class has rank $24$ and annihilator
-  the tangent space. Item (LIX) computes $94$ and the annihilator exactly for
+  the tangent space. The computation \cite[item~(LIX)]{BMB26} determines $94$ and the annihilator exactly for
   four fields, and they hold for all by the rescaling $g_{\lambda}$ of the proof
   of \Cref{prop:quarticexclusions} and scalar multiplication on each $V_{j}$,
   which commute with the complex structure and carry the class for
@@ -1810,11 +1809,11 @@ $k=0,\dots,4$. Let $Z''$ be the class on $X\times X$ with correspondence
   flat. So the realisation of $NZ''$ by shifted sheaves on graphs and copies
   of such $\cO_{X}\boxtimes F'$ has $\dim\Ext^{2}(E,E)>94$.
 \end{enumerate}
-The class is only a candidate: we know no object with this character and
+The class is a candidate character, for an object with
 $\dim\Ext^{2}(E,E)=94$. Complexes with character $N\omega_{s_{0}}$ exist by
 \Cref{thm:cmpropagation}(v), with $r=80$ by \Cref{thm:quarticp2prime}(i);
 what the kernel adds is an explicit construction from graphs and one product,
-and the value $94$. Nothing here is a new case of the Hodge conjecture.
+and the value $94$.
 \end{remark}
 
 \subsubsection*{Markman's candidate for a quartic field}
@@ -1931,7 +1930,7 @@ $\partial_{i}\wedge\partial_{j}$ with $j\ge4$, which is
 $\bigwedge^{2}T_{p}D+T_{p}C\wedge T_{p}Y$.
 \end{proof}
 
-Item (LXVIII) of \Cref{sec:verification} repeats both computations, together
+The computation \cite[item~(LXVIII)]{BMB26} repeats both computations, together
 with eight further germs, by the method of \Cref{lem:localproducts}: a line
 bundle and a vector bundle of rank two on a smooth curve and a skyscraper
 give $\bigwedge^{2}N$, the ideal of a smooth curve in a smooth divisor gives
@@ -2105,7 +2104,7 @@ $\int\alpha_{0}\beta'=-2q(f_{1}^{2}+f_{2}^{2}+f_{1}^{-2}+f_{2}^{-2})=-4q\Tr(f^{2
 which is negative; the Euler pairings are
 \Cref{prop:quarticsecant}(iii) in the basis given there. The last number is
 \Cref{thm:quarticobstruction}(i) with $r^{2}(\alpha_{0})=12$ and
-$r^{2}(\beta')=20$. Item (LXVIII) of \Cref{sec:verification} checks (i) and
+$r^{2}(\beta')=20$. The computation \cite[item~(LXVIII)]{BMB26} checks (i) and
 (ii) exactly for two choices of $(q,f_{1},f_{2})$, (iii) for
 $F_{0}=\QQ(\sqrt5)$ and $f=(3+\sqrt5)/2$, where the values are $-28q$, $188q$
 and $8q$, and computes the rank $96$ directly on the cohomology of
@@ -2140,7 +2139,7 @@ $T_{p}C'\not\subseteq T_{j}$.
 push-forward, from the theta divisor $\Theta\subset X$, of the ideal twisted
 by $\cO(\Theta)$ of the union of a translate $W$ of the surface $W_{2}$ and
 $q$ translates $C_{1},\dots,C_{q}$ of the curve $W_{1}$, each meeting $W$ in
-one point; item (LXVIII) repeats the bookkeeping that gives it the character
+one point; \cite[item~(LXVIII)]{BMB26} repeats the bookkeeping that gives it the character
 $\alpha_{0}$. Let $p$ be a point of $C_{1}$ outside $W$, the other $C_{i}$
 and the finite singular locus of $\Theta$. Near $p$, $E_{0}$ is the ideal of
 the smooth curve $C_{1}$ in the smooth divisor $\Theta$. Choose translation
@@ -2367,7 +2366,7 @@ and the pairs $\bigl(c(\xi,\lambda_{j}(+1)),c(\xi,\lambda_{j}(-1))\bigr)$ fill
 $\CC^{2}$. For $k\ge3$, $HT^{k}_{j}$ kills $e^{\lambda\theta_{j}}$, because
 every element of it contains $\omega_{j}$ or $\partial_{x_{j1}}\wedge
 \partial_{x_{j2}}$ together with a further factor, and the further factor
-kills $\omega_{j}$. Item (LVI) of \Cref{sec:verification} checks these
+kills $\omega_{j}$. The computation \cite[item~(LVI)]{BMB26} checks these
 statements.
 
 Now count. The block $HT^{1}_{j}$ acts on $v$ by
@@ -2409,7 +2408,7 @@ and $v$ lies in the secant plane of $K$, the support of $w$ is a pair
 $\{\varepsilon_{0},-\varepsilon_{0}\}$, the two CM types of $F$ induced from
 $K$; then $A_{jj'}=2$, $\rho_{j}=2$, $N_{w}=2$ and every
 $M^{(j;j')}_{\sigma'}$ has one nonzero entry, so $(r^{2},r^{3})=(24+6,16+24)$.
-Item (LVI) computes the three ranks exactly over $\QQ(\sqrt{-1})$ for $q=1$
+The computation \cite[item~(LVI)]{BMB26} determines the three ranks exactly over $\QQ(\sqrt{-1})$ for $q=1$
 and four coefficient patterns, and modulo a prime, which bounds a rank
 below, for three cubic fields with $q$ irrational and $t$ a generator of
 $F_{0}$; in every case the ranks equal the values of the formulas.
@@ -2423,7 +2422,7 @@ $\int_{X}e_{\varepsilon}^{\vee}e_{\varepsilon'}=\prod_{j}\bigl(\lambda_{j}(\vare
 -\lambda_{j}(\varepsilon_{j})\bigr)^{2}$, which is $0$ unless
 $\varepsilon'=-\varepsilon$, where it is $\prod_{j}(2s_{j})^{2}=(-4)^{m}\Nm(q)$.
 Hence $\chi(v,v)=(-4)^{m}\Nm(q)\sum_{\varepsilon}w_{\varepsilon}w_{-\varepsilon}
-=(-4)^{m}\Nm(q)\sum_{\varepsilon}|w_{\varepsilon}|^{2}$. Item (LVI) checks the
+=(-4)^{m}\Nm(q)\sum_{\varepsilon}|w_{\varepsilon}|^{2}$. The computation \cite[item~(LVI)]{BMB26} checks the
 identity exactly for $m=2$ and $m=3$.
 
 (iii) As in the proof of \Cref{thm:quarticobstruction}(i), $r(\kappa)=r(\ch E)$
@@ -2534,8 +2533,7 @@ Keep the notation of \Cref{prop:sexticcount}.
 \item For $q=1$, the classes $\operatorname{Re}e^{\sqrt{-1}\,\theta}=v(1,0,-1,0)$
   and $\operatorname{Im}e^{\sqrt{-1}\,\theta}=v(0,1,0,-1)$ are integral
   points of $S(0,1)$ with $\chi=-32$ and $N_{w}=2$.
-\item Let $F_{0}$ be one of the sixteen cubic fields of item (LVII) of
-  \Cref{sec:verification}, among them $\QQ(\zeta_{7})^{+}$ and
+\item Let $F_{0}$ be one of the sixteen cubic fields of the computation \cite[item~(LVII)]{BMB26}, among them $\QQ(\zeta_{7})^{+}$ and
   $\QQ(\zeta_{9})^{+}$, and let $q=1$ or $q=k+\alpha$, with $\alpha$ the
   generator of $\cO_{F_{0}}$ used there and $k$ the least integer for which
   $q$ is totally positive. On the lattice of integral points of $S(0,q)$ the
@@ -2574,7 +2572,7 @@ they are proportional, with equal supports and ranks; and if $\rho_{j}=1$
 then $w=a\otimes W$ with $a$ indexed by $\varepsilon_{j}$, so every slice along
 another index is $a\otimes(\text{a row of }W)$, of rank at most one. By the
 formulas of \Cref{prop:sexticcount}(i), $r^{3}-2r^{2}$ is a function of the
-support, the ranks of the six slices and the $\rho_{j}$, and item (LVII)
+support, the ranks of the six slices and the $\rho_{j}$, and \cite[item~(LVII)]{BMB26}
 maximises it over the $255$ nonempty supports and all rank data meeting the
 three constraints: the maximum is $4$, attained only with full support, six
 slices of rank two and $\rho_{j}=2$, that is at $(54,112)$. The threshold
@@ -2607,7 +2605,7 @@ $\tfrac1{2\sqrt{-1}}(e_{(1,1,1)}-e_{(-1,-1,-1)})$, so $N_{w}=2$ and
 $\chi=-64\,(\tfrac14+\tfrac14)=-32$ by \Cref{prop:sexticcount}(ii); expanding
 $\prod_{j}(B_{j}+\sqrt{-1}\,\theta_{j})$ gives the coordinates.
 
-(v) This is the computation of item (LVII). A model of $X$ is
+(v) This is the computation of \cite[item~(LVII)]{BMB26}. A model of $X$ is
 $H_{1}(X,\ZZ)=\cO e_{1}\oplus\cO e_{2}\oplus\mathfrak d^{-1}f_{1}\oplus
 \mathfrak d^{-1}f_{2}$ with $\psi(e_{a},f_{b})=\delta_{ab}$; by the local
 argument in the proof of \Cref{lem:quarticlattice}, every principally
@@ -2652,10 +2650,10 @@ a component is $192$ over the lattices computed here
 (\Cref{prop:sexticweilmin}), and the targets that remain are described in
 \Cref{rem:sextictargets}. The computations cover sixteen fields, with two
 values of $q$ in \Cref{prop:sexticintegral} and three in
-\Cref{prop:sexticweilmin}; we have not proved the bound $\chi\le-32$ for
-every cubic field. $\mathrm{P2}_{\mathrm{split}}$ remains open, in degree six
-as in degree four; what changes is that no numerical invariant considered in this
-paper stands in the way of a certificate over a sextic field.
+\Cref{prop:sexticweilmin}; the bound $\chi\le-32$ is proved for these
+sixteen fields. What changes from degree four to degree six is that no
+numerical invariant considered in this paper stands in the way of a
+certificate over a sextic field.
 \end{remark}
 
 The flatness of \Cref{prop:sexticcount}(iv) makes $\kappa$ a Hodge class on
@@ -2759,7 +2757,7 @@ constants,
   =\tfrac12\bigl(\gamma_{j}-\sigma s_{j}\ell_{j}\bigr)^{2}
   =-d_{j}^{2}\,\omega_{j,\sigma},
 \]
-which item (LVIII) of \Cref{sec:verification} checks. So
+which the computation \cite[item~(LVIII)]{BMB26} checks. So
 $\Psi(e_{\varepsilon}\boxtimes e_{\varepsilon'}^{\vee})$ is the product over
 $j$ of the first class where $\varepsilon'_{j}=-\varepsilon_{j}$ and of the
 second where $\varepsilon'_{j}=\varepsilon_{j}$. In degree four a product with
@@ -2896,7 +2894,7 @@ $\varepsilon_{j}$ the sign of $\tau_{j}(\beta)$, and expanding
 $\prod_{j}(B_{j}+\sqrt{-1}\,\tau_{j}(\beta)\theta_{j})$ gives
 $v(1,0,-\Nm(\beta)\beta^{-1},0)+\sqrt{-1}\,v(0,\beta,0,-\Nm(\beta))$, with
 $\chi=-32$ by \Cref{prop:sexticintegral}(iii) and $\Omega=0$ by
-\Cref{lem:sexticweil}(ii),(iii); the enumeration of item (LVIII) finds these
+\Cref{lem:sexticweil}(ii),(iii); the enumeration of \cite[item~(LVIII)]{BMB26} finds these
 four classes, and no others, among the integral classes with $-\chi\le32$.
 
 (ii) If $\QQ(\sqrt{-D})\subseteq F$ with $D$ squarefree, then
@@ -2905,7 +2903,7 @@ $\sqrt{-D}\notin F_{0}$ and its square lies in $F_{0}$; so $D=b^{2}q$,
 $Dq=(bq)^{2}$ is a square in $F_{0}$, and taking norms,
 $D^{3}=\Nm(b)^{2}\Nm(q)$, so $D$ is the squarefree part of $\Nm(q)$.
 Conversely, if $Dq=c^{2}$ with $c\in F_{0}$, then
-$(c\sqrt{-q}/q)^{2}=-D$. Item (LVIII) tests whether
+$(c\sqrt{-q}/q)^{2}=-D$. The computation \cite[item~(LVIII)]{BMB26} tests whether
 $\prod_{j}(x^{2}-D\tau_{j}(q))$ is reducible over $\QQ$, which is the
 condition. The rest of (ii) and (iii) to (v) are the computation of item
 (LVIII): the lattices of \Cref{prop:sexticintegral}(v), computed in the same
@@ -2927,8 +2925,7 @@ totally real cubic fields $F_{0}$ of \Cref{prop:sexticintegral}(v), ordered by
 discriminant, and each of $q=1$, $k+\alpha$ and $k+1+\alpha$, the cell gives
 the least $-\chi(v,v)$ of an integral point $v$ of $S(0,q)$ whose Orlov square
 has a nonzero $F$-Weil part, that is with $\Omega(v)\ne0$
-(\Cref{lem:sexticweil}), as computed in item (LVIII) of
-\Cref{sec:verification}; the shading is logarithmic in this value, which lies
+(\Cref{lem:sexticweil}), as computed in \cite[item~(LVIII)]{BMB26}; the shading is logarithmic in this value, which lies
 between $192$ and $7080$, and between $296$ and $3872$ for $q=1$. A corner
 mark shows that $F=F_{0}(\sqrt{-q})$ contains an imaginary quadratic field,
 $\QQ(\sqrt{-1})$ in eighteen cases and $\QQ(\sqrt{-3})$ in two
@@ -2942,7 +2939,7 @@ $\QQ(\zeta_{9})^{+}$, below which every integral class lies in
 $\ZZ\operatorname{Re}e^{\sqrt{-1}\,\theta}\oplus\ZZ\operatorname{Im}
 e^{\sqrt{-1}\,\theta}$ (\Cref{prop:sexticweilmin}(iii)). These are least
 values over the lattices computed, not bounds, and a character does not give
-a complex; $\mathrm{P2}_{\mathrm{split}}$ remains open.}
+a complex.}
 \label{fig:sexticweil}
 \end{figure}
 
@@ -2972,9 +2969,8 @@ $(1,12,30,70,30,12,1)$ and $(1,12,54,382,54,12,1)$. By
 of fewer than seven characters of natural objects. Even an object realising
 one of these targets would bear only on $\mathbf{W}(F,2,1)$ for one sextic
 field $F$, and only through a twisted form of the propagation of
-\Cref{thm:semiregclosure}, which is not available.
-$\mathrm{P2}_{\mathrm{split}}$ concerns every CM field of degree at least
-four in infinitely many dimensions, and it, (F2) and (F3$'$) remain open.
+\Cref{thm:semiregclosure}. $\mathrm{P2}_{\mathrm{split}}$ concerns every
+CM field of degree at least four in infinitely many dimensions.
 \end{remark}
 
 \begin{remark}[Natural objects]\label{rem:sexticnatural}

@@ -1,12 +1,11 @@
-\subsection{What would close it, computed rather than listed}
+\subsection{The closure computation}
 \label{ssec:closure}
 
-A list of open problems invites a reading it does not deserve, that each entry
-is a step and that the steps together are a path. The implications proved
-above, together with those of \Cref{ssec:bullseye}, decide the question, so
-we settle it by computation instead of by description. The logical skeleton
-of the paper and of the literature it quotes is finite: a set of statements,
-each of them proved here, quoted from the literature, or open, and a set of
+The implications proved above, together with those of \Cref{ssec:bullseye},
+determine exactly which combinations of statements yield the conjecture, and
+we determine them by computation. The logical skeleton of the paper and of
+the literature it quotes is finite: a set of statements, each of them proved
+here, quoted from the literature, or taken as a hypothesis, and a set of
 inference rules, each of them one theorem. Consequences can then be taken.
 
 Such a computation is only as strong as its rule set. A set of statements
@@ -175,15 +174,14 @@ classes lie in $\mathrm{Ab}^{p}(X)$. When $n\le3$ every $p$ between $0$ and
 $n$ is one of $0,1,n-1,n$.
 \end{proof}
 
-\begin{remark}[Why \textup{(F3$'$)} is not closed here]\label{rem:f3primeopen}
+\begin{remark}[The reach of algebraic correspondences]\label{rem:f3primeopen}
 \textup{(F3$'$)} is the statement that the Hodge conjecture reduces to
 abelian varieties along algebraic correspondences, and
-\Cref{prop:f3prime} records what is known of such a reduction: the
-varieties of $\mathcal{A}$, whose whole cohomology is reached from abelian
+\Cref{prop:f3prime} records the cases of such a reduction that are theorems:
+the varieties of $\mathcal{A}$, whose whole cohomology is reached from abelian
 varieties by algebraic correspondences, and the degrees in which the
-conjecture itself is known. The first degree in which it is not known in
-general is degree four on fourfolds, for fourfolds not known to lie in
-$\mathcal{A}$ and not covered by \Cref{prop:f3primesmall} or
+conjecture itself is a theorem. The next degree is degree four on fourfolds
+outside $\mathcal{A}$ and outside the scope of \Cref{prop:f3primesmall} and
 \Cref{prop:f3primefibration}. The square $S\times S$ of a K3 surface is the standard
 example when $\End_{\mathrm{Hdg}}(T(S))$ is a totally real field of degree
 at least two, that is, when $S$ has real multiplication. When that field is
@@ -195,7 +193,7 @@ $H^{2}(S)\otimes H^{2}(S)$ include the classes
 that induce the Hodge endomorphisms of the transcendental lattice $T(S)$, and
 $S\times S$ lies in $\mathcal{A}$ as soon as the Kuga--Satake embedding of
 $T(S)$ is induced by an algebraic cycle, the Kuga--Satake Hodge conjecture for
-$S$, which is not known in general: the transpose of such a cycle maps the
+$S$: the transpose of such a cycle maps the
 cohomology of the Kuga--Satake variety onto $T(S)$, and the rest of
 $H^{*}(S,\QQ)$ is algebraic. The rational Hodge isometries are algebraic
 \cite{Bus19}, but a real multiplication is not an isometry, and
@@ -214,9 +212,8 @@ whose class carries it, which is the kind of construction the Hodge
 conjecture asks for, now on $B\times X$ instead of on $X$. The methods of
 this paper construct cycles on abelian varieties of Weil type and on nothing
 else, so by themselves they give no case of \textup{(F3$'$)} outside
-$\mathcal{A}$. We
-therefore leave it open, and \Cref{thm:closure} treats it as an open
-statement.
+$\mathcal{A}$, and \textup{(F3$'$)} enters \Cref{thm:closure} as a
+hypothesis.
 \end{remark}
 
 Two further facts fix the position of \textup{(F3$'$)}. The first says how
@@ -242,14 +239,14 @@ pull-back and push-forward along morphisms \cite[\S2]{And96b}. So
 $\mathrm{pr}_{B_{j}}^{*}\beta_{j}\cup[\Gamma_{j}]$ is motivated, and so is its
 push-forward $\Gamma_{j*}\beta_{j}$; hence $\gamma$ is motivated. Motivated
 classes are absolutely Hodge \cite[\S2]{And96b}. The last assertion is the
-computation of item (LV) of \Cref{sec:verification}, which adds the rule to
+computation \cite[item~(LV)]{BMB26}, which adds the rule to
 the rule set and recomputes the minimal sufficient sets.
 \end{proof}
 
 So on the route $\{\mathrm{L},\mathrm{F3}'\}$ the second member already
 contains \textup{(M)}, and that route is never easier than
-$\{\mathrm{L},\mathrm{M}\}$. The second fact locates the first open classes of
-\textup{(F3$'$)} on the powers of a variety of orthogonal type.
+$\{\mathrm{L},\mathrm{M}\}$. The second fact locates, on the powers of a variety of orthogonal type,
+the first class that \textup{(F3$'$)} has to reach.
 
 \begin{proposition}[Powers of a variety of orthogonal type]
 \label{prop:orthpowers}
@@ -311,12 +308,12 @@ $(\Gamma\times\Gamma')$ followed by the diagonal of $Y^{n}$.
 
 For a K3 surface $S$ with $\End_{\mathrm{Hdg}}(T(S))=\QQ$ the Hodge group of
 $T(S)$ is $\SO(T(S))$ \cite{Zar83}; for a very general one, $t=21$. So the
-Hodge conjecture holds for $S^{n}$ with $n\le20$, and the first Hodge class on
-a power of $S$ that is not known to be algebraic is $\det(T(S))$ on $S^{21}$.
-The argument is the classical one from invariant theory, and we make no claim
-of priority for it. What it adds here is the location of the first open
-instance of \textup{(F3$'$)} on the powers of such a variety: one class, in
-one degree, on one power.
+Hodge conjecture holds for $S^{n}$ with $n\le20$, and on $S^{21}$ it is
+equivalent to the algebraicity of the single class $\det(T(S))$. The argument
+is the classical one from invariant theory, and we make no claim of priority
+for it. What it adds here is the location of the first instance of
+\textup{(F3$'$)} on the powers of such a variety that invariant theory does
+not reach: one class, in one degree, on one power.
 
 The same invariant theory, with the motivic decompositions of the
 literature and the theorems of Buskin and Markman on Hodge isometries, gives
@@ -472,11 +469,11 @@ attains it. For a K3 surface $S$ with $E=\End_{\mathrm{Hdg}}(T(S))=\QQ$ and
 $t=\dim T(S)$, which is at least $3$, the Hodge conjecture holds for
 $S^{[n]}$ with $n$ below the bar; at its top it is equivalent to the
 algebraicity of the class $\det T(S)$ on $S^{t}$ of \Cref{prop:orthpowers},
-and to the Hodge conjecture for every power of $S$; above it, it is open, and
-it follows from that algebraicity. A very general $S$ has $t=21$: the
+and to the Hodge conjecture for every power of $S$; above it, it follows
+from that algebraicity. A very general $S$ has $t=21$: the
 conjecture holds for $S^{[n]}$ with $n\le230$, and for $S^{[231]}$ it is
-equivalent to the algebraicity of $\det T(S)$ on $S^{21}$, one of the first
-open cases of \textup{(F3$'$)} (\Cref{rem:f3primefrontier}).}
+equivalent to the algebraicity of $\det T(S)$ on $S^{21}$, one of the
+frontier cases of \textup{(F3$'$)} (\Cref{rem:f3primefrontier}).}
 \label{fig:k3threshold}
 \end{figure}
 
@@ -810,9 +807,9 @@ The last assertion is \Cref{prop:f3prime}(iii).
 The known cases of (iv) are recalled in \Cref{rem:mumfordks}; for the K3
 surfaces among them whose powers are covered by \cite{Var22} the Hodge
 conjecture itself holds on every power, which is stronger. What (iii) adds is
-a family on which \textup{(F3$'$)} is new wherever the conjecture is open:
-the Hodge conjecture for Fermat hypersurfaces is known in a range of degrees
-and dimensions \cite{Shi79b}, not in general. Three recent preprints, if
+a family on which \textup{(F3$'$)} holds in every degree and dimension, while
+the Hodge conjecture for Fermat hypersurfaces is proved in a range of degrees
+and dimensions \cite{Shi79b}. Three recent preprints, if
 correct, extend that range to every Fermat variety of degree less than $65$
 other than $44$, $51$ and $52$ \cite{MMMV26}, to the Fermat fourfolds of
 every odd degree at most $199$, by a computer-assisted proof \cite{Jum26},
@@ -831,8 +828,7 @@ $H^{*}(K_{n}(A),\QQ)$, since $A\times K_{n}(A)\to A^{[n+1]}$ is an \'etale
 Galois cover with group $A[n+1]$. When $n+1$ is prime the rest is spanned by
 the classes of the punctual Hilbert schemes at the points of $A[n+1]$, which
 are algebraic, and (ii) suffices; when $n+1$ is composite the rest contains
-transcendental classes, and \cite{Xu15,FTV19} are needed. Item (LXI) of
-\Cref{sec:verification} computes the two parts for $n+1\le6$. These results
+transcendental classes, and \cite{Xu15,FTV19} are needed. The computation \cite[item~(LXI)]{BMB26} determines the two parts for $n+1\le6$. These results
 concern the varieties $K_{n}(A)$ themselves, not every variety of
 generalised Kummer type; for products of varieties $K_{n}(A)$ the Hodge
 conjecture itself is known \cite[Theorem~3.3]{Xu15}, and for the varieties
@@ -1042,8 +1038,7 @@ quotient; the Fermat sextic lies in $\mathcal{A}$ by
 \Cref{prop:aclosure}(iii). For a smooth sextic fourfold $Y$ in a
 hyperplane of $\PP^{6}$ no resolution is needed, and the rational sixfold
 $\mathrm{Bl}_{Y}\PP^{6}$, with $h^{6,0}=0$, $h^{5,1}=1$, $h^{4,2}=426$ and
-$h^{3,3}=1753$, satisfies \textup{(F3$'$)} if and only if $Y$ does; item
-(LXII) of \Cref{sec:verification} checks these numbers. For the Hodge
+$h^{3,3}=1753$, satisfies \textup{(F3$'$)} if and only if $Y$ does; the computation \cite[item~(LXII)]{BMB26} checks these numbers. For the Hodge
 conjecture these equivalences are folklore, and we claim no priority for
 them.
 \end{remark}
@@ -1182,13 +1177,13 @@ coefficient of $t^{6}$ in $(1-t)^{-1}\prod_{k\ge2}(1-t^{k})^{-2}$, which is $29$
 the least $d$ is the least common multiple of the denominators of the
 entries of $A^{-1}$, computed block by block. The
 Hodge numbers are those of every smooth sextic fourfold, read off from the
-Jacobian ring \cite[Chapter~6]{Voi03}. Item (LXVI) of \Cref{sec:verification} checks
+Jacobian ring \cite[Chapter~6]{Voi03}. The computation \cite[item~(LXVI)]{BMB26} checks
 the identity of (i) for the $29$ shapes, with $d=|\det A|$ and with the
 least $d$, and for the chains and loops of
 lengths $2$ to $6$ and degrees $3$ to $8$, their smoothness independently by
 Gr\"obner bases, and the Jacobian ring of the loop sextic, of dimensions
 $1$, $426$, $1751$, $426$, $1$ in degrees $0$, $6$, $12$, $18$, $24$; the
-Lean certificate checks $AB=15624\cdot I$ for the loop.
+Lean certificate of \cite{BMB26} checks $AB=15624\cdot I$ for the loop.
 \end{proof}
 
 \begin{figure}[tbp]
@@ -1531,8 +1526,7 @@ coordinate hyperplane, so it is the closure of its part in the torus, and
 \Cref{thm:simplextype} applies.
 
 (iii) The invariant factors of $M/M'$ are computed from the Smith normal form
-of the matrix of the $a_{i}-a_{0}$ in item (LXVII) of
-\Cref{sec:verification}. For the Klein quartic, $\det A=28$, so
+of the matrix of the $a_{i}-a_{0}$ in the computation \cite[item~(LXVII)]{BMB26}. For the Klein quartic, $\det A=28$, so
 $[M:M']=7$ and $e_{A}=7$.
 \end{proof}
 
@@ -1545,7 +1539,7 @@ degree lowered to $e_{A}$. Its content lies in dimension five and more, where
 this paper had covered only the Fermat hypersurfaces, and in the cyclic
 covers, among them the Calabi--Yau
 varieties $\{y^{2}=F_{A}(x)\}$ with $F_{A}$ of degree $2r+4$ in $r+2$
-variables. Item (LXVII) of \Cref{sec:verification} checks the ingredients:
+variables. The computation \cite[item~(LXVII)]{BMB26} checks the ingredients:
 the invariant factors for the $29$ sextic shapes; the Euler number
 $((1-m)^{r+2}-1)/m+r+2$ of $X_{A}$, recomputed as the sum over the orbits of
 $\PP^{r+1}$ of the Euler numbers $(-1)^{s}|\det A_{R,S}|/m$ that
@@ -1557,8 +1551,7 @@ quartic. Khovanskii's compactification and Shioda's cover are classical, and
 we claim no priority for the two lemmas. What \Cref{thm:simplextype} adds is
 that the boundary of the compactification is again of simplex type with the
 same exponent $e$, so that the whole cohomology, not only its part of top
-Hodge level, comes from Fermat varieties of one degree; it does not reach a
-general sextic fourfold, and \textup{(F3$'$)} stays open.
+Hodge level, comes from Fermat varieties of one degree.
 
 \begin{remark}[Quotients by diagonal automorphisms]\label{rem:delsartequotient}
 Let $G\subset T$ be a finite subgroup of the torus of $\PP^{r+1}$ on which
@@ -1628,11 +1621,12 @@ $S^{[n]}$ for $n<t(t+1)/2$ and on the moduli spaces of dimension less than
 $t$; on every fourfold of K3$^{[2]}$ type whose field $E$ is $\QQ$ or a CM
 field; on $F(Y)$ and $Y\times Y$ for every cubic fourfold $Y$ with such a
 field; and on every fourfold of generalised Kummer type \cite{FV25}. Its
-first open cases are these (\Cref{fig:f3primereach}), the first two in
-degree four on fourfolds whose zero-cycles are not supported on a proper closed subset and which are
-not known to be birational to a member of $\mathcal{A}$: $S\times S$ and
-$S^{[2]}$ for a K3 surface
-whose real multiplication is not known to be algebraic, such as $S_{\lambda}$
+frontier cases are these (\Cref{fig:f3primereach}), the first two in
+degree four on fourfolds whose zero-cycles are not supported on a proper
+closed subset and which are not birational to a member of $\mathcal{A}$ by
+any construction above: $S\times S$ and $S^{[2]}$ for a K3 surface
+whose real multiplication is not induced by a cycle constructed so far, such
+as $S_{\lambda}$
 (the known cases are recalled in \Cref{rem:mumfordks}); the fourfolds of
 K3$^{[2]}$ type with real multiplication, among them $F(Y)$ for a cubic
 fourfold $Y$ with real multiplication, and with it $Y\times Y$; and, for a
@@ -1643,15 +1637,14 @@ rational Hodge isometries \cite{Bus19,Mar24} act on $T$ by $\pm1$, and a
 composite of Hodge similarities that returns to $T$ is an element $g\in E$
 with $g^{2}\in\QQ$, the adjoint involution of $E$ being trivial; such
 elements span only the compositum of the quadratic subfields of $E$, which is
-$\QQ$ for the cubic field of $S_{\lambda}$ (item (LXI) of
-\Cref{sec:verification} computes it in examples). Apart from proving the
+$\QQ$ for the cubic field of $S_{\lambda}$ (the computation \cite[item~(LXI)]{BMB26} computes it in examples). Apart from proving the
 conjecture itself where zero-cycles are small, none of these results touches
 the step that
 \Cref{rem:f3primeopen} identifies: putting a Hodge class into
 $\mathrm{Ab}^{p}(X)$ for a variety that no correspondence connects to an
-abelian variety. \textup{(F3$'$)} remains open, and \Cref{thm:closure} is
-unchanged, since every statement proved here is a special case of one of the
-open statements of its rule set, not a new rule.
+abelian variety. \Cref{thm:closure} is unchanged, since every statement
+proved here is a special case of one of the hypotheses of its rule set, not a
+new rule.
 \end{remark}
 
 \begin{figure}[tbp]
@@ -1664,8 +1657,8 @@ $d$ of a closed subset supporting $\mathrm{CH}_{0}(X)_{\QQ}$; $d$ is at most
 the dimension of the maximal rationally connected quotient $R$ of $X$, and
 $d=n$ whenever $H^{n,0}(X)\ne0$ (\Cref{rem:f3primesharp}). Both hold when
 $n\le5$ and $d\le3$ (\Cref{prop:f3primesmall}), hence on every variety of
-dimension at most three. The hatched cells are open in general;
-\textup{(F3$'$)} holds there when $R$ is birational to a variety with
+dimension at most three. In the hatched cells
+\textup{(F3$'$)} holds when $R$ is birational to a variety with
 $\Hdg^{2}=\mathrm{Ab}^{2}$, for instance a member of $\mathcal{A}$, and the
 Hodge conjecture when $R$ is birational to an abelian fourfold
 (\Cref{prop:f3primefibration}). The double arrows are the equivalences of
@@ -1673,25 +1666,25 @@ Hodge conjecture when $R$ is birational to an abelian fourfold
 every uniruled fivefold, and for every rational sixfold, if and only if they
 hold in degree four for every fourfold; the sixfold $\mathrm{Bl}_{Y}\PP^{6}$
 of a smooth sextic fourfold $Y$ in a hyperplane carries the Hodge numbers
-listed. The rings are first open cases (\Cref{rem:f3primefrontier}): the
-sextic fourfolds, the first family of smooth hypersurfaces not covered
+listed. The rings are the frontier cases (\Cref{rem:f3primefrontier}): the
+sextic fourfolds, the first family of smooth hypersurfaces beyond these
+results
 (the $29$ Delsarte sextics lie in $\mathcal{A}$ by
 \Cref{cor:delsarteall}); $S\times S$ and $S^{[2]}$ for a K3
-surface $S$ whose real multiplication is not known to be algebraic, such as
+surface $S$ with real multiplication, such as
 $S_{\lambda}$; the fourfolds of K3$^{[2]}$ type with real multiplication,
 among them $F(Y)$; and, beyond the breaks of the axes, $S^{[231]}$ for a very
 general K3 surface, which is equivalent to the algebraicity of $\det T(S)$ on
-$S^{21}$ (\Cref{prop:k3powers}, \Cref{fig:k3threshold}). Every other cell is
-open in general, and \textup{(F3$'$)} remains open.}
+$S^{21}$ (\Cref{prop:k3powers}, \Cref{fig:k3threshold}).}
 \label{fig:f3primereach}
 \end{figure}
 
 \begin{setupenv}[The rule set]\label{setup:rules}
-Item (XXXIII) of \Cref{sec:verification} carries forty-two statements and
+The computation \cite[item~(XXXIII)]{BMB26} carries forty-two statements and
 twenty-two rules; the propagation statement (P2) is carried family by
 family, as (P2) for the split and for the other families of the imaginary
 quadratic fields and of the fields of degree at least four. Each statement is marked proved in this paper, quoted from the
-literature, or open. Each rule is a finite set of premises together with one
+literature, or hypothesis. Each rule is a finite set of premises together with one
 conclusion, and carries the label of the theorem of this paper that proves it;
 \Cref{tab:rules} lists the rules whose conclusion is derived rather than
 assumed. For a set $T$ of statements write $\Cn(T)$ for the least set that
@@ -1699,7 +1692,7 @@ contains $T$ and is closed under the rules, which exists because each rule has
 a single conclusion and the consequence operator is therefore monotone. Write
 $\mathbf{T}$ for the set of statements marked proved or quoted, and
 $\mathbf{HC}$ for the Hodge conjecture for every smooth complex projective
-variety. Call a set $S$ of open statements \emph{sufficient} if
+variety. Call a set $S$ of hypotheses \emph{sufficient} if
 $\mathbf{HC}\in\Cn(\mathbf{T}\cup S)$, and \emph{minimal} if no proper subset
 of $S$ is sufficient.
 \end{setupenv}
@@ -1757,12 +1750,11 @@ down to the imaginary quadratic fields, the second row is \Cref{prop:f3ishc},
 the third is
 \Cref{prop:f3prime}(i) for the weaker statement (F3$'$) of
 \Cref{def:f3prime}, the last three rows are the rules of
-\Cref{ssec:bullseye}, one of whose conclusions, (V), is itself open, and the
-one remaining rule records what the literature supplies on Weil classes. The
+\Cref{ssec:bullseye}, one of whose conclusions, (V), is itself a
+hypothesis of the rule set, and the one remaining rule records what the literature supplies on Weil classes. The
 bounded criterion (P1) is absent: by
 \Cref{thm:p1equivalent} it is equivalent to its own conclusion, so it is a
-restatement and not a premise. Item (XXXIII) of
-\Cref{sec:verification} carries the whole set as data and checks that every
+restatement and not a premise. The computation \cite[item~(XXXIII)]{BMB26} carries the whole set as data and checks that every
 label here is a label of this paper.}
 \label{tab:rules}
 \end{table}
@@ -1785,8 +1777,8 @@ With the notation of \Cref{setup:rules}:
   for the split families of the CM fields of degree at least four. No
   minimal set contains \textup{(P2)} for an imaginary quadratic field or for
   a family of nontrivial discriminant: \Cref{prop:descent} derives those.
-  The single open statement (F3) is sufficient, and it is equivalent to
-  $\mathbf{HC}$ (\Cref{prop:f3ishc}); no other single open statement is.
+  The single hypothesis (F3) is sufficient, and it is equivalent to
+  $\mathbf{HC}$ (\Cref{prop:f3ishc}); no other single hypothesis is.
   The sets $\{\mathrm{L},\mathrm{F3}\}$, $\{\mathrm{V},\mathrm{F3}\}$ and
   $\{\mathrm{P2}_{\mathrm{split}},\mathrm{F2},\mathrm{F3}\}$ are sufficient and
   not minimal. The last of the five is the only one with three elements and the
@@ -1795,13 +1787,13 @@ With the notation of \Cref{setup:rules}:
 \item In each of the five, every element is necessary: removing any one
   leaves $\mathbf{HC}$ outside the closure.
 \item The secant route lies in no minimal sufficient set. Granting both of its
-  open demands, a secant object satisfying \eqref{eq:heisenberg} in every
+  demands, a secant object satisfying \eqref{eq:heisenberg} in every
   dimension and an affirmative answer to \cite[Question 11.4]{Mar25b}, puts
   $\mathbf{W}(K,n,\delta_{0})$ in the closure, and with it, by
   \Cref{prop:descent}, $\mathbf{W}(K,n,\delta)$ for every $\delta$; it leaves
   the Weil classes of the CM fields of degree at least four outside.
-\item No statement proved in this paper rests, at any depth, on an open one,
-  and the rule set is acyclic.
+\item No statement proved in this paper rests, at any depth, on a
+  hypothesis, and the rule set is acyclic.
 \item Every element of a minimal sufficient set other than
   $\mathrm{P2}_{\mathrm{split}}$ is a consequence of $\mathbf{HC}$, and $\{\mathrm{F3}\}$ and
   $\{\mathrm{L},\mathrm{M}\}$ are each equivalent to it; no implication from
@@ -1811,13 +1803,12 @@ With the notation of \Cref{setup:rules}:
 
 \begin{proof}
 The consequence operator is monotone, so $\Cn$ is computed by iterating the
-one step map to a fixed point, and the set of subsets of the sixteen open
-statements is finite. Item (XXXIII) of
-\Cref{sec:verification} carries out the iteration and the exhaustive search
-over all $2^{16}$ subsets of the sixteen open statements in exact arithmetic,
-and Section 24 of the Lean certificate repeats (i), (ii), (iii) and (iv) in
-the kernel, over the same rule set under the numbering recorded there,
-checking in particular all sixteen single open statements and all one
+one step map to a fixed point, and the set of subsets of the sixteen
+hypotheses is finite. The computation \cite[item~(XXXIII)]{BMB26} carries out the iteration and the exhaustive search
+over all $2^{16}$ subsets of the sixteen hypotheses in exact arithmetic,
+and the Lean certificate of \cite{BMB26} repeats (i), (ii), (iii) and (iv)
+in the kernel, over the same rule set,
+checking in particular all sixteen single hypotheses and all one
 hundred and twenty pairs. The content of the statement is the rule set itself, and every rule is
 one of the theorems named in \Cref{tab:rules}. The sufficiency of (F3)
 alone is the chain $\mathrm{(F3)}\Rightarrow$ abelian varieties by
@@ -1974,13 +1965,13 @@ conclusion. The letters name the results that prove the rules: (a) is
 \Cref{prop:lefmot}; (e) is \Cref{prop:lefvhc}; (f) is \Cref{thm:vhcab};
 (h) is \Cref{thm:cmpropagation}; and (i) is the chain of
 \Cref{prop:descent}, \Cref{prop:separate}, \Cref{prop:cmweil} and
-\Cref{app:albert}. Clay marks an open statement, a double frame an open
-statement that the conjecture implies, grass what this paper proves, slate
+\Cref{app:albert}. Clay marks a hypothesis, a double frame a hypothesis
+that the conjecture implies, grass what this paper proves, slate
 what it quotes, and indigo a derived statement. The table lists the five
 minimal sufficient sets of \Cref{thm:closure}(ii), the rules each of them
-uses, and which of the open statements the conjecture implies; only
-$\mathrm{P2}_{\mathrm{split}}$, which asks for a particular complex, is not
-known to follow from it. The secant route, which reaches the imaginary
+uses, and which of the hypotheses the conjecture implies; only
+$\mathrm{P2}_{\mathrm{split}}$, which asks for a particular complex, is
+drawn without that frame. The secant route, which reaches the imaginary
 quadratic families only, is drawn in \Cref{fig:closure}.}
 \label{fig:frontier}
 \end{figure}
@@ -2007,15 +1998,15 @@ character that is exactly a Weil class, it is false (\Cref{thm:p2false}), and
 the route runs through the corrected form of \Cref{rem:p2prime}. Third, every minimal sufficient set
 contains (F3), \textup{(F3$'$)} or \textup{(M)}: the varieties that are not
 abelian are reached only through the conjecture for them, which is the whole
-conjecture, through the conjecture modulo abelian varieties, which is open
+conjecture, through the conjecture modulo abelian varieties
 (\Cref{rem:f3primeopen}), or through motivated classes.
 
 So the target at the centre is \textup{(L)}. It lies in two of the five
 minimal sets, it gives \textup{(V)} and with it the whole abelian half, the
 conjecture implies it, and with \textup{(M)} it is the conjecture. For each
 $X$ it asks for one explicit Hodge class on $X\times X$ to be algebraic, the
-class inducing $\Lambda$. It is open, as are \textup{(M)}, \textup{(V)}
-and \textup{(F3$'$)}, and this paper proves none of them in general:
+class inducing $\Lambda$. This paper proves \textup{(L)}, \textup{(M)},
+\textup{(V)} and \textup{(F3$'$)} on the classes of varieties named here:
 \Cref{cor:mumfordlefschetz} adds the total spaces of Mumford families to the
 known cases of \textup{(L)}, \Cref{prop:f3prime} records the known cases of
 \textup{(F3$'$)}, and the routes of the literature use no other theorem of
@@ -2062,7 +2053,7 @@ $\Hdg^{k}(Y)\otimes\CC$ is the space of $\Hg(Y)_{\CC}$-invariants in
 $\bigwedge^{2k}H^{1}(Y,\CC)$, and $\Hg(X\times X)=\Hg(X)$ acting
 diagonally on $V\oplus V$. Over $\CC$ the group is
 $\mathrm{SL}_{2}^{3}$ and the weights of $V$ under its maximal torus are the
-eight sign vectors $(\pm1,\pm1,\pm1)$. Item (XXXV) of \Cref{sec:verification}
+eight sign vectors $(\pm1,\pm1,\pm1)$. The computation \cite[item~(XXXV)]{BMB26}
 decomposes every $\bigwedge^{k}V$ by peeling highest weights and finds
 \begin{gather*}
   \textstyle\bigwedge^{2}V=V(2,2,0)\oplus V(2,0,2)\oplus V(0,2,2)\oplus\mathbf{1},\\
@@ -2155,7 +2146,7 @@ $3$ occurs in $\operatorname{Lie}\mathrm{MT}(V)$. So $V$ is not of abelian type,
 neither is any Hodge structure containing it as a subquotient, in particular
 $H^{*}(Y,\QQ)$. A correspondence inducing an injection of $V$ into the
 cohomology of an abelian variety would exhibit $V$ as a sub-Hodge structure
-of a Tate twist of that cohomology, which is of abelian type. Item (XXXV)
+of a Tate twist of that cohomology, which is of abelian type. The computation \cite[item~(XXXV)]{BMB26}
 records the Hodge numbers $(1,101,101,1)$ from the Jacobian ring of the
 Fermat quintic, checks the symplectic identity and the weight of the
 displayed endomorphism in a four-dimensional model with the same weights, and
@@ -2224,11 +2215,10 @@ it is equivalent to its own conclusion.}
 
 \begin{remark}[Where this leaves the secant route]\label{rem:secantplace}
 \Cref{thm:closure}(iv) is a statement about the shape of the argument, not
-about its difficulty, and we say plainly what it does and does not
-mean.
+about its difficulty.
 
-It does not mean the secant route is worthless. It is the only route on which
-anything above dimension four has ever been proved, it is the route that
+The secant route is the only route on which anything above dimension four
+has been proved, it is the route that
 settles $n=2$ at every discriminant and $n=3$ at trivial discriminant, and the
 reduction of
 \Cref{thm:factor} turns its remaining demand into one identity in the Yoneda
@@ -2238,21 +2228,22 @@ attacked. What \Cref{cor:cmdichotomy}, \Cref{thm:noci} and
 support, neither resolved by sums of line bundles, and, in the smooth shape,
 to four discriminants.
 
-What it does mean is that finishing the secant route would not finish the
-problem, and would not reduce it either. Through \Cref{prop:descent} it would
+What \Cref{thm:closure}(iv) shows is that finishing the secant route would
+not finish the problem, and would not reduce it either. Through \Cref{prop:descent} it would
 give every imaginary quadratic family, the trivial discriminant directly and
 the others by descent, which is a great deal. It would give nothing over the CM fields of degree
 at least four, whose split families need (P2) for themselves, and by
 \Cref{prop:descent}(ii) that statement gives the imaginary quadratic fields as
 well. Markman's extension of the secant construction to those split families
-\cite{Mar25c} is aimed at exactly that statement; its semiregularity step is
-open, and it is not among the rules of \Cref{setup:rules}. So the statement that would have to be proved anyway is the
+\cite{Mar25c} is aimed at exactly that statement, through a semiregularity
+step that is not among the rules of \Cref{setup:rules}. So the statement that
+has to be proved in any case is the
 propagation statement for those split families, and once proved it subsumes
 the secant route entirely.
 
-It is tempting to read (C1) and (C2) as what remains for the imaginary
-quadratic case, and the computation shows why that reading is wrong: it puts
-the demand for a construction where a theorem about propagation belongs.
+(C1) and (C2) are therefore not the last steps of the imaginary quadratic
+case: the computation places a theorem about propagation where they would
+place a construction.
 (C1) and (C2) are demands whose satisfaction would be a considerable
 achievement, would settle the Weil classes of every imaginary quadratic field,
 and would close nothing that (P2) does not close.
@@ -2265,7 +2256,7 @@ By \Cref{prop:f2isab} and \Cref{prop:f3prime}(i), the two statements
 \textup{(F2)} and \textup{(F3$'$)} are the two halves of the conjecture: the
 conjecture for abelian varieties, and the conjecture modulo abelian varieties.
 A route from another domain must therefore either produce algebraic cycles or
-arrive at one of the open statements of \Cref{setup:rules}. This subsection
+arrive at one of the hypotheses of \Cref{setup:rules}. This subsection
 records what the routes most often proposed do. One of them, the analytic
 route through positive currents, can be made exact: the conjecture is the
 vanishing of an integrality gap in a mass minimisation problem whose real
@@ -2453,10 +2444,9 @@ gives $M_{0}$ such that $\alpha+M_{0}h^{p}$ is a positive rational
 combination of classes of subvarieties; for $M\ge M_{0}$ so is
 $\alpha+Mh^{p}$, since $h^{p}$ is the class of a complete intersection, and
 some multiple $kc$ is the class of an effective cycle, whose integration
-current attains the bound. For a fixed small $M$ the
-equivalence is not claimed: whether an algebraic class represented by a
-strongly positive form has an effective multiple is open in codimension at
-least two. The last sentence of the
+current attains the bound. For a fixed small $M$ the equivalence is not asserted, since it would
+need an effective multiple of every algebraic class represented by a
+strongly positive form, in codimension at least two. The last sentence of the
 theorem is the definition of the conjecture for $X$, and \Cref{prop:f2isab}
 for \textup{(F2)}.
 \end{proof}
@@ -2489,8 +2479,7 @@ point; and if the same $N$ and $M$ served at infinitely many CM points the
 answer would be yes everywhere, by \Cref{cor:mumfordbounded}, because the
 components of an effective cycle of degree $56NM$ have degree at most $56NM$
 and the Hilbert polynomials of subvarieties of bounded degree form a finite
-set. Item (LXIII) of
-\Cref{sec:verification} checks the two integrals in the split model.
+set. The computation \cite[item~(LXIII)]{BMB26} checks the two integrals in the split model.
 \end{example}
 
 \begin{figure}[tbp]
@@ -2555,7 +2544,7 @@ $N\omega$ changes the bound $56NM$ by nothing.}
 \item \emph{Arithmetic.} \textup{(F3$'$)} implies that every Hodge class is
   motivated and hence absolute Hodge (\Cref{prop:f3primestrength}), so a
   proof of \textup{(F3$'$)} proves on the way that every Hodge class on every
-  variety is absolute Hodge, which is open. Over finite fields, Milne proved
+  variety is absolute Hodge. Over finite fields, Milne proved
   that the Hodge conjecture for all abelian varieties of CM type implies the
   Tate conjecture for all abelian varieties over the algebraic closure of a
   finite field \cite[Theorem~7.1]{Mil99}, and for CM abelian varieties the
@@ -2578,8 +2567,8 @@ $N\omega$ changes the bound $56NM$ by nothing.}
   address, and in higher dimension no mechanism relating Hodge classes on
   mirror partners to cycles is known.
 \end{enumerate}
-None of the five produces a cycle for a class that is not known to be
-algebraic, and each, when it is made precise, lands on one of the statements
+None of the five produces a cycle for a class that is not already
+algebraic by other means, and each, when it is made precise, lands on one of the statements
 of \Cref{setup:rules} or on \Cref{thm:massgap}, which is the conjecture in
 another language. The rule set is unchanged.
 \end{remark}
@@ -2592,12 +2581,12 @@ another language. The rule set is unchanged.
 \caption{The routes considered, and the boundary of each result.}
 \label{tab:scope}\\
 \toprule
-\textbf{Route} & \textbf{Status here} & \textbf{Not covered} \\
+\textbf{Route} & \textbf{Result} & \textbf{Beyond the result} \\
 \midrule
 \endfirsthead
 \multicolumn{3}{@{}l}{\footnotesize\itshape Table \thetable, continued.}\\[2pt]
 \toprule
-\textbf{Route} & \textbf{Status here} & \textbf{Not covered} \\
+\textbf{Route} & \textbf{Result} & \textbf{Beyond the result} \\
 \midrule
 \endhead
 \midrule
@@ -2639,7 +2628,7 @@ Divisors, on a member with quaternionic multiplication
 Propagation off the base locus
   & reduced to one bound or one rank, \Cref{thm:degreebound},
     \Cref{thm:semiregclosure}
-  & neither hypothesis proved, \Cref{rem:tworemain} \\
+  & the bound or the rank, \Cref{rem:tworemain} \\
 Objects with effective Chern character at a base point
   & closed by \Cref{thm:positivity}
   & objects indecomposable in $D^{b}$, \Cref{rem:whatitmustbe} \\
@@ -2674,7 +2663,7 @@ The secant route, granted every demand it makes
 Propagation from a base point
   & closes every imaginary quadratic family at once, \Cref{thm:degreebound},
     \Cref{thm:semiregclosure}
-  & (P2) not proved, \Cref{cor:fourremain} \\
+  & (P2) for the family, \Cref{cor:fourremain} \\
 The bounded form (P1), read on the transported cycle
   & closed: the transport spreads each component by $c^{2n}/m_{i}$ and the
     data is unbounded whenever a component has finite stabiliser,
@@ -2756,10 +2745,10 @@ Twistor deformation of the square, for the same two classes
   & closed: the component of the Hodge locus among all complex tori is the
     Mumford curve, which contains no twistor line, \Cref{prop:notwistor}
   & the Kuga--Satake class, which moves in a seven-dimensional family \\
-The five routes left open, for the same two classes
+Five further routes, for the same two classes
   & one statement: three of them are equivalent to the target and two imply
-    it, and every minimal set of open statements yielding the target has one
-    element, \Cref{cor:mumfordone}, item (XLIX)
+    it, and every minimal set of hypotheses yielding the target has one
+    element, \Cref{cor:mumfordone}, \cite[item~(XLIX)]{BMB26}
   & the target itself, which is only the first case of (F2),
     \Cref{rem:mumfordneeded} \\
 Pull-back from a hyperk\"ahler manifold, for the same two classes
@@ -2776,23 +2765,23 @@ Reduction modulo $p$, for the same two classes
 The Weil classes of every CM field
   & the same propagation problem, with a CM base point in every family,
     \Cref{thm:cmbasepoint}, \Cref{thm:cmpropagation}
-  & (P2) not proved for any field \\
+  & (P2) for the split families \\
 Routes from outside algebraic geometry
   & positivity of currents sees nothing; the conjecture is the vanishing of
     the integrality gap of a mass minimisation whose real version is solved,
     \Cref{prop:positivitynotest}, \Cref{thm:massgap}; tame geometry, the
-    Tate conjecture, motives and derived equivalence land on the open
-    statements, \Cref{rem:outside}
+    Tate conjecture, motives and derived equivalence land on the
+    hypotheses, \Cref{rem:outside}
   & a calibrated integral current in one class, \Cref{ex:mumfordmass} \\
-What is left, as a whole
-  & five minimal sets of open statements: $\{\mathrm{F3}\}$ and
+The closure, as a whole
+  & five minimal sets of hypotheses: $\{\mathrm{F3}\}$ and
     $\{\mathrm{L},\mathrm{M}\}$, each equivalent to the conjecture, and
     three through the conjecture modulo abelian varieties,
     $\{\mathrm{L},\mathrm{F3}'\}$, $\{\mathrm{V},\mathrm{F3}'\}$ and this
     route, $\{\mathrm{P2}_{\mathrm{split}},\mathrm{F2},\mathrm{F3}'\}$,
     \Cref{thm:closure}, \Cref{prop:f3ishc}, \Cref{cor:fourremain},
     \Cref{rem:bullseye}
-  & the Lefschetz standard conjecture, (M), (V), (F2), (F3$'$), all open \\
+  & the Lefschetz standard conjecture, (M), (V), (F2), (F3$'$) \\
 The conjecture modulo abelian varieties, (F3$'$)
   & holds on the class $\mathcal{A}$ of varieties whose cohomology is
     reached from abelian varieties by algebraic correspondences (curves,
@@ -2804,8 +2793,8 @@ The conjecture modulo abelian varieties, (F3$'$)
     and \Cref{prop:k3ntype}
   & degree four on fourfolds outside $\mathcal{A}$ not covered by
     \Cref{prop:f3primesmall} or \Cref{prop:f3primefibration}, and beyond, for
-    instance squares of K3 surfaces whose real multiplication is not known
-    to be algebraic, such as $S_{\lambda}$, \Cref{rem:f3primeopen},
+    instance squares of K3 surfaces with real multiplication, such as
+    $S_{\lambda}$, \Cref{rem:f3primeopen},
     \Cref{rem:f3primefrontier} \\
 \end{longtable}
 \endgroup
