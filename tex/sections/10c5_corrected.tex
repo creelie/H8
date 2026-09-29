@@ -1,12 +1,13 @@
 \section{The semiregularity criterion in its pure and corrected forms}\label{sec:corrected}
 
-\subsection{The pure form of the criterion is never met}
+\subsection{Weil tori and the pure form of the criterion}
 
-So far $\ch(E)=N\omega$ exactly. If $\sigma_{E}$ were injective, $E$ would
-extend along every $K$-linear deformation of $A$ (\Cref{thm:p2forces}(ii)).
-These reach non-algebraic tori, on which the Weil class is Hodge and the Chern
-class of nothing. That settles the pure form of the criterion, negatively, in
-every dimension.
+The object $E$ of \Cref{sec:propagation} has Chern character exactly
+$N\omega$. For such an object, injectivity of $\sigma_{E}$ would make $E$
+extend along every $K$-linear deformation of $A$ (\Cref{thm:p2forces}(ii)). These
+deformations reach non-algebraic tori, on which the Weil class is a Hodge
+class but not a Chern class of any coherent sheaf. This settles the pure form
+of the criterion, negatively, in every dimension.
 
 \begin{setupenv}[Weil tori]\label{setup:weiltori}
 Let $A$ be an abelian $2n$-fold of $(K,-1,n)$-Weil type, $V=H^{1}(A,\QQ)$ with
@@ -37,8 +38,9 @@ $1\le k\le2n-1$, $k\ne n$, and $\Hdg^{n}(T)$ is the rational Weil plane.
 \end{lemma}
 
 \begin{proof}
-A rational class that is of Hodge type at a very general member is of Hodge
-type on all of $S$, because its Hodge locus is analytic and $S$ is connected.
+There are countably many rational classes, and the Hodge locus of each is an
+analytic subset of the connected manifold $S$; so a rational class that is of
+Hodge type at a very general member is of Hodge type on all of $S$.
 Let $G=\Res_{K/\QQ}\mathrm{GL}_{2n}$ be the group of $K$-linear automorphisms
 of $V$. Its real points act transitively on $S$, since
 $\mathrm{GL}(V_{+})$ acts transitively on pairs of complementary subspaces.
@@ -46,10 +48,11 @@ The Mumford--Tate group $M$ of a very general member lies in $G$, since $K$
 acts by endomorphisms of every member, and it contains the Mumford--Tate group
 of every member, whose Hodge classes include those of the very general one.
 So the real Lie algebra of $M$ contains the complex structure $J_{s}$ of every
-member, the derivative of its Hodge cocharacter, and therefore contains the $\mathrm{Ad}\,G(\RR)$-span of one $J_{s}$, which is an ideal of
-$\mathfrak{g}_{\RR}=\mathfrak{gl}_{2n}(\CC)$ containing a non-central
-element, $J_{s}$ acting on $V_{+}$ by $i$ on $X$ and $-i$ on $Y$; hence it
-contains $\mathfrak{sl}_{2n}(\CC)$, and $M$ contains
+member, which is the derivative of its Hodge cocharacter, and therefore
+contains the $\mathrm{Ad}\,G(\RR)$-span of one $J_{s}$. This span is an ideal of
+$\mathfrak{g}_{\RR}=\mathfrak{gl}_{2n}(\CC)$ containing the non-central
+element $J_{s}$, which acts on $V_{+}$ by $i$ on $X$ and by $-i$ on $Y$; hence
+it contains $\mathfrak{sl}_{2n}(\CC)$, and $M$ contains
 $G^{\mathrm{der}}=\Res_{K/\QQ}\mathrm{SL}_{2n}$. Over $\CC$ this is
 $\mathrm{SL}(V_{+})\times\mathrm{SL}(V_{-})$ acting on
 $\bigwedge^{*}(V_{+}\oplus V_{-})=\bigwedge^{*}V_{+}\otimes\bigwedge^{*}V_{-}$,
@@ -114,8 +117,8 @@ zero; for $n=2$ it is the Weil plane, and then
 $\int_{T}c_{2}(Q_{j}^{**})\,\kappa_{0}^{2}=0$ for the class $\kappa_{0}$ of
 the proof of \Cref{lem:weiltorussubsets}. In either case equality holds for
 some $\kappa$, so $Q_{j}^{**}$ is a projectively flat bundle with $c_{1}=0$,
-hence flat, and its rational Chern classes of positive degree vanish.
-$Q_{j}$ and $Q_{j}^{**}$ differ on a finite set, so $\ch_{k}(Q_{j})=0$ for
+hence flat, and its rational Chern classes of positive degree vanish. Since
+$Q_{j}$ and $Q_{j}^{**}$ differ only on a finite set, $\ch_{k}(Q_{j})=0$ for
 $1\le k\le2n-1$, and the same holds for $G$ and for $F$.
 \end{proof}
 
@@ -132,7 +135,7 @@ stated there, is false.
 \end{theorem}
 
 \begin{proof}
-Suppose $\sigma_{E}$ injective. Since $A$ is projective, $E$ is isomorphic to
+Suppose that $\sigma_{E}$ is injective. Since $A$ is projective, $E$ is isomorphic to
 a bounded complex $E^{\bullet}$ of holomorphic vector bundles. The class
 $N\omega$ is of Hodge type on every member of $S$ (\Cref{setup:weiltori}), so
 by the theorem of Buchweitz and Flenner in Pridham's form (\Cref{thm:BF},
@@ -162,19 +165,21 @@ and equality forces $\sigma_{E}$ to be injective by
 \Cref{thm:p2numerical}(i).
 \end{proof}
 
-\begin{remark}[What survives, and the corrected statement]\label{rem:p2prime}
+\begin{remark}[The corrected criterion]\label{rem:p2prime}
 \Cref{thm:p2false} turns \Cref{thm:p2forces}(ii) from a constraint into a
 contradiction: an object that extends along every $K$-linear deformation of
-$A$ lands on non-algebraic tori, where the Weil class is Hodge and is the
-Chern class of nothing. The results of this part that describe the object,
+$A$ reaches non-algebraic tori, where the Weil class is a Hodge class but not
+a Chern class. The results that describe such an object,
 \Cref{thm:p2forces}, \Cref{cor:hhfactor}(ii)--(iii), \Cref{thm:p2numerical},
 \Cref{thm:p2support}, \Cref{thm:nosum} and \Cref{thm:p2endo}, remain true as
-implications, and they are vacuous: no object satisfies their hypotheses. They
-are kept as the record of what the pure form asked for.
+implications, but they are vacuous: no object satisfies their hypotheses.
+They record what the pure form asks of an object, and
+\Cref{rem:p2primesurvive} says which of them extend to the corrected form
+defined next.
 
-The obstruction does not reach a Chern character with a component that is
-Hodge on the polarised family and not beyond it, unless a twist removes that
-component. Call
+The obstruction does not reach a Chern character with a component that is of
+Hodge type on the polarised family and not beyond it, unless a twist removes
+that component. Call
 \textup{(P2$'$)} the statement that at one base point of each Weil family
 some perfect complex $E$ with
 \[
@@ -200,16 +205,16 @@ argument cannot be run on $E$ (\Cref{prop:p2primelocus}); the one exception is
 a ratio at $n=2$ at which the locus is five-dimensional
 (\Cref{rem:p2primeexceptional}). The semiregular objects in Markman's
 proofs for abelian fourfolds and for the sixfolds of trivial discriminant
-\cite{Mar25a,Mar25b} are not of the pure form either: their Chern characters
-are not multiples of a Weil class, and they are deformed only along families
-on which those characters stay of Hodge type. We have not checked that they
-have exactly the form above, and nothing below depends on it. From here on, in
-\Cref{cor:fourremain}, \Cref{thm:closure} and the frontier, \textup{(P2)} is
-read in this corrected form. The annihilator computations above depend on
-$\ch(E)$ being a pure Weil class; they are redone for a Chern character with
-components in every even degree at the end of this subsection
-(\Cref{thm:p2primenumber}, \Cref{prop:p2primeprofile},
-\Cref{prop:p2primelocus}).
+\cite{Mar25a,Mar25b} are not of the pure form: their Chern characters are not
+multiples of a Weil class, and they are deformed only along families on which
+those characters stay of Hodge type. We have not checked whether they have
+exactly the form above, and nothing below depends on it. From here on, in
+\Cref{cor:fourremain}, \Cref{thm:closure} and the frontier of
+\Cref{sec:scope}, \textup{(P2)} is read in this corrected form. The
+annihilator computations of \Cref{sec:propagation} assume that $\ch(E)$ is a
+pure Weil class; the next subsection carries them out for a Chern character
+with components in every even degree (\Cref{thm:p2primenumber},
+\Cref{prop:p2primeprofile}, \Cref{prop:p2primelocus}).
 
 The same obstruction does not reach the Mumford target of
 \Cref{ssec:mumfordrigid}. The exceptional classes there are rigid: their Hodge
@@ -219,39 +224,37 @@ $N\omega$ on the square of a Mumford fourfold would only have to deform along
 the curve, whose members are all algebraic.
 \end{remark}
 
-\begin{remark}[The two finite statements, and what each of them is]
+\begin{remark}[Two finite statements]
 \label{rem:tworemain}
 After \Cref{thm:degreebound} and \Cref{thm:semiregclosure} the Hodge
 conjecture for abelian varieties of Weil type follows from either of the
 following, each of which is a statement about explicit finite data and neither
 of which mentions a general point. The first is settled by
 \Cref{thm:p1equivalent}, and we record it because it is the form in which the
-question first presents itself. The second is settled by \Cref{thm:p2false}
-in the form stated here, and remains open only in the corrected form of
-\Cref{rem:p2prime}.
+question first presents itself. The second is false as stated here
+(\Cref{thm:p2false}), and its corrected form, \textup{(P2$'$)} of
+\Cref{rem:p2prime}, is open.
 
 \begin{enumerate}[label=\textup{(P\arabic*)},leftmargin=*]
 \item \emph{A bound.} At every point of the orbit $G(\QQ)\cdot s_{0}$ the
   class $\omega$ is represented by a cycle whose Hilbert data comes from one
-  finite set. This one is settled, and negatively, in the sense that matters:
-  \Cref{thm:p1forces} shows that the transport of the base cycle does not
-  satisfy it, for any cycle whose components have finite stabiliser, and
-  \Cref{thm:p1equivalent} shows that read on an arbitrary representative it is
-  equivalent to $\mathbf{W}(K,n,\delta)$ itself. It is therefore a
-  reformulation of the conjecture for the family, and we record it as such
-  rather than as a criterion.
+  finite set. \Cref{thm:p1forces} shows that the transport of the base cycle
+  does not satisfy this, for any cycle whose components have finite
+  stabiliser, and \Cref{thm:p1equivalent} shows that, read on an arbitrary
+  representative, the statement is equivalent to $\mathbf{W}(K,n,\delta)$
+  itself. It is therefore a reformulation of the conjecture for the family,
+  and we record it as such rather than as a criterion.
 \item \emph{A rank.} The semiregularity map of a perfect complex with the
   Chern character of \Cref{prop:ktheory} at one base point is injective.
-  In this form the statement is false (\Cref{thm:p2false}), and it survives
-  only in the corrected form of \Cref{rem:p2prime}, where the Chern
-  character may carry powers of the polarisation; what follows records what
-  the first form asked for. Its
-  source is $\Ext^{2}(E,E)$ for a single object, and its target has dimension
-  $\sum_{q}h^{q,q+2}(A_{0})=\binom{4n}{2n-2}$, computed in
+  In this form the statement is false (\Cref{thm:p2false}); its corrected
+  form, in \Cref{rem:p2prime}, allows the Chern character to carry powers of
+  the polarisation, and what follows records what the pure form asks. The
+  source of the map is $\Ext^{2}(E,E)$ for a single object, and its target
+  has dimension $\sum_{q}h^{q,q+2}(A_{0})=\binom{4n}{2n-2}$, computed in
   \Cref{prop:target} and verified in item (V) of
   \Cref{sec:verification}. So the target is large, which is the direction that
-  helps; what is not known to us is the rank of the map. What is known is
-  what full rank would force (\Cref{thm:p2forces}): the evaluation map of
+  helps, and the question is the rank of the map. Full rank would force the
+  following (\Cref{thm:p2forces}): the evaluation map of
   Hochschild cohomology must vanish on the $4n^{2}$-dimensional annihilator of
   the Weil class, so $E$ must be killed by the mixed block of $H^{0,2}$, must
   extend along every $K$-linear deformation, must have all products of
@@ -261,50 +264,50 @@ in the form stated here, and remains open only in the corrected form of
   of codimension at least two (\Cref{cor:p2shape}). The representative that
   the construction supplies, a virtual sum of line bundles, fails at the first
   of these (\Cref{prop:concentrated}), and any representative that is a
-  sheaf fails at the last. \Cref{thm:hhsplitting} adds the shape of that
-  annihilator, the mixed part of a splitting $HH^{1}=P\oplus Q$ into the
+  sheaf fails at the last. \Cref{thm:hhsplitting} identifies that
+  annihilator as the mixed part of a splitting $HH^{1}=P\oplus Q$ into the
   annihilators of the two conjugate pieces of the class, and
-  \Cref{cor:hhfactor} the consequence: the whole Hochschild action of $E$
-  factors through a ring of dimension $2^{2n+1}-1$ inside one of dimension
-  $2^{4n}$, while $\dim\Ext^{2}(E,E)\ge2n(2n-1)$ for every representative,
-  semiregular or not. \Cref{thm:p2numerical} turns the rank into that number:
-  equality is enough. And \Cref{thm:p2support} places the support. At every
-  member it has a component of codimension less than $n$, so no complex
-  carried by a cycle representing $\omega$ can serve, and at a general member
-  every component of codimension at least two has multiplicity zero.
+  \Cref{cor:hhfactor} draws the consequence: the whole Hochschild action of
+  $E$ factors through a ring of dimension $2^{2n+1}-1$ inside one of
+  dimension $2^{4n}$, while $\dim\Ext^{2}(E,E)\ge2n(2n-1)$ for every
+  representative, semiregular or not. \Cref{thm:p2numerical} turns the rank
+  condition into that number: equality suffices. \Cref{thm:p2support} locates
+  the support: at every member it has a component of codimension less than
+  $n$, so no complex carried by a cycle representing $\omega$ can serve, and
+  at a general member every component of codimension at least two has
+  multiplicity zero.
   \Cref{thm:p2endo} fixes its shape: an indecomposable summand carries the
   class and meets the criterion alone, and at $n=2$, and at $n=3$ granting
   the compatibility of \Cref{cor:hhfactor}(iii), it has at least three
   independent endomorphisms, so no simple object serves.
 \end{enumerate}
 
-Two remarks on what these are not. Neither is the variational Hodge
-conjecture: (P1) said nothing about deformations at all, and (P2) is the
-infinitesimal statement at one point with the global propagation already
-supplied by \Cref{thm:closedlocus}, which is what \Cref{rem:variational} said
-was missing. And neither is implied by the results of
-\Cref{ssec:everyfamily}: the base points are there, the cycles are there, and
-both (P1) and (P2) are questions about those same cycles that the construction
-does not answer. Both are settled in the forms stated here, and neither
-closes anything: (P1) is equivalent to its conclusion, and (P2) is false and
-survives only in the corrected form of \Cref{rem:p2prime}, which we have not
-settled. We do not claim the conjecture.
+Neither statement is the variational Hodge conjecture: (P1) says nothing
+about deformations, and (P2) is an infinitesimal statement at one point, the
+global propagation being supplied by \Cref{thm:closedlocus}, which is what
+\Cref{rem:variational} identifies as missing. Nor is either implied by the
+results of \Cref{ssec:everyfamily}: the base points and the cycles are
+constructed there, and (P1) and (P2) are questions about those same cycles
+that the construction does not answer. In the forms stated here both are
+settled, and neither closes the problem: (P1) is equivalent to its conclusion,
+and (P2) is false. Its corrected form in \Cref{rem:p2prime} is not settled
+here, and we do not claim the conjecture.
 \end{remark}
 
-\subsection{The corrected criterion, computed}
+\subsection{The corrected criterion in closed form}
 
-The annihilator computations of this subsection depend on $\ch(E)$ being a
-pure Weil class, as \Cref{rem:p2prime} notes. We now redo them for a Chern character with components in every
-even degree. In degree two the answer is complete and holds for every $n$;
-in the other degrees it is a closed formula, proved away from the middle
-degree and checked in it. The same computation gives the Hodge locus of the
-character, and with it the list of obstructions of this paper that survive
-the correction (\Cref{prop:p2primelocus}, \Cref{rem:p2primesurvive}). None
-of this constructs an object or decides
-whether one exists. It gives, for each shape of Chern character, the number
-that $\dim\Ext^{2}(E,E)$ has to reach and the exact kernel that
-$\operatorname{ev}_{E}$ must then have, which is the form in which a
-candidate can be tested.
+The annihilator computations of \Cref{sec:propagation} assume that $\ch(E)$
+is a pure Weil class, as \Cref{rem:p2prime} notes. This subsection carries
+them out for a Chern character with components in every even degree. In
+degree two the answer is complete and holds for every $n$; in the other
+degrees it is a closed formula, proved away from the middle degree and
+checked in it. The same computation gives the Hodge locus of the character,
+and with it the list of the obstructions of this paper that apply to
+corrected characters (\Cref{prop:p2primelocus}, \Cref{rem:p2primesurvive}).
+None of this constructs an object or decides whether one exists. It gives,
+for each shape of Chern character, the number that $\dim\Ext^{2}(E,E)$ has
+to reach and the exact kernel that $\operatorname{ev}_{E}$ must then have,
+which is the form in which a candidate can be tested.
 
 \begin{setupenv}[Corrected characters]\label{setup:p2prime}
 Let $A$ be an abelian $2n$-fold of $(K,-1,n)$-Weil type, $n\ge2$, with
@@ -316,13 +319,7 @@ For complex numbers $c_{0},\dots,c_{2n}$ put
   \gamma=\omega+p(\theta),\qquad \mu_{m}=m!\,c_{m},
 \]
 and let $\rho\in\{0,1,2,3\}$ be the rank of the $(2n-1)\times3$ Hankel matrix
-$H=[\mu_{j+i}]$, $0\le j\le2n-2$, $0\le i\le2$.\footnote{$H$ is a
-catalecticant of the moment sequence $\mu_{m}=m!\,c_{m}$. A nonzero vector
-$(x,\lambda,w)$ in its kernel is a linear recurrence
-$x\mu_{j}+\lambda\mu_{j+1}+w\mu_{j+2}=0$ of order at most two, so $\rho\le2$
-says that the moments satisfy one, and the shapes of
-\Cref{thm:p2primenumber}(ii) are its solutions, read off from the roots of
-$wT^{2}+\lambda T+x$.} Write $r(\gamma)$ for the
+$H=[\mu_{j+i}]$, $0\le j\le2n-2$, $0\le i\le2$. Write $r(\gamma)$ for the
 rank of contraction $HT^{2}(A)\to H^{*}(A,\CC)$, $\xi\mapsto\xi\lrcorner\gamma$.
 For $a<n\le b$, in the basis of \Cref{thm:hhsplitting} adapted to an
 eigenbasis $e_{j}$ of $V_{+}$ and $f_{j}$ of $V_{-}$ with $e_{j},f_{j}$ of
@@ -334,15 +331,22 @@ $w$ is wedge product with a $(0,1)$ class and $c$ contraction of a $(1,0)$
 class.
 \end{setupenv}
 
-For a Chern character, $\gamma=N\omega_{1}+\sum_{k}c_{k}\theta^{k}$ with
-rational $c_{k}$, and $u$ is determined by $N\omega_{1}$; intrinsically,
+The matrix $H$ is a catalecticant of the moment sequence
+$\mu_{m}=m!\,c_{m}$. A nonzero vector $(x,\lambda,w)$ in its kernel is a
+linear recurrence $x\mu_{j}+\lambda\mu_{j+1}+w\mu_{j+2}=0$ of order at most
+two, so $\rho\le2$ says that the moments satisfy one, and the shapes of
+\Cref{thm:p2primenumber}(ii) are its solutions, read off from the roots of
+$wT^{2}+\lambda T+x$. For a Chern character,
+$\gamma=N\omega_{1}+\sum_{k}c_{k}\theta^{k}$ with rational $c_{k}$, and $u$
+is determined by $N\omega_{1}$; intrinsically,
 $|u|^{2}=(-1)^{n}\tfrac{(2n)!}{2}\int_{A}\omega^{2}\big/\!\int_{A}\theta^{2n}$
-in the normalisation of item (LII). The rank $\rho$ does not change when
+in the normalisation of item (LII) of \Cref{sec:verification}. The rank
+$\rho$ does not change when
 $\gamma$ is multiplied by $e^{t\theta}$, which acts on the moments by a
 binomial transform, and $\omega e^{t\theta}=\omega$ because a Weil class is
 primitive; so $\rho$ is an invariant of $\gamma$ up to twist.
 
-\begin{theorem}[The corrected criterion is a number]\label{thm:p2primenumber}
+\begin{theorem}[The corrected criterion as a number]\label{thm:p2primenumber}
 In \Cref{setup:p2prime}:
 \begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
 \item For $n\ge3$,
@@ -440,20 +444,21 @@ $\ch(E\otimes L^{-1})=\gamma e^{-t\theta}=c+\omega+c'\theta^{2n}$, because
 $\omega\theta=0$ and $\theta^{2n+1}=0$, and
 $\sigma_{E\otimes L^{-1}}=e^{-c_{1}(L)}\cdot\sigma_{E}$ is injective exactly
 when $\sigma_{E}$ is, so the first case applies to $E\otimes L^{-1}$.
-Item (LII) of \Cref{sec:verification} computes the annihilator structure-free,
-exactly over $\QQ(i)$, for $n\le10$, and checks every statement above.
+Item (LII) of \Cref{sec:verification} computes the annihilator by linear
+algebra in each block of torus weight, using no other structure, exactly over
+$\QQ(i)$ for $n\le10$, and checks every statement above.
 \end{proof}
 
-So the number that the corrected criterion asks of one complex is $24$ at
-$n=2$, $57$ at $n=3$ and $104$ at $n=4$ for a general shape, against $12$,
-$30$ and $56$ for the pure form, and injectivity then forces nothing beyond
-first-order extension along the polarised family, which is what the
-criterion is for. The larger number is the price of the components
-$c_{k}\theta^{k}$, and it is paid in the right place: every direction of
-$HT^{2}$ other than the $n^{2}$ directions of the family moves $\gamma$ off
-the Hodge classes, so an object meeting the bound has $\operatorname{ev}_{E}$
-injective on a complement of $T_{[A]}\cD_{n,n}$.
-\Cref{fig:hankel} plots the number against $n$ for the four Hankel ranks.
+For a general shape, then, the corrected criterion asks of one complex that
+$\dim\Ext^{2}(E,E)$ be $24$ at $n=2$, $57$ at $n=3$ and $104$ at $n=4$,
+against $12$, $30$ and $56$ for the pure form, and injectivity then forces
+nothing beyond first-order extension along the polarised family, which is
+what the criterion is for. The larger number comes from the components
+$c_{k}\theta^{k}$: every direction of $HT^{2}$ other than the $n^{2}$
+directions of the family moves $\gamma$ off the Hodge classes, so an object
+meeting the bound has $\operatorname{ev}_{E}$ injective on a complement of
+$T_{[A]}\cD_{n,n}$. \Cref{fig:hankel} plots the number against $n$ for the
+four Hankel ranks.
 
 \begin{figure}[tbp]
 \centering
@@ -516,15 +521,16 @@ Hodge--Riemann gives $W>0$; parity holds because the Chern character of a
 perfect complex on a complex torus is integral, and the intersection form on
 $\bigwedge^{2n}H^{1}(A,\ZZ)$ pairs each monomial only with its complement, so
 $\int x^{2}$ is even. (iii) is the argument of \Cref{cor:hhfactor}(iii).
-Item (LIII) of \Cref{sec:verification} checks (i) exactly over $\QQ(i)$ for
-$n=2,3$ in every degree and for $n=4$ in every degree with \texttt{--extreme},
-and (ii) and the parity at $n=2$.
+Item (LIII) of \Cref{sec:verification} checks (i) exactly over $\QQ(i)$ in
+every degree for $n=2,3$ and, in a longer run, for $n=4$; it also checks (ii)
+and the parity at $n=2$.
 \end{proof}
 
-The profile says what the corrected criterion does not constrain. For the pure
-form, \Cref{thm:p2endo}(iv) forced $\dim\End(E)\ge3$ at $n=2$ and $n=3$ out of
-$\chi(E,E)>0$. For a corrected character $\chi(E,E)=VQ(c)+W$ can have either
-sign, and when it is small enough the Euler characteristic forces nothing: at
+The profile also shows what the corrected criterion leaves unconstrained. For
+the pure form, \Cref{thm:p2endo}(iv) derives $\dim\End(E)\ge3$ at $n=2$ and
+$n=3$ from $\chi(E,E)>0$. For a corrected character, $\chi(E,E)=VQ(c)+W$ can
+have either sign, and when it is small enough the Euler characteristic forces
+nothing: at
 $n=2$ in the coordinate model of item (VI) of \Cref{sec:verification} with
 $d=1$, the character with
 $c=(2,1,0,1,-1)$ has $\chi(E,E)=-136$, and a simple object is not excluded.
@@ -571,14 +577,15 @@ automorphisms and fixes $\theta^{k}$, so the path $t\mapsto t_{J}\theta$ lies in
 $\{y\in\bigwedge^{2}H^{1}(A,\RR):y^{k}=\theta^{k}\}$. At a nondegenerate $y$
 the differential $h\mapsto k\,y^{k-1}h$ of $y\mapsto y^{k}$ is injective on
 $\bigwedge^{2}$ when $2+(k-1)\le2n$, by the linear hard Lefschetz theorem for
-the symplectic form $y$ on a space of dimension $4n$,\footnote{For a
-nondegenerate $y\in\bigwedge^{2}U^{\vee}$ on a real space $U$ of dimension
-$2m$, multiplication by $y^{j}$ is injective from $\bigwedge^{p}$ to
+the symplectic form $y$ on a space of dimension $4n$: for a nondegenerate
+$y\in\bigwedge^{2}U^{\vee}$ on a real space $U$ of dimension $2m$,
+multiplication by $y^{j}$ is injective from $\bigwedge^{p}$ to
 $\bigwedge^{p+2j}$ whenever $p+j\le m$, because $y$ generates an
 $\mathfrak{sl}_{2}$-action on $\bigwedge^{*}U^{\vee}$ in which $\bigwedge^{p}$
-has weight $p-m$. Here $m=2n$, $p=2$ and $j=k-1$. The bound is sharp:
-$\theta^{2n}$ is a multiple of the volume form for every complex structure.} so near $\theta$ that set
-is discrete, the path is constant, and $\theta$ is of type $(1,1)$. (iii) By
+has weight $p-m$; here $m=2n$, $p=2$ and $j=k-1$. So near $\theta$ that set
+is discrete, the path is constant, and $\theta$ is of type $(1,1)$. The bound
+$k\le2n-1$ is sharp, since $\theta^{2n}$ is a multiple of the volume form for
+every complex structure. (iii) By
 (i), applied to each homogeneous component, the Hodge locus of $\gamma$ in the
 chart is $\Ann_{H^{1}(T_{A})}(\gamma)$, the part of $\Ann_{HT^{2}}(\gamma)$ in
 $H^{1}(T_{A})$. In the description of \Cref{thm:p2primenumber}(i) that part is
@@ -596,11 +603,12 @@ structures, since $K$-linearity is a closed condition and a limit of positive
 hermitian forms that stays nondegenerate stays positive; and it is
 connected. (iv) At $n=2$ the weight argument of
 \Cref{thm:p2primenumber}(i) fails for one pair of weights, and the
-first-order locus is computed directly: its dimension is $4$, $8$ when
-$c_{1}=c_{2}=c_{3}=0$, and $5$ exactly at the stated ratio, which in the model
-reads $|u|=4|c_{2}|$ with $\int\theta^{4}$ and $\int\omega^{2}$ equal to $24$
-and $2|u|^{2}$ times the same volume. In the rational model $\int\omega_{1}^{2}=8d^{2}$
-and $\int\eta^{4}=24$, which gives $c_{2}=\pm dN/2$. For a general rational
+first-order locus is computed directly: its dimension is $8$ when
+$c_{1}=c_{2}=c_{3}=0$, $5$ exactly at the stated ratio, and $4$ otherwise.
+In the model, where $\int\theta^{4}$ and $\int\omega^{2}$ are $24$ and
+$2|u|^{2}$ times the same volume, the ratio reads $|u|=4|c_{2}|$. In the
+rational model $\int\omega_{1}^{2}=8d^{2}$ and $\int\eta^{4}=24$, which gives
+$c_{2}=\pm dN/2$. For a general rational
 Weil class $\omega=x\omega_{1}+y\omega_{2}$ and hermitian form
 $\mathrm{diag}(-a_{1},-a_{2},a_{3},a_{4})$ one has
 $\int\omega^{2}=8d\,\Nm_{K/\QQ}(y+x\sqrt{-d})$ and
@@ -611,18 +619,18 @@ and (F) of \Cref{sec:verification} check the dimensions and the two integrals
 exactly.
 \end{proof}
 
-So \Cref{thm:p2false} does not extend to the corrected form, and the reason is
-visible. A semiregular complex deforms along the Hodge locus of its Chern
-character; for the pure form that locus is the whole $2n^{2}$-dimensional
-family of $K$-linear tori, whose very general member is not algebraic, while
-for a corrected character with some $c_{k}\ne0$, $1\le k\le2n-1$, it is the
-polarised family itself, all of whose members are abelian varieties, and
-there is nothing for the argument through Weil tori to act on. That is a
-statement about the argument run on $E$ itself; an autoequivalence can still
-remove a component, and a line bundle twist is what reaches the corrected
-characters of \Cref{thm:p2primenumber}(v). The one other place it can reach is
-the exceptional ratio of (iv), where the Hodge locus leaves the polarised
-family.
+The argument of \Cref{thm:p2false} therefore does not extend to the
+corrected form. A semiregular complex deforms along the Hodge locus of its
+Chern character. For the pure form that locus is the whole
+$2n^{2}$-dimensional family of $K$-linear tori, whose very general member is
+not algebraic; for a corrected character with some $c_{k}\ne0$,
+$1\le k\le2n-1$, it is the polarised family itself, all of whose members are
+abelian varieties, and the argument through Weil tori has nothing to act on.
+This concerns the argument run on $E$ itself: an autoequivalence can still
+remove a component, and a line bundle twist is how the argument reaches the
+corrected characters of \Cref{thm:p2primenumber}(v). The only other case it
+can reach is the exceptional ratio of (iv), where the Hodge locus leaves the
+polarised family.
 
 \begin{remark}[The exceptional ratio at $n=2$]\label{rem:p2primeexceptional}
 At $n=2$, with $c_{1}=c_{3}=0$ and $c_{2}^{2}\int\theta^{4}=\frac34\int\omega^{2}$,
@@ -642,20 +650,22 @@ of dimension $8$, its spin representation; among its real forms only
 $\mathfrak{so}(4,3)$ has a trace form of signature $(12,9)$. Its invariants in
 $\bigwedge^{*}H^{1}$ are spanned by $1$, $\gamma_{2}$ and the class of a point,
 so $\gamma_{2}$ is the invariant $4$-form of $\mathrm{Spin}(4,3)$, a split form
-of the Cayley form.\footnote{In the compact case the stabiliser in
-$\GL(8,\RR)$ of the Cayley $4$-form is $\mathrm{Spin}(7)$, acting on $\RR^{8}$
-by its spin representation; here the same happens for the real form of
-signature $(4,3)$. We know of no earlier appearance of this form among the
-Hodge classes of abelian fourfolds, but we have not searched the literature on
-Hodge loci for it systematically.} The Hodge locus of $\gamma$ near $A$ is the orbit of $A$
-under the connected real group $G$ of $\mathfrak{g}$, since that orbit has
-dimension $\dim\mathfrak{g}^{-1,1}=5$ and lies in the locus; the Hodge group
-of a very general member $T$ has Lie algebra an ideal of $\mathfrak{g}$, hence
-all of it, so the Hodge classes of $T$ are $1$, $\gamma_{2}$ and the class of a
-point, and $\NS(T)=0$. The locus reaches tori that are not algebraic, and
-\Cref{thm:p2false} can be started there. It does not finish: its last step,
-\Cref{prop:weiltorussheaves}, needs a K\"ahler class on which the degree-four
-Chern character integrates to zero, and here
+of the Cayley form: in the compact case the stabiliser in $\GL(8,\RR)$ of the
+Cayley $4$-form is $\mathrm{Spin}(7)$, acting on $\RR^{8}$ by its spin
+representation, and here the same happens for the real form of signature
+$(4,3)$. We do not know of an earlier appearance of this form among the
+Hodge classes of abelian fourfolds.
+
+The Hodge locus of $\gamma$ near $A$ is the orbit of $A$ under the connected
+real group $G$ of $\mathfrak{g}$, since that orbit has dimension
+$\dim\mathfrak{g}^{-1,1}=5$ and lies in the locus, which near $A$ is smooth of
+dimension $5$ (\Cref{prop:p2primelocus}(i) and (iv)). The Hodge group of a
+very general member $T$ has Lie algebra an ideal of $\mathfrak{g}$, hence all
+of it, so the Hodge classes of $T$ are $1$, $\gamma_{2}$ and the class of a
+point, and $\NS(T)=0$. The locus therefore contains tori that are not
+algebraic, and the proof of \Cref{thm:p2false} can be started there. It
+breaks down at its last step: \Cref{prop:weiltorussheaves} needs a K\"ahler
+class on which the degree-four Chern character integrates to zero, and here
 \[
   \int_{A}\gamma_{2}\,\kappa_{h}^{2}
   =\frac{|c_{2}|}{6}\Bigl(\operatorname{sign}(c_{2})\,\sigma_{2}(h)
@@ -663,22 +673,26 @@ Chern character integrates to zero, and here
   \qquad|\phi|=1,
 \]
 for the K\"ahler class $\kappa_{h}=i\sum h_{jk}z_{j}\wedge\bbar z_{k}$ of a
-positive hermitian $h$ in a unitary frame for $\theta$, which has the sign of
-$c_{2}$. Indeed, writing $h=\sum_{j}\lambda_{j}w_{j}w_{j}^{*}$ with $(w_{j})$
-orthonormal, Cauchy--Binet gives
+positive hermitian $h$ in a unitary frame for $\theta$, and the right-hand
+side has the sign of $c_{2}$. Indeed, writing
+$h=\sum_{j}\lambda_{j}w_{j}w_{j}^{*}$ with $(w_{j})$ orthonormal,
+Cauchy--Binet gives
 $\sigma_{2}(h)\pm4\operatorname{Re}(\phi\det h_{01,23})
 =\sum_{j<k}\lambda_{j}\lambda_{k}\bigl(1\pm4\operatorname{Re}(\phi\,\xi_{01}\bbar\xi_{23})\bigr)$
-with $\xi=w_{j}\wedge w_{k}$ of norm one; the Pl\"ucker relation and the
+with $\xi=w_{j}\wedge w_{k}$ of norm one. The Pl\"ucker relation and the
 inequality of the means give $|\xi_{01}\xi_{23}|\le\frac14$, so each term is
-nonnegative, and Parseval gives $\sum_{j<k}$ of the brackets $=6$, so the sum is
+nonnegative, and by Parseval the brackets sum to $6$ over $j<k$, so the sum is
 at least $6\min_{j}\lambda_{j}^{2}>0$. Since $G$ fixes $\gamma_{2}$ and carries
 K\"ahler cones to K\"ahler cones, the same holds on every member of the locus.
-So the argument excludes at most a torsion-free sheaf with $c_{2}>0$, which
-Bogomolov's inequality already forbids to be $\theta$-semistable, and not a
-complex. Item (LII)(G) checks the displayed identity at $c_{2}=1$, $\phi=1$,
-and the constancy of the sign at random K\"ahler classes, against a change of
-sign at $R=3/16$. At $n=2$ Markman's theorem settles every Weil fourfold, so
-this is a statement about the shape of (P2$'$), not about the conjecture.
+So at this ratio the argument excludes at most a torsion-free sheaf with
+$c_{2}>0$, which Bogomolov's inequality already forbids to be
+$\theta$-semistable, and it excludes no complex. Item (LII)(G) checks the
+displayed identity at $c_{2}=1$, $\phi=1$, and the constancy of the sign at
+random K\"ahler classes; for comparison, it checks that both signs occur at
+$R=3/16$, where $R=c_{2}^{2}\int\theta^{4}\big/\!\int\omega^{2}$ is the ratio
+that equals $\frac34$ here. Since Markman's theorem settles every Weil
+fourfold, this remark concerns the shape of \textup{(P2$'$)}, not the
+conjecture.
 \end{remark}
 
 \begin{figure}[tbp]
@@ -697,30 +711,31 @@ $R=3$ the annihilator has dimension $6$ and $r(\gamma)=22$. Items (LII)(D),
 \label{fig:kahlersign}
 \end{figure}
 
-\begin{remark}[Which obstructions survive the correction]
+\begin{remark}[The obstructions for a corrected character]
 \label{rem:p2primesurvive}
-The obstruction theorems of this section and of \Cref{sec:semireg} were
-proved for a Chern character on the Weil line; for a corrected character they
-divide as follows. Unchanged, with $r(\gamma)$ in place of $2n(2n-1)$ where a
-number occurs: \Cref{thm:linebundle} and \Cref{cor:noline}, whose only
-hypothesis is that $\ch(E)$ stay of Hodge type to first order along
-$\cD_{n,n}$; \Cref{thm:positivity} and \Cref{cor:nofiltered}, since a
-corrected character is a flat Hodge class in every degree;
-\Cref{lem:finiteproduct}; and the first two parts of \Cref{thm:p2numerical},
-which become \Cref{thm:p2primenumber}(iv). Unchanged only when
+The obstruction theorems proved from \Cref{sec:semireg} on for a Chern
+character on the Weil line divide as follows for a corrected character. The
+following hold unchanged, with
+$r(\gamma)$ in place of $2n(2n-1)$ where a number occurs:
+\Cref{thm:linebundle} and \Cref{cor:noline}, whose only hypothesis is that
+$\ch(E)$ stay of Hodge type to first order along $\cD_{n,n}$;
+\Cref{thm:positivity} and \Cref{cor:nofiltered}, since a corrected character
+is a flat Hodge class in every degree; \Cref{lem:finiteproduct}; and the
+first two parts of \Cref{thm:p2numerical}, which become
+\Cref{thm:p2primenumber}(iv). The following hold only when
 $c_{0}=\dots=c_{2n-2}=0$, so that $H^{0,2}$ still kills $\gamma$:
 \Cref{thm:rankzero}, \Cref{prop:concentrated}, \Cref{cor:kernelfamily},
-\Cref{thm:weakfails} and \Cref{thm:p2forces}(iii). Unchanged only when
-$\ker H$ contains a vector with $w\ne0$, which needs $\rho\le2$, the vector
-giving a compensated class of $P\wedge Q$ with a component in
+\Cref{thm:weakfails} and \Cref{thm:p2forces}(iii). The following hold only
+when $\ker H$ contains a vector with $w\ne0$, which needs $\rho\le2$, the
+vector giving a compensated class of $P\wedge Q$ with a component in
 $T_{+}\otimes T_{-}$: \Cref{thm:p2forces}(iv), \Cref{cor:p2shape} and
-\Cref{thm:p2support}. Lost:
-\Cref{thm:p2false}, outside \Cref{thm:p2primenumber}(v); the positivity of
-$\chi(E,E)$ in \Cref{prop:objectsize} and with it \Cref{thm:p2endo}(i)--(iii),
-by \Cref{prop:p2primeprofile}(ii); and \Cref{thm:nosum}. So for a general
-shape, $\rho=3$, what this paper still excludes is a line bundle summand off
-the polarisation line and a Chern character effective in the exponential
-basis, and nothing else; \Cref{prop:scalaratiyah} below extends the first to
+\Cref{thm:p2support}. The following do not extend: \Cref{thm:p2false},
+outside \Cref{thm:p2primenumber}(v); the positivity of $\chi(E,E)$ in
+\Cref{prop:objectsize} and with it \Cref{thm:p2endo}(i)--(iii), by
+\Cref{prop:p2primeprofile}(ii); and \Cref{thm:nosum}. So for a general shape,
+$\rho=3$, what these results exclude is a line bundle summand off the
+polarisation line and a Chern character effective in the exponential basis,
+and nothing else; \Cref{prop:scalaratiyah} below extends the first to
 summands with a scalar Atiyah class. An object with no such summand, whose
 Chern character is not effective, and with $\dim\Ext^{2}(E,E)=7n^{2}-2n$, is
 not excluded by anything proved here, and none is known; by
@@ -756,12 +771,13 @@ in $\QQ[\theta]$, which does not contain $\omega$ because $\omega\theta=0$ and
 $\theta^{n+1}\ne0$.
 \end{proof}
 
-\Cref{thm:semiregclosure} asks that $\sigma_{E}$ be injective. What its proof
-uses is that the relative deformations of $E$ dominate the family, and
+\Cref{thm:semiregclosure} asks that $\sigma_{E}$ be injective, but its proof
+uses only that the relative deformations of $E$ dominate the family, and
 Pridham's form of \Cref{thm:BF}, in which $\sigma_{E}$ annihilates every
-obstruction, gives that under a weaker hypothesis. It tolerates an object that
-is obstructed to first order, which is exactly how \Cref{thm:linebundle},
-\Cref{cor:noline} and \Cref{prop:scalaratiyah} fail an object.
+obstruction, gives this under a weaker hypothesis. That hypothesis allows an
+object that is obstructed to first order, which is exactly the way in which
+\Cref{thm:linebundle}, \Cref{cor:noline} and \Cref{prop:scalaratiyah} exclude
+an object.
 
 \begin{proposition}[A flatness form of the criterion]\label{prop:p2flat}
 Let $n\ge2$, $s_{0}\in\cD_{n,n}$, and let $E$ be a bounded complex of vector
@@ -795,10 +811,10 @@ $\dim K_{E}=e-k$, the dimension inequality for a local homomorphism
 \cite[Theorem~15.1]{Mat86} gives $\dim P/J\le n^{2}+e-k$, so equality holds, $J$
 has height $k$ and is generated by a regular sequence, $P/J$ is
 Cohen--Macaulay, and it is flat over $R$ by miracle flatness
-\cite[Theorem~23.1]{Mat86}.\footnote{A local homomorphism from a regular local
-ring to a Cohen--Macaulay local ring is flat exactly when the dimension of the
-target is the dimension of the source plus that of the fibre; here both sides
-equal $n^{2}+e-k$.} The analytic Kuranishi germ of pairs, as in the
+\cite[Theorem~23.1]{Mat86}: a local homomorphism from a regular local ring to
+a Cohen--Macaulay local ring is flat exactly when the dimension of the target
+is the dimension of the source plus that of the fibre, and here both sides
+equal $n^{2}+e-k$. The analytic Kuranishi germ of pairs, as in the
 proof of \Cref{thm:p2false}, has $P/J$ as its completion, so it is flat over
 the germ of $\cD_{n,n}$ at $s_{0}$ and therefore open onto a neighbourhood
 $U$ of $s_{0}$. Every $A_{s}$ with $s\in U$ then carries a bounded complex of
@@ -808,30 +824,30 @@ polynomial in $\theta$ and is algebraic; \Cref{cor:allornothing} gives (ii).
 For (iii), the quadratic part of the Kuranishi map of $E$ is
 $\xi\mapsto\xi\circ\xi$, so the tangent cone of $K_{E}$ lies in the cone of the
 hypothesis, and $\dim K_{E}\le e-k$. Every step uses only deformations along
-$\cD_{n,n}$, which are projective, where \Cref{thm:p2false} needs
-non-projective ones.
+$\cD_{n,n}$, which are projective, whereas the proof of \Cref{thm:p2false}
+needs non-projective ones.
 \end{proof}
 
 No object is known that meets (iii) with $k>0$. Among direct sums the
-flatness form fails for a large class, \Cref{rem:flatsums} below; for
+flatness form fails for a large class (\Cref{rem:flatsums} below); for
 indecomposable objects nothing in this paper excludes it, and the proposition
 says only that injectivity of $\sigma_{E}$ is more than propagation needs.
 
-\subsection{Which objects can meet the corrected criterion}
+\subsection{Candidate objects for the corrected criterion}
 
 The corrected criterion asks for one perfect complex. The results below say
 what such a complex can be made of, for $K$ imaginary quadratic: a direct sum
 meets the criterion only through one indecomposable summand
-(\Cref{lem:p2primesummands}); no sum of the objects whose Ext algebra is an
+(\Cref{lem:p2primesummands}); no sum of objects whose Ext algebra is an
 exterior algebra meets it (\Cref{cor:naturalsums}); the Orlov products of
 secant objects meet its twisted form, with $\dim\Ext^{2}$ equal to the number
 of \Cref{thm:p2primenumber}, at $n=2$ and $n=3$ (\Cref{thm:twistedcert}), and
-cannot meet it at $n=4$ (\Cref{prop:orlovfour}); and at $n=4$ a combination of
-natural objects needs at least eight of them, on one conic
-(\Cref{thm:minimalsupport}). None of this is a new case of the Hodge
-conjecture: the certificates are in families where Markman's theorem already
-holds, and they are certificates for twisted objects. Item (LV) of
-\Cref{sec:verification} checks the computations.
+cannot meet it at $n=4$ when the factors have no negative self-extensions
+(\Cref{prop:orlovfour}); and at $n=4$ a combination of natural objects needs
+at least eight of them, on one conic (\Cref{thm:minimalsupport}). None of
+this gives a new case of the Hodge conjecture: the certificates are for
+twisted objects, in families where Markman's theorem already holds. Item (LV)
+of \Cref{sec:verification} checks the computations.
 
 \begin{lemma}[The summands of an object meeting the criterion]
 \label{lem:p2primesummands}
@@ -910,11 +926,11 @@ once \cite{Muk78}, so $\Ext^{*}(V,V)=H^{*}(\cO_{A})$. Equivalences preserve
 Ext algebras.
 \end{proof}
 
-With \Cref{lem:p2primesummands} the objects that \Cref{rem:p2primesurvive}
-leaves open may be taken indecomposable, and the corollary restores, for
+By \Cref{lem:p2primesummands} the objects that \Cref{rem:p2primesurvive}
+leaves open may be taken indecomposable. The corollary recovers, for
 corrected characters, the part of \Cref{thm:nosum} that concerns objects with
-exterior Ext algebras; it extends \Cref{prop:scalaratiyah}, whose summand has
-a scalar Atiyah class, to the subtori, the points and the Fourier--Mukai
+exterior Ext algebras, and it extends \Cref{prop:scalaratiyah}, whose summand
+has a scalar Atiyah class, to the subtori, the points and the Fourier--Mukai
 images. In the language of pure spinors, a summand whose
 character is a rational multiple of the pure spinor of a rational maximal
 isotropic subspace is excluded unless that character lies in $\QQ[\theta]$,
@@ -1006,7 +1022,7 @@ split member.
 
 \begin{proof}
 (i) By Grothendieck--Riemann--Roch $\ch(i_{*}\cO_{C}(p))=[C]+(1+1-2)[\mathrm{pt}]
-=\theta=v_{\theta}$, since $v_{\theta}=\theta$ when $n=2$. The curve has
+=\theta=v_{\theta}$, since $v_{\theta}=\theta$ when $n=2$. For the curve,
 $\Ext^{1}(\cO_{C},\cO_{C})=H^{1}(\cO_{C})\oplus H^{0}(N_{C})$ with
 $N_{C}=K_{C}$ by adjunction, of dimension $2+2$, and $\Ext^{0}=\Ext^{2}=\CC$ by
 Serre duality; twisting by $\cO_{C}(p)$ changes nothing. The Ext algebra of
@@ -1025,7 +1041,7 @@ is $\ch(F)=\Theta-d[\mathrm{pt}]=v_{\theta}$. The local-to-global spectral
 sequence, with $h^{p}(\cO_{C^{(2)}})=1,3,3$ and $h^{p}(K_{C^{(2)}})=3,3,1$,
 gives $\dim\Ext^{1},\dim\Ext^{2}\le6$, and \Cref{prop:secantprofile} gives
 $\ge6$; $\Ext^{0}=\CC$ and Serre duality gives $\Ext^{3}=\CC$. The rest is as
-in (i), with $r(\ch E)=6n^{2}-2n=48$ by \Cref{thm:factor}(iv). (iii) is
+in (i), with $r(\ch E)=6n^{2}-2n=48$ by \Cref{thm:factor}(iv). Part (iii) is
 computed exactly in item (LV), over the function field $\QQ(d)$ for $n\le5$
 and in all the conventions for $\Phi$; that $r(\kappa)=r(\ch E)$ is
 \Cref{lem:bfield}(i). For the uniqueness of $B$: the coefficient of the
@@ -1033,10 +1049,11 @@ classes $x_{j}\xi_{j}$ in $\frac12\ell+c\eta$ is $\frac12$ for every $c$, so no
 integral class is congruent to $\pm\frac12\ell$ modulo $\QQ\eta$, on any $X$.
 \end{proof}
 
-These are the numerical form of the criterion met with equality, so the
+In both cases the numerical form of the criterion holds with equality, so the
 injectivity of $\sigma_{E}$ comes out of a dimension count and does not need
-\cite[Question 11.4]{Mar25b}. They certify the twisted object only: the
-character $\kappa$ stays of Hodge type along $\cD_{n,n}$, while $\ch(E)$ does
+\cite[Question 11.4]{Mar25b}. The certificates concern the twisted object
+only: the character $\kappa$ stays of Hodge type along $\cD_{n,n}$, while
+$\ch(E)$ does
 so only on a locus of dimension $3$ at $n=2$ and $6$ at $n=3$, so propagation
 needs the extension of \Cref{thm:BF} to twisted objects, which Perry proves
 \cite{Per26}, and an argument extracting untwisted cycles, as in
@@ -1056,14 +1073,15 @@ By the K\"unneth formula $\dim\Ext^{2}(E,E)=e_{0}e_{2}'+e_{1}e_{1}'+e_{2}e_{0}'$
 with $e_{k}=\dim\Ext^{k}(F_{1},F_{1})$ and $e_{k}'$ likewise for $F_{2}$, and by
 \Cref{prop:secantprofile} $e_{0}\ge1$, $e_{1}\ge8$, $e_{2}\ge12$; so the sum is
 at least $12+64+12=88$, which is $r(\ch E)$ by \Cref{thm:factor}(iv). Equality
-would force $e_{0},e_{1},e_{2}=1,8,12$, and with Serre duality
+would force $e_{0},e_{1},e_{2}=1,8,12$. Since $e_{k}=0$ for $k<0$ and Serre
+duality gives $e_{k}=e_{4-k}$, this would give
 $\chi(F_{1},F_{1})=1-8+12-8+1=-2$, while \Cref{prop:secantprofile} gives
 $\chi(F_{1},F_{1})=8d(a^{2}d+b^{2})>0$.
 \end{proof}
 
 Without $\Ext^{<0}=0$ the count changes, because negative Ext groups of the
 $F_{i}$ contribute products $e_{-j}e_{2+j}'$ to $\Ext^{2}(E,E)$ and change the
-Euler characteristic. The next two results settle the template in every
+Euler characteristic. The next two results treat the template in every
 dimension: the twisted character is always flat, and the count says exactly
 which secant objects would give equality.
 
@@ -1139,17 +1157,19 @@ vanish. (iii) Serre duality gives $e_{k}=e_{n-k}$. For $1\le j\le n-2$, $e_{2+j}
 at least the rank of contraction from $HT^{2+j}(X)$ into $\ch(F)$, which is
 positive by \Cref{prop:secantprofile}, because the characteristic morphism is
 compatible with contraction into the Chern character in every degree
-\cite{CRV12}; so $e_{-j}=0$. For $j\ge n-1$, $e_{2+j}=e_{-(j-(n-2))}$. (iv) The composite $\sigma_{E}\circ\operatorname{ev}_{E}$
+\cite{CRV12}; so $e_{-j}=0$. For $j\ge n-1$, $e_{2+j}=e_{-(j-(n-2))}$.
+(iv) The composite $\sigma_{E}\circ\operatorname{ev}_{E}$
 is contraction into $\ch(E)$, of rank $R_{n}\le\operatorname{rk}\sigma_{E}\le
 \dim\Ext^{2}(E,E)$, so equality forces $\sigma_{E}$ to be injective. The counts
 are certified in \Cref{sec:lean} for $n\le64$.
 \end{proof}
 
 For $n=2$ and $n=3$ the certificates of \Cref{thm:twistedcert} attain the
-equality; for $n=4$ it is excluded when $\Ext^{<0}=0$ by \Cref{prop:orlovfour},
-and with negative Ext groups in degrees at most $-(n-1)$ the Euler
-characteristic leaves room in every dimension. If such an $F$ existed for one
-$d$ and unboundedly many $n$, then, since $\kappa$ is flat in every dimension by
+equality; for $n=4$ it is excluded by \Cref{prop:orlovfour} when
+$\Ext^{<0}=0$, and with negative Ext groups in degrees at most $-(n-1)$ the
+Euler characteristic leaves room in every dimension. If a secant object $F$
+attaining the equality existed for one $d$ and unboundedly many $n$, then,
+since $\kappa$ is flat in every dimension by
 \Cref{prop:flatall}, a twisted form of \Cref{thm:semiregclosure} together with
 \Cref{prop:descent} would make the Weil classes of every family of
 $\QQ(\sqrt{-d})$ algebraic. That is the secant route of (C1) and (C2) in
@@ -1164,16 +1184,16 @@ object $S^{2}(E[1])\otimes P$, for $P$ a line bundle with $c_{1}(P)=\ell$, is
 untwisted with flat character, of rank $3$ and at the exceptional ratio after
 a twist by a multiple of $\eta$, but its number is $r=23$, which is odd, while
 Serre duality and the evenness of the Mukai pairing on an abelian variety make
-$\dim\Ext^{2}\equiv\chi(E,E)\equiv0\pmod2$; so equality is impossible.
-$\bigwedge^{2}(E[1])\otimes P$ has no Weil part. For $E\otimes V$ with $V$ a
+$\dim\Ext^{2}\equiv\chi(E,E)\equiv0\pmod2$; so equality is impossible. The
+object $\bigwedge^{2}(E[1])\otimes P$ has no Weil part. For $E\otimes V$ with $V$ a
 simple semi-homogeneous bundle of slope $\ell/2$ \cite{Muk78}, the character
 $\rk(V)\kappa$ is flat, but $\sigma_{E\otimes V}$ kills the summands
 $\Ext^{2}(E,E\otimes P_{\xi})$, $\xi\ne0$, of $\Ext^{2}(E\otimes V,E\otimes V)$
 coming from the decomposition of $V\otimes V^{\vee}$, and at $n=2$ these are
 nonzero; this last point uses the decomposition of $\End V$ and the way
-$\Phi$ intertwines $\otimes P_{\xi}$ with translations, which we recall and
-have not re-derived. None of this shows that the corrected criterion must be
-met in twisted form; it shows that this template meets it only there.
+$\Phi$ intertwines $\otimes P_{\xi}$ with translations, which we recall
+without proof. None of this shows that the corrected criterion must be met in
+twisted form; it shows that this template meets it only there.
 \end{remark}
 
 At $n=4$ the natural objects of the split member can be described completely,
@@ -1207,8 +1227,9 @@ $L_{\pm}$, and the plane of $C_{\eta}$ is its polar plane.
 \end{setupenv}
 
 The pure spinor description of the characters of natural objects is
-classical, and we recall it without re-deriving it. Item (LV) computes the
-dimensions, fits $\Phi_{4}$ exactly and checks it on line bundles of every
+classical, and we recall it without proof. Item (LV) of
+\Cref{sec:verification} computes the dimensions, determines $\Phi_{4}$
+exactly and checks it on line bundles of every
 slope, on the abelian subvarieties $B_{(p,q)}=\{(px,q\varphi x)\}$, with
 $\varphi\colon X\to\widehat{X}$ the polarisation, on twisted subvarieties and
 on points, and computes the positions of $C_{\eta}$, $l_{W}$ and $L_{\pm}$. On
@@ -1234,13 +1255,15 @@ $H^{0}(Q,\cO(4))^{\vee}$, with $P'$ in the span of $\nu_{4}(C_{\eta})$ and
 $c_{\pm}$ conjugate and nonzero because $N\ne0$. A quartic $f$ vanishing on
 $C_{\eta}$, at $L_{-}$ and at every $L_{F_{i}}$ gives $c_{+}f(L_{+})=0$; so it
 suffices to produce such an $f$ with $f(L_{+})\ne0$ unless the configuration
-is as stated. Let $h_{-}$ be the linear form $B(L_{-},\cdot)$, which vanishes on the polar
-plane of $l_{W}$, hence on $C_{\eta}$, and at $L_{-}$, but not at $L_{+}$,
-since $l_{W}\not\subset Q$. If the points split into at most three groups
+is as stated. Let $h_{-}$ be the linear form $B(L_{-},\cdot)$, with $B$ the
+bilinear form of the quadric $Q$; it vanishes on the polar plane of $l_{W}$,
+hence on $C_{\eta}$, and at $L_{-}$, but not at $L_{+}$, since
+$l_{W}\not\subset Q$. If the points split into at most three groups
 $G_{k}$ with $L_{+}$ outside the span of each, linear forms $l_{k}$ vanishing
 on $G_{k}$ and not at $L_{+}$ give the quartic $h_{-}l_{1}l_{2}l_{3}$, which
-kills everything but $c_{+}$, so $c_{+}=0$. A rational line through $L_{+}$ is
-$l_{W}$, which has no rational point on $Q$, so groups of one or two points
+kills everything but $c_{+}$, so $c_{+}=0$. A rational line through $L_{+}$
+also passes through $L_{-}$, so it is $l_{W}$, which has no rational point on
+$Q$; hence groups of one or two points
 never contain $L_{+}$ in their span, and a triple does only if it lies in a
 plane through $l_{W}$. For $s\le6$ split into pairs. For $s=7$, either some
 triple is not in a plane through $l_{W}$, or all seven lie in one such plane

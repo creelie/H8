@@ -1,19 +1,17 @@
-\section{Endomorphism algebras and where Weil type sits}\label{app:albert}
+\section{Endomorphism algebras and Weil type}\label{app:albert}
 
 \Cref{def:weiltype} asks for three things: an even dimension, an imaginary
 quadratic field acting with balanced eigenvalue multiplicities, and
-compatibility with the polarisation. This appendix places those three
-conditions inside Albert's classification of endomorphism algebras. Two
-statements come out of it that are used in the body. The first is that the
-compatibility condition is automatic once the field is stable under the Rosati
-involution, so Weil type really has only two conditions
-(\Cref{lem:rosatiauto}). The second is that the balanced condition is not a
-normalisation but the exact condition under which the Weil line carries a
-Hodge class (\Cref{prop:signatureforced}), which is what makes the whole
-subject about balanced signatures and nothing else.
+compatibility with the polarisation. This appendix places these conditions
+inside Albert's classification of endomorphism algebras. Two statements used
+in the body come out of it. The first is that the compatibility condition is
+automatic once the field is stable under the Rosati involution, so that it
+reduces to that stability (\Cref{lem:rosatiauto}). The second is that the
+balanced condition is not a normalisation but exactly the condition under
+which the Weil line carries a Hodge class (\Cref{prop:signatureforced}); this
+is why the subject concerns balanced signatures alone.
 
-\subsection{Positive involutions}%
-\footnote{The numbering of the four types is Albert's and has stuck, although it corresponds to no natural order: types I to III have a totally real centre and type IV a CM one, so the natural division is two against two rather than three against one. Shimura's normalisation of the same classification, in terms of the associated symmetric domains, is the one that makes the moduli side transparent.}
+\subsection{Positive involutions}
 
 \begin{definition}\label{def:positive}
 Let $D$ be a finite dimensional semisimple $\QQ$-algebra. An involution
@@ -29,8 +27,8 @@ $\QQ$-vector space.
 
 For an abelian variety $A$ with a polarisation $\eta$, the algebra
 $D=\End^{0}(A)=\End(A)\otimes\QQ$ is semisimple and the Rosati involution
-$\dagger$ attached to $\eta$ is positive \cite[Ch.~5]{BL04}. Every statement
-below is a statement about the pair $(D,\dagger)$.
+$\dagger$ attached to $\eta$ is positive \cite[Ch.~5]{BL04}. Everything below
+is a statement about the pair $(D,\dagger)$.
 
 \begin{lemma}[Totally real centre]\label{lem:totallyreal}
 Let $(D,\dagger)$ be as above with $D$ a division algebra, let $F$ be the
@@ -47,13 +45,21 @@ embedding of $F_{0}$ into the product of its archimedean completions has dense
 image, so there is $z\in F_{0}$ with $\sigma(z)$ within $\tfrac1{10}$ of $i$
 and $|\rho(z)|<\varepsilon$ for every other archimedean place $\rho$. Then
 $\Tr_{F_{0}/\QQ}(z^{2})=\sum_{\rho}\rho(z)^{2}$, where a complex place
-contributes twice the real part of $\rho(z)^{2}$; the term from $\sigma$ is at
-most $2\cdot(-1+\tfrac{1}{2})<-1$ and the remaining terms are bounded by
-$2[F_{0}:\QQ]\varepsilon^{2}$, so the total is negative for $\varepsilon$ small.
-This contradicts positivity, so every place of $F_{0}$ is real.
+contributes twice the real part of $\rho(z)^{2}$. The real part of
+$\sigma(z)^{2}$ is less than $-1+\tfrac{2}{10}+\tfrac{1}{100}<-\tfrac12$, so
+the term from $\sigma$ is less than $-1$, and the remaining terms are
+bounded in absolute value by $2[F_{0}:\QQ]\varepsilon^{2}$, so the total is
+negative for $\varepsilon$ small. This contradicts positivity, so every place
+of $F_{0}$ is real.
 \end{proof}
 
-\begin{theorem}[Albert \cite{Alb34,Alb35a,Alb35b}]\label{thm:albert}
+\begin{theorem}[Albert \cite{Alb34,Alb35a,Alb35b}]\label{thm:albert}%
+\footnote{The numbering of the four types is Albert's and has stuck, although
+it follows no natural order: types I to III have a totally real centre and
+type IV a CM one, so the natural division is two against two rather than three
+against one. Shimura's normalisation of the same classification, in terms of
+the associated symmetric domains, is the one that makes the moduli side
+transparent.}
 Let $(D,\dagger)$ be a division algebra over $\QQ$ with a positive involution,
 $F$ its centre, $F_{0}$ the subfield fixed by $\dagger$, $e_{0}=[F_{0}:\QQ]$
 and $[D:F]=d^{2}$. Then $F_{0}$ is totally real, $[F:F_{0}]\in\{1,2\}$, and
@@ -82,8 +88,8 @@ $\dagger$ the Rosati involution of a polarisation, then
 \]
 \end{theorem}
 
-We use \Cref{thm:albert} as a quoted classification; \Cref{lem:totallyreal}
-proves the part of it that we appeal to directly, and the four types with the
+We quote \Cref{thm:albert} as a classification. \Cref{lem:totallyreal}
+proves the part of it that we use directly, and the four types with their
 divisibility conditions are in \cite[Ch.~9]{BL04}.
 
 \begin{figure}[htbp]
@@ -105,7 +111,7 @@ moduli.}
 \label{fig:albert}
 \end{figure}
 
-\subsection{The polarisation condition is automatic}
+\subsection{Compatibility with the polarisation}
 
 \begin{lemma}[Rosati on an imaginary quadratic subfield]\label{lem:rosatiauto}
 Let $A$ be an abelian variety with a polarisation $\eta$ and Rosati involution
@@ -122,30 +128,29 @@ $\dagger$-stability of $\iota(K)$.
 \end{lemma}
 
 \begin{proof}
-By stability, $\dagger$ restricts to a $\QQ$-algebra involution of the field
-$\iota(K)\cong K$. A field automorphism of $K$ of order dividing two is either
-the identity or complex conjugation, since $\Gal(K/\QQ)$ has order two and an
-anti-automorphism of a commutative ring is an automorphism. Suppose it were
+Put $D=\End^{0}(A)$. By stability, $\dagger$ restricts to an involutive
+anti-automorphism of the field $\iota(K)\cong K$. An anti-automorphism of a
+commutative ring is an automorphism, and $\Gal(K/\QQ)$ has order two, so the
+restriction is either the identity or complex conjugation. Suppose it were
 the identity, and put $x=\iota(\sqrt{-d})$. Then
 $x\,x^{\dagger}=x^{2}=\iota(-d)=-d\cdot 1$, so
 \[
   \Tr_{D/\QQ}\bigl(x\,x^{\dagger}\bigr)=-d\cdot\dim_{\QQ}D<0,
 \]
-contradicting positivity of $\dagger$. Hence $\dagger$ restricts to complex
+contradicting the positivity of $\dagger$. Hence $\dagger$ restricts to complex
 conjugation.
 \end{proof}
 
 \begin{remark}\label{rem:whystable}
-Stability is a genuine hypothesis and not a triviality: an arbitrary
-subfield of $\End^{0}(A)$ need not be $\dagger$-stable. What
-\Cref{lem:rosatiauto} removes is the second half of the condition, the
-identification of $\dagger|_{K}$ with the specific automorphism. In
-particular, in the model of \Cref{setup:model} one does not have to choose the
-polarisation to match the field; any $\dagger$-stable embedding does the same
+Stability is a genuine hypothesis: a subfield of $\End^{0}(A)$ need not be
+$\dagger$-stable. What \Cref{lem:rosatiauto} removes is the second half of the
+condition, the identification of $\dagger|_{K}$ with a specific automorphism.
+In particular, in the model of \Cref{setup:model} the polarisation need not be
+chosen to match the field, since any $\dagger$-stable embedding does the same
 work.
 \end{remark}
 
-\subsection{The signature, and why balance is forced}
+\subsection{The balanced signature}
 
 \begin{definition}[Signature]\label{def:signature}
 Let $\iota\colon K\hookrightarrow\End^{0}(A)$ be as above, $g=\dim A$. The
@@ -154,11 +159,11 @@ the two eigenvalues $\pm i\sqrt{d}$; write $p$ and $q=g-p$ for their
 multiplicities. The pair $(p,q)$ is the \emph{signature} of $(A,\iota)$.
 \end{definition}
 
-
-
 The signature is an isogeny invariant, since an isogeny induces an isomorphism
-on tangent spaces commuting with the action, and it is locally constant in
-families, being the dimension of a kernel of a fixed operator on a bundle. By
+on tangent spaces commuting with the action. It is locally constant in
+families: the two eigenspaces are the kernels of
+$\iota(\sqrt{-d})\mp i\sqrt{d}$ on the relative tangent bundle, so their
+dimensions are upper semicontinuous, and they sum to $g$. By
 duality $\iota(\tau)^{*}$ acts on $H^{1,0}(A)$ with the same multiplicities, so
 $\dim V^{1,0}_{+}=p$ and $\dim V^{1,0}_{-}=q$ in the notation of
 \Cref{sec:weiltype}.
@@ -186,31 +191,31 @@ The space $\bigwedge^{2n}V_{+}$ is a line, and by \eqref{eq:bisplit} it equals
 $\bigwedge^{p}V^{1,0}_{+}\otimes\bigwedge^{2n-p}V^{0,1}_{+}$, which is of pure
 Hodge bidegree $(p,2n-p)$; the conjugate line $\bigwedge^{2n}V_{-}$ is of
 bidegree $(2n-p,p)$. Their sum is stable under conjugation and defined over
-$\QQ$ by the argument of \Cref{prop:weilline}(i), which never used the
+$\QQ$ by the argument of \Cref{prop:weilline}(i), which does not use the
 balanced condition, so $\HW(A)$ is a two-dimensional rational sub-Hodge
 structure of the stated type.
 
 A Hodge class is an element of bidegree $(n,n)$. A nonzero element of
 $\HW(A)\otimes\CC$ has a nonzero component in one of the two lines, so it is of
-bidegree $(n,n)$ only if $(p,2n-p)=(n,n)$ or $(2n-p,p)=(n,n)$, both of which
-say $p=n$. This gives (ii) implies (i). If $p=n$ then both lines are of
-bidegree $(n,n)$ and every element of $\HW(A)$ is a Hodge class, which is (i)
-implies (iii); and (iii) implies (ii) because $\dim\HW(A)=2>0$.
+bidegree $(n,n)$ only if $(p,2n-p)=(n,n)$ or $(2n-p,p)=(n,n)$, and either
+equality says $p=n$. This proves that (ii) implies (i). If $p=n$ then both
+lines are of bidegree $(n,n)$ and every element of $\HW(A)$ is a Hodge class,
+so (i) implies (iii); and (iii) implies (ii) because $\dim\HW(A)=2>0$.
 \end{proof}
 
 \begin{remark}\label{rem:onlybalanced}
 \Cref{prop:signatureforced} is the reason the literature speaks of abelian
 varieties of Weil type rather than of imaginary quadratic multiplication in
-general. For an unbalanced signature the space $\HW(A)$ still exists, is still
-a canonical two-dimensional rational sub-Hodge structure, and is still not in
-the divisor subring, but it contains no Hodge class and therefore predicts
+general. For an unbalanced signature the space $\HW(A)$ is still a canonical
+two-dimensional rational sub-Hodge structure, and it is still not in the
+divisor subring, but it contains no Hodge class and therefore predicts
 nothing. The exceptional Hodge classes appear exactly at balance, and the
-locus of balance is the algebraic subvariety of \Cref{cor:weilalgebraic}. The
-statement is verified over all signatures $p$ and all $n\le3$ in item (VI)
-of \Cref{sec:verification}.
+locus of balance is the algebraic subvariety of \Cref{cor:weilalgebraic}.
+Item (VI) of \Cref{sec:verification} checks the statement for every
+signature and every $n\le3$.
 \end{remark}
 
-\subsection{Which algebras can carry Weil classes}
+\subsection{Endomorphism algebras of Weil type}
 
 \begin{proposition}[Weil type in the classification]\label{prop:whichtypes}
 Let $A$ be an abelian variety of dimension $2n$ admitting a $\dagger$-stable
@@ -244,21 +249,22 @@ such a $D$ actually occurs as $\End^{0}(A)$ together with a balanced signature
 is a separate question about the moduli, but nothing in the classification
 excludes it.
 
-(iii) Immediate, a totally real field has no element of negative square.
+(iii) is immediate, since a totally real field has no element of negative
+square.
 \end{proof}
 
-\begin{remark}[The generic case is the one that matters]\label{rem:genericcase}
+\begin{remark}[The generic case]\label{rem:genericcase}
 Case (ii) of \Cref{prop:whichtypes} is a special position: there
 $\End^{0}(A)$ is larger than $K$, the Hodge group is correspondingly smaller,
 and $\Hdg^{n}(A)$ can be larger than the three dimensions of
-\Cref{thm:hdgcount}. It also tends to be the case where the Weil classes are
-accessible; \Cref{rem:special} records that at such points the Weil line can
+\Cref{thm:hdgcount}. It is also a case in which the Weil classes can become
+accessible: \Cref{rem:special} records that at such points the Weil line can
 meet the divisor subring, which is the split situation. The hard case, and the
-one all of \Cref{sec:divisor,sec:characters,sec:hyperplane} address, is
+one addressed throughout \Cref{sec:divisor,sec:characters,sec:hyperplane}, is
 case (i) with $\Hg(A)=\SU(V,H)$.
 \end{remark}
 
-\begin{remark}[Why dimension four is where the subject starts]\label{rem:dimfour}
+\begin{remark}[Dimension four]\label{rem:dimfour}
 For $n=1$ the Weil line lies in $H^{2}(A,\QQ)$ and consists of divisor
 classes, algebraic by the Lefschetz theorem on $(1,1)$ classes, so it predicts
 nothing new; this is the same boundary as in \Cref{prop:normpart}. Moonen and
@@ -266,10 +272,10 @@ Zarhin determined the Hodge classes on abelian varieties of dimension at most
 five \cite{MZ99}, and on simple abelian fourfolds in \cite{MZ95}: through
 dimension three the Hodge ring is generated by divisor classes, and the first
 Hodge classes not of that form occur in dimension four, on abelian fourfolds of
-Weil type. So $n=2$ is simultaneously the first case of
-\Cref{def:weiltype} with anything in it, the first case where
-\Cref{thm:hdgcount} gives three rather than one, and the case that was the
-first open one of the Hodge conjecture for abelian varieties until Markman
-settled it \cite[Corollary 1.6.1]{Mar25a}; the first open case is now $n=3$
-at nontrivial discriminant, by \Cref{prop:separate}(ii).
+Weil type. Thus $n=2$ is at once the first case of \Cref{def:weiltype} with
+exceptional Hodge classes, the first case where \Cref{thm:hdgcount} gives
+three rather than one, and the case that remained the first open one of the
+Hodge conjecture for abelian varieties until Markman settled it
+\cite[Corollary 1.6.1]{Mar25a}. The first open case is $n=3$ with nontrivial
+discriminant, by \Cref{prop:separate}(ii).
 \end{remark}

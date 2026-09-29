@@ -1,30 +1,31 @@
 \section{Closure}\label{sec:final}
 
-A paper on a problem that remains open has to say where it stops, and saying
-so is not a matter of tone. It is a theorem, and this section states it. Every
-clause below is proved in the body, none of them depends on a hypothesis that
-is not itself proved here or quoted with a reference, and the last clause is
-checked by machine.%
-\footnote{The quoted results are theorems and are used as such: the
-semiregularity theorem of Buchweitz and Flenner \cite{BF03}, in the form
-for perfect complexes on a deforming variety with every obstruction
-annihilated that Pridham proves \cite{Pri24}, the theorem of
-Cattani, Deligne and Kaplan on the locus of Hodge classes \cite{CDK95}, the
-description of the Hodge rings of abelian varieties of dimension at most five
-by Moonen and Zarhin \cite{MZ99}, Markman's theorems on abelian varieties of
-Weil type \cite{Mar25a,Mar25b}, and, in the last clause, the theorems of
-Deligne, Andr\'e and Milne recorded in \Cref{ssec:bullseye}
-\cite{Del71,And96b,Mil20} and Li's theorem on the powers of abelian
-fourfolds over finite fields \cite{Li26}, and, for the refutation in
-clause (iv), the theorem of Bando and Siu on stable reflexive sheaves
-\cite{BS94}, Kuranishi's theorem in the form of Goldman and Millson
-\cite{Kur65,GM88}, Grivaux's Chern classes of coherent sheaves \cite{Gri10},
-and Voisin's theorem on Weil tori \cite{Voi02b}. \emph{Unconditionally} in \Cref{thm:final}
-means that no open statement is assumed anywhere in it; in particular none of
-the statements named in its last clause is.} Taken together they fix the boundary of the subject as this
-paper leaves it, and the fixing is what we mean by closure: not that the
-conjecture is settled, which it is not, but that the distance from here to it
-is now measured rather than estimated.
+We close by stating, in a single theorem, what the paper proves and what it
+leaves open. Every clause of \Cref{thm:final} is proved in the body. None of
+them depends on a hypothesis that is not itself proved here or quoted from the
+literature with a reference, and the computation of minimal sets in the last
+clause is checked by machine.
+
+The results we quote are theorems and are used as such: the semiregularity
+theorem of Buchweitz and Flenner \cite{BF03}, in the form for perfect
+complexes on a deforming variety with every obstruction annihilated that
+Pridham proves \cite{Pri24}; the theorem of Cattani, Deligne and Kaplan on the
+locus of Hodge classes \cite{CDK95}; the description of the Hodge rings of
+abelian varieties of dimension at most five by Moonen and Zarhin
+\cite{MZ99}; Markman's theorems on abelian varieties of Weil type
+\cite{Mar25a,Mar25b}; for the refutation in clause (iv), the theorem of Bando
+and Siu on stable reflexive sheaves \cite{BS94}, Kuranishi's theorem in the
+form of Goldman and Millson \cite{Kur65,GM88}, Grivaux's Chern classes of
+coherent sheaves \cite{Gri10} and Voisin's theorem on Weil tori
+\cite{Voi02b}; and, in the last clause, the theorems of Deligne, Andr\'e and
+Milne recorded in \Cref{ssec:bullseye} \cite{Del71,And96b,Mil20} and Li's
+theorem on the powers of abelian fourfolds over finite fields \cite{Li26}.
+\emph{Unconditionally} in \Cref{thm:final} means that no open statement is
+assumed anywhere in it; in particular, none of the statements named in its
+last clause is assumed. Taken together, the clauses fix the boundary of the
+subject as this paper leaves it, and that is what we mean by closure: not that
+the conjecture is settled, which it is not, but that the distance between it
+and what is proved here is measured rather than estimated.
 
 \begin{theorem}[Closure]\label{thm:final}
 Let $K=\QQ(\sqrt{-d})$ be imaginary quadratic with $d>0$ squarefree, let
@@ -40,59 +41,60 @@ hold unconditionally.
 \item \emph{One class, one connected domain, and no loss.} For the family of
   all members of the triple $(K,n,\delta)$ the conjecture is equivalent to the
   algebraicity of $\omega_{s}$ at every point $s$ of the period domain
-  $\cD_{n,n}$, which is connected of dimension $n^{2}$; the implication runs
-  in both directions, so nothing is given away by passing to this form
-  (\Cref{thm:residual}, \Cref{cor:exactform}).
+  $\cD_{n,n}$, which is connected of dimension $n^{2}$. The reduction is thus
+  necessary as well as sufficient (\Cref{thm:residual},
+  \Cref{cor:exactform}).
 \item \emph{A base point in every family.} Every triple $(K,n,\delta)$
   contains a member whose Weil classes are algebraic, with an explicit
-  representative \eqref{eq:divrep} as a rational polynomial in two divisor
-  classes, the member being one with quaternionic multiplication extending $K$
-  (\Cref{thm:quatweil}, \Cref{thm:everyfamily}). The hypothesis of
-  nonemptiness in (ii) is therefore never the obstacle, for any field, any
+  representative \eqref{eq:divrep} as a polynomial with rational coefficients
+  in two divisor classes; the member is one with quaternionic multiplication
+  extending $K$ (\Cref{thm:quatweil}, \Cref{thm:everyfamily}). So the
+  existence of a base point is never the obstacle, for any field, any
   dimension or any discriminant.
-\item \emph{One finite sufficient condition, false in its first form, and
-  one criterion that turns out to be a restatement.} If at $s_{0}$ the
-  semiregularity map of a perfect complex whose Chern character is a nonzero
-  multiple of a rational Weil class plus a polynomial in the polarisation is
-  injective, then $\Sigma=\cD_{n,n}$ and the Hodge conjecture holds in every
-  degree for every member of the triple with full Hodge group
-  (\Cref{thm:semiregclosure}, \Cref{rem:p2prime}). When the Chern character
-  is exactly a multiple of the Weil class, no complex at any member of any
-  family has injective semiregularity map (\Cref{thm:p2false}): it would
-  deform to very general non-algebraic Weil tori, on which every coherent
-  sheaf has vanishing Chern character in degrees $1$ to $2n-1$
-  (\Cref{prop:weiltorussheaves}). So the numerical form of that criterion,
-  $\dim\Ext^{2}(E,E)=2n(2n-1)$, which would suffice
+\item \emph{One finite sufficient condition, never met in its pure form, and
+  one criterion that is a restatement.} Suppose that at a base point $s_{0}$
+  as in (iii) the semiregularity map of a perfect complex whose Chern
+  character is a nonzero multiple of a rational Weil class plus a polynomial
+  in the polarisation is injective. Then $\Sigma=\cD_{n,n}$, where $\Sigma$
+  is the set of points $s$ at which $\omega_{s}$ is algebraic, and the Hodge
+  conjecture holds in every degree for every member of the triple with full
+  Hodge group (\Cref{thm:semiregclosure}, \Cref{rem:p2prime}). When the Chern
+  character is exactly a multiple of the Weil class, no complex at any member
+  of any family has injective semiregularity map (\Cref{thm:p2false}): it
+  would deform to very general non-algebraic Weil tori, on which every
+  coherent sheaf has vanishing Chern character in degrees $1$ to $2n-1$
+  (\Cref{prop:weiltorussheaves}). Hence the numerical form of that
+  criterion, $\dim\Ext^{2}(E,E)=2n(2n-1)$, which would suffice
   (\Cref{thm:p2numerical}) and is the least value possible
-  (\Cref{cor:hhfactor}(i)), is attained by no complex, and the shape it
-  would force (\Cref{thm:p2endo}) is the shape of nothing. In the corrected
-  form, with powers of the polarisation added, the number becomes
-  $(4+\rho)n^{2}-2n$ for $n\ge3$, with $\rho\le3$ the rank of a Hankel matrix
-  of the coefficients;\footnote{Writing the Chern character as
-  $N\omega_{1}+\sum_{k}c_{k}\theta^{k}$, $\rho$ is the rank of the
+  (\Cref{cor:hhfactor}(i)), is attained by no complex, and the shape that it
+  would force (\Cref{thm:p2endo}) is realised by no object. In the corrected
+  form \textup{(P2$'$)}, with powers of the polarisation added, the number
+  is $(4+\rho)n^{2}-2n$ for $n\ge3$, with $\rho\le3$ the rank of a Hankel
+  matrix of the coefficients;\footnote{Write the Chern character as
+  $N\omega_{1}+\sum_{k}c_{k}\theta^{k}$. Then $\rho$ is the rank of the
   $(2n-1)\times3$ Hankel matrix $[\mu_{i+j}]$, $0\le j\le2n-2$, $0\le i\le2$,
-  of the moments $\mu_{m}=m!\,c_{m}$ (\Cref{setup:p2prime}); so $\rho\le2$
-  exactly when the moments satisfy a linear recurrence of order at most
-  two.} an object attaining it satisfies the criterion, and
-  the shapes $A\,e^{t\theta}+B\,\theta^{2n}$ with $t\theta$ the class of a
-  line bundle, of Hankel rank at most two, are excluded as the pure form
-  was (\Cref{thm:p2primenumber}). For every other shape and $n\ge3$ the Hodge
-  locus of the character is the polarised family, so the pure-form
-  obstruction does not extend (\Cref{prop:p2primelocus}); at $n=2$ the
-  same holds except at one ratio of the coefficients, where the locus is
+  of the moments $\mu_{m}=m!\,c_{m}$ (\Cref{setup:p2prime}), so that
+  $\rho\le2$ exactly when the moments satisfy a linear recurrence of order at
+  most two.} an object attaining it satisfies the criterion, and the shapes
+  $A\,e^{t\theta}+B\,\theta^{2n}$ with $t\theta$ the class of a line bundle,
+  which have Hankel rank at most two, are excluded as the pure form was
+  (\Cref{thm:p2primenumber}). For every other shape and $n\ge3$ the Hodge
+  locus of the character is the polarised family, so the obstruction to the
+  pure form does not extend (\Cref{prop:p2primelocus}). At $n=2$ the same
+  holds except at one ratio of the coefficients, where the locus is
   five-dimensional and reaches non-algebraic tori but the argument of
-  \Cref{thm:p2false} does not finish (\Cref{rem:p2primeexceptional}). The
-  other criterion, that $\omega$ be represented along the orbit by cycles of
-  bounded Hilbert data, implies the same conclusion
-  (\Cref{thm:degreebound}) and is implied by it
-  (\Cref{thm:p1equivalent}), so it is a reformulation of the conjecture for
-  the family and not a route to it; read instead on the transported cycle, the
-  only representative one can name, it is false whenever a component of the
-  base cycle has finite stabiliser (\Cref{thm:p1forces}).
+  \Cref{thm:p2false} breaks down at its last step
+  (\Cref{rem:p2primeexceptional}). The other criterion, that $\omega$ be
+  represented along the orbit by cycles with bounded Hilbert data, implies
+  the same conclusion (\Cref{thm:degreebound}) and is implied by it
+  (\Cref{thm:p1equivalent}); it is therefore a reformulation of the
+  conjecture for the family, not a route to it. Read on the transported
+  cycle, the only representative that can be named, it fails whenever a
+  component of the base cycle has finite stabiliser (\Cref{thm:p1forces}).
 \item \emph{The routes that are closed, and in what sense.} Each of the
   following routes to the Weil class on a general member is closed, in the
-  precise sense stated by the theorem cited and delimited in
-  \Cref{sec:scope}: a construction is obstructed if it is
+  sense stated by the theorem cited and delimited in \Cref{sec:scope}: a
+  construction is obstructed if it is
   \begin{enumerate}[label=\textup{(\alph*)},nosep,leftmargin=2.2em]
   \item one whose input has Chern character in the subring generated by
     divisor classes, transported by the Poincar\'e kernel
@@ -100,9 +102,9 @@ hold unconditionally.
   \item one whose output is a $\Kx$-eigenclass for the norm character
     (\Cref{thm:character});
   \item one carried by an object whose Chern character lies on the Weil line,
-    whether through semiregularity or through the weakened criterion, in every
-    dimension and by $n^{2}$ dimensions
-    (\Cref{thm:rankzero}, \Cref{cor:kernelfamily}, \Cref{thm:weakfails});
+    whether through semiregularity or through the weakened criterion, in
+    every dimension and with a kernel of dimension at least $n^{2}$ in either
+    case (\Cref{thm:rankzero}, \Cref{cor:kernelfamily}, \Cref{thm:weakfails});
   \item one carried by an object with a line bundle summand off the
     polarisation line, hence by any sum of line bundles
     (\Cref{thm:linebundle}, \Cref{cor:noline});
@@ -111,12 +113,13 @@ hold unconditionally.
   \item induction through hyperplane sections, in either direction
     (\Cref{thm:hyperplane}, \Cref{thm:returntrip});
   \item Kuga--Satake from a weight two sub-structure of $H^{2}(A,\QQ)$, which
-    is available only at $n=1$ (\Cref{prop:normpart}, \Cref{cor:ksboundary});
+    reaches the Weil line only at $n=1$ (\Cref{prop:normpart},
+    \Cref{cor:ksboundary});
   \item a divisorial argument at a general member of a family of nontrivial
     discriminant (\Cref{prop:divfails});
   \item a secant object whose support fails to be Cohen--Macaulay at a point
-    where two components meet only there or where there is an embedded point,
-    which removes the candidate of \cite[Section 12]{Mar25b}
+    where two of its components meet and nowhere else, or at an embedded
+    point, which excludes the candidate of \cite[Section 12]{Mar25b}
     (\Cref{thm:candidatefails}, \Cref{cor:localobstruction},
     \Cref{cor:cmdichotomy});
   \item a secant object of rank one whose support is a complete intersection
@@ -130,8 +133,9 @@ hold unconditionally.
   \item the semiregularity form of the propagation statement, for any
     representative of the Weil $K$-theory class that is a locally free sheaf
     on a smooth germ of codimension at least two of its support, at every
-    member with no abelian subvariety tangent to a $K$-eigenspace; for every
-    representative, full rank forces the evaluation map to vanish on the
+    member with no abelian subvariety tangent to a $K$-eigenspace. For every
+    representative, injectivity of the semiregularity map forces the
+    evaluation map to vanish on the
     $4n^{2}$-dimensional annihilator of the Weil class, which is the mixed
     part of a splitting $HH^{1}(A)=P\oplus Q$ into the annihilators of the two
     conjugate pieces of that class, so that the whole Hochschild action
@@ -168,32 +172,35 @@ hold unconditionally.
   hence algebraic (\Cref{thm:cmbasepoint}); the algebraic locus is stable
   under the rational points of $\Res_{F_{0}/\QQ}\SU(V,H)$, whose orbits are
   dense, and is a countable union of Zariski closed sets; and each of the two
-  criteria of (iv) closes the whole family (\Cref{thm:cmpropagation}). So the
-  Weil classes of the higher CM fields are not a separate problem: they are
-  the same propagation statement, with the base case supplied
-  (\Cref{prop:cmweil}, \Cref{prop:composite}). The families are linked as
-  well: for each CM field the split families in infinitely many dimensions
+  criteria of (iv) closes the whole family (\Cref{thm:cmpropagation}). The
+  Weil classes of CM fields of higher degree are therefore not a separate
+  problem: they pose the same propagation statement, with the base case
+  supplied (\Cref{prop:cmweil}, \Cref{prop:composite}). The families are also
+  linked: for each CM field the split families in infinitely many dimensions
   give all of its families, and the fields of degree at least four give the
   imaginary quadratic ones (\Cref{prop:descent}).
-\item \emph{What is left, and that it is exactly that.} The Hodge conjecture
-  follows from the results of this paper together with three further
-  statements, namely the propagation statement of (iv), read for the split
+\item \emph{Exactly what remains.} The Hodge conjecture follows from the
+  results of this paper together with three further statements: the
+  propagation statement of (iv), in its corrected form and read for the split
   families of the CM fields of degree at least four, which by
-  \Cref{prop:descent} carry the Weil classes of every CM field with them, the
-  algebraicity of the Hodge classes
-  on abelian varieties that divisor classes and Weil classes do not generate,
-  and the conjecture for the varieties that are not abelian. The last of
-  these is the conjecture itself, since it covers $A\times\PP^{1}$ for every
-  abelian variety $A$ and so contains the abelian case. Its weaker form, the
-  conjecture modulo the images of Hodge classes of abelian varieties under
-  algebraic correspondences, holds on every variety whose cohomology is
-  reached from abelian varieties in that way, on every variety of dimension
-  $m$ in degrees $0$, $2$, $2m-2$ and $2m$, and on every variety of dimension
-  at most three, and is open beyond. Over the rule set
-  of the paper and the literature there are exactly five minimal sets: the
-  conjecture for the varieties that are not abelian alone; the Lefschetz
-  standard conjecture for every variety with the motivatedness of every Hodge
-  class; and the weaker form together with the Lefschetz standard
+  \Cref{prop:descent} carry the Weil classes of every CM field with them; the
+  algebraicity of the Hodge classes on abelian varieties that divisor classes
+  and Weil classes do not generate; and the conjecture for the varieties that
+  are not abelian. The last of these is the conjecture itself, since it
+  covers $A\times\PP^{1}$ for every abelian variety $A$ and so contains the
+  abelian case. Its weaker form, the conjecture modulo the images of Hodge
+  classes of abelian varieties under algebraic correspondences, holds on
+  every variety whose cohomology is reached from abelian varieties in that
+  way, on every variety of dimension $m$ in degrees $0$, $2$, $2m-2$ and
+  $2m$, on every variety of dimension at most three, and on every fourfold
+  and fivefold whose zero-cycles are supported in dimension at most three or
+  whose maximal rationally connected quotient is birational to a variety on
+  which it holds in degree four; in general it is open. Over the rule set
+  formed by the implications of the paper and of the literature there are
+  exactly five minimal sufficient sets of open statements: the conjecture for
+  the varieties that are not abelian, alone; the Lefschetz standard
+  conjecture for every variety together with the motivatedness of every
+  Hodge class; and the weaker form together with the Lefschetz standard
   conjecture, with the variational Hodge conjecture for algebraic classes, or
   with the propagation statement and the classes beyond the Weil lines, the
   last being the route of this paper.\footnote{These are the statements
@@ -202,185 +209,202 @@ hold unconditionally.
   motivated in the sense of Andr\'e \cite[\S2.1]{And96b}; and, for every
   smooth projective morphism $f$ to a smooth connected base, a flat section of
   $R^{2p}f_{*}\QQ$ that is algebraic at one point is algebraic at every
-  point.} The first two are each equivalent to
-  the conjecture, every statement in the five except the propagation
-  statement is a consequence of it, and the secant construction of
-  \Cref{sec:construction} lies outside all five (\Cref{prop:f3ishc},
-  \Cref{def:f3prime}, \Cref{prop:f3prime}, \Cref{thm:closure},
-  \Cref{cor:fourremain}, \Cref{prop:lefmot}, \Cref{prop:lefvhc},
-  \Cref{thm:vhcab}). Nor are the last two of the three statements
-  reductions: the self-product of a Mumford fourfold carries two Hodge classes
-  outside the subring of divisor and Weil classes, and the $H^{3}$ of a very
-  general quintic threefold is not of abelian type
-  (\Cref{prop:mumfordproduct}, \Cref{prop:noabeliantype}). Those two
-  classes are the real multiplication by a totally real cubic field on the
-  primitive part of $H^{2}$, and they are algebraic once the Kuga--Satake
-  class of one K3 surface of Picard number thirteen attached to the fourfold
-  is algebraic (\Cref{prop:mumfordrm}, \Cref{thm:mumfordks}). They are
-  algebraic at every CM point, and on every member of a Mumford family
+  point.} The first two sets are each equivalent to the conjecture, every
+  statement in the five sets other than the propagation statement is a
+  consequence of it, and the secant construction of \Cref{sec:construction}
+  lies outside all five (\Cref{prop:f3ishc}, \Cref{def:f3prime},
+  \Cref{prop:f3prime}, \Cref{thm:closure}, \Cref{cor:fourremain},
+  \Cref{prop:lefmot}, \Cref{prop:lefvhc}, \Cref{thm:vhcab}). The second and
+  third of the three statements are not reductions to Weil classes or to
+  abelian varieties: the self-product of a Mumford fourfold carries two Hodge
+  classes outside the subring generated by divisor and Weil classes, and the
+  $H^{3}$ of a very general quintic threefold is not of abelian type
+  (\Cref{prop:mumfordproduct}, \Cref{prop:noabeliantype}). More is true of
+  the second: it implies the conjecture for every abelian variety, so that
+  with the third it already suffices, and the propagation statement is needed
+  only for the Weil classes themselves (\Cref{prop:f2isab},
+  \Cref{rem:f2rule}). Those two classes
+  are the real multiplication by a totally real cubic field on the primitive
+  part of $H^{2}$, and they are algebraic once the Kuga--Satake class of one
+  K3 surface of Picard number thirteen attached to the fourfold is algebraic
+  (\Cref{prop:mumfordrm}, \Cref{thm:mumfordks}). They are algebraic at every
+  CM point, and they are algebraic on every member of a Mumford family
   exactly when the Lefschetz standard conjecture holds for the ninefold
-  $W\times_{C}W$; one Weil family is likewise equivalent to the Lefschetz
-  standard conjecture for one total space (\Cref{thm:mumfordcm},
-  \Cref{cor:mumfordequiv}, \Cref{cor:weilequiv}). The Mumford classes are
-  rigid, their Hodge locus being the compact base curve, and they are
-  algebraic on every member as soon as one perfect complex at one CM point
-  has $\Ext^{2}$ of dimension $119$, or as soon as they are represented at
-  infinitely many CM points by cycles of bounded degree
+  $W\times_{C}W$; likewise, the algebraicity of the Weil classes throughout
+  one Weil family is equivalent to the Lefschetz standard conjecture for one
+  total space
+  (\Cref{thm:mumfordcm}, \Cref{cor:mumfordequiv}, \Cref{cor:weilequiv}). The
+  Mumford classes are rigid, their Hodge locus being the compact base curve,
+  and they are algebraic on every member as soon as one perfect complex at
+  one CM point has $\Ext^{2}$ of dimension $119$, or as soon as they are
+  represented at infinitely many CM points by cycles of bounded degree
   (\Cref{thm:mumfordrigid}, \Cref{thm:mumfordnumerical},
-  \Cref{cor:mumfordbounded}); any complex with their Chern character is not
-  built from line bundles, and, for a Zariski dense set of those classes, it
-  has self-extensions of total dimension at least $1600$ when it has no
-  negative ones and extends along no Hochschild direction but the curve
-  (\Cref{thm:mumfordprofile}, \Cref{prop:mumforddivisor},
-  \Cref{cor:mumfordsplit}). No construction from
-  line bundles by cones, tensor products, pull-backs, push-forwards and
-  Fourier--Mukai functors reaches them at any point of the curve, and no
-  twistor line through a member of the family keeps them of Hodge type; they
-  are the twisted dual forms of the part of $H^{2}$ of the square generated by
-  its symplectic class, and outside the CM points no rational map from the
-  square to a K3 surface or to a hyperk\"ahler eightfold pulls back a
-  symplectic form to a nonzero form. At
-  every closed point of every reduction of the curve modulo a prime they are
-  represented by algebraic cycles, so that they are algebraic on every member
-  exactly when those cycles can be chosen with bounded Hilbert data on a
-  Zariski dense set of closed points (\Cref{thm:lefschetzclosure},
-  \Cref{prop:notwistor}, \Cref{prop:hksquare}, \Cref{prop:modp},
-  \Cref{thm:modpdensity}). The routes to them that are not closed off are
-  that one statement in three forms and two stronger inputs, any one of
-  which would suffice (\Cref{cor:mumfordone}).
+  \Cref{cor:mumfordbounded}). No complex with their Chern character is built
+  from line bundles; for a Zariski dense set of those classes, such a complex
+  with no negative self-extensions has self-extensions of total dimension at
+  least $1600$; and such a complex extends along no Hochschild direction but
+  the curve (\Cref{thm:mumfordprofile}, \Cref{prop:mumforddivisor},
+  \Cref{cor:mumfordsplit}). No construction from line bundles by cones,
+  tensor products, pull-backs, push-forwards and Fourier--Mukai functors
+  reaches them at any point of the curve, and no twistor line through a
+  member of the family keeps them of Hodge type. They are the twisted dual
+  forms of the part of $H^{2}$ of the square generated by its symplectic
+  class, and outside the CM points no rational map from the square to a K3
+  surface or to a hyperk\"ahler eightfold pulls back a symplectic form to a
+  nonzero form. At every closed point of every reduction of the curve modulo
+  a prime they are represented by algebraic cycles, so that they are
+  algebraic on every member exactly when those cycles can be chosen with
+  bounded Hilbert data on a Zariski dense set of closed points
+  (\Cref{thm:lefschetzclosure}, \Cref{prop:notwistor}, \Cref{prop:hksquare},
+  \Cref{prop:modp}, \Cref{thm:modpdensity}). Of the routes to them that are
+  not closed off, three are this one statement in other forms and two are
+  stronger inputs, and any one of them would suffice
+  (\Cref{cor:mumfordone}).
 \end{enumerate}
 \end{theorem}
 
 \begin{proof}
 Each clause is the theorem or theorems cited with it, and no clause is used in
-the proof of another. For (i), \Cref{thm:hdgcount} counts the Hodge classes and
-\Cref{cor:whatisleft} reduces every degree to $\omega_{1}$, the coefficient
-count being the rank of $\bigwedge^{2n}H^{1}(A,\ZZ)$ in the basis of
-\Cref{thm:explicitgens}. For (ii), \Cref{thm:residual}(a) and (b) are the two
-implications and \Cref{prop:weildomain} gives the connectedness and the
-dimension. For (iii), \Cref{thm:quatweil}(v) supplies the cycle at a
-quaternionic point and \Cref{thm:everyfamily} places such a point in every
-family, by the discriminant computation of \Cref{thm:quatweil}(iv) together
-with \Cref{lem:products}. For (iv), the sufficient condition is
-\Cref{thm:semiregclosure} with \Cref{rem:p2prime}, the refutation of its
-first form is \Cref{thm:p2false}, which rests on \Cref{lem:weiltorushodge},
-\Cref{lem:weiltorussubsets} and \Cref{prop:weiltorussheaves} and on item
-(LI), the lower bound is \Cref{cor:hhfactor}(i), and the sufficiency of the
-minimum is \Cref{thm:p2numerical}(iii), with the shape of the object in
-\Cref{thm:p2endo}; the number of the corrected form, the sufficiency of
+the proof of another. The computations cited as items are those of
+\Cref{sec:verification}. For (i), \Cref{thm:hdgcount} counts the Hodge
+classes, \Cref{cor:whatisleft} reduces every degree to $\omega_{1}$, and
+\Cref{thm:explicitgens}(i) shows that $\omega_{1}$ has integer coefficients
+and exactly $2^{2n-1}$ nonzero terms. For (ii), \Cref{thm:residual}(a) and
+(b) are the two implications, and \Cref{prop:weildomain} gives the
+connectedness and the dimension. For (iii), \Cref{thm:quatweil}(v) supplies
+the cycle at a quaternionic point, and \Cref{thm:everyfamily} places such a
+point in every family, by the discriminant computation of
+\Cref{thm:quatweil}(iv) together with \Cref{lem:products}.
+
+For (iv), the sufficient condition is \Cref{thm:semiregclosure} with
+\Cref{rem:p2prime}. The refutation of its pure form is \Cref{thm:p2false},
+which rests on \Cref{lem:weiltorushodge}, \Cref{lem:weiltorussubsets} and
+\Cref{prop:weiltorussheaves} and on item (LI); the lower bound is
+\Cref{cor:hhfactor}(i), the sufficiency of the minimum is
+\Cref{thm:p2numerical}(iii), and the shape of the object is
+\Cref{thm:p2endo}. For the corrected form, the number, the sufficiency of
 attaining it and the excluded shapes are \Cref{thm:p2primenumber}(i), (iv)
 and (v), and the Hodge locus of the other shapes is
 \Cref{prop:p2primelocus}(iii) and (iv) with \Cref{rem:p2primeexceptional},
-all with item (LII); the bounded
-criterion implies the conclusion by \Cref{thm:degreebound}, is implied by it
-by \Cref{thm:p1equivalent}, and fails on the transported cycle by
-\Cref{thm:p1forces}. For (v), each item is the statement of the theorem
-cited, under its own hypotheses, which \Cref{sec:scope} delimits item by
-item. For (vi), \Cref{prop:cmweil} gives the family and the reduction to one
-class, \Cref{thm:cmbasepoint} the base point and the representative,
-\Cref{thm:cmpropagation} the density and the two criteria, and
-\Cref{prop:descent}, with item (LIV), the links between the families. For (vii),
-\Cref{prop:f3ishc} shows that the third statement is the conjecture,
-\Cref{prop:f3prime} gives what is known of its weaker form,
-\Cref{thm:closure}(ii) and (iii) give the five minimal sets and the
-necessity of each of their elements, \Cref{thm:closure}(vi) the
-consequences of the conjecture, with \Cref{prop:lefmot},
-\Cref{prop:lefvhc} and \Cref{thm:vhcab} for the rules of the literature,
-and \Cref{thm:closure}(iv) places the secant construction outside them; the computation is item (XXXIII) of
-\Cref{sec:verification} and Section 24 of the Lean certificate. The
-remaining sentences of (vii), on the classes beyond the Weil lines, are in
-order \Cref{prop:mumfordproduct} and \Cref{prop:noabeliantype}, with item
-(XXXV); \Cref{prop:mumfordrm} and \Cref{thm:mumfordks}(ii), with item (XLI);
-\Cref{thm:mumfordcm}, \Cref{cor:mumfordequiv} and \Cref{cor:weilequiv}, with
-item (XLIII); \Cref{thm:mumfordrigid}, \Cref{thm:mumfordnumerical},
+all with item (LII). The bounded criterion implies the conclusion by
+\Cref{thm:degreebound}, is implied by it by \Cref{thm:p1equivalent}, and
+fails on the transported cycle by \Cref{thm:p1forces}. For (v), each item is
+the statement of the theorem cited, under its own hypotheses, which
+\Cref{sec:scope} delimits item by item. For (vi), \Cref{prop:cmweil} gives
+the family and the reduction to one class, \Cref{thm:cmbasepoint} the base
+point and the representative, \Cref{thm:cmpropagation} the density and the
+two criteria, and \Cref{prop:descent}, with item (LIV), the links between the
+families.
+
+For (vii), \Cref{prop:f3ishc} shows that the third statement is the
+conjecture, and \Cref{prop:f3prime}, \Cref{prop:f3primesmall} and
+\Cref{prop:f3primefibration} give what is known of its weaker form.
+\Cref{thm:closure}(ii) and (iii) give the five minimal sets and the necessity
+of each of their elements, \Cref{thm:closure}(vi) gives the consequences of
+the conjecture, with \Cref{prop:lefmot}, \Cref{prop:lefvhc} and
+\Cref{thm:vhcab} for the rules taken from the literature, and
+\Cref{thm:closure}(iv) places the secant construction outside all five sets.
+The computation is item (XXXIII), and Section 24 of the Lean certificate
+checks it again. The remaining sentences of (vii), on the classes beyond the
+Weil lines, are in order \Cref{prop:mumfordproduct} and
+\Cref{prop:noabeliantype}, with item (XXXV); \Cref{prop:mumfordrm} and
+\Cref{thm:mumfordks}(ii), with item (XLI); \Cref{thm:mumfordcm},
+\Cref{cor:mumfordequiv} and \Cref{cor:weilequiv}, with item (XLIII);
+\Cref{thm:mumfordrigid}, \Cref{thm:mumfordnumerical},
 \Cref{cor:mumfordbounded}, \Cref{thm:mumfordprofile},
 \Cref{prop:mumforddivisor} and \Cref{cor:mumfordsplit}, with items (XLIV) and
-(XLV) and the Lean theorems \texttt{mumford\_rigidity\_sos} and
-\texttt{mumford\_ext\_profile}; \Cref{thm:lefschetzclosure}, with item (XLVI)
-and the Lean theorem \texttt{lefschetz\_counts}, \Cref{prop:notwistor}, with
-item (XLVII), \Cref{prop:hksquare}, with item (XLVIII), and \Cref{prop:modp}
-and \Cref{thm:modpdensity}, which rest on \cite[Theorem~1.1]{Li26}; and
-\Cref{cor:mumfordone}, with item (XLIX).
+(XLV) and two theorems of the Lean certificate (\Cref{sec:lean});
+\Cref{thm:lefschetzclosure}, with item (XLVI) and a third theorem of the
+certificate; \Cref{prop:notwistor}, with item (XLVII); \Cref{prop:hksquare},
+with item (XLVIII); \Cref{prop:modp} and \Cref{thm:modpdensity}, which rest
+on \cite[Theorem~1.1]{Li26}; and \Cref{cor:mumfordone}, with item (XLIX).
 \end{proof}
 
 \begin{remark}[What this closes]\label{rem:whatclosure}
-Four things are settled by \Cref{thm:final}, and further work along the lines
-of this paper will not change them.
+\Cref{thm:final} settles four things.
 
-The problem has a smallest form and it has been reached. By (i) and (ii) the
-Hodge conjecture for a whole family of abelian varieties of Weil type is the
+The problem has been brought to its smallest form. By (i) and (ii) the Hodge
+conjecture for a whole family of abelian varieties of Weil type is the
 algebraicity of one explicitly written class at every point of one connected
-domain, and the reduction loses nothing, since the converse holds as well. No
-smaller statement is equivalent to it, because the equivalence is already an
-equivalence.
+domain, and the reduction loses nothing, since the converse holds as well.
 
 The base case is not the difficulty. By (iii) every family has a base point,
-for every field, every dimension and every discriminant, and the cycle is a
-polynomial in two divisor classes rather than an existence statement. Nor is
-the discriminant: by \Cref{prop:descent} the split families in all dimensions
-give every discriminant, and the fields of degree at least four give the
-imaginary quadratic ones, so neither the base points of nontrivial
-discriminant nor those of the quadratic fields carry weight in any minimal
-derivation. What separates a base point from the family is propagation.
+for every field, every dimension and every discriminant, and the cycle there
+is a polynomial in two divisor classes rather than an existence statement.
+Nor is the discriminant the difficulty: by \Cref{prop:descent} the split
+families in all dimensions give every discriminant, and the fields of degree
+at least four give the imaginary quadratic ones, so neither the base points
+of nontrivial discriminant nor those of the quadratic fields carry weight in
+any minimal derivation. What separates a base point from the family is
+propagation.
 
-Propagation has one criterion, and in its first form it cannot be met. The
-bounded criterion is equivalent to its own conclusion, so it restates the
-problem rather than reducing it. The semiregularity criterion would be met by
-one perfect complex at one base point with $\Ext^{2}$ of dimension
-$2n(2n-1)$, but no complex whose Chern character is exactly a Weil class is
-semiregular at all, because semiregularity would carry it to non-algebraic
-Weil tori, where the Weil class is Hodge and the Chern class of nothing. The
-criterion survives only with powers of the polarisation added to the Chern
-character, and in that form it is again one number:
+Propagation has one genuine criterion, and in its pure form that criterion
+cannot be met. The bounded criterion is equivalent to its own conclusion, so
+it restates the problem rather than reducing it. The semiregularity criterion
+would be met by one perfect complex at one base point with $\Ext^{2}$ of
+dimension $2n(2n-1)$, but no complex whose Chern character is exactly a Weil
+class is semiregular, because semiregularity would carry it to non-algebraic
+Weil tori, on which the Weil class is a Hodge class but not a Chern class.
+The criterion survives only with powers of the polarisation added to the
+Chern character, and in that form it is again one number:
 \Cref{thm:p2primenumber} computes the rank that $\dim\Ext^{2}(E,E)$ must
 reach, $(4+\rho)n^{2}-2n$ for $n\ge3$ with $\rho$ the rank of a Hankel matrix
 of the coefficients, and shows that an object reaching it satisfies the
 criterion. No finite direct sum of shifted push-forwards of line bundles
-along isogenies, among them the simple semi-homogeneous bundles, meets the
-criterion (\Cref{prop:scalaratiyah}); and injectivity is more than
+along isogenies, the simple semi-homogeneous bundles among them, meets the
+criterion (\Cref{prop:scalaratiyah}). Injectivity is also more than
 propagation needs, since a flatness condition on the deformations of the
-object suffices (\Cref{prop:p2flat}). What none of this says is whether an
-object meeting either condition exists.
+object suffices (\Cref{prop:p2flat}). None of this decides whether an object
+meeting either condition exists.
 
-The ways that do not work are known, and they are known for a reason rather
-than by exhaustion. Each item of (v) fails for an identifiable structural
-cause: a divisor-generated Chern character cannot leave the divisor subring, a
-norm eigenclass sits in the wrong summand of the character grading, a Chern
+The routes that fail are known, and they fail for identifiable structural
+causes rather than by exhaustion of cases. In (v), a divisor-generated Chern
+character cannot leave the divisor subring; a norm
+eigenclass sits in the wrong summand of the character grading; a Chern
 character on the Weil line makes the annihilator too large by exactly the
-dimension of the family, a support that is not Cohen--Macaulay carries a
-local $\cE xt^{2}$ that the compensating scalar cannot meet, a two-term
+dimension of the family; a support that is not Cohen--Macaulay carries a
+local $\cE xt^{2}$ that the compensating scalar cannot meet; a two-term
 complex of powers of the polarisation has summand inclusions that
-$H^{2}(\cO)$ does not kill, and a component of nonzero multiplicity makes two
+$H^{2}(\cO)$ does not kill; and a component of nonzero multiplicity makes two
 transverse translation classes multiply to a class that the Euler
-characteristic detects. These are not obstacles that a more careful version of
-the same construction would avoid.
+characteristic detects. A more careful version of the same construction would
+not avoid these obstacles.
 
-What is not settled is the conjecture, and (vii) says precisely how far from it
-this is. Along this route there are three statements, and the third as
-first stated, the conjecture for the varieties that are not abelian, is the
-conjecture itself (\Cref{prop:f3ishc}). With the third statement weakened to the conjecture modulo abelian varieties
-the route is minimal again, and three statements remain: the propagation
-statement in the corrected form of (iv), read for the split families of the
-CM fields of degree at least four, which by \Cref{prop:descent} carry the
-Weil classes of every CM field with them; the conjecture for the Hodge classes on abelian varieties that no Weil
-line reaches, which is not a reduction; and the conjecture modulo abelian
-varieties, which holds wherever the cohomology is reached from abelian
-varieties by algebraic correspondences and is open beyond
-(\Cref{prop:f3prime}, \Cref{rem:f3primeopen}). The shorter routes of the
-literature replace the first two by the Lefschetz standard conjecture or the
-variational statement, and the Lefschetz standard conjecture is the statement
-at their centre (\Cref{rem:bullseye}). The smallest case of the second
-statement is implied by the algebraicity of a single correspondence, the
-Kuga--Satake class of one K3 surface of Picard number thirteen, which asks
-for that case and a link besides (\Cref{prop:mumfordkslink}), and a standard open case of the
-third, the square of a K3 surface, meets the same kind of correspondence, the
-Kuga--Satake correspondence of that surface; that is the place where a new source of algebraic cycles
-would have to act first. We do not
-claim any of the three, nor the Lefschetz standard conjecture beyond the
-total spaces of the abelian schemes over curves of
-\Cref{cor:mumfordlefschetz} and \Cref{cor:lefschetzsmall}, the
-motivatedness of Hodge classes or the variational statement, and we have said
-so at each place where a reader might reasonably expect otherwise. The value of
-(vii) is that the boundary is a computation over a finite rule set rather than
-a judgement, so that it can be checked and not merely believed.
+What is not settled is the conjecture, and (vii) states exactly how far from
+it these results stand. The route of this paper passes through three
+statements. Taken as the conjecture for all varieties that are not abelian,
+the third is the conjecture itself (\Cref{prop:f3ishc}); weakened to the
+conjecture modulo abelian varieties, it makes the three a minimal sufficient
+set over the rule set of \Cref{thm:closure}, which does not contain the
+implication of \Cref{prop:f2isab}; with that implication the second and
+third already suffice. They are then the propagation statement in the corrected form of (iv),
+read for the split families of the CM fields of degree at least four, which
+by \Cref{prop:descent} carry the Weil classes of every CM field with them;
+the conjecture for the Hodge classes on abelian varieties that no Weil line
+reaches, which does not reduce to Weil classes and is equivalent to the
+conjecture for all abelian varieties; and the conjecture modulo
+abelian varieties, which holds wherever the cohomology is reached from
+abelian varieties by algebraic correspondences and on the fourfolds and
+fivefolds whose zero-cycles are supported in dimension at most three or
+whose maximal rationally connected quotient satisfies it in degree four, and
+is open in general (\Cref{prop:f3prime}, \Cref{prop:f3primesmall},
+\Cref{prop:f3primefibration}, \Cref{rem:f3primeopen}). The shorter routes of
+the literature replace the first two by the Lefschetz standard conjecture or
+the variational Hodge conjecture, and the Lefschetz standard conjecture is
+the statement at their centre (\Cref{rem:bullseye}). The smallest case of the
+second statement follows from the algebraicity of a single correspondence,
+the Kuga--Satake class of one K3 surface of Picard number thirteen, which
+amounts to that case together with a link (\Cref{prop:mumfordkslink}). A
+standard open case of the third, the square of a K3 surface with real
+multiplication, meets the same kind of correspondence, the Kuga--Satake
+correspondence of that surface. That is where a new source of algebraic
+cycles would have to act first.
+
+We prove none of the three statements, nor the Lefschetz standard conjecture
+beyond the total spaces of the abelian schemes over curves of
+\Cref{cor:mumfordlefschetz} and \Cref{cor:lefschetzsmall}, nor the
+motivatedness of Hodge classes, nor the variational Hodge conjecture. What
+(vii) adds is that this boundary is the outcome of a computation over a
+finite rule set, not a judgement, and so it can be checked rather than taken
+on trust.
 \end{remark}

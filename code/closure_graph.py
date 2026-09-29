@@ -96,6 +96,20 @@ What is checked:
       additions and confirms that the earlier answer is what the rule set
       without them gives, so that the change is traced to them.
 
+  (j) prop:f2isab proves red_weil => HC_ab: a Hodge class beta on an
+      abelian variety A gives the class beta x e on A x X x X, with X a
+      Mumford fourfold and e a Hodge class of X x X that the cyclic
+      permutation zeta of prop:mumfordmotivic does not fix up to a scalar;
+      the classes of the subring of divisor and Weil classes are fixed by
+      zeta (prop:mumfordformal), so beta x e lies outside it and red_weil
+      makes it algebraic, and pairing with a class of X x X gives beta back.
+      The rule is not part of the rule set above.  The check (j) below
+      adjoins it and finds five minimal sufficient sets again, {red_ab},
+      {lef_B, mot}, {lef_B, red_ab_mod}, {red_ab_mod, vhc} and
+      {red_ab_mod, red_weil}: P2_cm_s then lies in no minimal set, so that
+      the route through the Weil classes is not needed once red_weil is
+      granted.
+
 The point of (f) deserves to be said plainly, because a list of open problems
 invites the opposite reading.  The demand for one secant object on one
 abelian fourfold is not a sub-conjecture whose proof would close the Hodge
@@ -605,6 +619,47 @@ def run():
           all(TARGET not in closure(BASE | (set(S) - {x}))
               for S in sufficient for x in S),
           "removing any one of them leaves the conjecture underivable")
+
+    # (j) the rule red_weil => HC_ab of prop:f2isab, adjoined
+    extra = list(RULES) + [(("red_weil",), "HC_ab", "prop:f2isab")]
+
+    def closure_x(seed):
+        have = set(seed)
+        changed = True
+        while changed:
+            changed = False
+            for prem, conc, _ in extra:
+                if conc not in have and all(p in have for p in prem):
+                    have.add(conc)
+                    changed = True
+        return have
+
+    suff_x = []
+    for k in range(0, len(LEAVES) + 1):
+        for S in combinations(LEAVES, k):
+            if any(set(T) <= set(S) for T in suff_x):
+                continue
+            if TARGET in closure_x(BASE | set(S)):
+                suff_x.append(S)
+    expected_x = sorted([("red_ab",), ("lef_B", "mot"),
+                         ("lef_B", "red_ab_mod"), ("red_ab_mod", "vhc"),
+                         ("red_ab_mod", "red_weil")])
+    labels = open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                               "paper_labels.txt")).read().split()
+    check("with the rule of prop:f2isab adjoined the minimal sufficient sets "
+          "are five, and P2_cm_s lies in none",
+          sorted(suff_x) == expected_x and "prop:f2isab" in labels
+          and all("P2_cm_s" not in S for S in suff_x),
+          "{red_ab}, {lef_B, mot}, {lef_B, red_ab_mod}, {red_ab_mod, vhc} "
+          "and {red_ab_mod, red_weil}"
+          if sorted(suff_x) == expected_x else str(suff_x))
+    check("with that rule red_weil alone gives the conjecture for abelian "
+          "varieties, and red_weil with red_ab_mod the conjecture",
+          "HC_ab" in closure_x(BASE | {"red_weil"})
+          and TARGET not in closure_x(BASE | {"red_weil"})
+          and TARGET in closure_x(BASE | {"red_weil", "red_ab_mod"}),
+          "the set {P2_cm_s, red_ab_mod, red_weil} of (e) is then not "
+          "minimal")
 
     # (f) the secant route lies off every minimal sufficient set
     secant = {"secant_all", "Q114", "smooth_exists", "smooth_vanish",

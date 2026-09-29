@@ -14,15 +14,20 @@ make_secant.py and make_smooth.py.
                  translates L^i P^j of one primitive piece sit at the same
                  height in the degrees j, j+2, ..., 8-j, so the sl_2 strings
                  are the horizontal bands of the plate; the hard Lefschetz
-                 isomorphisms L^{4-k} : H^k -> H^{8-k} are the arcs.  The
-                 primitive middle piece P^4, of dimension 70 - 28 = 42, is
-                 the clay block.
+                 isomorphisms L^{4-k} : H^k -> H^{8-k} are the nested half
+                 ellipses, each clear of every prism it passes over.  P^k
+                 is dark, its translates light in the same colour.  Under
+                 the prisms the same decomposition as a table, one row for
+                 each sl_2 string, above the Betti numbers, and brackets
+                 for what restriction j^* to a smooth ample hypersurface
+                 does: injective in degrees k < 4, zero on P^4, and
+                 H^k = L^{k-4} H^{8-k} for k > 4.
 
   fig_moduli     for n = 1..6, a stacked prism of height n(2n+1), the
                  dimension of the moduli of principally polarised abelian
                  2n-folds, split into the Weil family of dimension n^2 and
-                 its codimension n(n+1), with the ratio n/(2n+1) of the two
-                 dimensions drawn against its limit 1/2.
+                 its codimension n(n+1); braces on the last prism name the
+                 parts, and a table under the prisms gives the numbers.
 
   fig_signature  the signatures (p,q) of an imaginary quadratic action, with
                  p + q = dim A, on the saddle z = pq, which is the dimension
@@ -30,8 +35,16 @@ make_secant.py and make_smooth.py.
                  curves p + q = 2n collect the signatures available in one
                  dimension; the ridge p = q is where the Weil line consists
                  of Hodge classes, and on each curve it is the highest point.
+                 A key under the plate says what the filled and the open
+                 points are.
 
-All heights are the actual numbers, times one scale per figure.
+All heights are the actual numbers, times one scale per figure.  The two bar
+plates use the parallel oblique projection of class Oblique, in which the
+front faces of the prisms are true rectangles and every horizontal line is
+horizontal: each prism stands on the zero line, fills the depth of the frame,
+and its top meets the gridline of its height on the back wall and the tick of
+its height on the scale.  fig_signature uses the perspective camera of
+render3d.py.
 
 Label placement (class Plate).  The geometry of a plate is compiled once
 without labels and rendered to a grey bitmap; every label is typeset by TeX
@@ -534,176 +547,373 @@ def wall(sc, x0, x1, y, z0, z1, levels, hs):
                 priority=1)
 
 
+# ------------------------------------------------------- bar charts in 3D
+# The bar plates (fig_ladder, fig_moduli) are drawn in explicit layers
+# rather than through the depth sort of render3d: first the frame (floor,
+# back wall, side wall and their gridlines), then the prisms from the far
+# one to the near one, each with back-face culling, so that a gridline can
+# never be drawn across a bar.  The prisms fill the whole depth of the
+# frame: their back faces lie in the back wall and their front faces in the
+# plane of the scale, so the top of a prism meets the gridline of its
+# height on the wall and the tick of its height on the scale.
+
+class Oblique:
+    """A parallel oblique projection: x to the right and z up at true scale,
+    y receding at the angle `ang` (degrees) and foreshortened by `k`.  The
+    front faces of the prisms are then true rectangles and every horizontal
+    line of the frame is horizontal, so a height can be read off exactly.
+    `toward` is the direction from the scene to the viewer, used to cull
+    the faces turned away."""
+
+    def __init__(self, ang=38.0, k=0.55, scale=1.0, origin=(0.0, 0.0)):
+        a = math.radians(ang)
+        self.cx, self.cy = k * math.cos(a), k * math.sin(a)
+        self.scale = scale
+        self.origin = origin
+        self.toward = (self.cx, -1.0, self.cy)
+
+    def project(self, p):
+        s = self.scale
+        return ((s * (p[0] + self.cx * p[1]) + self.origin[0],
+                 s * (p[2] + self.cy * p[1]) + self.origin[1]), p[1])
+
+
+def pp(cam, p):
+    x, y = cam.project(p)[0]
+    return "(%.4f,%.4f)" % (x, y)
+
+
+def tk_poly(cam, pts, style):
+    return "  \\path[%s] %s -- cycle;\n" % (style, " -- ".join(pp(cam, p)
+                                                               for p in pts))
+
+
+def tk_line(cam, pts, style):
+    return "  \\draw[%s] %s;\n" % (style, " -- ".join(pp(cam, p) for p in pts))
+
+
+def tk_line2(pts, style):
+    return "  \\draw[%s] %s;\n" % (style, " -- ".join("(%.4f,%.4f)" % p
+                                                       for p in pts))
+
+
+# the flat shading of a prism: front face, top face (lit), side face (shade)
+SHADE = {"dark": ("{0}!80", "{0}!56", "{0}!80!white!80!black",
+                  "{0}!55!black", "0.4pt"),
+         "light": ("{0}!24", "{0}!13", "{0}!24!white!90!black",
+                   "{0}!75!black", "0.3pt")}
+
+
+def prism(cam, box, col, tone, top=True):
+    """The visible faces of the box (x0, x1, y0, y1, z0, z1), flat shaded
+    and outlined; top=False leaves out the top face, when another prism is
+    stacked on it."""
+    x0, x1, y0, y1, z0, z1 = box
+    front, lit, side, edge, lw = [s.format(col) if "{" in s else s
+                                  for s in SHADE[tone]]
+    faces = [((0, -1, 0), [(x0, y0, z0), (x1, y0, z0), (x1, y0, z1),
+                           (x0, y0, z1)], front),
+             ((0, 1, 0), [(x0, y1, z0), (x1, y1, z0), (x1, y1, z1),
+                          (x0, y1, z1)], front),
+             ((-1, 0, 0), [(x0, y0, z0), (x0, y1, z0), (x0, y1, z1),
+                           (x0, y0, z1)], side),
+             ((1, 0, 0), [(x1, y0, z0), (x1, y1, z0), (x1, y1, z1),
+                          (x1, y0, z1)], side),
+             ((0, 0, 1), [(x0, y0, z1), (x1, y0, z1), (x1, y1, z1),
+                          (x0, y1, z1)], lit)]
+    out = []
+    for n, pts, fill in faces:
+        if n[2] == 1 and not top:
+            continue
+        p = pts[0]
+        if hasattr(cam, "toward"):
+            t = cam.toward
+        else:
+            t = [cam.eye[i] - p[i] for i in range(3)]
+        if sum(n[i] * t[i] for i in range(3)) <= 1e-9:
+            continue
+        out.append(tk_poly(cam, pts, "fill=%s,draw=%s,line width=%s"
+                           % (fill, edge, lw)))
+    return "".join(out)
+
+
+def brace2(x, y0, y1, amp=0.14, side=1):
+    """A vertical curly brace at screen abscissa x from y0 to y1 (y0 < y1),
+    its tip pointing to the right (side=1) or the left (side=-1)."""
+    a = amp * side
+    h = 0.5 * amp
+    ym = 0.5 * (y0 + y1)
+
+    def P(dx, y):
+        return "(%.4f,%.4f)" % (x + dx, y)
+    return ("  \\draw[PSlate,line width=0.5pt] %s .. controls %s and %s .. %s"
+            " -- %s .. controls %s and %s .. %s .. controls %s and %s .. %s"
+            " -- %s .. controls %s and %s .. %s;\n"
+            % (P(0, y0), P(0.3 * a, y0), P(0.5 * a, y0 + 0.2 * h),
+               P(0.5 * a, y0 + h),
+               P(0.5 * a, ym - h), P(0.5 * a, ym - 0.2 * h), P(0.7 * a, ym),
+               P(a, ym), P(0.7 * a, ym), P(0.5 * a, ym + 0.2 * h),
+               P(0.5 * a, ym + h),
+               P(0.5 * a, y1 - h), P(0.5 * a, y1 - 0.2 * h), P(0.3 * a, y1),
+               P(0, y1)))
+
+
+def bar_frame(cam, xl, xr, dep, ztop, levels, hs, tick=0.14):
+    """Floor, back wall (y = dep) and left wall (x = xl) of a bar chart
+    whose prisms stand on the floor 0 <= y <= dep, with the gridlines of
+    the given levels on both walls, the scale on the front edge of the
+    left wall, and its ticks.  Returns the TikZ and the tick ends."""
+    out = []
+    out.append(tk_poly(cam, [(xl, 0, 0), (xr, 0, 0), (xr, dep, 0),
+                             (xl, dep, 0)], "fill=PSlate!9"))
+    out.append(tk_poly(cam, [(xl, dep, 0), (xr, dep, 0), (xr, dep, ztop),
+                             (xl, dep, ztop)], "fill=PSlate!4"))
+    out.append(tk_poly(cam, [(xl, 0, 0), (xl, dep, 0), (xl, dep, ztop),
+                             (xl, 0, ztop)], "fill=PSlate!7"))
+    for v in levels:
+        z = v * hs
+        out.append(tk_line(cam, [(xl, 0, z), (xl, dep, z), (xr, dep, z)],
+                           "PRule!85,line width=0.3pt"))
+    # the outline of the frame
+    out.append(tk_line(cam, [(xl, 0, ztop), (xl, dep, ztop), (xr, dep, ztop),
+                             (xr, dep, 0)], "PSlate!45,line width=0.35pt"))
+    out.append(tk_line(cam, [(xl, dep, 0), (xl, dep, ztop)],
+                       "PSlate!45,line width=0.35pt"))
+    out.append(tk_line(cam, [(xl, dep, 0), (xr, dep, 0)],
+                       "PSlate!60,line width=0.4pt"))
+    out.append(tk_line(cam, [(xl, 0, 0), (xr, 0, 0), (xr, dep, 0)],
+                       "PSlate!80,line width=0.45pt"))
+    out.append(tk_line(cam, [(xl, 0, 0), (xl, 0, ztop)],
+                       "PSlate,line width=0.5pt"))
+    ends = []
+    for v in levels:
+        z = v * hs
+        out.append(tk_line(cam, [(xl, 0, z), (xl - tick, 0, z)],
+                           "PSlate,line width=0.5pt"))
+        ends.append((v, proj(cam, (xl - tick, 0, z))))
+    return "".join(out), ends
+
+
 # ------------------------------------------------------------------ ladder
 LADDER_COL = {0: "PTeal", 1: "POchre", 2: "PBlue", 3: "PIndigo", 4: "PClay"}
 
 
+PALETTE_RGB = {"PInk": (26, 32, 44), "PBlue": (37, 82, 139),
+               "PTeal": (23, 127, 125), "POchre": (193, 138, 44),
+               "PClay": (178, 74, 58), "PIndigo": (58, 64, 140)}
+
+
+def ink_on(col, mix=0.80):
+    """The text colour for a number on a tile filled with col!80: white or
+    PInk, whichever has the larger WCAG contrast against the fill."""
+    def lum(rgb):
+        c = []
+        for v in rgb:
+            v /= 255.0
+            c.append(v / 12.92 if v <= 0.03928 else ((v + 0.055) / 1.055) ** 2.4)
+        return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]
+    fill = tuple(mix * a + (1 - mix) * 255 for a in PALETTE_RGB[col])
+    lf, lw, li = lum(fill), 1.0, lum(PALETTE_RGB["PInk"])
+    white = (lw + 0.05) / (lf + 0.05)
+    ink = (lf + 0.05) / (li + 0.05)
+    return "white" if white >= ink else "PInk"
+
+
+def bracket(x0, x1, y, up=0.10):
+    """A horizontal bracket from x0 to x1 at height y, ends turned up."""
+    return ("  \\draw[PSlate,line width=0.5pt] (%.4f,%.4f) -- (%.4f,%.4f) -- "
+            "(%.4f,%.4f) -- (%.4f,%.4f);\n"
+            % (x0, y + up, x0, y, x1, y, x1, y + up))
+
+
 def fig_ladder():
-    cam = Camera(eye=(3.2, -40.0, 10.0), target=(0.0, 0.2, 1.55), focal=33.0,
-                 scale=1.86)
-    sc = Scene(cam)
+    """The Betti numbers of an abelian fourfold as prisms stacked from the
+    pieces L^i P^j of the Lefschetz decomposition, the hard Lefschetz arcs,
+    and under the prisms the same decomposition as a table whose rows are
+    the sl_2 strings."""
+    cam = Oblique(ang=36.0, k=0.62, scale=1.0)
     pl = Plate("fig_ladder", "make_diagrams.py",
                "The Lefschetz decomposition of the cohomology of an abelian "
                "fourfold, with the hard Lefschetz arcs.")
-    Hs = 3.2 / 70.0
-    Wd = 0.60
-    X = [(k - 4) * 0.98 for k in range(9)]
+    Hs = 3.7 / 70.0
+    SP, Wd, DEP = 1.50, 0.78, 0.62
+    X = [0.62 + SP * k for k in range(9)]
+    XL, XR = 0.0, X[-1] + Wd / 2
     b = [comb(8, k) for k in range(9)]
     prim = [b[j] - (b[j - 2] if j >= 2 else 0) for j in range(5)]
-    YW = 0.36
-    XL, XR = -4.62, 4.62
-    sc.surface(lambda u, v: (u, v, 0.0), (XL, XR), (-0.42, YW), 1, 1,
-               base="PSlate", opacity=0.08, ambient=0.74, diffuse=0.16)
-    wall(sc, XL, XR, YW, 0.0, 72 * Hs, range(0, 71, 10), Hs)
-    for v in range(0, 71, 10):
-        sc.polyline([(XL - 0.12, YW, v * Hs), (XL, YW, v * Hs)],
-                    "PSlate!80,line width=0.4pt", priority=1)
-    sc.polyline([(XL, -0.42, 0), (XR, -0.42, 0)], "PSlate!60,line width=0.3pt",
-                priority=1)
+    assert prim == [1, 8, 27, 48, 42]
+    levels = list(range(0, 71, 10))
+    frame, ends = bar_frame(cam, XL, XR, DEP, 70 * Hs, levels, Hs)
+    pl.add(frame)
     for k in range(9):
-        x = X[k]
+        x0, x1 = X[k] - Wd / 2, X[k] + Wd / 2
+        js = list(range(k % 2, min(k, 8 - k) + 1, 2))
         z = 0.0
-        for j in range(k % 2, min(k, 8 - k) + 1, 2):
+        for j in js:
             hgt = prim[j] * Hs
-            col = LADDER_COL[j]
-            if j == k:
-                sc.box((x, 0, z + hgt / 2), (Wd, Wd, hgt), base=col,
-                       ambient=0.14, diffuse=0.34,
-                       edge_style="%s!60!black,line width=0.35pt" % col)
-            else:
-                sc.box((x, 0, z + hgt / 2), (Wd, Wd, hgt), base=col,
-                       ambient=0.66, diffuse=0.20,
-                       edge_style="%s!85!black,line width=0.25pt" % col)
+            pl.add(prism(cam, (x0, x1, 0.0, DEP, z, z + hgt), LADDER_COL[j],
+                         "dark" if j == k else "light", top=(j == js[-1])))
             z += hgt
-    # the arcs L^{4-k}: H^k -> H^{8-k}, nested
+    # the arcs L^{4-k}: H^k -> H^{8-k}, nested half ellipses from the centre
+    # of one top face to the centre of the other (b_k = b_{8-k}, so both
+    # ends are at one height); each clears every prism it passes over
     apex = []
+    tops = [111.0, 101.5, 92.0, 82.5]
     for k in range(4):
-        xa, xb = X[k], X[8 - k]
-        ya = 0.05 + 0.05 * (3 - k)
-        za = b[k] * Hs
-        top = 3.62 + 0.36 * (3 - k)
+        pa = proj(cam, (X[k], DEP / 2, b[k] * Hs))
+        pb = proj(cam, (X[8 - k], DEP / 2, b[8 - k] * Hs))
+        assert abs(pa[1] - pb[1]) < 1e-9
+        top = proj(cam, (0, DEP / 2, tops[k] * Hs))[1]
+        xm, A, B = 0.5 * (pa[0] + pb[0]), 0.5 * (pb[0] - pa[0]), top - pa[1]
+        pts = [(xm - A * math.cos(math.pi * i / 180.0),
+                pa[1] + B * math.sin(math.pi * i / 180.0))
+               for i in range(181)]
+        for kk in range(k + 1, 8 - k):
+            for yy in (0.0, DEP):
+                for xx in (X[kk] - Wd / 2, X[kk] + Wd / 2):
+                    cx, cy = proj(cam, (xx, yy, b[kk] * Hs))
+                    u = (cx - xm) / A
+                    assert abs(u) < 1 and pa[1] + B * math.sqrt(1 - u * u) \
+                        > cy + 0.12, ("arc", k, kk)
+        pl.add("  \\draw[PBlue!75!black,line width=0.8pt,%s] %s;\n"
+               % (TIP, " -- ".join("(%.4f,%.4f)" % q for q in pts)))
+        pl.add("  \\node[circle,fill=PInk,inner sep=0.9pt] at (%.4f,%.4f) {};\n"
+               % pa)
+        apex.append((xm, top))
+    for k in range(4):
+        pl.put(apex[k][0], apex[k][1] + 0.235, r"$L^{%d}$" % (4 - k),
+               color="PBlue!75!black")
 
-        def arc(t, xa=xa, xb=xb, ya=ya, za=za, top=top):
-            x = xa + (xb - xa) * t
-            z = za + (top - za) * math.sin(math.pi * t) ** 0.8
-            return (x, -ya * math.sin(math.pi * t), z)
-        pts = [arc(i / 90.0) for i in range(91)]
-        sc.arrow(pts, "PBlue!80!black,line width=%.2fpt" % (0.75 + 0.12 * k),
-                 priority=6)
-        apex.append(arc(0.5))
-        for kk in (k, 8 - k):
-            sc.dot3((X[kk], 0, b[kk] * Hs), "circle,fill=PInk,inner sep=0.8pt",
-                    priority=7)
-    pl.add("".join("  \\colorlet{L%s}{%s!45}\n" % (c, c)
-                   for c in LADDER_COL.values()))
-    pl.add(sc.emit())
-
-    # degree and Betti number under each prism, dimension ticks on the wall
-    for k in range(9):
-        x, y = proj(cam, (X[k], -0.42, 0.0))
-        pl.put(x, y - 0.30, r"$H^{%d}$" % k)
-        pl.put(x, y - 0.68, r"$%d$" % b[k], color="PSlate",
-               font=r"\footnotesize")
-    for v in range(0, 71, 10):
-        x, y = proj(cam, (XL - 0.12, YW, v * Hs))
-        pl.put(x - 0.08, y, r"$%d$" % v, color="PSlate", font=r"\footnotesize",
+    # the scale
+    for v, (x, y) in ends:
+        pl.put(x - 0.07, y, r"$%d$" % v, color="PSlate", font=r"\footnotesize",
                anchor="e")
-    for k in range(4):
-        pl.label(proj(cam, apex[k]), r"$L^{%d}$" % (4 - k), color="PBlue",
-                 dirs=[90], rmin=0.05, rmax=0.5)
-    # the legend: each primitive piece, and its translates by L
-    x0, y0 = proj(cam, (XL, YW, 72 * Hs))
-    x0, y0 = x0 - 0.3, y0 + 1.95
-    pl.put(x0 + 0.15, y0 + 0.44, r"$P^{j}$", font=r"\footnotesize")
-    pl.put(x0 + 0.80, y0 + 0.44, r"$L^{i}P^{j}$", font=r"\footnotesize")
-    rows = [(4, r"$\dim P^{4}=70-28=42$"), (3, r"$\dim P^{3}=56-8=48$"),
-            (2, r"$\dim P^{2}=28-1=27$"), (1, r"$\dim P^{1}=8$"),
-            (0, r"$\dim P^{0}=1$")]
-    for i, (j, t) in enumerate(rows):
-        y = y0 - 0.42 * i
+    xs, ys = ends[-1][1]
+    pl.put(xs - 0.07, ys + 0.42, r"$\dim_{\QQ}$", color="PSlate",
+           font=r"\footnotesize", anchor="e")
+
+    # the table: the degrees, the sl_2 strings as rows, the Betti numbers
+    cols = [proj(cam, (x, 0, 0))[0] for x in X]
+    y = proj(cam, (XL, 0, 0))[1] - 0.40
+    for k, x in enumerate(cols):
+        pl.put(x, y, r"$H^{%d}$" % k)
+    xh = cols[0] - 0.62
+    tw, th, rp = Wd, 0.32, 0.40
+    for r, j in enumerate([4, 3, 2, 1, 0]):
+        yr = y - 0.52 - rp * r
         col = LADDER_COL[j]
-        pl.add("  \\path[fill=%s!78,draw=%s!60!black,line width=0.35pt] "
-               "(%.3f,%.3f) rectangle (%.3f,%.3f);\n"
-               % (col, col, x0, y - 0.11, x0 + 0.30, y + 0.11))
-        pl.add("  \\path[fill=%s!24,draw=%s!85!black,line width=0.25pt] "
-               "(%.3f,%.3f) rectangle (%.3f,%.3f);\n"
-               % (col, col, x0 + 0.65, y - 0.11, x0 + 0.95, y + 0.11))
-        pl.put(x0 + 1.15, y, t, anchor="w")
+        pl.put(xh, yr, r"$L^{i}P^{%d}$" % j, color="%s!70!black" % col,
+               anchor="e")
+        for k in range(j, 9 - j, 2):
+            dark = (k == j)
+            pl.add("  \\path[fill=%s,draw=%s,line width=%s] (%.4f,%.4f) "
+                   "rectangle (%.4f,%.4f);\n"
+                   % ("%s!80" % col if dark else "%s!24" % col,
+                      "%s!55!black" % col if dark else "%s!75!black" % col,
+                      "0.4pt" if dark else "0.3pt",
+                      cols[k] - tw / 2, yr - th / 2, cols[k] + tw / 2,
+                      yr + th / 2))
+            pl.add("  \\node[text=%s,font=\\footnotesize,inner sep=0pt] at "
+                   "(%.4f,%.4f) {$%d$};\n"
+                   % (ink_on(col) if dark else "%s!60!black" % col, cols[k], yr,
+                      prim[j]))
+    yb = y - 0.52 - rp * 5 - 0.12
+    pl.add(tk_line2([(xh - 1.05, yb + 0.30), (cols[-1] + tw / 2 + 0.05,
+                                               yb + 0.30)],
+                    "PRule,line width=0.4pt"))
+    pl.put(xh, yb - 0.04, r"$\binom{8}{k}$", anchor="e")
+    for k, x in enumerate(cols):
+        pl.put(x, yb - 0.04, r"$%d$" % b[k])
+    # where restriction to a hypersurface stands, degree by degree
+    yq = yb - 0.50
+    pad = tw / 2 + 0.10
+    pl.add(bracket(cols[0] - pad, cols[3] + pad, yq))
+    pl.add(bracket(cols[4] - pad, cols[4] + pad, yq))
+    pl.add(bracket(cols[5] - pad, cols[8] + pad, yq))
+    pl.put(0.5 * (cols[0] + cols[3]), yq - 0.12,
+           r"$j^{*}$ injective", anchor="n")
+    pl.put(cols[4], yq - 0.12, r"$j^{*}P^{4}=0$", anchor="n")
+    pl.put(0.5 * (cols[5] + cols[8]), yq - 0.12,
+           r"$H^{k}=L^{k-4}H^{8-k}$", anchor="n")
     pl.build()
     compile_plate("fig_ladder")
 
 
 # ------------------------------------------------------------------ moduli
 def fig_moduli():
-    cam = Camera(eye=(3.0, -40.0, 10.5), target=(0.0, 0.2, 1.70), focal=33.0,
-                 scale=2.05)
-    sc = Scene(cam)
+    """dim A_{2n} = n(2n+1) as a prism, split into dim D_{n,n} = n^2 below
+    and the codimension n(n+1) above, for n = 1, ..., 6."""
+    cam = Oblique(ang=36.0, k=0.62, scale=1.42)
     pl = Plate("fig_moduli", "make_diagrams.py",
                "The Weil family inside the moduli of principally polarised "
                "abelian 2n-folds: n^2 against n(2n+1), for n up to six.")
-    Hs = 3.0 / 80.0
-    Wd = 0.62
-    X = [-3.0 + 1.20 * (n - 1) for n in range(1, 7)]
-    YW = 0.38
-    XL, XR = -3.66, 3.66
-    sc.surface(lambda u, v: (u, v, 0.0), (XL, XR), (-0.44, YW), 1, 1,
-               base="PSlate", opacity=0.08, ambient=0.74, diffuse=0.16)
-    wall(sc, XL, XR, YW, 0.0, 82 * Hs, range(0, 81, 10), Hs)
-    for v in range(0, 81, 10):
-        sc.polyline([(XL - 0.12, YW, v * Hs), (XL, YW, v * Hs)],
-                    "PSlate!80,line width=0.4pt", priority=1)
-    sc.polyline([(XL, -0.44, 0), (XR, -0.44, 0)], "PSlate!60,line width=0.3pt",
-                priority=1)
-    for n, x in zip(range(1, 7), X):
+    Hs = 3.55 / 80.0              # height of one dimension
+    SP, Wd = 1.02, 0.58           # spacing and width of the prisms
+    DEP = 0.58                    # depth of the frame = depth of a prism
+    X = [SP * (n - 1) + 0.62 for n in range(1, 7)]
+    XL, XR = 0.0, X[-1] + Wd / 2       # the frame ends at the last prism
+    levels = list(range(0, 81, 10))
+    frame, ends = bar_frame(cam, XL, XR, DEP, 80 * Hs, levels, Hs)
+    pl.add(frame)
+    # the prisms, far to near; each fills the depth 0 <= y <= DEP
+    for i in range(6):
+        n = i + 1
         d, g = n * n, n * (n + 1)
-        sc.box((x, 0, d * Hs / 2), (Wd, Wd, d * Hs), base="PBlue",
-               ambient=0.16, diffuse=0.36,
-               edge_style="PBlue!60!black,line width=0.35pt")
-        sc.box((x, 0, d * Hs + g * Hs / 2), (Wd, Wd, g * Hs), base="PClay",
-               ambient=0.58, diffuse=0.26,
-               edge_style="PClay!75!black,line width=0.3pt")
-    pl.add("  \\providecommand{\\bl}[1]{\\textcolor{PBlue}{#1}}\n"
-           "  \\providecommand{\\cl}[1]{\\textcolor{PClay}{#1}}\n")
-    pl.add(sc.emit())
+        x0, x1 = X[i] - Wd / 2, X[i] + Wd / 2
+        pl.add(prism(cam, (x0, x1, 0.0, DEP, 0.0, d * Hs), "PBlue", "dark",
+                     top=False))
+        pl.add(prism(cam, (x0, x1, 0.0, DEP, d * Hs, (d + g) * Hs), "PClay",
+                     "light"))
 
-    ylow = None
-    for n, x in zip(range(1, 7), X):
-        px, py = proj(cam, (x, -0.44, 0.0))
-        pl.put(px, py - 0.30, r"$n=%d$" % n)
-        pl.put(px, py - 0.70,
-               r"$\bl{%d}+\cl{%d}=%d$"
-               % (n * n, n * (n + 1), n * (2 * n + 1)), font=r"\footnotesize")
-        ylow = py - 0.70 if ylow is None else min(ylow, py - 0.70)
-    for v in range(0, 81, 10):
-        x, y = proj(cam, (XL - 0.12, YW, v * Hs))
-        pl.put(x - 0.08, y, r"$%d$" % v, color="PSlate", font=r"\footnotesize",
+    # the scale
+    for v, (x, y) in ends:
+        pl.put(x - 0.07, y, r"$%d$" % v, color="PSlate", font=r"\footnotesize",
                anchor="e")
-    # the legend, one row under the plate
-    y = ylow - 0.62
-    x0 = proj(cam, (XL, -0.44, 0.0))[0] + 0.2
-    pl.add("  \\path[fill=PBlue!78,draw=PBlue!60!black,line width=0.35pt] "
-           "(%.3f,%.3f) rectangle (%.3f,%.3f);\n"
-           % (x0, y - 0.12, x0 + 0.30, y + 0.12))
-    pl.put(x0 + 0.45, y, r"$\dim\cD_{n,n}=n^{2}$", anchor="w")
-    x1 = x0 + 3.55
-    pl.add("  \\path[fill=PClay!40,draw=PClay!75!black,line width=0.3pt] "
-           "(%.3f,%.3f) rectangle (%.3f,%.3f);\n"
-           % (x1, y - 0.12, x1 + 0.30, y + 0.12))
-    pl.put(x1 + 0.45, y, r"codimension $n(n+1)$", anchor="w")
-    x2 = x1 + 4.05
-    pl.add("  \\path[fill=PBlue!78,draw=PBlue!60!black,line width=0.35pt] "
-           "(%.3f,%.3f) rectangle (%.3f,%.3f);\n"
-           % (x2, y - 0.14, x2 + 0.30, y - 0.01))
-    pl.add("  \\path[fill=PClay!40,draw=PClay!75!black,line width=0.3pt] "
-           "(%.3f,%.3f) rectangle (%.3f,%.3f);\n"
-           % (x2, y - 0.01, x2 + 0.30, y + 0.16))
-    pl.put(x2 + 0.45, y, r"$\dim\cA_{2n}=n(2n+1)$", anchor="w")
+    xs, ys = ends[-1][1]
+    pl.put(xs - 0.07, ys + 0.42, r"$\dim_{\CC}$", color="PSlate",
+           font=r"\footnotesize", anchor="e")
+
+    # braces on the last prism: its two parts and its whole height
+    x0, x1 = X[5] - Wd / 2, X[5] + Wd / 2
+    right = max(proj(cam, (x1, yy, 0))[0] for yy in (0.0, DEP))
+    bx = right + 0.12
+    zb = [proj(cam, (x1, DEP, z * Hs))[1] for z in (0, 36, 78)]
+    pl.add(brace2(bx, zb[0] + 0.02, zb[1] - 0.03))
+    pl.add(brace2(bx, zb[1] + 0.03, zb[2] - 0.02))
+    pl.put(bx + 0.28, 0.5 * (zb[0] + zb[1]), r"$\dim\cD_{n,n}$", anchor="w",
+           color="PBlue")
+    pl.put(bx + 0.28, 0.5 * (zb[1] + zb[2]), r"codimension",
+           anchor="w", color="PClay!85!black")
+    xt, yt = proj(cam, (x1, DEP, 78 * Hs))
+    pl.add(tk_line2([(xt + 0.06, yt), (bx + 0.17, yt)],
+                    "PSlate,line width=0.5pt"))
+    pl.put(bx + 0.28, yt, r"$\dim\cA_{2n}$", anchor="w")
+
+    # the table under the prisms: n, n^2, n(n+1), n(2n+1)
+    cols = [proj(cam, (x, 0, 0))[0] for x in X]
+    yfront = min(proj(cam, (x, 0, 0))[1] for x in (XL, XR))
+    rows = [(r"$n$", "PInk", lambda n: n),
+            (r"$n^{2}$", "PBlue", lambda n: n * n),
+            (r"$n(n+1)$", "PClay!85!black", lambda n: n * (n + 1)),
+            (r"$n(2n+1)$", "PInk", lambda n: n * (2 * n + 1))]
+    xh = proj(cam, (XL, 0, 0))[0] - 0.30
+    for r, (head, col, f) in enumerate(rows):
+        y = yfront - 0.42 - 0.44 * r - (0.10 if r else 0.0)
+        pl.put(xh, y, head, color=col, anchor="e")
+        for n, x in zip(range(1, 7), cols):
+            pl.put(x, y, r"$%d$" % f(n), color=col)
+    yr = yfront - 0.42 - 0.24
+    pl.add(tk_line2([(xh - 1.25, yr), (cols[-1] + 0.35, yr)],
+                    "PRule,line width=0.4pt"))
     pl.build()
     compile_plate("fig_moduli")
 
 
 # --------------------------------------------------------------- signature
 def fig_signature():
+    """The saddle z = pq over the triangle p, q >= 0, p + q <= 12; the
+    curves p + q = 2n with the signatures (p, q) on them; the ridge p = q
+    with the heights n^2; a key for the two kinds of points."""
     tgt = (1.85, 1.85, 1.05)
     cam = Camera(eye=orbit_eye(tgt, 34.0, -112.0, 21.0), target=tgt,
                  focal=34.0, scale=2.0)
@@ -722,12 +932,14 @@ def fig_signature():
     sc.surface(lambda s, lam: pt(lam * s, (1 - lam) * s), (0.0, float(N)),
                (0.0, 1.0), 24, 24, base="PSlate", opacity=0.20,
                ambient=0.66, diffuse=0.30)
-    for a, b in (((0, 0), (N + 1.3, 0)), ((0, 0), (0, N + 1.3))):
+    for a, b in (((0, 0), (N + 1.4, 0)), ((0, 0), (0, N + 1.4))):
         sc.polyline([pt(a[0], a[1], 0), pt(b[0], b[1], 0)],
                     "PSlate,line width=0.5pt," + TIP, priority=1)
-    for i in range(0, N + 1, 2):
-        sc.polyline([pt(i, 0, 0), pt(i, -0.35, 0)],
-                    "PSlate,line width=0.4pt", priority=1)
+    for i in range(2, N + 1, 2):
+        sc.polyline([pt(i, 0, 0), pt(i, -0.40, 0)],
+                    "PSlate,line width=0.45pt", priority=1)
+        sc.polyline([pt(0, i, 0), pt(-0.40, i, 0)],
+                    "PSlate,line width=0.45pt", priority=1)
     # the curves p + q = 2n on the saddle, with their signatures
     for m in range(1, 7):
         s = 2 * m
@@ -749,24 +961,44 @@ def fig_signature():
                     priority=3)
         sc.dot3(pt(n, n), "circle,fill=PClay,draw=white,line width=0.6pt,"
                 "inner sep=1.9pt", priority=6)
-    pl.add(sc.emit())
+    pl.add(soften(sc.emit()))
 
     for i in range(2, N + 1, 2):
-        x, y = proj(cam, pt(i, -0.35, 0))
+        x, y = proj(cam, pt(i, -0.40, 0))
         pl.put(x + 0.05, y - 0.20, r"$%d$" % i, color="PSlate",
                font=r"\footnotesize")
     for n in range(1, 7):
         pl.label(proj(cam, pt(n, n)), r"$%d$" % (n * n), color="PClay",
                  font=r"\footnotesize", dirs=[180, 160, 200], rmax=1.0,
                  lead=0.5)
-    pl.label(proj(cam, pt(N + 1.3, 0, 0)), r"$p$", color="PSlate",
+    pl.label(proj(cam, pt(N + 1.4, 0, 0)), r"$p$", color="PSlate",
              dirs=[0, 30], rmax=0.4)
-    pl.label(proj(cam, pt(0, N + 1.3, 0)), r"$q$", color="PSlate",
-             dirs=[180, 150], rmax=0.4)
+    pl.label(proj(cam, pt(0, N + 1.4, 0)), r"$q$", color="PSlate",
+             dirs=[90, 120, 150], rmax=0.4)
     for m in range(1, 7):
-        pl.label(proj(cam, pt(0, 2 * m)), r"$p+q=%d$" % (2 * m),
-                 color="PInk", font=r"\footnotesize", dirs=[180, 200, 160],
-                 rmin=0.12, rmax=0.8, lead=0.3)
+        x, y = proj(cam, pt(-0.40, 2 * m, 0))
+        pl.label((x, y), r"$p+q=%d$" % (2 * m), color="PInk",
+                 font=r"\footnotesize", dirs=[180, 200, 160], rmin=0.06,
+                 rmax=0.8, lead=0.3)
+    pl.label(proj(cam, pt(5.45, 5.45)), r"$p=q$", color="PClay",
+             dirs=[0, -20, 20], rmin=0.15, rmax=1.2, skip=0.12, penalty=3.0)
+    pl.label(proj(cam, pt(9.0, 1.5)), r"height $pq$", color="PSlate!80!black",
+             dirs=[-10, 0, -30, 20], rmin=0.2, rmax=3.0, skip=0.10)
+
+    # the key, under the plate on the right, below the tick labels
+    bx0, by0, bx1, by1 = ink_bbox("".join(pl.parts))
+    ytick = min(it["y"] for it in pl.fixed) - 0.16
+    xk = bx1 - 7.10
+    yk = ytick - 0.36
+    pl.add("  \\node[circle,fill=PClay,draw=white,line width=0.6pt,"
+           "inner sep=1.9pt] at (%.3f,%.3f) {};\n" % (xk, yk))
+    pl.put(xk + 0.22, yk, r"$p=q=n$: $\HW(A)$ consists of Hodge classes",
+           font=r"\footnotesize", anchor="w")
+    pl.add("  \\node[circle,draw=PInk!80,fill=white,line width=0.45pt,"
+           "inner sep=1.05pt] at (%.3f,%.3f) {};\n" % (xk, yk - 0.42))
+    pl.put(xk + 0.22, yk - 0.42,
+           r"$p\neq q$: $\HW(A)$ of type $\{(p,q),(q,p)\}$, no Hodge class",
+           font=r"\footnotesize", anchor="w")
     pl.build()
     compile_plate("fig_signature")
 

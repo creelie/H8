@@ -853,57 +853,79 @@ def toward(p, q, d):
     return (p[0] + d * (q[0] - p[0]) / L, p[1] + d * (q[1] - p[1]) / L)
 
 
+def _check_against_code():
+    """the rule set drawn here is the rule set of item (XXXIII): compare with
+    code/closure_graph.py when the verification package is next to us"""
+    path = os.path.join(HERE, os.pardir, "code")
+    if not os.path.exists(os.path.join(path, "closure_graph.py")):
+        return
+    sys.path.insert(0, os.path.abspath(path))
+    try:
+        import closure_graph as cg
+    finally:
+        sys.path.pop(0)
+    st = {k: v[0] for k, v in cg.STATEMENTS.items()}
+    assert st == STATUS, "fig_frontier: statements differ from item (XXXIII)"
+    a = sorted((tuple(sorted(r[0])), r[1], r[2]) for r in cg.RULES)
+    b = sorted((tuple(sorted(r[0])), r[1], r[2]) for r in RULES)
+    assert a == b, "fig_frontier: rules differ from item (XXXIII)"
+    assert set(cg.IMPLIED_BY_HC) == {"red_ab", "red_ab_mod", "red_weil",
+                                     "lef_B", "mot", "vhc"}
+
+
 def frontier():
     F = Fig("fig_frontier",
-            "The rule set of the closure theorem with the routes of the "
-            "literature, and the five minimal sufficient sets, computed.")
+            "The rule set of the closure theorem with the rules of the "
+            "literature, as a hypergraph, and the five minimal sufficient "
+            "sets, computed.")
+    _check_against_code()
     OPEN, PROV, QUOT, DER = (("PClay", "WClay"), ("PGrass", "WTeal"),
                              ("PSlate", "WSlate"), ("PIndigo", "WBlue"))
     IMPLIED = {"red_ab", "red_ab_mod", "red_weil", "lef_B", "mot", "vhc"}
     sub = lambda t: r"{\scriptsize %s}" % t
+    # key: (x, y, text, standing, statements of the rule set)
     N = {
-        "HC": (0.00, 8.35, r"$\mathbf{HC}$\\" + sub(
-            r"$\mathrm{Hdg}^{p}(X)=\mathrm{Alg}^{p}(X)$ for every $X$"), DER,
-            ["HC"]),
-        "AB": (-3.25, 5.75, r"$\mathbf{HC}$ for every\\abelian variety",
-               DER, ["HC_ab"]),
-        "F3": (-5.85, 7.65, r"(F3)\\" + sub(r"$\mathbf{HC}$ for $X$ not "
+        "HC": (0.00, 9.05, r"$\mathbf{HC}$\\" + sub(
+            r"every Hodge class algebraic, every $X$"), DER, ["HC"]),
+        "AB": (-2.95, 5.85, r"$\mathbf{HC}$ for\\abelian varieties", DER,
+               ["HC_ab"]),
+        "F3": (-5.55, 7.95, r"(F3)\\" + sub(r"$\mathbf{HC}$ for $X$ not "
                                            r"abelian"), OPEN, ["red_ab"]),
-        "F3P": (2.45, 5.75, r"(F3$'$)\\" + sub(
+        "F3P": (2.75, 5.85, r"(F3$'$)\\" + sub(
             r"$\mathrm{Hdg}^{p}(X)=\mathrm{Ab}^{p}(X)$"), OPEN,
             ["red_ab_mod"]),
-        "M": (5.95, 7.65, r"(M)\\" + sub(r"Hodge classes") + r"\\" +
-              sub(r"motivated"), OPEN,
-              ["mot"]),
-        "L": (5.85, 3.15, r"(L)\\" + sub(r"$B(X)$ for every $X$"), OPEN,
+        "M": (5.75, 7.95, r"(M)\\" + sub(r"every Hodge class") + r"\\" +
+              sub(r"motivated"), OPEN, ["mot"]),
+        "L": (5.55, 3.25, r"(L)\\" + sub(r"$B(X)$ for every $X$"), OPEN,
               ["lef_B"]),
-        "V": (1.45, 3.15, r"(V)\\" + sub(r"algebraic at $s\Rightarrow$ at "
-                                         r"$t$"), OPEN, ["vhc"]),
-        "F2": (-3.45, 3.15, r"(F2)\\" + sub(r"beyond Weil lines"), OPEN,
-               ["red_weil"]),
-        "WA": (-6.10, 3.15, r"Weil classes\\" + sub(r"every CM field"), DER,
+        "V": (1.00, 3.25, r"(V)\\" + sub(r"$\xi_{s}$ algebraic $\Rightarrow$ "
+                                         r"$\xi_{t}$ algebraic"), OPEN,
+              ["vhc"]),
+        "F2": (-3.05, 3.25, r"(F2)\\" + sub(r"classes beyond Weil lines"),
+               OPEN, ["red_weil"]),
+        "WA": (-5.90, 3.25, r"Weil classes\\" + sub(r"every CM field"), DER,
                ["weil_all"]),
-        "WS": (-6.10, 1.45, r"$\mathbf{W}(F,n,\delta_{0})$\\" + sub(
+        "WS": (-5.90, 1.10, r"$\mathbf{W}(F,n,\delta_{0})$\\" + sub(
             r"$[F:\mathbb{Q}]\ge4$, split"), DER, ["weil_cm_triv"]),
-        "P2": (-6.30, -1.15, r"(P2)\\" + sub(r"split, $[F:\mathbb{Q}]\ge4$"),
-               OPEN, ["P2_cm_s"]),
-        "BP": (-3.75, -1.15, r"base points,\\reduction, orbits", PROV,
+        "P2": (-6.05, -1.25, r"$\mathrm{P2}_{\mathrm{split}}$\\" + sub(
+            r"(P2$'$), split, $[F:\mathbb{Q}]\ge4$"), OPEN, ["P2_cm_s"]),
+        "BP": (-3.20, -1.25, r"base point,\\reduction, orbit", PROV,
                ["base_point_cm", "reduction_cm", "orbit_dense_cm"]),
-        "AC": (-1.30, 1.55, r"Hodge classes of abelian\\varieties "
-               r"accessible", QUOT, ["acc_ab"]),
-        "MD": (3.55, 1.55, r"motivated classes\\deform in families", QUOT,
+        "AC": (-1.05, 1.25, r"accessibility of\\Hodge classes on\\"
+               r"abelian varieties", QUOT, ["acc_ab"]),
+        "MD": (3.60, 1.25, r"deformation of\\motivated classes", QUOT,
                ["mot_def"]),
     }
     # the drawn rules: letter -> (premises, conclusion, junction or None)
     R = {
         "a": (["F3"], "AB", None),
-        "b": (["AB", "F3"], "HC", (-2.95, 7.65)),
-        "c": (["AB", "F3P"], "HC", (0.00, 7.05)),
-        "d": (["L", "M"], "HC", (3.65, 7.65)),
-        "e": (["L", "MD"], "V", (3.55, 3.15)),
-        "f": (["V", "AC"], "AB", (-1.45, 4.45)),
-        "g": (["WA", "F2"], "AB", (-4.75, 4.45)),
-        "h": (["P2", "BP"], "WS", (-5.20, 0.15)),
+        "b": (["AB", "F3"], "HC", (-2.95, 7.95)),
+        "c": (["AB", "F3P"], "HC", (0.00, 7.40)),
+        "d": (["L", "M"], "HC", (3.45, 7.95)),
+        "e": (["L", "MD"], "V", (3.60, 3.25)),
+        "f": (["V", "AC"], "AB", (-1.05, 4.55)),
+        "g": (["WA", "F2"], "AB", (-4.45, 4.55)),
+        "h": (["P2", "BP"], "WS", (-4.75, 0.05)),
         "i": (["WS"], "WA", None),
     }
     # each drawn rule is one rule of the set, or (i) a chain of them
@@ -928,6 +950,8 @@ def frontier():
     assert [sorted(r[1]) for r in routes] == [
         ["a", "b"], ["d"], ["c", "e", "f"], ["c", "f"],
         ["c", "g", "h", "i"]], routes
+    # every element of a minimal set but P2_split is implied by HC
+    assert set().union(*order) - {"P2_cm_s"} == IMPLIED
 
     # ---------------------------------------------------- the main graph
     specs = {}
@@ -937,7 +961,7 @@ def frontier():
             extra = ",double=%s,double distance=0.9pt" % kind[1]
         lw = 0.9 if key == "HC" else 0.6
         specs[key] = F.box_opts(kind[1], kind[0], lw=lw, extra=extra)
-    JOPT = (r"circle,draw=PIndigo,fill=white,line width=0.7pt,inner sep=0.5pt,"
+    JOPT = (r"circle,draw=PInk!80,fill=white,line width=0.6pt,inner sep=0.5pt,"
             r"font=\scriptsize")
     F.premeasure([(specs[k], N[k][2]) for k in N] + [(JOPT, r"$\wedge$")])
     B = {}
@@ -946,103 +970,98 @@ def frontier():
         B[key] = (x + b[0], y + b[1], x + b[2], y + b[3])
     jb = F.size(r"$\wedge$", opts=JOPT)
     RJ = (jb[2] - jb[0]) / 2
-    col = {k: v[3][0] for k, v in N.items()}
     cen = {k: ((B[k][0] + B[k][2]) / 2, (B[k][1] + B[k][3]) / 2) for k in N}
-    edges = {}          # rule letter -> list of polylines (for thumbnails)
+    PREM = "PSlate!85"
+    CONC = "PInk," + TIP
     for k, (prem, conc, J) in R.items():
-        edges[k] = []
         if J is None:
             p = prem[0]
             a = ray_exit(B[p], cen[conc])
             b = ray_exit(B[conc], cen[p])
-            F.path([a, b], col[p] + "," + TIP, lw=0.9, tag="e" + k)
-            edges[k].append([cen[p], cen[conc]])
+            F.path([a, b], CONC, lw=0.85, tag="e" + k)
             continue
         for p in prem:
             a = ray_exit(B[p], J)
             b = toward(J, a, RJ + 0.03)
-            F.path([a, b], col[p], lw=0.8, tag="e" + k)
-            edges[k].append([cen[p], J])
+            F.path([a, b], PREM, lw=0.75, tag="e" + k)
         a = toward(J, cen[conc], RJ + 0.03)
         b = ray_exit(B[conc], J)
-        F.path([a, b], "PIndigo," + TIP, lw=1.0, tag="e" + k)
-        edges[k].append([J, cen[conc]])
+        F.path([a, b], CONC, lw=0.85, tag="e" + k)
     for key, (x, y, t, kind, sts) in N.items():
         F.node(x, y, t, specs[key])
     for k, (prem, conc, J) in R.items():
         if J is not None:
             F.node(J[0], J[1], r"$\wedge$", JOPT, tag="e" + k)
-    # the letters of the rules
-    LET = {"a": (-5.15, 6.45), "b": (-2.95, 8.00), "c": (-0.40, 7.35),
-           "d": (3.65, 8.00), "e": (3.55, 3.55), "f": (-1.05, 4.75),
-           "g": (-5.15, 4.75), "h": (-4.72, 0.42), "i": (-6.53, 2.30)}
-    for k, (x, y) in LET.items():
-        F.text(x, y, r"(%s)" % k, "PIndigo", SS)
+    # the letters of the rules, each beside its junction or its arrow
+    LET = {"a": (-4.55, 6.62, None), "b": (-2.95, 8.30, None),
+           "c": (-0.28, 7.62, "east"), "d": (3.45, 8.30, None),
+           "e": (3.60, 3.62, None), "f": (-0.78, 4.84, "west"),
+           "g": (-4.72, 4.84, "east"), "h": (-4.47, 0.30, "west"),
+           "i": (-6.08, 2.18, "east")}
+    for k, (x, y, an) in LET.items():
+        F.text(x, y, r"(%s)" % k, "PInk", FS, anchor=an)
 
-    # ------------------------------------------------------------ legend
-    lg = [[(OPEN, "open", False), (OPEN, "open, implied by $\mathbf{HC}$",
-                                     True), (PROV, "proved here", False)],
-          [(QUOT, "quoted", False), (DER, "derived", False)]]
-    for row, yl in zip(lg, (-0.45, -1.12)):
-        x = -1.75
-        for kind, t, dbl in row:
+    # ------------------------------------------------------------- the key
+    rows = [[(OPEN, r"open", False),
+             (OPEN, r"open, implied by $\mathbf{HC}$", True),
+             (PROV, r"proved here", False)],
+            [(QUOT, r"quoted", False), (DER, r"derived", False), None]]
+    for ky, row in zip((-0.72, -1.38), rows):
+        x = 0.55
+        for it in row:
+            if it is None:
+                F.node(x + 0.14, ky, r"$\wedge$", JOPT)
+                F.text(x + 0.40, ky, r"rule with several premises", "PInk",
+                       SS, anchor="west")
+                continue
+            kind, t, dbl = it
             extra = (",double=%s,double distance=0.9pt" % kind[1]) if dbl \
                 else ""
             o = F.box_opts(kind[1], kind[0], size=SS, extra=extra +
                            ",anchor=west")
-            F.node(x, yl, t, o)
-            x += F.size(t, opts=o)[2] + 0.30
-    x += 0.05
-    F.node(x + 0.13, -1.12, r"$\wedge$", JOPT)
-    F.text(x + 0.38, -1.12, r"a rule with several premises", "PInk", SS,
-           anchor="west")
+            F.node(x, ky, t, o)
+            x += F.size(t, opts=o)[2] + 0.26
 
-    # ------------------------------------------------------- the routes
-    RC = ["POchre", "PMag", "PAmber", "PTeal", "PViolet"]
-    NAMES = {"red_ab": r"\mathrm{F3}", "lef_B": r"\mathrm{L}",
-             "mot": r"\mathrm{M}", "red_ab_mod": r"\mathrm{F3}'",
-             "vhc": r"\mathrm{V}", "red_weil": r"\mathrm{F2}",
-             "P2_cm_s": r"\mathrm{P2}_{\mathrm{split}}"}
-    ORD = ["P2_cm_s", "red_weil", "lef_B", "mot", "vhc", "red_ab",
-           "red_ab_mod"]
-    gx0, gx1, gy0, gy1 = -7.6, 7.3, -1.7, 8.9
-    tw, th = 2.46, 2.46 * (gy1 - gy0) / (gx1 - gx0)
-    ty = -2.35 - th / 2
+    # ---------------------------------------- the five minimal sets, a table
+    COLS = ["red_ab", "lef_B", "mot", "vhc", "red_ab_mod", "red_weil",
+            "P2_cm_s"]
+    HDR = {"red_ab": r"(F3)", "lef_B": r"(L)", "mot": r"(M)",
+            "vhc": r"(V)", "red_ab_mod": r"(F3$'$)", "red_weil": r"(F2)",
+            "P2_cm_s": r"$\mathrm{P2}_{\mathrm{split}}$"}
+    cw, rh = 1.25, 0.50
+    xh = -5.85                       # centre of the row headers
+    x0 = -4.15                       # centre of the first statement column
+    xr = x0 + len(COLS) * cw + 1.05  # centre of the rules column
+    ty = -2.40                       # the header row
+    left, right = xh - 1.55, xr + 1.30
+    F.path([(left, ty + 0.30), (right, ty + 0.30)], "PInk", lw=0.6,
+           tag="tab")
+    F.path([(left, ty - 0.27), (right, ty - 0.27)], "PInk", lw=0.4,
+           tag="tab")
+    TD = ",text height=1.7ex,text depth=0.45ex"
+    F.text(xh, ty, r"minimal set", "PInk", FS, extra=TD)
+    for j, s in enumerate(COLS):
+        F.text(x0 + j * cw, ty, HDR[s], "PInk", FS, extra=TD)
+    F.text(xr, ty, r"rules used", "PInk", FS, extra=TD)
     for n, (S, used) in enumerate(routes):
-        cx = -5.84 + n * 2.92  # five thumbnails, 2.92 apart
-        sc = tw / (gx1 - gx0)
-        T = lambda p: (cx + sc * (p[0] - (gx0 + gx1) / 2),
-                       ty + sc * (p[1] - (gy0 + gy1) / 2))
-        F.rect(cx - tw / 2 - 0.15, ty - th / 2 - 0.14, cx + tw / 2 + 0.15,
-               ty + th / 2 + 0.14, "white", draw="PRule", lw=0.4, tag="bg")
-        for k in R:
-            for pl in edges[k]:
-                if k not in used:
-                    F.path([T(p) for p in pl], "PRule", lw=0.35, tag="thumb")
-        for k in R:
-            for pl in edges[k]:
-                if k in used:
-                    F.path([T(p) for p in pl], RC[n], lw=1.1, tag="thumb")
-        reached = cn(BASE | S)
-        for key in N:
-            b = B[key]
-            p0, p1 = T((b[0], b[1])), T((b[2], b[3]))
-            sts = N[key][4]
-            if set(sts) & S:
-                st, dr = N[key][3][0], N[key][3][0]
-            elif all(s in reached for s in sts) and key in (
-                    set(q for k in used for q in R[k][0]) |
-                    {R[k][1] for k in used}):
-                st, dr = N[key][3][1], N[key][3][0]
+        y = ty - 0.62 - n * rh
+        F.text(xh, y, r"$S_{%d}$" % (n + 1), "PInk", FS, extra=TD)
+        for j, s in enumerate(COLS):
+            if s in S:
+                F.disc(x0 + j * cw, y, 0.075, "PInk", tag="dot%d%d" % (n, j))
             else:
-                st, dr = "white", "PRule"
-            F.rect(p0[0], p0[1], p1[0], p1[1], st, draw=dr, lw=0.35,
-                   tag="thumb")
-        names = ",".join(NAMES[s] for s in ORD if s in S)
-        F.text(cx, ty - th / 2 - 0.36, r"$\{%s\}$" % names, "PInk", FS)
-        F.text(cx, ty - th / 2 - 0.78, ", ".join("(%s)" % k for k in
-                                                 sorted(used)),
-               RC[n], SS)
+                F.disc(x0 + j * cw, y, 0.022, "PRule", tag="dot%d%d" % (n, j))
+        F.text(xr, y, ", ".join("(%s)" % k for k in sorted(used)), "PInk",
+               FS, extra=TD)
+    yb = ty - 0.62 - 4 * rh - 0.36
+    F.path([(left, yb), (right, yb)], "PInk", lw=0.4, tag="tab")
+    yi = yb - 0.33
+    F.text(xh, yi, r"implied by $\mathbf{HC}$", "PInk", FS, extra=TD)
+    for j, s in enumerate(COLS):
+        F.text(x0 + j * cw, yi, r"yes" if s in IMPLIED else r"not known",
+               "PInk", SS, extra=TD)
+    F.path([(left, yi - 0.28), (right, yi - 0.28)], "PInk", lw=0.6,
+           tag="tab")
     return F
 
 
@@ -1871,6 +1890,30 @@ def hodgecount():
     return F
 
 
+def build(name):
+    """pdflatex in the figures folder, a check of the log for missing glyphs
+    and bad boxes, and the 200 dpi PNG"""
+    r = subprocess.run(["pdflatex", "-interaction=nonstopmode",
+                        "-halt-on-error", name + ".tex"], cwd=HERE,
+                       capture_output=True, text=True)
+    log = os.path.join(HERE, name + ".log")
+    text = open(log, errors="replace").read() if os.path.exists(log) else ""
+    if r.returncode != 0:
+        sys.stdout.write(r.stdout[-3000:])
+        raise SystemExit("pdflatex failed on %s" % name)
+    for bad in ("Missing character", "Overfull", "Undefined control"):
+        if bad in text:
+            raise SystemExit("%s: '%s' in the log" % (name, bad))
+    subprocess.run(["pdftoppm", "-png", "-r", "200", "-singlefile",
+                    name + ".pdf", name], cwd=HERE, check=True)
+    for ext in (".aux", ".log"):
+        try:
+            os.remove(os.path.join(HERE, name + ext))
+        except OSError:
+            pass
+    print("built", name + ".pdf", "and", name + ".png")
+
+
 FIGURES = [frontier, lefschetzgrid, propagation, rigidity, bypass,
            extprofile, hodgecount]
 
@@ -1884,6 +1927,8 @@ if __name__ == "__main__":
         problems = F.check()
         bad += len(problems)
         write(F)
+        if not problems or os.environ.get("FIGDRAFT"):
+            build(F.name)
     if bad:
         print("%d placement problems: fix them before building" % bad)
         sys.exit(1)

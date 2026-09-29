@@ -183,8 +183,15 @@ varieties of $\mathcal{A}$, whose whole cohomology is reached from abelian
 varieties by algebraic correspondences, and the degrees in which the
 conjecture itself is known. The first degree in which it is not known in
 general is degree four on fourfolds, for fourfolds not known to lie in
-$\mathcal{A}$. The square $S\times S$ of a K3 surface is the standard
-example. Its Hodge classes in $H^{2}(S)\otimes H^{2}(S)$ include the classes
+$\mathcal{A}$ and not covered by \Cref{prop:f3primesmall} or
+\Cref{prop:f3primefibration}. The square $S\times S$ of a K3 surface is the standard
+example when $\End_{\mathrm{Hdg}}(T(S))$ is a totally real field of degree
+at least two, that is, when $S$ has real multiplication. When that field is
+$\QQ$ or a CM field, the Hodge conjecture holds on $S\times S$: by
+\Cref{prop:orthpowers}(i) in the first case, and in the second by
+\cite{Bus19} and the fact that the elements of norm one span a CM field, as in
+\cite{RM08} (\Cref{prop:k3powers}). Its Hodge classes in
+$H^{2}(S)\otimes H^{2}(S)$ include the classes
 that induce the Hodge endomorphisms of the transcendental lattice $T(S)$, and
 $S\times S$ lies in $\mathcal{A}$ as soon as the Kuga--Satake embedding of
 $T(S)$ is induced by an algebraic cycle, the Kuga--Satake Hodge conjecture for
@@ -206,7 +213,8 @@ $\mathrm{Ab}^{p}(X)$ one must construct an algebraic cycle on $B\times X$
 whose class carries it, which is the kind of construction the Hodge
 conjecture asks for, now on $B\times X$ instead of on $X$. The methods of
 this paper construct cycles on abelian varieties of Weil type and on nothing
-else, so they give no case of \textup{(F3$'$)} outside $\mathcal{A}$. We
+else, so by themselves they give no case of \textup{(F3$'$)} outside
+$\mathcal{A}$. We
 therefore leave it open, and \Cref{thm:closure} treats it as an open
 statement.
 \end{remark}
@@ -310,10 +318,344 @@ of priority for it. What it adds here is the location of the first open
 instance of \textup{(F3$'$)} on the powers of such a variety: one class, in
 one degree, on one power.
 
+The same invariant theory, with the motivic decompositions of the
+literature and the theorems of Buskin and Markman on Hodge isometries, gives
+the Hodge conjecture itself, and so \textup{(F3$'$)}, on the other varieties
+built from a K3 surface and on varieties of K3$^{[n]}$ type, up to a real
+multiplication and one determinant class.
+
+\begin{proposition}[Powers, Hilbert schemes and moduli spaces of a K3
+surface]\label{prop:k3powers}
+Let $S$ be a projective K3 surface, $T=T(S)_{\QQ}$, $t=\dim T$ and
+$E=\End_{\mathrm{Hdg}}(T)$, a totally real field or a CM field \cite{Zar83}.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item If $E$ is a CM field, the Hodge conjecture holds for every power
+  $S^{k}$ \cite[Theorem~5.4]{RM08}, \cite{Bus19}, hence for every Hilbert
+  scheme $S^{[n]}$ \cite{dCM02}, for every smooth projective moduli space of
+  Gieseker stable (twisted) sheaves on $S$, or of $\sigma$-stable objects in
+  $D^{b}(S,\alpha)$ for a generic stability condition $\sigma$ and a Brauer
+  class $\alpha$ \cite[Theorem~0.1, Remark~2.1]{Bue20}, and for the crepant
+  resolutions of the ten-dimensional moduli spaces $M_{\sigma}(2v_{0})$ of
+  $\sigma$-semistable objects in $D^{b}(S,\alpha)$, with $v_{0}$ primitive,
+  $v_{0}^{2}=2$ and $\sigma$ $v_{0}$-generic \cite[Theorem~1.3]{FFZ21}.
+\item If $E=\QQ$, the Hodge conjecture holds for $S^{[n]}$ for every
+  $n<t(t+1)/2$, and for every moduli space $M$ as in \textup{(i)} with
+  $\dim M<t$. For $N=t(t+1)/2$ the following are equivalent: the Hodge
+  conjecture for $S^{[N]}$; the algebraicity of the class $\det(T)$ on $S^{t}$
+  of \Cref{prop:orthpowers}; the Hodge conjecture for every power of $S$; and
+  the Hodge conjecture for every $S^{[n]}$. For a very general $S$, the Hodge
+  conjecture holds for $S^{[n]}$ with $n\le230$, and for $S^{[231]}$ if and
+  only if $\det(T(S))$ on $S^{21}$ is algebraic.
+\item If $E$ is totally real of degree at least two, the Hodge conjecture for
+  $S\times S$, the Hodge conjecture for $S^{[2]}$, and the statement that
+  every element of $E$ acts on $T$ through an algebraic cycle on $S\times S$
+  are equivalent.
+\end{enumerate}
+Wherever the Hodge conjecture holds, so does \textup{(F3$'$)}. This is a
+consequence of \cite{RM08,Bus19,dCM02,Bue20,FFZ21} and
+\Cref{prop:orthpowers}; we make no claim of priority.
+\end{proposition}
+
+\begin{proof}
+We use three facts. First, $H^{*}(S,\QQ)=A\oplus T$ with
+$A=H^{0}\oplus\NS(S)_{\QQ}\oplus H^{4}$ spanned by algebraic classes; the
+K\"unneth components of the diagonal of $S$ are algebraic \cite{Mur90}, and
+so is its part $\pi_{T}$ in $T\otimes T$, as in the proof of
+\Cref{prop:orthpowers}. The Hodge classes of $S^{k}$ are the invariants in
+$(A\oplus T)^{\otimes k}$ of the Hodge group of $T$, which acts trivially on
+$A$. Second, if $H^{*}(X,\QQ)$ is spanned by the images of the
+$H^{*}(Y_{i},\QQ)$ under algebraic correspondences and the Hodge conjecture
+holds for every $Y_{i}$, it holds for $X$: by the semisimplicity argument of
+the proof of \Cref{prop:f3prime}(iii) every Hodge class of $X$ is a sum of
+images of Hodge classes of the $Y_{i}$. Third, the correspondences
+$\Gamma_{\nu}$ of the proof of \Cref{prop:aclosure}(ii) give an isomorphism
+of Chow motives between $h(S^{[n]})$ and
+$\bigoplus_{\nu}h(S^{(\nu)})(l(\nu)-n)$ \cite{dCM02}, so each
+$h(S^{(\nu)})(l(\nu)-n)$ is a direct summand of $h(S^{[n]})$, and the lift
+$\widetilde\Gamma_{\nu*}$ takes the same value on a class of $S^{l(\nu)}$ and
+on its average over $G_{\nu}$. Hence the Hodge
+conjecture holds for $S^{[n]}$ if and only if, for every partition $\nu$ of
+$n$, every $G_{\nu}$-invariant Hodge class of $S^{l(\nu)}$ is algebraic. By
+\cite[Theorem~0.1, Remark~2.1]{Bue20} the Chow motive of a moduli space $M$
+as in (i) is a direct summand of a sum of Tate twists of motives
+$h(S^{k_{i}})$ with $1\le k_{i}\le\dim M$, and by
+\cite[Corollary~4.5]{FFZ21} the Chow motive of a crepant resolution as in (i)
+lies in the tensor subcategory generated by $h(S)$, whose objects are direct
+summands of sums of
+Tate twists of the $h(S^{k})$, the dual of $h(S)$ being $h(S)(2)$.
+
+(i) Over $\CC$ the Hodge group of $T$ is a product of groups
+$\GL(W_{\sigma})$ acting on
+$T_{\CC}=\bigoplus_{\sigma}(W_{\sigma}\oplus W_{\sigma}^{\vee})$
+\cite{Zar83}, and by the first fundamental theorem for the general linear
+group \cite[Chapter~5]{GW09} its invariants in $T_{\CC}^{\otimes b}$ are
+spanned by products of contractions of one factor with another. Under the
+isomorphism $\End(T)\cong T\otimes T$, $\varphi\mapsto\tau_{\varphi}=
+\sum_{i}t_{i}^{\vee}\otimes\varphi(t_{i})$, with $(t_{i}^{\vee})$ the dual
+basis of a basis $(t_{i})$ for the intersection form, the Hodge classes of
+$T\otimes T$ are the $\tau_{\varphi}$ with $\varphi\in E$, and these
+contractions lie in their complex span. The rational span of the products of
+the $\tau_{\varphi}$ on pairs of factors has the same complexification as the
+space of invariants, so the Hodge classes of $S^{k}$ are spanned by such
+products and pull-backs of algebraic classes. For $u\in E$ with $u\bar u=1$
+the map $\id_{\NS}\oplus u$ is a rational Hodge isometry of
+$H^{2}(S,\QQ)$, since the adjoint of $u$ is $\bar u$ \cite{Zar83}; it is
+induced by an algebraic cycle \cite{Bus19}, and composing that cycle with
+$\pi_{T}$ on both sides gives $\tau_{u}$, which is therefore algebraic. The
+elements of norm one span $E$. Indeed, write $E=E_{0}(y_{0})$ with
+$y_{0}^{2}=-\delta$, $\delta\in E_{0}$, and let $y\in E$ with $\bar y=-y$; for
+$s\in\QQ$ the element $u_{s}=(1+sy)(1-sy)^{-1}$ has norm one. A linear form
+on $E$ vanishing on all $u_{s}$ gives a rational function of $s$ vanishing on
+$\QQ$, so it vanishes on the coefficients $1$, $2y$, $2y^{2}$ of the expansion
+of $u_{s}$ in powers of $s$. As $y$ runs over $E_{0}y_{0}$, the $y$ span
+$E_{0}y_{0}$ and the $y^{2}=-a^{2}\delta$, $a\in E_{0}$, span $E_{0}$, since
+$2a=(a+1)^{2}-a^{2}-1$. So every $\tau_{u}$, $u\in E$, is algebraic, and the
+Hodge conjecture holds for every $S^{k}$; this is the argument of
+\cite[Lemma~5.3, Theorem~5.4]{RM08}, which takes the algebraicity of the
+isometries from Mukai's announcement; \cite{Bus19} proves it in general.
+We use \cite{RM08} only when $E$ is a CM field: for a totally real $E$ the
+invariants of the Hodge group are not generated by those of degree two, since
+they include determinants, as \Cref{prop:orthpowers} shows for $E=\QQ$, and
+the powers do not reduce to the square. The rest of (i) follows
+from the second and third facts.
+
+(ii) Here the Hodge group of $T$ is $\SO(T)$ \cite{Zar83}, and $t\ge3$,
+since a Hodge structure of K3 type of dimension two has complex
+multiplication. The Hodge conjecture holds for $S^{k}$, $k<t$, by
+\Cref{prop:orthpowers}(i), which gives the assertion on $M$ by the second
+fact. Let $\nu$ be a partition of $n$ with $a_{j}$ parts equal to $j$, so
+that $G_{\nu}=\prod_{j}\mathfrak{S}_{a_{j}}$ permutes the factors of
+$S^{l(\nu)}$ within blocks of sizes $a_{j}$, one block for each distinct part
+size. By the proof of \Cref{prop:orthpowers}, the Hodge classes of
+$S^{l(\nu)}$ are spanned by algebraic classes and by products
+$\beta=\det_{I}\cup\gamma$, where $\det_{I}$ is the pull-back of $\det(T)$
+along the projection to a set $I$ of $t$ factors and $\gamma$ is pulled back
+from the other factors. If two factors of $I$ lie in one block, the
+transposition in $G_{\nu}$ exchanging them fixes $\gamma$ and changes the
+sign of the alternating class $\det_{I}$, all classes involved being of even
+degree; so it takes $\beta$ to $-\beta$, and the average of $\beta$ over
+$G_{\nu}$ is zero. If $\nu$ has fewer than $t$ distinct part sizes, every set
+of $t$ factors meets some block twice, so a $G_{\nu}$-invariant Hodge class,
+being its own average, is the average of an algebraic class, and is
+algebraic. A partition with $t$ distinct part sizes has
+$n\ge1+2+\dots+t=t(t+1)/2$, so by the third fact the Hodge conjecture holds
+for $S^{[n]}$ when $n<t(t+1)/2$ (\Cref{fig:k3threshold}). For $n=N$ the
+partition $(1,2,\dots,t)$ has
+$l(\nu)=t$ and $G_{\nu}=1$, so the Hodge class $\det(T)$ of $S^{t}$ is
+algebraic if the Hodge conjecture holds for $S^{[N]}$. If $\det(T)$ is
+algebraic, the Hodge conjecture holds for every power of $S$ by
+\Cref{prop:orthpowers}(iv), and for every $S^{[n]}$ by the second fact; and
+the conjecture for $S^{t}$ contains the algebraicity of $\det(T)$. A very
+general $S$ has $E=\QQ$ and $t=21$, and $N=231$.
+
+(iii) The Hodge structure $T$ has no nonzero Hodge class, so the Hodge
+classes of $A\otimes T$ and $T\otimes A$ vanish, and those of $S\times S$
+are the algebraic classes and the $\tau_{\varphi}$, $\varphi\in E$. A cycle
+inducing $\varphi$ on $T$, composed with $\pi_{T}$ on both sides, gives
+$\tau_{\varphi}$, and $\tau_{\varphi}$ induces $\varphi$ on $T$; this proves
+the equivalence for $S\times S$. By \cite{dCM02},
+$h(S^{[2]})=h(S^{(2)})\oplus h(S)(-1)$, and the Hodge conjecture holds for
+$S$. The exchange of the two factors takes $\tau_{\varphi}$ to
+$\tau_{\varphi^{*}}$, and the adjoint involution of a totally real $E$ is
+trivial \cite{Zar83}, so every $\tau_{\varphi}$ is invariant under
+$\mathfrak{S}_{2}$ and the Hodge conjecture for $S^{[2]}$ asks for the same
+classes as that for $S\times S$.
+\end{proof}
+
+\begin{figure}[tbp]
+\centering
+  \includegraphics[width=\textwidth]{fig_k3threshold}
+\caption{The threshold of \Cref{prop:k3powers}(ii). For $t=1,\dots,21$ the
+bar rises to $t(t+1)/2$, the least $n$ that has a partition with $t$ distinct
+part sizes, and is cut into the parts $1,2,\dots,t$ of the partition that
+attains it. For a K3 surface $S$ with $E=\End_{\mathrm{Hdg}}(T(S))=\QQ$ and
+$t=\dim T(S)$, which is at least $3$, the Hodge conjecture holds for
+$S^{[n]}$ with $n$ below the bar; at its top it is equivalent to the
+algebraicity of the class $\det T(S)$ on $S^{t}$ of \Cref{prop:orthpowers},
+and to the Hodge conjecture for every power of $S$; above it, it is open, and
+it follows from that algebraicity. A very general $S$ has $t=21$: the
+conjecture holds for $S^{[n]}$ with $n\le230$, and for $S^{[231]}$ it is
+equivalent to the algebraicity of $\det T(S)$ on $S^{21}$, one of the first
+open cases of \textup{(F3$'$)} (\Cref{rem:f3primefrontier}).}
+\label{fig:k3threshold}
+\end{figure}
+
+\begin{proposition}[Varieties of K3$^{[n]}$ type]\label{prop:k3ntype}
+Let $X$ be a smooth projective hyperk\"ahler variety deformation equivalent
+to the Hilbert scheme of $n\ge2$ points on a K3 surface, $q$ the
+Beauville--Bogomolov form on $H^{2}=H^{2}(X,\QQ)$, $\NS=\NS(X)_{\QQ}$,
+$T=\NS^{\perp}$ and $E=\End_{\mathrm{Hdg}}(T)$, a totally real field or a CM
+field whose adjoint involution for $q$ is complex conjugation \cite{Zar83}.
+Let $\mathrm{SH}(X)\subseteq H^{*}(X,\QQ)$ be the subalgebra generated by
+$H^{2}$, and for $\varphi\in E$ with $\varphi^{*}=\varphi$ let
+$c_{\varphi}=\sum_{i}t_{i}^{\vee}\cup\varphi(t_{i})\in H^{4}(X,\QQ)$, with
+$(t_{i})$ a basis of $T$ and $(t_{i}^{\vee})$ its dual basis for $q$.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item The Hodge classes of $\mathrm{SH}(X)$ are spanned by products of
+  divisor classes and classes $c_{\varphi}$.
+\item If $E$ is $\QQ$ or a CM field, every Hodge class of $\mathrm{SH}(X)$ is
+  algebraic.
+\item Let $n=2$. Then $\mathrm{SH}(X)=H^{*}(X,\QQ)$, with
+  $b_{4}(X)=276=\dim\mathrm{Sym}^{2}H^{2}$, and $c_{2}(X)=\frac65q^{\vee}$,
+  where $q^{\vee}\in\mathrm{Sym}^{2}H^{2}$ is dual to $q$. So the Hodge
+  conjecture holds for $X$ when $E$ is $\QQ$ or a CM field. When $E$ is
+  totally real of degree at least two, it holds for $X$ if and only if every
+  element of $E$, acting on $T$ and by zero on $\NS$, is induced by an
+  algebraic cycle on $X\times X$.
+\end{enumerate}
+This is a consequence of \cite{Mar24,CM13}; we make no claim of priority.
+\end{proposition}
+
+\begin{proof}
+(i) Multiplication $\mathrm{Sym}^{k}H^{2}\to\mathrm{SH}^{2k}(X)$ is a
+surjective morphism of polarisable Hodge structures, so by semisimplicity
+every Hodge class of $\mathrm{SH}^{2k}(X)$ is the image of one of
+$\mathrm{Sym}^{k}H^{2}=\bigoplus_{a+b=k}\mathrm{Sym}^{a}\NS\otimes
+\mathrm{Sym}^{b}T$, whose Hodge classes are
+$\mathrm{Sym}^{a}\NS\otimes(\mathrm{Sym}^{b}T)^{\Hdg}$. The isomorphism
+$\End(T)\cong T\otimes T$ of the proof of \Cref{prop:k3powers}, now for $q$,
+carries the adjoint to the exchange of the factors, so
+$(\mathrm{Sym}^{2}T)^{\Hdg}$ consists of the tensors of the self-adjoint
+$\varphi\in E$, whose images in $H^{4}$ are the $c_{\varphi}$. Over $\CC$ the
+Hodge group of $T$ is a product of groups $\SO(T_{\sigma})$ on
+$T_{\CC}=\bigoplus_{\sigma}T_{\sigma}$, with $\dim T_{\sigma}=\dim_{E}T\ge3$,
+when $E$ is totally real, and of groups $\GL(W_{\sigma})$ on
+$T_{\CC}=\bigoplus_{\sigma}(W_{\sigma}\oplus W_{\sigma}^{\vee})$ when $E$ is a
+CM field \cite{Zar83}. By the first fundamental theorems
+\cite[Chapter~5]{GW09}, the invariant polynomials of one vector of
+$T_{\sigma}$, or of one vector of $W_{\sigma}$ and one of $W_{\sigma}^{\vee}$,
+are generated by the quadratic form, or by the pairing: a determinant needs
+$\dim T_{\sigma}$ distinct vectors. So $(\mathrm{Sym}^{b}T)^{\Hdg}\otimes\CC$
+is spanned by products of elements of $(\mathrm{Sym}^{2}T)^{\Hdg}\otimes\CC$,
+and the rational span of the products of classes $c_{\varphi}$, which has the
+same complexification, is $(\mathrm{Sym}^{b}T)^{\Hdg}$.
+
+(ii) Divisor classes are algebraic, so by (i) it suffices that every
+$c_{\varphi}$ is. By \cite[Theorem~1.1]{CM13} the Lefschetz standard
+conjecture holds for $X$, so the K\"unneth projectors and the inverse of the isomorphism
+$L^{2n-2}\colon H^{2}\to H^{4n-2}$, $L$ the cup product with an ample class
+$h$, are induced by algebraic cycles \cite{Kle68,Kle94}. Let $u\in E$ with
+$u\bar u=1$, and $u=1$ if $E=\QQ$. The map $f_{u}=\id_{\NS}\oplus u$ is a
+rational Hodge isometry of $H^{2}$, so by \cite[Theorem~1.1]{Mar24} there is
+an algebraic class $Z_{u}$ on $X\times X$ (the diagonal if $u=1$) inducing on
+$H^{2}$ a nonzero rational multiple of $f_{u}$: the class of the
+correspondence $\tilde f$ of that theorem if it preserves degrees, and the
+class of $\tilde f\circ(c_{2}(X)^{n-1}\cup\,\cdot\,)$ if it reverses them.
+The class $Z_{u}$ may act in other degrees too; its K\"unneth component in
+$H^{4n-2}(X)\otimes H^{2}(X)$ is algebraic and induces a nonzero multiple of
+$f_{u}$ on $H^{2}$ and zero elsewhere. Applying $(L^{2n-2})^{-1}\otimes\id$
+gives, up to a nonzero rational factor, the algebraic class
+$\sum_{i}b_{i}\otimes f_{u}(a_{i})$, for a basis $(a_{i})$ of $H^{2}$ and
+the dual basis $(b_{i})$ for $B(x,y)=\int_{X}xyh^{2n-2}$. Polarising the
+relation $\int_{X}\alpha^{2n}=c_{X}q(\alpha)^{n}$ of Fujiki and Beauville
+\cite{Bea83,Fuj87} gives
+\[
+  B(x,y)=\frac{c_{X}}{2n-1}\,q(h)^{n-2}\bigl(q(h)q(x,y)+2(n-1)q(x,h)q(y,h)\bigr),
+\]
+so $\NS$ and $T$ are orthogonal for $B$, and $B=\kappa q$ on $T$ with
+$\kappa=c_{X}q(h)^{n-1}/(2n-1)\ne0$. With $(a_{i})$ adapted to
+$\NS\oplus T$, the pull-back along the diagonal is
+$\sum_{i}b_{i}\cup f_{u}(a_{i})=\nu+\kappa^{-1}c_{(u+\bar u)/2}$ with
+$\nu\in\mathrm{Sym}^{2}\NS$ algebraic, because cup product on $H^{2}$ is
+commutative and the exchange of factors turns $u$ into $\bar u$. So
+$c_{(u+\bar u)/2}$ is algebraic. When $E$ is a CM field its elements of norm
+one span it (proof of \Cref{prop:k3powers}(i)), so the $(u+\bar u)/2$ span
+$E_{0}$, the self-adjoint part of $E$; when $E=\QQ$, $u=1$ suffices. So
+every $c_{\varphi}$ is algebraic.
+
+(iii) The variety $X$ has the Betti numbers of $S^{[2]}$, which by
+\cite{dCM02} are those of $\mathrm{Sym}^{2}H^{*}(S)\oplus H^{*}(S)(-1)$:
+$H^{\mathrm{odd}}(X)=0$ and $b_{4}(X)=253+1+22=276=\dim\mathrm{Sym}^{2}H^{2}$.
+Here $c_{X}=3$, and the relation of Fujiki and Beauville gives
+$\int_{X}abcd=q(a,b)q(c,d)+q(a,c)q(b,d)+q(a,d)q(b,c)$ for $a,b,c,d\in H^{2}$.
+This form on $\mathrm{Sym}^{2}H^{2}$ is nondegenerate: in a $q$-orthogonal
+basis $(e_{i})$ with $q(e_{i},e_{i})=d_{i}$, the $e_{i}e_{j}$ with $i<j$ are
+orthogonal to each other and to the squares, with $\int_{X}(e_{i}e_{j})^{2}=
+d_{i}d_{j}$, and on the squares the form has the matrix $D(J+2I)D$, with
+$D=\mathrm{diag}(d_{i})$ and $J$ the matrix of ones, of determinant
+$2^{22}\cdot25\prod_{i}d_{i}^{2}$. So
+$\mathrm{Sym}^{2}H^{2}\to H^{4}$ is injective, hence bijective, and with
+$H^{6}=h^{2}\cup H^{2}$ by the hard Lefschetz theorem,
+$\mathrm{SH}(X)=H^{*}(X,\QQ)$. By \cite{Fuj87},
+$\int_{X}c_{2}(X)xy=C\,q(x,y)$ for a constant $C$, and the Riemann--Roch
+polynomial $\chi(L)=\binom{q(L)/2+3}{2}$ \cite{EGL01} gives $C=30$; the
+Fujiki relation gives $\int_{X}q^{\vee}xy=25\,q(x,y)$, so
+$c_{2}(X)=\frac65q^{\vee}$ by nondegeneracy. For $E=\QQ$ this makes
+$c_{1}=q^{\vee}-q^{\vee}_{\NS}$ algebraic without \cite{CM13}, with
+$q^{\vee}_{\NS}\in\mathrm{Sym}^{2}\NS$ the class dual to $q|_{\NS}$. With (i) and (ii) this proves the Hodge
+conjecture for $X$ when $E$ is $\QQ$ or a CM field. Let $E$ be totally real
+and $\varphi\in E$. If $\varphi\oplus0$ is induced by an algebraic cycle, the
+computation of (ii) with $\varphi\oplus0$ in place of $f_{u}$ makes
+$c_{\varphi}$ algebraic. Conversely, if $c_{\varphi}$ is algebraic, so is the
+correspondence $x\mapsto(L^{2})^{-1}(c_{\varphi}\cup x)$. The Fujiki relation
+gives $\int_{X}c_{\varphi}xy=\Tr(\varphi)q(x,y)+2q(\varphi x,y)$ for $x\in T$
+and $y\in H^{2}$, and $B(z,y)=q(h)q(z,y)$ for $z\in T$, so that
+correspondence acts on $T$ as $(\Tr(\varphi)+2\varphi)/q(h)$. The projector
+onto $T$, the K\"unneth projector $\pi_{2}$ minus
+$\sum_{j}n_{j}^{\vee}\otimes n_{j}$ over a basis $(n_{j})$ of $\NS$ and the
+Hodge classes $n_{j}^{\vee}\in H^{6}$ dual to it, is algebraic by
+\Cref{prop:f3prime}(iv); composing with it, $\varphi\oplus0$ is induced by an
+algebraic cycle. By (i) the Hodge conjecture for $X$ is the algebraicity of
+the $c_{\varphi}$, which proves the equivalence.
+\end{proof}
+
+For varieties of generalised Kummer type every Hodge class in the subalgebra
+generated by $H^{2}$ is algebraic, whatever the field, and the Hodge
+conjecture holds in dimension four \cite{FV25}. The preprint \cite{OG26}
+announces, with \cite{Mar24}, that rational Hodge isometries between
+varieties of the types K3$^{[a_{1}^{2}+1]}$ and K3$^{[a_{2}^{2}+1]}$ are
+induced by algebraic cycles; it is not used here.
+
+\begin{corollary}[Cubic fourfolds and their Fano varieties of lines]
+\label{cor:fanolines}
+Let $Y\subset\PP^{5}$ be a smooth cubic fourfold, $T(Y)\subset
+H^{4}(Y,\QQ)$ the orthogonal complement of the Hodge classes,
+$E(Y)=\End_{\mathrm{Hdg}}(T(Y))$, and $F=F(Y)$ the Fano variety of lines on
+$Y$. The Hodge conjecture for $F$, the Hodge conjecture for $Y\times Y$, and
+the statement that every element of $E(Y)$ acts on $T(Y)$ through an
+algebraic cycle on $Y\times Y$ are equivalent. They hold when $E(Y)$ is $\QQ$
+or a CM field, for instance when $Y$ is very general.
+\end{corollary}
+
+\begin{proof}
+The Hodge conjecture holds for $Y$ \cite{Zuc77}, and also by
+\Cref{prop:f3primesmall}, since $Y$ is covered by lines. So $H^{*}(Y,\QQ)$
+is $T(Y)$ plus a space spanned by algebraic classes, on which the intersection
+form is nondegenerate by the Hodge--Riemann relations, and as in the proof of
+\Cref{prop:orthpowers} the part $\pi_{T}$ of the diagonal in
+$T(Y)\otimes T(Y)$ is algebraic. The Hodge structure $T(Y)$ is of K3 type up
+to a Tate twist and has no nonzero Hodge class, so $E(Y)$ is a field
+\cite{Zar83}, and as in \Cref{prop:k3powers}(iii) the Hodge conjecture for
+$Y\times Y$ is the third statement. By \cite{BD85}, $F$ is a hyperk\"ahler
+fourfold of K3$^{[2]}$ type, and the universal line $P\subset F\times Y$
+induces an isomorphism of Hodge structures $\alpha=P_{*}\colon
+H^{4}(Y,\QQ)\to H^{2}(F,\QQ)$ up to a Tate twist. Both $T(Y)$ and $T(F)$
+are the sums of the isotypic components that are not of Tate type, so
+$\alpha(T(Y))=T(F)$ and $E(F)=\alpha E(Y)\alpha^{-1}$. Let $g$ be the
+Pl\"ucker class on $F$ and $e=P^{t}_{*}\circ(g^{2}\cup\,\cdot\,)
+\circ\alpha$, an algebraic correspondence that maps $T(Y)$ to itself, so that
+$e|_{T(Y)}\in E(Y)$. For $0\ne\sigma\in H^{3,1}(Y)$,
+$\int_{Y}e(\sigma)\bar\sigma=\int_{F}g^{2}\alpha(\sigma)\alpha(\bar\sigma)
+=q(g)\,q(\alpha(\sigma),\alpha(\bar\sigma))\ne0$ by the Fujiki relation, since
+$q(g)>0$ and $\alpha(\sigma)$ spans $H^{2,0}(F)$. So $e|_{T(Y)}$ is
+invertible, its inverse is a polynomial in it and is algebraic, and the
+inverse of $\alpha$ on $T(F)$,
+which is $e^{-1}\circ P^{t}_{*}\circ(g^{2}\cup\,\cdot\,)$, is induced by an
+algebraic cycle. Hence $\varphi\in E(Y)$ acts through an algebraic cycle on
+$Y\times Y$ if and only if $\alpha\varphi\alpha^{-1}$ acts through one on
+$F\times F$, and \Cref{prop:k3ntype}(iii) proves the equivalences and the
+case where $E(Y)=E(F)$ is $\QQ$ or a CM field. A very general $Y$ has
+$E(Y)=\QQ$.
+\end{proof}
+
 The class $\mathcal{A}$ of \Cref{prop:f3prime}(iii) is larger than the
-closure properties recorded there show, and its growth is the only unconditional
-way in which this paper enlarges the domain of \textup{(F3$'$)}. Three
-further operations preserve it, and two classical families lie in it.
+closure properties recorded there show, and apart from the Hodge conjecture
+itself, as in \Cref{prop:k3powers}, \Cref{prop:k3ntype} and
+\Cref{cor:fanolines}, its growth is the only unconditional way in which this
+paper enlarges the domain of \textup{(F3$'$)}. Four further operations
+preserve it, the last of them domination by correspondences, which brings in
+the varieties whose motives are known to be built from those of abelian
+varieties, and two classical families lie in it.
 
 \begin{proposition}[More varieties of $\mathcal{A}$]\label{prop:aclosure}
 Let $\mathcal{A}$ be as in \Cref{prop:f3prime}(iii).
@@ -331,12 +673,36 @@ Let $\mathcal{A}$ be as in \Cref{prop:f3prime}(iii).
   correspondence is induced by an algebraic cycle, that is, as soon as some
   algebraic cycle $\Gamma$ on $S\times B$, with $B$ an abelian variety,
   induces a nonzero map $T(S)_{\QQ}\to H^{2}(B,\QQ)$.
+\item If $H^{*}(X,\QQ)$ is the sum of the images of the $H^{*}(Y_{i},\QQ)$,
+  with $Y_{i}\in\mathcal{A}$, under algebraic correspondences, then
+  $X\in\mathcal{A}$; in particular $X\in\mathcal{A}$ when its Chow motive is
+  a direct summand of a sum of Tate twists of motives of members of
+  $\mathcal{A}$, for instance when it is of abelian type. So $\mathcal{A}$
+  contains the $2n$-dimensional generalised Kummer varieties $K_{n}(A)$ of
+  abelian surfaces $A$ \cite[Theorem~2.7, Corollary~2.8]{Xu15},
+  \cite[Theorem~1.5]{FTV19}; the smooth projective moduli spaces of Gieseker
+  stable (twisted) sheaves, or of $\sigma$-stable objects for a generic
+  stability condition $\sigma$, on abelian surfaces and on K3 surfaces in
+  $\mathcal{A}$ \cite[Theorem~0.1, Remark~2.1]{Bue20}; O'Grady's
+  six-dimensional varieties $\widetilde K_{v}(A,H)$ obtained from moduli
+  spaces of sheaves on an abelian surface $A$, with $v=2v_{0}$, $v_{0}$
+  primitive, effective and of square $2$, and $H$ a $v$-generic polarisation
+  \cite[Theorem~1.1]{Flo23}; the crepant resolutions of the ten-dimensional
+  moduli spaces $M_{\sigma}(2v_{0})$ of $\sigma$-semistable objects, with
+  $v_{0}$ primitive, $v_{0}^{2}=2$ and $\sigma$ $v_{0}$-generic, on abelian
+  surfaces and on K3 surfaces in $\mathcal{A}$
+  \cite[Theorem~1.3, Corollary~4.5]{FFZ21}; and the cubic fourfolds whose
+  lattice of algebraic $2$-cycles has rank greater than $19$, with their Fano
+  varieties of lines, the eightfolds of Lehn, Lehn, Sorger and van Straten of
+  those containing no plane, and the tenfolds of Laza, Sacc\`a and Voisin of
+  infinitely many Pfaffian cubic fourfolds \cite[Theorem~3.5 and its proof,
+  Proposition~3.9, Theorem~4.2]{ABLP26}.
 \end{enumerate}
 Consequently \textup{(F3$'$)} holds on every smooth projective variety
 obtained from abelian varieties, curves, Fermat hypersurfaces and K3 surfaces
 as in \textup{(iv)} by products, surjective images, blow-ups along smooth
 centres in $\mathcal{A}$, projective bundles and Hilbert schemes of points on
-surfaces.
+surfaces, and on every variety dominated by these as in \textup{(v)}.
 \end{proposition}
 
 \begin{proof}
@@ -415,28 +781,79 @@ Hodge--Riemann relations $\int_{S}\phi(\sigma)\,\bar\sigma=\int_{B}
 $\phi|_{T}\ne0$, it is invertible, and $T\subseteq\Gamma^{t}_{*}H^{*}(B,\QQ)$.
 With $T^{\perp}$ algebraic, $S\in\mathcal{A}$.
 
+(v) If $H^{*}(X,\QQ)=\sum_{i}\Psi_{i*}H^{*}(Y_{i},\QQ)$ and each
+$H^{*}(Y_{i},\QQ)$ is spanned by classes $\Gamma_{ij*}y$ with $B_{ij}$
+abelian, then $H^{*}(X,\QQ)$ is spanned by the classes
+$(\Psi_{i}\circ\Gamma_{ij})_{*}y$, and composites of algebraic
+correspondences are algebraic \cite[Chapter~16]{Ful98}. If $h(X)$ is a
+direct summand of $\bigoplus_{i}h(Y_{i})(n_{i})$, through $\alpha$ and
+$\beta$ with $\beta\circ\alpha=\id$, then $\beta_{*}$ is surjective on
+cohomology, and its components are the $\Psi_{i}$; a motive of abelian type
+is such a summand with abelian varieties as the $Y_{i}$. The objects of the
+tensor subcategory generated by $h(Y)$ are direct summands of sums of Tate
+twists of the motives $h(Y^{k})$, since the dual of $h(Y)$ is a Tate twist of
+$h(Y)$, and $Y^{k}\in\mathcal{A}$ when $Y\in\mathcal{A}$. The Chow motive of
+$K_{n}(A)$ lies in the tensor subcategory generated by $h(A)$
+\cite[Theorem~2.7, Corollary~2.8]{Xu15}, see also \cite[Theorem~1.5]{FTV19};
+that of a moduli space as in (v) is a direct summand of a sum of Tate twists
+of motives of powers of the surface \cite[Theorem~0.1]{Bue20}; those of the
+varieties $\widetilde K_{v}(A,H)$ and of the ten-dimensional crepant
+resolutions lie in the tensor subcategory generated by the motive of the
+surface \cite[Theorem~1.1]{Flo23}, \cite[Corollary~4.5]{FFZ21}; and the cubic
+fourfolds and hyperk\"ahler varieties of \cite{ABLP26} listed in (v) have
+Chow motives of abelian type \cite[Theorem~3.5 and its proof,
+Proposition~3.9, Theorem~4.2]{ABLP26}.
+
 The last assertion is \Cref{prop:f3prime}(iii).
 \end{proof}
 
 The known cases of (iv) are recalled in \Cref{rem:mumfordks}; for the K3
 surfaces among them whose powers are covered by \cite{Var22} the Hodge
 conjecture itself holds on every power, which is stronger. What (iii) adds is
-a family on which \textup{(F3$'$)} is new in the sense that the conjecture is
-open: the Hodge conjecture for Fermat hypersurfaces is known in a range of
-degrees and dimensions \cite{Shi79b}, not in general, and by (iii) and
-\Cref{prop:f3prime}(i) it holds for $X^{r}_{m}$ as soon as it holds for the
-powers of the Jacobian of the Fermat curve of degree $m$. The inductive
-structure is Shioda and Katsura's, and the consequence for \textup{(F3$'$)}
-is immediate; we claim no priority for it. In low dimension the
-algebraicity results of Bloch--Srinivas and Conte--Murre give more.
+a family on which \textup{(F3$'$)} is new wherever the conjecture is open:
+the Hodge conjecture for Fermat hypersurfaces is known in a range of degrees
+and dimensions \cite{Shi79b}, not in general. Three recent preprints, if
+correct, extend that range to every Fermat variety of degree less than $65$
+other than $44$, $51$ and $52$ \cite{MMMV26}, to the Fermat fourfolds of
+every odd degree at most $199$, by a computer-assisted proof \cite{Jum26},
+and to the Fermat fourfold of degree $33$ \cite{FK26}; (iii) is new for the
+degrees and dimensions outside these ranges. By (iii) and
+\Cref{prop:f3prime}(i) the conjecture holds for $X^{r}_{m}$ as soon as it
+holds for the powers of the Jacobian of the Fermat curve of degree $m$. The
+inductive structure is Shioda and Katsura's, and the consequence for
+\textup{(F3$'$)} is immediate; we claim no priority for it.
+
+Item (v) collects consequences of published motivic results, and we claim no
+priority for them either. For a generalised Kummer variety $K_{n}(A)$ it is
+needed in general. The restriction from $A^{[n+1]}$, which lies in
+$\mathcal{A}$ by (ii), reaches exactly the $A[n+1]$-invariant part of
+$H^{*}(K_{n}(A),\QQ)$, since $A\times K_{n}(A)\to A^{[n+1]}$ is an \'etale
+Galois cover with group $A[n+1]$. When $n+1$ is prime the rest is spanned by
+the classes of the punctual Hilbert schemes at the points of $A[n+1]$, which
+are algebraic, and (ii) suffices; when $n+1$ is composite the rest contains
+transcendental classes, and \cite{Xu15,FTV19} are needed. Item (LXI) of
+\Cref{sec:verification} computes the two parts for $n+1\le6$. These results
+concern the varieties $K_{n}(A)$ themselves, not every variety of
+generalised Kummer type; for products of varieties $K_{n}(A)$ the Hodge
+conjecture itself is known \cite[Theorem~3.3]{Xu15}, and for the varieties
+$\widetilde K_{v}(A,H)$ it holds on all self-products
+\cite[Corollary~1.2]{Flo23}. If the
+preprint \cite{Ped26} is correct, (v) also puts in $\mathcal{A}$ the tenfolds
+of Laza, Sacc\`a and Voisin of every cubic fourfold in $\mathcal{A}$, whose
+motives it makes direct summands of Tate twists of the motive of the fifth
+power of the cubic fourfold. In low dimension the algebraicity results of
+Bloch--Srinivas and Conte--Murre give more.
 
 \begin{proposition}[Varieties whose zero-cycles are small]
 \label{prop:f3primesmall}
 Let $X$ be a smooth complex projective variety of dimension $n$ whose group
 $\mathrm{CH}_{0}(X)_{\QQ}$ is supported on a closed subvariety of dimension at
 most three. If $n\le5$, the Hodge conjecture holds for $X$, and so does
-\textup{(F3$'$)}. This applies to every uniruled fourfold and to every
-rationally connected fivefold.
+\textup{(F3$'$)}. This applies to every fourfold whose group of zero-cycles
+is supported on a proper closed subset, in particular every uniruled
+fourfold, and to every fivefold whose maximal rationally connected quotient
+has dimension at most three, in particular every rationally connected
+fivefold.
 \end{proposition}
 
 \begin{proof}
@@ -449,30 +866,266 @@ Lefschetz, so every Hodge class of degree $6$ is $h$ times one of degree $4$.
 A uniruled fourfold has $\mathrm{CH}_{0}$ supported on any ample divisor $D$,
 because a rational curve through a point meets $D$ and any two points of
 $\PP^{1}$ are rationally equivalent; this case is the theorem of Conte and
-Murre \cite{CM78}. A rationally connected variety has
-$\mathrm{CH}_{0}(X)_{\QQ}=\QQ$.
+Murre \cite{CM78}. A proper closed subset of a fourfold has dimension at
+most three.
+
+Let $\phi\colon X\dashrightarrow R$ be the maximal rationally connected
+fibration of Campana and of Koll\'ar, Miyaoka and Mori \cite{Cam92,KMM92}:
+$R$, the maximal rationally connected quotient, is smooth and projective and
+unique up to birational equivalence, and $\phi$ is dominant with connected
+fibres, the general one rationally connected. Resolving its indeterminacy
+\cite{Hir64} gives a smooth projective variety $\widetilde X$, a birational
+morphism $\pi\colon\widetilde X\to X$, an isomorphism over the domain of
+definition of $\phi$, and a surjective
+morphism $\widetilde\phi\colon\widetilde X\to R$ whose general fibre is
+smooth, by generic smoothness, and birational to a general fibre of $\phi$,
+hence rationally connected. Suppose $\dim R\le3$, and let
+$W\subset\widetilde X$ be a subvariety that $\widetilde\phi$ maps generically
+finitely onto $R$, of degree $e$. Any two points of a general fibre $F$ are
+joined by a rational curve, so every $x\in F$ satisfies $e[x]=[W\cap F]$ in
+$\mathrm{CH}_{0}(\widetilde X)_{\QQ}$. The general fibres cover a dense open
+subset of $\widetilde X$, and every zero-cycle is rationally equivalent to
+one supported on a given dense open subset, so
+$\mathrm{CH}_{0}(\widetilde X)_{\QQ}$ is supported on $W$ and
+$\mathrm{CH}_{0}(X)_{\QQ}=\pi_{*}\mathrm{CH}_{0}(\widetilde X)_{\QQ}$ on
+$\pi(W)$, of dimension $\dim R\le3$. A rationally connected fivefold is the
+case where $R$ is a point.
 \end{proof}
 
-\begin{remark}[Where \textup{(F3$'$)} now stops]\label{rem:f3primefrontier}
+In degree four the hypothesis on zero-cycles can be relaxed to one on the
+fibres of a map.
+
+\begin{proposition}[Degree four along rationally connected fibrations]
+\label{prop:f3primefibration}
+Let $f\colon X\to Y$ be a surjective morphism of smooth complex projective
+varieties whose general fibre is rationally connected. Then
+$\Hdg^{2}(X)=\mathrm{Ab}^{2}(X)$ if and only if
+$\Hdg^{2}(Y)=\mathrm{Ab}^{2}(Y)$, and every Hodge class of degree four on $X$
+is algebraic if and only if every one on $Y$ is. Both properties are
+therefore birational invariants of smooth projective varieties, and they hold
+for $X$ exactly when they hold for a smooth projective model of its maximal
+rationally connected quotient. Consequently \textup{(F3$'$)} holds for every
+fourfold and every fivefold whose maximal rationally connected quotient is
+birational to a variety $R$ with $\Hdg^{2}(R)=\mathrm{Ab}^{2}(R)$, for
+instance a member of $\mathcal{A}$. With the Hodge conjecture for abelian
+fourfolds \cite{Mar25a,Mar25b}, the Hodge conjecture holds for every fourfold
+birational to an abelian fourfold, and for every fivefold admitting a
+dominant rational map with rationally connected general fibre onto an
+abelian fourfold.
+\end{proposition}
+
+\begin{proof}
+Let $n=\dim X$ and $m=\dim Y$. Let $W$ be a component, dominating $Y$, of the
+intersection of $X$ with a general linear space of codimension $n-m$, so that
+$W\to Y$ is generically finite, of degree $e\ge1$; let
+$i_{W}\colon\widetilde W\to X$ be a resolution of $W$ \cite{Hir64} and
+$g=f\circ i_{W}$. The correspondence
+$\Phi=\Gamma_{f}^{t}\circ\Gamma_{g}\circ\Gamma_{i_{W}}^{t}$ on $X\times X$
+acts by $\Phi_{*}=f^{*}g_{*}i_{W}^{*}$ \cite[Chapter~16]{Ful98}. Let $\eta$ be
+the generic point of $X$ and $K$ its field of functions. The restriction of
+$\Phi^{t}$ to $\{\eta\}\times X$ is the zero-cycle $W_{f(\eta)}$, of degree
+$e$, that $W$ cuts on the fibre of $X_{K}$ over the point $f(\eta)$, and that
+of $[\Delta_{X}]$ is the point $\eta$ of the same fibre. Any two points of a
+general fibre of $f$ are rationally equivalent, and the argument of Bloch and
+Srinivas \cite{BS83} (a countable algebraically closed field of definition,
+an embedding of an algebraic closure of $K$ into $\CC$, specialisation and a
+norm) gives $e[\eta]=[W_{f(\eta)}]$ in $\mathrm{CH}_{0}(X_{K})_{\QQ}$. As
+$\mathrm{CH}_{0}(X_{K})$ is the direct limit of the groups
+$\mathrm{CH}^{n}(U\times X)$ over the dense open subsets $U\subseteq X$, the
+cycle $e[\Delta_{X}]-\Phi^{t}$ vanishes on some $U\times X$, and by the
+localisation sequence \cite[Chapter~1]{Ful98} it is supported on $D\times X$
+for a divisor $D\supseteq X\smallsetminus U$. The diagonal is symmetric, so
+$e[\Delta_{X}]-\Phi$ is supported on $X\times D$. Let $i\colon D'\to X$ be a
+resolution of $D$. Each component of a cycle supported on $X\times D$ is, up
+to a nonzero factor, the image of a subvariety of $X\times D'$ mapping
+generically finitely onto it, so $e[\Delta_{X}]-\Phi=(\id\times i)_{*}\Psi$
+for a cycle $\Psi$ with rational coefficients on $X\times D'$, and the
+projection formula gives, for every $a\in H^{k}(X,\QQ)$,
+\[
+  e\,a=f^{*}g_{*}i_{W}^{*}a+i_{*}\Psi_{*}a,\qquad
+  \Psi_{*}a\in H^{k-2}(D',\QQ).
+\]
+
+Let $a\in\Hdg^{2}(X)$. Then $g_{*}i_{W}^{*}a\in\Hdg^{2}(Y)$, and
+$\Psi_{*}a$ is a Hodge class of degree two on $D'$, algebraic by the
+Lefschetz theorem on $(1,1)$ classes. If $\Hdg^{2}(Y)=\mathrm{Ab}^{2}(Y)$,
+then $f^{*}g_{*}i_{W}^{*}a\in\mathrm{Ab}^{2}(X)$, because composites of
+algebraic correspondences are algebraic, and so $a\in\mathrm{Ab}^{2}(X)$; if
+every Hodge class of degree four on $Y$ is algebraic, $a$ is algebraic.
+Conversely, as in the proof of \Cref{prop:f3prime}(iii), for $h$ ample on
+$X$ the correspondence $[\Gamma_{f}]\cdot\mathrm{pr}_{X}^{*}h^{n-m}$ sends
+$f^{*}b$ to $c\,b$, with $c>0$ the degree of $h^{n-m}$ on a general fibre;
+so $b\in\Hdg^{2}(Y)$ lies in $\mathrm{Ab}^{2}(Y)$, or is algebraic, as soon
+as $f^{*}b$ does, or is.
+
+A birational morphism is surjective with general fibre a point, and two
+birational smooth projective varieties are dominated through birational
+morphisms by a resolution of the closure of the graph \cite{Hir64}; so both
+properties are birational invariants. The morphism
+$\widetilde\phi\colon\widetilde X\to R$ of the proof of
+\Cref{prop:f3primesmall}, from a variety birational to $X$ onto its maximal
+rationally connected quotient, has rationally connected general fibre,
+which gives the statement on $R$. For $n\le5$ the degrees $0$, $2$, $2n-2$
+and $2n$ are settled by \Cref{prop:f3prime}(iv), and for $n=5$ cup product
+with $h$ is an isomorphism $H^{4}(X,\QQ)\to H^{6}(X,\QQ)$ of Hodge structures
+up to a Tate twist, so that $\Hdg^{3}(X)=h\cup\Hdg^{2}(X)$; members of
+$\mathcal{A}$ satisfy \textup{(F3$'$)} by \Cref{prop:f3prime}(iii). An
+abelian fourfold $B$ satisfies the Hodge conjecture \cite{Mar25a,Mar25b}. A
+dominant rational map onto $B$ with rationally connected general fibre
+becomes, after its indeterminacy is resolved, a morphism whose general fibre
+is smooth and rationally connected, as in the proof of
+\Cref{prop:f3primesmall}; so the fourfolds and fivefolds of the last
+assertion have every Hodge class of degree four algebraic, and the other
+degrees are settled as before.
+\end{proof}
+
+\Cref{prop:f3primefibration} reaches varieties that \Cref{prop:aclosure}
+does not: conic bundles with singular fibres over members of $\mathcal{A}$ of
+dimension three or four, and fourfolds and fivefolds birational to members
+of $\mathcal{A}$ without being known to lie in $\mathcal{A}$. A projective
+bundle over a member of $\mathcal{A}$ already lies in $\mathcal{A}$ by
+\Cref{prop:aclosure}(i), and so, by \Cref{prop:aclosure}(v) and the
+Leray--Hirsch theorem, does the source of a smooth morphism onto a member of
+$\mathcal{A}$ on which algebraic classes restrict to a basis of the
+cohomology of a fibre, such as a Severi--Brauer bundle.
+\Cref{prop:f3primefibration} is the relative form of the argument of Bloch
+and Srinivas, and we claim no priority for it.
+
+\begin{remark}[Zero-cycles alone go no further]\label{rem:f3primesharp}
+Hypotheses on zero-cycles cannot carry \textup{(F3$'$)} further without the
+fourfolds. If $\mathrm{CH}_{0}(X)_{\QQ}$ is supported on a closed subset $Z$,
+with resolution $j\colon Z'\to X$, the proof of \Cref{prop:f3primefibration},
+with the closure in $X\times Z$ of a zero-cycle on $Z_{K}$ rationally
+equivalent to the generic point in place of $\Phi^{t}$, gives a divisor with
+resolution $i\colon D'\to X$ and cycles $\Phi$ on $Z'\times X$ and $\Psi$ on
+$X\times D'$ with $a=\Phi_{*}j^{*}a+i_{*}\Psi_{*}a$ for every
+$a\in H^{k}(X,\QQ)$, where $\Psi_{*}a$ has degree $k-2$; this is the
+transpose of the decomposition of Bloch and Srinivas \cite{BS83}. When
+$Z\ne X$ and $a$ has type $(n,0)$, $n=\dim X$, the first term vanishes, as
+$\dim Z'<n$, and the second has no component of type $(n,0)$; so
+$H^{n,0}(X)=0$. A uniruled fivefold has its zero-cycles
+supported on an ample divisor, and for a fourfold $Y$ and
+$b\in\Hdg^{2}(Y)$ the class $\mathrm{pr}^{*}b$ is a Hodge class on
+$Y\times\PP^{1}$ with $b=\mathrm{pr}_{*}(\mathrm{pr}^{*}b\cup\eta)$, for
+$\eta$ the class of $Y\times\{0\}$. So \textup{(F3$'$)}, and likewise the
+Hodge conjecture, holds for every uniruled fivefold if and only if it holds
+in degree four for every fourfold.
+
+It also holds for every rational sixfold if and only if it holds for every
+fourfold. A rational sixfold has its zero-cycles supported on a point, so
+the proof of \Cref{prop:f3primesmall} settles every degree but six; and it
+is the image under a birational morphism of a variety obtained from
+$\PP^{6}$ by blow-ups along smooth centres \cite{Hir64}, on which, by the
+blow-up formula \cite[\S7.3.3]{Voi02}, the Hodge classes of degree six are
+images under algebraic correspondences of Hodge classes of degree at most
+four on the centres, of dimension at most four, and lie in
+$\mathrm{Ab}^{3}$, or are algebraic, when the fourfolds satisfy
+\textup{(F3$'$)}, or the conjecture. Conversely, a fourfold $Y$
+is birational to a hypersurface in $\PP^{5}$; place it in a hyperplane of
+$\PP^{6}$, and let $\widetilde Y$ be its smooth strict transform under an
+embedded resolution $M\to\PP^{6}$ \cite{Hir64}. On the rational sixfold
+$X=\mathrm{Bl}_{\widetilde Y}M$, with exceptional divisor $j\colon E\to X$
+and projection $\rho\colon E\to\widetilde Y$, the normal bundle of $E$ is
+$\cO_{E}(-1)$, so $a=-\rho_{*}j^{*}j_{*}\rho^{*}a$ for
+$a\in H^{4}(\widetilde Y,\QQ)$; this recovers $\Hdg^{2}(\widetilde Y)$ from
+$\Hdg^{3}(X)$ through algebraic correspondences, and
+\Cref{prop:f3primefibration} passes from $\widetilde Y$ to $Y$.
+
+Among smooth hypersurfaces, ordered by dimension and degree, the first
+family that these results do not cover is that of the sextic fourfolds:
+those of dimension at most three are covered by \Cref{prop:f3prime}(iv),
+the fourfolds of degree at most five are Fano, hence rationally connected
+\cite{Cam92,KMM92}, and covered by \Cref{prop:f3primesmall}, while a sextic
+fourfold has $h^{4,0}=1$, so that its zero-cycles are not supported on a
+proper closed subset and it is its own maximal rationally connected
+quotient; the Fermat sextic lies in $\mathcal{A}$ by
+\Cref{prop:aclosure}(iii). For a smooth sextic fourfold $Y$ in a
+hyperplane of $\PP^{6}$ no resolution is needed, and the rational sixfold
+$\mathrm{Bl}_{Y}\PP^{6}$, with $h^{6,0}=0$, $h^{5,1}=1$, $h^{4,2}=426$ and
+$h^{3,3}=1753$, satisfies \textup{(F3$'$)} if and only if $Y$ does; item
+(LXII) of \Cref{sec:verification} checks these numbers. For the Hodge
+conjecture these equivalences are folklore, and we claim no priority for
+them.
+\end{remark}
+
+\begin{remark}[Where \textup{(F3$'$)} stops]\label{rem:f3primefrontier}
 With \Cref{prop:f3prime}, \Cref{prop:aclosure} and \Cref{prop:f3primesmall},
 \textup{(F3$'$)} holds on every variety of dimension at most three, on every
 fourfold whose zero-cycles are supported in dimension three (in particular
-every uniruled fourfold), on every rationally connected fivefold, and on
-every member of $\mathcal{A}$, a class now containing the Fermat
+every uniruled fourfold), on every fivefold whose zero-cycles are supported
+in dimension at most three, on every fourfold and fivefold whose maximal
+rationally connected quotient is birational to a variety satisfying
+\textup{(F3$'$)} in degree four (\Cref{prop:f3primefibration}), and on
+every member of $\mathcal{A}$, a class containing the Fermat
 hypersurfaces of every degree and dimension, the Hilbert schemes of points on
 abelian surfaces, on products of curves and on the K3 surfaces of
-\Cref{prop:aclosure}(iv), and every blow-up and projective bundle built from
-these. Its first open cases are unchanged: a non-uniruled fourfold outside
-$\mathcal{A}$, such as $S\times S$ for a K3 surface whose Kuga--Satake
-correspondence is not known to be algebraic, and, on the powers of a very
-general K3 surface, the single class $\det T(S)$ on $S^{21}$ of
-\Cref{prop:orthpowers}. None of these results touches the step that
+\Cref{prop:aclosure}(iv), the generalised Kummer varieties $K_{n}(A)$ and the
+other varieties of \Cref{prop:aclosure}(v), and every blow-up and projective bundle
+built from these. Through the Hodge conjecture itself it holds on the
+varieties of \Cref{prop:k3powers}, \Cref{prop:k3ntype} and
+\Cref{cor:fanolines}: for a K3 surface $S$ with
+$E=\End_{\mathrm{Hdg}}(T(S))$ a CM field, on every power, Hilbert scheme and
+moduli space of $S$; for $E=\QQ$ and $t=\dim T(S)$, on $S^{k}$ for $k<t$, on
+$S^{[n]}$ for $n<t(t+1)/2$ and on the moduli spaces of dimension less than
+$t$; on every fourfold of K3$^{[2]}$ type whose field $E$ is $\QQ$ or a CM
+field; on $F(Y)$ and $Y\times Y$ for every cubic fourfold $Y$ with such a
+field; and on every fourfold of generalised Kummer type \cite{FV25}. Its
+first open cases are these (\Cref{fig:f3primereach}), the first two in
+degree four on fourfolds whose zero-cycles are not supported on a proper closed subset and which are
+not known to be birational to a member of $\mathcal{A}$: $S\times S$ and
+$S^{[2]}$ for a K3 surface
+whose real multiplication is not known to be algebraic, such as $S_{\lambda}$
+(the known cases are recalled in \Cref{rem:mumfordks}); the fourfolds of
+K3$^{[2]}$ type with real multiplication, among them $F(Y)$ for a cubic
+fourfold $Y$ with real multiplication, and with it $Y\times Y$; and, for a
+very general K3 surface, the single class $\det T(S)$ on $S^{21}$ of
+\Cref{prop:orthpowers}, equivalently the Hodge conjecture for $S^{[231]}$.
+In the first two the
+rational Hodge isometries \cite{Bus19,Mar24} act on $T$ by $\pm1$, and a
+composite of Hodge similarities that returns to $T$ is an element $g\in E$
+with $g^{2}\in\QQ$, the adjoint involution of $E$ being trivial; such
+elements span only the compositum of the quadratic subfields of $E$, which is
+$\QQ$ for the cubic field of $S_{\lambda}$ (item (LXI) of
+\Cref{sec:verification} computes it in examples). Apart from proving the
+conjecture itself where zero-cycles are small, none of these results touches
+the step that
 \Cref{rem:f3primeopen} identifies: putting a Hodge class into
 $\mathrm{Ab}^{p}(X)$ for a variety that no correspondence connects to an
 abelian variety. \textup{(F3$'$)} remains open, and \Cref{thm:closure} is
 unchanged, since every statement proved here is a special case of one of the
 open statements of its rule set, not a new rule.
 \end{remark}
+
+\begin{figure}[tbp]
+\centering
+  \includegraphics[width=\textwidth]{fig_f3primereach}
+\caption{What arguments on zero-cycles and on rationally connected
+fibrations give for \textup{(F3$'$)} and for the Hodge conjecture (HC in the
+figure) on a variety $X$, over the plane of $n=\dim X$ and the least dimension
+$d$ of a closed subset supporting $\mathrm{CH}_{0}(X)_{\QQ}$; $d$ is at most
+the dimension of the maximal rationally connected quotient $R$ of $X$, and
+$d=n$ whenever $H^{n,0}(X)\ne0$ (\Cref{rem:f3primesharp}). Both hold when
+$n\le5$ and $d\le3$ (\Cref{prop:f3primesmall}), hence on every variety of
+dimension at most three. The hatched cells are open in general;
+\textup{(F3$'$)} holds there when $R$ is birational to a variety with
+$\Hdg^{2}=\mathrm{Ab}^{2}$, for instance a member of $\mathcal{A}$, and the
+Hodge conjecture when $R$ is birational to an abelian fourfold
+(\Cref{prop:f3primefibration}). The double arrows are the equivalences of
+\Cref{rem:f3primesharp}: \textup{(F3$'$)}, and the Hodge conjecture, hold for
+every uniruled fivefold, and for every rational sixfold, if and only if they
+hold in degree four for every fourfold; the sixfold $\mathrm{Bl}_{Y}\PP^{6}$
+of a smooth sextic fourfold $Y$ in a hyperplane carries the Hodge numbers
+listed. The rings are first open cases (\Cref{rem:f3primefrontier}): the
+sextic fourfolds, the first family of smooth hypersurfaces not covered (the
+Fermat sextic lies in $\mathcal{A}$); $S\times S$ and $S^{[2]}$ for a K3
+surface $S$ whose real multiplication is not known to be algebraic, such as
+$S_{\lambda}$; the fourfolds of K3$^{[2]}$ type with real multiplication,
+among them $F(Y)$; and, beyond the breaks of the axes, $S^{[231]}$ for a very
+general K3 surface, which is equivalent to the algebraicity of $\det T(S)$ on
+$S^{21}$ (\Cref{prop:k3powers}, \Cref{fig:k3threshold}). Every other cell is
+open in general, and \textup{(F3$'$)} remains open.}
+\label{fig:f3primereach}
+\end{figure}
 
 \begin{setupenv}[The rule set]\label{setup:rules}
 Item (XXXIII) of \Cref{sec:verification} carries forty-two statements and
@@ -640,7 +1293,8 @@ three smaller problems. With (F3) replaced by the weaker statement
 \textup{(F3$'$)} of \Cref{def:f3prime}, the conjecture modulo abelian
 varieties, the three statements (F1), (F2), \textup{(F3$'$)} still suffice,
 and no rule of \Cref{setup:rules} derives the conjecture from a proper
-subset of them.
+subset of them. With the rule of \Cref{prop:f2isab}, which the rule set does
+not contain, (F2) and \textup{(F3$'$)} already suffice (\Cref{rem:f2rule}).
 \begin{enumerate}[label=\textup{(F\arabic*)},leftmargin=3.0em,itemsep=4pt]
 \item \emph{One propagation statement, for every CM field.} \textup{(P2)},
   in the corrected form of \Cref{rem:p2prime}: at one base point of each
@@ -679,7 +1333,9 @@ subset of them.
   is no such class \cite{MZ99}; in dimension eight there are
   (\Cref{prop:mumfordproduct}), so this is not a reduction of the conjecture
   for abelian varieties to Weil classes, which is false as a statement about
-  Hodge rings: it is the conjecture for those classes. Its smallest case is
+  Hodge rings: it is the conjecture for those classes, and by
+  \Cref{prop:f2isab} it is equivalent to the conjecture for every abelian
+  variety. Its smallest case is
   brought down to one Kuga--Satake class in \Cref{thm:mumfordks}; it holds at
   every CM point (\Cref{thm:mumfordcm}), and on all members of a Mumford
   family it is equivalent to the Lefschetz standard conjecture for one
@@ -734,11 +1390,12 @@ $\alpha+\beta\notin R(A)$, because $R(A)$ is closed under subtraction, so
 (F2) makes $\alpha+\beta$ and $\beta$ algebraic, and with them $\alpha$.
 So in every degree in which (F2) says anything it is the whole conjecture for
 that degree: on the square of a Mumford fourfold it gives every Hodge class of
-$H^{4}$, the six products of divisor classes included. Whether (F2) alone
-gives the conjecture for every abelian variety is not decided here, and
-nothing depends on it: the rule set does not use such an implication, and
-adding it would not change \Cref{thm:closure}(ii), since (F3) alone is
-already sufficient.
+$H^{4}$, the six products of divisor classes included. Multiplying by an
+exceptional class of that square moves every Hodge class of every abelian
+variety outside the subring, and \Cref{prop:f2isab} deduces from this that
+(F2) is the whole conjecture for abelian varieties. The rule set does not
+contain that implication; \Cref{rem:f2rule} says how \Cref{thm:closure}(ii)
+changes when it is adjoined.
 
 The form of (F3) that is not the conjecture itself asks only for
 algebraicity modulo classes coming from abelian varieties. It is
@@ -751,20 +1408,21 @@ known of it, and \Cref{rem:f3primeopen} why it is not closed.
   \includegraphics[width=0.92\textwidth]{fig_frontier}
 \caption{The rule set of \Cref{setup:rules} with the rules of
 \Cref{ssec:bullseye}, drawn as a hypergraph. A rule with several premises is
-a junction marked $\wedge$, with arrows from its premises and one arrow to its
-conclusion; each rule carries the result that proves it, and the junction
-marked \S16.5 is the closure map of \Cref{ssec:closuremap}. Clay marks an
-open statement, grass what this paper proves, indigo a derived statement,
-and the tag $\Leftarrow\mathbf{HC}$ an open statement that the conjecture
-implies: every clay node except (P2). The arrow from (F3) to the conjecture
-is \Cref{prop:f3ishc}, and the junction above the conjecture for abelian
-varieties is \Cref{prop:f3prime}(i). The five minimal sufficient sets of
-\Cref{thm:closure}(ii) are drawn as nested ribbons under the arrows they
-use, widest first, and listed in the cards below: (F3) alone; (L) with (M);
-(L) through (V) with \textup{(F3$'$)}; (V) with \textup{(F3$'$)}; and, on
-the left, (P2) with (F2) and \textup{(F3$'$)}. A shared arrow shows the
-bands of every route through it. The secant route, which reaches the
-imaginary quadratic families only, is drawn in \Cref{fig:closure}.}
+a junction marked $\wedge$, joined to its premises and with one arrow to its
+conclusion. The letters name the results that prove the rules: (a) is
+\Cref{prop:f3ishc}; (b) and (g) are the closure map of
+\Cref{ssec:closuremap}; (c) is \Cref{prop:f3prime}(i); (d) is
+\Cref{prop:lefmot}; (e) is \Cref{prop:lefvhc}; (f) is \Cref{thm:vhcab};
+(h) is \Cref{thm:cmpropagation}; and (i) is the chain of
+\Cref{prop:descent}, \Cref{prop:separate}, \Cref{prop:cmweil} and
+\Cref{app:albert}. Clay marks an open statement, a double frame an open
+statement that the conjecture implies, grass what this paper proves, slate
+what it quotes, and indigo a derived statement. The table lists the five
+minimal sufficient sets of \Cref{thm:closure}(ii), the rules each of them
+uses, and which of the open statements the conjecture implies; only
+$\mathrm{P2}_{\mathrm{split}}$, which asks for a particular complex, is not
+known to follow from it. The secant route, which reaches the imaginary
+quadratic families only, is drawn in \Cref{fig:closure}.}
 \label{fig:frontier}
 \end{figure}
 
@@ -977,31 +1635,31 @@ would have to supply for them to be algebraic.
 \begin{figure}[tbp]
 \centering
   \includegraphics[width=\textwidth]{fig_closure}
-\caption{The route of this paper in \Cref{thm:closure}, drawn as a stack of
-plates, one per level of the derivation; the other routes of the literature
-are drawn in \Cref{fig:frontier}. The spine in indigo runs from the Weil families at the bottom to
-the conjecture at the top. The two statements (F2) and (F3) enter in clay from
-the right, each at the level where it is needed; (F2) is the conjecture for a
-class of Hodge classes that no Weil line reaches, not a reduction, and (F3) is
-the whole conjecture (\Cref{prop:f3ishc}), so the route drawn is minimal
-only with (F3) replaced by \textup{(F3$'$)} of \Cref{def:f3prime}. From
-below,
-the propagation statement (P2) in grass reaches the two discriminant cases of
-the quadratic fields and the fields of higher degree alike, because
-\Cref{thm:everyfamily} and \Cref{thm:cmbasepoint} put a base point in every
-family; it is read in the corrected form of \Cref{rem:p2prime}. The two
-edges inside the levels are \Cref{prop:descent}: descent from the trivial
-discriminant to the others, and scalar extension from the fields of degree at
-least four to the quadratic fields; with them (P2) is needed only for the
-split families of the fields of higher degree. The three
-pillars under the grass node are the results of \Cref{thm:p2numerical},
-\Cref{thm:p2support} and \Cref{cor:hhfactor} on the first form, in which the
-Chern character is exactly a Weil class; by \Cref{thm:p2false} that form is
-never met, so the number on the first pillar is attained by no complex. The
-secant route in clay reaches the trivial discriminant, since the member it is
-built on is split, and through descent the rest of the quadratic case; it has
-no edge to the fields of higher degree. The bounded criterion (P1) is drawn apart, in slate, closed on
-itself: it is equivalent to its own conclusion.}
+\caption{The route of this paper through the rule set of \Cref{thm:closure},
+drawn as a stack of plates, one per level of the derivation; the other routes
+are drawn in \Cref{fig:frontier}. Heavy arrows are the rules used by the
+minimal set $\{\mathrm{P2}_{\mathrm{split}},\mathrm{F2},\mathrm{F3}'\}$,
+light arrows the rules it does not use. The bottom plate carries the
+propagation statement, read in the corrected form of \Cref{rem:p2prime},
+once for each of the four kinds of Weil family, with the secant route beside
+it. The small grass blocks on the next plate are the base points of
+\Cref{thm:everyfamily} and \Cref{thm:cmbasepoint}, one in every family. The
+three arrows inside that plate are \Cref{prop:descent}: descent from the
+trivial discriminant to the others, and scalar extension from the fields of
+degree at least four to the quadratic fields. With them (P2) is needed only
+for the split families of the fields of higher degree, and the other three
+(P2) blocks are not used. (F2) is the conjecture for the Hodge classes that
+no Weil line reaches, and (F3) is the whole conjecture
+(\Cref{prop:f3ishc}), so the route is minimal only with (F3) replaced by
+\textup{(F3$'$)} of \Cref{def:f3prime}. The bracket under the two quadratic
+(P2) blocks records the first form of the criterion, in which the Chern
+character is exactly a Weil class, as \Cref{thm:p2numerical},
+\Cref{thm:p2support} and \Cref{cor:hhfactor} describe it; by
+\Cref{thm:p2false} that form is met by no complex. The secant route reaches
+the trivial discriminant, since the member it is built on is split, and
+through descent the rest of the quadratic case; it has no edge to the fields
+of higher degree. The bounded criterion (P1) stands apart, closed on itself:
+it is equivalent to its own conclusion.}
 \label{fig:closure}
 \end{figure}
 
@@ -1234,9 +1892,15 @@ The conjecture modulo abelian varieties, (F3$'$)
   & holds on the class $\mathcal{A}$ of varieties whose cohomology is
     reached from abelian varieties by algebraic correspondences (curves,
     abelian varieties, products, surjective images), in degrees $0$, $2$,
-    $2n-2$, $2n$, and in dimension at most three, \Cref{prop:f3prime}
-  & degree four on fourfolds outside $\mathcal{A}$ and beyond, for
-    instance squares of K3 surfaces without an algebraic Kuga--Satake
-    correspondence, \Cref{rem:f3primeopen} \\
+    $2n-2$, $2n$, and in dimension at most three, \Cref{prop:f3prime};
+    on the fourfolds and fivefolds of \Cref{prop:f3primesmall} and
+    \Cref{prop:f3primefibration};
+    through the Hodge conjecture on the varieties of \Cref{prop:k3powers}
+    and \Cref{prop:k3ntype}
+  & degree four on fourfolds outside $\mathcal{A}$ not covered by
+    \Cref{prop:f3primesmall} or \Cref{prop:f3primefibration}, and beyond, for
+    instance squares of K3 surfaces whose real multiplication is not known
+    to be algebraic, such as $S_{\lambda}$, \Cref{rem:f3primeopen},
+    \Cref{rem:f3primefrontier} \\
 \end{longtable}
 \endgroup

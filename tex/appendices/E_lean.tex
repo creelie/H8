@@ -4,21 +4,21 @@ The theorems of this paper are statements of algebraic geometry and are not
 formalised. What is formalised is the finite arithmetic on which many of them
 turn, which the kernel can settle by computation; the rest of their
 computational content is checked in exact arithmetic by the computations of
-\Cref{sec:verification}. The certificate is a single Lean~4 file that accompanies the
-paper. It compiles against a bare Lean~4 toolchain, has no \texttt{sorry}, and
-depends on no library, Mathlib included; the report at its foot states, for
-each of its ninety-three theorems, that it depends on no axiom whatever, or on
-propositional extensionality alone, which is what \texttt{decide} uses when it
-reduces an equality of Booleans, or when a bound is proved from the lemmas
-on natural numbers in the core library.\footnote{Eighty-one of the
-ninety-three report that they depend on no axiom; the remaining twelve depend
-on propositional extensionality alone. No theorem uses anything else, and
-none uses \texttt{sorry}.} The results of \Cref{ssec:rankzero}, the annihilator
-dimension and the rank-zero obstruction, are not among the ninety-three: the
-lemma is proved by hand, and its dimension count is verified in exact
-arithmetic modulo a prime by item (XIV) of \Cref{sec:verification}.
+\Cref{sec:verification}. The certificate is a single Lean~4 file that
+accompanies the paper. It compiles against a bare Lean~4 toolchain, contains
+no \texttt{sorry}, and depends on no library, Mathlib included. The axiom
+report at the end of the file lists, for each of its ninety-three theorems,
+the axioms on which it depends. Eighty-one depend on none, and the remaining
+twelve on propositional extensionality alone, which enters when
+\texttt{decide} reduces an equality of Booleans or when a bound is proved from
+the lemmas on natural numbers in the core library; no theorem uses anything
+else. The annihilator dimension and the rank-zero obstruction of
+\Cref{ssec:rankzero}, \Cref{lem:annihilator} and \Cref{thm:rankzero}, are not
+among the ninety-three: they are proved by hand, and the dimension count of
+the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
+\Cref{sec:verification}.
 
-\subsection{What is checked}
+\subsection{Contents of the certificate}
 
 \begingroup
 \small
@@ -52,7 +52,7 @@ arithmetic modulo a prime by item (XIV) of \Cref{sec:verification}.
 \texttt{semiregularity\_target} & $\sum_{q}\binom{2n}{q}\binom{2n}{q+2}=\binom{4n}{2n-2}$ for $n\le7$ \\
 \texttt{secant\_count\_}\allowbreak\texttt{below\_thresholds} &
   $2n^{2}+2n<2^{2n}<3^{2n}$ for $2\le n\le8$ \\
-\texttt{thresholds\_not\_necessary} & $3<2^{2}$ and $5<3^{2}$, the two retractions of \Cref{sec:numerology} \\
+\texttt{thresholds\_not\_necessary} & $3<2^{2}$ and $5<3^{2}$, which show that neither threshold of \Cref{sec:numerology} is necessary \\
 \texttt{grading\_positions\_differ} & $(2n,0)$, $(0,2n)$ and $(n,n)$ are distinct cells for $n\ge1$ \\
 \texttt{weil\_delta\_parity} & $\sqrt{-d}^{\,k}$ is rational exactly when $k$ is even, for $k\le20$ \\
 \texttt{weil\_delta\_closed\_even} & $\sqrt{-d}^{\,2m}=(-d)^{m}$ \\
@@ -96,7 +96,7 @@ arithmetic modulo a prime by item (XIV) of \Cref{sec:verification}.
 \texttt{secant\_kernel\_}\allowbreak\texttt{arithmetic} & the matrix $\bigl(\begin{smallmatrix}a&b\\ b&-ad\end{smallmatrix}\bigr)$ has determinant $-(a^{2}d+b^{2})\ne0$ for $(a,b)\ne(0,0)$, $a,b<13$, $d\le20$; the coefficients $C_{k}=k!\,c_{k}$ of $au_{t}+bv_{t}$ satisfy $C_{k+1}=-d\,C_{k-1}$; and $n(n+1)/2+n(n-1)/2=n^{2}$ for $n<60$, \Cref{thm:factor}\\
 \texttt{candidate\_unnormalised\_}\allowbreak\texttt{points} & for odd $d\le201$: $(d+9)(3d-3)-(d+9)(2d-1)=(d+9)(d-2)\ge12$, so an unnormalised double point exists; normalising all of them gives $\chi=50N$, and $50N\ne72N-4N^{2}$ for every integer $N>0$, \Cref{thm:candidatefails}, \Cref{rem:normalisedpoints}\\
 \texttt{mumford\_rigidity\_}\allowbreak\texttt{sos} & a positive multiple of each of the seventeen forms $P_{1},P_{2},Q_{1},\dots,Q_{4},R,S_{1},\dots,S_{4},Z_{1},\dots,Z_{6}$ is a sum of squares of integral linear forms with positive coefficients, checked on $\{0,1,2\}^{4}$, which suffices for polynomials of degree at most two in each variable, \Cref{thm:mumfordrigid} \\
-\texttt{smooth\_invariants} & Noether and the self-intersection formula for a smooth support, $K^{2}+e=12\chi$ and $K^{2}-e=6(b^{2}+d)^{2}$ \\
+\texttt{smooth\_invariants} & Noether's formula and the self-intersection formula for a smooth support, $K^{2}+e=12\chi$ and $K^{2}-e=6(b^{2}+d)^{2}$ \\
 \texttt{smooth\_bmy\_defect} & the Bogomolov--Miyaoka--Yau defect of a smooth support is $24(b^{4}-d^{2})$ \\
 \texttt{smooth\_bmy\_}\allowbreak\texttt{is\_d\_le\_bsq} & so the inequality is exactly $d\le b^{2}$, over a box in $b$ and $d$ \\
 \texttt{smooth\_index\_vacuous} & the Hodge index bound $9(b^{2}+d)\ge8b^{2}$ holds for every $d\ge1$ \\
@@ -111,9 +111,9 @@ arithmetic modulo a prime by item (XIV) of \Cref{sec:verification}.
 \texttt{frontier\_}\allowbreak\texttt{smallest} & of the sixteen open statements exactly one, (F3), suffices alone, and of the one hundred and twenty pairs exactly those containing (F3) and the pairs $\{\mathrm{L},\mathrm{M}\}$, $\{\mathrm{L},\mathrm{F3}'\}$, $\{\mathrm{V},\mathrm{F3}'\}$ do \\
 \texttt{variational\_gives\_}\allowbreak\texttt{abelian} & (V) alone puts the conjecture for abelian varieties in the closure, and not $\mathbf{HC}$, \Cref{thm:vhcab} \\
 \texttt{lefschetz\_gives\_}\allowbreak\texttt{abelian} & (L) gives (V), hence the conjecture for abelian varieties, and not $\mathbf{HC}$, \Cref{prop:lefvhc} \\
-\texttt{secant\_route\_}\allowbreak\texttt{descends} & granting both open demands of the secant route reaches $\delta=\delta_{0}$ and, through \Cref{prop:descent}, every imaginary quadratic family, and neither the CM fields of higher degree nor the conjecture \\
+\texttt{secant\_route\_}\allowbreak\texttt{descends} & granting both open demands of the secant route reaches $\delta=\delta_{0}$ and, through \Cref{prop:descent}, every imaginary quadratic family, but neither the CM fields of higher degree nor the conjecture \\
 \texttt{propagation\_}\allowbreak\texttt{closes} & (P2) for the split imaginary quadratic families puts the whole imaginary quadratic case in the closure, and (P2) for the split families of the fields of degree at least four puts the Weil classes of every CM field there \\
-\texttt{p2\_minimal\_}\allowbreak\texttt{count} & $\binom{4n}{2}-4n^{2}=2\binom{2n}{2}=2n(2n-1)$ for every $n\le60$, the dimension at which the first form of the criterion would be met, \Cref{thm:p2numerical}, and which no complex attains, \Cref{thm:p2false} \\
+\texttt{p2\_minimal\_}\allowbreak\texttt{count} & $\binom{4n}{2}-4n^{2}=2\binom{2n}{2}=2n(2n-1)$ for every $n\le60$, the dimension at which the pure form of the criterion would be met, \Cref{thm:p2numerical}, and which no complex attains, \Cref{thm:p2false} \\
 \texttt{mumford\_}\allowbreak\texttt{invariants} & the invariants of $\mathfrak{sl}_{2}^{3}$ in $\bigwedge^{q}(V_{1}\otimes V_{2}\otimes V_{3})$ have dimensions $1,0,1,0,1,0,1,0,1$, counted from weight multiplicities, \Cref{cor:mumfordlefschetz} \\
 \texttt{two\_branch\_}\allowbreak\texttt{annihilator} & for $n=2,3$ the monomials of type $(p,p)$ killed by $Q\wedge HH^{1}$, $P\wedge HH^{1}$ and $HH^{1}\wedge HH^{1}$ are $\alpha_{-}$, $\alpha_{+}$ and none, \Cref{thm:nosum} \\
 \texttt{weil\_monomials\_}\allowbreak\texttt{separated} & neither Weil monomial lies in $\bigwedge^{*}(V_{-}^{1,0}\oplus V_{+}^{0,1})$ or $\bigwedge^{*}(V_{+}^{1,0}\oplus V_{-}^{0,1})$, for $n\le12$, which is the last step of \Cref{thm:p2support}(iii) \\
@@ -137,58 +137,62 @@ arithmetic modulo a prime by item (XIV) of \Cref{sec:verification}.
 \end{longtable}
 \endgroup
 
-An element of $\ZZ[\sqrt{-d}]$ is a pair of integers, multiplication and
-conjugation are the evident operations, and every statement in the table
-except \texttt{criterion\_}\allowbreak\texttt{endomorphisms\_n2},
+An element of $\ZZ[\sqrt{-d}]$ is represented by a pair of integers, with
+multiplication and conjugation the evident operations. With four exceptions,
+every statement in the table is a closed Boolean expression and is proved by
+\texttt{decide}, which asks the kernel to evaluate it by reduction. This is
+the strongest check available and the least flexible: it works only over
+finite ranges, which is why each of these theorems carries an explicit bound,
+and why none of them can be the general statement that the paper proves. The
+four exceptions, \texttt{criterion\_}\allowbreak\texttt{endomorphisms\_n2},
 \texttt{criterion\_}\allowbreak\texttt{endomorphisms\_n3},
 \texttt{quartic\_}\allowbreak\texttt{rank\_}\allowbreak\texttt{two\_}\allowbreak\texttt{large\_}\allowbreak\texttt{odd\_}\allowbreak\texttt{part}
-and the second half of \texttt{orlov\_}\allowbreak\texttt{n4\_}\allowbreak\texttt{euler}
-is a closed Boolean expression evaluated by the kernel.%
-\footnote{For those the tactic is \texttt{decide}, which asks the kernel to evaluate a closed Boolean expression by reduction. That is the strongest check available and the least flexible: it works only over finite ranges, which is why each of those theorems carries an explicit bound, and it is also why none of them can be the general statement the paper proves. The four exceptions are stated for all natural numbers and proved from the lemmas on natural numbers in the core library, with \texttt{decide} only for a final numerical inequality.} Nothing is quoted; the
-kernel recomputes each assertion from the definitions.
+and the second half of \texttt{orlov\_}\allowbreak\texttt{n4\_}\allowbreak\texttt{euler},
+are stated for all natural numbers and proved from the lemmas on natural
+numbers in the core library, with \texttt{decide} used at most for a final
+numerical inequality. In every case nothing is quoted: the kernel recomputes
+each assertion from the definitions.
 
-Two of the entries deserve a word about what they do and do not settle.
-\texttt{hodge\_dim\_count} verifies the bookkeeping of
-\Cref{thm:hdgcount}, namely that summing the contributions
-$(n,n)$, $(2n,0)$ and $(0,2n)$ over the degrees gives three in the middle and
-one elsewhere; the representation theory that identifies those contributions is
-in the proof of \Cref{thm:hdgcount} and is not formalised. Likewise
-\texttt{k3\_type\_only\_at\_one} verifies that the equation $h^{2,0}=1$ has
-$n=1$ as its only solution once the three possible values $0$, $n^{2}$ and
-$n(n-1)$ are known; the identification of those values is
-\Cref{prop:normpart}. In both cases the division of labour is the same as
-everywhere else in this section: the kernel settles the computation, and the
-mathematics around it is written out and must be read.
+Two of the entries need a word on what they settle and what they do not.
+\texttt{hodge\_dim\_count} verifies the bookkeeping of \Cref{thm:hdgcount}:
+summing the contributions $(n,n)$, $(2n,0)$ and $(0,2n)$ over the degrees
+gives three in the middle degree and one elsewhere. The representation theory
+that identifies those contributions is in the proof of \Cref{thm:hdgcount} and
+is not formalised. Likewise, \texttt{k3\_type\_only\_at\_one} verifies that
+the equation $h^{2,0}=1$ has $n=1$ as its only solution once the three
+possible values $0$, $n^{2}$ and $n(n-1)$ are known; the identification of
+those values is \Cref{prop:normpart}. In both cases the division of labour is
+the one followed throughout this appendix: the kernel settles the computation,
+and the mathematics around it is written out and must be read.
 
-\subsection{Two statements that look true and are not}
+\subsection{Failure of the obvious witness}
 
-Two theorems of the file record statements that a careful reader would accept
-and that are false, and both bear on \Cref{sec:characters}.
+Two theorems of the file show that statements a careful reader would accept
+are false. Both bear on \Cref{sec:characters}.
 
 The first concerns the witness $\tau=1+\sqrt{-d}$ for \Cref{lem:charsdiffer}.
-It is the obvious choice, and it does not work at every field:
+It is the obvious choice, and it does not work for every field:
 \texttt{bad\_witness} shows that at $d=1$ the ratio $\tau/\bbar{\tau}$ is
-$\sqrt{-1}$ and at $d=3$ it is a primitive cube root of unity, so at those
-fields the two characters agree at that particular $\tau$ for suitable $n$.
-The lemma is true, but not by that route, which is why the proof given in
-\Cref{sec:characters} uses only the finiteness of $\mu(K)$ and avoids
-witnesses altogether.
+$\sqrt{-1}$ and at $d=3$ it is a primitive cube root of unity, so for those
+fields the two characters agree at this $\tau$ for suitable $n$. The lemma is
+true, but not by that route; this is why its proof in \Cref{sec:characters}
+uses only the finiteness of $\mu(K)$ and avoids witnesses altogether.
 
-The second concerns the exceptional set of that witness at $d=3$, which is
-$3\mid n$ and not $6\mid n$, as a hasty reading of the order of $\mu(K)$
-would suggest; \texttt{bad\_witness\_exceptions} records the correct
-condition. Neither affects \Cref{thm:character}. Both are the kind of slip that
-a careful reading does not catch and a kernel check does, which is the reason
-for keeping them in the file.
+The second concerns the exceptional set of that witness at $d=3$. It is
+$3\mid n$, and not $6\mid n$ as the order of $\mu(K)$ might suggest;
+\texttt{bad\_witness\_exceptions} records the exact condition. Neither
+statement affects \Cref{thm:character}. Both are slips of the kind that a
+careful reading can miss and a kernel check catches, and the file keeps them
+for that reason.
 
-\subsection{What is not formalised}
+\subsection{Limits of the formalisation}
 
-Everything else, and we are explicit about it. The cohomology of an abelian
-variety as an exterior algebra, the Hodge decomposition, the Fourier--Mukai
-transform as a functor, Grothendieck--Riemann--Roch, the Lefschetz hyperplane
-theorem, hard Lefschetz, the invariant theory of $\SL_{2n}$, the Clifford
-algebra as a functor, and the Lefschetz standard conjecture are all used as
-mathematics and none is formalised here. A formalisation of those would
-require a library of complex algebraic geometry that does not presently exist.
-What the Lean file establishes is that where this paper computes, it computes
-correctly; where it reasons, the reader must still read.
+Everything else is used as mathematics and is not formalised here: the
+cohomology of an abelian variety as an exterior algebra, the Hodge
+decomposition, the Fourier--Mukai transform as a functor,
+Grothendieck--Riemann--Roch, the Lefschetz hyperplane theorem, hard Lefschetz,
+the invariant theory of $\SL_{2n}$, the Clifford algebra as a functor, and the
+Lefschetz standard conjecture. Formalising them would require a library of
+complex algebraic geometry that does not at present exist. What the Lean file
+establishes is that the arithmetic of \Cref{tab:lean} is correct; where the
+paper reasons, the reader must still read.
