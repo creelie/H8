@@ -1,8 +1,9 @@
 \section{Closure}\label{sec:final}
 
 We close by stating, in a single theorem, what the paper proves and what it
-leaves open. Every clause of \Cref{thm:final} is proved in the body. None of
-them depends on a hypothesis that is not itself proved here or quoted from the
+leaves open. Its target, \Cref{thm:main}, is clause (vi), and the other
+clauses measure the distance from it to the conjecture. Every clause of
+\Cref{thm:final} is proved in the body. None of them depends on a hypothesis that is not itself proved here or quoted from the
 literature with a reference, and the computation of minimal sets in the last
 clause is checked by machine.
 
@@ -169,7 +170,15 @@ hold unconditionally.
     (\Cref{lem:multiplicity}, \Cref{thm:p1forces}); and the same form read on
     a representative chosen afresh at each point, which is equivalent to the
     conjecture for the family and so carries no information
-    (\Cref{thm:p1equivalent}).
+    (\Cref{thm:p1equivalent});
+  \item at a quartic CM field, the weakened criterion for any complex with
+    secant character that is, at some point, locally free on a smooth curve
+    or on a point, or the ideal of a curve in a smooth divisor in general
+    position with respect to the real multiplication, and for its Orlov
+    products; in particular the explicit pair of
+    \cite[Example~11.2.7]{Mar25c}, whose curves are glued in to correct the
+    character, fails it at the points of those curves
+    (\Cref{thm:quarticlocal}, \Cref{cor:markmanquarticfails}).
   \end{enumerate}
 \item \emph{Every CM field, not only the quadratic ones.} For every CM field
   $F$ of degree $2m$, every $n\ge2$ and every discriminant, the family of
@@ -179,8 +188,9 @@ hold unconditionally.
   those classes are polynomials with rational coefficients in divisor classes,
   hence algebraic (\Cref{thm:cmbasepoint}); the algebraic locus is stable
   under the rational points of $\Res_{F_{0}/\QQ}\SU(V,H)$, whose orbits are
-  dense, and is a countable union of Zariski closed sets; and each of the two
-  criteria of (iv) closes the whole family (\Cref{thm:cmpropagation}). The
+  dense, and is a countable union of Zariski closed sets, hence either the
+  whole domain or meagre (\Cref{thm:main}); and each of the two criteria of
+  (iv) closes the whole family (\Cref{thm:cmpropagation}). The
   Weil classes of CM fields of higher degree are therefore not a separate
   problem: they pose the same propagation statement, with the base case
   supplied (\Cref{prop:cmweil}, \Cref{prop:composite}). The families are also
@@ -377,7 +387,9 @@ local $\cE xt^{2}$ that the compensating scalar cannot meet; a two-term
 complex of powers of the polarisation has summand inclusions that
 $H^{2}(\cO)$ does not kill; and a component of nonzero multiplicity makes two
 transverse translation classes multiply to a class that the Euler
-characteristic detects. A more careful version of the same construction would
+characteristic detects; and at a quartic field a curve along which the object
+is locally free is tangent to at most one of the two eigenplanes, so the
+square of the Atiyah class along the other one survives. A more careful version of the same construction would
 not avoid these obstacles.
 
 What is not settled is the conjecture, and (vii) states exactly how far from

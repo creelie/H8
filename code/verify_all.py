@@ -200,6 +200,10 @@ Contents
          Delsarte shapes, Euler numbers through the orbits, holomorphic
          forms of the Fermat cover, cyclic covers, the Klein quartic
          [simplex_type.py]
+  (LXVIII) Markman's candidate for a quartic CM field: the compensated
+         bivectors, the annihilators of the secant characters, the classes
+         alpha_0 and beta', their ranks 12 and 20, the rank 96 on X x X
+         [quartic_local.py]
 """
 
 import os
@@ -639,6 +643,9 @@ def main():
 
     head("(LXVII) hypersurfaces of simplex type")
     run_module("LXVII", "simplex_type.py")
+
+    head("(LXVIII) Markman's candidate for a quartic CM field")
+    run_module("LXVIII", "quartic_local.py")
 
     print()
     print("=" * 70)

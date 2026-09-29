@@ -78,3 +78,38 @@ are both the residue field and whose Euler characteristic is zero, the product
 is null homotopic, while on the split complex `k (+) k[1]`, also of Euler
 characteristic zero, it is not.
 
+
+## Ten germs and the quartic candidate (item LXVIII)
+
+`local_germs.m2` computes, for ten germs `M` at the origin of `C^4`, the
+projective dimension and the pairs `(k,l)` for which the Yoneda product
+`a_k a_l` of the jet classes along `d/dx_k` and `d/dx_l` is nonzero in
+`Ext^2(M,M)`. It uses the jet-map conventions of the other scripts and decides
+each product by a submodule membership test (the composite of the two jet
+chain maps is a coboundary exactly when it factors through the second
+differential modulo the relations of `M`).
+
+    M2 --script local_germs.m2
+
+The transcript `local_germs.txt` is the unedited output of Macaulay2 1.22
+(about one second). It reports:
+
+* a line bundle and a rank two bundle on a smooth curve `x1 = x2 = x3 = 0`:
+  exactly the pairs in `{1,2,3}`, the second exterior power of the normal
+  space (lemma "Free germs on smooth supports");
+* a skyscraper, and the ideal of a point in a smooth divisor: all pairs;
+* the ideal of the curve `x2 = x3 = 0` in the divisor `x1 = 0`: exactly the
+  pairs `{1} x {2,3}` (lemma "A curve in a divisor");
+* a smooth divisor, and a rank one maximal Cohen-Macaulay module on a node:
+  none;
+* two planes meeting at a point: the four mixed pairs, as in item XXIX;
+* the germ of the construction of Markman's Example 11.2.7 at a gluing point:
+  the pairs within `{2,3,4}`, normal to the glued curve;
+* a reflexive module on a node that is not Cohen-Macaulay: the pairs
+  `{1,2}, {1,4}, {2,3}, {3,4}`.
+
+These are the local inputs of the theorem "The local obstruction for a
+quartic secant character" and of the corollary that Markman's candidate does
+not satisfy the weakened criterion; the global part is checked by
+`code/quartic_local.py`. This item is independent of the Python suite and is
+not counted in its checks.

@@ -103,3 +103,8 @@
 'HodgeObstruction.simplex_loop_sextic' depends on axioms: [propext]
 'HodgeObstruction.quartic_exceptional_pair' depends on axioms: [propext]
 'HodgeObstruction.quartic_locus_counts' does not depend on any axioms
+'HodgeObstruction.quartic_compensated_bivectors' depends on axioms: [propext]
+'HodgeObstruction.quartic_rank_certificates' depends on axioms: [propext]
+'HodgeObstruction.quartic_koszul_squares' depends on axioms: [propext]
+'HodgeObstruction.quartic_line_two_planes' depends on axioms: [propext]
+'HodgeObstruction.quartic_first_factor_character' depends on axioms: [propext]

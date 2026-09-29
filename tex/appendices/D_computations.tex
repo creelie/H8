@@ -476,7 +476,7 @@ computed, how it is computed, and which statements of the paper it supports.
   is declared and every declared statement is used, that the rule set is
   acyclic, and that each of the seventeen theorem labels it names, for its
   rules and for the consequences of $\mathbf{HC}$ it records, is a label of
-  this paper, against the list of all $665$ labels generated from the
+  this paper, against the list of all $673$ labels generated from the
   sources. It then computes the forward closure by iterating the one step map
   to a fixed point, and verifies the following. No statement marked proved
   rests at any depth on an open one, and $\mathbf{HC}$ is not in the closure
@@ -1663,12 +1663,52 @@ computed, how it is computed, and which statements of the paper it supports.
   normals, in one point each, so that its Euler number is $-7+3=-4$. That is
   \Cref{lem:simplexchart}, \Cref{thm:simplextype} and
   \Cref{cor:delsarteall}.
+
+\item \emph{Markman's candidate for a quartic field.} The local part is an
+  $\Ext$ computation over $R=\QQ[x_{1},\dots,x_{4}]$, recorded with its
+  output. For ten graded modules $M$ it computes a minimal free resolution
+  and its projective dimension, represents the jet class of
+  $\partial/\partial x_{k}$ by the chain map with components
+  $-\partial_{k}(d_{i})$, and decides for every pair $(k,l)$ whether the
+  composite $\varepsilon\circ(-\partial_{k}d_{1})(-\partial_{l}d_{2})$ is a
+  coboundary, by a membership test in a submodule of a free module; all the
+  modules are homogeneous, so the graded computation is the local one. The
+  results are those listed after \Cref{lem:divisorgerm}: the pairs in
+  $\{1,2,3\}$ for a line bundle and a bundle of rank two on the curve
+  $x_{1}=x_{2}=x_{3}=0$, all pairs for the skyscraper and for the ideal of a
+  point in a divisor, exactly $\{1\}\times\{2,3\}$ for the ideal of a curve
+  in a divisor, none for a smooth divisor and for a maximal Cohen--Macaulay
+  module on a node, the four mixed pairs for two planes, the pairs in
+  $\{2,3,4\}$ for the germ of \cite[Example~11.2.7]{Mar25c} at a gluing point
+  and four pairs for a reflexive module on a node that is not Cohen--Macaulay.
+  The global part works in the exterior algebra on
+  $H^{1}(X)=U_{1}\oplus U_{2}$, with $HT^{2}(X)$ of dimension $28$ acting by
+  multiplication, derivation and interior product, for
+  $(q,f_{1},f_{2})=(1,2,\tfrac12)$ and $(2,3,\tfrac13)$. (A) The classes
+  $\alpha_{0}$ and $\beta'$ lie in $S(0,q)$, with the coefficients of
+  \Cref{prop:markmanquarticclasses}(i) and $\rho=2$. (B) The ranks of
+  contraction are $12$ for $\alpha_{0}$ and $20$ for $\beta'$. (C) The
+  compensated classes \eqref{eq:quarticcompensated} annihilate $S(0,q)$, and
+  $e^{-\theta_{t}}x_{j}$ annihilates $e^{\theta_{t}}S(0,q)$ for three values
+  of $t$. (D) The annihilator of $\alpha_{0}$ has dimension $16$ and its
+  bivector components fill $\bigwedge^{2}T$; that of $\beta'$ has dimension
+  $8$ and its bivector components span $\pi_{1}$, $\pi_{2}$. (E) The six
+  polarised $F_{0}$-linear deformations and $x_{1}$, $x_{2}$ span the
+  annihilator of $\beta'$. (F) For $F_{0}=\QQ(\sqrt5)$ and $f=(3+\sqrt5)/2$,
+  $\int\alpha_{0}\beta'=-28q$, $\chi(\beta',\beta')=188q$ and
+  $\chi(\alpha_{0},\alpha_{0})=8q$. (G) The rank of contraction from
+  $HT^{2}(X\times X)$ into $\alpha_{0}\boxtimes\beta'$ is $96$ modulo two
+  primes. (H) The first factor of \cite[Example~8.2.4]{Mar25a} has character
+  $\Theta-\frac d6\Theta^{3}$ and $\chi=8d$ for $d\le12$, from the characters
+  of its pieces. That is \Cref{lem:freegerm}, \Cref{lem:divisorgerm},
+  \Cref{thm:quarticlocal}, \Cref{prop:markmanquarticclasses} and
+  \Cref{cor:markmanquarticfails}.
 \end{enumerate}
 
-Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LXVII) are the ones
+Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LXVIII) are the ones
 on which theorems depend. Items (IV) and (V) support statements that no
 obstruction exists; a failure there would strengthen the paper rather than
 weaken it, and they are included for completeness.
-The sixty-four items other than (XXIX), (XXXI) and (XL) perform $1251$
-checks, all of which pass; those three are $\Ext$ computations over a
-polynomial ring, recorded with their output.
+The sixty-five items other than (XXIX), (XXXI) and (XL) perform $1278$
+checks, all of which pass; those three, and the local part of (LXVIII), are
+$\Ext$ computations over a polynomial ring, recorded with their output.
