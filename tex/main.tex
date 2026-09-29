@@ -2,8 +2,8 @@
 \input{preamble}
 \graphicspath{{figures/}}
 
-\title[The algebraic locus of Weil classes]
-      {Density of the Algebraic Locus of Weil Classes on Abelian Varieties}
+\title[Algebraic loci of Weil classes]
+      {Density of Algebraic Loci of Weil Classes on Abelian Varieties}
 
 \author{Deep Bhattacharjee\textsuperscript{\dag}}
 \address{Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL),
@@ -32,42 +32,30 @@ authors: Deep Bhattacharjee\textsuperscript{\dag}, at
 \texttt{d.bhattacharjee@erl-forschung.de} and \texttt{itsdeep@live.com}, and
 Priyabrata Mandal\textsuperscript{\ddag}, at \texttt{priyabrata@manit.ac.in}.}
 
-\thanks{Every numerical assertion in this paper is checked in exact
-arithmetic (\Cref{sec:verification}), and the finite arithmetic on which
-several of the theorems turn is certified by the Lean~4 kernel
-(\Cref{sec:lean}); both are available as described in the statement on data
-availability.}
+\thanks{The finite computations on which several of the proofs rest are
+carried out in exact arithmetic, and the finite arithmetic behind a number of
+the theorems is certified a second time by the Lean~4 kernel; the programs and
+the certificate are archived as described in the statement on data
+availability at the end of the paper.}
 
-\thanks{An earlier and substantially different version of part of this
-material was posted on Preprints.org, the preprint server of MDPI, on
-5 August 2026, as
-\emph{Relative Secant Cycles and Hodge Classes},
-\href{https://doi.org/10.20944/preprints202602.0462.v5}%
-{\texttt{doi:10.20944/preprints202602.0462.v5}}.
-That version proposed a construction of algebraic representatives for Weil
-classes. \Cref{thm:divisor,thm:character} below show that no construction of
-that shape can produce a Weil class, and the present paper supersedes it. We
-thank the referees of that version for pressing on the identification step,
-which is where the obstruction lives. The authorship has changed since that
-MDPI preprint: Ushashi Bhattacharya, its second author, is the third author of
-this paper, and Priyabrata Mandal has been added as the second and
-corresponding author.}
 
 \date{\today}
 
 \subjclass[2020]{Primary 14C30, 14K05;
-  Secondary 14C25, 14D07, 14F08, 14J28, 11G10, 13D07, 32G20, 32U40,
-  49Q15, 68V15}
+  Secondary 14C25, 14D07, 14F08, 14J28, 14J70, 11G10, 13D07, 32G20,
+  32U40, 49Q15}
 
-\keywords{Hodge conjecture, Weil classes, abelian varieties, algebraic locus, semiregularity}
+\keywords{Hodge conjecture, Weil classes, abelian varieties, algebraic
+  locus, Shimura varieties, semiregularity}
 
 \begin{document}
 
 \begin{abstract}
-We prove that in every family of abelian varieties of Weil type, for any CM
-field and any dimension, the Weil classes are algebraic on a dense set of
-members, which contains an explicit member where they are polynomials in
-divisor classes and is either the whole family or meagre.
+We prove that in every family of abelian varieties of Weil type, for every CM
+field and every dimension, the Weil classes are algebraic on a dense set of
+members that contains an explicit CM point and is either the whole family or
+meagre. Hence the Hodge conjecture holds for the very general member exactly
+when this set is closed.
 \end{abstract}
 
 \maketitle
@@ -81,6 +69,8 @@ divisor classes and is either the whole family or meagre.
 \vspace*{-4pt}
 
 \input{sections/01_introduction}
+
+\part{Weil classes and the obstructions}\label{part:obstructions}
 \input{sections/02_conventions}
 \input{sections/03_weiltype}
 \input{sections/03b_explicit_weil}
@@ -93,16 +83,24 @@ divisor classes and is either the whole family or meagre.
 \input{sections/09b_kugasatake}
 \input{sections/10_reduction}
 \input{sections/10b_escape}
+
+\part{Base points and the algebraic locus}\label{part:basepoints}
 \input{sections/10c1_secant}
 \input{sections/10c2_basepoints}
 \input{sections/10c3_closedlocus}
 \input{sections/10c4_rank}
+
+\part{Semiregularity and secant objects}\label{part:semiregularity}
 \input{sections/10c5_corrected}
 \input{sections/10c6_objects}
 \input{sections/10c7_markman}
 \input{sections/10c8_supports}
+
+\part{Weil classes of CM fields}\label{part:cmfields}
 \input{sections/10d1_cmfields}
 \input{sections/10d2_quartic}
+
+\part{Beyond the Weil classes}\label{part:beyond}
 \input{sections/11a_scope}
 \input{sections/11b_closuregraph}
 \input{sections/11c_mumford}
@@ -114,8 +112,6 @@ divisor classes and is either the whole family or meagre.
 \input{appendices/A_exterior}
 \input{appendices/B_cdk}
 \input{appendices/C_albert}
-\input{appendices/D_computations}
-\input{appendices/E_lean}
 
 \input{declarations}
 

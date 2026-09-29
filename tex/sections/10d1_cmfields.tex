@@ -185,6 +185,52 @@ $(V,H)$ up to isomorphism, and the Hodge structure of any member is, by (i), a
 polarised complex structure on that $V_{\RR}$, that is a point of $\cD_{F}$.
 \end{proof}
 
+\begin{lemma}[The Hodge group of a very general member]\label{lem:cmgeneric}
+Keep \Cref{setup:cmfield}. For every $s\in\cD_{F}$ one has
+$\Hg(A_{s})\subseteq G_{F}$, and there is a countable union $Z$ of proper
+closed analytic subsets of $\cD_{F}$ such that $\Hg(A_{s})=G_{F}$ for every
+$s\notin Z$.
+\end{lemma}
+
+\begin{proof}
+The Hodge group of $A_{s}$ commutes with $\End^{0}(A_{s})\supseteq F$ and
+preserves $E$, so it lies in $\Res_{F_{0}/\QQ}\mathrm{U}(V,H)$: an $F$-linear
+map preserving $E=\Tr_{F/\QQ}(\xi H)$ preserves $H$, because $H$ is recovered
+from $E$ and the action of $F$ as in \Cref{lem:hermform}. It fixes every Hodge
+class, in particular the Weil classes, which are Hodge classes by
+\Cref{prop:cmweil}(i); an element $g$ of $\Res_{F_{0}/\QQ}\mathrm{U}(V,H)$ acts
+on $\bigwedge^{2n}_{F}V$ by $\det_{F}(g)$, so $\det_{F}(g)=1$ and
+$g\in G_{F}$.
+
+For the second statement let $T$ be the set of rational tensors
+$t\in\bigoplus_{a,b}V^{\otimes a}\otimes(V^{\vee})^{\otimes b}$ that are not
+fixed by $G_{F}$, a countable set, and for $t\in T$ let $Z_{t}$ be the set of
+$s$ at which $t$ is a Hodge class, of type $(p,p)$ with $2p=a-b$, for the
+Hodge structure induced by $A_{s}$. The condition is that $t$ lies in the
+$p$-th step of the Hodge filtration, which varies holomorphically with $s$, so
+$Z_{t}$ is a closed analytic subset of $\cD_{F}$. It is proper. Otherwise $t$
+is fixed by $h_{s}(\mathrm{U}(1))$ for every $s\in\cD_{F}$, where $h_{s}$ is
+the Hodge representation, which acts on the $(p,q)$ part through
+$z^{q-p}$, and hence by the
+subgroup $N$ of $G_{F}(\RR)$ that these tori generate. Since $\cD_{F}$ is one
+orbit of $G_{F}(\RR)^{+}$ and $h_{gs}=gh_{s}g^{-1}$, the group $N$ is a
+connected normal subgroup of $G_{F}(\RR)^{+}=\prod_{\tau}\SU(V_{\tau},H_{\tau})$,
+so its Lie algebra is an ideal of
+$\bigoplus_{\tau}\mathfrak{su}(V_{\tau},H_{\tau})$, a sum of some of these
+simple summands. It contains every summand, because $h_{s}(\sqrt{-1})$ acts on
+$V_{\tau}$ as the complex structure $J$, which is $\sqrt{-1}$ on
+$V^{+}_{\tau}$ and $-\sqrt{-1}$ on $V^{-}_{\tau}$ by \Cref{prop:cmweil}(i),
+and is therefore not central in the factor $\SU(V_{\tau},H_{\tau})$. So
+$N=G_{F}(\RR)^{+}$, which is Zariski dense in the connected group $G_{F}$,
+and $t$ would be fixed by $G_{F}$, contrary to $t\in T$.
+
+Put $Z=\bigcup_{t\in T}Z_{t}$. The Hodge group of $A_{s}$ is the subgroup of
+$\GL(V)$ fixing every rational Hodge class in the spaces
+$V^{\otimes a}\otimes(V^{\vee})^{\otimes b}$ \cite[\S3]{Del82}.
+For $s\notin Z$ each such class is fixed by $G_{F}$, so
+$G_{F}\subseteq\Hg(A_{s})$, and equality follows from the first statement.
+\end{proof}
+
 \subsection{A base point in every family}
 
 \begin{theorem}[A base point in every family, for every CM field]
@@ -294,7 +340,7 @@ $W_{F}$. Each $w(f)$ is a rational combination of $n$-fold products of the
 divisor classes $\delta_{i}(\cdot)$, and a product of divisor classes is
 algebraic.
 
-The computation of item (XXXVI) in \Cref{sec:verification} carries out every
+A computation in \cite{BMB26} carries out every
 step of (i), (ii) and (iii) in exact arithmetic for six pairs $(F,n)$, with
 $F$ one of $\QQ(\zeta_{5})$, $\QQ(\zeta_{7})$, $\QQ(\zeta_{8})$,
 $\QQ(\zeta_{9})$, so $m=2$ and $m=3$, and $n=1,2,3$. For
@@ -314,7 +360,7 @@ product locus of \Cref{thm:everyn}. The formula of
 \Cref{thm:cmbasepoint}(iii) then gives the class at that point explicitly.
 \end{remark}
 
-\subsection{The reduction and the propagation}
+\subsection{The reduction and the propagation}\label{ssec:cmpropagation}
 
 \begin{theorem}[The reduction and the propagation, for every CM field]
 \label{thm:cmpropagation}
@@ -424,6 +470,42 @@ character is $N\omega_{s}+P_{2n}$, with $P_{2n}$ a polynomial in divisor
 classes, so $\omega_{s}$ is algebraic.
 \end{proof}
 
+\begin{corollary}[The Hodge conjecture for the very general member]
+\label{cor:verygeneral}
+Fix $(F,n,\delta)$ with $n\ge2$. The following are equivalent.
+\begin{enumerate}[label=\textup{(\alph*)},leftmargin=2.6em,itemsep=2pt]
+\item $\Sigma_{F}$ is closed in $\cD_{F}$.
+\item $\Sigma_{F}$ has an interior point.
+\item $\Sigma_{F}=\cD_{F}$, that is, the Weil classes are algebraic on every
+  member of the family.
+\item The Hodge conjecture holds for the very general member of the family:
+  there is a countable union of proper closed analytic subsets of $\cD_{F}$
+  outside which the Hodge conjecture holds for $A_{s}$ in every degree.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+If (a) holds, $\Sigma_{F}$ is closed and dense by
+\Cref{thm:cmpropagation}(ii), so (c) holds; and (c) implies (a) and (b). If
+(b) holds, $\Sigma_{F}$ is not meagre, since a nonempty open subset of the
+manifold $\cD_{F}$ is not meagre by Baire's theorem, and
+\Cref{thm:cmpropagation}(iii) gives (c). If (c) holds, the Hodge conjecture
+holds in every degree for every member with $\Hg(A_{s})=G_{F}$ by
+\Cref{thm:cmpropagation}(i), and these are the members outside the set $Z$ of
+\Cref{lem:cmgeneric}, so (d) holds. Finally, if (d) holds with an exceptional
+set $Z'$, then at every $s\notin Z'$ the Weil classes, which are Hodge classes
+at every point by \Cref{prop:cmweil}(i), are algebraic. So $\Sigma_{F}$
+contains the complement of $Z'$, which is not meagre by Baire's theorem,
+since each proper closed analytic subset of the connected manifold $\cD_{F}$
+is nowhere dense; by \Cref{thm:cmpropagation}(iii), $\Sigma_{F}=\cD_{F}$.
+\end{proof}
+
+\begin{proof}[Proof of \Cref{thm:main}]
+Part (i) is \Cref{thm:cmbasepoint}, parts (ii) and (iii) are
+\Cref{thm:cmpropagation}(ii) and (iii), and part (iv) is
+\Cref{cor:verygeneral}.
+\end{proof}
+
 \begin{remark}[Scope of the reduction]\label{rem:cmwhatisnew}
 The propagation statements (iv) and (v) are exactly the two forms (P1) and
 (P2) of \Cref{rem:tworemain} with $F$ in place of $K$, (v) being (P2) in the
@@ -464,7 +546,7 @@ $W_{K}\otimes\CC$ is contained in the complexification of the $\QQ$-span $P$ of
 the $m$-fold products of elements of $W_{F}$, and a rational subspace whose
 complexification lies in that of $P$ lies in $P$. Since products of
 algebraic classes are algebraic, $W_{K}(A)$ is algebraic whenever $W_{F}(A)$
-is. The computation of item (XXXVI) in \Cref{sec:verification} checks the
+is. A computation in \cite{BMB26} checks the
 product formula and the inclusion for $F=\QQ(\zeta_{8})$ and
 $K=\QQ(\sqrt{-1})$. The last sentence of the statement is a dimension count:
 for $m\ge2$ the $F$-family is a proper subvariety of the $K$-family, and the

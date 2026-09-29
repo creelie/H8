@@ -107,7 +107,7 @@ algebraic then so is $\iota(\tau)^{*}w=\tau^{2n}w$, and the two together span.
 \Cref{lem:onecomponent} writes out the last step of the proof of
 \Cref{cor:whatisleft}, where the witness $\tau$ has to be chosen. The
 determinant identity and the existence of the witness for small $n$ are among
-the statements certified in \Cref{sec:lean}.
+the statements certified by the Lean certificate of \cite{BMB26}.
 
 \begin{theorem}[The algebraic locus is a countable union of closed
 subvarieties]\label{thm:closedlocus}
@@ -169,8 +169,8 @@ countable.
 
 The bound on the Hilbert polynomials cannot be dropped: without it one takes
 the image of an infinite disjoint union, and an infinite union of closed sets
-need be neither closed nor constructible; $\Sigma$ itself is not known to be
-either. Tuples are needed because a rational cycle is a rational combination
+need be neither closed nor constructible, and the dichotomy below is what
+can be said of $\Sigma$ itself. Tuples are needed because a rational cycle is a rational combination
 of several integral ones, which may have different Hilbert polynomials. The
 relative Chow variety of effective $n$-cycles of bounded degree would serve
 equally well, with the same proof, since only properness over the base and
@@ -491,7 +491,7 @@ For the degree, the projection formula gives
 \]
 \end{proof}
 
-Item (XXXVII) of \Cref{sec:verification} verifies \Cref{lem:transport}(i)
+A computation in \cite{BMB26} verifies \Cref{lem:transport}(i)
 and (ii) on an explicit sample of elements $u$ of the unipotent radical of a
 proper parabolic $\QQ$-subgroup of $G$, with $c(u)$ up to $29$, for
 $2n=4,6,8$. It also verifies both identities of \Cref{lem:multiplicity} for
@@ -633,7 +633,8 @@ $\Sigma=\cD_{n,n}$ carries no information about the deformation theory of any
 particular perfect complex. In its pure form, with Chern character a Weil
 class, it is never satisfied (\Cref{thm:p2false}); the corrected criterion
 \textup{(P2$'$)} of \Cref{rem:p2prime}, in which the Chern character may also
-carry powers of the polarisation, is open.
+carry powers of the polarisation, is the form computed in
+\Cref{sec:corrected}.
 \end{remark}
 
 \subsection{Products of divisors}
@@ -713,7 +714,7 @@ $g_{\alpha j}+\sqrt{-d}\,\lambda_{\alpha j}$ is $\alpha$ or $\bbar{\alpha}$
 times $g_{j}+\sqrt{-d}\,\lambda_{j}$.
 \end{proof}
 
-Item (XXIII) of \Cref{sec:verification} confirms (i) to (iv) in exact
+A computation in \cite{BMB26} confirms (i) to (iv) in exact
 arithmetic for $d\in\{1,3\}$, two weight vectors and fifteen values of $b$ up
 to $101$. It also computes the integral Weil lattice
 $\HW_{\ZZ}=(\QQ Z_{b}+\QQ Z'_{b})\cap\wedge^{4}\Lambda^{*}$ and the
@@ -866,8 +867,7 @@ $\sqrt{\beta(k)/6}\,/N_{d}$, which grows linearly in $|k|$.
 \end{proposition}
 
 \begin{proof}
-(i) and (ii) are finite exact computations, item (XXIV) of
-\Cref{sec:verification}: the trace identity is checked on all pairs of a basis
+(i) and (ii) are finite exact computations, carried out in \cite{BMB26}: the trace identity is checked on all pairs of a basis
 of $R\cap H^{2}(\Lambda,\ZZ)$, which proves it on $R$ by bilinearity, and in
 (ii) the three matrices $\phi_{x}^{2}$, $\phi_{y}^{2}$ and
 $\phi_{x}\phi_{y}+\phi_{y}\phi_{x}$ are scalar, so
@@ -919,7 +919,7 @@ are the invariants of $\Sp(V_{+})$ in $\bigwedge^{2}(V_{+}\otimes\RR^{2})
 $3$ spanned by $\eta$, $x_{k}$ and $x_{k}(i\cdot,\cdot)$. Every other rational
 class $z$ is of type $(1,1)$ only on a proper closed analytic subset of the
 connected manifold $S_{k}$, and a very general point avoids these countably
-many subsets. Item (XXIV) confirms both steps over $\QQ$: for $0\le k\le4$
+many subsets. A computation in \cite{BMB26} confirms both steps over $\QQ$: for $0\le k\le4$
 the centraliser of $i$ and $\phi$ in $\mathfrak{sp}(V,E)$ has dimension $10$
 and exactly three invariants in $\bigwedge^{2}V^{*}$; and at one value of $k$
 at which $\beta(k)$ is a rational square, $k=-1$ for $d=1$ and $k=-2$ for
@@ -935,7 +935,7 @@ $I(x_{k})=\beta(k)e/3$. The index of $\ZZ x_{k}+\ZZ\iota x_{k}$ in $M_{k}$
 divides the gcd $G(k)$ of the $2\times2$ minors of the matrix with rows
 $x_{k}$, $\iota x_{k}$. These minors are integer polynomials of degree at most
 two in $k$, so $G(k)$ divides every element of the ideal they generate in
-$\ZZ[k]$ that is a constant; item (XXIV) finds such constants, resultants of
+$\ZZ[k]$ that is a constant; \cite{BMB26} finds such constants, resultants of
 pairs of minors, whose gcd is $N_{d}$. Hence $N_{d}M_{k}\subset\ZZ x_{k}+\ZZ\iota
 x_{k}$, and every nonzero $w\in M_{k}$ has $I(w)\ge I(x_{k})/N_{d}^{2}$. Now let
 $y\in\NS\setminus\QQ\eta$ and $z=y-t(y)\eta$. Then $0\ne ez\in M_{k}$, because
@@ -944,7 +944,7 @@ $I(y)=t(y)^{2}e+I(z)\ge I(ez)/e^{2}\ge\beta(k)/(3N_{d}^{2}e)$. The final
 assertion follows from \Cref{lem:nefnorm}(ii).
 \end{proof}
 
-The bound in (iv) is far from sharp. The exact values computed in item (XXIV)
+The bound in (iv) is far from sharp. The exact values computed in \cite{BMB26}
 for $0\le k\le10$ are $\mu_{k}=\beta(k)\int\eta^{4}/3$ or half of it for
 $d=1$, and $\mu_{k}=\beta(k)\int\eta^{4}/12$ for $d=3$; the proof loses the
 factor $(\int\eta^{4})^{2}$ in passing from $y$ to its primitive part, and
@@ -978,8 +978,7 @@ The complex structures commuting with $B$ and compatible with $E$ are then
 the complex structures on $W$ compatible with its symplectic form, that is the
 points of the Siegel
 space $\mathfrak{H}_{n}$, of dimension $n(n+1)/2$, and the codimension in
-$\cD_{n,n}$ is $n^{2}-n(n+1)/2=n(n-1)/2$. This count is checked in item (XII)
-of \Cref{sec:verification} for $n\le10$ and certified in \Cref{sec:lean}. At
+$\cD_{n,n}$ is $n^{2}-n(n+1)/2=n(n-1)/2$. This count is checked in \cite{BMB26} for $n\le10$ and certified by its Lean certificate. At
 $n=2$ the quaternionic locus is therefore the symmetric space of
 $\Sp(4,\RR)$ inside $\cD_{2,2}$, of dimension $3$, so it is a divisor. Its
 $G(\QQ)$-translates are infinitely many

@@ -1,17 +1,18 @@
-# Density of the Algebraic Locus of Weil Classes on Abelian Varieties
+# Density of Algebraic Loci of Weil Classes on Abelian Varieties
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22950275.svg)](https://doi.org/10.5281/zenodo.22950275)
 
-Verification code and figure sources for the paper *Density of the Algebraic
-Locus of Weil Classes on Abelian Varieties*, by Deep
+Verification code and figure sources for the paper *Density of Algebraic
+Loci of Weil Classes on Abelian Varieties*, by Deep
 Bhattacharjee, Priyabrata Mandal and Ushashi Bhattacharya.
 
-Release v2.0.0 (https://github.com/creelie/H8/releases/tag/v2.0.0) accompanies
-the current version of the paper. Zenodo archives each GitHub release under its
-own version DOI, and gathers all of them under one concept DOI:
+Release v3.0.0 accompanies the current version of the paper, which cites this
+archive by its Zenodo DOI. Zenodo archives each GitHub release under its own
+version DOI, and gathers all of them under one concept DOI:
 
 | | DOI |
 | --- | --- |
+| release v3.0.0 (version DOI) | assigned by Zenodo when the release is published |
 | release v2.0.0 (version DOI) | 10.5281/zenodo.23038895 (https://doi.org/10.5281/zenodo.23038895) |
 | all versions (concept DOI) | 10.5281/zenodo.22950275 (https://doi.org/10.5281/zenodo.22950275) |
 | release v1.0.0 (version DOI) | 10.5281/zenodo.22950276 (https://doi.org/10.5281/zenodo.22950276) |
@@ -24,6 +25,9 @@ licence, or a package other than those named below.
 
 ## Layout
 
+    COMPUTATIONS.md  every computation, item by item, with the results of the
+                paper that it checks (the paper cites the archive as [BMB26]);
+                code/computations/make_computations.py rebuilds it
     code/       exact-arithmetic verification in Python 3 (sympy for secant_plane.py,
                 weiltype_family.py, mumford_rigidity.py, mumford_object.py,
                 lefschetz_closure.py, twistor_locus.py and hk_pullback.py, numpy
@@ -153,10 +157,11 @@ and says what each one does and does not establish. The workflow in
 `.github/workflows/lean.yml` runs the check on every push and fails if the
 number of theorems is not one hundred and ten, or if any of them depends on an axiom other than propext.
 
-## The computations of Appendix D, item by item
+## The computations, item by item
 
-Appendix D of the paper describes its computations as items (I) to (LXX). The
-programs that carry them out are:
+`COMPUTATIONS.md` describes the computations as items (I) to (LXX) and lists,
+for each result of the paper, the items that check it. The programs that carry
+them out are:
 
 | item | program |
 | --- | --- |
