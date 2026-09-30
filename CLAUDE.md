@@ -216,23 +216,37 @@ absence of Hodge classes off the part reached from abelian varieties
 (`prop:abpart`), the algebraic locus of a real multiplication on K3 squares
 (`setup:rm`, `thm:rmlocus`: dense, contains every CM point, stable under
 G(Q) by Buskin, all or meagre), and `thm:twostand`; no code change (2004
-checks, 110 Lean theorems, 364 pages, 706 labels). P2_split, (F2) and (F3')
-remain open. Never use
+checks, 110 Lean theorems, 364 pages, 706 labels); round 31 tightened the
+proofs of Section 22 without new labels: `prop:cmfamily` (the multiple of
+the class, the component through the CM points), `thm:f2propagation` for
+polarised abelian schemes with the split families identified through
+`rem:cmmember` and `prop:cmweil`(iv), `setup:rm` (the locus does not depend
+on the choice of the K3 surfaces, by Buskin), and `thm:rmlocus`, whose
+dichotomy is now proved from local families of polarised K3 surfaces and the
+density of G(Q) in G(R)^+ by the Cayley transform instead of a global family
+over an arithmetic quotient (no Zariski-closed claim is made there any more);
+it also added `fig_cmseed` (the abelian scheme over the component of the Hodge
+locus, the dense CM points, strata of the algebraic locus and three fibres
+drawn as tori) from `figures/make_round31.py`, four footnotes in Section 22,
+a 52-word abstract, the published version of [KOU23] and the chapter DOI of
+[Kur65], after every reference of the bibliography was checked online
+(publisher pages, DOI and Crossref records, arXiv); 367 pages. The paper
+cites the code through the concept DOI until Deep publishes release v3.1.0
+and sends its version DOI. P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 
 Release v1.0.0 (tag `v1.0.0`, commit `ef15bce`) is archived on Zenodo under
-DOI 10.5281/zenodo.22950276, recorded in the macro `\zenodoFirstDOI` at the
-top of `tex/declarations.tex`, in `CITATION.cff` and in `README.md`. Release
-v2.0.0 (tag `v2.0.0`, published by Deep; it accompanies round 24) has the
-version DOI 10.5281/zenodo.23038895, and the concept DOI of all versions is
-10.5281/zenodo.22950275; they are in `\zenodoVersionDOI` and
-`\zenodoConceptDOI`, the README table and `CITATION.cff`. Release v3.0.0
-(tag `v3.0.0`, published by Deep; it accompanies round 28) has the version
-DOI 10.5281/zenodo.23047883. The paper cites the code only through
-`\zenodoCodeID` in `tex/declarations.tex` (used by the data availability
-section and the `BMB26` bibliography entry), which holds that DOI. A later
-GitHub release gets a new version DOI from Zenodo; update `\zenodoCodeID`,
-the release number beside it, the README table and `CITATION.cff` then. There is no separate AI declaration: the use of Claude
+DOI 10.5281/zenodo.22950276, release v2.0.0 (tag `v2.0.0`, published by Deep;
+it accompanies round 24) under the version DOI 10.5281/zenodo.23038895, and
+release v3.0.0 (tag `v3.0.0`, published by Deep; it accompanies round 28)
+under 10.5281/zenodo.23047883; the concept DOI of all versions is
+10.5281/zenodo.22950275. They are listed in the README table and
+`CITATION.cff`. The paper names one DOI for the code, `\zenodoCodeID` in
+`tex/declarations.tex` (used by the data availability section and the `BMB26`
+bibliography entry), and no GitHub URL. Round 31 accompanies release v3.1.0:
+until Deep publishes it and Zenodo assigns its version DOI, `\zenodoCodeID`
+holds the concept DOI; then put the version DOI in `\zenodoCodeID`, the
+README table and `CITATION.cff`. There is no separate AI declaration: the use of Claude
 for the Python and Lean computations is stated in the Data availability
 section.
 
