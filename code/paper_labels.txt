@@ -162,8 +162,10 @@ fig:closure
 fig:cmcube
 fig:cmseed
 fig:cmsource
+fig:convolutions
 fig:delsarte
 fig:descent
+fig:diagonalbudget
 fig:doublepoint
 fig:escape
 fig:evaluation
@@ -232,6 +234,7 @@ lem:cmdense
 lem:cmgeneric
 lem:cmweiltori
 lem:conjugates
+lem:degreedrop
 lem:divisorgerm
 lem:edge
 lem:eigenbasis
@@ -239,10 +242,12 @@ lem:finiteproduct
 lem:freegerm
 lem:genericNS
 lem:gysinrestrict
+lem:harmonicmodel
 lem:hermform
 lem:hodgeanalytic
 lem:hodgenumbers
 lem:hyperclass
+lem:indexsum
 lem:lefinvolution
 lem:localproducts
 lem:multiplicity
@@ -296,6 +301,7 @@ prop:cmweiltorussheaves
 prop:composite
 prop:concentrated
 prop:corestriction
+prop:cupkernel
 prop:delsarte
 prop:densealg
 prop:descent
@@ -346,6 +352,7 @@ prop:mumfordwhere
 prop:noabeliantype
 prop:normpart
 prop:notforbidden
+prop:nothingenters
 prop:notpoly
 prop:notwistor
 prop:objectsize
@@ -387,6 +394,7 @@ prop:target
 prop:thresholds
 prop:weildomain
 prop:weilline
+prop:weilpieces
 prop:weiltorussheaves
 prop:whichescaped
 prop:whichtypes
@@ -409,6 +417,7 @@ rem:cmsharp
 rem:cmsource
 rem:cmwhatisnew
 rem:coniveauscope
+rem:convolutionsopen
 rem:deformation
 rem:delsartequotient
 rem:dimensionbookkeeping
@@ -563,6 +572,7 @@ setup:burch
 setup:cmfield
 setup:cmweiltori
 setup:construction
+setup:convolution
 setup:criterion
 setup:family
 setup:hh
@@ -588,6 +598,7 @@ ssec:closure
 ssec:closuremap
 ssec:cmpropagation
 ssec:cmweiltori
+ssec:convolutions
 ssec:depth
 ssec:divcrit
 ssec:everyfamily
@@ -642,12 +653,14 @@ thm:divisor
 thm:equalnorms
 thm:equivalence
 thm:equivsuffices
+thm:esixdiagonal
 thm:everyfamily
 thm:everyn
 thm:explicitgens
 thm:explicitweil
 thm:f2propagation
 thm:factor
+thm:fewpieces
 thm:final
 thm:fmtheta
 thm:hdgcount

@@ -1113,3 +1113,492 @@ that its Atiyah class contracted with every direction of $T$ vanishes.
 Markman's reflexive sheaves at $n=3$ are of that kind, and nothing here
 says that their analogues at $n\ge4$ do not exist.
 \end{remark}
+
+\subsection{Convolutions of line bundles}\label{ssec:convolutions}
+
+After \Cref{cor:noline} the next objects built from line bundles are their
+convolutions, the iterated cones of shifted line bundles. Their Chern
+character is the same signed sum of exponentials as for a direct sum, but
+their $\Ext$ groups are cut down by the maps between the pieces, so the
+argument of \Cref{thm:linebundle} no longer applies as it stands. This
+subsection shows that fewer than $2n$ pieces with nondegenerate differences
+never serve (\Cref{thm:fewpieces}); writes down, at a CM member for
+$K=\QQ(i)$, a signed sum of $2\cdot4^{n-1}$ line bundles that is exactly a
+real Weil class (\Cref{prop:weilpieces}); and determines, for the
+convolutions of those pieces with three multiples of the polarisation at
+$n=3$, which products in the twisted differential can act on the $525$
+diagonal classes of degree two, of which at least $468$ must disappear
+before the corrected criterion can hold (\Cref{thm:esixdiagonal}). Nothing
+enters the diagonal, cup products remove at most $276$ of these classes, and
+everything else would have to be removed by one family of fourfold products,
+whose rank we do not determine.
+
+\begin{setupenv}[Convolutions]\label{setup:convolution}
+Let $A$ be an abelian variety of dimension $g$ with a flat K\"ahler metric,
+and let $L_{1},\dots,L_{m}$ be line bundles on $A$ with hermitian metrics of
+constant curvature, hermitian forms $H_{1},\dots,H_{m}$ and pairwise distinct
+first Chern classes. For integers $d_{1},\dots,d_{m}$ put
+$P_{a}=L_{a}[-d_{a}]$. A \emph{convolution} of $P_{1},\dots,P_{m}$ is an
+object $E$ given by a one-sided twisted
+complex\footnote{Every object obtained from $P_{1},\dots,P_{m}$ by iterated
+cones in this order is of this form, because the Dolbeault complexes form a
+differential graded enhancement of the full subcategory of line bundles. All
+the objects of this subsection are given in this way.}
+\[
+  \Bigl(\,\bigoplus_{a}\cA^{0,*}(L_{a})[-d_{a}],\ \bar\partial+\delta\Bigr),
+  \qquad
+  \delta=(\delta_{ab})_{a<b},\quad
+  \delta_{ab}\in\cA^{0,1+d_{a}-d_{b}}\bigl(L_{a}^{-1}\otimes L_{b}\bigr),
+\]
+with $\bar\partial\delta+\delta\circ\delta=0$, so that
+$\ch(E)=\sum_{a}(-1)^{d_{a}}e^{c_{1}(L_{a})}$. Write
+$\cA(a,b)=\cA^{0,*}(L_{a}^{-1}\otimes L_{b})$ and $\cH(a,b)$ for its harmonic
+forms, so that $\cH^{q}(a,b)\cong H^{q}(A,L_{a}^{-1}\otimes L_{b})$, and write
+$\pi$, $G$ and $h=\bar\partial^{*}G$ for the harmonic projection, the Green
+operator and the homotopy, with $1-\pi=\bar\partial h+h\bar\partial$ and
+$\pi h=h\pi=h^{2}=0$. A form of degree $q$ in $\cA(a,b)$ is a morphism
+$P_{a}\to P_{b}$ of degree $w=q-d_{a}+d_{b}$; we call $q$ its $\Ext$ degree
+and, when $w=1$, call $q-1$ its \emph{excess}. When $H_{b}-H_{a}$ is
+nondegenerate, $\cH(a,b)$ is concentrated in the single degree
+$n(H_{b}-H_{a})$, the number of negative eigenvalues \cite[Chapter~3]{BL04}.
+\end{setupenv}
+
+\begin{lemma}[The harmonic model]\label{lem:harmonicmodel}
+In \Cref{setup:convolution}:
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item $E$ is isomorphic to a convolution of the same pieces with
+  $h\delta=0$, and then $\delta=\delta^{H}-h(\delta\circ\delta)$ with
+  $\delta^{H}=\pi\delta$ harmonic. Substituting repeatedly, every
+  $\delta_{ab}$ is a finite sum of planar binary trees whose leaves are
+  components $\delta^{H}_{cd}$ with $c<d$, whose internal vertices compose,
+  and whose internal edges carry $-h$.
+\item $\Ext^{*}(E,E)$ is the cohomology of
+  $\cH_{E}=\bigoplus_{a,b}\cH(a,b)$, graded by $w$, with the differential
+  $d_{E}=\sum_{k\ge0}\pi\,Q(-hQ)^{k}$, where $Q=[\delta,-]$.
+\item For $x\in\cH(a,b)$, the component of $d_{E}(x)$ in $\cH(c,e)$ is a sum
+  of terms $\pm\pi\,T$, one for each planar binary tree $T$ with $k\ge2$
+  leaves, internal vertices composing, $-h$ on the internal edges other
+  than the root, whose leaves read in order are the components along a path
+  $c=a_{0}\to a_{1}\to\dots\to a_{k}=e$ in which one step is
+  $x\colon a\to b$ and the others are components $\delta^{H}_{a_{j}a_{j+1}}$
+  with $a_{j}<a_{j+1}$. The $\Ext$ degree of such a term is the sum of the
+  $\Ext$ degrees of its leaves minus $k-2$.
+\end{enumerate}
+\end{lemma}
+
+The terms with $k$ leaves in (iii) are the Massey products of length $k$ of
+the pieces;\footnote{In the language of $A_{\infty}$-categories they are the
+higher products $m_{k}$ of the minimal model of the line bundles, evaluated
+on the Maurer--Cartan element $\delta^{H}$ of the twisted complex; for
+$k=2$ they are cup products.} (iii) is all that is used of them below.
+
+\begin{proof}
+(i) Suppose $h\delta_{cd}=0$ for $d-c<r$. Conjugating by $1+g$, with $g$ of
+degree $0$ supported at distance $r$, replaces $\delta_{ab}$ for $b-a=r$ by
+$X_{ab}+\bar\partial g_{ab}$, where $X_{ab}$ depends only on $\delta$, and
+leaves the components at smaller distance unchanged. With
+$g_{ab}=-hX_{ab}$ the new component is $X_{ab}-\bar\partial hX_{ab}$, and
+$h\bar\partial h=h(1-\pi-h\bar\partial)=h$ gives $h(X_{ab}-\bar\partial
+hX_{ab})=0$. Induction on $r$ gives $h\delta=0$, and then
+$\delta=\pi\delta+\bar\partial h\delta+h\bar\partial\delta
+=\delta^{H}-h(\delta\circ\delta)$ by the Maurer--Cartan equation. The
+component $(\delta\circ\delta)_{ab}$ involves only components at distance
+less than $b-a$, so the substitution ends.
+(ii) The endomorphism complex of $E$ is $\bigoplus_{a,b}\cA(a,b)$ with the
+differential $\bar\partial+Q$. Blockwise, the inclusion of harmonic forms,
+$\pi$ and $-h$ form a strong deformation retraction of
+$(\bigoplus\cA(a,b),\bar\partial)$ onto $(\cH_{E},0)$, and $Q$ raises $b-a$,
+so $hQ$ is nilpotent. The basic perturbation lemma gives a homotopy
+equivalence of $(\bigoplus\cA(a,b),\bar\partial+Q)$ with $(\cH_{E},d_{E})$,
+with the chain maps $\iota_{E}=\sum_{k}(-hQ)^{k}$ on $\cH_{E}$ and
+$\pi_{E}=\pi\sum_{k}(-Qh)^{k}$. (iii) Each $Q$ in $d_{E}$ composes with one
+component of $\delta$ on the left or on the right; writing that component as
+in (i) gives the trees, the edges from (i) and those from $d_{E}$ being
+exactly the internal edges other than the root. Composition adds degrees,
+$h$ lowers them by one, and a binary tree with $k$ leaves has $k-2$ internal
+edges.
+\end{proof}
+
+\begin{lemma}[The index of a sum]\label{lem:indexsum}
+For hermitian forms $X,Y$ on $\CC^{g}$, $n(X+Y)\le n(X)+n(Y)$. If
+$H_{1}+\dots+H_{k}=0$, then $\sum_{j}n(H_{j})\ge g-\dim\ker H_{i}$ for every
+$i$; in particular $\sum_{j}n(H_{j})\ge g$ when one $H_{i}$ is
+nondegenerate.
+\end{lemma}
+
+\begin{proof}
+A subspace on which $X+Y$ is negative definite meets the subspaces on which
+$X\ge0$ and $Y\ge0$, of codimensions $n(X)$ and $n(Y)$, only in zero, so its
+dimension is at most $n(X)+n(Y)$. For the second statement,
+$-H_{i}=\sum_{j\ne i}H_{j}$ gives
+$g-n(H_{i})-\dim\ker H_{i}=n(-H_{i})\le\sum_{j\ne i}n(H_{j})$.
+\end{proof}
+
+\begin{theorem}[Fewer than $2n$ pieces]\label{thm:fewpieces}
+Let $A$ be of $(K,-1,n)$-Weil type with $n\ge2$, and let $E$ be a
+convolution of $m<2n$ shifted line bundles whose differences $H_{b}-H_{a}$
+are all nondegenerate. Suppose that $\ch(E)$ remains of Hodge type to first
+order along $\cD_{n,n}$ and has a nonzero Weil component, as every corrected
+character $N\omega_{1}+p(\theta)$ with $N\ne0$ does. Then there is
+$v\in T_{[A]}\cD_{n,n}$ with
+\[
+  \operatorname{ev}_{E}(v)\ne0
+  \qquad\text{and}\qquad
+  \sigma_{E}\bigl(\operatorname{ev}_{E}(v)\bigr)=0 ,
+\]
+so $\sigma_{E}$ is not injective, and for a corrected character
+$\dim\Ext^{2}(E,E)>r(\ch E)$ by \Cref{thm:p2primenumber}(iv).
+\end{theorem}
+
+\begin{proof}
+First, no element of degree one of $\cH_{E}$ has a differential with a
+nonzero component in the diagonal classes $\cH^{2}(c,c)=H^{2}(A,\cO_{A})$.
+Such a component is a sum of terms of \Cref{lem:harmonicmodel}(iii) whose
+$k$ leaves have degree one and run around a closed path $c\to\dots\to c$; the
+pieces before the step $x$ increase from $c$ and those after it increase to
+$c$, so the path passes through $k$ distinct pieces and $k\le m$. Its
+leaves have $\Ext$ degrees $q_{j}=n(H_{a_{j+1}}-H_{a_{j}})$, and the output
+has $\Ext$ degree $\sum_{j}q_{j}-(k-2)=2$, so $\sum_{j}q_{j}=k<2n$. The $k$
+differences are nondegenerate and add up to zero, so \Cref{lem:indexsum}
+gives $\sum_{j}q_{j}\ge g=2n$, a contradiction. Hence taking diagonal
+components gives a well defined map
+$\pi_{D}\colon\Ext^{2}(E,E)\to\bigoplus_{a}H^{2}(A,\cO_{A})$.
+
+Next, $\operatorname{ev}_{E}(v)=v\lrcorner\mathrm{At}(E)$, as in the proof
+of \Cref{thm:linebundle}. In the twisted complex the Atiyah class is
+represented by the commutator of the Chern $(1,0)$-connection
+$\bigoplus_{a}\nabla_{a}$ with $\bar\partial+\delta$; its diagonal entries
+are the curvatures $F_{a}$, constant forms representing $c_{1}(L_{a})$, and
+its other entries $\nabla\delta_{ab}$ lie above the diagonal. So
+$\operatorname{ev}_{E}(v)$ is represented by an upper triangular $z$ with
+$z_{aa}=v\lrcorner F_{a}$, and in $\cH_{E}$ by $\pi_{E}(z)$. The operators
+$Q$ and $h$ preserve upper triangular forms and $Q$ makes them strictly upper
+triangular, so the diagonal of $\pi_{E}(z)$ is that of $\pi(z)$, and
+$\pi_{D}(\operatorname{ev}_{E}(v))=(v\lrcorner c_{1}(L_{a}))_{a}$.
+
+If every $c_{1}(L_{a})$ were a real multiple of the polarisation, it would
+be a rational one and $\ch(E)$ a polynomial in it, whose component in degree
+$2n$ meets the Weil line in zero by \Cref{prop:grading}. So some
+$c_{1}(L_{a})$ is not, and by \Cref{prop:rigidity}(i) some
+$v\in T_{[A]}\cD_{n,n}$ has $v\lrcorner c_{1}(L_{a})\ne0$; then
+$\pi_{D}(\operatorname{ev}_{E}(v))\ne0$, while
+$\sigma_{E}(\operatorname{ev}_{E}(v))=v\lrcorner\ch(E)=0$.
+\end{proof}
+
+\Cref{thm:linebundle} is the case $\delta=0$, with any number of pieces. A
+convolution reaches its diagonal classes once it has $2n$ pieces, when a
+cycle through all of them can have total index $2n$, the equality case of
+\Cref{lem:indexsum}. A convolution meeting the corrected criterion must
+therefore have at least $2n$ pieces, or pieces with degenerate differences.
+The next construction has both.
+
+\begin{proposition}[A pure Weil class from line bundles]
+\label{prop:weilpieces}
+Let $E_{0}=\CC/\ZZ[i]$, $A=E_{0}^{2n}$ with coordinates $z_{1},\dots,z_{2n}$
+and $n\ge2$, let $K=\QQ(i)$ act by $i$ on $z_{1},\dots,z_{n}$ and by $-i$
+on $z_{n+1},\dots,z_{2n}$, and let $\theta$ be the product principal
+polarisation; then $A$ is of $(\QQ(i),-1,n)$-Weil type, a CM member as in
+\Cref{rem:cmquadratic}. Write $B_{j}$ for the surface with coordinates
+$(z_{j},z_{n+j})$, so that $A=B_{1}\times\dots\times B_{n}$. For $p\in\ZZ$
+and $\zeta\in\mu_{4}^{n}$ let $L_{\zeta}$ be a line bundle whose hermitian
+form is $\bigl(\begin{smallmatrix}p&\zeta_{j}\\ \bbar\zeta_{j}&p
+\end{smallmatrix}\bigr)$ on $B_{j}$ and zero between different surfaces, and
+put $\alpha=\prod_{j}\tfrac{i}{2}\,dz_{j}\wedge d\bar z_{n+j}$.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item $\alpha$ and $\bbar\alpha$ span the Weil classes of $A$, and
+  \[
+    \sum_{\prod\zeta=1}e^{c_{1}(L_{\zeta})}
+    -\sum_{\prod\zeta=-1}e^{c_{1}(L_{\zeta})}
+    =2\cdot4^{n-1}\,(\alpha+\bbar\alpha).
+  \]
+\item For distinct integers $t_{1},t_{2},t_{3}$ and signs $\sigma_{i}$, the
+  character
+  $\gamma=2\cdot4^{n-1}(\alpha+\bbar\alpha)+\sum_{i}\sigma_{i}e^{t_{i}\theta}$
+  has Hankel rank $3$, so $r(\gamma)=7n^{2}-2n$. A convolution with this
+  character of the $2\cdot4^{n-1}$ bundles $L_{\zeta}$, with
+  $(-1)^{d}=\prod\zeta$, and of three line bundles $M_{i}$ with
+  $c_{1}(M_{i})=t_{i}\theta$ has $2\cdot4^{n-1}+3$ pieces and
+  $(2\cdot4^{n-1}+3)\,n(2n-1)$ diagonal classes of degree two: $525$
+  against $r=57$ at $n=3$, and $3668$ against $104$ at
+  $n=4$.\footnote{At $n=2$ the same construction has $8+3=11$ pieces and
+  $66$ diagonal classes against $r=24$.}
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+The hermitian forms have imaginary parts integral on $\ZZ[i]^{2n}$, so the
+line bundles exist. On $B_{j}$ write $c_{1}$ of the restriction as
+$p(a_{j}+b_{j})+\zeta_{j}c_{j}+\bbar\zeta_{j}c'_{j}$, where
+$a_{j}=\tfrac i2dz_{j}\wedge d\bar z_{j}$,
+$b_{j}=\tfrac i2dz_{n+j}\wedge d\bar z_{n+j}$,
+$c_{j}=\tfrac i2dz_{j}\wedge d\bar z_{n+j}$ and
+$c'_{j}=\tfrac i2dz_{n+j}\wedge d\bar z_{j}$. Since $c_{j}^{2}=c_{j}'^{2}=0$,
+\[
+  e^{c_{1}(L_{\zeta})}=\prod_{j}f_{j}(\zeta_{j}),\qquad
+  f_{j}(z)=e^{p(a_{j}+b_{j})}\bigl(1+zc_{j}+\bbar zc'_{j}+c_{j}c'_{j}\bigr).
+\]
+For
+$u\in\mu_{4}$, $\tfrac12(u+\bbar u)$ is $u$ when $u=\pm1$ and $0$ when
+$u=\pm i$, so the left side of (i) is
+$\tfrac12\bigl(\prod_{j}\sum_{z}zf_{j}(z)+\prod_{j}\sum_{z}\bbar zf_{j}(z)\bigr)$.
+Now $\sum_{z\in\mu_{4}}z=\sum z^{2}=0$ and $\sum|z|^{2}=4$, so
+$\sum_{z}zf_{j}(z)=4e^{p(a_{j}+b_{j})}c'_{j}=4c'_{j}$, because $a_{j}c'_{j}$
+and $b_{j}c'_{j}$ repeat a differential, and likewise
+$\sum_{z}\bbar zf_{j}(z)=4c_{j}$. This gives
+$2\cdot4^{n-1}(\prod c'_{j}+\prod c_{j})=2\cdot4^{n-1}(\bbar\alpha+\alpha)$.
+The differentials $dz_{j}$, $j\le n$, and $d\bar z_{n+j}$ span the
+$i$-eigenspace of $K$ on $H^{1}(A,\CC)$, and $\alpha$ spans its top exterior
+power, which is a Weil class, and $\bbar\alpha$ the conjugate one. (ii) The
+moments $\mu_{m}=\sum_{i}\sigma_{i}t_{i}^{m}$ make the Hankel matrix of
+\Cref{setup:p2prime} a product of Vandermonde matrices of rank $3$, and
+\Cref{thm:p2primenumber}(ii) gives $r$. The counts are immediate. A
+computation in \cite{BMB26} checks (i) in exact arithmetic for $n=2,3$ and
+three values of $p$, and (ii).
+\end{proof}
+
+The pieces $L_{\zeta}$ and $L_{\zeta'}$ have a degenerate difference as soon
+as $\zeta$ and $\zeta'$ share a coordinate, so \Cref{thm:fewpieces} does not
+apply to them, and there are more than $2n$ of them. The rest of this
+subsection computes what the Massey products can do to the diagonal classes
+of such a convolution. The pieces are external products over the surfaces
+$B_{j}$, and the first tool is a bound on how far a product can lower the
+degree on each surface.
+
+\begin{lemma}[Degree drop on a product]\label{lem:degreedrop}
+Let $A=B_{1}\times\dots\times B_{n}$ with a product metric, and let every
+$L_{a}$ be an external product with a product metric. Decompose the leaves
+of a term of \Cref{lem:harmonicmodel}(iii) with $k$ leaves into tensor
+products of harmonic forms on the factors. Then the output has degree
+$s_{j}-d_{j}$ on $B_{j}$, where $s_{j}$ is the sum of the degrees of the
+leaves on $B_{j}$ and $d_{j}\ge0$, $\sum_{j}d_{j}=k-2$, and
+\[
+  d_{j}\le\max(0,\,u_{j}-2),
+\]
+where $u_{j}$ is the number of leaves whose component on $B_{j}$ is not a
+multiple of the unit section of $\cO_{B_{j}}$ (such a unit occurs only where
+source and target agree on $B_{j}$).
+\end{lemma}
+
+\begin{proof}
+The Laplacian is $\Delta=\sum_{j}\Delta_{j}$, so $h=\sum_{j}h_{j}$ with
+$h_{j}=\bar\partial_{j}^{*}G=G\bar\partial_{j}^{*}$, which lowers the degree
+on $B_{j}$ by one and keeps the others; expand every internal edge
+accordingly, and let $d_{j}$ be the number of edges carrying $h_{j}$. Let
+$V_{j}$, $U_{j}$ and $W_{j}$ be the forms whose component on $B_{j}$ is
+$\Delta_{j}$-harmonic, a multiple of the unit, or in the image of
+$\bar\partial_{j}^{*}$. The operators $G$ and $h_{i}$, $i\ne j$, preserve all
+three, $h_{j}$ kills $V_{j}$ and $W_{j}$, $\pi$ kills $W_{j}$, and
+multiplication by an element of $U_{j}$ preserves $V_{j}$, $U_{j}$ and
+$W_{j}$. For an edge $e$ carrying $h_{j}$ let $N(e)$ be the set of leaves
+below $e$ whose component on $B_{j}$ is not a unit. If $|N(e)|\le1$ the
+value below $e$ lies in $V_{j}$ and the term vanishes. If $e$ lies below the
+next such edge $e'$ with $N(e)=N(e')$, everything composed in between lies
+in $U_{j}$, the value at $e'$ lies in $W_{j}$, and the term vanishes; if
+$N(e)$ is the set of all $u_{j}$ such leaves for the highest such edge, the
+value at the root lies in $W_{j}$ and $\pi$ kills it. So in a nonzero term
+the sets $N(e)$ are distinct, of size at least two, different from the whole
+set, and pairwise nested or disjoint. Together with the whole set they form
+a family of that kind, which has at most $u_{j}-1$ members, since its members
+are the internal vertices of a forest with $u_{j}$ leaves in which every
+internal vertex has at least two children. Hence $d_{j}\le u_{j}-2$.
+\end{proof}
+
+\begin{proposition}[Nothing enters the diagonal]\label{prop:nothingenters}
+Keep \Cref{prop:weilpieces} with $n\ge3$, and let $t_{1},t_{2},t_{3}$ be
+distinct with $|t_{i}-p|\ge2$. For every convolution $E$ of the pieces
+$L_{\zeta}$ and $M_{i}$, in any order, with any shifts of the given parities
+and with the pieces twisted by any line bundles of degree zero, no element of
+degree one of $\cH_{E}$ has a differential with a nonzero diagonal
+component. Consequently
+\[
+  \dim\Ext^{2}(E,E)\;\ge\;\dim\ker\bigl(d_{E}|_{D^{2}}\bigr),
+  \qquad
+  D^{2}=\bigoplus_{a}H^{2}(A,\cO_{A}).
+\]
+\end{proposition}
+
+\begin{proof}
+As in the proof of \Cref{thm:fewpieces}, a term that reaches the diagonal
+runs around a closed path of distinct pieces whose $k$ steps have degree one
+and total excess $0$. The step from $L_{\zeta}$ to $L_{\zeta'}$ has $\Ext$
+degree $1$ on each surface where $\zeta_{j}\ne\zeta'_{j}$, the difference
+there having eigenvalues $\pm|\zeta'_{j}-\zeta_{j}|$, and at least $0$
+elsewhere. If $\prod\zeta=\prod\zeta'$ the two differ on at least two
+surfaces; otherwise the step has even $\Ext$ degree, the shifts having
+opposite parities. Either way its excess is at least $1$. The difference
+between $L_{\zeta}$ and $M_{i}$ has eigenvalues $t_{i}-p\pm1$ on every
+surface, so it is definite: the step has $\Ext$ degree $0$ and excess $-1$
+if it goes up the value $\phi$, where $\phi(L_{\zeta})=p$ and
+$\phi(M_{i})=t_{i}$, and $\Ext$ degree $2n$ and excess $2n-1$ if it goes
+down; the same holds between the $M_{i}$. A maximal run of the cycle through
+the $M_{i}$ starts and ends at the value $p$, or is the whole cycle, so it
+has at least one step down and at most three steps up; its excess is at least
+$2n-1-3\ge2$. So every cycle has excess at least $1$. Twisting by line
+bundles of degree zero leaves the forms unchanged and can only make some
+$\cH(a,b)$ vanish. For the inequality, the diagonal components of cocycles
+of degree two vanish on coboundaries, so $\dim\Ext^{2}(E,E)$ is at least the
+dimension of their image, which contains the kernel of $d_{E}$ on $D^{2}$.
+\end{proof}
+
+At $n=2$ the bound on a run is $0$ and a cycle through the three multiples
+can reach the diagonal; this is why the analysis below starts at $n=3$.
+
+\begin{figure}[tbp]
+\centering
+  \includegraphics[width=\textwidth]{fig_convolutions}
+\caption{The pieces of \Cref{prop:weilpieces} at their values $\phi$, with
+$\phi(L_{\zeta})=p$ and $\phi(M_{i})=t_{i}$. (a) A step of degree one
+between pieces with a definite difference has $\Ext$ degree $0$ going up
+and $2n$ going down, so excess $-1$ or $2n-1$; a step between two
+$L_{\zeta}$ has excess at least $1$. The cycle drawn runs up through all
+three $M_{i}$ and down once, the worst case, and still has excess
+$2n-3>0$, so for $n\ge3$ no term reaches the diagonal
+(\Cref{prop:nothingenters}). (b) The one path whose products act on the
+diagonal at $n=3$ (\Cref{thm:esixdiagonal}(i)), drawn at the same heights
+and in the order of the convolution, with the $\Ext$ degrees of its steps
+and the shifts they force; the dashed arrow is the value of the product with
+a diagonal class $y$.}
+\label{fig:convolutions}
+\end{figure}
+
+\begin{proposition}[Cup products on the diagonal]\label{prop:cupkernel}
+Keep \Cref{prop:nothingenters} with $n=3$, so that $D^{2}$ has dimension
+$35\cdot15=525$. The terms of $d_{E}$ on $D^{2}$ with two leaves, the cup
+products, vanish on the $45$ diagonal classes of the $M_{i}$, and on the
+$480$ diagonal classes of the $L_{\zeta}$ they have a kernel of dimension at
+least $204$. So their kernel on $D^{2}$ has dimension at least $249$.
+\end{proposition}
+
+\begin{proof}
+For $y=(y_{a})\in D^{2}$ the cup products in $\cH(a,b)$ are
+$(y_{a}-y_{b})\wedge\delta^{H}_{ab}$, since $y$ has even degree. On a surface
+where the pieces differ, $\delta^{H}_{ab}$ has degree $1$, the only degree of
+the cohomology there, and the product with a component of $y$ of positive
+degree lands in a degree where the cohomology vanishes. The pieces $M_{i}$
+differ from every other piece on every surface, which gives the first
+statement. Write $y_{a}$ by its type $\tau\in\{0,1,2\}^{3}$, $|\tau|=2$, the
+degrees on the three surfaces: three types $(2,0,0)$ of dimension one and
+three types $(1,1,0)$ of dimension four. The degree count on each surface
+and the parity of $\Ext$ degrees show that $L_{\zeta}$ and $L_{\zeta'}$ can
+carry a nonzero cup product on the type $\tau$ only if either $\zeta'$
+differs from $\zeta$ by a sign in one coordinate outside the support of
+$\tau$, or $\zeta'$ is $\zeta$ multiplied by $(i,i)$ or $(-i,-i)$ in two
+coordinates and $\tau$ is $2$ on the third. Let $\Gamma_{\tau}$ be the graph
+on the $32$ pieces with these edges. If each component $y^{\tau}$ is
+constant on the connected components of $\Gamma_{\tau}$, every cup product
+vanishes. For $\tau=(2,0,0)$ the coordinate $\zeta_{1}$ is constant along
+the edges, and the eight pieces with a given $\zeta_{1}$ are connected, so
+$\Gamma_{\tau}$ has $4$ components; for $\tau=(1,1,0)$ the edges change the
+sign of $\zeta_{3}$ only, and $\Gamma_{\tau}$ has $16$ components. The
+kernel therefore contains a space of dimension $3\cdot4\cdot1+3\cdot16\cdot4
+=12+192=204$. A computation in \cite{BMB26} lists the pairs, finds the
+components, and finds rank $276$, so a kernel of exactly $204$, for general
+components on all $48+96$ pairs.\footnote{The computation draws the
+harmonic components of the pairs at random modulo the prime $1000003$. The
+rank of a matrix can only drop under specialisation, so $276$ is the largest
+rank the cup products can have on these classes for any choice of the
+components, and $204$ the least dimension of their kernel.}
+\end{proof}
+
+\begin{theorem}[The diagonal on $E_{0}^{6}$]\label{thm:esixdiagonal}
+Let $n=3$ and let $E$ be a convolution of the $32$ bundles $L_{\zeta}$ and
+of $M_{1},M_{2},M_{3}$ as in \Cref{prop:weilpieces}, with
+$p+2\le t_{1}<t_{2}<t_{3}$ and signs $\sigma_{i}$, so that
+$\ch(E)=32(\alpha+\bbar\alpha)+\sum_{i}\sigma_{i}e^{t_{i}\theta}$ and the
+corrected criterion asks for $\dim\Ext^{2}(E,E)=57$.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item The Massey products of length at least three vanish on $D^{2}$, except
+  those of length four along a path
+  $M_{2}\to M_{3}\to L_{\zeta}\to M_{1}$ taken in this order in the
+  convolution, which occur only if $\sigma_{1}=\sigma_{3}=-\sigma_{2}$ and
+  take values in
+  $\cH^{6}(M_{2},M_{1})\cong H^{6}\bigl(A,\cO_{A}(-(t_{2}-t_{1})\theta)\bigr)$,
+  of dimension $(t_{2}-t_{1})^{6}$.
+\item $\dim\Ext^{2}(E,E)\ge249-\min\bigl(249,(t_{2}-t_{1})^{6}\bigr)$, and
+  $\dim\Ext^{2}(E,E)\ge249$ unless the order and the signs are as in (i).
+  In particular $E$ does not meet the corrected criterion when
+  $t_{2}-t_{1}\le2$, since $249-64=185>57$, nor when the signs or the order
+  differ from (i).
+\item If $E$ meets the corrected criterion, then the length four products
+  of (i) have rank at least $249-57=192$ on the kernel of the cup products,
+  and $t_{2}-t_{1}\ge3$.
+\end{enumerate}
+The same holds for $t_{1}<t_{2}<t_{3}\le p-2$ with $E$ replaced by its dual.
+\end{theorem}
+
+\begin{proof}
+(i) By \Cref{lem:harmonicmodel}(iii), a product of length $k$ acting on
+$y\in H^{2}(\cO_{A})$ at a piece runs along a path $s\to\dots\to e$ with $k-1$
+steps of degree one and lands in degree three, so the excesses of its steps
+add up to its $\Ext$ degree minus $3$, a number between $-3$ and $3$; on each
+surface \Cref{lem:degreedrop} bounds the degree drop. The degrees of all
+steps depend only on the signs of $t_{i}-p\pm1$ and on the order of the
+$t_{i}$, so the placement $p=0$, $t=(2,4,6)$ is general. A computation in
+\cite{BMB26} enumerates every path meeting these conditions, in every order
+of the pieces and with every choice of shifts of the given parities, which
+is more than any single convolution allows.\footnote{Enumerating too many
+paths is harmless: a path that is discarded is carried by no convolution,
+and a path that is kept only adds to the products that might act.} It then discards the paths with
+two consecutive steps of $\Ext$ degree $0$ whose product is the only term of
+its component of the Maurer--Cartan equation: that equation makes the
+product of the two sections zero, and a product of nonzero sections is
+nonzero, so one of them vanishes. Among the eight sign patterns, pure
+$L_{\zeta}$ paths never survive, and the only survivors are the paths of
+(i), for the two patterns with $\sigma_{1}=\sigma_{3}=-\sigma_{2}$. Along
+such a path the steps have $\Ext$ degrees $0$, $6$ and $0$, so degree one
+forces $d_{M_{3}}=d_{M_{2}}+1$, $d_{L}=d_{M_{3}}-5$ and
+$d_{M_{1}}=d_{L}+1$; this gives the signs, and the value lies in
+$\cH^{3+d_{M_{2}}-d_{M_{1}}}(M_{2},M_{1})=\cH^{6}(M_{2},M_{1})$, whose
+dimension is $|\chi(\cO_{A}((t_{1}-t_{2})\theta))|=(t_{2}-t_{1})^{6}$.
+(ii) By \Cref{prop:nothingenters} it suffices to bound the kernel of $d_{E}$
+on $D^{2}$. By \Cref{prop:cupkernel} the cup products have a kernel $Y$ of
+dimension at least $249$, and on $Y$ the differential is the sum of the
+products of (i), of rank at most $(t_{2}-t_{1})^{6}$. (iii) follows from
+(ii). For the dual, $E\mapsto E^{\vee}$ preserves $\Ext^{2}$ and sends the
+configuration with $p$, $t_{i}$ to the one with $-p$, $-t_{i}$, the set of
+the $L_{\zeta}$ being stable under $\zeta\mapsto-\zeta$.
+\end{proof}
+
+\begin{figure}[tbp]
+\centering
+  \includegraphics[width=\textwidth]{fig_diagonalbudget}
+\caption{The $525$ diagonal classes of degree two at $n=3$
+(\Cref{prop:cupkernel,thm:esixdiagonal}). The cup products remove $276$ of
+them for general components, and at most that many in any case, leaving
+$204$ at the pieces $L_{\zeta}$ and the $45$ at the $M_{i}$; the fourfold
+products of the surviving path remove at most $(t_{2}-t_{1})^{6}$ more,
+which is $1$ or $64$ for the gaps $1$ and $2$ and no constraint from the
+third gap on. The criterion asks for $57$, so $468$ classes must disappear
+in all and $192$ after the cup products. On the right, the graphs
+$\Gamma_{\tau}$ on the $32$ pieces, one row for each value of $\zeta_{1}$:
+for $\tau=(2,0,0)$ each row is a component, for $\tau=(1,1,0)$ the
+components are the pairs differing in the sign of $\zeta_{3}$; a class
+constant on the components of every $\Gamma_{\tau}$ has vanishing cup
+products.}
+\label{fig:diagonalbudget}
+\end{figure}
+
+\begin{remark}[What is left of the route]\label{rem:convolutionsopen}
+\Cref{thm:esixdiagonal} reduces the question for this family of objects at
+$n=3$ to one explicit family of Massey products: fourfold products
+$\cH^{0}(M_{2},M_{3})\otimes\cH^{6}(M_{3},L_{\zeta})\otimes\cH^{0}(L_{\zeta},M_{1})
+\otimes H^{2}(\cO_{A})\to\cH^{6}(M_{2},M_{1})$ of theta functions on the
+surfaces $B_{j}$, which would have to have rank at least $192$ on the kernel
+of the cup products, with $t_{2}-t_{1}\ge3$; and the Maurer--Cartan element
+of such a convolution would still have to exist. We have not computed these
+products, and nothing here decides whether they reach that rank. Products
+of length three and of length at least five do not act at all, and the cup
+products are computed exactly. Placements of the $t_{i}$ on both sides of $p$ are not covered by
+\Cref{thm:esixdiagonal}; for $p=0$ and $t=(-2,2,4)$ the same computation
+finds no surviving product for the sign patterns $(1,1,1)$, $(-1,1,1)$ and
+$(1,-1,1)$, hence none for six of the eight
+patterns.\footnote{The automorphism of $A$ that is $-1$ on the coordinate
+$z_{n+1}$ and the identity on the others changes $\alpha$ into $-\alpha$,
+fixes $\theta$ and permutes the $L_{\zeta}$, changing $\zeta_{1}$ into
+$-\zeta_{1}$; composed with the shift $[1]$ it changes every $\sigma_{i}$
+into $-\sigma_{i}$ and keeps everything else.} At $n=4$ the analysis
+does not close: products of length three and four among the $L_{\zeta}$
+already pass every test above, and there are $3668$ diagonal classes against
+$r=104$. \Cref{fig:convolutions} shows the excess count and the surviving
+path, and \Cref{fig:diagonalbudget} the budget of diagonal classes.
+\end{remark}

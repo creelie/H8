@@ -27,10 +27,10 @@ per theorem. Every line must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
 through `decide` or the core lemmas on natural numbers, and none may mention `sorryAx`. The GitHub workflow in
 `.github/workflows/lean.yml` enforces all three, and fails the build if the
-number of theorems is not one hundred and ten or if any of them reaches for a further
+number of theorems is not one hundred and fourteen or if any of them reaches for a further
 axiom.
 
-## The one hundred and ten theorems
+## The one hundred and fourteen theorems
 
 | theorem | statement |
 | --- | --- |
@@ -144,6 +144,10 @@ axiom.
 | `quartic_koszul_squares` | for the Koszul resolution of `R/(x_1,...,x_c)`, `c = 3, 4`, the Yoneda square `a_k a_l` is represented by a nonzero vector exactly when `k != l` and `k, l <= c`, and the coboundaries vanish at the origin |
 | `quartic_line_two_planes` | a nonzero vector of `[-6,6]^4` has a nonzero component outside one of two complementary coordinate planes |
 | `quartic_first_factor_character` | the pieces of Markman's Example 8.2.4 have the characters used there, `ch(F_d) = Theta - (d/6) Theta^3` and `chi(F_d, F_d) = 8 d` for `d <= 60` |
+| `conv_pure_weil_identity` | for `n = 2, 3, 4` there are `2 * 4^(n-1)` exponent vectors `zeta` in `mu_4^n` with `prod zeta = +-1`, half of each sign, and the signed sum of the `e^(c_1(L_zeta))` has coefficient `2 * 4^(n-1)` on `alpha` and on `conj(alpha)` and `0` on every other monomial in the `c_j`, `c'_j` (`decide +kernel`) |
+| `conv_cup_kernel` | at `n = 3` the graphs `Gamma_tau` of the six types of diagonal classes have `4` components when `tau` has an entry `2` and `16` otherwise, so the classes constant on components span `3 * 4 * 1 + 3 * 16 * 4 = 204` dimensions, `249` with the `45` classes of the multiples, out of `525` (`decide +kernel`) |
+| `conv_run_excess` | for `3 <= n <= 12` and every placement of `p` among the `t_i`, a run from a piece `L_zeta` through distinct multiples back has excess at least `2n - 4 >= 2`, and a closed walk through the multiples alone at least `2n - 3`; at `n = 2` a run of excess `0` exists (`decide +kernel`) |
+| `conv_esix_thresholds` | along `M_2 -> M_3 -> L -> M_1` with `Ext` degrees `0, 6, 0` the shifts are `d, d + 1, d - 4, d - 3`, the product lands in `Ext` degree `6` and `sigma_1 = sigma_3 = -sigma_2`; `r = 24, 57, 104` at `n = 2, 3, 4`; `(t_2 - t_1)^6 = 1, 64, 729`, `249 - 64 = 185 > 57`, `249 - 57 = 192`, and `(t_2 - t_1)^6 >= 192` exactly when `t_2 - t_1 >= 3` |
 
 
 ## Two statements that look true and are not
@@ -167,12 +171,12 @@ careful reading does not catch and a kernel check does.
 `code/verify_all.py` in the parent directory performs the same checks in exact
 rational arithmetic over Q, independently of Lean, together with the exterior
 algebra computations that Lean does not carry, and prints
-`2004 checks passed, 0 failed`.
+`2075 checks passed, 0 failed`.
 
 ## Transcript
 
 `axioms.txt` is the unedited output of `lean HodgeObstruction.lean` under
-Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and ten lines, one per
-theorem, eighty-seven reading `does not depend on any axioms` and twenty-three reading
+Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and fourteen lines, one per
+theorem, ninety reading `does not depend on any axioms` and twenty-four reading
 `depends on axioms: [propext]`, exit status 0, no `sorryAx`. `lake build`
 completes with the same report. Each run takes a few minutes.

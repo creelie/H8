@@ -7,14 +7,14 @@ computational content is checked in exact arithmetic by the computations of
 \Cref{sec:verification}. The certificate is a single Lean~4 file that
 accompanies the paper. It compiles against a bare Lean~4 toolchain, contains
 no \texttt{sorry}, and depends on no library, Mathlib included. The axiom
-report at the end of the file lists, for each of its one hundred and ten theorems,
-the axioms on which it depends. Eighty-seven depend on none, and the remaining
-twenty-three on propositional extensionality alone, which enters when
+report at the end of the file lists, for each of its one hundred and fourteen theorems,
+the axioms on which it depends. Ninety depend on none, and the remaining
+twenty-four on propositional extensionality alone, which enters when
 \texttt{decide} reduces an equality of Booleans or when a bound is proved from
 the lemmas on natural numbers in the core library; no theorem uses anything
 else. The annihilator dimension and the rank-zero obstruction of
 \Cref{ssec:rankzero}, \Cref{lem:annihilator} and \Cref{thm:rankzero}, are not
-among the one hundred and ten: they are proved by hand, and the dimension count of
+among the one hundred and fourteen: they are proved by hand, and the dimension count of
 the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \Cref{sec:verification}.
 
@@ -24,7 +24,7 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \small
 \renewcommand{\arraystretch}{1.06}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.31\linewidth}>{\raggedright\arraybackslash}p{0.62\linewidth}@{}}
-\caption{The one hundred and ten machine-checked theorems.}\label{tab:lean}\\
+\caption{The one hundred and fourteen machine-checked theorems.}\label{tab:lean}\\
 \toprule
 \textbf{theorem} & \textbf{statement} \\
 \midrule
@@ -151,6 +151,10 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \texttt{quartic\_koszul\_}\allowbreak\texttt{squares} & for the Koszul resolution of $R/(x_{1},\dots,x_{c})$, $c=3,4$, the product $a_{\partial_{k}}a_{\partial_{l}}$ is represented by a nonzero vector exactly when $k\ne l$ and $k,l\le c$, and the coboundaries vanish at the origin, \Cref{lem:freegerm} \\
 \texttt{quartic\_line\_}\allowbreak\texttt{two\_planes} & a nonzero vector of $[-6,6]^{4}$ has a nonzero component outside one of two complementary coordinate planes, the step of \Cref{thm:quarticlocal}(iii) \\
 \texttt{quartic\_first\_}\allowbreak\texttt{factor\_character} & the pieces of \cite[Example~8.2.4]{Mar25a} have the characters used there, and $\ch(F_{d})=\Theta-\frac d6\Theta^{3}$ with $\chi(F_{d},F_{d})=8d$ for $d\le60$, \Cref{cor:markmanquarticfails}(ii) \\
+\texttt{conv\_}\allowbreak\texttt{pure\_}\allowbreak\texttt{weil\_}\allowbreak\texttt{identity} & for $n=2,3,4$ there are $2\cdot4^{n-1}$ vectors $\zeta\in\mu_{4}^{n}$ with $\prod\zeta=\pm1$, half of each sign, and the signed sum of the $e^{c_{1}(L_{\zeta})}$ has coefficient $2\cdot4^{n-1}$ on $\alpha$ and on $\bbar\alpha$ and $0$ on every other monomial in the $c_{j}$, $c'_{j}$, \Cref{prop:weilpieces}(i) \\
+\texttt{conv\_}\allowbreak\texttt{cup\_}\allowbreak\texttt{kernel} & at $n=3$ the graphs $\Gamma_{\tau}$ of the six types have $4$ components when $\tau$ has an entry $2$ and $16$ otherwise, so the classes constant on components span $204$ dimensions, $249$ with the $45$ classes of the multiples, out of $525$, \Cref{prop:cupkernel} \\
+\texttt{conv\_}\allowbreak\texttt{run\_}\allowbreak\texttt{excess} & for $3\le n\le12$ and every placement of $p$ among the $t_{i}$, a run from $L_{\zeta}$ through distinct multiples back has excess at least $2n-4\ge2$, and a closed walk through the multiples alone at least $2n-3$; at $n=2$ a run of excess $0$ exists, \Cref{prop:nothingenters} \\
+\texttt{conv\_}\allowbreak\texttt{esix\_}\allowbreak\texttt{thresholds} & along $M_{2}\to M_{3}\to L_{\zeta}\to M_{1}$ with $\Ext$ degrees $0,6,0$ the shifts are $d,d+1,d-4,d-3$, the product lands in $\Ext$ degree $6$ and $\sigma_{1}=\sigma_{3}=-\sigma_{2}$; $r=24,57,104$ at $n=2,3,4$; $(t_{2}-t_{1})^{6}=1,64,729$, $249-64=185>57$, $249-57=192$, and $(t_{2}-t_{1})^{6}\ge192$ exactly when $t_{2}-t_{1}\ge3$, \Cref{thm:esixdiagonal} \\
 \end{longtable}
 \endgroup
 
@@ -159,7 +163,8 @@ multiplication and conjugation the evident operations. With four exceptions,
 every statement in the table is a closed Boolean expression and is proved by
 \texttt{decide}, which asks the kernel to evaluate it by reduction; for the
 two computations in the exterior algebra on eight generators, of the
-compensated bivectors and of the rank certificates, the form
+compensated bivectors and of the rank certificates, and for three of the four
+theorems on convolutions of line bundles, the form
 \texttt{decide +kernel} hands the evaluation to the kernel directly. This is
 the strongest check available and the least flexible: it works only over
 finite ranges, which is why each of these theorems carries an explicit bound,

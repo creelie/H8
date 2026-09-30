@@ -212,6 +212,11 @@ Contents
          identities, hard Lefschetz on H^2 -> H^6, c_4(G) != 0 at r = 1,
          the parity condition d = 3 mod 4 at r = 2 and b = 3, the route
          note's example  [burch_rank.py]
+  (LXXI) convolutions of line bundles and the diagonal of Ext^2: the
+         pure Weil character from 2 4^{n-1} line bundles, the index lemma,
+         the excess of loops, the degree drop on trees, the cup kernel 249
+         at n = 3, the surviving fourfold chains, n = 4
+         [line_bundle_convolutions.py]
 """
 
 import os
@@ -660,6 +665,9 @@ def main():
 
     head("(LXX) resolutions of rank one and two")
     run_module("LXX", "burch_rank.py")
+
+    head("(LXXI) convolutions of line bundles and the diagonal of Ext^2")
+    run_module("LXXI", "line_bundle_convolutions.py")
 
     print()
     print("=" * 70)

@@ -230,9 +230,29 @@ locus, the dense CM points, strata of the algebraic locus and three fibres
 drawn as tori) from `figures/make_round31.py`, four footnotes in Section 22,
 a 52-word abstract, the published version of [KOU23] and the chapter DOI of
 [Kur65], after every reference of the bibliography was checked online
-(publisher pages, DOI and Crossref records, arXiv); 367 pages. The paper
-cites the code through the concept DOI until Deep publishes release v3.1.0
-and sends its version DOI. P2_split, (F2) and (F3') remain open. Never use
+(publisher pages, DOI and Crossref records, arXiv); 367 pages. Round 32
+answered Deep's request to attack the Massey products of length 4 to 6 on
+E_0^6 with the subsection `ssec:convolutions` at the end of
+`tex/sections/10c6_objects.tex`: `setup:convolution`, `lem:harmonicmodel`
+(harmonic model of a twisted complex of line bundles, products as planar
+trees), `lem:indexsum`, `thm:fewpieces` (fewer than 2n pieces with
+nondegenerate differences never meet the corrected criterion),
+`prop:weilpieces` (on E_0^{2n}, E_0 = C/Z[i], the 2 4^{n-1} line bundles
+L_zeta with prod zeta = +-1 have signed Chern characters adding up to
+2 4^{n-1} (alpha + conj alpha); with three multiples of theta, r = 7n^2 - 2n,
+525 diagonal classes against 57 at n = 3), `lem:degreedrop`,
+`prop:nothingenters` (for n >= 3 no product reaches the diagonal classes),
+`prop:cupkernel` (the cup products leave at least 249 of them),
+`thm:esixdiagonal` (only fourfold products along M_{t2} -> M_{t3} -> L ->
+M_{t1}, with sigma_1 = sigma_3 = -sigma_2, act, into a space of dimension
+(t_2 - t_1)^6, so the criterion needs rank >= 192 and t_2 - t_1 >= 3;
+lengths 3, 5, 6 do not act) and `rem:convolutionsopen` (those fourfold
+products are not computed; n = 4 does not close), six footnotes, the figures
+`fig_convolutions` and `fig_diagonalbudget` of `figures/make_round32.py`,
+item (LXXI), `code/line_bundle_convolutions.py` (71 checks, 2075 in all), and
+Lean Section 41 (one hundred and fourteen theorems); 374 pages, 720 labels.
+The paper cites the code through the concept DOI until Deep publishes
+release v3.1.0 and sends its version DOI. P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 
 Release v1.0.0 (tag `v1.0.0`, commit `ef15bce`) is archived on Zenodo under
@@ -255,7 +275,7 @@ section.
 - `cd code && python3 verify_all.py` ends with `N checks passed, 0 failed`;
   keep the count in `README.md`, `lean/README.md`, `.zenodo.json`,
   `.github/workflows/lean.yml` and `tex/declarations.tex` in step.
-- `cd lean && lean HodgeObstruction.lean`: 110 theorems, each axiom-free or
+- `cd lean && lean HodgeObstruction.lean`: 114 theorems, each axiom-free or
   depending on `propext` only.
 - `cd tex && latexmk -pdf main.tex`: 0 errors, 0 overfull or underfull boxes,
   no undefined references.
