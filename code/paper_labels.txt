@@ -54,6 +54,8 @@ cor:weilequiv
 cor:whatisleft
 cor:whereidea
 def:Bconj
+def:abpart
+def:algloc
 def:block
 def:clifford
 def:conjpair
@@ -207,6 +209,7 @@ lem:LambdaL
 lem:NSchar
 lem:Rendomorphism
 lem:absemireg
+lem:algstrata
 lem:ambient
 lem:annihilation
 lem:annihilator
@@ -224,6 +227,7 @@ lem:chicompare
 lem:cibig
 lem:cliffJ
 lem:cliffdim
+lem:cmdense
 lem:cmgeneric
 lem:cmweiltori
 lem:conjugates
@@ -281,8 +285,10 @@ part:beyond
 part:cmfields
 part:obstructions
 part:semiregularity
+prop:abpart
 prop:aclosure
 prop:chintermsofu
+prop:cmfamily
 prop:cmsource
 prop:cmweil
 prop:cmweiltorussheaves
@@ -539,6 +545,7 @@ sec:corrected
 sec:divisor
 sec:escape
 sec:explicit
+sec:families
 sec:final
 sec:fm
 sec:hyperplane
@@ -568,9 +575,12 @@ setup:omegaa
 setup:p2prime
 setup:pte
 setup:quat
+setup:rm
 setup:rules
 setup:shimura
 setup:weiltori
+ssec:abpart
+ssec:algloci
 ssec:bullseye
 ssec:cdknot
 ssec:closure
@@ -581,6 +591,7 @@ ssec:depth
 ssec:divcrit
 ssec:everyfamily
 ssec:exactform
+ssec:f2cm
 ssec:hilbertburch
 ssec:lagrangian
 ssec:mumford
@@ -593,7 +604,9 @@ ssec:properness
 ssec:pte
 ssec:quartic
 ssec:rankzero
+ssec:reach
 ssec:residual
+ssec:rmlocus
 ssec:sextic
 ssec:smoothsupport
 ssec:split
@@ -632,6 +645,7 @@ thm:everyfamily
 thm:everyn
 thm:explicitgens
 thm:explicitweil
+thm:f2propagation
 thm:factor
 thm:final
 thm:fmtheta
@@ -677,6 +691,7 @@ thm:quatweil
 thm:rankzero
 thm:residual
 thm:returntrip
+thm:rmlocus
 thm:secantexists
 thm:secantinvariants
 thm:semiregclosure
@@ -685,6 +700,7 @@ thm:smoothinvariants
 thm:splitclosed
 thm:twistedcert
 thm:twoofthefour
+thm:twostand
 thm:vhcab
 thm:weakfails
 thm:weilmult
