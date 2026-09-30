@@ -1,15 +1,9 @@
-% Zenodo DOIs of the code archive. Release v1.0.0 was archived under
-% 10.5281/zenodo.22950276, release v2.0.0 under 10.5281/zenodo.23038895 and
-% release v3.0.0 under 10.5281/zenodo.23047883; all are versions of the
-% concept record 10.5281/zenodo.22950275. \zenodoCodeID is the DOI the paper
-% cites for the code: the version DOI of release v3.0.0.
-\newcommand{\zenodoFirstDOI}{%
-  \href{https://doi.org/10.5281/zenodo.22950276}{\texttt{10.5281/zenodo.22950276}}}
-\newcommand{\zenodoVersionDOI}{%
-  \href{https://doi.org/10.5281/zenodo.23038895}{\texttt{10.5281/zenodo.23038895}}}
-\newcommand{\zenodoConceptDOI}{%
-  \href{https://doi.org/10.5281/zenodo.22950275}{\texttt{10.5281/zenodo.22950275}}}
-\newcommand{\zenodoCodeID}{10.5281/zenodo.23047883}
+% \zenodoCodeID is the one DOI the paper cites for the code, in the data
+% availability section and in the entry BMB26 of the bibliography. Until
+% Zenodo assigns the version DOI of release v3.1.0 it is the concept DOI of the
+% archive, which resolves to the latest release; replace it by that version DOI
+% once it is assigned.
+\newcommand{\zenodoCodeID}{10.5281/zenodo.22950275}
 \newcommand{\zenodoCodeDOI}{%
   \href{https://doi.org/\zenodoCodeID}{\texttt{\zenodoCodeID}}}
 
@@ -32,9 +26,8 @@ The programs that carry out the computations cited in this paper as
 \cite{BMB26}, the Lean~4 certificate of the finite arithmetic, the Macaulay2
 computations of local $\Ext$ algebras with their output, the sources of the
 paper, and the generators and TikZ sources of every figure are openly
-available on Zenodo under the DOI \zenodoCodeDOI, which identifies
-release 3.0.0 of the archive, the version that accompanies this paper. A
-document in the
+available on Zenodo under the DOI \zenodoCodeDOI; the version that
+accompanies this paper is release 3.1.0 of the archive. A document in the
 archive lists, for each result of the paper, the computations that check
 it. The programs perform $2004$ checks, all of which pass, and the
 Lean kernel checks one hundred and ten theorems, each depending on no axiom

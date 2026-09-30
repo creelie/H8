@@ -160,6 +160,7 @@ fig:bypass
 fig:charactergrid
 fig:closure
 fig:cmcube
+fig:cmseed
 fig:cmsource
 fig:delsarte
 fig:descent
