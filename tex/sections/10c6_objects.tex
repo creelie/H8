@@ -1130,8 +1130,11 @@ $n=3$, which products in the twisted differential can act on the $525$
 diagonal classes of degree two, of which at least $468$ must disappear
 before the corrected criterion can hold (\Cref{thm:esixdiagonal}). Nothing
 enters the diagonal, cup products remove at most $276$ of these classes, and
-everything else would have to be removed by one family of fourfold products,
-whose rank we do not determine.
+everything else would have to be removed by fourfold products along a path
+through the three multiples and one of the Weil pieces: one family of them
+for some placements of the multiples, and two families that exclude each
+other for the others (\Cref{prop:mixedplacement}). We do not determine
+their rank.
 
 \begin{setupenv}[Convolutions]\label{setup:convolution}
 Let $A$ be an abelian variety of dimension $g$ with a flat K\"ahler metric,
@@ -1454,7 +1457,8 @@ $L_{\zeta}$ has excess at least $1$. The cycle drawn runs up through all
 three $M_{i}$ and down once, the worst case, and still has excess
 $2n-3>0$, so for $n\ge3$ no term reaches the diagonal
 (\Cref{prop:nothingenters}). (b) The one path whose products act on the
-diagonal at $n=3$ (\Cref{thm:esixdiagonal}(i)), drawn at the same heights
+diagonal at $n=3$ when the $t_{i}$ lie above $p$
+(\Cref{thm:esixdiagonal}(i)), drawn at the same heights
 and in the order of the convolution, with the $\Ext$ degrees of its steps
 and the shifts they force; the dashed arrow is the value of the product with
 a diagonal class $y$.}
@@ -1565,8 +1569,9 @@ the $L_{\zeta}$ being stable under $\zeta\mapsto-\zeta$.
 \caption{The $525$ diagonal classes of degree two at $n=3$
 (\Cref{prop:cupkernel,thm:esixdiagonal}). The cup products remove $276$ of
 them for general components, and at most that many in any case, leaving
-$204$ at the pieces $L_{\zeta}$ and the $45$ at the $M_{i}$; the fourfold
-products of the surviving path remove at most $(t_{2}-t_{1})^{6}$ more,
+$204$ at the pieces $L_{\zeta}$ and the $45$ at the $M_{i}$; when the $t_{i}$
+lie on one side of $p$, the fourfold products of the surviving path remove
+at most $(t_{2}-t_{1})^{6}$ more,
 which is $1$ or $64$ for the gaps $1$ and $2$ and no constraint from the
 third gap on. The criterion asks for $57$, so $468$ classes must disappear
 in all and $192$ after the cup products. On the right, the graphs
@@ -1578,21 +1583,91 @@ products.}
 \label{fig:diagonalbudget}
 \end{figure}
 
+The placements of the $t_{i}$ on both sides of $p$ are not covered by
+\Cref{thm:esixdiagonal}. There the same computation finds two families of
+fourfold products instead of one, which no convolution carries together.
+
+\begin{proposition}[Placements on both sides of $p$]\label{prop:mixedplacement}
+Keep \Cref{thm:esixdiagonal}, but let $t_{1}\le p-2$ and
+$p+2\le t_{2}<t_{3}$.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item The Massey products of length at least three vanish on $D^{2}$ unless
+  $\sigma_{1}=\sigma_{2}=-\sigma_{3}$. In that case the only ones that act
+  have length four and run along one of the paths
+  \[
+    \textup{(a)}\ \ M_{2}\to M_{3}\to M_{1}\to L_{\zeta},
+    \qquad
+    \textup{(b)}\ \ M_{3}\to M_{1}\to L_{\zeta}\to M_{2},
+  \]
+  taken in this order in the convolution, with $\prod\zeta=\sigma_{3}$. The
+  products along (a) take values in $\cH^{6}(M_{2},L_{\zeta})$, of dimension
+  $\bigl((t_{2}-p)^{2}-1\bigr)^{3}$, and those along (b) in
+  $\cH^{6}(M_{3},M_{2})$, of dimension $(t_{3}-t_{2})^{6}$. A convolution
+  carries at most one of the two kinds, since (a) puts $M_{2}$ before $M_{3}$
+  and (b) puts $M_{3}$ before $M_{2}$.
+\item If $E$ meets the corrected criterion, then
+  $\sigma_{1}=\sigma_{2}=-\sigma_{3}$, and the products along (a) or those
+  along (b) have rank at least $192$ on the kernel of the cup products. For
+  (b) this needs $t_{3}-t_{2}\ge3$. The sixteen targets of (a) have
+  dimension $16\bigl((t_{2}-p)^{2}-1\bigr)^{3}\ge432$, so for (a) the
+  count gives no condition.
+\end{enumerate}
+For $t_{1}<t_{2}\le p-2$ and $t_{3}\ge p+2$ the same holds for
+$E^{\vee}[1]$, and the condition on the signs becomes
+$\sigma_{2}=\sigma_{3}=-\sigma_{1}$.
+\end{proposition}
+
+\begin{proof}
+(i) As in the proof of \Cref{thm:esixdiagonal}(i), the degrees of the steps
+depend only on which $t_{i}$ lie above $p$ and on their order, so the
+placement $p=0$, $t=(-2,2,4)$ is general, and the computation in
+\cite{BMB26} enumerates and filters the paths in the same way for all eight
+sign patterns. Survivors occur only for the two patterns with
+$\sigma_{1}=\sigma_{2}=-\sigma_{3}$; they are the paths (a) and (b),
+through each of the sixteen $L_{\zeta}$ with $\prod\zeta=\sigma_{3}$.
+Along (a) the steps have $\Ext$ degrees $0$, $6$ and $0$, so degree one
+forces $d_{M_{3}}=d_{M_{2}}+1$, $d_{M_{1}}=d_{M_{3}}-5$ and
+$d_{L}=d_{M_{1}}+1$. Along (b) they have $\Ext$ degrees $6$, $0$ and $0$,
+which forces $d_{M_{1}}=d_{M_{3}}-5$, $d_{L}=d_{M_{1}}+1$ and
+$d_{M_{2}}=d_{L}+1$. This gives the signs and puts the values in
+$\cH^{3+d_{M_{2}}-d_{L}}(M_{2},L_{\zeta})=\cH^{6}(M_{2},L_{\zeta})$ and in
+$\cH^{3+d_{M_{3}}-d_{M_{2}}}(M_{3},M_{2})=\cH^{6}(M_{3},M_{2})$. On $B_{j}$
+the line bundle $L_{\zeta}\otimes M_{2}^{-1}$ has the hermitian form
+$\bigl(\begin{smallmatrix}p-t_{2}&\zeta_{j}\\ \bbar\zeta_{j}&p-t_{2}
+\end{smallmatrix}\bigr)$, with eigenvalues $p-t_{2}\pm1<0$ and determinant
+$(t_{2}-p)^{2}-1$, which gives the first dimension. The second is that of
+\Cref{thm:esixdiagonal}(i) with $t_{3}$, $t_{2}$ in place of $t_{2}$,
+$t_{1}$.
+(ii) \Cref{prop:nothingenters,prop:cupkernel} do not depend on the
+placement of the $t_{i}$, so as in \Cref{thm:esixdiagonal}(ii)
+$\dim\Ext^{2}(E,E)\ge249-\rho$, where $\rho$ is the rank on the kernel of
+the cup products of the products of (i) that $E$ carries, and $\rho=0$
+unless $\sigma_{1}=\sigma_{2}=-\sigma_{3}$. The criterion asks for $57$,
+so $\rho\ge192$, and $(t_{3}-t_{2})^{6}\ge192$ exactly when
+$t_{3}-t_{2}\ge3$. For the last statement, $E\mapsto E^{\vee}[1]$ preserves
+$\Ext^{2}$, sends $p$ and the $t_{i}$ to $-p$ and the $-t_{i}$, reverses the
+order of the pieces and changes every sign; the computation also treats
+$t=(-4,-2,2)$ directly and finds the duals of the paths (a) and (b).
+\end{proof}
+
 \begin{remark}[What is left of the route]\label{rem:convolutionsopen}
-\Cref{thm:esixdiagonal} reduces the question for this family of objects at
-$n=3$ to one explicit family of Massey products: fourfold products
+\Cref{thm:esixdiagonal,prop:mixedplacement} reduce the question for this
+family of objects at $n=3$ to explicit families of Massey products of length
+four. When the $t_{i}$ lie on one side of $p$ they are the products
 $\cH^{0}(M_{2},M_{3})\otimes\cH^{6}(M_{3},L_{\zeta})\otimes\cH^{0}(L_{\zeta},M_{1})
 \otimes H^{2}(\cO_{A})\to\cH^{6}(M_{2},M_{1})$ of theta functions on the
 surfaces $B_{j}$, which would have to have rank at least $192$ on the kernel
-of the cup products, with $t_{2}-t_{1}\ge3$; and the Maurer--Cartan element
-of such a convolution would still have to exist. We have not computed these
-products, and nothing here decides whether they reach that rank. Products
-of length three and of length at least five do not act at all, and the cup
-products are computed exactly. Placements of the $t_{i}$ on both sides of $p$ are not covered by
-\Cref{thm:esixdiagonal}; for $p=0$ and $t=(-2,2,4)$ the same computation
-finds no surviving product for the sign patterns $(1,1,1)$, $(-1,1,1)$ and
-$(1,-1,1)$, hence none for six of the eight
-patterns.\footnote{The automorphism of $A$ that is $-1$ on the coordinate
+of the cup products, with $t_{2}-t_{1}\ge3$. When they lie on both sides
+they are the products along the paths (a) or (b) of
+\Cref{prop:mixedplacement}, with the same rank condition; along (a) the
+targets are large enough that no count of dimensions excludes them. In
+either case the Maurer--Cartan element of such a convolution would still
+have to exist. We have not computed these products, and nothing here decides
+whether they reach that rank. Products of length three and of length at
+least five do not act at all, and the cup products are computed exactly. In
+each placement exactly two of the eight sign patterns carry products, and
+the two are exchanged by a symmetry of the
+construction.\footnote{The automorphism of $A$ that is $-1$ on the coordinate
 $z_{n+1}$ and the identity on the others changes $\alpha$ into $-\alpha$,
 fixes $\theta$ and permutes the $L_{\zeta}$, changing $\zeta_{1}$ into
 $-\zeta_{1}$; composed with the shift $[1]$ it changes every $\sigma_{i}$

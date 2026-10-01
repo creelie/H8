@@ -246,11 +246,18 @@ L_zeta with prod zeta = +-1 have signed Chern characters adding up to
 `thm:esixdiagonal` (only fourfold products along M_{t2} -> M_{t3} -> L ->
 M_{t1}, with sigma_1 = sigma_3 = -sigma_2, act, into a space of dimension
 (t_2 - t_1)^6, so the criterion needs rank >= 192 and t_2 - t_1 >= 3;
-lengths 3, 5, 6 do not act) and `rem:convolutionsopen` (those fourfold
-products are not computed; n = 4 does not close), six footnotes, the figures
-`fig_convolutions` and `fig_diagonalbudget` of `figures/make_round32.py`,
-item (LXXI), `code/line_bundle_convolutions.py` (71 checks, 2075 in all), and
-Lean Section 41 (one hundred and fourteen theorems); 374 pages, 720 labels.
+lengths 3, 5, 6 do not act), `prop:mixedplacement` (t_1 <= p - 2 and
+p + 2 <= t_2 < t_3: only sigma_1 = sigma_2 = -sigma_3 carries products, of
+length four along M_2 -> M_3 -> M_1 -> L_zeta, into sixteen targets of
+dimension ((t_2 - p)^2 - 1)^3, total >= 432, or along M_3 -> M_1 -> L_zeta
+-> M_2, into (t_3 - t_2)^6; a convolution carries at most one of the two;
+the other mixed placement is its dual) and `rem:convolutionsopen` (those
+fourfold products are not computed; n = 4 does not close), six footnotes,
+the figures `fig_convolutions` and `fig_diagonalbudget` of
+`figures/make_round32.py`, item (LXXI), `code/line_bundle_convolutions.py`
+(89 checks, 2093 in all; the path search is pruned by a lower bound for the
+excess still to come and checked against the exhaustive one), and Lean
+Section 41 (one hundred and fourteen theorems); 375 pages, 721 labels.
 The paper cites the code through the concept DOI until Deep publishes
 release v3.1.0 and sends its version DOI. P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.

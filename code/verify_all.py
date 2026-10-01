@@ -215,7 +215,8 @@ Contents
   (LXXI) convolutions of line bundles and the diagonal of Ext^2: the
          pure Weil character from 2 4^{n-1} line bundles, the index lemma,
          the excess of loops, the degree drop on trees, the cup kernel 249
-         at n = 3, the surviving fourfold chains, n = 4
+         at n = 3, the surviving fourfold chains for the multiples on one
+         side of p and on both sides, n = 4
          [line_bundle_convolutions.py]
 """
 

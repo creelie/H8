@@ -16,7 +16,7 @@ alpha = prod_j (i/2) dz_j ^ dz-bar_{n+j} a Weil class.
 Paper: Section "Convolutions of line bundles" (ssec:convolutions) of the
 secant objects section: prop:weilpieces, lem:indexsum, lem:harmonicmodel,
 thm:fewpieces (with prop:rigidity), lem:degreedrop, prop:nothingenters, prop:cupkernel,
-thm:esixdiagonal, rem:convolutionsopen.
+thm:esixdiagonal, prop:mixedplacement, rem:convolutionsopen.
 
   (A) the pure Weil character: exact in the exterior algebra over Q(i) for
       n = 2, 3 and three values of p, and the per-surface identity
@@ -38,9 +38,13 @@ thm:esixdiagonal, rem:convolutionsopen.
   (H) the higher products at n = 3: with the multiples above the Weil pieces
       only the length-four chains M_{t2} -> M_{t3} -> L -> M_{t1} survive the
       degree bookkeeping and the Maurer-Cartan equation, and only for
-      sigma_1 = sigma_3 = -sigma_2; pure Weil pieces carry none; the mixed
-      placement carries none for the sign patterns checked;
-  (I) the thresholds: 249 - 57 = 192, (t_2 - t_1)^6 = 1, 64 < 192 <= 729;
+      sigma_1 = sigma_3 = -sigma_2; pure Weil pieces carry none; with t_1
+      below p and t_2, t_3 above (prop:mixedplacement) only the patterns
+      sigma_1 = sigma_2 = -sigma_3 carry products, along M_{t2} -> M_{t3} ->
+      M_{t1} -> L and M_{t3} -> M_{t1} -> L -> M_{t2}; the other placements
+      are their duals; the pruned search agrees with the exhaustive one;
+  (I) the thresholds: 249 - 57 = 192, (t_2 - t_1)^6 = 1, 64 < 192 <= 729,
+      and for the mixed placement 16 ((t_2 - p)^2 - 1)^3 >= 432;
   (J) n = 4: chains of length three and four among the Weil pieces pass the
       bookkeeping, so the analysis does not close there.
 """
@@ -434,6 +438,13 @@ def make_future(C):
     return so, fut, Ms
 
 
+def future(C):
+    """make_future(C), computed once per configuration."""
+    if not hasattr(C, "_future"):
+        C._future = make_future(C)
+    return C._future
+
+
 def outgoing_dp(C, m, starts, cap=12):
     """over-approximation (revisits of L pieces allowed) of the chains that
     carry a diagonal class of degree m out of the diagonal; returns
@@ -441,7 +452,7 @@ def outgoing_dp(C, m, starts, cap=12):
     n = C.n
     hi = 2 * n - m - 1
     lo = -(m + 1)
-    so, fut, Ms = make_future(C)
+    so, fut, Ms = future(C)
     cl = lambda v: tuple(min(x, cap) for x in v)
     found = set()
     for s in starts:
@@ -479,16 +490,25 @@ def outgoing_dp(C, m, starts, cap=12):
     return found
 
 
-def paths_exact(C, m, s, e, k):
+def paths_exact(C, m, s, e, k, prune=True):
+    """every path s -> ... -> e of k distinct pieces, with its step degrees
+    and the type tau of the diagonal class, meeting the conditions above.
+    With prune, a branch is cut as soon as the least excess of any
+    continuation (fut, which visits the remaining M_i in the cheapest way)
+    takes the total above hi; the output is the same."""
     n = C.n
     hi = 2 * n - m - 1
     lo = -(m + 1)
-    so = {kk: step_options(C, kk[0], kk[1], 1) for kk in C.opts}
+    so, fut, Ms = future(C)
     out = []
     tr = C.target_range(s, e)
 
     def dfs(path, degs, cost, sd, u):
         cur = path[-1]
+        if prune:
+            unv = tuple(x for x in Ms if x not in path)
+            if cost + fut(C.isM(cur), cur if C.isM(cur) else -1, unv) > hi:
+                return
         if len(path) == k:
             if cur != e or not (lo <= cost <= hi):
                 return
@@ -511,12 +531,18 @@ def paths_exact(C, m, s, e, k):
     return out
 
 
-def mc_alternatives(C, a, b, c, maxk=6):
+def mc_alternatives(C, a, b, c, maxk=6, prune=True):
+    """the other paths a -> ... -> c of total excess -2 that contribute to
+    the component of the Maurer-Cartan equation containing a -> b -> c.
+    With prune the search stops at the first one and cuts a branch when no
+    continuation can bring the excess down to -2; only emptiness is used."""
     n = C.n
-    so = {kk: step_options(C, kk[0], kk[1], 1) for kk in C.opts}
+    so, fut, Ms = future(C)
     res = []
 
     def dfs(path, cost, sd, u):
+        if prune and res:
+            return
         cur = path[-1]
         if cur == c:
             k = len(path) - 1
@@ -526,6 +552,10 @@ def mc_alternatives(C, a, b, c, maxk=6):
             return
         if len(path) > maxk:
             return
+        if prune:
+            unv = tuple(x for x in Ms if x not in path)
+            if cost + fut(C.isM(cur), cur if C.isM(cur) else -1, unv) > -2:
+                return
         for nxt in range(C.N):
             if nxt in path:
                 continue
@@ -539,10 +569,15 @@ def mc_alternatives(C, a, b, c, maxk=6):
     return res
 
 
-def mc_filter(C, pieces, degs):
+def mc_filter(C, pieces, degs, prune=True):
+    if not hasattr(C, "_mcalt"):
+        C._mcalt = {}
     for i in range(len(pieces) - 2):
         if all(d == 0 for d in degs[i]) and all(d == 0 for d in degs[i + 1]):
-            if not mc_alternatives(C, pieces[i], pieces[i + 1], pieces[i + 2]):
+            key = (pieces[i], pieces[i + 1], pieces[i + 2], prune)
+            if key not in C._mcalt:
+                C._mcalt[key] = bool(mc_alternatives(C, *key[:3], prune=prune))
+            if not C._mcalt[key]:
                 return False
     return True
 
@@ -553,7 +588,7 @@ def piece_name(C, x):
     return 'L' + ('+' if C.pieces[x][1] > 0 else '-')
 
 
-def higher_shapes(n, p, Ts, Ms):
+def higher_shapes(n, p, Ts, Ms, prune=True):
     C = Config(n, p, Ts, Ms)
     Lp = [i for i in range(C.N) if not C.isM(i) and C.pieces[i][1] == 1][0]
     Lm = [i for i in range(C.N) if not C.isM(i) and C.pieces[i][1] == -1][0]
@@ -562,8 +597,8 @@ def higher_shapes(n, p, Ts, Ms):
     hk = sorted(set((s, e, k) for s, e, tau, k, cost in r if k >= 3))
     surv = []
     for s, e, k in hk:
-        for pieces, degs, tau in paths_exact(C, 2, s, e, k):
-            if mc_filter(C, pieces, degs):
+        for pieces, degs, tau in paths_exact(C, 2, s, e, k, prune):
+            if mc_filter(C, pieces, degs, prune):
                 surv.append((pieces, degs, tau))
     shapes = sorted(set(' -> '.join(piece_name(C, x) for x in pc)
                         for pc, _, _ in surv))
@@ -804,11 +839,92 @@ def part_H():
                       for pc, _, _ in surv)
             check("(H) signs %s: every survivor is M_{t2} -> M_{t3} -> L -> "
                   "M_{t1}, length four, landing in Hom(M_4, M_2)" % (sg,), ok)
-    for sg in ((1, 1, 1), (-1, 1, 1), (1, -1, 1)):
-        nk, shapes, _, _ = higher_shapes(3, 0, [-2, 2, 4], list(sg))
-        check("(H) mixed placement t = (-2, 2, 4), signs %s: no product of "
-              "length >= 3 leaves the diagonal" % (sg,), shapes == [],
-              "%d candidate triples" % nk)
+    _, _, s0, _ = higher_shapes(3, 0, [2, 4, 6], [1, -1, 1], prune=False)
+    _, _, s1, _ = higher_shapes(3, 0, [2, 4, 6], [1, -1, 1])
+    check("(H) the pruned search finds the same %d surviving paths as the "
+          "exhaustive one at t = (2, 4, 6), signs (1, -1, 1)" % len(s1),
+          sorted(s0) == sorted(s1) and len(s1) == 96)
+    part_H_mixed()
+
+
+def flip_name(nm):
+    """the name of a piece of the dual configuration E^vee[1]: the value
+    t goes to -t and the sign changes."""
+    sg = '-' if nm[-1] == '+' else '+'
+    if nm[0] == 'L':
+        return 'L' + sg
+    return 'M%d%s' % (-int(nm[1:-1]), sg)
+
+
+def dual_shapes(shapes):
+    return sorted(' -> '.join(flip_name(x) for x in reversed(sh.split(' -> ')))
+                  for sh in shapes)
+
+
+def part_H_mixed():
+    """placements on both sides of p (prop:mixedplacement)."""
+    A, B = 'M2+ -> M4- -> M-2+ -> L-', 'M4- -> M-2+ -> L- -> M2+'
+    expect = {(1, 1, -1): [A, B],
+              (-1, -1, 1): ['M2- -> M4+ -> M-2- -> L+',
+                            'M4+ -> M-2- -> L+ -> M2-']}
+    for sg in itertools.product([1, -1], repeat=3):
+        nk, shapes, surv, C = higher_shapes(3, 0, [-2, 2, 4], list(sg))
+        want = expect.get(sg, [])
+        check("(H) mixed placement t = (-2, 2, 4), signs %s: surviving "
+              "chains %s" % (sg, want if want else "none"), shapes == want,
+              "%d candidate triples, surviving %s" % (nk, shapes))
+        if not want:
+            continue
+        t1, t2, t3 = [i for i in range(C.N) if C.isM(i)]
+        ok_len = all(len(pc) == 4 for pc, _, _ in surv)
+        pa = [(pc, dg) for pc, dg, _ in surv if pc[0] == t2]
+        pb = [(pc, dg) for pc, dg, _ in surv if pc[0] == t3]
+        ok_a = all(pc[1:3] == (t3, t1) and not C.isM(pc[3])
+                   and C.pieces[pc[3]][1] == sg[2]
+                   and dg == ((0, 0, 0), (2, 2, 2), (0, 0, 0))
+                   for pc, dg in pa)
+        ok_b = all(pc[1] == t1 and not C.isM(pc[2]) and pc[3] == t2
+                   and C.pieces[pc[2]][1] == sg[2]
+                   and dg == ((2, 2, 2), (0, 0, 0), (0, 0, 0))
+                   for pc, dg in pb)
+        check("(H) signs %s: every survivor has length four and is "
+              "(a) M_{t2} -> M_{t3} -> M_{t1} -> L or (b) M_{t3} -> M_{t1} -> "
+              "L -> M_{t2}, with Ext degrees 0, 6, 0 or 6, 0, 0 and "
+              "prod zeta = sigma_3" % (sg,),
+              ok_len and ok_a and ok_b and len(pa) + len(pb) == len(surv)
+              and len(pa) > 0 and len(pb) > 0)
+        ends = set(pc[3] for pc, _ in pa)
+        check("(H) signs %s: the paths (a) end at all 16 pieces L_zeta with "
+              "prod zeta = sigma_3, the paths (b) pass through all 16"
+              % (sg,), len(ends) == 16
+              and len(set(pc[2] for pc, _ in pb)) == 16)
+        # shifts: a step of Ext degree q between a and b has degree one when
+        # d_b = d_a + 1 - q; the signs are (-1)^d and the value lies in
+        # H^{3 + d_s - d_e}
+        ok = True
+        for pc, dg in pa + pb:
+            d = [0]
+            for q in dg:
+                d.append(d[-1] + 1 - sum(q))
+            ok &= all(C.pieces[x][1] * C.pieces[pc[0]][1] == (-1) ** (dx % 2)
+                      for x, dx in zip(pc, d))
+            ok &= 3 + d[0] - d[-1] == 6
+        check("(H) signs %s: the shifts forced by degree one give the signs "
+              "of the pieces and put the value in H^6" % (sg,), ok)
+        check("(H) signs %s: (a) puts M_{t2} before M_{t3} and (b) puts "
+              "M_{t3} before M_{t2}, so no convolution carries both" % (sg,),
+              all(pc.index(t2) < pc.index(t3) for pc, _ in pa)
+              and all(pc.index(t3) < pc.index(t2) for pc, _ in pb))
+    for Ts, Td in (([-2, 2, 4], [-4, -2, 2]), ([2, 4, 6], [-6, -4, -2])):
+        ok = True
+        for sg in itertools.product([1, -1], repeat=3):
+            _, shapes, _, _ = higher_shapes(3, 0, list(Td), list(sg))
+            src = tuple(-x for x in reversed(sg))
+            _, shp, _, _ = higher_shapes(3, 0, list(Ts), list(src))
+            ok &= shapes == dual_shapes(shp)
+        check("(H) t = %s: for each of the eight sign patterns the survivors "
+              "are the duals E^vee[1] of those at t = %s" % (tuple(Td), tuple(Ts)),
+              ok)
 
 
 # ----------------------------------------------------------------------
@@ -826,6 +942,22 @@ def part_I():
           and 64 < 192 <= 729)
     check("(I) (t2 - t1)^6 >= 192 exactly when t2 - t1 >= 3",
           all((g ** 6 >= 192) == (g >= 3) for g in range(1, 20)))
+    ok = True
+    for g in range(2, 8):
+        for z in (1, sp.I, -1, -sp.I):
+            H = sp.Matrix([[-g, z], [sp.conjugate(z), -g]])
+            ev = sorted(H.eigenvals())
+            ok &= ev == [-g - 1, -g + 1] and H.det() == g * g - 1
+    check("(I) mixed placement: on each surface the difference of M_{t2} and "
+          "L_zeta has eigenvalues p - t2 -+ 1 < 0 and determinant "
+          "(t2 - p)^2 - 1, so the target of the paths (a) has dimension "
+          "((t2 - p)^2 - 1)^3, 27 at t2 - p = 2", ok and (2 ** 2 - 1) ** 3 == 27)
+    check("(I) its sixteen targets have dimension 16 ((t2 - p)^2 - 1)^3 >= "
+          "432 >= 192, so the count leaves the paths (a) open; the paths (b) "
+          "land in H^6(M_{t3}, M_{t2}) and need t3 - t2 >= 3",
+          all(16 * ((g * g - 1) ** 3) >= 432 for g in range(2, 20))
+          and 432 >= 192 and all((g ** 6 >= 192) == (g >= 3)
+                                 for g in range(1, 20)))
 
 
 # ----------------------------------------------------------------------

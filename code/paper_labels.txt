@@ -337,6 +337,7 @@ prop:lefvhc
 prop:lowrankburch
 prop:markman8
 prop:markmanquarticclasses
+prop:mixedplacement
 prop:modp
 prop:mumfordcarrier
 prop:mumfordcmpowers

@@ -275,6 +275,7 @@
   "prop:nothingenters",
   "prop:cupkernel",
   "thm:esixdiagonal",
+  "prop:mixedplacement",
   "rem:convolutionsopen"
  ]
 }
