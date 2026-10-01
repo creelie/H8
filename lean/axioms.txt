@@ -112,3 +112,6 @@
 'HodgeObstruction.conv_cup_kernel' depends on axioms: [propext]
 'HodgeObstruction.conv_run_excess' does not depend on any axioms
 'HodgeObstruction.conv_esix_thresholds' does not depend on any axioms
+'HodgeObstruction.ff_partner_counts' does not depend on any axioms
+'HodgeObstruction.ff_shift_table' does not depend on any axioms
+'HodgeObstruction.ff_noconvolution_counts' does not depend on any axioms

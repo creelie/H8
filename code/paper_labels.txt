@@ -81,6 +81,7 @@ eq:Qplusminus
 eq:Sbasis
 eq:V10
 eq:Vsplit
+eq:allthree
 eq:bdform
 eq:bfield
 eq:bisplit
@@ -213,6 +214,7 @@ lem:NSchar
 lem:Rendomorphism
 lem:absemireg
 lem:algstrata
+lem:allthree
 lem:ambient
 lem:annihilation
 lem:annihilator
@@ -309,6 +311,7 @@ prop:disjoint
 prop:divfails
 prop:divroute
 prop:evaluation
+prop:explicitconvolution
 prop:explicitobject
 prop:f2isab
 prop:f3ishc
@@ -319,6 +322,7 @@ prop:f3primesmall
 prop:f3primestrength
 prop:firstorder
 prop:flatall
+prop:fourfoldrank
 prop:genus3
 prop:grading
 prop:grr
@@ -685,6 +689,7 @@ thm:mumfordprofile
 thm:mumfordrigid
 thm:noblocks
 thm:noci
+thm:noconvolution
 thm:nosplit
 thm:nosum
 thm:p1equivalent

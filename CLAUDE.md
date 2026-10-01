@@ -266,6 +266,26 @@ Shioda-Inose structure needs transcendental rank at most five; Floccari,
 Paranjape and Ingalls-Logan-Patashnick need at most six; S_lambda has rank
 nine and a totally real, not CM, endomorphism field); no new labels, no code
 change (2093 checks, 114 Lean theorems, 375 pages, 721 labels).
+Round 33 continued, at Deep's request for constructions, with the round 32
+fourfold Massey family on E_0^6, computed in theta functions after pulling
+the pieces back along degree-4 covers of each E_0^2: `prop:fourfoldrank`
+(the products have rank 192 on the 192 diagonal classes of type (1,1,0), a
+double-precision rank with singular-value ratio 0.016, so the diagonal
+count can be met), `prop:explicitconvolution` (an order of the 35 pieces
+whose Maurer-Cartan equation is exactly x_1 x_2^zeta = 0 and
+sum x_2^zeta x_3^zeta = 0; diagonal kernel <= 57 but dim Ext^2 >= 2560),
+`lem:allthree` (Weil pieces of opposite parity differing in all three
+coordinates with adjacent shifts give isolated H^3 blocks of dimension
+prod |zeta_j - zeta'_j|^2) and `thm:noconvolution` (every convolution of
+these pieces with |t_i - p| >= 2 has dim Ext^2 >= 69 > 57, so the route
+closes negatively at n = 3, Markman's trivial-discriminant case; n = 4
+open), with `rem:convolutionsopen` rewritten, four footnotes, the
+double-precision exception stated in the introduction, the title-page
+footnote and the computations list, item (LXXII), `code/fourfold_products.py`
+(42 checks, 2135 in all), Lean Section 42 (117 theorems), and an
+`\enlargethispage{2pt}` at `setup:rm` in `tex/sections/13_families.tex`;
+`make_computations.py` now joins item titles that span lines; 379 pages,
+726 labels.
 The paper cites the code through the concept DOI until Deep publishes
 release v3.1.0 and sends its version DOI. P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
@@ -290,7 +310,7 @@ section.
 - `cd code && python3 verify_all.py` ends with `N checks passed, 0 failed`;
   keep the count in `README.md`, `lean/README.md`, `.zenodo.json`,
   `.github/workflows/lean.yml` and `tex/declarations.tex` in step.
-- `cd lean && lean HodgeObstruction.lean`: 114 theorems, each axiom-free or
+- `cd lean && lean HodgeObstruction.lean`: 117 theorems, each axiom-free or
   depending on `propext` only.
 - `cd tex && latexmk -pdf main.tex`: 0 errors, 0 overfull or underfull boxes,
   no undefined references.

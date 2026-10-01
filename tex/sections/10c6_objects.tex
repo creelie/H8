@@ -1133,8 +1133,14 @@ enters the diagonal, cup products remove at most $276$ of these classes, and
 everything else would have to be removed by fourfold products along a path
 through the three multiples and one of the Weil pieces: one family of them
 for some placements of the multiples, and two families that exclude each
-other for the others (\Cref{prop:mixedplacement}). We do not determine
-their rank.
+other for the others (\Cref{prop:mixedplacement}). Those products do reach
+the rank needed (\Cref{prop:fourfoldrank}), and one order of the pieces
+gives a convolution that solves the Maurer--Cartan equation and meets the
+diagonal count (\Cref{prop:explicitconvolution}). The obstruction then
+moves off the diagonal: the classes between two pieces that differ in every
+coordinate are reached by no product (\Cref{lem:allthree}), and no
+convolution of these pieces meets the corrected criterion
+(\Cref{thm:noconvolution}).
 
 \begin{setupenv}[Convolutions]\label{setup:convolution}
 Let $A$ be an abelian variety of dimension $g$ with a flat K\"ahler metric,
@@ -1650,30 +1656,371 @@ order of the pieces and changes every sign; the computation also treats
 $t=(-4,-2,2)$ directly and finds the duals of the paths (a) and (b).
 \end{proof}
 
-\begin{remark}[What is left of the route]\label{rem:convolutionsopen}
-\Cref{thm:esixdiagonal,prop:mixedplacement} reduce the question for this
-family of objects at $n=3$ to explicit families of Massey products of length
-four. When the $t_{i}$ lie on one side of $p$ they are the products
-$\cH^{0}(M_{2},M_{3})\otimes\cH^{6}(M_{3},L_{\zeta})\otimes\cH^{0}(L_{\zeta},M_{1})
-\otimes H^{2}(\cO_{A})\to\cH^{6}(M_{2},M_{1})$ of theta functions on the
-surfaces $B_{j}$, which would have to have rank at least $192$ on the kernel
-of the cup products, with $t_{2}-t_{1}\ge3$. When they lie on both sides
-they are the products along the paths (a) or (b) of
-\Cref{prop:mixedplacement}, with the same rank condition; along (a) the
-targets are large enough that no count of dimensions excludes them. In
-either case the Maurer--Cartan element of such a convolution would still
-have to exist. We have not computed these products, and nothing here decides
-whether they reach that rank. Products of length three and of length at
-least five do not act at all, and the cup products are computed exactly. In
-each placement exactly two of the eight sign patterns carry products, and
-the two are exchanged by a symmetry of the
+The products of \Cref{thm:esixdiagonal}(i) can be computed, and they do
+reach the rank the theorem asks for. They are computed on covers. On
+$B_{j}$ the isogeny $\phi_{u}(w_{1},w_{2})=(w_{1}+w_{2},\,u(w_{1}-w_{2}))$
+from $E_{0}\times E_{0}$, of degree four, with $u=\zeta_{j}$, pulls the form
+of $L_{\zeta}$ back to $\operatorname{diag}(2(p+1),2(p-1))$ and those of the
+$M_{i}$ to $\operatorname{diag}(2t_{i},2t_{i})$, so that along a path every
+piece becomes an external product of line bundles on six elliptic curves and
+the Laplacian splits.\footnote{The kernel of $\phi_{u}$ is
+$\{(h,h):2h\in\ZZ[i]\}$, of order four. Pulling back the flat metrics, the
+harmonic forms, $G$ and $h$ on $B_{j}$ are the forms and operators on the
+cover that commute with this kernel, so nothing is lost by computing
+upstairs.}
+
+\begin{proposition}[The fourfold products remove the classes]
+\label{prop:fourfoldrank}
+Keep \Cref{thm:esixdiagonal} with $p=0$ and $t=(2,5,6)$, with the order and
+the signs of (i) there and $\sigma_{2}=1$, so that the paths run through the
+sixteen $L_{\zeta}$ with $\prod\zeta=1$. Take the pieces to be external
+products $L_{\zeta}=N_{1,\zeta_{1}}\boxtimes N_{2,\zeta_{2}}\boxtimes
+N_{3,\zeta_{3}}$ and $M_{i}=M_{i,1}\boxtimes M_{i,2}\boxtimes M_{i,3}$ of line
+bundles on the $B_{j}$. Let $Y_{110}\subset D^{2}$ be the space of classes
+that vanish at the $M_{i}$, whose components of the three types $(2,0,0)$
+vanish, and whose components of the three types $(1,1,0)$ are constant on
+the components of the graphs $\Gamma_{\tau}$ of \Cref{prop:cupkernel}. Then
+$\dim Y_{110}=192$ and the cup products vanish on $Y_{110}$. For all choices
+of the $N_{j,u}$, the $M_{i,j}$ and the harmonic components
+$x_{1}\in\cH^{0}(M_{2},M_{3})$, $x_{2}^{\zeta}\in\cH^{6}(M_{3},L_{\zeta})$ and
+$x_{3}^{\zeta}\in\cH^{0}(L_{\zeta},M_{1})$ outside a closed nowhere dense
+set, the fourfold products of \Cref{thm:esixdiagonal}(i) are injective on
+$Y_{110}$, with values in $\cH^{6}(M_{2},M_{1})$, of dimension $729$. They
+are also injective for some components with $x_{1}x_{2}^{\zeta}=0$ and
+$x_{2}^{\zeta}x_{3}^{\zeta}=0$ for every $\zeta$, and for general choices at
+$t=(2,5,7)$.
+\end{proposition}
+
+\begin{proof}
+A component of $\Gamma_{\tau}$ for $\tau$ of type $(1,1,0)$ is a pair of
+pieces, one with $\prod\zeta=1$ and one with $\prod\zeta=-1$, so restriction
+to the sixteen $L_{\zeta}$ with $\prod\zeta=1$ is an isomorphism of
+$Y_{110}$ onto the space of their classes of type $(1,1,0)$, of dimension
+$16\cdot12$; the cup products vanish by \Cref{prop:cupkernel}. Since $y$
+vanishes at the $M_{i}$, the products on $y\in Y_{110}$ are
+$\sum_{\zeta}m_{4}(x_{1},x_{2}^{\zeta},y_{\zeta},x_{3}^{\zeta})$, where
+$y_{\zeta}$ is the component at $L_{\zeta}$ and $m_{4}$ is the sum over the
+five planar binary trees with four leaves of \Cref{lem:harmonicmodel}(iii).
+Pull back by $\phi_{\zeta_{1}}\times\phi_{\zeta_{2}}\times\phi_{\zeta_{3}}$
+and write $h=\sum_{a}h_{a}$ over the six curves, as in
+\Cref{lem:degreedrop}. A class of type $(1,1,0)$ is a sum of forms
+$d\bar w_{a}\wedge d\bar w_{b}$ with the curves $a$, $b$ over two different
+surfaces. On the curves, $x_{1}$ and $x_{3}$ have degree $0$, $x_{2}$ has
+degree $1$ on all six, and $d\bar w_{a}\wedge d\bar w_{b}$ has degree $1$ on
+$a$ and on $b$. The value has degree $1$ on every curve, so the two internal
+edges carry $h_{a}$ and $h_{b}$; and a product of two forms of degree one on
+a curve vanishes. Of the five trees only $(x_{1}x_{2})(y\,x_{3})$ survives,
+with $h_{a}$ on one internal edge and $h_{b}$ on the other, in either
+assignment.
+
+On a curve, a line bundle of degree $d>0$ with its flat metric has, in the
+unitary gauge, $\nabla_{\bar z}=\partial_{\bar z}+\tfrac{\pi d}{2}z$ and
+$\nabla_{z}=\partial_{z}-\tfrac{\pi d}{2}\bar z$ with
+$[\nabla_{\bar z},\nabla_{z}]=-\pi d$, so its sections split into levels,
+the $k$-th spanned by $\nabla_{z}^{k}$ of the holomorphic sections, on which
+the Laplacian is a positive multiple of $k$ and $\nabla_{z}^{k}$ multiplies
+the squared norm by $k!\,(\pi d)^{k}$; the levels of a bundle of negative
+degree are the conjugates. The operator $h_{a}$ acts on each level of the
+product $x_{1}x_{2}$ on the curve $a$ by an explicit scalar, and after the
+final harmonic projection only the levels $0$ and $1$ contribute. This
+writes the value on $d\bar w_{a}\wedge d\bar w_{b}$ as a difference of two
+explicit sums of products, over the six curves, of integrals of theta
+functions and of their first derivatives in this gauge.\footnote{On the
+curves other than $a$ and $b$ the factor is the cup product; on $a$ and $b$
+it is either the level one part of $x_{1}x_{2}$ lowered by
+$\bar\partial^{*}$, or the level zero or level one part of $x_{1}x_{2}$
+paired with $\nabla_{z}x_{3}$. The two sums come from the two assignments
+of $h_{a}$ and $h_{b}$, and the rank below is the same when their relative
+sign is reversed, so it does not depend on the sign conventions.} A
+computation in \cite{BMB26} evaluates these sums by quadrature, after
+checking the automorphy, the orthonormality and the norms of the levels,
+the selection rules and the invariance under the kernels of the
+$\phi_{\zeta_{j}}$, and pairs the values with a common basis of
+$\cH^{6}(M_{2},M_{1})$, dual to the products of theta functions in the
+coordinates of $A$ pulled back to each cover. For one choice of the line
+bundles and the components the resulting $729\times192$ matrix has rank
+$192$: its smallest singular value is $0.016$ of its largest, while changing
+the quadrature grid moves the entries by less than $10^{-14}$ of their size.
+The computation is in double precision; the integrands are periodic and
+real-analytic, so the quadrature converges geometrically, and by Weyl's
+inequality for singular values the rank is $192$ as long as the error of the
+matrix has norm below $0.016$ of its largest singular value.
+The entries depend real-analytically on the line bundles and linearly on
+each component, so the rank is $192$ outside the common zero set of the
+maximal minors, which is closed and nowhere dense. The same computation finds
+rank $192$ for components with $x_{1}x_{2}^{\zeta}=x_{2}^{\zeta}x_{3}^{\zeta}=0$
+(those of \Cref{prop:explicitconvolution}(ii)) and at $t=(2,5,7)$.
+\end{proof}
+
+So the inequality of \Cref{thm:esixdiagonal}(iii) can hold. The
+Maurer--Cartan equation can be solved as well, for one order of the pieces.
+
+\begin{proposition}[An explicit convolution]\label{prop:explicitconvolution}
+Keep \Cref{prop:fourfoldrank}, and order the pieces as $M_{2}$, $M_{3}$, the
+sixteen $L_{\zeta}$ with $\prod\zeta=1$, $M_{1}$, the sixteen $L_{\zeta}$
+with $\prod\zeta=-1$, with the shifts $0$, $1$, $-4$, $-3$, $-5$.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item The components that the degrees allow are
+  $x_{1}\in\cH^{0}(M_{2},M_{3})$, $x_{2}^{\zeta}\in\cH^{6}(M_{3},L_{\zeta})$,
+  $x_{3}^{\zeta}\in\cH^{0}(L_{\zeta},M_{1})$, components in
+  $\cH^{2}(L_{\zeta},L_{\zeta'})$ for the $48+96$ pairs with
+  $\prod\zeta=1=-\prod\zeta'$ that differ in one or two coordinates, and
+  components in $\cH^{6}(M_{2},L_{\zeta'})$, $\prod\zeta'=-1$, which we take
+  to be zero. For harmonic components the Maurer--Cartan equation is exactly
+  \[
+    x_{1}x_{2}^{\zeta}=0\ \text{in}\ H^{6}(A,M_{2}^{-1}\otimes L_{\zeta})
+    \ \text{for every}\ \zeta,
+    \qquad
+    \sum_{\zeta}x_{2}^{\zeta}x_{3}^{\zeta}=0\ \text{in}\
+    H^{6}(A,M_{3}^{-1}\otimes M_{1}),
+  \]
+  and every solution is the harmonic part of a convolution $E$ with
+  $\ch(E)=32(\alpha+\bbar\alpha)+e^{5\theta}-e^{6\theta}-e^{2\theta}$.
+\item There are solutions with every $x_{2}^{\zeta}\ne0$ and
+  $x_{1}x_{2}^{\zeta}=x_{2}^{\zeta}x_{3}^{\zeta}=0$, and for some of them,
+  with general components on the $144$ pairs, $\dim\ker(d_{E}|_{D^{2}})\le57$:
+  the diagonal count of \Cref{thm:esixdiagonal} is met.
+\item For every solution $\dim\Ext^{2}(E,E)\ge2560$, so $E$ does not meet
+  the corrected criterion.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) A component from $P_{a}$ to $P_{b}$ has $\Ext$ degree $1+d_{a}-d_{b}$, and
+the forms give the cohomology of each pair: $\cH(M_{2},M_{3})$ and
+$\cH(L_{\zeta},M_{1})$ sit in degree $0$, $\cH(M_{3},L_{\zeta})$,
+$\cH(M_{2},L_{\zeta'})$ and $\cH(M_{2},M_{1})$ in degree $6$, and
+$\cH(L_{\zeta},L_{\zeta'})$ in degree $2$ exactly for the pairs listed; no
+other pair has cohomology in the degree a component needs. Put
+$\delta=\delta^{H}-h(\delta\circ\delta)$ recursively, as in
+\Cref{lem:harmonicmodel}(i), and $\Phi=\bar\partial\delta+\delta\circ\delta$.
+Then $\Phi=\pi(\delta\circ\delta)+h\bar\partial(\delta\circ\delta)$ and
+$\bar\partial(\delta\circ\delta)=\Phi\circ\delta-\delta\circ\Phi$, so by
+induction on $b-a$ the twisted complex exists exactly when
+$\pi(\delta\circ\delta)=0$. The components of $\pi(\delta\circ\delta)$ come
+from paths of two or more components; those that land in a nonzero group
+are $x_{1}x_{2}^{\zeta}$ in $\cH^{6}(M_{2},L_{\zeta})$ and
+$\sum_{\zeta}x_{2}^{\zeta}x_{3}^{\zeta}$ in $\cH^{6}(M_{3},M_{1})$, while the
+product along $M_{2}\to M_{3}\to L_{\zeta}\to M_{1}$ would lie in
+$\cH^{5}(M_{2},M_{1})=0$ and $x_{2}^{\zeta}$ composed with a component in
+$\cH^{2}(L_{\zeta},L_{\zeta'})$ in degree eight. The signs
+$(-1)^{d}$ are $+,-,+,-,-$, which gives the Chern character by
+\Cref{prop:weilpieces}(i).
+(ii) Take $x_{1}$ and the $x_{3}^{\zeta}$ to be external products of sections
+on the $B_{j}$. On each $B_{j}$ the products with their factors map $H^{2}(B_{j},M_{3}^{-1}L_{\zeta})$, of dimension $35$, onto
+spaces of dimensions $24$ and $16$, so they have kernels of dimensions $11$
+and $19$. A sum of external products whose factor on one surface lies in the
+first kernel and whose factor on another lies in the second is a nonzero
+$x_{2}^{\zeta}$ with $x_{1}x_{2}^{\zeta}=x_{2}^{\zeta}x_{3}^{\zeta}=0$, which
+solves (i).\footnote{Such solutions are far from unique: the equations of
+(i) are linear in each of $x_{1}$, $x_{2}^{\zeta}$, $x_{3}^{\zeta}$
+separately, and the components on the $144$ pairs do not enter them at
+all.} By \Cref{prop:fourfoldrank} there are such solutions on which the
+fourfold products are injective on $Y_{110}$. Choose the components on the
+$144$ pairs general, so that the cup products have the kernel $Y$ of
+dimension exactly $249$ of \Cref{prop:cupkernel}, which contains $Y_{110}$.
+On $D^{2}$ the differential is the sum of the cup products and of the
+fourfold products, which land in different groups, since no component joins
+$M_{2}$ to $M_{1}$; so $\ker(d_{E}|_{D^{2}})$ is the kernel of the fourfold
+products on $Y$, of dimension at most $249-192=57$.
+(iii) The sixteen $L_{\zeta}$ with $\prod\zeta=1$ have shift $-4$ and the
+others $-5$, so \Cref{lem:allthree} below applies to every pair of them
+that differ in all three coordinates: there are $112$ such pairs, and their
+groups $\cH^{3}$ have dimensions adding up to $16\cdot160=2560$.
+\end{proof}
+
+The classes counted in (iii) are the ones no product can reach. Two pieces
+$L_{\zeta}$, $L_{\zeta'}$ that differ in every coordinate have a difference
+that is indefinite on every surface, so $\cH(L_{\zeta},L_{\zeta'})$ is
+$\bigotimes_{j}H^{1}(B_{j},\cdot)$, concentrated in degree three, of
+dimension $D(\zeta,\zeta')=\prod_{j}|\zeta_{j}-\zeta'_{j}|^{2}$; no component
+can join them, and if their shifts differ by one their classes have degree
+two.
+
+\begin{lemma}[Pieces that differ everywhere]\label{lem:allthree}
+Keep \Cref{prop:nothingenters} with $n=3$. Suppose that for some integer $r$
+either $p+2\le t_{1}<t_{2}<t_{3}$ and $M_{1}$, $M_{2}$, $M_{3}$ have the
+shifts $r+1$, $r+4$, $r+5$, or $t_{1}\le p-2<p+2\le t_{2}<t_{3}$ and they
+have the shifts $r-1$, $r+3$, $r+4$ or $r-1$, $r+1$, $r+4$; these are the
+shifts forced by the paths of \Cref{thm:esixdiagonal}(i) and of
+\Cref{prop:mixedplacement}(i), (a) and (b), with $r$ the shift of the
+$L_{\zeta}$ on the path. Let $L_{\zeta}$, $L_{\zeta'}$ differ in all three
+coordinates, with $d_{L_{\zeta}}=d_{L_{\zeta'}}+1$. Then $d_{E}$ vanishes on
+$\cH^{3}(L_{\zeta},L_{\zeta'})$, and no element of degree one has a
+differential with a nonzero component there. Consequently
+\[
+  \dim\Ext^{2}(E,E)\;\ge\;\dim\ker\bigl(d_{E}|_{D^{2}}\bigr)
+  +\sum D(\zeta,\zeta'),
+\]
+the sum running over the pairs of this kind.
+\end{lemma}
+
+\begin{proof}
+Only the shifts are used, and the order of the pieces only removes
+components, so we ignore it. A component from $P_{a}$ to $P_{b}$ of $\Ext$
+degree $q$ has $d_{b}=d_{a}+1-q$. Between distinct $L_{\zeta}$ the degree $q$
+is at least $2$: there is no $\cH^{0}$, and $\cH^{1}$ occurs only for pieces
+differing in one coordinate, which have opposite parities, while $q=1$ would
+need equal shifts. So a component between two $L_{\zeta}$ lowers the shift
+by at least one, and by exactly one only in degree two. For a multiple
+$M_{i}$ let $\mu_{i}$ and $\nu_{i}$ be the shifts of an $L_{\zeta}$ that a
+component from $M_{i}$ reaches and from which a component reaches $M_{i}$:
+$\mu_{i}=d_{M_{i}}-5$ and $\nu_{i}=d_{M_{i}}-1$ when $t_{i}>p$, and
+$\mu_{i}=d_{M_{i}}+1$, $\nu_{i}=d_{M_{i}}+5$ when $t_{i}<p$. Between the
+multiples the degrees allow only $M_{2}\to M_{3}$ in the first case,
+$M_{2}\to M_{3}\to M_{1}$ in the second, and $M_{3}\to M_{1}$ in the third.
+Let $\lambda_{i}$ be the largest $\mu_{k}$ and $\kappa_{i}$ the least
+$\nu_{k}$ over the multiples $M_{k}$ reachable from $M_{i}$, respectively
+reaching $M_{i}$, through these steps, $M_{i}$ included. The values, in the
+order $M_{1}$, $M_{2}$, $M_{3}$ and relative to $r$, are
+\[
+\begin{array}{l|ccc|ccc|ccc|ccc}
+ & \multicolumn{3}{c|}{\mu} & \multicolumn{3}{c|}{\nu}
+ & \multicolumn{3}{c|}{\lambda} & \multicolumn{3}{c}{\kappa}\\
+\hline
+r+1,\,r+4,\,r+5 & -4&-1&0 & 0&3&4 & -4&0&0 & 0&3&3\\
+r-1,\,r+3,\,r+4 & 0&-2&-1 & 4&2&3 & 0&0&0 & 2&2&2\\
+r-1,\,r+1,\,r+4 & 0&-4&-1 & 4&0&3 & 0&-4&0 & 3&0&3
+\end{array}
+\]
+and in all three cases, for all $i$ and $k$,
+\begin{equation}\label{eq:allthree}
+  \lambda_{i}\le r\le\kappa_{k},\qquad
+  \kappa_{i}\ge\lambda_{i}+2,\qquad
+  \lambda_{i}\le\mu_{i}+2,\qquad
+  \nu_{i}\le\kappa_{i}+2,
+\end{equation}
+while $\mu_{i}\le\lambda_{i}$ and $\nu_{i}\ge\kappa_{i}$ by definition. A
+run $L\to M_{k}\to\dots\to M_{i}\to L'$ through multiples goes from the shift
+$\nu_{k}\ge\kappa_{k}$ to $\mu_{i}\le\lambda_{k}\le\kappa_{k}-2$, so every chain
+of components from one $L$ to another lowers the shift, by at least two if it
+passes through a multiple and by exactly one only if it is a single component
+of degree two. In particular a chain from an $L$ of shift $x$ into $M_{i}$
+has $x\ge\kappa_{i}$, and a chain from $M_{i}$ to an $L$ of shift $y$ has
+$y\le\lambda_{i}$.
+
+By \Cref{lem:harmonicmodel}(iii), a term of $d_{E}$ on a class $u$ of $\Ext$
+degree $q_{u}$ in $\cH(a',b')$ runs along a chain $c\to\dots\to a'$, the
+step $u$, and a chain $b'\to\dots\to e$, and since the degrees of the
+components telescope, its value lies in $\cH(c,e)$ in $\Ext$ degree
+\[
+  q_{u}+1+(d_{c}-d_{a'})+(d_{b'}-d_{e}).
+\]
+Write $a=L_{\zeta}$ and $b=L_{\zeta'}$, so that $d_{a}=d_{b}+1$.
+
+\emph{Nothing reaches $\cH^{3}(a,b)$.} Let $u$ have degree one, so
+$q_{u}=1+d_{a'}-d_{b'}$, with chains from $a$ to $a'$ and from $b'$ to $b$
+and $(a',b')\ne(a,b)$. If $a'$ and $b'$ are both pieces $L$, then
+$d_{a'}\le d_{a}$ and $d_{b'}\ge d_{b}$, not both with equality, so
+$q_{u}\le1$; $q_{u}=0$ is impossible, and $q_{u}=1$ needs either $a'=b'$, and
+then a chain from $a$ to $b$ lowering the shift by one, a single component in
+$\cH^{2}(a,b)=0$, or $a'$, $b'$ differing in one coordinate, of opposite
+parities, against $d_{a'}=d_{b'}$. If $a'=M_{i}$ and $b'$ is an $L$, then
+$u$ lies in the degree of a component, so $d_{b'}=\mu_{i}$, while
+$d_{b'}\ge d_{b}=d_{a}-1\ge\kappa_{i}-1\ge\lambda_{i}+1>\mu_{i}$. If $a'$ is
+an $L$ and $b'=M_{k}$, then $d_{a'}=\nu_{k}$ and
+$d_{a}-d_{b}\ge\nu_{k}-\lambda_{k}\ge\kappa_{k}-\lambda_{k}\ge2$. If
+$a'=M_{i}$ and $b'=M_{k}$, then $d_{a}-d_{b}\ge\kappa_{i}-\lambda_{k}$; for
+$i=k$ this is at least $2$, and for $i\ne k$ the class $u$ lies in the
+degree of a step $M_{i}\to M_{k}$, so $\lambda_{k}\le\lambda_{i}$ and again
+$d_{a}-d_{b}\ge2$. Each case contradicts $d_{a}-d_{b}=1$.
+
+\emph{$d_{E}$ vanishes on $\cH^{3}(a,b)$.} Here $u$ is the class itself and a
+term lands in $\cH(c,e)$, $(c,e)\ne(a,b)$, in degree $3+d_{c}-d_{e}$, with
+chains from $c$ to $a$ and from $b$ to $e$. If $c$ and $e$ are both pieces
+$L$, then $d_{c}-d_{e}\ge2$; $c=e$ is impossible, and otherwise a class of
+degree at least $5$ needs $c$, $e$ differing in one coordinate, in degree
+$5$, so $d_{c}-d_{e}=2$ against their opposite parities. If $c=M_{i}$ and
+$e$ is an $L$, the degree is that of a component when $d_{e}=\mu_{i}+2$, but
+$d_{e}\le d_{b}<d_{a}\le\lambda_{i}\le\mu_{i}+2$. If $c$ is an $L$ and
+$e=M_{k}$, it is that of a component when $d_{c}=\nu_{k}-2$, but
+$d_{c}\ge d_{a}>d_{b}\ge\kappa_{k}\ge\nu_{k}-2$. If $c=M_{i}$ and
+$e=M_{k}$, then $d_{a}\le\lambda_{i}\le r\le\kappa_{k}\le d_{b}$, against
+$d_{a}>d_{b}$.
+
+For the inequality: a coboundary has no component on $D^{2}$
+(\Cref{prop:nothingenters}) and none on these groups, so the cocycles of
+$\ker(d_{E}|_{D^{2}})$ and of these groups span a space that meets the
+coboundaries only in zero. Twisting the pieces by line bundles of degree
+zero does not change $D(\zeta,\zeta')$, the forms being nondegenerate on
+every surface, and can only remove components.
+\end{proof}
+
+\begin{theorem}[No convolution of these pieces meets the criterion]
+\label{thm:noconvolution}
+Keep \Cref{prop:nothingenters} with $n=3$: let $E$ be any convolution of
+the $32$ bundles $L_{\zeta}$ and of $M_{1}$, $M_{2}$, $M_{3}$, with
+$t_{1}<t_{2}<t_{3}$ and $|t_{i}-p|\ge2$, in any order, with any shifts of the
+given parities and with the pieces twisted by any line bundles of degree
+zero. Then $\dim\Ext^{2}(E,E)\ge69$. In particular no such convolution meets
+the corrected criterion, which asks for $57$.
+\end{theorem}
+
+\begin{proof}
+Replacing $E$ by $E^{\vee}$ or $E^{\vee}[1]$, which preserves $\Ext^{2}$, we
+may assume that the $t_{i}$ are as in \Cref{thm:esixdiagonal} or in
+\Cref{prop:mixedplacement}. If no fourfold product of those results acts,
+$\dim\Ext^{2}(E,E)\ge249$. Otherwise the path fixes the shifts of the
+$M_{i}$ as in \Cref{lem:allthree}, with $r$ the shift of every $L_{\zeta}$
+on a path; let $P$ be the sixteen pieces of the parity of $r$, $Q$ the
+other sixteen, and $m$ the number of pieces on paths.
+
+The fourfold products act on $D^{2}$ only through the classes at the
+$M_{i}$ and at the $m$ pieces on paths, so their rank is at most $45+15m$,
+and by \Cref{prop:cupkernel}
+$\dim\ker(d_{E}|_{D^{2}})\ge249-45-15m=204-15m$. If $m\le9$ this is at
+least $69$.
+
+Let $m\ge10$, so that at least ten pieces of $P$ have the shift $r$. Every
+$W\in Q$ has $3$, $6$ and $7$ partners in $P$ differing from it in one, two
+and three coordinates, and for the seven $D=16$ six times and $D=64$
+once.\footnote{The ratios $\zeta'_{j}/\zeta_{j}$ of two pieces of opposite
+parities have product $-1$; when all three differ from $1$ they are
+$(-1,-1,-1)$, with $D=4^{3}$, or a permutation of $(i,-i,-1)$, with
+$D=2\cdot2\cdot4$.} If $d_{W}=r\pm1$, at most six pieces of $P$ lack the
+shift $r$, so one of the seven has it, and \Cref{lem:allthree} gives at least
+$16$ classes. If $d_{W}\ne r\pm1$, consider for each type $\tau$ of the form
+$(1,1,0)$ the partner $W^{\tau}\in P$ obtained by changing the sign of the
+coordinate where $\tau$ vanishes. By the proof of \Cref{prop:cupkernel},
+$W^{\tau}$ is the only piece with which $W$ can carry a nonzero cup product
+on the type $\tau$, and conversely; a cup product between them needs a
+component of degree two, hence shifts differing by one. If they do, the
+classes of type $\tau$ equal at $W$ and $W^{\tau}$ and zero elsewhere have
+vanishing cup products, and $W^{\tau}$, of shift $d_{W}\pm1\ne r$, lies on no
+path; if they do not, the classes of type $\tau$ at $W$ alone have vanishing
+cup products. Either way these $4$ classes lie in $\ker(d_{E}|_{D^{2}})$,
+$12$ for each such $W$, and those of different $W$ are independent, since
+$W\mapsto W^{\tau}$ is injective. Adding over $Q$, \Cref{lem:allthree}
+gives $\dim\Ext^{2}(E,E)\ge16\cdot12=192$.
+\end{proof}
+
+\begin{remark}[What the route gives]\label{rem:convolutionsopen}
+At $n=3$ the route through convolutions of these pieces is now decided. The
+diagonal obstruction of \Cref{thm:esixdiagonal} can be removed: the
+fourfold products have the rank it asks for (\Cref{prop:fourfoldrank}), and
+the explicit convolution of \Cref{prop:explicitconvolution} solves the
+Maurer--Cartan equation and meets the diagonal count. The obstruction then
+reappears off the diagonal, in classes that no product of any length can
+reach: those between pieces that differ in every coordinate and have
+adjacent shifts (\Cref{lem:allthree}), and, at pieces whose shifts are not
+adjacent to the shift of the paths, the classes of type $(1,1,0)$. No order
+and no choice of shifts or twists avoids both, and
+\Cref{thm:noconvolution} excludes every convolution of the $35$ pieces; in
+the explicit convolution the first kind alone gives $2560$ classes against
+the $57$ allowed. In each placement exactly two of the eight sign patterns
+carry products, and the two are exchanged by a symmetry of the
 construction.\footnote{The automorphism of $A$ that is $-1$ on the coordinate
 $z_{n+1}$ and the identity on the others changes $\alpha$ into $-\alpha$,
 fixes $\theta$ and permutes the $L_{\zeta}$, changing $\zeta_{1}$ into
 $-\zeta_{1}$; composed with the shift $[1]$ it changes every $\sigma_{i}$
-into $-\sigma_{i}$ and keeps everything else.} At $n=4$ the analysis
-does not close: products of length three and four among the $L_{\zeta}$
-already pass every test above, and there are $3668$ diagonal classes against
-$r=104$. \Cref{fig:convolutions} shows the excess count and the surviving
-path, and \Cref{fig:diagonalbudget} the budget of diagonal classes.
+into $-\sigma_{i}$ and keeps everything else.} The member $E_{0}^{6}$ with
+this Weil structure has trivial discriminant, where the Weil classes are
+algebraic on every member by Markman's theorem \cite{Mar25a,Mar25b}, so a
+convolution meeting the criterion here would have given a second proof of a
+known case rather than a new one. At $n=4$ the analysis does not close:
+products of length three and four among the $L_{\zeta}$ already pass every
+test of \Cref{thm:esixdiagonal}, and there are $3668$ diagonal classes
+against $r=104$. \Cref{fig:convolutions} shows the excess count and the
+surviving path, and \Cref{fig:diagonalbudget} the budget of diagonal
+classes.
 \end{remark}

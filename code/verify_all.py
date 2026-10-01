@@ -218,6 +218,12 @@ Contents
          at n = 3, the surviving fourfold chains for the multiples on one
          side of p and on both sides, n = 4
          [line_bundle_convolutions.py]
+  (LXXII) the fourfold products on E_0^6 and the classes no product
+         removes: the theta functions of the cover isogenies, the one
+         surviving tree, the rank 192 on the classes of type (1,1,0), an
+         explicit convolution with its Maurer-Cartan equation, the
+         isolated blocks between Weil pieces that differ everywhere, the
+         bound 69 > 57  [fourfold_products.py]
 """
 
 import os
@@ -669,6 +675,10 @@ def main():
 
     head("(LXXI) convolutions of line bundles and the diagonal of Ext^2")
     run_module("LXXI", "line_bundle_convolutions.py")
+
+    head("(LXXII) the fourfold products on E_0^6 and the classes no "
+         "product removes")
+    run_module("LXXII", "fourfold_products.py")
 
     print()
     print("=" * 70)

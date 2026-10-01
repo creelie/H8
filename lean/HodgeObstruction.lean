@@ -2753,6 +2753,129 @@ theorem conv_esix_thresholds :
     && ((List.range 20).all fun g => ((g + 1) ^ 6 ≥ 192) == (g + 1 ≥ 3))) = true := by
   decide
 
+/-! ## 42.  The fourfold products, an explicit convolution, and the classes
+no product removes
+
+Three finite facts behind Proposition (The fourfold products remove the
+classes), Proposition (An explicit convolution), Lemma (Pieces that differ
+everywhere) and Theorem (No convolution of these pieces meets the criterion).
+
+(a) Partners.  With `zeta_j = i^(e_j)`, the pieces with `prod zeta = 1`
+are the exponent vectors with sum `0` modulo `4`, and those with
+`prod zeta = -1` the ones with sum `2` modulo `4`.  On `B_j` the difference of the forms of two pieces has
+eigenvalues `+-|zeta_j - zeta'_j|`, and `|zeta_j - zeta'_j|^2` is `2` when
+the exponents differ by `1` or `3` and `4` when they differ by `2`.  Every
+piece has `3`, `6` and `7` partners of the other parity differing in `1`,
+`2` and `3` coordinates; for the `7`, `D = prod_j |zeta_j - zeta'_j|^2` is
+`16` six times and `64` once, `160` in all, and over the sixteen pieces of
+one parity the `112` such pairs carry `2560` classes.
+
+(b) The shifts of the lemma.  Relative to the shift `r = 0` of the pieces on
+the paths, the multiples have the shifts `1, 4, 5` (all above `p`), or
+`-1, 3, 4` and `-1, 1, 4` (the first below `p`).  A step from a multiple
+above `p` to a piece lowers the shift by `5` and a step from a piece to it
+raises it by `1`; for a multiple below `p` it is the other way round.  A step
+between two multiples raises the shift by `1` going up in `t` and lowers it
+by `5` going down.  The theorem computes `mu_i, nu_i` (the shifts of a piece
+one step from or to `M_i`), `lambda_i` and `kappa_i` (the largest and least
+shifts of pieces reached from, or reaching, `M_i` through steps between the
+multiples), and checks `lambda_i <= 0 <= kappa_k`, `kappa_i >= lambda_i + 2`,
+`lambda_i <= mu_i + 2` and `nu_i <= kappa_i + 2` in all three placements.
+
+(c) The counts.  The kernels `35 - 24 = 11` and `35 - 16 = 19` of the
+multiplications by `x_1` and `x_3` on a surface at `t = (2, 5, 6)`; the
+degrees of the covers, four times the dimensions of the invariant sections;
+the dimensions `729 = 3^6`, `16 * 24^3 = 221184` and `4^6 = 4096`; and the
+bounds `249 - (45 + 15 * 9) = 69 > 57`, `16 * 12 = 192 > 57` and
+`7 - (16 - 10) = 1`.
+-/
+
+/-- `|zeta_j - zeta'_j|^2` for exponents `a, b`. -/
+def ffGap (a b : Nat) : Nat :=
+  let d := (a + 4 - b) % 4
+  if d == 0 then 0 else if d == 2 then 4 else 2
+
+/-- the number of coordinates where two exponent vectors differ. -/
+def ffDiff (z w : List Nat) : Nat :=
+  ((z.zip w).filter (fun q => q.1 != q.2)).length
+
+def ffD (z w : List Nat) : Nat := (z.zip w).foldl (fun a q => a * ffGap q.1 q.2) 1
+
+def ffEven : List (List Nat) := (cvTuples 3).filter (fun z => cvSum z % 4 == 0)
+def ffOdd : List (List Nat) := (cvTuples 3).filter (fun z => cvSum z % 4 == 2)
+
+/-- **Partners.**  Each piece has `3, 6, 7` partners of the other parity
+differing in `1, 2, 3` coordinates; the `7` have `D = 16, 16, 16, 16, 16, 16,
+64`, adding up to `160`; the `112` pairs carry `2560` classes. -/
+theorem ff_partner_counts :
+    (ffEven.length == 16 && ffOdd.length == 16
+      && ([ffEven, ffOdd].all fun P => P.all fun z =>
+            let Q := if cvSum z % 4 == 0 then ffOdd else ffEven;
+            ((Q.filter (fun w => ffDiff z w == 1)).length == 3)
+            && ((Q.filter (fun w => ffDiff z w == 2)).length == 6)
+            && ((Q.filter (fun w => ffDiff z w == 3)).length == 7)
+            && (((Q.filter (fun w => ffDiff z w == 3)).map (ffD z)).foldl (· + ·) 0 == 160)
+            && ((Q.filter (fun w => ffDiff z w == 3)).all fun w => ffD z w == 16 || ffD z w == 64)
+            && (((Q.filter (fun w => ffDiff z w == 3)).filter (fun w => ffD z w == 64)).length == 1))
+      && (((ffEven.flatMap fun z => ffOdd.filter (fun w => ffDiff z w == 3)).length) == 112)
+      && ((ffEven.flatMap fun z => (ffOdd.filter (fun w => ffDiff z w == 3)).map (ffD z)).foldl (· + ·) 0
+            == 2560)) = true := by
+  decide +kernel
+
+/-- a multiple: its value `t`, its shift, and whether `t > p = 0`. -/
+structure ffM where
+  t : Int
+  d : Int
+  above : Bool
+deriving DecidableEq
+
+/-- the shift of a piece one step from `M`, and one step to `M`. -/
+def ffMu (m : ffM) : Int := if m.above then m.d - 5 else m.d + 1
+def ffNu (m : ffM) : Int := if m.above then m.d - 1 else m.d + 5
+
+/-- a step between two multiples is possible in degree. -/
+def ffStep (a b : ffM) : Bool :=
+  a != b && (if b.t > a.t then b.d == a.d + 1 else b.d == a.d - 5)
+
+/-- the multiples reachable from `a` in at most two steps (`a` included). -/
+def ffFrom (L : List ffM) (a : ffM) : List ffM :=
+  a :: (L.filter (ffStep a)) ++ (L.filter (ffStep a)).flatMap (fun b => L.filter (ffStep b))
+
+def ffLambda (L : List ffM) (a : ffM) : Int :=
+  ((ffFrom L a).map ffMu).foldl max (ffMu a)
+def ffKappa (L : List ffM) (a : ffM) : Int :=
+  ((L.filter (fun b => (ffFrom L b).contains a)).map ffNu).foldl min (ffNu a)
+
+def ffPlacements : List (List ffM) :=
+  [ [⟨2, 1, true⟩, ⟨5, 4, true⟩, ⟨6, 5, true⟩],
+    [⟨-2, -1, false⟩, ⟨2, 3, true⟩, ⟨4, 4, true⟩],
+    [⟨-2, -1, false⟩, ⟨2, 1, true⟩, ⟨4, 4, true⟩] ]
+
+/-- **The shifts of the lemma.**  In the three placements:
+`lambda_i <= 0 <= kappa_k`, `kappa_i >= lambda_i + 2`, `lambda_i <= mu_i + 2`,
+`nu_i <= kappa_i + 2`, and the values are those of the table in the proof. -/
+theorem ff_shift_table :
+    ((ffPlacements.all fun L =>
+      (L.all fun a => decide (ffLambda L a ≤ 0) && decide (0 ≤ ffKappa L a)
+          && decide (ffKappa L a ≥ ffLambda L a + 2)
+          && decide (ffLambda L a ≤ ffMu a + 2) && decide (ffNu a ≤ ffKappa L a + 2)))
+    && (ffPlacements.map fun L => L.map fun a => (ffMu a, ffNu a, ffLambda L a, ffKappa L a))
+        == [ [(-4, 0, -4, 0), (-1, 3, 0, 3), (0, 4, 0, 3)],
+             [(0, 4, 0, 2), (-2, 2, 0, 2), (-1, 3, 0, 2)],
+             [(0, 4, 0, 3), (-4, 0, -4, 0), (-1, 3, 0, 3)] ]) = true := by
+  decide +kernel
+
+/-- **The counts.**  Kernels, cover degrees, targets and the final bounds. -/
+theorem ff_noconvolution_counts :
+    ((35 - 24 == 11) && (35 - 16 == 19)
+    && (10 * 14 == 4 * 35) && (8 * 12 == 4 * 24) && (2 * 6 == 4 * 3)
+    && (6 * 6 == 4 * 9) && (2 * 2 == 4 * 1)
+    && (3 ^ 6 == 729) && (16 * 24 ^ 3 == 221184) && (4 ^ 6 == 4096)
+    && (16 * 12 == 192) && (249 - 57 == 192)
+    && (249 - (45 + 15 * 9) == 69) && (69 > 57) && (16 * 12 > 57)
+    && (7 - (16 - 10) == 1) && (16 * 160 == 2560)) = true := by
+  decide
+
 end HodgeObstruction
 
 /-! ## The axioms each theorem depends on
@@ -2876,3 +2999,6 @@ propositional extensionality enters through `decide`, and in no case
 #print axioms HodgeObstruction.conv_cup_kernel
 #print axioms HodgeObstruction.conv_run_excess
 #print axioms HodgeObstruction.conv_esix_thresholds
+#print axioms HodgeObstruction.ff_partner_counts
+#print axioms HodgeObstruction.ff_shift_table
+#print axioms HodgeObstruction.ff_noconvolution_counts

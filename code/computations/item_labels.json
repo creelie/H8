@@ -277,5 +277,12 @@
   "thm:esixdiagonal",
   "prop:mixedplacement",
   "rem:convolutionsopen"
+ ],
+ "LXXII": [
+  "prop:fourfoldrank",
+  "prop:explicitconvolution",
+  "lem:allthree",
+  "thm:noconvolution",
+  "rem:convolutionsopen"
  ]
 }

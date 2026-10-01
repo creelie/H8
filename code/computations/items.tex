@@ -2,8 +2,11 @@
 
 Every numerical assertion in this paper is checked in exact arithmetic:
 rational, integer or exterior-algebra computations, and exact linear algebra
-over number fields and over function fields in one variable. No
-floating-point operation occurs. A rank computed modulo a prime is used only
+over number fields and over function fields in one variable, with one
+exception: item (LXXII) evaluates integrals of theta functions by quadrature
+in double precision and reads a rank off from the ratio of the smallest to
+the largest singular value, which it compares with the change of the entries
+under a finer grid. A rank computed modulo a prime is used only
 as a lower bound for the rank over $\QQ$, since reduction can only lower a
 rank, and the bound is matched by an exact computation in the other
 direction. Items (XXIX), (XXXI) and (XL) are $\Ext$
@@ -1788,12 +1791,46 @@ computed, how it is computed, and which statements of the paper it supports.
   \Cref{thm:fewpieces}, \Cref{lem:degreedrop}, \Cref{prop:nothingenters},
   \Cref{prop:cupkernel}, \Cref{thm:esixdiagonal},
   \Cref{prop:mixedplacement} and \Cref{rem:convolutionsopen}.
+
+\item \emph{The fourfold products on $E_0^6$, an explicit convolution,
+  and the classes no product removes.} Theta functions on $E_{0}$ of degrees
+  $2$, $6$ and $14$ in the unitary gauge are checked against their automorphy
+  factors, $\nabla_{\bar z}$ is found to kill them and $\nabla_{z}$ to agree
+  with a finite difference, and the levels $0$, $1$, $2$ are found
+  orthonormal with squared norms $k!(\pi d)^{k}$; the levels $0$ to $12$ of a
+  product $s\bar\omega$ carry its norm to $10^{-8}$. On the four covers
+  $\phi_{\zeta_{j}}$ the invariant sections of the five bundles of a path
+  have the dimensions $|\det|$ ($1$, $35$, $3$, $24$, $9$ at $t=(2,5,6)$),
+  and the theta basis of $B_{j}$ pulls back exactly into them. The selection
+  rules of the levels hold, two quadrature grids agree to $10^{-15}$, and of
+  the five trees with four leaves only $(x_{1}x_{2})(y\,x_{3})$ survives the
+  degree count, in two assignments. In the order of
+  \Cref{prop:explicitconvolution} the components and the two equations of
+  the Maurer--Cartan equation are found, and the classes of degrees $1$, $2$,
+  $3$ of the endomorphism complex number $908979$, $233213$ and $12142$, of
+  which $16\cdot24^{3}=221184$ in degree two lie between $M_{2}$ and the
+  $L_{\zeta}$. At $p=0$, $t=(2,5,6)$ the fourfold products on the $192$
+  classes of type $(1,1,0)$ are found to have rank $12$ at each of the
+  sixteen $L_{\zeta}$ and rank $192$ together, with smallest singular value
+  $0.016$ of the largest; also with $x_{1}x_{2}^{\zeta}=x_{2}^{\zeta}x_{3}^{\zeta}=0$
+  (kernels of dimensions $11$ and $19$ on every surface), with the relative
+  sign of the two terms reversed, and at $t=(2,5,7)$. Each piece is found to
+  have $3$, $6$, $7$ partners of the other parity differing in one, two,
+  three coordinates, the last with $D=16$ six times and $64$ once. In the
+  explicit convolution the $112$ groups $\cH^{3}$ of pieces that differ
+  everywhere, $2560$ classes, are found to be reached by no element of
+  degree one and to have no target of degree three, and the same is found
+  for every such pair with adjacent shifts in $36$ random orders and shifts
+  of the three placements of \Cref{lem:allthree}. That is
+  \Cref{prop:fourfoldrank}, \Cref{prop:explicitconvolution},
+  \Cref{lem:allthree}, \Cref{thm:noconvolution} and
+  \Cref{rem:convolutionsopen}.
 \end{enumerate}
 
-Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LXXI) are the ones
+Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LXXII) are the ones
 on which theorems depend. Items (IV) and (V) support statements that no
 obstruction exists; a failure there would strengthen the paper rather than
 weaken it, and they are included for completeness.
-The sixty-eight items other than (XXIX), (XXXI) and (XL) perform $2093$
+The sixty-nine items other than (XXIX), (XXXI) and (XL) perform $2135$
 checks, all of which pass; those three, and the local part of (LXVIII), are
 $\Ext$ computations over a polynomial ring, recorded with their output.

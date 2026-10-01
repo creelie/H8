@@ -7,14 +7,14 @@ computational content is checked in exact arithmetic by the computations of
 \Cref{sec:verification}. The certificate is a single Lean~4 file that
 accompanies the paper. It compiles against a bare Lean~4 toolchain, contains
 no \texttt{sorry}, and depends on no library, Mathlib included. The axiom
-report at the end of the file lists, for each of its one hundred and fourteen theorems,
-the axioms on which it depends. Ninety depend on none, and the remaining
+report at the end of the file lists, for each of its one hundred and seventeen theorems,
+the axioms on which it depends. Ninety-three depend on none, and the remaining
 twenty-four on propositional extensionality alone, which enters when
 \texttt{decide} reduces an equality of Booleans or when a bound is proved from
 the lemmas on natural numbers in the core library; no theorem uses anything
 else. The annihilator dimension and the rank-zero obstruction of
 \Cref{ssec:rankzero}, \Cref{lem:annihilator} and \Cref{thm:rankzero}, are not
-among the one hundred and fourteen: they are proved by hand, and the dimension count of
+among the one hundred and seventeen: they are proved by hand, and the dimension count of
 the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \Cref{sec:verification}.
 
@@ -24,7 +24,7 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \small
 \renewcommand{\arraystretch}{1.06}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.31\linewidth}>{\raggedright\arraybackslash}p{0.62\linewidth}@{}}
-\caption{The one hundred and fourteen machine-checked theorems.}\label{tab:lean}\\
+\caption{The one hundred and seventeen machine-checked theorems.}\label{tab:lean}\\
 \toprule
 \textbf{theorem} & \textbf{statement} \\
 \midrule
@@ -155,6 +155,9 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \texttt{conv\_}\allowbreak\texttt{cup\_}\allowbreak\texttt{kernel} & at $n=3$ the graphs $\Gamma_{\tau}$ of the six types have $4$ components when $\tau$ has an entry $2$ and $16$ otherwise, so the classes constant on components span $204$ dimensions, $249$ with the $45$ classes of the multiples, out of $525$, \Cref{prop:cupkernel} \\
 \texttt{conv\_}\allowbreak\texttt{run\_}\allowbreak\texttt{excess} & for $3\le n\le12$ and every placement of $p$ among the $t_{i}$, a run from $L_{\zeta}$ through distinct multiples back has excess at least $2n-4\ge2$, and a closed walk through the multiples alone at least $2n-3$; at $n=2$ a run of excess $0$ exists, \Cref{prop:nothingenters} \\
 \texttt{conv\_}\allowbreak\texttt{esix\_}\allowbreak\texttt{thresholds} & along $M_{2}\to M_{3}\to L_{\zeta}\to M_{1}$ with $\Ext$ degrees $0,6,0$ the shifts are $d,d+1,d-4,d-3$, the product lands in $\Ext$ degree $6$ and $\sigma_{1}=\sigma_{3}=-\sigma_{2}$; $r=24,57,104$ at $n=2,3,4$; $(t_{2}-t_{1})^{6}=1,64,729$, $249-64=185>57$, $249-57=192$, and $(t_{2}-t_{1})^{6}\ge192$ exactly when $t_{2}-t_{1}\ge3$, \Cref{thm:esixdiagonal} \\
+\texttt{ff\_}\allowbreak\texttt{partner\_}\allowbreak\texttt{counts} & with $\zeta_{j}=i^{e_{j}}$, every piece has $3$, $6$, $7$ partners of the other parity differing in $1$, $2$, $3$ coordinates; for the $7$ the dimension $D=\prod_{j}|\zeta_{j}-\zeta'_{j}|^{2}$ is $16$ six times and $64$ once, $160$ in all, and the $112$ pairs carry $2560$ classes, \Cref{lem:allthree}, \Cref{prop:explicitconvolution} \\
+\texttt{ff\_}\allowbreak\texttt{shift\_}\allowbreak\texttt{table} & in the three placements of the multiples, the shifts $\mu_{i}$, $\nu_{i}$, $\lambda_{i}$, $\kappa_{i}$ are those of the table in the proof, and $\lambda_{i}\le r\le\kappa_{k}$, $\kappa_{i}\ge\lambda_{i}+2$, $\lambda_{i}\le\mu_{i}+2$, $\nu_{i}\le\kappa_{i}+2$, \Cref{lem:allthree} \\
+\texttt{ff\_}\allowbreak\texttt{noconvolution\_}\allowbreak\texttt{counts} & the kernels $11$, $19$ of $x_{1}$, $x_{3}$ on a surface at $t=(2,5,6)$, the degrees of the covers, $3^{6}=729$, $16\cdot24^{3}=221184$, $4^{6}=4096$, and the bounds $249-(45+15\cdot9)=69>57$ and $16\cdot12=192>57$, \Cref{thm:noconvolution} \\
 \end{longtable}
 \endgroup
 
