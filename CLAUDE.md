@@ -286,22 +286,27 @@ footnote and the computations list, item (LXXII), `code/fourfold_products.py`
 `\enlargethispage{2pt}` at `setup:rm` in `tex/sections/13_families.tex`;
 `make_computations.py` now joins item titles that span lines; 379 pages,
 726 labels.
-The paper cites the code through the concept DOI until Deep publishes
-release v3.1.0 and sends its version DOI. P2_split, (F2) and (F3') remain open. Never use
+Round 34 recorded the version DOI of release v3.1.1 (tag `v3.1.1`, the merge
+commit `0b4bd65` of round 33, published by Deep; no v3.1.0 was released),
+10.5281/zenodo.23078541, in `\zenodoCodeID`, the release number of the data
+availability section and of `BMB26`, the README table and `CITATION.cff`.
+P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 
 Release v1.0.0 (tag `v1.0.0`, commit `ef15bce`) is archived on Zenodo under
 DOI 10.5281/zenodo.22950276, release v2.0.0 (tag `v2.0.0`, published by Deep;
 it accompanies round 24) under the version DOI 10.5281/zenodo.23038895, and
 release v3.0.0 (tag `v3.0.0`, published by Deep; it accompanies round 28)
-under 10.5281/zenodo.23047883; the concept DOI of all versions is
+under 10.5281/zenodo.23047883, and release v3.1.1 (tag `v3.1.1`, published
+by Deep; it accompanies rounds 30 to 33) under 10.5281/zenodo.23078541; the
+concept DOI of all versions is
 10.5281/zenodo.22950275. They are listed in the README table and
 `CITATION.cff`. The paper names one DOI for the code, `\zenodoCodeID` in
 `tex/declarations.tex` (used by the data availability section and the `BMB26`
-bibliography entry), and no GitHub URL. Round 31 accompanies release v3.1.0:
-until Deep publishes it and Zenodo assigns its version DOI, `\zenodoCodeID`
-holds the concept DOI; then put the version DOI in `\zenodoCodeID`, the
-README table and `CITATION.cff`. There is no separate AI declaration: the use of Claude
+bibliography entry), and no GitHub URL; it holds the version DOI of release
+v3.1.1. When Deep publishes a later release and sends its version DOI, put it
+in `\zenodoCodeID`, the release number of the data availability section and
+of `BMB26`, the README table and `CITATION.cff`. There is no separate AI declaration: the use of Claude
 for the Python and Lean computations is stated in the Data availability
 section.
 
