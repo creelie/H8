@@ -290,6 +290,12 @@ Round 34 recorded the version DOI of release v3.1.1 (tag `v3.1.1`, the merge
 commit `0b4bd65` of round 33, published by Deep; no v3.1.0 was released),
 10.5281/zenodo.23078541, in `\zenodoCodeID`, the release number of the data
 availability section and of `BMB26`, the README table and `CITATION.cff`.
+Round 35 added a title-page footnote in `tex/main.tex` citing the earlier
+preprint of the first and third authors, "Relative secant cycles and Hodge
+classes", Preprints.org, doi:10.20944/preprints202602.0462.v5 (checked on
+preprints.org), as containing errors and incomplete proofs and replaced by
+this paper, with the change of author order, and an `\enlargethispage{3pt}`
+at the start of `tex/sections/02_conventions.tex`; no code or label change.
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 
