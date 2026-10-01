@@ -108,3 +108,10 @@
 'HodgeObstruction.quartic_koszul_squares' depends on axioms: [propext]
 'HodgeObstruction.quartic_line_two_planes' depends on axioms: [propext]
 'HodgeObstruction.quartic_first_factor_character' depends on axioms: [propext]
+'HodgeObstruction.conv_pure_weil_identity' does not depend on any axioms
+'HodgeObstruction.conv_cup_kernel' depends on axioms: [propext]
+'HodgeObstruction.conv_run_excess' does not depend on any axioms
+'HodgeObstruction.conv_esix_thresholds' does not depend on any axioms
+'HodgeObstruction.ff_partner_counts' does not depend on any axioms
+'HodgeObstruction.ff_shift_table' does not depend on any axioms
+'HodgeObstruction.ff_noconvolution_counts' does not depend on any axioms

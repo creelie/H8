@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """make_computations.py -- build COMPUTATIONS.md at the root of the archive.
 
-The sources are items.tex (the computations, items (I) to (LXX)), lean.tex
+The sources are items.tex (the computations, items (I) to (LXXII)), lean.tex
 (the Lean certificate and its table of theorems) and item_labels.json (for
 each item, the labels of the results of the paper that cite it).  Every
 cross-reference is resolved to the numbering of the compiled paper through
@@ -123,7 +123,7 @@ for k, p in enumerate(parts, 1):
     r = roman(k)
     t = convert(p).strip()
     m = re.match(r'\*([^*]+)\*\s*(.*)', t, re.S)
-    title, text = (m.group(1).strip().rstrip('.'), m.group(2)) if m else ('', t)
+    title, text = (re.sub(r'\s+', ' ', m.group(1)).strip().rstrip('.'), m.group(2)) if m else ('', t)
     text = re.sub(r'\n\s*', ' ', text)
     out.append('### (%s) %s\n' % (r, title))
     cited = [l for l, its in rev.items() if r in its]

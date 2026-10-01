@@ -85,7 +85,17 @@ both cases that arithmetic is finite and integral.
     Section 40 checks them, the second and third in the exterior algebra on
     eight generators.
 
-Everything is settled by `decide`, in two cases by its kernel-only form
+  * The convolutions of line bundles on E^(2n), E = C/Z[i], turn on four
+    finite facts: the 2 * 4^(n-1) bundles L_zeta with prod zeta = +-1 give a
+    signed sum of exponentials equal to 2 * 4^(n-1) (alpha + conj alpha), a
+    count of powers of i; the graphs of pairs carrying a cup product at n = 3
+    have 4 and 16 components, so the cup products leave 204 + 45 = 249 of the
+    525 diagonal classes; a run through the multiples of the polarisation has
+    excess at least 2n - 4; and the one surviving path has Ext degrees
+    0, 6, 0, which fixes its shifts, its signs and the threshold 192.
+    Section 41 checks them.
+
+Everything is settled by `decide`, in five cases by its kernel-only form
 `decide +kernel`, so the kernel checks it.  There is no
 `sorry` and no dependence on Mathlib.
 -/
@@ -2550,6 +2560,322 @@ theorem quartic_first_factor_character :
             && ((qTrunc (qDual (qFd d)) (qFd d)).getD 4 0 == 576 * 8 * Int.ofNat d / 24))) = true := by
   decide
 
+/-! ## 41.  Convolutions of line bundles
+
+Four finite facts behind Proposition (A pure Weil class from line bundles),
+Proposition (Nothing enters the diagonal), Proposition (Cup products on the
+diagonal) and Theorem (The diagonal on E_0^6).
+
+(a) The pure Weil identity.  Write `zeta_j = i^(e_j)` with `e_j < 4`; the
+pieces are the `zeta` with `prod zeta = +-1`, that is `sum e_j` even.  On the
+surface `B_j` the exponential of the first Chern class is
+`e^(p(a_j + b_j)) (1 + zeta_j c_j + conj(zeta_j) c'_j + c_j c'_j)`, so the
+signed sum of `e^(c_1(L_zeta))` is a sum over monomials `m = (m_j)` with
+`m_j` one of `1, c_j, c'_j, c_j c'_j` (coded `0, 1, 2, 3`) of the Gaussian
+integer `S(m) = sum_zeta prod(zeta) prod_j kappa(m_j, zeta_j)`, where
+`kappa` is `1`, `zeta_j`, `conj(zeta_j)`, `1`.  Every factor is a power of
+`i`, so `S(m)` is a count of exponents modulo `4`.  The theorem checks, for
+`n = 2, 3, 4`, that there are `2 * 4^(n-1)` pieces, half of each sign, and
+that `S(m)` is `2 * 4^(n-1)` for `m = (c_1, ..., c_n)` and for
+`m = (c'_1, ..., c'_n)`, whose products are `alpha` and `conj(alpha)`, and
+`0` for every other monomial.  Since `a_j c_j = b_j c_j = 0` and likewise for
+`c'_j`, this is the identity of the proposition.
+
+(b) The cup kernel at `n = 3`.  For each of the six types `tau` of the
+diagonal classes, the graph `Gamma_tau` on the `32` pieces has an edge for a
+sign change of one coordinate where `tau` vanishes, and for a multiplication
+of the other two coordinates by `(i, i)` or `(-i, -i)` where `tau` is `2`.
+The theorem grows the component of every piece until it is closed, counts
+the components (`4` when `tau` has an entry `2`, `16` otherwise), and adds
+up `components * dim` over the types: `3 * 4 * 1 + 3 * 16 * 4 = 204`, and
+`204 + 45 = 249` with the classes of the three multiples.
+
+(c) The excess of a run.  The values `p, t_1, t_2, t_3` are distinct; a
+step of degree one between pieces with a definite difference has excess `-1`
+going up and `2n - 1` going down.  For `3 <= n <= 12`, every placement of
+`p` among the `t_i`, and every run `L -> M_(s_1) -> ... -> M_(s_k) -> L`
+through distinct multiples, the excess is at least `2n - 4 >= 2`, and a
+closed walk through the multiples alone has excess at least `2n - 3`; at
+`n = 2` a run of excess `0` exists.
+
+(d) The surviving path.  Along `M_2 -> M_3 -> L -> M_1` with `Ext` degrees
+`0, 6, 0` every step has degree one exactly when the shifts are `d, d + 1,
+d - 4, d - 3`, and then the product with a class of `H^2(O_A)` lands in
+`Ext` degree `3 + d - (d - 3) = 6`, with `sigma_1 = sigma_3 = -sigma_2`.
+The target has dimension `(t_2 - t_1)^6`, which is `1` or `64` for the gaps
+`1, 2`, leaving `248` or `185` of the `249` classes, both more than
+`r = 7 * 3^2 - 2 * 3 = 57`, and at least `192 = 249 - 57` exactly from the
+gap `3` on.
+-/
+
+/-- all lists of length `n` with entries below `4`. -/
+def cvTuples : Nat → List (List Nat)
+  | 0 => [[]]
+  | n + 1 => (cvTuples n).flatMap (fun t => (List.range 4).map (fun a => a :: t))
+
+def cvSum (l : List Nat) : Nat := l.foldl (· + ·) 0
+
+/-- the pieces: exponent vectors with `prod zeta = +-1`, that is even sum. -/
+def cvPieces (n : Nat) : List (List Nat) :=
+  (cvTuples n).filter (fun z => cvSum z % 2 == 0)
+
+/-- the exponent of `i` in `kappa(m_j, zeta_j)`: `e` for `c`, `-e` for `c'`,
+`0` for `1` and `c c'`. -/
+def cvKappa (m e : Nat) : Nat :=
+  if m == 1 then e else if m == 2 then (4 - e) % 4 else 0
+
+/-- `S(m)`, as the Gaussian integer `(re, im)`. -/
+def cvS (n : Nat) (m : List Nat) : Int × Int :=
+  (cvPieces n).foldl (fun acc z =>
+    let k := (cvSum z + cvSum (List.zipWith cvKappa m z)) % 4
+    if k == 0 then (acc.1 + 1, acc.2) else if k == 1 then (acc.1, acc.2 + 1)
+    else if k == 2 then (acc.1 - 1, acc.2) else (acc.1, acc.2 - 1)) (0, 0)
+
+/-- **The pure Weil identity.**  For `n = 2, 3, 4` there are `2 * 4^(n-1)`
+pieces, half with `prod zeta = 1`, and the signed sum of the `e^(c_1(L_zeta))`
+has coefficient `2 * 4^(n-1)` on `alpha` and on `conj(alpha)` and `0` on
+every other monomial in the `c_j`, `c'_j`. -/
+theorem conv_pure_weil_identity :
+    ([2, 3, 4].all fun n =>
+      ((cvPieces n).length == 2 * 4 ^ (n - 1))
+      && (((cvPieces n).filter (fun z => cvSum z % 4 == 0)).length == 4 ^ (n - 1))
+      && ((cvTuples n).all fun m =>
+            cvS n m == (if m.all (· == 1) || m.all (· == 2)
+                        then (Int.ofNat (2 * 4 ^ (n - 1)), 0) else (0, 0)))) = true := by
+  decide +kernel
+
+/-- the piece `z` with its coordinate `j` multiplied by `i^d`. -/
+def cvTurn (z : List Nat) (j d : Nat) : List Nat :=
+  (List.range z.length).map (fun k => if k == j then (z.getD k 0 + d) % 4 else z.getD k 0)
+
+/-- the neighbours of `z` in `Gamma_tau`. -/
+def cvNbrs (tau z : List Nat) : List (List Nat) :=
+  ((List.range z.length).filter (fun j => tau.getD j 0 == 0)).map (fun j => cvTurn z j 2)
+  ++ ((List.range z.length).filter (fun j => tau.getD j 0 == 2)).flatMap (fun j =>
+       [1, 3].map (fun d =>
+         ((List.range z.length).filter (· != j)).foldl (fun w k => cvTurn w k d) z))
+
+def cvInsert (S : List (List Nat)) (w : List Nat) : List (List Nat) :=
+  if S.contains w then S else S ++ [w]
+
+def cvGrow (tau : List Nat) (S : List (List Nat)) : List (List Nat) :=
+  (S.flatMap (cvNbrs tau)).foldl cvInsert S
+
+def cvReach (tau z : List Nat) : Nat → List (List Nat)
+  | 0 => [z]
+  | k + 1 => cvGrow tau (cvReach tau z k)
+
+/-- the position of `w` in `P`. -/
+def cvIndex (P : List (List Nat)) (w : List Nat) : Nat :=
+  (((P.zip (List.range P.length)).find? (fun q => q.1 == w)).map (·.2)).getD P.length
+
+/-- the number of components: pieces that come first in their component. -/
+def cvComponents (tau : List Nat) : Nat :=
+  let P := cvPieces 3;
+  ((List.range P.length).filter (fun i =>
+    (cvReach tau (P.getD i []) 6).all (fun w => i ≤ cvIndex P w))).length
+
+/-- the types of the diagonal classes of degree two at `n = 3`. -/
+def cvTypes : List (List Nat) :=
+  (cvTuples 3).filter (fun t => t.all (· ≤ 2) && cvSum t == 2)
+
+/-- `dim H^(tau_1)(O) (x) H^(tau_2)(O) (x) H^(tau_3)(O)` on three surfaces. -/
+def cvDim (tau : List Nat) : Nat := tau.foldl (fun a t => a * (if t == 1 then 2 else 1)) 1
+
+set_option maxHeartbeats 4000000 in
+/-- **The cup kernel.**  The six types have dimensions adding up to `15`; the
+component of every piece in `Gamma_tau` is closed after six steps and stays
+among the pieces; there are `4` components when `tau` has an entry `2` and
+`16` otherwise; and the classes constant on components span
+`3 * 4 * 1 + 3 * 16 * 4 = 204` dimensions, `249` with the `45` classes of the
+multiples, out of `35 * 15 = 525`. -/
+theorem conv_cup_kernel :
+    (cvTypes.length == 6
+      && ((cvTypes.map cvDim).foldl (· + ·) 0 == 15)
+      && (cvTypes.all fun tau => (cvPieces 3).all fun z =>
+            let R := cvReach tau z 6;
+            (cvGrow tau R).length == R.length && R.all (fun w => (cvPieces 3).contains w))
+      && (cvTypes.all fun tau => cvComponents tau == (if tau.contains 2 then 4 else 16))
+      && ((cvTypes.map (fun tau => cvComponents tau * cvDim tau)).foldl (· + ·) 0 == 204)
+      && (204 + 3 * 15 == 249) && (35 * 15 == 525) && (525 - 249 == 276)) = true := by
+  decide +kernel
+
+/-- the excess of a step of degree one from the value of rank `a` to that of
+rank `b`: `-1` up, `2n - 1` down. -/
+def cvStep (n a b : Nat) : Int := if a < b then -1 else 2 * Int.ofNat n - 1
+
+def cvWalk (n : Nat) (vals : List Nat) : Int :=
+  ((vals.zip vals.tail).map (fun q => cvStep n q.1 q.2)).foldl (· + ·) 0
+
+/-- the ordered selections of `k` distinct elements of `l`. -/
+def cvSelections : List Nat → Nat → List (List Nat)
+  | _, 0 => [[]]
+  | l, k + 1 => l.flatMap (fun a => (cvSelections (l.filter (· != a)) k).map (a :: ·))
+
+/-- **The excess of a run.**  For `3 <= n <= 12`, with `p` at any rank `r`
+among the four values, every run from `L` through distinct multiples back to
+`L` has excess at least `2n - 4 >= 2`, and every closed walk through distinct
+multiples alone has excess at least `2n - 3`; at `n = 2` the run up through
+the three multiples and down once has excess `0`. -/
+theorem conv_run_excess :
+    (((List.range 10).all fun i =>
+      let n := i + 3;
+      (List.range 4).all fun r =>
+        let ms := (List.range 4).filter (· != r);
+        ([1, 2, 3].all fun k => (cvSelections ms k).all fun s =>
+            decide (cvWalk n ([r] ++ s ++ [r]) ≥ 2 * Int.ofNat n - 4))
+        && ([2, 3].all fun k => (cvSelections ms k).all fun s =>
+            decide (cvWalk n (s ++ [s.headD 0]) ≥ 2 * Int.ofNat n - 3))
+        && decide (2 * Int.ofNat n - 4 ≥ 2))
+    && (cvWalk 2 [0, 1, 2, 3, 0] == 0)) = true := by
+  decide +kernel
+
+/-- **The surviving path.**  Along `M_2 -> M_3 -> L -> M_1` with `Ext`
+degrees `0, 6, 0`, every step has degree one for the shifts `d, d + 1, d - 4,
+d - 3`, the product with `H^2(O_A)` lands in `Ext` degree `6`, and the signs
+are `sigma_1 = sigma_3 = -sigma_2`, `prod zeta = sigma_2`; the thresholds of the
+theorem follow from `r = 57` and the dimension `(t_2 - t_1)^6` of the
+target. -/
+theorem conv_esix_thresholds :
+    (((List.range 21).all fun i =>
+      let d : Int := Int.ofNat i - 10;
+      let d2 := d;
+      let d3 := d + 1;
+      let dL := d - 4;
+      let d1 := d - 3;
+      (0 - d2 + d3 == 1) && (6 - d3 + dL == 1) && (0 - dL + d1 == 1)
+        && (3 + d2 - d1 == 6) && ((d3 - d2) % 2 == 1) && ((d1 - d2) % 2 == 1)
+        && ((dL - d2) % 2 == 0))
+    && (7 * 3 ^ 2 - 2 * 3 == 57) && (7 * 4 ^ 2 - 2 * 4 == 104) && (7 * 2 ^ 2 - 2 * 2 == 24)
+    && (1 ^ 6 == 1) && (2 ^ 6 == 64) && (3 ^ 6 == 729)
+    && (249 - 1 == 248) && (249 - 64 == 185) && (185 > 57) && (249 - 57 == 192)
+    && (525 - 57 == 468) && (131 * 28 == 3668) && (11 * 6 == 66)
+    && ((List.range 20).all fun g => ((g + 1) ^ 6 ≥ 192) == (g + 1 ≥ 3))) = true := by
+  decide
+
+/-! ## 42.  The fourfold products, an explicit convolution, and the classes
+no product removes
+
+Three finite facts behind Proposition (The fourfold products remove the
+classes), Proposition (An explicit convolution), Lemma (Pieces that differ
+everywhere) and Theorem (No convolution of these pieces meets the criterion).
+
+(a) Partners.  With `zeta_j = i^(e_j)`, the pieces with `prod zeta = 1`
+are the exponent vectors with sum `0` modulo `4`, and those with
+`prod zeta = -1` the ones with sum `2` modulo `4`.  On `B_j` the difference of the forms of two pieces has
+eigenvalues `+-|zeta_j - zeta'_j|`, and `|zeta_j - zeta'_j|^2` is `2` when
+the exponents differ by `1` or `3` and `4` when they differ by `2`.  Every
+piece has `3`, `6` and `7` partners of the other parity differing in `1`,
+`2` and `3` coordinates; for the `7`, `D = prod_j |zeta_j - zeta'_j|^2` is
+`16` six times and `64` once, `160` in all, and over the sixteen pieces of
+one parity the `112` such pairs carry `2560` classes.
+
+(b) The shifts of the lemma.  Relative to the shift `r = 0` of the pieces on
+the paths, the multiples have the shifts `1, 4, 5` (all above `p`), or
+`-1, 3, 4` and `-1, 1, 4` (the first below `p`).  A step from a multiple
+above `p` to a piece lowers the shift by `5` and a step from a piece to it
+raises it by `1`; for a multiple below `p` it is the other way round.  A step
+between two multiples raises the shift by `1` going up in `t` and lowers it
+by `5` going down.  The theorem computes `mu_i, nu_i` (the shifts of a piece
+one step from or to `M_i`), `lambda_i` and `kappa_i` (the largest and least
+shifts of pieces reached from, or reaching, `M_i` through steps between the
+multiples), and checks `lambda_i <= 0 <= kappa_k`, `kappa_i >= lambda_i + 2`,
+`lambda_i <= mu_i + 2` and `nu_i <= kappa_i + 2` in all three placements.
+
+(c) The counts.  The kernels `35 - 24 = 11` and `35 - 16 = 19` of the
+multiplications by `x_1` and `x_3` on a surface at `t = (2, 5, 6)`; the
+degrees of the covers, four times the dimensions of the invariant sections;
+the dimensions `729 = 3^6`, `16 * 24^3 = 221184` and `4^6 = 4096`; and the
+bounds `249 - (45 + 15 * 9) = 69 > 57`, `16 * 12 = 192 > 57` and
+`7 - (16 - 10) = 1`.
+-/
+
+/-- `|zeta_j - zeta'_j|^2` for exponents `a, b`. -/
+def ffGap (a b : Nat) : Nat :=
+  let d := (a + 4 - b) % 4
+  if d == 0 then 0 else if d == 2 then 4 else 2
+
+/-- the number of coordinates where two exponent vectors differ. -/
+def ffDiff (z w : List Nat) : Nat :=
+  ((z.zip w).filter (fun q => q.1 != q.2)).length
+
+def ffD (z w : List Nat) : Nat := (z.zip w).foldl (fun a q => a * ffGap q.1 q.2) 1
+
+def ffEven : List (List Nat) := (cvTuples 3).filter (fun z => cvSum z % 4 == 0)
+def ffOdd : List (List Nat) := (cvTuples 3).filter (fun z => cvSum z % 4 == 2)
+
+/-- **Partners.**  Each piece has `3, 6, 7` partners of the other parity
+differing in `1, 2, 3` coordinates; the `7` have `D = 16, 16, 16, 16, 16, 16,
+64`, adding up to `160`; the `112` pairs carry `2560` classes. -/
+theorem ff_partner_counts :
+    (ffEven.length == 16 && ffOdd.length == 16
+      && ([ffEven, ffOdd].all fun P => P.all fun z =>
+            let Q := if cvSum z % 4 == 0 then ffOdd else ffEven;
+            ((Q.filter (fun w => ffDiff z w == 1)).length == 3)
+            && ((Q.filter (fun w => ffDiff z w == 2)).length == 6)
+            && ((Q.filter (fun w => ffDiff z w == 3)).length == 7)
+            && (((Q.filter (fun w => ffDiff z w == 3)).map (ffD z)).foldl (· + ·) 0 == 160)
+            && ((Q.filter (fun w => ffDiff z w == 3)).all fun w => ffD z w == 16 || ffD z w == 64)
+            && (((Q.filter (fun w => ffDiff z w == 3)).filter (fun w => ffD z w == 64)).length == 1))
+      && (((ffEven.flatMap fun z => ffOdd.filter (fun w => ffDiff z w == 3)).length) == 112)
+      && ((ffEven.flatMap fun z => (ffOdd.filter (fun w => ffDiff z w == 3)).map (ffD z)).foldl (· + ·) 0
+            == 2560)) = true := by
+  decide +kernel
+
+/-- a multiple: its value `t`, its shift, and whether `t > p = 0`. -/
+structure ffM where
+  t : Int
+  d : Int
+  above : Bool
+deriving DecidableEq
+
+/-- the shift of a piece one step from `M`, and one step to `M`. -/
+def ffMu (m : ffM) : Int := if m.above then m.d - 5 else m.d + 1
+def ffNu (m : ffM) : Int := if m.above then m.d - 1 else m.d + 5
+
+/-- a step between two multiples is possible in degree. -/
+def ffStep (a b : ffM) : Bool :=
+  a != b && (if b.t > a.t then b.d == a.d + 1 else b.d == a.d - 5)
+
+/-- the multiples reachable from `a` in at most two steps (`a` included). -/
+def ffFrom (L : List ffM) (a : ffM) : List ffM :=
+  a :: (L.filter (ffStep a)) ++ (L.filter (ffStep a)).flatMap (fun b => L.filter (ffStep b))
+
+def ffLambda (L : List ffM) (a : ffM) : Int :=
+  ((ffFrom L a).map ffMu).foldl max (ffMu a)
+def ffKappa (L : List ffM) (a : ffM) : Int :=
+  ((L.filter (fun b => (ffFrom L b).contains a)).map ffNu).foldl min (ffNu a)
+
+def ffPlacements : List (List ffM) :=
+  [ [⟨2, 1, true⟩, ⟨5, 4, true⟩, ⟨6, 5, true⟩],
+    [⟨-2, -1, false⟩, ⟨2, 3, true⟩, ⟨4, 4, true⟩],
+    [⟨-2, -1, false⟩, ⟨2, 1, true⟩, ⟨4, 4, true⟩] ]
+
+/-- **The shifts of the lemma.**  In the three placements:
+`lambda_i <= 0 <= kappa_k`, `kappa_i >= lambda_i + 2`, `lambda_i <= mu_i + 2`,
+`nu_i <= kappa_i + 2`, and the values are those of the table in the proof. -/
+theorem ff_shift_table :
+    ((ffPlacements.all fun L =>
+      (L.all fun a => decide (ffLambda L a ≤ 0) && decide (0 ≤ ffKappa L a)
+          && decide (ffKappa L a ≥ ffLambda L a + 2)
+          && decide (ffLambda L a ≤ ffMu a + 2) && decide (ffNu a ≤ ffKappa L a + 2)))
+    && (ffPlacements.map fun L => L.map fun a => (ffMu a, ffNu a, ffLambda L a, ffKappa L a))
+        == [ [(-4, 0, -4, 0), (-1, 3, 0, 3), (0, 4, 0, 3)],
+             [(0, 4, 0, 2), (-2, 2, 0, 2), (-1, 3, 0, 2)],
+             [(0, 4, 0, 3), (-4, 0, -4, 0), (-1, 3, 0, 3)] ]) = true := by
+  decide +kernel
+
+/-- **The counts.**  Kernels, cover degrees, targets and the final bounds. -/
+theorem ff_noconvolution_counts :
+    ((35 - 24 == 11) && (35 - 16 == 19)
+    && (10 * 14 == 4 * 35) && (8 * 12 == 4 * 24) && (2 * 6 == 4 * 3)
+    && (6 * 6 == 4 * 9) && (2 * 2 == 4 * 1)
+    && (3 ^ 6 == 729) && (16 * 24 ^ 3 == 221184) && (4 ^ 6 == 4096)
+    && (16 * 12 == 192) && (249 - 57 == 192)
+    && (249 - (45 + 15 * 9) == 69) && (69 > 57) && (16 * 12 > 57)
+    && (7 - (16 - 10) == 1) && (16 * 160 == 2560)) = true := by
+  decide
+
 end HodgeObstruction
 
 /-! ## The axioms each theorem depends on
@@ -2669,3 +2995,10 @@ propositional extensionality enters through `decide`, and in no case
 #print axioms HodgeObstruction.quartic_koszul_squares
 #print axioms HodgeObstruction.quartic_line_two_planes
 #print axioms HodgeObstruction.quartic_first_factor_character
+#print axioms HodgeObstruction.conv_pure_weil_identity
+#print axioms HodgeObstruction.conv_cup_kernel
+#print axioms HodgeObstruction.conv_run_excess
+#print axioms HodgeObstruction.conv_esix_thresholds
+#print axioms HodgeObstruction.ff_partner_counts
+#print axioms HodgeObstruction.ff_shift_table
+#print axioms HodgeObstruction.ff_noconvolution_counts

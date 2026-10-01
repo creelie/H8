@@ -2,8 +2,11 @@
 
 Every numerical assertion in this paper is checked in exact arithmetic:
 rational, integer or exterior-algebra computations, and exact linear algebra
-over number fields and over function fields in one variable. No
-floating-point operation occurs. A rank computed modulo a prime is used only
+over number fields and over function fields in one variable, with one
+exception: item (LXXII) evaluates integrals of theta functions by quadrature
+in double precision and reads a rank off from the ratio of the smallest to
+the largest singular value, which it compares with the change of the entries
+under a finer grid. A rank computed modulo a prime is used only
 as a lower bound for the rank over $\QQ$, since reduction can only lower a
 rank, and the bound is matched by an exact computation in the other
 direction. Items (XXIX), (XXXI) and (XL) are $\Ext$
@@ -1745,12 +1748,89 @@ computed, how it is computed, and which statements of the paper it supports.
   $\frac1{24}\Theta^{4}$ at $d=1,3,5,7$, and the Whitney formula is compared
   with Newton's identities on random data. That is
   \Cref{prop:lowrankburch} and \Cref{rem:lowrankburch}.
+
+\item \emph{Convolutions of line bundles.} On $E_{0}^{2n}$, $E_{0}=\CC/\ZZ[i]$,
+  the signed sum of $e^{c_{1}(L_{\zeta})}$ over the $2\cdot4^{n-1}$ bundles
+  $L_{\zeta}$ is computed in the exterior algebra over $\QQ(i)$ and found to
+  be $2\cdot4^{n-1}(\alpha+\bbar\alpha)$ for $n=2,3$ and $p\in\{0,1,-3\}$,
+  with the identity $\sum_{z\in\mu_{4}}ze^{D(z)}=4c'$ on one surface behind
+  it. The Hankel rank of three multiples is $3$, and $r=7n^{2}-2n$, $525$ and
+  $3668$ diagonal classes, and the gap $468$ are confirmed. Contraction with
+  the tangent vectors of the polarised family is found to vanish on a divisor
+  class only on $\CC\theta$ for $n=2,3,4$. The inequality
+  $n(X+Y)\le n(X)+n(Y)$ and the bound on a sum of nondegenerate forms adding
+  to zero are tested on random hermitian data. A shortest-path computation
+  over all steps of degree one, with the shifts free in their parities, finds
+  every closed walk of positive excess at $n=3,4$ for several placements of
+  the multiples, and one of excess at most $0$ at $n=2$. On binary trees
+  with up to eight leaves the number of distinct nested sets of marked
+  leaves is found to be at most $u-2$, with equality. At $n=3$ the pairs of
+  pieces that can carry a cup product are listed, the components $4$ and
+  $16$ of their graphs are found, and the cup products for random harmonic
+  components modulo $1000003$ have rank $276$, so a kernel of $204$, and
+  $249$ with the classes of the multiples. Every path of \Cref{lem:harmonicmodel}
+  for products of length at least three acting on the diagonal is
+  enumerated with the bound of \Cref{lem:degreedrop} and filtered by the
+  Maurer--Cartan equation: for $p=0$, $t=(2,4,6)$ only the paths
+  $M_{2}\to M_{3}\to L_{\zeta}\to M_{1}$ remain, for the two sign patterns
+  with $\sigma_{1}=\sigma_{3}=-\sigma_{2}$; the pieces $L_{\zeta}$ alone
+  carry none. For $t=(-2,2,4)$ only the two sign patterns with
+  $\sigma_{1}=\sigma_{2}=-\sigma_{3}$ keep paths, namely
+  $M_{2}\to M_{3}\to M_{1}\to L_{\zeta}$ and
+  $M_{3}\to M_{1}\to L_{\zeta}\to M_{2}$ through the sixteen $L_{\zeta}$
+  with $\prod\zeta=\sigma_{3}$, which order $M_{2}$ and $M_{3}$ oppositely;
+  the shifts they force are checked, and the hermitian forms of
+  $L_{\zeta}\otimes M_{2}^{-1}$ give targets of dimension
+  $\bigl((t_{2}-p)^{2}-1\bigr)^{3}$. For $t=(-4,-2,2)$ and $t=(-6,-4,-2)$
+  the survivors of all eight sign patterns are found to be the duals of
+  those for $(-2,2,4)$ and $(2,4,6)$. The search cuts branches by a lower
+  bound for the excess still to come, and it is found to return the same
+  paths as the exhaustive search at $t=(2,4,6)$. At $n=4$ paths of length
+  three and four among the $L_{\zeta}$ are found to pass the same tests.
+  That is \Cref{prop:weilpieces}, \Cref{lem:indexsum},
+  \Cref{thm:fewpieces}, \Cref{lem:degreedrop}, \Cref{prop:nothingenters},
+  \Cref{prop:cupkernel}, \Cref{thm:esixdiagonal},
+  \Cref{prop:mixedplacement} and \Cref{rem:convolutionsopen}.
+
+\item \emph{The fourfold products on $E_0^6$, an explicit convolution,
+  and the classes no product removes.} Theta functions on $E_{0}$ of degrees
+  $2$, $6$ and $14$ in the unitary gauge are checked against their automorphy
+  factors, $\nabla_{\bar z}$ is found to kill them and $\nabla_{z}$ to agree
+  with a finite difference, and the levels $0$, $1$, $2$ are found
+  orthonormal with squared norms $k!(\pi d)^{k}$; the levels $0$ to $12$ of a
+  product $s\bar\omega$ carry its norm to $10^{-8}$. On the four covers
+  $\phi_{\zeta_{j}}$ the invariant sections of the five bundles of a path
+  have the dimensions $|\det|$ ($1$, $35$, $3$, $24$, $9$ at $t=(2,5,6)$),
+  and the theta basis of $B_{j}$ pulls back exactly into them. The selection
+  rules of the levels hold, two quadrature grids agree to $10^{-15}$, and of
+  the five trees with four leaves only $(x_{1}x_{2})(y\,x_{3})$ survives the
+  degree count, in two assignments. In the order of
+  \Cref{prop:explicitconvolution} the components and the two equations of
+  the Maurer--Cartan equation are found, and the classes of degrees $1$, $2$,
+  $3$ of the endomorphism complex number $908979$, $233213$ and $12142$, of
+  which $16\cdot24^{3}=221184$ in degree two lie between $M_{2}$ and the
+  $L_{\zeta}$. At $p=0$, $t=(2,5,6)$ the fourfold products on the $192$
+  classes of type $(1,1,0)$ are found to have rank $12$ at each of the
+  sixteen $L_{\zeta}$ and rank $192$ together, with smallest singular value
+  $0.016$ of the largest; also with $x_{1}x_{2}^{\zeta}=x_{2}^{\zeta}x_{3}^{\zeta}=0$
+  (kernels of dimensions $11$ and $19$ on every surface), with the relative
+  sign of the two terms reversed, and at $t=(2,5,7)$. Each piece is found to
+  have $3$, $6$, $7$ partners of the other parity differing in one, two,
+  three coordinates, the last with $D=16$ six times and $64$ once. In the
+  explicit convolution the $112$ groups $\cH^{3}$ of pieces that differ
+  everywhere, $2560$ classes, are found to be reached by no element of
+  degree one and to have no target of degree three, and the same is found
+  for every such pair with adjacent shifts in $36$ random orders and shifts
+  of the three placements of \Cref{lem:allthree}. That is
+  \Cref{prop:fourfoldrank}, \Cref{prop:explicitconvolution},
+  \Cref{lem:allthree}, \Cref{thm:noconvolution} and
+  \Cref{rem:convolutionsopen}.
 \end{enumerate}
 
-Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LXX) are the ones
+Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LXXII) are the ones
 on which theorems depend. Items (IV) and (V) support statements that no
 obstruction exists; a failure there would strengthen the paper rather than
 weaken it, and they are included for completeness.
-The sixty-seven items other than (XXIX), (XXXI) and (XL) perform $2004$
+The sixty-nine items other than (XXIX), (XXXI) and (XL) perform $2135$
 checks, all of which pass; those three, and the local part of (LXVIII), are
 $\Ext$ computations over a polynomial ring, recorded with their output.

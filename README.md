@@ -33,7 +33,9 @@ licence, or a package other than those named below.
                 weiltype_family.py, mumford_rigidity.py, mumford_object.py,
                 lefschetz_closure.py, twistor_locus.py and hk_pullback.py, numpy
                 integer arrays for pte_remaining.py and weil_tori.py, and
-                python-flint exact rational matrices for attack_checks.py)
+                python-flint exact rational matrices for attack_checks.py;
+                fourfold_products.py alone works in double precision, with
+                its ranks read off from a gap of the singular values)
     code/attack/  the round-12 attack scripts, with their verifiers' scripts
                 and transcripts (item (LV))
     code/extreme/ longer runs of several items, with transcripts
@@ -59,7 +61,7 @@ Lean check:
 
 The last lines are
 
-    2004 checks passed, 0 failed
+    2135 checks passed, 0 failed
     overall: PASS
 
 and the exit status is zero. The driver runs five self-contained checks and
@@ -121,6 +123,8 @@ then calls the companion scripts in the same directory:
 | `quartic_local.py` | item (LXVIII): Markman's candidate for a quartic CM field against the weakened criterion: the classes alpha_0 = Theta - (q/6) Theta^3 and beta' = g^* Theta - (q/6) (g^{-1})^* Theta^3 in the secant space S(0,q), their pure spinor coefficients, the compensated classes x_j = ((q/2) pi_j _| theta_j^2, 0, pi_j) and their B-field transports, the annihilators of dimension 16 and 8 and the ranks 12 and 20, int alpha_0 beta' = -4q Tr(f^2), the Euler pairings, the rank 96 on X x X modulo two primes, and the character Theta - (d/6) Theta^3 and chi = 8d of the first factor; exact rational arithmetic |
 | `lattice_congruence.py` | item (LXIX): the secant plane and the lattice of line bundles on a principally polarised abelian fourfold: binomial moments of a class in Q[Theta]/(Theta^5) against the closed formula, u + 3v in the lattice spanned by the e^{j Theta} exactly for d = 15, 23 mod 24 (d < 400, and a second decision by the Vandermonde basis for d < 60), the witness 6(u + v) at d = 3, the defect of m_4 at the smooth discriminants 1, 3, 5, 7, the non-integral moments of O_S for N = 5 to 8, and e(S) != [S]^2 for N <= 40; exact rational arithmetic |
 | `burch_rank.py` | item (LXX): resolutions 0 -> E_1 -> E_0 -> I_Z -> 0 by vector bundles of ranks r, r + 1 of a secant ideal I_Z(b Theta): c(I_Z(b Theta)) = 1 + b T + N T^2 + (bN/3) T^3 + N(b^2 - 3d)/12 T^4 by Newton's identities, hard Lefschetz for T^2 on H^2 (rank 28), c_4(G) = -(b^2 + d)(b^2 + 9d)/72 T^4 != 0 at r = 1 (no zero locus of a section of a rank two bundle), 6m = 3d - b^2 - 4ab and chi(E) = a^4 - 2a^2 m + m^2/2 at r = 2, so d = 3 mod 4 at b = 3, confirmed by a brute-force search, and the route note's rank two example (c_4(G) = 180, 144, 84, 0 at d = 1, 3, 5, 7); sympy and exact rational arithmetic |
+| `line_bundle_convolutions.py` | item (LXXI): convolutions of line bundles on E^{2n}, E = C/Z[i]: the 2 4^{n-1} bundles L_zeta with prod zeta = +-1, whose signed exponentials sum to the pure Weil class 2 4^{n-1} (alpha + conj alpha), exactly for n = 2, 3; the index lemma n(X + Y) <= n(X) + n(Y); every closed walk of steps of degree one has positive excess at n = 3, 4, so no Massey product enters the diagonal classes of Ext^2, while one of excess 0 exists at n = 2; the degree drop on binary trees; the cup products on the 525 diagonal classes at n = 3 (graph components 4 and 16, generic rank 276, kernel 204 + 45 = 249); among the products of length at least three only the fourfold paths M_{t2} -> M_{t3} -> L -> M_{t1} survive, for sigma_1 = sigma_3 = -sigma_2, with values in a space of dimension (t_2 - t_1)^6, and with t_1 below p and t_2, t_3 above only M_{t2} -> M_{t3} -> M_{t1} -> L and M_{t3} -> M_{t1} -> L -> M_{t2}, for sigma_1 = sigma_2 = -sigma_3; at n = 4 paths of length three and four survive |
+| `fourfold_products.py` | item (LXXII): the fourfold products of the surviving family on E_0^6 computed in theta functions: the pieces pulled back along the degree-4 covers (w_1, w_2) -> (w_1 + w_2, u(w_1 - w_2)) of each factor E_0^2, where they become exterior products of line bundles on curves; the automorphy factors, holomorphy and Landau-level norms of the theta functions for d = 2, 6, 14; the selection rules on the two curves; only the tree (x_1 x_2)(y x_3) of the five survives; the explicit convolution M_{t2} -> M_{t3} -> L_zeta -> M_{t1} whose Maurer-Cartan equation is exactly x_1 x_2^zeta = 0 and sum_zeta x_2^zeta x_3^zeta = 0, with 908979, 233213, 12142 classes in degrees 1, 2, 3 of its endomorphism complex; rank 12 at each of the 16 pieces and rank 192 on the 192 diagonal classes of type (1,1,0) (smallest to largest singular value about 0.02, for t = (2,5,6), (2,5,7), both signs, and with the Maurer-Cartan equation imposed), so the diagonal count of the corrected criterion can be met; the partner counts 3, 6, 7 of a piece and the dimensions Prod |zeta_j - zeta'_j|^2 (16 six times and 64 once) of the blocks between pieces of opposite parity that differ in every coordinate; the 112 isolated blocks and 2560 classes of the explicit convolution; random arrangements of the three placements in which every such block with shifts differing by one is isolated; and the bound 249 - (45 + 15 * 9) = 69 > 57 of the theorem that no convolution of these pieces meets the criterion. Double precision |
 | `transport_growth.py` | the transport of the base cycle along the rational orbit: det(phi) = c^{2G}, phi^* E = c^2 E and phi^* omega = c^{2n} omega on an explicit sample of rational symplectic elements with denominators to 29; the multiplicity of a component as the order of the stabiliser its kernel meets, computed as a lattice index by Smith normal form, against the image degree computed as a Pfaffian; and the contrast between a subtorus the isogeny preserves, where the image degree is constant, and one it does not, where it grows |
 | `cm_fields.py` | the Weil classes of a CM field of degree four and six: the CM base point of every family, the balanced divisor classes delta_i(f), the identity that the balanced n-fold product of them is the Weil class w(f) = sum_sigma sigma(f) alpha_sigma, checked for six pairs (F, n) with m = 2, 3 and n = 1, 2, 3, and the identity that the Weil classes of a composite field generate those of its imaginary quadratic subfield |
 | `exceptional_classes.py` | the exceptional Hodge classes on the self-product of a Mumford fourfold (eight invariants against six divisor products), the Hodge numbers and adjoint weights that keep the H^3 of a quintic threefold outside abelian type, and the 4n^2-dimensional annihilator of the Weil class in Hochschild cohomology with the two linear-algebra lemmas behind the theorem on the semiregularity form of propagation |
@@ -153,14 +157,14 @@ reduction at all.
 No Mathlib and no dependencies. The file ends with one `#print axioms` line
 per theorem; every one must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
-through `decide`, and none may mention `sorryAx`. There are one hundred and ten theorems. `lean/README.md` lists them
+through `decide`, and none may mention `sorryAx`. There are one hundred and seventeen theorems. `lean/README.md` lists them
 and says what each one does and does not establish. The workflow in
 `.github/workflows/lean.yml` runs the check on every push and fails if the
-number of theorems is not one hundred and ten, or if any of them depends on an axiom other than propext.
+number of theorems is not one hundred and seventeen, or if any of them depends on an axiom other than propext.
 
 ## The computations, item by item
 
-`COMPUTATIONS.md` describes the computations as items (I) to (LXX) and lists,
+`COMPUTATIONS.md` describes the computations as items (I) to (LXXII) and lists,
 for each result of the paper, the items that check it. The programs that carry
 them out are:
 
@@ -236,6 +240,8 @@ them out are:
 | (LXVIII) | `code/quartic_local.py`, with `m2/local_germs.m2` for the local part |
 | (LXIX) | `code/lattice_congruence.py` |
 | (LXX) | `code/burch_rank.py` |
+| (LXXI) | `code/line_bundle_convolutions.py` |
+| (LXXII) | `code/fourfold_products.py` |
 
 Items (I) to (V) are computed inside `code/verify_all.py` itself; items
 (XXIX), (XXXI) and (XL) are the Macaulay2 computations described below; item
@@ -303,6 +309,12 @@ Their unedited transcripts are the `.txt` files beside them, and
     python3 make_round22.py     # hypersurfaces of simplex type
     python3 make_round24.py     # the local obstruction at a point of
                                 # Markman's glued curve, and the ten germs
+    python3 make_round28.py     # the algebraic locus of the main theorem,
+                                # and the two halves of the closure theorem
+    python3 make_round31.py     # an abelian scheme seeded at a CM member
+    python3 make_round32.py     # the excess of a cycle of line bundles, the
+                                # surviving fourfold path, and the budget of
+                                # diagonal classes at n = 3
     for f in fig_*.tex; do pdflatex -interaction=nonstopmode "$f"; done
     python3 checkfigs.py        # must print 0 overlapping label pairs
 

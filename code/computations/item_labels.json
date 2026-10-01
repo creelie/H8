@@ -266,5 +266,23 @@
  ],
  "XLVI": [
   "thm:lefschetzclosure"
+ ],
+ "LXXI": [
+  "prop:weilpieces",
+  "lem:indexsum",
+  "thm:fewpieces",
+  "lem:degreedrop",
+  "prop:nothingenters",
+  "prop:cupkernel",
+  "thm:esixdiagonal",
+  "prop:mixedplacement",
+  "rem:convolutionsopen"
+ ],
+ "LXXII": [
+  "prop:fourfoldrank",
+  "prop:explicitconvolution",
+  "lem:allthree",
+  "thm:noconvolution",
+  "rem:convolutionsopen"
  ]
 }

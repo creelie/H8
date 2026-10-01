@@ -230,9 +230,64 @@ locus, the dense CM points, strata of the algebraic locus and three fibres
 drawn as tori) from `figures/make_round31.py`, four footnotes in Section 22,
 a 52-word abstract, the published version of [KOU23] and the chapter DOI of
 [Kur65], after every reference of the bibliography was checked online
-(publisher pages, DOI and Crossref records, arXiv); 367 pages. The paper
-cites the code through the concept DOI until Deep publishes release v3.1.0
-and sends its version DOI. P2_split, (F2) and (F3') remain open. Never use
+(publisher pages, DOI and Crossref records, arXiv); 367 pages. Round 32
+answered Deep's request to attack the Massey products of length 4 to 6 on
+E_0^6 with the subsection `ssec:convolutions` at the end of
+`tex/sections/10c6_objects.tex`: `setup:convolution`, `lem:harmonicmodel`
+(harmonic model of a twisted complex of line bundles, products as planar
+trees), `lem:indexsum`, `thm:fewpieces` (fewer than 2n pieces with
+nondegenerate differences never meet the corrected criterion),
+`prop:weilpieces` (on E_0^{2n}, E_0 = C/Z[i], the 2 4^{n-1} line bundles
+L_zeta with prod zeta = +-1 have signed Chern characters adding up to
+2 4^{n-1} (alpha + conj alpha); with three multiples of theta, r = 7n^2 - 2n,
+525 diagonal classes against 57 at n = 3), `lem:degreedrop`,
+`prop:nothingenters` (for n >= 3 no product reaches the diagonal classes),
+`prop:cupkernel` (the cup products leave at least 249 of them),
+`thm:esixdiagonal` (only fourfold products along M_{t2} -> M_{t3} -> L ->
+M_{t1}, with sigma_1 = sigma_3 = -sigma_2, act, into a space of dimension
+(t_2 - t_1)^6, so the criterion needs rank >= 192 and t_2 - t_1 >= 3;
+lengths 3, 5, 6 do not act), `prop:mixedplacement` (t_1 <= p - 2 and
+p + 2 <= t_2 < t_3: only sigma_1 = sigma_2 = -sigma_3 carries products, of
+length four along M_2 -> M_3 -> M_1 -> L_zeta, into sixteen targets of
+dimension ((t_2 - p)^2 - 1)^3, total >= 432, or along M_3 -> M_1 -> L_zeta
+-> M_2, into (t_3 - t_2)^6; a convolution carries at most one of the two;
+the other mixed placement is its dual) and `rem:convolutionsopen` (those
+fourfold products are not computed; n = 4 does not close), six footnotes,
+the figures `fig_convolutions` and `fig_diagonalbudget` of
+`figures/make_round32.py`, item (LXXI), `code/line_bundle_convolutions.py`
+(89 checks, 2093 in all; the path search is pruned by a lower bound for the
+excess still to come and checked against the exhaustive one), and Lean
+Section 41 (one hundred and fourteen theorems); 375 pages, 721 labels.
+Round 33 checked the Kuga-Satake class of the Picard-13 surface S_lambda of
+`thm:mumfordks` against every proved case of the Kuga-Satake Hodge conjecture
+and the literature to 2026, found none that contains it, and recorded the
+arithmetic in `rem:mumfordks` of `tex/sections/11c_mumford.tex` (a
+Shioda-Inose structure needs transcendental rank at most five; Floccari,
+Paranjape and Ingalls-Logan-Patashnick need at most six; S_lambda has rank
+nine and a totally real, not CM, endomorphism field); no new labels, no code
+change (2093 checks, 114 Lean theorems, 375 pages, 721 labels).
+Round 33 continued, at Deep's request for constructions, with the round 32
+fourfold Massey family on E_0^6, computed in theta functions after pulling
+the pieces back along degree-4 covers of each E_0^2: `prop:fourfoldrank`
+(the products have rank 192 on the 192 diagonal classes of type (1,1,0), a
+double-precision rank with singular-value ratio 0.016, so the diagonal
+count can be met), `prop:explicitconvolution` (an order of the 35 pieces
+whose Maurer-Cartan equation is exactly x_1 x_2^zeta = 0 and
+sum x_2^zeta x_3^zeta = 0; diagonal kernel <= 57 but dim Ext^2 >= 2560),
+`lem:allthree` (Weil pieces of opposite parity differing in all three
+coordinates with adjacent shifts give isolated H^3 blocks of dimension
+prod |zeta_j - zeta'_j|^2) and `thm:noconvolution` (every convolution of
+these pieces with |t_i - p| >= 2 has dim Ext^2 >= 69 > 57, so the route
+closes negatively at n = 3, Markman's trivial-discriminant case; n = 4
+open), with `rem:convolutionsopen` rewritten, four footnotes, the
+double-precision exception stated in the introduction, the title-page
+footnote and the computations list, item (LXXII), `code/fourfold_products.py`
+(42 checks, 2135 in all), Lean Section 42 (117 theorems), and an
+`\enlargethispage{2pt}` at `setup:rm` in `tex/sections/13_families.tex`;
+`make_computations.py` now joins item titles that span lines; 379 pages,
+726 labels.
+The paper cites the code through the concept DOI until Deep publishes
+release v3.1.0 and sends its version DOI. P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 
 Release v1.0.0 (tag `v1.0.0`, commit `ef15bce`) is archived on Zenodo under
@@ -255,7 +310,7 @@ section.
 - `cd code && python3 verify_all.py` ends with `N checks passed, 0 failed`;
   keep the count in `README.md`, `lean/README.md`, `.zenodo.json`,
   `.github/workflows/lean.yml` and `tex/declarations.tex` in step.
-- `cd lean && lean HodgeObstruction.lean`: 110 theorems, each axiom-free or
+- `cd lean && lean HodgeObstruction.lean`: 117 theorems, each axiom-free or
   depending on `propext` only.
 - `cd tex && latexmk -pdf main.tex`: 0 errors, 0 overfull or underfull boxes,
   no undefined references.

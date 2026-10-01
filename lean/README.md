@@ -27,10 +27,10 @@ per theorem. Every line must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
 through `decide` or the core lemmas on natural numbers, and none may mention `sorryAx`. The GitHub workflow in
 `.github/workflows/lean.yml` enforces all three, and fails the build if the
-number of theorems is not one hundred and ten or if any of them reaches for a further
+number of theorems is not one hundred and seventeen or if any of them reaches for a further
 axiom.
 
-## The one hundred and ten theorems
+## The one hundred and seventeen theorems
 
 | theorem | statement |
 | --- | --- |
@@ -144,6 +144,13 @@ axiom.
 | `quartic_koszul_squares` | for the Koszul resolution of `R/(x_1,...,x_c)`, `c = 3, 4`, the Yoneda square `a_k a_l` is represented by a nonzero vector exactly when `k != l` and `k, l <= c`, and the coboundaries vanish at the origin |
 | `quartic_line_two_planes` | a nonzero vector of `[-6,6]^4` has a nonzero component outside one of two complementary coordinate planes |
 | `quartic_first_factor_character` | the pieces of Markman's Example 8.2.4 have the characters used there, `ch(F_d) = Theta - (d/6) Theta^3` and `chi(F_d, F_d) = 8 d` for `d <= 60` |
+| `conv_pure_weil_identity` | for `n = 2, 3, 4` there are `2 * 4^(n-1)` exponent vectors `zeta` in `mu_4^n` with `prod zeta = +-1`, half of each sign, and the signed sum of the `e^(c_1(L_zeta))` has coefficient `2 * 4^(n-1)` on `alpha` and on `conj(alpha)` and `0` on every other monomial in the `c_j`, `c'_j` (`decide +kernel`) |
+| `conv_cup_kernel` | at `n = 3` the graphs `Gamma_tau` of the six types of diagonal classes have `4` components when `tau` has an entry `2` and `16` otherwise, so the classes constant on components span `3 * 4 * 1 + 3 * 16 * 4 = 204` dimensions, `249` with the `45` classes of the multiples, out of `525` (`decide +kernel`) |
+| `conv_run_excess` | for `3 <= n <= 12` and every placement of `p` among the `t_i`, a run from a piece `L_zeta` through distinct multiples back has excess at least `2n - 4 >= 2`, and a closed walk through the multiples alone at least `2n - 3`; at `n = 2` a run of excess `0` exists (`decide +kernel`) |
+| `conv_esix_thresholds` | along `M_2 -> M_3 -> L -> M_1` with `Ext` degrees `0, 6, 0` the shifts are `d, d + 1, d - 4, d - 3`, the product lands in `Ext` degree `6` and `sigma_1 = sigma_3 = -sigma_2`; `r = 24, 57, 104` at `n = 2, 3, 4`; `(t_2 - t_1)^6 = 1, 64, 729`, `249 - 64 = 185 > 57`, `249 - 57 = 192`, and `(t_2 - t_1)^6 >= 192` exactly when `t_2 - t_1 >= 3` |
+| `ff_partner_counts` | with `zeta_j = i^(e_j)`, the sixteen pieces with `prod zeta = 1` and the sixteen with `prod zeta = -1`; every piece has `3`, `6`, `7` partners of the other parity differing in `1`, `2`, `3` coordinates, and for the `7` the block dimension `D = prod_j |zeta_j - zeta'_j|^2` is `16` six times and `64` once, `160` in all; the `112` pairs carry `2560` classes (`decide +kernel`) |
+| `ff_shift_table` | in the three placements of the multiples relative to `p`, the shifts `mu_i`, `nu_i` of a piece one step from or to `M_i` and the extremes `lambda_i`, `kappa_i` over steps between the multiples are those of the table in the proof of the lemma on pieces that differ everywhere, and satisfy `lambda_i <= 0 <= kappa_k`, `kappa_i >= lambda_i + 2`, `lambda_i <= mu_i + 2`, `nu_i <= kappa_i + 2` (`decide +kernel`) |
+| `ff_noconvolution_counts` | the kernels `11`, `19` of `x_1`, `x_3` on a surface at `t = (2, 5, 6)`; the cover degrees; `3^6 = 729`, `16 * 24^3 = 221184`, `4^6 = 4096`; and the bounds `249 - (45 + 15 * 9) = 69 > 57` and `16 * 12 = 192 > 57` of the theorem that no convolution of the pieces meets the criterion. The rank `192` of the fourfold products is a floating-point computation and is not certified here |
 
 
 ## Two statements that look true and are not
@@ -167,12 +174,12 @@ careful reading does not catch and a kernel check does.
 `code/verify_all.py` in the parent directory performs the same checks in exact
 rational arithmetic over Q, independently of Lean, together with the exterior
 algebra computations that Lean does not carry, and prints
-`2004 checks passed, 0 failed`.
+`2135 checks passed, 0 failed`.
 
 ## Transcript
 
 `axioms.txt` is the unedited output of `lean HodgeObstruction.lean` under
-Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and ten lines, one per
-theorem, eighty-seven reading `does not depend on any axioms` and twenty-three reading
+Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and seventeen lines, one per
+theorem, ninety-three reading `does not depend on any axioms` and twenty-four reading
 `depends on axioms: [propext]`, exit status 0, no `sorryAx`. `lake build`
 completes with the same report. Each run takes a few minutes.
