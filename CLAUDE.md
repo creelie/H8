@@ -258,6 +258,14 @@ the figures `fig_convolutions` and `fig_diagonalbudget` of
 (89 checks, 2093 in all; the path search is pruned by a lower bound for the
 excess still to come and checked against the exhaustive one), and Lean
 Section 41 (one hundred and fourteen theorems); 375 pages, 721 labels.
+Round 33 checked the Kuga-Satake class of the Picard-13 surface S_lambda of
+`thm:mumfordks` against every proved case of the Kuga-Satake Hodge conjecture
+and the literature to 2026, found none that contains it, and recorded the
+arithmetic in `rem:mumfordks` of `tex/sections/11c_mumford.tex` (a
+Shioda-Inose structure needs transcendental rank at most five; Floccari,
+Paranjape and Ingalls-Logan-Patashnick need at most six; S_lambda has rank
+nine and a totally real, not CM, endomorphism field); no new labels, no code
+change (2093 checks, 114 Lean theorems, 375 pages, 721 labels).
 The paper cites the code through the concept DOI until Deep publishes
 release v3.1.0 and sends its version DOI. P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
