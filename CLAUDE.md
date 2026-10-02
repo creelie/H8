@@ -296,6 +296,19 @@ classes", Preprints.org, doi:10.20944/preprints202602.0462.v5 (checked on
 preprints.org), as containing errors and incomplete proofs and replaced by
 this paper, with the change of author order, and an `\enlargethispage{3pt}`
 at the start of `tex/sections/02_conventions.tex`; no code or label change.
+Round 36 added the subsection `ssec:speciallocus` at the end of the
+propagation part of `tex/sections/10d1_cmfields.tex` (`def:speciallocus`,
+`prop:speciallocus`, `cor:speciallocus`, `thm:escape`, `rem:escape`): the
+locus of members with smaller Hodge group contains every member at which
+the paper exhibits algebraic Weil classes and has every property of
+Sigma_F used in `thm:main`, yet is meagre, so those properties cannot decide
+the dichotomy (an obstruction); and, by the Andre-Oort theorem of Pila,
+Shankar and Tsimerman ([PST21, Theorem 1.1], with [Tsi18] for A_g; both
+checked online), the bounded criterion is needed only along one sequence of
+CM points that leaves every proper special subvariety, which exists in the
+Hecke orbit (a bypass of the dense orbit, still an equivalence). The
+introduction and `thm:final`(iv) cite them; no code change (2135 checks,
+117 Lean theorems, 383 pages, 732 labels).
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 

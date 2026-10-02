@@ -554,6 +554,206 @@ $K$-Weil classes on it are products that carry no information about their
 factors.
 \end{proof}
 
+\subsection{The special locus and an escaping sequence}
+\label{ssec:speciallocus}
+
+The properties of $\Sigma_{F}$ proved so far are shared by a set that is
+certainly meagre, the locus of members whose Hodge group is smaller than
+$G_{F}$, and every construction of algebraic Weil classes available for
+$n\ge4$ produces points of that locus only. In the other direction the
+bounded criterion (iv) of \Cref{thm:cmpropagation} needs far less than an
+orbit: by the theorem of Pila, Shankar and Tsimerman on the Andr\'e--Oort
+conjecture, a bound on one sequence of CM points that leaves every proper
+special subvariety is enough.
+
+\begin{definition}[Special subvarieties and the special locus]
+\label{def:speciallocus}
+Keep \Cref{setup:cmfield}, with $\Gamma$ a congruence subgroup. A
+\emph{special subvariety} of $\cS_{F}$ is an irreducible component of the
+image in $\cS_{F}$ of a connected component of the locus of Hodge classes
+$\Hdg^{p}(\mathbb{V})$, where $\mathbb{V}$ runs over the variations
+$(R^{1}\pi_{*}\ZZ)^{\otimes a}\otimes(R^{1}\pi_{*}\ZZ)^{\vee\,\otimes b}$
+of even weight, or $\cS_{F}$ itself; these are the special subvarieties of
+$\cS_{F}$ for $R^{1}\pi_{*}\ZZ$ in the sense of \cite{KOU}.%
+\footnote{By a theorem of Chevalley every algebraic subgroup of $\GL(V)$ is
+the stabiliser of finitely many tensors \cite[\S3]{Del82}, so the locus where
+the Hodge group lies in a given subgroup is a locus of Hodge tensors, and
+these subvarieties are the special subvarieties of $\cS_{F}$ as a connected
+Shimura variety, the images of the domains of the reductive subgroups of
+$G_{F}$ that contain the Hodge group of one of their points.}
+A \emph{CM point} is a point $p(s)$ at which $A_{s}$ is of CM type, that is,
+at which $\Hg(A_{s})$ is a torus; the CM points are the special points of
+$\cS_{F}$. The \emph{special locus} is
+\[
+  \Sigma^{\mathrm{sp}}_{F}
+  =\{\,s\in\cD_{F}\;:\;\Hg(A_{s})\ne G_{F}\,\}.
+\]
+\end{definition}
+
+\begin{proposition}[The special locus]\label{prop:speciallocus}
+Fix $(F,n,\delta)$ with $n\ge2$ and keep \Cref{def:speciallocus}.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item Special subvarieties are closed algebraic subvarieties of $\cS_{F}$, and
+  there are countably many of them. A special subvariety other than
+  $\cS_{F}$ is proper and nowhere dense.
+\item $\Sigma^{\mathrm{sp}}_{F}$ is the set $Z$ of \Cref{lem:cmgeneric}, and
+  it is the preimage under $p$ of the union of the proper special
+  subvarieties. In particular it is the preimage of a countable union of
+  proper Zariski closed subsets of $\cS_{F}$, and it is meagre.
+\item If $\End^{0}(A_{s})\ne F$, then $s\in\Sigma^{\mathrm{sp}}_{F}$. In
+  particular $\Sigma^{\mathrm{sp}}_{F}$ contains every point at which $A_{s}$
+  is of CM type, the base point $s_{0}$ of \Cref{thm:cmbasepoint}, and, for
+  $F$ imaginary quadratic, the split members of \Cref{setup:family}, the
+  quaternionic members of \Cref{thm:quatweil} and the products of
+  \Cref{lem:products}.
+\item $\Sigma^{\mathrm{sp}}_{F}$ is stable under $G_{F}(\QQ)$ and dense in
+  $\cD_{F}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) Each image of a component of $\Hdg^{p}(\mathbb{V})$ is closed and
+algebraic by \Cref{thm:cdk}, applied to the polarised variation
+$\mathbb{V}$, after a Tate twist when $a<b$, so its irreducible
+components are irreducible closed subvarieties. There are countably many
+pairs $(a,b)$, each $\Hdg^{p}(\mathbb{V})$ has countably many components by
+\Cref{lem:hodgeanalytic}, and an algebraic set has finitely many irreducible
+components. A proper closed subvariety of the irreducible variety
+$\cS_{F}$ has empty interior.
+
+(ii) Let $s\in Z$, so that some rational tensor $t$ not fixed by $G_{F}$ is a
+Hodge class of $A_{s}$, and let $C$ be the component of
+$\Hdg^{p}(\mathbb{V})$ through the point $(p(s),Nt)$, for $N$ with $Nt$
+integral. Along $C$ the class is carried by parallel transport, so over
+$\cD_{F}$ it is one of the flat sections $\gamma Nt$ with $\gamma\in\Gamma$ on
+each sheet. If the image of $C$ were $\cS_{F}$, then by \Cref{lem:hodgeanalytic}
+and Baire's theorem one such section $\gamma Nt$ would be a Hodge class on a
+nonempty open subset of $\cD_{F}$, hence on all of it, since the locus
+$Z_{\gamma t}$ of \Cref{lem:cmgeneric} is closed analytic in the connected
+manifold $\cD_{F}$; the proof of \Cref{lem:cmgeneric} then shows that
+$\gamma t$, and with it $t$, is fixed by $G_{F}$, a contradiction. So $p(s)$ lies in a proper
+special subvariety. Conversely, if $p(s)$ lies in a proper special
+subvariety, an irreducible component of the image of a component $C$
+through a point $(p(s),v)$, then $v$ is a Hodge class of $A_{s}$. If $v$
+were fixed by $G_{F}$ it would be fixed by $\Gamma$, hence a flat global
+section that is a Hodge class at every point by \Cref{lem:cmgeneric}; its
+graph is open and closed in $\Hdg^{p}(\mathbb{V})$, so it would be $C$, with
+image $\cS_{F}$, and the special subvariety would not be proper. Hence $s\in Z$.
+The rest follows from (i) and \Cref{lem:cmgeneric}.
+
+(iii) The endomorphism algebra $\End^{0}(A_{s})$ is the algebra of Hodge
+classes in $\End(V)$, that is, the commutant of $\Hg(A_{s})$
+\cite[\S3]{Del82}. Over $\CC$ the group $G_{F}$ is
+$\prod_{\tau}\SL(V_{\sigma_{\tau}})$, acting on $V_{\sigma_{\tau}}$ by the
+standard representation and on $V_{\bbar\sigma_{\tau}}$, which $H$ pairs
+perfectly with $V_{\sigma_{\tau}}$, by its dual. These $2m$ representations
+are irreducible and pairwise non-isomorphic, the standard representation of
+$\SL_{2n}$ and its dual being non-isomorphic for $2n\ge3$, so the commutant
+of $G_{F}$ in $\End(V_{\CC})$ is $\CC^{2m}$, and its commutant in
+$\End_{\QQ}(V)$ is a commutative algebra of dimension $2m$ containing $F$,
+hence equal to $F$. So $\Hg(A_{s})=G_{F}$ forces $\End^{0}(A_{s})=F$. A
+member of CM type has a commutative Hodge group, and $G_{F}$ is not
+commutative; at $s_{0}$ the Hodge group lies in that of
+$B_{\Phi}^{\,n}\times B_{\bbar\Phi}^{\,n}$, a torus. The split members
+contain the projections to $X$ and to $\widehat{X}$ in
+$\End^{0}(A)$, the quaternionic members contain a quaternion algebra, and
+the products contain the projections to their factors; none of these lies
+in $K$.
+
+(iv) An element $g\in G_{F}(\QQ)$ induces an isogeny $A_{s}\to A_{gs}$ acting
+on $V$ by $g$, so $\Hg(A_{gs})=g\Hg(A_{s})g^{-1}$, and $gG_{F}g^{-1}=G_{F}$.
+By (iii) the set contains $s_{0}$, hence its orbit, which is dense by
+\Cref{thm:cmpropagation}(ii).
+\end{proof}
+
+\begin{corollary}[What closing the locus requires]\label{cor:speciallocus}
+Fix $(F,n,\delta)$ with $n\ge2$. The set $\Sigma^{\mathrm{sp}}_{F}$ has every
+property of $\Sigma_{F}$ used in \Cref{thm:main}: it contains the explicit CM
+point $s_{0}$, it is dense and stable under $G_{F}(\QQ)$, and it is the
+preimage of a countable union of Zariski closed subsets of $\cS_{F}$; and it
+is meagre. Consequently $\Sigma_{F}=\cD_{F}$ does not follow from these
+properties of $\Sigma_{F}$, and it holds only if the Weil classes are
+algebraic at some $s$ with $\Hg(A_{s})=G_{F}$, where they span, together with
+the products of divisor classes, every Hodge class of $A_{s}$.
+\end{corollary}
+
+\begin{proof}
+The properties are \Cref{prop:speciallocus}(ii) to (iv), and meagreness is
+(ii). If $\Sigma_{F}=\cD_{F}$, then $\Sigma_{F}$ contains the complement of
+$\Sigma^{\mathrm{sp}}_{F}$, which is nonempty by Baire's theorem. The last
+assertion is \Cref{prop:cmweil}(iii).
+\end{proof}
+
+The base points of \Cref{thm:cmbasepoint}, \Cref{thm:everyfamily} and
+\Cref{thm:everyn}, the split members of \Cref{thm:residual}(c), their orbits
+under $G_{F}(\QQ)$, and the members on which the divisorial method of
+\Cref{rem:whatsleftnow} works all lie in $\Sigma^{\mathrm{sp}}_{F}$ by
+\Cref{prop:speciallocus}(iii). These are all the members at which this paper
+exhibits algebraic Weil classes, so the part of $\Sigma_{F}$ exhibited here
+fits inside the meagre alternative, and the two criteria of \Cref{thm:cmpropagation}, a
+bound or a semiregular object, are what would leave it. The first can be
+weakened as follows.
+
+\begin{theorem}[One escaping sequence suffices]\label{thm:escape}
+Fix $(F,n,\delta)$ with $n\ge2$ and keep \Cref{def:speciallocus}.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item There is a sequence $y_{1},y_{2},\dots$ of distinct CM points in
+  $p\bigl(G_{F}(\QQ)\cdot s_{0}\bigr)$ such that every proper special
+  subvariety of $\cS_{F}$ contains only finitely many of them.
+\item Let $y_{1},y_{2},\dots$ be any sequence of distinct CM points of
+  $\cS_{F}$ with this property. Then $\Sigma_{F}=\cD_{F}$ if and only if there
+  is a finite set $\mathcal{T}$ of pairs $(\underline{P},\underline{q})$ such
+  that for every $k$ the class $\omega$ is represented at $y_{k}$ by a cycle
+  whose Hilbert data lies in $\mathcal{T}$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) By \Cref{prop:speciallocus}(i) the proper special subvarieties form a
+countable family $Y_{1},Y_{2},\dots$ of nowhere dense closed subsets. The
+image $p\bigl(G_{F}(\QQ)\cdot s_{0}\bigr)$ is dense in $\cS_{F}$, since the
+orbit is dense in $\cD_{F}$ by \Cref{thm:cmpropagation}(ii) and $p$ is
+continuous and surjective, and it consists of CM points by
+\Cref{prop:speciallocus}(iii), (iv). For each $k$ the complement of
+$Y_{1}\cup\dots\cup Y_{k}\cup\{y_{1},\dots,y_{k-1}\}$ is a nonempty open set,
+so it contains a point $y_{k}$ of the image. Then $y_{k}\in Y_{j}$ forces
+$k<j$, and $Y_{j}$ contains at most $j-1$ of the points.
+
+(ii) If $\Sigma_{F}=\cD_{F}$, then the countably many closed sets
+$\Sigma_{\underline{P},\underline{q}}$ of \Cref{thm:cmpropagation}(iii) cover
+$\cS_{F}$, so by Baire's theorem one of them has an interior point, and being
+Zariski closed in the irreducible $\cS_{F}$ it is all of $\cS_{F}$; take
+$\mathcal{T}$ to be that one pair. Conversely, let $W$ be the union of the
+finitely many $\Sigma_{\underline{P},\underline{q}}$ with
+$(\underline{P},\underline{q})\in\mathcal{T}$, a Zariski closed set that
+contains every $y_{k}$, and let $Y\subseteq W$ be the Zariski closure of the
+set of the $y_{k}$. The variety $\cS_{F}$ is a connected Shimura variety,
+and by the theorem of Pila, Shankar and Tsimerman
+\cite[Theorem~1.1]{PST} a subvariety of a connected Shimura variety contains
+only finitely many maximal special subvarieties.%
+\footnote{This is the Andr\'e--Oort conjecture, proved for $\cA_{g}$ by
+Tsimerman \cite{Tsi18} and in general in \cite{PST}.}
+Each $y_{k}$, being a special point of $Y$, lies in a maximal special
+subvariety contained in $Y$, so one of these finitely many, say $M$,
+contains infinitely many $y_{k}$. By hypothesis $M$ is not proper, so
+$M=\cS_{F}$, and therefore $W=\cS_{F}$. As $\cS_{F}$ is irreducible, one of
+the finitely many closed sets making up $W$ is all of $\cS_{F}$, and
+$\Sigma_{F}=\cD_{F}$ by \Cref{thm:cmpropagation}(iii).
+\end{proof}
+
+\begin{remark}[What the sequence changes]\label{rem:escape}
+\Cref{thm:escape} replaces the dense orbit of \Cref{thm:cmpropagation}(iv)
+by a discrete sequence, which may be chosen inside the orbit or among CM
+points with complex multiplication by different fields; what it must do is
+leave each proper special subvariety. Without the theorem of Pila, Shankar
+and Tsimerman the Zariski closure of such a sequence could be a proper
+subvariety that is not special, and a bound on it would give nothing. Like
+\Cref{thm:p1equivalent}, the statement is an equivalence, so it shrinks the
+set on which a bound is needed and not the problem. Read on the transported
+cycle the bound remains subject to \Cref{thm:p1forces}; read on a
+representative chosen afresh at each $y_{k}$, it is not.
+\end{remark}
+
 \subsection{Weil tori of a CM field and the pure form}
 \label{ssec:cmweiltori}
 

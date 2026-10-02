@@ -44,6 +44,7 @@ cor:pteobstructed
 cor:quarticbase
 cor:quarticleast
 cor:quarticlocus
+cor:speciallocus
 cor:splitalgebraic
 cor:splitsatisfies
 cor:stability
@@ -70,6 +71,7 @@ def:positive
 def:secantplane
 def:signature
 def:simplextype
+def:speciallocus
 def:vhs
 def:weilline
 def:weiltype
@@ -393,6 +395,7 @@ prop:sexticweilmin
 prop:signatureforced
 prop:smoothlocal
 prop:smoothrank
+prop:speciallocus
 prop:splitgeom
 prop:splitobstruction
 prop:target
@@ -428,6 +431,7 @@ rem:delsartequotient
 rem:dimensionbookkeeping
 rem:dimfour
 rem:divroute
+rem:escape
 rem:f2rule
 rem:f3collapse
 rem:f3primefrontier
@@ -626,6 +630,7 @@ ssec:residual
 ssec:rmlocus
 ssec:sextic
 ssec:smoothsupport
+ssec:speciallocus
 ssec:split
 ssec:tangent
 ssec:targets
@@ -658,6 +663,7 @@ thm:divisor
 thm:equalnorms
 thm:equivalence
 thm:equivsuffices
+thm:escape
 thm:esixdiagonal
 thm:everyfamily
 thm:everyn
