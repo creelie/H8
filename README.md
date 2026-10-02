@@ -6,12 +6,13 @@ Verification code and figure sources for the paper *Density of Algebraic
 Loci of Weil Classes on Abelian Varieties*, by Deep
 Bhattacharjee, Priyabrata Mandal and Ushashi Bhattacharya.
 
-Release v3.1.1 accompanies the current version of the paper, which cites this
+Release v3.2.0 accompanies the current version of the paper, which cites this
 archive by its Zenodo DOI. Zenodo archives each GitHub release under its own
 version DOI, and gathers all of them under one concept DOI:
 
 | | DOI |
 | --- | --- |
+| release v3.2.0 (version DOI) | 10.5281/zenodo.23093099 (https://doi.org/10.5281/zenodo.23093099) |
 | release v3.1.1 (version DOI) | 10.5281/zenodo.23078541 (https://doi.org/10.5281/zenodo.23078541) |
 | release v3.0.0 (version DOI) | 10.5281/zenodo.23047883 (https://doi.org/10.5281/zenodo.23047883) |
 | release v2.0.0 (version DOI) | 10.5281/zenodo.23038895 (https://doi.org/10.5281/zenodo.23038895) |
