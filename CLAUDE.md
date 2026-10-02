@@ -322,6 +322,11 @@ Round 38 recorded the version DOI of release v3.2.0 (tag `v3.2.0`, the merge
 commit `a80abf6` of rounds 35 to 37, published by Deep),
 10.5281/zenodo.23093099, in `\zenodoCodeID`, the release number of the data
 availability section and of `BMB26`, the README table and `CITATION.cff`.
+Round 39 made Deep Bhattacharjee the only corresponding author at Deep's
+request: the dagger stays on Deep, Mandal's double dagger is gone, and the
+title-page footnote reads "Corresponding author: Deep Bhattacharjee" with
+both of Deep's addresses on one line; the author order is unchanged (Deep,
+Mandal, Ushashi Bhattacharya); 383 pages, no code or label change.
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 
