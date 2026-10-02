@@ -290,6 +290,34 @@ Round 34 recorded the version DOI of release v3.1.1 (tag `v3.1.1`, the merge
 commit `0b4bd65` of round 33, published by Deep; no v3.1.0 was released),
 10.5281/zenodo.23078541, in `\zenodoCodeID`, the release number of the data
 availability section and of `BMB26`, the README table and `CITATION.cff`.
+Round 35 added a title-page footnote in `tex/main.tex` citing the earlier
+preprint of the first and third authors, "Relative secant cycles and Hodge
+classes", Preprints.org, doi:10.20944/preprints202602.0462.v5 (checked on
+preprints.org), as containing errors and incomplete proofs and replaced by
+this paper, with the change of author order, and an `\enlargethispage{3pt}`
+at the start of `tex/sections/02_conventions.tex`; no code or label change.
+Round 36 added the subsection `ssec:speciallocus` at the end of the
+propagation part of `tex/sections/10d1_cmfields.tex` (`def:speciallocus`,
+`prop:speciallocus`, `cor:speciallocus`, `thm:escape`, `rem:escape`): the
+locus of members with smaller Hodge group contains every member at which
+the paper exhibits algebraic Weil classes and has every property of
+Sigma_F used in `thm:main`, yet is meagre, so those properties cannot decide
+the dichotomy (an obstruction); and, by the Andre-Oort theorem of Pila,
+Shankar and Tsimerman ([PST21, Theorem 1.1], with [Tsi18] for A_g; both
+checked online), the bounded criterion is needed only along one sequence of
+CM points that leaves every proper special subvariety, which exists in the
+Hecke orbit (a bypass of the dense orbit, still an equivalence). The
+introduction and `thm:final`(iv) cite them; no code change (2135 checks,
+117 Lean theorems, 383 pages, 732 labels).
+Round 37 polished the text against Deep's writing criteria: the form of the
+semiregularity criterion whose Chern character carries powers of the
+polarisation is called the polarised form throughout the paper (the section
+is `sec:polarised`, the file `tex/sections/10c5_polarised.tex`; the code and
+`README.md` keep the older word "corrected" for (P2'), and the item titles
+(LII), (LIII) of `code/computations/items.tex` follow the paper), hedges and
+traces of revision were removed, and `fig_speciallocus` from
+`figures/make_round37.py` draws `prop:speciallocus` and `thm:escape`
+(2135 checks, 117 Lean theorems, 383 pages, 733 labels).
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 

@@ -1128,7 +1128,7 @@ real Weil class (\Cref{prop:weilpieces}); and determines, for the
 convolutions of those pieces with three multiples of the polarisation at
 $n=3$, which products in the twisted differential can act on the $525$
 diagonal classes of degree two, of which at least $468$ must disappear
-before the corrected criterion can hold (\Cref{thm:esixdiagonal}). Nothing
+before the polarised criterion can hold (\Cref{thm:esixdiagonal}). Nothing
 enters the diagonal, cup products remove at most $276$ of these classes, and
 everything else would have to be removed by fourfold products along a path
 through the three multiples and one of the Weil pieces: one family of them
@@ -1139,7 +1139,7 @@ gives a convolution that solves the Maurer--Cartan equation and meets the
 diagonal count (\Cref{prop:explicitconvolution}). The obstruction then
 moves off the diagonal: the classes between two pieces that differ in every
 coordinate are reached by no product (\Cref{lem:allthree}), and no
-convolution of these pieces meets the corrected criterion
+convolution of these pieces meets the polarised criterion
 (\Cref{thm:noconvolution}).
 
 \begin{setupenv}[Convolutions]\label{setup:convolution}
@@ -1247,7 +1247,7 @@ $g-n(H_{i})-\dim\ker H_{i}=n(-H_{i})\le\sum_{j\ne i}n(H_{j})$.
 Let $A$ be of $(K,-1,n)$-Weil type with $n\ge2$, and let $E$ be a
 convolution of $m<2n$ shifted line bundles whose differences $H_{b}-H_{a}$
 are all nondegenerate. Suppose that $\ch(E)$ remains of Hodge type to first
-order along $\cD_{n,n}$ and has a nonzero Weil component, as every corrected
+order along $\cD_{n,n}$ and has a nonzero Weil component, as every polarised
 character $N\omega_{1}+p(\theta)$ with $N\ne0$ does. Then there is
 $v\in T_{[A]}\cD_{n,n}$ with
 \[
@@ -1255,7 +1255,7 @@ $v\in T_{[A]}\cD_{n,n}$ with
   \qquad\text{and}\qquad
   \sigma_{E}\bigl(\operatorname{ev}_{E}(v)\bigr)=0 ,
 \]
-so $\sigma_{E}$ is not injective, and for a corrected character
+so $\sigma_{E}$ is not injective, and for a polarised character
 $\dim\Ext^{2}(E,E)>r(\ch E)$ by \Cref{thm:p2primenumber}(iv).
 \end{theorem}
 
@@ -1297,7 +1297,7 @@ $\sigma_{E}(\operatorname{ev}_{E}(v))=v\lrcorner\ch(E)=0$.
 \Cref{thm:linebundle} is the case $\delta=0$, with any number of pieces. A
 convolution reaches its diagonal classes once it has $2n$ pieces, when a
 cycle through all of them can have total index $2n$, the equality case of
-\Cref{lem:indexsum}. A convolution meeting the corrected criterion must
+\Cref{lem:indexsum}. A convolution meeting the polarised criterion must
 therefore have at least $2n$ pieces, or pieces with degenerate differences.
 The next construction has both.
 
@@ -1515,7 +1515,7 @@ Let $n=3$ and let $E$ be a convolution of the $32$ bundles $L_{\zeta}$ and
 of $M_{1},M_{2},M_{3}$ as in \Cref{prop:weilpieces}, with
 $p+2\le t_{1}<t_{2}<t_{3}$ and signs $\sigma_{i}$, so that
 $\ch(E)=32(\alpha+\bbar\alpha)+\sum_{i}\sigma_{i}e^{t_{i}\theta}$ and the
-corrected criterion asks for $\dim\Ext^{2}(E,E)=57$.
+polarised criterion asks for $\dim\Ext^{2}(E,E)=57$.
 \begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
 \item The Massey products of length at least three vanish on $D^{2}$, except
   those of length four along a path
@@ -1526,10 +1526,10 @@ corrected criterion asks for $\dim\Ext^{2}(E,E)=57$.
   of dimension $(t_{2}-t_{1})^{6}$.
 \item $\dim\Ext^{2}(E,E)\ge249-\min\bigl(249,(t_{2}-t_{1})^{6}\bigr)$, and
   $\dim\Ext^{2}(E,E)\ge249$ unless the order and the signs are as in (i).
-  In particular $E$ does not meet the corrected criterion when
+  In particular $E$ does not meet the polarised criterion when
   $t_{2}-t_{1}\le2$, since $249-64=185>57$, nor when the signs or the order
   differ from (i).
-\item If $E$ meets the corrected criterion, then the length four products
+\item If $E$ meets the polarised criterion, then the length four products
   of (i) have rank at least $249-57=192$ on the kernel of the cup products,
   and $t_{2}-t_{1}\ge3$.
 \end{enumerate}
@@ -1611,7 +1611,7 @@ $p+2\le t_{2}<t_{3}$.
   $\cH^{6}(M_{3},M_{2})$, of dimension $(t_{3}-t_{2})^{6}$. A convolution
   carries at most one of the two kinds, since (a) puts $M_{2}$ before $M_{3}$
   and (b) puts $M_{3}$ before $M_{2}$.
-\item If $E$ meets the corrected criterion, then
+\item If $E$ meets the polarised criterion, then
   $\sigma_{1}=\sigma_{2}=-\sigma_{3}$, and the products along (a) or those
   along (b) have rank at least $192$ on the kernel of the cup products. For
   (b) this needs $t_{3}-t_{2}\ge3$. The sixteen targets of (a) have
@@ -1781,7 +1781,7 @@ with $\prod\zeta=-1$, with the shifts $0$, $1$, $-4$, $-3$, $-5$.
   with general components on the $144$ pairs, $\dim\ker(d_{E}|_{D^{2}})\le57$:
   the diagonal count of \Cref{thm:esixdiagonal} is met.
 \item For every solution $\dim\Ext^{2}(E,E)\ge2560$, so $E$ does not meet
-  the corrected criterion.
+  the polarised criterion.
 \end{enumerate}
 \end{proposition}
 
@@ -1953,7 +1953,7 @@ the $32$ bundles $L_{\zeta}$ and of $M_{1}$, $M_{2}$, $M_{3}$, with
 $t_{1}<t_{2}<t_{3}$ and $|t_{i}-p|\ge2$, in any order, with any shifts of the
 given parities and with the pieces twisted by any line bundles of degree
 zero. Then $\dim\Ext^{2}(E,E)\ge69$. In particular no such convolution meets
-the corrected criterion, which asks for $57$.
+the polarised criterion, which asks for $57$.
 \end{theorem}
 
 \begin{proof}
@@ -1995,7 +1995,7 @@ gives $\dim\Ext^{2}(E,E)\ge16\cdot12=192$.
 \end{proof}
 
 \begin{remark}[What the route gives]\label{rem:convolutionsopen}
-At $n=3$ the route through convolutions of these pieces is now decided. The
+At $n=3$ the route through convolutions of these pieces is decided. The
 diagonal obstruction of \Cref{thm:esixdiagonal} can be removed: the
 fourfold products have the rank it asks for (\Cref{prop:fourfoldrank}), and
 the explicit convolution of \Cref{prop:explicitconvolution} solves the

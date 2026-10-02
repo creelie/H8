@@ -16,7 +16,7 @@ Three plates for the results added in round eleven.
                   field of higher degree, the only place where the propagation
                   statement is needed on the route of the paper.
 
-  fig_hankel      the number that the corrected criterion asks of one complex,
+  fig_hankel      the number that the polarised criterion asks of one complex,
                   r = (4 + rho) n^2 - 2n, against n for the four Hankel ranks
                   rho = 0, 1, 2, 3 (thm:p2primenumber), with the values
                   checked exactly over Q(i) for n <= 10 marked, and the seven
@@ -248,7 +248,7 @@ if __name__ == "__main__":
           "The web of Weil families linked by descent and scalar extension.",
           descent())
     write("fig_hankel",
-          "The number that the corrected criterion asks of one complex.",
+          "The number that the polarised criterion asks of one complex.",
           hankel())
     write("fig_kahlersign",
           "The sign of int gamma kappa^2 on the Kaehler cone at n = 2.",

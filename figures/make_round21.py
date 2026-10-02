@@ -6,7 +6,7 @@ Two plates for the results of round twenty-one.
 
   fig_quarticrank  thm:quarticrank and cor:quarticleast.  The rank
                    r(gamma) = 64 + 16 mu + 4 rho_1 + 4 rho_2 + R_1 + R_2 of the
-                   corrected criterion at a quartic CM field, drawn over the
+                   polarised criterion at a quartic CM field, drawn over the
                    plane of the Hankel part x = 16 mu + 4 rho_1 + 4 rho_2 and
                    the part y = R_1 + R_2 carried by the two spaces W_t.  The
                    points are the tuples allowed by the two conditions of the

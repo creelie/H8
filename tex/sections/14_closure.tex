@@ -9,7 +9,8 @@ becomes when it is carried to every family. The theorems we quote from the
 literature are used as theorems: the semiregularity theorem of Buchweitz and
 Flenner \cite{BF03}, in the form for perfect complexes that Pridham proves
 \cite{Pri24}; the theorem of Cattani, Deligne and Kaplan \cite{CDK95}; the
-theorem of Baily and Borel \cite{BB66}; the description of the Hodge rings of
+theorem of Baily and Borel \cite{BB66}; the theorem of Pila, Shankar and
+Tsimerman on the Andr\'e--Oort conjecture \cite{PST}; the description of the Hodge rings of
 abelian varieties of dimension at most five by Moonen and Zarhin
 \cite{MZ99}; Markman's theorems on abelian varieties of Weil type
 \cite{Mar25a,Mar25b}; the theorem of Bando and Siu on stable reflexive
@@ -55,7 +56,15 @@ discriminant. Write $K=\QQ(\sqrt{-d})$ when $m=1$.
   Hilbert data comes from one finite set, then $\Sigma_{F}=\cD_{F}$; this
   hypothesis is equivalent to its conclusion, and the transported cycle does
   not satisfy it whenever a component of the base cycle has finite stabiliser
-  (\Cref{thm:degreebound}, \Cref{thm:p1equivalent}, \Cref{thm:p1forces}). If
+  (\Cref{thm:degreebound}, \Cref{thm:p1equivalent}, \Cref{thm:p1forces}).
+  The bound is needed only along one sequence of CM points that leaves every
+  proper special subvariety, and such a sequence exists inside the orbit
+  (\Cref{thm:escape}). The locus of members with smaller Hodge group, which
+  contains every member at which this paper exhibits algebraic Weil
+  classes, contains the base point, is dense, stable under
+  $G_{F}(\QQ)$ and a countable union of closed algebraic strata, and is
+  meagre, so closing the locus requires the algebraicity of the Weil classes
+  at a member with full Hodge group (\Cref{prop:speciallocus}, \Cref{cor:speciallocus}). If
   at a base point some perfect complex whose Chern character is a nonzero
   multiple of a rational Weil class plus a polynomial in the divisor classes
   of the family has injective semiregularity map, or satisfies the flatness
@@ -63,7 +72,7 @@ discriminant. Write $K=\QQ(\sqrt{-d})$ when $m=1$.
   (\Cref{thm:semiregclosure}, \Cref{thm:cmpropagation}). When the Chern
   character is exactly a multiple of a Weil class, no complex at any member of
   any family, for any CM field, has injective semiregularity map
-  (\Cref{thm:p2false}, \Cref{thm:cmpurefalse}). In the corrected form, for an
+  (\Cref{thm:p2false}, \Cref{thm:cmpurefalse}). In the polarised form, for an
   imaginary quadratic field and $n\ge3$, an object meets the criterion exactly
   when $\dim\Ext^{2}(E,E)=(4+\rho)n^{2}-2n$, with $\rho\le3$ the rank of the
   Hankel matrix of the coefficients (\Cref{thm:p2primenumber}); at a quartic
@@ -189,13 +198,16 @@ and \Cref{thm:everyn} treats products.
 
 For (iv), the bounded criterion is \Cref{thm:degreebound} with
 \Cref{thm:p1equivalent} and \Cref{thm:p1forces}, and its form for a CM field
-is \Cref{thm:cmpropagation}(iv). The semiregularity criterion is
+is \Cref{thm:cmpropagation}(iv); the escaping sequence is \Cref{thm:escape},
+and the special locus is \Cref{prop:speciallocus} with
+\Cref{cor:speciallocus}. The semiregularity criterion is
 \Cref{thm:semiregclosure} with \Cref{rem:p2prime}, carried to every CM field
 by \Cref{thm:cmpropagation}(v); the flatness form is \Cref{prop:p2flat}. The
 pure form is excluded by \Cref{thm:p2false}, which rests on
 \Cref{lem:weiltorushodge}, \Cref{lem:weiltorussubsets} and
 \Cref{prop:weiltorussheaves}, and for every CM field by
-\Cref{thm:cmpurefalse}. The corrected number is \Cref{thm:p2primenumber}(i),
+\Cref{thm:cmpurefalse}. The number of the polarised form is
+\Cref{thm:p2primenumber}(i),
 (iv) and (v); the quartic rank and the Hodge loci are
 \Cref{thm:quarticrank}, \Cref{cor:quarticleast}, \Cref{prop:quarticlocus}
 and \Cref{cor:quarticlocus}. The reduction to the split families is
