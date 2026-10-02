@@ -309,6 +309,15 @@ CM points that leaves every proper special subvariety, which exists in the
 Hecke orbit (a bypass of the dense orbit, still an equivalence). The
 introduction and `thm:final`(iv) cite them; no code change (2135 checks,
 117 Lean theorems, 383 pages, 732 labels).
+Round 37 polished the text against Deep's writing criteria: the form of the
+semiregularity criterion whose Chern character carries powers of the
+polarisation is called the polarised form throughout the paper (the section
+is `sec:polarised`, the file `tex/sections/10c5_polarised.tex`; the code and
+`README.md` keep the older word "corrected" for (P2'), and the item titles
+(LII), (LIII) of `code/computations/items.tex` follow the paper), hedges and
+traces of revision were removed, and `fig_speciallocus` from
+`figures/make_round37.py` draws `prop:speciallocus` and `thm:escape`
+(2135 checks, 117 Lean theorems, 383 pages, 733 labels).
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 

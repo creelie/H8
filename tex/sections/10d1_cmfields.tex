@@ -460,7 +460,7 @@ quadratic case, the hypothesis is equivalent to the conclusion
 \Cref{prop:ktheory}, applied to the algebraic cycle of \Cref{thm:cmbasepoint}
 with the isomorphism $K_{0}(A)_{\QQ}\cong\CH^{*}(A)_{\QQ}$ \cite{Ful98}. The
 deformation argument is the proof of \Cref{thm:semiregclosure} for a
-corrected Chern character, as in \Cref{rem:p2prime}. Its only inputs are
+polarised Chern character, as in \Cref{rem:p2prime}. Its only inputs are
 the theorem of Buchweitz and Flenner, (iii), and the flatness of $\ch(E)$ as
 a section of Hodge classes over $\cD_{F}$; the last holds because $W_{F}$ is
 flat by \Cref{prop:cmweil}(i) and the classes $\eta_{t}$ remain of Hodge type
@@ -509,7 +509,7 @@ Part (i) is \Cref{thm:cmbasepoint}, parts (ii) and (iii) are
 \begin{remark}[Scope of the reduction]\label{rem:cmwhatisnew}
 The propagation statements (iv) and (v) are exactly the two forms (P1) and
 (P2) of \Cref{rem:tworemain} with $F$ in place of $K$, (v) being (P2) in the
-corrected form of \Cref{rem:p2prime}. This section proves that they are the
+polarised form of \Cref{rem:p2prime}. This section proves that they are the
 whole of the problem for every CM field, and that their hypothesis is never
 vacuous: the base point exists, its cycle is written down, and the orbit
 through it is dense. The theorem of \Cref{thm:p2forces} on what (v) forces
@@ -558,13 +558,13 @@ factors.
 \label{ssec:speciallocus}
 
 The properties of $\Sigma_{F}$ proved so far are shared by a set that is
-certainly meagre, the locus of members whose Hodge group is smaller than
+meagre, the locus of members whose Hodge group is smaller than
 $G_{F}$, and every construction of algebraic Weil classes available for
 $n\ge4$ produces points of that locus only. In the other direction the
 bounded criterion (iv) of \Cref{thm:cmpropagation} needs far less than an
 orbit: by the theorem of Pila, Shankar and Tsimerman on the Andr\'e--Oort
 conjecture, a bound on one sequence of CM points that leaves every proper
-special subvariety is enough.
+special subvariety is enough (\Cref{fig:speciallocus}).
 
 \begin{definition}[Special subvarieties and the special locus]
 \label{def:speciallocus}
@@ -753,6 +753,21 @@ set on which a bound is needed and not the problem. Read on the transported
 cycle the bound remains subject to \Cref{thm:p1forces}; read on a
 representative chosen afresh at each $y_{k}$, it is not.
 \end{remark}
+
+\begin{figure}[tbp]
+\centering
+  \includegraphics[width=\textwidth]{fig_speciallocus}
+\caption{\Cref{prop:speciallocus} and \Cref{thm:escape} on the quotient
+$\cS_{F}$. The curves are five of the countably many proper special
+subvarieties $Y_{j}$, whose union is the image of the special locus; it
+contains $p(s_{0})$ and is dense and meagre. The small dots are CM points,
+each lying on some $Y_{j}$, drawn or not. The points $y_{1},\dots,y_{6}$
+begin an escaping sequence chosen as in the proof of \Cref{thm:escape}(i):
+$y_{k}$ lies on no $Y_{j}$ with $j\le k$, so $y_{1}$ may lie on $Y_{3}$ and
+$y_{2}$ on $Y_{4}$. A point $p(s)$ at which the Hodge group is all of $G_{F}$
+lies on none of them.}
+\label{fig:speciallocus}
+\end{figure}
 
 \subsection{Weil tori of a CM field and the pure form}
 \label{ssec:cmweiltori}
