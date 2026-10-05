@@ -124,6 +124,7 @@ eq:normsum
 eq:obdef
 eq:omegaexp
 eq:omegagens
+eq:omegaprod
 eq:phidelta
 eq:pimodulo
 eq:pteconditions
@@ -197,6 +198,7 @@ fig:lefschetzgrid
 fig:mainlocus
 fig:massgap
 fig:minimalsupport
+fig:moduli
 fig:moment
 fig:multiple
 fig:mumford
@@ -210,7 +212,6 @@ fig:quarticlocal
 fig:quarticloci
 fig:quarticrank
 fig:rigidity
-fig:roadmap
 fig:route
 fig:sexticweil
 fig:simplextype
@@ -339,6 +340,7 @@ prop:densealg
 prop:descent
 prop:disjoint
 prop:divfails
+prop:divisortemplate
 prop:divroute
 prop:efourcupkernel
 prop:efourgap

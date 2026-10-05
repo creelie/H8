@@ -262,13 +262,16 @@ $\prod_{j}\omega(A_{j})=\omega(A_{1}\times\cdots\times A_{k})$.
 \begin{proof}
 Let $u_{1},\dots,u_{2n_{1}}$ and $u_{2n_{1}+1},\dots,u_{2n}$ be the
 $K$-bases of $H^{1}(A_{1},\QQ)$ and $H^{1}(A_{2},\QQ)$, so that together they
-form the $K$-basis of $H^{1}(A,\QQ)$. By \eqref{eq:omegaprod},
+form the $K$-basis of $H^{1}(A,\QQ)$, and put $x_{j}=u_{j}$ and
+$y_{j}=\sqrt{-d}\,u_{j}$ as in \eqref{eq:omegaprod}. By \eqref{eq:omegaprod},
 \[
+\begin{aligned}
   \omega(A)
-  =d^{-n}\prod_{j=1}^{2n}\bigl(d\,x_{j}+\delta\,y_{j}\bigr)
-  =\Bigl(d^{-n_{1}}\prod_{j\le2n_{1}}\bigl(d\,x_{j}+\delta\,y_{j}\bigr)\Bigr)
+  &=d^{-n}\prod_{j=1}^{2n}\bigl(d\,x_{j}+\delta\,y_{j}\bigr)\\
+  &=\Bigl(d^{-n_{1}}\prod_{j\le2n_{1}}\bigl(d\,x_{j}+\delta\,y_{j}\bigr)\Bigr)
    \Bigl(d^{-n_{2}}\prod_{j>2n_{1}}\bigl(d\,x_{j}+\delta\,y_{j}\bigr)\Bigr)
   =\omega(A_{1})\,\omega(A_{2})
+\end{aligned}
 \]
 in $H^{2n}(A,\CC)$, the products being taken in the order of the basis, so
 that no sign arises. Expanding

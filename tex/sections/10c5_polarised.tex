@@ -839,7 +839,9 @@ exterior algebra meets it (\Cref{cor:naturalsums}); the Orlov products of
 secant objects meet its twisted form, with $\dim\Ext^{2}$ equal to the number
 of \Cref{thm:p2primenumber}, at $n=2$ and $n=3$ (\Cref{thm:twistedcert}), and
 cannot meet it at $n=4$ when the factors have no negative self-extensions
-(\Cref{prop:orlovfour}); and at $n=4$ a combination of natural objects needs
+(\Cref{prop:orlovfour}); line bundles on smooth divisors, which give the
+certificates, give no factor from $n=4$ on, nor do bundles restricted from
+the abelian variety at $n=5$ (\Cref{prop:divisortemplate}); and at $n=4$ a combination of natural objects needs
 at least eight of them, on one conic (\Cref{thm:minimalsupport}). None of
 this gives a new case of the Hodge conjecture: the certificates are for
 twisted objects, in families where Markman's theorem already holds. A computation in \cite{BMB26} checks them.
@@ -1162,8 +1164,9 @@ are certified by the Lean certificate of \cite{BMB26} for $n\le64$.
 
 For $n=2$ and $n=3$ the certificates of \Cref{thm:twistedcert} attain the
 equality; for $n=4$ it is excluded by \Cref{prop:orlovfour} when
-$\Ext^{<0}=0$, and with negative Ext groups in degrees at most $-(n-1)$ the
-Euler characteristic leaves room in every dimension. If a secant object $F$
+$\Ext^{<0}=0$, with negative Ext groups in degrees at most $-(n-1)$ the
+Euler characteristic leaves room in every dimension, and from $n=5$ on it
+leaves room without them (\Cref{prop:divisortemplate}(i)). If a secant object $F$
 attaining the equality existed for one $d$ and unboundedly many $n$, then,
 since $\kappa$ is flat in every dimension by
 \Cref{prop:flatall}, a twisted form of \Cref{thm:semiregclosure} together with
@@ -1171,6 +1174,160 @@ since $\kappa$ is flat in every dimension by
 $\QQ(\sqrt{-d})$ algebraic. That is the secant route of (C1) and (C2) in
 \Cref{ssec:closuremap}, with the question of \cite{Mar25b} replaced by a
 dimension count, and it lies off every minimal route (\Cref{thm:closure}(iv)).
+
+Both certificates are sheaves on theta divisors, a curve of genus two and the
+surface $C^{(2)}$. The next result explains why this construction stops at
+$n=3$ and what a continuation would need.
+
+\begin{proposition}[Sheaves on divisors in the Orlov template]
+\label{prop:divisortemplate}
+Let $(X,\theta)$ be a principally polarised abelian $n$-fold and $d\ge1$; put
+$S(x)=\sum_{j\ge0}(-d)^{j}x^{2j}/(2j+1)!$, so that $v_{\theta}=\theta
+S(\theta)$, and $T_{b}(x)=bx/(1-e^{-bx})$ for an integer $b\ge1$. Write
+$\beta_{0}=\beta_{n}=1$, $\beta_{k}=2\binom{n}{k}$ for $0<k<n$ and
+$\beta_{k}=0$ otherwise; these are the Betti numbers of the connected sum of
+two real $n$-tori.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item Let $n\ge5$ and let $F$ be a perfect complex with
+  $\ch(F)\in P_{\theta}\setminus\{0\}$. There are integers $e_{k}$, zero for
+  $k\notin[0,n]$, with $e_{k}=e_{n-k}$, $(e_{0},e_{1},e_{2})=(1,2n,n(n-1))$,
+  $e_{k}\ge\beta_{k}$ for all $k$, and $\sum_{k}(-1)^{k}e_{k}=\chi(F,F)$. So
+  Serre duality, the contraction bounds $e_{k}\ge\beta_{k}$
+  (\Cref{prop:secantprofile} and \cite{CRV12}) and the Euler
+  characteristic allow equality in \Cref{prop:orlovequality} with
+  $\Ext^{<0}(F,F)=0$. For odd $n$ one may take $e_{k}=\beta_{k}$, and at $n=5$
+  this is the only choice; for even $n$ the sequence $(\beta_{k})$ has Euler
+  characteristic $-2\ne\chi(F,F)$, so some $e_{k}$ with $3\le k\le n-3$ must
+  exceed $\beta_{k}$.
+\item Let $n\ge3$, let $i\colon D\hookrightarrow X$ be a smooth effective
+  divisor, and let $G$ be a vector bundle of rank $r\ge1$ on $D$ with
+  $\ch(G)\in i^{*}H^{*}(X,\QQ)$. If $\ch(i_{*}G)\in P_{\theta}$, then
+  $[D]=b\theta$ for an integer $b\ge1$ and
+  $\ch(G)=r\,i^{*}\bigl(S(\theta)\,T_{b}(\theta)\bigr)$; in particular
+  $c_{1}(G)=\frac{rb}{2}\,\theta|_{D}$,
+  $\ch_{2}(G)=r\bigl(\frac{b^{2}}{12}-\frac{d}{6}\bigr)\theta^{2}|_{D}$ and
+  $r\ge2$. If $n\ge4$, every line bundle on $D$ satisfies the hypothesis, so
+  no line bundle $L$ on a smooth divisor has $\ch(i_{*}L)\in P_{\theta}$, and
+  $rb$ is even. If $n\ge5$, $b=1$ and $r=2$, then
+  $c_{2}(G)=\frac{d+1}{3}\,\theta^{2}|_{D}$, which is integral only for
+  $d\equiv2\pmod3$.
+\item Let $n\ge2$, let $i\colon D\hookrightarrow X$ be a smooth divisor with
+  $[D]=b\theta$, $V$ a vector bundle on $X$, $G=V|_{D}$ and $F=i_{*}G$. Then
+  \[
+    \dim\Ext^{k}(F,F)=h^{k}(\End G)+h^{k-1}\bigl(\End G\otimes\cO_{D}(D)\bigr)
+  \]
+  for every $k$. For $b=1$ this is
+  $\beta_{k}+h^{k}(\End_{0}G)+h^{k-1}(\End_{0}G\otimes\cO_{D}(D))$, so for a line
+  bundle $V$ the sheaf $F$ has exactly the profile required in
+  \Cref{prop:orlovequality}(ii). For $b\ge2$, $\dim\Ext^{1}(F,F)\ge
+  b^{n}+n-1>2n$.
+\item At $n=5$, for no smooth divisor $D$ and no vector bundle $V$ on $X$ is
+  $i_{*}(V|_{D})$ a factor of an Orlov product attaining the equality of
+  \Cref{prop:orlovequality}.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) The rank $a$ of $F$ is an integer, and $c_{1}(F)=b\theta$ with $\theta$
+primitive, so $b\in\ZZ$; for even $n$ the number
+$c=2^{n-1}d^{n/2-1}(a^{2}d+b^{2})$ is therefore a positive integer divisible
+by $2^{n-1}$, and $\chi(F,F)=(-1)^{n/2}c$ by \Cref{prop:secantprofile}, while
+$\chi(F,F)=0$ for odd $n$. The conditions fix $e_{0},e_{1},e_{2}$ and, by
+symmetry, $e_{n-2},e_{n-1},e_{n}$, with the values $\beta_{k}$; for $n=5$ these
+are all the $e_{k}$. Since $\sum_{k=0}^{n}(-1)^{k}\binom{n}{k}=0$, the
+sequence $(\beta_{k})$ has Euler characteristic $0$ for odd $n$ and $-2$ for
+even $n$. For odd $n$ take $e_{k}=\beta_{k}$. For even $n\ge6$ take
+$e_{k}=\beta_{k}$ for $k\ne n/2$ and
+$e_{n/2}=\beta_{n/2}+c+2(-1)^{n/2}\ge\beta_{n/2}$, which is possible because
+$c\ge2^{n-1}>2$ and $3\le n/2\le n-3$; its Euler characteristic is
+$-2+(-1)^{n/2}\bigl(c+2(-1)^{n/2}\bigr)=\chi(F,F)$.
+
+(ii) The rank of $i_{*}G$ is zero, so $\ch(i_{*}G)=b'v_{\theta}$ for some
+$b'\in\QQ$, and comparing degree two gives $r[D]=b'\theta$. As $[D]$ is
+integral and nonzero and $\theta$ is primitive, $[D]=b\theta$ with $b$ a
+positive integer, and $D$ is ample. The tangent bundle of $X$ is trivial and
+the normal bundle of $D$ is $\cO_{D}(D)$, so $\operatorname{td}(D)=
+i^{*}T_{b}(\theta)^{-1}$; writing $\ch(G)=i^{*}y$, Grothendieck--Riemann--Roch
+and the projection formula give
+\[
+  \ch(i_{*}G)=i_{*}\bigl(i^{*}(y\,T_{b}(\theta)^{-1})\bigr)
+  =y\,T_{b}(\theta)^{-1}\,b\theta=y\,(1-e^{-b\theta}).
+\]
+So $\ch(i_{*}G)=rb\,\theta S(\theta)$ says $b\theta\,z\,T_{b}(\theta)^{-1}=0$ for
+$z=y-r\,S(\theta)T_{b}(\theta)$, that is $\theta z=0$. Let $z_{k}$ be the
+component of $z$ in $H^{2k}(X,\QQ)$. If $2k\le n-1$, multiplication by
+$\theta$ is injective on $H^{2k}(X,\QQ)$ by the hard Lefschetz theorem, so
+$z_{k}=0$. If $2k\ge n$, the Gysin map $i_{*}$ is injective on
+$H^{2k}(D,\QQ)$, being dual to the restriction
+$H^{2n-2-2k}(X,\QQ)\to H^{2n-2-2k}(D,\QQ)$, which is onto by the Lefschetz
+hyperplane theorem, and $i_{*}i^{*}z_{k}=b\theta z_{k}=0$; so $i^{*}z_{k}=0$.
+Hence $\ch(G)=r\,i^{*}(S(\theta)T_{b}(\theta))$, and the expansion
+$S(x)T_{b}(x)=1+\frac b2x+\bigl(\frac{b^{2}}{12}-\frac d6\bigr)x^{2}+O(x^{3})$
+gives $c_{1}$ and $\ch_{2}$. If $r=1$ then $\ch_{2}(G)=\frac12c_{1}(G)^{2}$, so
+$\bigl(\frac{b^{2}}{24}+\frac d6\bigr)\theta^{2}|_{D}=0$, which is false: $\int_{D}
+(\theta|_{D})^{n-1}=b\,n!\ne0$ and $n-1\ge2$. If $n\ge4$, the Lefschetz
+hyperplane theorem gives $H^{2}(X,\ZZ)\cong H^{2}(D,\ZZ)$, so every line bundle
+$L$ on $D$ has $\ch(L)=i^{*}e^{\lambda}$ for some $\lambda\in H^{2}(X,\ZZ)$, and
+$\theta|_{D}$ is primitive, so the integrality of $c_{1}(G)$ makes $rb$ even.
+If $n\ge5$, $b=1$ and $r=2$, then $c_{2}(G)=\frac12c_{1}^{2}-\ch_{2}=
+\frac{d+1}{3}\theta^{2}|_{D}=\frac{2(d+1)}{3}\,i^{*}\bigl(\tfrac12\theta^{2}\bigr)$.
+The class $\frac12\theta^{2}$ is integral and primitive. The affine variety
+$X\setminus D$ has the homotopy type of a CW complex of dimension $n$, so by
+Lefschetz duality $H^{4}(X,D;\ZZ)\cong H_{2n-4}(X\setminus D;\ZZ)=0$ and
+$H^{5}(X,D;\ZZ)\cong H_{2n-5}(X\setminus D;\ZZ)$ is torsion free; hence
+$i^{*}\colon H^{4}(X,\ZZ)\to H^{4}(D,\ZZ)$ is injective with torsion-free
+cokernel, so $i^{*}(\frac12\theta^{2})$ is primitive modulo torsion, and
+$c_{2}(G)$ is integral only if $3$ divides $2(d+1)$.
+
+(iii) Let $s$ be the section of $\cO_{X}(D)$ vanishing on $D$. The sheaf $F$
+has the locally free resolution $0\to V(-D)\xrightarrow{s}V\to F\to0$, and
+applying $\Hom(-,F)$ gives a long exact sequence with
+$\Ext^{k}(V,F)=H^{k}(\End G)$ and $\Ext^{k}(V(-D),F)=H^{k}(\End G\otimes
+\cO_{D}(D))$, in which the map between these two groups is multiplication by
+$s|_{D}=0$. So it splits into short exact sequences
+$0\to H^{k-1}(\End G\otimes\cO_{D}(D))\to\Ext^{k}(F,F)\to H^{k}(\End G)\to0$.
+Write $\End G=\cO_{D}\oplus\End_{0}G$. On an abelian variety $H^{k}(\cO_{X}(D))=0$
+for $k>0$ and $H^{k}(\cO_{X}(-D))=0$ for $k<n$, and $h^{0}(\cO_{X}(D))=b^{n}$
+by Riemann--Roch. From $0\to\cO_{X}(-D)\to\cO_{X}\to\cO_{D}\to0$ one gets
+$h^{k}(\cO_{D})=\binom nk$ for $k\le n-2$, and also for $k=n-1$ when $b=1$,
+because $H^{n}(\cO_{D})=0$ makes the map $H^{n}(\cO_{X}(-D))\to H^{n}(\cO_{X})$
+between lines onto. From $0\to\cO_{X}\to\cO_{X}(D)\to\cO_{D}(D)\to0$ one gets
+$h^{0}(\cO_{D}(D))=b^{n}-1+n$ and $h^{k}(\cO_{D}(D))=\binom{n}{k+1}$ for $k\ge1$.
+For $b=1$ the two contributions of $\cO_{D}$ add up to $\beta_{k}$ in every
+degree, which gives the formula; for a line bundle $V$, $\End_{0}G=0$, and
+$F$ is a sheaf, so $\Ext^{<0}(F,F)=0$. For $b\ge2$,
+$\dim\Ext^{1}(F,F)\ge h^{0}(\cO_{D}(D))=b^{n}+n-1$, and $b^{n}>n+1$.
+
+(iv) Such a product needs $\ch(F)\in P_{\theta}$ for $F=i_{*}(V|_{D})$, so
+$[D]=b\theta$ by (ii), and its factors have
+$(e_{0},e_{1},e_{2})=(1,10,20)$ by \Cref{prop:orlovequality}(ii); by (iii)
+$b=1$. Then Serre duality gives $e_{k}=\beta_{k}$ for every $k$, so by (iii)
+$H^{*}(\End_{0}G)=0$ and $\chi(D,\End_{0}G)=0$. On the other hand (ii) gives
+$\ch(G)=r\,i^{*}(S(\theta)T_{1}(\theta))$, so
+$\ch(\End G)=\ch(G)\ch(G)^{\vee}=r^{2}i^{*}\bigl(S(\theta)^{2}T_{1}(\theta)
+T_{1}(-\theta)\bigr)$, and Hirzebruch--Riemann--Roch on $D$ gives
+\[
+  \chi(D,\End G)=r^{2}\int_{X}S(\theta)^{2}\,\frac{\theta^{2}}{e^{\theta}-1}
+  =\frac{r^{2}(32d^{2}-20d-1)}{6},
+\]
+while $\chi(D,\cO_{D})=\int_{X}(1-e^{-\theta})=1$.
+So $6\chi(D,\End_{0}G)=r^{2}(32d^{2}-20d-1)-6\ge5$, because
+$32d^{2}-20d-1\ge11$ for $d\ge1$.
+\end{proof}
+
+So from $n=5$ on the numbers allow a secant object attaining the equality, the
+line bundles on theta divisors have the Ext groups it requires in every
+dimension, and what fails is their character. The line bundle of
+\Cref{thm:twistedcert}(ii) has $c_{1}=(2k+1)x-k\theta$, which by
+\Cref{prop:divisortemplate}(ii), valid at $n=3$, is not restricted from the
+Jacobian; from $n=4$ on the Lefschetz theorem forbids such classes. At $n=5$,
+by (ii) and (iv), a vector bundle $G$ on a smooth divisor with $i_{*}G$ a
+factor attaining the equality is neither a line bundle nor restricted from
+$X$; if $G$ lives on a theta divisor and has Chern character restricted from
+$X$, its rank is even, and rank two needs $d\equiv2\pmod3$. Bundles of this kind that are not restricted from
+$X$, sheaves on singular divisors, sheaves that are not locally free on their
+support, and objects of positive rank remain; we know no object of these kinds
+with a secant character and a small Ext algebra.
 
 \begin{remark}[Untwisting]\label{rem:untwisting}
 The template $E=\Phi(F_{1}\boxtimes F_{2}^{\vee})$ does not give an untwisted

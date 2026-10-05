@@ -7,14 +7,14 @@ computational content is checked in exact arithmetic by the computations of
 \Cref{sec:verification}. The certificate is a single Lean~4 file that
 accompanies the paper. It compiles against a bare Lean~4 toolchain, contains
 no \texttt{sorry}, and depends on no library, Mathlib included. The axiom
-report at the end of the file lists, for each of its one hundred and forty-four theorems,
-the axioms on which it depends. One hundred and nine depend on none, and the
-remaining thirty-five on propositional extensionality alone, which enters when
+report at the end of the file lists, for each of its one hundred and forty-seven theorems,
+the axioms on which it depends. One hundred and ten depend on none, and the
+remaining thirty-seven on propositional extensionality alone, which enters when
 \texttt{decide} reduces an equality of Booleans or when a bound is proved from
 the lemmas on natural numbers in the core library; no theorem uses anything
 else. The annihilator dimension and the rank-zero obstruction of
 \Cref{ssec:rankzero}, \Cref{lem:annihilator} and \Cref{thm:rankzero}, are not
-among the one hundred and forty-four: they are proved by hand, and the dimension count of
+among the one hundred and forty-seven: they are proved by hand, and the dimension count of
 the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \Cref{sec:verification}.
 
@@ -24,7 +24,7 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \small
 \renewcommand{\arraystretch}{1.06}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.31\linewidth}>{\raggedright\arraybackslash}p{0.62\linewidth}@{}}
-\caption{The one hundred and forty-four machine-checked theorems.}\label{tab:lean}\\
+\caption{The one hundred and forty-seven machine-checked theorems.}\label{tab:lean}\\
 \toprule
 \textbf{theorem} & \textbf{statement} \\
 \midrule
@@ -185,6 +185,9 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \texttt{efour\_}\allowbreak\texttt{lonely\_}\allowbreak\texttt{residues} & along three steps of $+1$ or $-7$ the four shifts are pairwise incongruent modulo $4$; for every rank of $p$ the four paths give four patterns of shifts of the multiples, none shared by two shifts at an odd distance below $40$, \Cref{prop:efoursingle} \\
 \texttt{efour\_}\allowbreak\texttt{interleaved\_}\allowbreak\texttt{cut} & the $28$ ratios that move three coordinates and change the parity weigh $640$, $16$ twenty-four times and $64$ four times, and generate the $128$ ratios in three steps; the bounds $1152$, $1792$, $2688$, $3328$, $1024$, $1024$ for $|H|=2,4,\dots,64$ exceed $640$, \Cref{prop:efourpairs} \\
 \texttt{efour\_}\allowbreak\texttt{six\_}\allowbreak\texttt{values} & with one parity at values in $\{0,2,4\}$ and the other in $\{1,3,5\}$, every pair of occupied sets is covered by the exclusions of \Cref{cor:efourfive}, by single shifts at an odd distance or by the interleaved sets; single shifts at every odd distance up to $41$ are covered; $64\cdot28=1792>104$, \Cref{cor:efoursix} \\
+\texttt{divisor\_}\allowbreak\texttt{profiles} & the Betti numbers of the connected sum of two real $n$-tori have Euler characteristic $0$ for odd $n$ and $-2$ for even $n$, $2\le n\le40$; at $n=5$ they are $1,10,20,20,10,1$; for $5\le n\le16$, eight values of $d$ and $0\le a\le3$, $|b|\le3$ the profile of part (i) meets every condition, \Cref{prop:divisortemplate}(i) \\
+\texttt{divisor\_}\allowbreak\texttt{endo\_}\allowbreak\texttt{positive} & $r^{2}(20d+1)+6<32r^{2}d^{2}$ for all $d,r\ge1$, so $6\chi(D,\End_{0}G)>0$, \Cref{prop:divisortemplate}(iv) \\
+\texttt{divisor\_}\allowbreak\texttt{rank\_}\allowbreak\texttt{two\_}\allowbreak\texttt{mod3} & $3$ divides $2(d+1)$ exactly when $d\equiv2\pmod3$, for every $d$, \Cref{prop:divisortemplate}(ii) \\
 \end{longtable}
 \endgroup
 

@@ -713,6 +713,13 @@ def track_gaps():
           st == 0 and "False" not in out
           and count(r"matches closed form: True", out) >= 11
           and count(r"check True", out) >= 11)
+    out, st = run(w, "divisor_sheaves.py")
+    check("sheaves on divisors in the Orlov template (divisor_sheaves.py): "
+          "for n >= 5 an admissible profile with Ext^<0 = 0 meets chi(F,F); "
+          "ch(G) = r i^*(S T_b), so no line bundle; the Ext groups of "
+          "i_*(V|_Theta) are beta_k plus End_0 terms; at n = 5 "
+          "chi(End G) = r^2 (32 d^2 - 20 d - 1)/6 exceeds chi(O_Theta) = 1",
+          summary_ok(out, st, 19))
     w = "gaps/f3prime"
     out, st = run(w, "invariants.py")
     check("the orthogonal determinant (invariants.py): SO(t)- and "

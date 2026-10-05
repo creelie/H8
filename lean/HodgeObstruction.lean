@@ -2,11 +2,12 @@
 HodgeObstruction.lean
 
 A machine check, by Lean 4's kernel, of the finite arithmetic behind the
-results of "Density of the Algebraic Locus of Weil Classes on Abelian Varieties".
+results of "Algebraic Loci of Weil Classes from Abelian Varieties to Diagonal
+Complete Intersections".
 
-The two theorems are statements of algebraic geometry and are not formalised
-here; what is formalised is the arithmetic on which each of them turns, and in
-both cases that arithmetic is finite and integral.
+The theorems of the paper are statements of algebraic geometry and are not
+formalised here; what is formalised is the arithmetic on which they turn,
+which in every case is finite and integral.
 
   * The character obstruction turns on the assertion that the
     characters  tau |-> tau^(2n)  and  tau |-> N(tau)^n  of K^x are distinct.
@@ -95,9 +96,16 @@ both cases that arithmetic is finite and integral.
     0, 6, 0, which fixes its shifts, its signs and the threshold 192.
     Section 41 checks them.
 
-Everything is settled by `decide`, in five cases by its kernel-only form
-`decide +kernel`, so the kernel checks it.  There is no
-`sorry` and no dependence on Mathlib.
+  * Sections 42 to 48 check in the same way the counts behind the fourfold
+    products on E_0^6, the diagonal complete intersections and their very
+    general members, the monodromy of cyclic covers, and the arrangements of
+    shifts on E_0^8; Section 49 checks the arithmetic of the sheaves on
+    divisors in the Orlov template.
+
+Most theorems are settled by `decide`, many by its kernel-only form
+`decide +kernel`, and a few by short proofs from the core lemmas on natural
+numbers, so the kernel checks every one.  There is no `sorry` and no
+dependence on Mathlib.
 -/
 
 set_option maxRecDepth 20000
@@ -166,11 +174,11 @@ theorem characters_differ' :
         [((4 : Int), (1 : Int)), (3, 2), (5, 2), (2, 3), (5, 1)].all fun t =>
           qpow d t (2 * n) != qint (ipow (qnorm d t) n)) = true := by decide
 
-/-- **Not every witness works, and this is the whole subtlety of Lemma 4.4.**
+/-- **Not every witness works, and this is the whole subtlety of Lemma (The two characters differ).**
 For `tau = 1 + sqrt(-1)` the ratio `tau / conj(tau)` is `sqrt(-1)`, a primitive
 fourth root of unity, so the two characters agree at that single `tau` when
 `4 | n`; and for `tau = 1 + sqrt(-3)` the ratio is a primitive sixth root of
-unity, so they agree when `3 | n`.  A proof of Lemma 4.4 must therefore choose
+unity, so they agree when `3 | n`.  A proof of that lemma must therefore choose
 its witness, and cannot argue from an arbitrary one. -/
 theorem bad_witness :
     (qpow 1 (1, 1) (2 * 4) == qint (ipow (qnorm 1 (1, 1)) 4))
@@ -242,7 +250,8 @@ def predSign (g k : Nat) : Int :=
   if (g * (g + 1) / 2 + k) % 2 == 0 then 1 else -1
 
 /-- **The sign is uniform over index sets and equal to the closed form.**
-This is the step in the proof of Theorem 5.4 that the reader is most likely to
+This is the step in the proof of Theorem (Transform of the polarisation powers)
+that the reader is most likely to
 want checked. -/
 theorem sign_uniform_and_closed :
     ([1, 2, 3, 4, 5].all fun g =>
@@ -263,14 +272,15 @@ theorem subsets_count :
 
 /-! ## 3.  The semiregularity target -/
 
-/-- `sum_q C(2n,q) * C(2n,q+2) = C(4n, 2n-2)`, which is Proposition 8.2. -/
+/-- `sum_q C(2n,q) * C(2n,q+2) = C(4n, 2n-2)`, which is Proposition (The
+semiregularity target). -/
 theorem semiregularity_target :
     ([1, 2, 3, 4, 5, 6, 7].all fun n =>
       ((List.range (2 * n + 1)).map
         (fun q => choose (2 * n) q * choose (2 * n) (q + 2))).sum
         == choose (4 * n) (2 * n - 2)) = true := by decide
 
-/-! ## 4.  The numerical comparison of Section 7 -/
+/-! ## 4.  The numerical comparison of the section on secant numerology -/
 
 def pow2 : Nat → Nat
   | 0 => 1
@@ -286,7 +296,8 @@ theorem secant_count_below_thresholds :
       decide (2 * n * n + 2 * n < pow2 (2 * n))
         && decide (pow2 (2 * n) < pow3 (2 * n))) = true := by decide
 
-/-- The two counterexamples of Proposition 7.3, which show that neither
+/-- The two counterexamples of Proposition (The thresholds are not necessary),
+which show that neither
 threshold is a necessary condition: an abelian surface carries a
 base-point-free system with `chi = 3 < 4` and a very ample one with
 `chi = 5 < 9`. -/
@@ -645,7 +656,8 @@ theorem tensor_rank_gap :
 
 /-! ## 14.  The secant witness in line bundles
 
-Theorem 14.13 produces a coherent sheaf whose Chern character is a positive
+Theorem (Secant sheaves exist in every dimension) produces a coherent sheaf
+whose Chern character is a positive
 multiple of a rational point of the secant plane, and the multiple together
 with the witness is obtained by inverting a Vandermonde matrix.  Two things
 are finite there and are checked here: that the Vandermonde nodes are
@@ -662,7 +674,7 @@ def zpow : Int → Nat → Int
 def secantTarget (d a b : Int) (k : Nat) : Int :=
   if k % 2 = 0 then a * zpow (-d) (k / 2) else b * zpow (-d) (k / 2)
 
-/-- the witness of Theorem 14.13 at `n = 4`, `d = 3`, `a = b = 1`. -/
+/-- the witness of that theorem at `n = 4`, `d = 3`, `a = b = 1`. -/
 def witness4 : List Int := [-23, 66, -54, 20, -3]
 
 /-- `sum_j n_j j^k`, the `k`-th moment of a witness on the nodes `0, 1, ...`. -/
@@ -676,7 +688,7 @@ theorem secant_witness_at_n_four :
       moment witness4 k == 6 * secantTarget 3 1 1 k) = true := by decide
 
 /-- **The witness has the rank the construction needs**, namely `M a = 6`,
-which is positive, so Lemma 14.12 applies to it. -/
+which is positive, so Lemma (Positive rank is enough) applies to it. -/
 theorem secant_witness_rank :
     (witness4.foldl (· + ·) 0 == (6 : Int)) = true := by decide
 
@@ -692,7 +704,8 @@ theorem vandermonde_nodes_distinct :
 
 /-! ## 15.  The level sums of a split object supported on R
 
-Theorem 14.40 turns the diagonal part of the Chern character conditions into
+Theorem (Where a semiregular split object can live) turns the diagonal part
+of the Chern character conditions into
 `sum_j M_j N_j^r = 0` for `r = 1, ..., n`, and at `n+1` distinct norms the
 `M_j` are forced.  The identities below are the ones the search of item (XXII)
 rests on: that the recorded level sums do satisfy the conditions, that the
@@ -707,7 +720,7 @@ def levelCheck (N M : List Int) : Bool :=
     ((List.range N.length).foldl
       (fun s j => s + (M.getD j 0) * zpow (N.getD j 0) (r + 1)) 0) == 0
 
-/-- **The level sums recorded in Theorem 14.40 satisfy the conditions.** -/
+/-- **The level sums recorded in that theorem satisfy the conditions.** -/
 theorem level_sums_forced :
     (levelCheck [1, 2, 3, 4] [4, -6, 4, -1]
       && levelCheck [9, 18, 27, 36] [4, -6, 4, -1]
@@ -730,7 +743,8 @@ def levelDet (N : List Int) : Int :=
       ((List.range j).foldl (fun a i => a * ((N.getD j 0) - (N.getD i 0))) 1)) 1
 
 /-- **With at most `n` distinct norms the matrix is nonsingular**, so every
-level sum vanishes and the object has rank zero; that is Corollary 14.36. -/
+level sum vanishes and the object has rank zero; that is Corollary (At least
+`n+1` norms). -/
 theorem level_matrix_nonsingular :
     ([[1, 2, 3], [1, 2, 4], [2, 3, 5], [5, 20, 45], [9, 18, 27]].all fun N =>
       decide (levelDet N != 0)) = true := by decide
@@ -934,7 +948,8 @@ theorem candidate_unnormalised_points :
 
 /-! ## 22.  A rank one secant object with smooth support
 
-Theorem 14.118 reads the invariants of a smooth support off the Chern
+Theorem (The invariants of a smooth support) reads the invariants of a smooth
+support off the Chern
 character.  Writing `N = (b^2+d)/2` for the class multiple, the five numbers
 are, cleared of the halves,
 
@@ -1004,7 +1019,7 @@ theorem smooth_four_discriminants :
     (((List.range 60).map fun j => j + 1).filter fun d =>
       sqFree d && decide (d <= 9) && (d % 2 == 1)) = [1, 3, 5, 7] := by decide
 
-/-- **The table of Theorem 14.118 at `b = 3`.** -/
+/-- **The table of that theorem at `b = 3`.** -/
 theorem smooth_table :
     (([1, 3, 5, 7] : List Int).map fun d =>
       (sChi 3 d, sK2 3 d, sE 3 d))
@@ -1014,8 +1029,8 @@ theorem smooth_table :
 
 /-! ## 23.  Cohen-Macaulay supports with a split resolution
 
-Theorem 14.126 turns the Chern character condition for a support resolved by
-sums of line bundles into four equations on the twists,
+Setup (A resolution of the support) turns the Chern character condition for a
+support resolved by sums of line bundles into four equations on the twists,
 
     sum_i p_i^k - sum_j q_j^k = c_k ,   c = (1, b, -d, -d b, d^2),
 
@@ -3631,6 +3646,101 @@ theorem efour_six_values :
       && (64 * 28 == 1792) && (1792 > 104)) = true := by
   decide +kernel
 
+/-! ## 49.  Sheaves on divisors in the Orlov template
+
+Three finite facts behind Proposition (Sheaves on divisors in the Orlov
+template).
+
+(a) The profiles.  The Betti numbers `beta_k` of the connected sum of two real
+`n`-tori (`1`, `2 C(n,k)` for `0 < k < n`, `1`) have Euler characteristic `0`
+for odd `n` and `-2` for even `n`, `2 <= n <= 40`; at `n = 5` they are
+`1, 10, 20, 20, 10, 1`; and for `5 <= n <= 16`, eight values of `d` and
+secant characters `a u + b v` with `0 <= a <= 3`, `|b| <= 3`, the profile of
+part (i), with `e_(n/2)` raised by `c + 2 (-1)^(n/2)` for even `n`, is
+symmetric, starts `1, 2n, n(n-1)`, dominates `beta` and has Euler
+characteristic `chi(F,F)`.
+
+(b) The endomorphisms at `n = 5`.  Six times `chi(End_0 G)` is
+`r^2 (32 d^2 - 20 d - 1) - 6`, and `r^2 (20 d + 1) + 6 < r^2 (32 d^2)` for all
+`d, r >= 1`, so it is positive.
+
+(c) Rank two.  `c_2 = ((d+1)/3) theta^2` is integral exactly when `3`
+divides `2 (d + 1)`, that is when `d = 2` modulo `3`.
+-/
+
+/-- binomial coefficients by the product formula. -/
+def dvChoose (n k : Nat) : Nat :=
+  (List.range k).foldl (fun acc i => acc * (n - i) / (i + 1)) 1
+
+/-- the Betti numbers of the connected sum of two real `n`-tori. -/
+def dvBeta (n k : Nat) : Int :=
+  if k == 0 || k == n then 1 else if k < n then 2 * (dvChoose n k : Int) else 0
+
+/-- the alternating sum of `e_0, ..., e_n`. -/
+def dvEuler (n : Nat) (e : Nat → Int) : Int :=
+  ((List.range (n + 1)).map (fun k => (if k % 2 == 0 then 1 else -1) * e k)).sum
+
+/-- `chi(F,F)` of a secant class `a u + b v`, in closed form. -/
+def dvChi (n : Nat) (a b d : Int) : Int :=
+  if n % 2 == 1 then 0
+  else (if (n / 2) % 2 == 0 then 1 else -1) * 2 ^ (n - 1) * d ^ (n / 2 - 1) * (a * a * d + b * b)
+
+/-- the profile of part (i). -/
+def dvProfile (n : Nat) (a b d : Int) (k : Nat) : Int :=
+  if n % 2 == 0 && k == n / 2 then
+    dvBeta n k + (dvChi n a b d).natAbs + 2 * (if (n / 2) % 2 == 0 then 1 else -1)
+  else dvBeta n k
+
+/-- the conditions of part (i) on a profile. -/
+def dvProfileOk (n : Nat) (a b d : Int) : Bool :=
+  let e := dvProfile n a b d
+  e 0 == 1 && e 1 == 2 * n && e 2 == n * (n - 1)
+    && (List.range (n + 1)).all (fun k => e k == e (n - k) && e k ≥ dvBeta n k)
+    && dvEuler n e == dvChi n a b d
+
+/-- **The profiles.** -/
+theorem divisor_profiles :
+    ((List.range 39).all (fun m =>
+        dvEuler (m + 2) (dvBeta (m + 2)) == (if m % 2 == 1 then 0 else -2)))
+      && ((List.range 6).map (dvBeta 5)) == [1, 10, 20, 20, 10, 1]
+      && ((List.range 12).all (fun m => [1, 2, 3, 5, 6, 7, 10, 11].all (fun d =>
+            (List.range 4).all (fun a => (List.range 7).all (fun b =>
+              (a == 0 && b == 3) || dvProfileOk (m + 5) a ((b : Int) - 3) d))))) = true := by
+  decide +kernel
+
+/-- **The endomorphisms at `n = 5`**: `r^2 (32 d^2 - 20 d - 1) > 6`. -/
+theorem divisor_endo_positive : ∀ d r : Nat, 1 ≤ d → 1 ≤ r →
+    r * r * (20 * d + 1) + 6 < r * r * (32 * d * d) := by
+  intro d r hd hr
+  have h1 : 32 * d ≤ 32 * d * d := Nat.le_mul_of_pos_right (32 * d) hd
+  have h12 : 12 ≤ 12 * d := Nat.le_mul_of_pos_right 12 hd
+  have h2 : 20 * d + 12 ≤ 32 * d := by
+    have e : 32 * d = 20 * d + 12 * d := Nat.add_mul 20 12 d
+    rw [e]; exact Nat.add_le_add_left h12 _
+  have h3 : 20 * d + 1 + 11 ≤ 32 * d * d := by
+    rw [Nat.add_assoc]; exact Nat.le_trans h2 h1
+  have h4 : r * r * (20 * d + 1 + 11) ≤ r * r * (32 * d * d) := Nat.mul_le_mul_left _ h3
+  have hrr : 1 ≤ r * r := Nat.mul_le_mul hr hr
+  have h5 : 11 ≤ r * r * 11 := by
+    have := Nat.mul_le_mul_right 11 hrr
+    rwa [Nat.one_mul] at this
+  rw [Nat.mul_add] at h4
+  have h6 : r * r * (20 * d + 1) + 6 < r * r * (20 * d + 1) + 11 :=
+    Nat.add_lt_add_left (by decide) _
+  exact Nat.lt_of_lt_of_le h6 (Nat.le_trans (Nat.add_le_add_left h5 _) h4)
+
+/-- **Rank two**: `3` divides `2 (d + 1)` exactly when `d = 2` modulo `3`. -/
+theorem divisor_rank_two_mod3 : ∀ d : Nat, (2 * (d + 1)) % 3 = 0 ↔ d % 3 = 2
+  | 0 => by decide
+  | 1 => by decide
+  | 2 => by decide
+  | d + 3 => by
+    have ih := divisor_rank_two_mod3 d
+    have e1 : 2 * (d + 3 + 1) = 2 * (d + 1) + 3 * 2 := by
+      rw [Nat.add_right_comm d 3 1, Nat.mul_add]
+    rw [e1, Nat.add_mul_mod_self_left, Nat.add_mod_right]
+    exact ih
+
 end HodgeObstruction
 
 /-! ## The axioms each theorem depends on
@@ -3784,3 +3894,6 @@ propositional extensionality enters through `decide`, and in no case
 #print axioms HodgeObstruction.efour_lonely_residues
 #print axioms HodgeObstruction.efour_interleaved_cut
 #print axioms HodgeObstruction.efour_six_values
+#print axioms HodgeObstruction.divisor_profiles
+#print axioms HodgeObstruction.divisor_endo_positive
+#print axioms HodgeObstruction.divisor_rank_two_mod3

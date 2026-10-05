@@ -514,19 +514,39 @@ def right_sign():
     return out
 
 
+def _midpoints(M):
+    """The midpoints of an acb matrix as a complex numpy array."""
+    import numpy as np
+    return np.array([[complex(float(M[i, j].real.mid()),
+                              float(M[i, j].imag.mid()))
+                      for j in range(M.ncols())] for i in range(M.nrows())])
+
+
+def _pivots(mid, rank):
+    """Sorted indices of `rank` columns of a complex array chosen by QR with
+    column pivoting (Businger-Golub): take the column of largest residual
+    norm and project it out of the others, rank times.  Only the choice of
+    columns uses floating point; the minor they give is certified in balls."""
+    import numpy as np
+    res = mid.copy()
+    piv = []
+    for _ in range(rank):
+        norms = (np.abs(res) ** 2).sum(axis=0)
+        norms[piv] = -1.0
+        j = int(np.argmax(norms))
+        piv.append(j)
+        q = res[:, j] / np.linalg.norm(res[:, j])
+        res = res - np.outer(q, q.conj() @ res)
+    return sorted(piv)
+
+
 def kernel_vectors(Lm, rank):
     """Balls containing exact vectors spanning the kernel of a matrix of
     exact rank `rank` (the rank is at most `rank` by theory; a nonsingular
     minor of that size is certified here)."""
-    import numpy as np
-    mid = np.array([[complex(float(Lm[i, j].real.mid()),
-                             float(Lm[i, j].imag.mid()))
-                     for j in range(Lm.ncols())] for i in range(Lm.nrows())])
-    import scipy.linalg as sl
-    _, _, piv_c = sl.qr(mid, pivoting=True)
-    cols = sorted(piv_c[:rank].tolist())
-    _, _, piv_r = sl.qr(mid[:, cols].T, pivoting=True)
-    rows = sorted(piv_r[:rank].tolist())
+    mid = _midpoints(Lm)
+    cols = _pivots(mid, rank)
+    rows = _pivots(mid[:, cols].T, rank)
     A = acb_mat([[Lm[i, j] for j in cols] for i in rows])
     free = [j for j in range(Lm.ncols()) if j not in cols]
     out = []
@@ -577,13 +597,7 @@ def contract_m2(X3, Qu, Qv):
 
 def basis_of_image(P, rank):
     """Columns of P spanning its image (rank certified by a minor)."""
-    import numpy as np
-    import scipy.linalg as sl
-    mid = np.array([[complex(float(P[i, j].real.mid()),
-                             float(P[i, j].imag.mid()))
-                     for j in range(P.ncols())] for i in range(P.nrows())])
-    _, _, piv = sl.qr(mid, pivoting=True)
-    cols = sorted(piv[:rank].tolist())
+    cols = _pivots(_midpoints(P), rank)
     B = acb_mat([[P[i, j] for j in cols] for i in range(P.nrows())])
     return B
 

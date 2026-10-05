@@ -27,10 +27,10 @@ per theorem. Every line must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
 through `decide` or the core lemmas on natural numbers, and none may mention `sorryAx`. The GitHub workflow in
 `.github/workflows/lean.yml` enforces all three, and fails the build if the
-number of theorems is not one hundred and forty-four or if any of them reaches for a further
+number of theorems is not one hundred and forty-seven or if any of them reaches for a further
 axiom.
 
-## The one hundred and forty-four theorems
+## The one hundred and forty-seven theorems
 
 | theorem | statement |
 | --- | --- |
@@ -69,10 +69,10 @@ axiom.
 | `norm_form_positive` | `a^2 + d b^2 > 0` for every nonzero `(a,b)`, ten fields |
 | `norm_sum_forces_zero` | a positive combination of norms vanishes only when every term does |
 | `semiregularity_source_target` | the source overtakes the target at `s = 5` when `n = 2` |
-| `secant_witness_at_n_four` | the line bundle witness of Theorem 14.13 reproduces `6 (u + v)` in every degree at `n = 4`, `d = 3` |
+| `secant_witness_at_n_four` | the line bundle witness of the theorem on secant sheaves reproduces `6 (u + v)` in every degree at `n = 4`, `d = 3` |
 | `secant_witness_rank` | that witness has rank `6`, which is `M a` and is positive |
 | `vandermonde_nodes_distinct` | the Vandermonde product on the nodes `0, ..., n` is nonzero for `n <= 8` |
-| `level_sums_forced` | the level sums recorded in Theorem 14.40 satisfy `sum_j M_j N_j^r = 0` for `r = 1,2,3`, at six level sets |
+| `level_sums_forced` | the level sums recorded in the theorem on semiregular split objects satisfy `sum_j M_j N_j^r = 0` for `r = 1,2,3`, at six level sets |
 | `level_sums_totals` | their totals are `1`, `3` and `-2`, so none of the objects has rank zero |
 | `level_matrix_nonsingular` | with at most `n` distinct norms the matrix `(N_j^r)` is nonsingular, so every level sum vanishes |
 | `gauss_norm_counts` | the number of Gaussian integers of norm `1, 2, 3, 4, 5, 9, 45` |
@@ -178,6 +178,9 @@ axiom.
 | `efour_lonely_residues` | along three steps of `+1` or `-7` the four shifts are pairwise incongruent modulo `4`; for every rank of `p` the four paths of the lemma give four patterns of shifts of the multiples, none shared by two shifts at an odd distance below `40`: the proposition on single shifts |
 | `efour_interleaved_cut` | the `28` ratios that move three coordinates and change the parity weigh `640` (`16` twenty-four times, `64` four times) and generate the `128` ratios in three steps; the bounds `1152, 1792, 2688, 3328, 1024, 1024` for `|H| = 2, 4, ..., 64` exceed `640`: the proposition on interleaved shifts |
 | `efour_six_values` | with one parity at values in `{0, 2, 4}` and the other in `{1, 3, 5}`, every pair of occupied sets is covered by the exclusions of Section 47, by single shifts at an odd distance or by the interleaved sets `{s, s - 4}`, `{s - 1, s - 5}`; single shifts at every odd distance up to `41` are covered; `64 * 28 = 1792 > 104` |
+| `divisor_profiles` | the Betti numbers of the connected sum of two real `n`-tori have Euler characteristic `0` (odd `n`) and `-2` (even `n`), `2 <= n <= 40`; at `n = 5` they are `1, 10, 20, 20, 10, 1`; for `5 <= n <= 16`, eight `d` and `0 <= a <= 3`, `|b| <= 3`, the profile of part (i) of the proposition on sheaves on divisors meets every condition |
+| `divisor_endo_positive` | `r^2 (20 d + 1) + 6 < 32 r^2 d^2` for all `d, r >= 1`, so `6 chi(End_0 G) > 0` at `n = 5` |
+| `divisor_rank_two_mod3` | `3` divides `2 (d + 1)` exactly when `d = 2` modulo `3`, for every `d` |
 
 
 ## Two statements that look true and are not
@@ -201,12 +204,12 @@ careful reading does not catch and a kernel check does.
 `code/verify_all.py` in the parent directory performs the same checks in exact
 rational arithmetic over Q, independently of Lean, together with the exterior
 algebra computations that Lean does not carry, and prints
-`2217 checks passed, 0 failed`.
+`2218 checks passed, 0 failed`.
 
 ## Transcript
 
 `axioms.txt` is the unedited output of `lean HodgeObstruction.lean` under
-Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and forty-four lines, one per
-theorem, one hundred and nine reading `does not depend on any axioms` and thirty-five reading
+Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and forty-seven lines, one per
+theorem, one hundred and ten reading `does not depend on any axioms` and thirty-seven reading
 `depends on axioms: [propext]`, exit status 0, no `sorryAx`. `lake build`
 completes with the same report.

@@ -64,7 +64,7 @@ Lean check:
 
 The last lines are
 
-    2217 checks passed, 0 failed
+    2218 checks passed, 0 failed
     overall: PASS
 
 and the exit status is zero. The driver runs five self-contained checks and
@@ -110,7 +110,7 @@ then calls the companion scripts in the same directory:
 | `p2prime.py` | the corrected criterion (P2') as a number: for a Chern character N omega + sum c_k theta^k the annihilator in HT^2 has dimension n^2(4 - rho), rho the rank of the Hankel matrix of the k! c_k, so dim Ext^2(E,E) >= (4 + rho) n^2 - 2n with equality forcing injective semiregularity; for a general shape the annihilator is exactly the tangent space of the polarised Weil family; the n = 2 formula with its two exceptional ratios; the first-order Hodge locus; chi(E,E); at the exceptional n = 2 ratio, the stabiliser so(4,3) of the character (dimension 21, trace-form signature (12,9), invariants 1, 0, 0, 0, 1, 0, 0, 0, 1) and the constant sign of int gamma kappa^2 on the Kaehler cone; exact over Q(i) by torus-weight blocks, to n = 4 by default and n = 9 with --extreme |
 | `p2prime_profile.py` | the whole Hochschild profile of such a character: the ranks of contraction on every HT^k equal 2 binom(2n,k) + M_k min(k+1, 2n+1-k, r) - [k=n] d, their symmetry, the middle degeneracy, and the parity of chi(E,E), which makes the numerical criterion unattainable at the n = 2 points with rho_2 = 23 |
 | `descent.py` | descent and scalar extension for Weil classes: the correspondence pr_{B*}(x . pr_Y^*(eta_Y^{2m-2} y')) maps the Weil classes of B x Y onto those of B, so W(F,n+1,delta'') gives W(F,n,delta) for every discriminant; and W(F,n,iota(delta)) gives W(K,n,delta) for K in F; exact over seven CM fields |
-| `attack_checks.py` | item (LV): a fast subset (about two and a half minutes) of the attack scripts in `attack/`, each track with its verifier's independent re-implementation: the Hodge classes and the criterion numbers of a quartic CM family at n = 2 (2 and 7 Hodge classes, phi^2 = (det H)^{-1}, r = 120, 80, 112 and the bound 68); pull-backs and one composite of correspondences on powers of a Mumford fourfold (7 of 8, then 8); the Hochschild profiles, the n = 2 certificate and the S^2 parity numbers of explicit objects at a split member, and the erratum to the n = 3 example; the natural objects at n = 4 (dim T = 16, rank 6, the relation giving 14 W_2, the lattice index 2612736000); needs python-flint, sympy and numpy |
+| `attack_checks.py` | item (LV): a fast subset (about two and a half minutes) of the attack scripts in `attack/`, each track with its verifier's independent re-implementation: the Hodge classes and the criterion numbers of a quartic CM family at n = 2 (2 and 7 Hodge classes, phi^2 = (det H)^{-1}, r = 120, 80, 112 and the bound 68); pull-backs and one composite of correspondences on powers of a Mumford fourfold (7 of 8, then 8); the Hochschild profiles, the n = 2 certificate and the S^2 parity numbers of explicit objects at a split member, and the erratum to the n = 3 example; the natural objects at n = 4 (dim T = 16, rank 6, the relation giving 14 W_2, the lattice index 2612736000); and the gaps of part (E), among them the arithmetic of the sheaves on divisors in the Orlov template (`gaps/orlov_growth/divisor_sheaves.py`: room for n >= 5, ch(G) = r i^*(S T_b), the Ext groups of i_*(V|_Theta), the endomorphisms at n = 5); needs python-flint, sympy and numpy |
 | `sextic_count.py` | item (LVI): the dimension count for Orlov products over a sextic CM field: the contraction ranks r^1 = 12, r^2 = 4(A_12+A_13+A_23) + rho_1+rho_2+rho_3 and r^3 = 8 N_w + 2 sum (rk M_+ + rk M_-) into a secant class, exactly over Q(i) and modulo a prime for three cubic fields; the Euler form -64 Nm(q) sum |w|^2 on the secant space, and +16 Nm(q) sum |w|^2 for two places; the profile (1, 12, r^2, e_3, r^2, 12, 1) of a minimal object with e_3 = 2 r^2 - 22 - chi and the bound chi <= -(r^3 - 2 r^2 + 22); standard library only |
 | `sextic_lattice.py` | item (LVII): integral flat characters in degree six: chi(v, v) is even on a sixfold, r^3 - 2 r^2 <= 4 for every shape of a secant class (so the profile threshold of Proposition 19.27 is at most 26), and for sixteen totally real cubic fields and q in {1, k + alpha} the lattice of integral points of S(0,q), computed modulo split primes with rational reconstruction, has -chi >= 32, with -chi = 32 exactly at the real and imaginary parts of exp(i theta) when q = 1; the model and the lattice code are in `attack/gaps/sextic/s2_lattice.py`; standard library only |
 | `sextic_weil.py` | item (LVIII): the F-Weil part of the twisted character of an Orlov product over a sextic CM field, in closed form (Lemma 19.31), and for the sixteen cubic fields of item (LVII) and q in {1, k + alpha, k + 1 + alpha} the least -chi of an integral flat secant character whose Orlov square has a nonzero F-Weil part: 192, attained only at +-v(-1, 0, 2 - alpha^2, 0) over Q(zeta_7)^+ with q = 3 + alpha; the lattice code is in `attack/gaps/sextic/s3_weil.py`; standard library only |
@@ -169,10 +169,10 @@ reduction at all.
 No Mathlib and no dependencies. The file ends with one `#print axioms` line
 per theorem; every one must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
-through `decide`, and none may mention `sorryAx`. There are one hundred and forty-four theorems. `lean/README.md` lists them
+through `decide`, and none may mention `sorryAx`. There are one hundred and forty-seven theorems. `lean/README.md` lists them
 and says what each one does and does not establish. The workflow in
 `.github/workflows/lean.yml` runs the check on every push and fails if the
-number of theorems is not one hundred and forty-four, or if any of them depends on an axiom other than propext.
+number of theorems is not one hundred and forty-seven, or if any of them depends on an axiom other than propext.
 
 ## The computations, item by item
 

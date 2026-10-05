@@ -477,6 +477,42 @@ the sign reversed, t = (2,5,7)); the introduction and the computations list
 say that no statement rests on floating point. `fig_product` was redrawn
 (the plot to n = 7 with ticks and the shaded codimension).
 2217 checks, 144 Lean theorems, 405 pages, 761 labels.
+Round 46 was the arXiv v1 pass, a line-by-line read of the whole paper
+against Deep's request for a consistent text with no over- or under-claims.
+It corrected the constants of the multiplicativity formula `eq:weilmult` and
+`cor:prodalg` in `tex/sections/10c2_basepoints.tex` (with
+`code/weil_product.py`), made `ex:splitsmall` integral (`code/split_locus.py`),
+proved the integrality recursion (`code/integrality.py`, new equation
+`eq:omegaprod`), moved `fig_moduli` to Appendix B as `fig:moduli`, and added
+`prop:divisortemplate` after `prop:orlovequality` in
+`tex/sections/10c5_polarised.tex` (sheaves on divisors in the Orlov template:
+the profile allowed by Serre duality and the contraction bounds; a vector
+bundle G on a smooth divisor with ch(i_* G) in P_theta needs [D] = b theta,
+ch(G) = r S(theta) T_b(theta), r >= 2, no line bundle; the Ext profile of
+V|_D; nothing at n = 5), with `code/attack/gaps/orlov_growth/divisor_sheaves.py`
+(19 checks, run by `code/attack_checks.py`) and Lean Section 49. Scope
+corrections: `cor:fourdiscriminants`, `cor:latticeburch` and the smooth case
+hold at the twist 3 Theta only (d <= b^2 in general, d <= 9 at b = 3, d in
+{1,3,5,7} when N = (9+d)/2 is an integer); a non-Cohen-Macaulay support has
+nonzero local Ext^pd (`cor:cmdichotomy`(i), by Auslander-Buchsbaum and
+Nakayama) but is excluded only where two smooth codimension-two branches meet
+transversally; for a Cohen-Macaulay support condition (b) of
+`thm:factor`(iii) is equivalent to one vanishing in H^1(Z, Ext^1) (the scalar
+forced by the trace) and condition (a), first-order extension along the
+polarised deformations, remains, so the rule of `tab:rules` for such
+supports now cites `cor:cmdichotomy` and its open leaves in
+`code/closure_graph.py` include the extension; `rem:markmanscope` says that
+nothing here bears on the objects of Markman's proofs; `thm:nosum` is called
+vacuous by `thm:p2false`; in the introduction and `thm:final`(iv)
+`thm:p2primenumber` is stated as a lower bound for every object, an object
+attaining it meeting the criterion (the converse is not proved); the stale "beyond"
+entries of `tab:scope` for the pure form now read "nothing"; Appendix B lost
+a duplicated footnote and `prop:whichtypes`(ii), (iii) match their proof.
+`code/fourfold_certified.py` no longer imports scipy (the workflow installs
+only sympy, numpy and python-flint): its pivoted QR is a numpy
+Businger-Golub pivoting in `_pivots`.
+2218 checks, 147 Lean theorems (110 axiom-free, 37 on `propext`), 411 pages,
+763 labels.
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 
@@ -503,7 +539,7 @@ section.
 - `cd code && python3 verify_all.py` ends with `N checks passed, 0 failed`;
   keep the count in `README.md`, `lean/README.md`, `.zenodo.json`,
   `.github/workflows/lean.yml` and `tex/declarations.tex` in step.
-- `cd lean && lean HodgeObstruction.lean`: 144 theorems, each axiom-free or
+- `cd lean && lean HodgeObstruction.lean`: 147 theorems, each axiom-free or
   depending on `propext` only; the number, in words, is also in
   `README.md`, `lean/README.md`, `code/computations/lean.tex`, `.zenodo.json`
   and `tex/declarations.tex`, and in figures in the workflow.

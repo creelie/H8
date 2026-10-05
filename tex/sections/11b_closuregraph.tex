@@ -209,11 +209,13 @@ type, which is of abelian type, and nothing in Hodge theory forbids it from
 lying in $\mathrm{Ab}^{p}(X)$. Nor is it a route: to put a Hodge class into
 $\mathrm{Ab}^{p}(X)$ one must construct an algebraic cycle on $B\times X$
 whose class carries it, which is the kind of construction the Hodge
-conjecture asks for, now on $B\times X$ instead of on $X$. The methods of
-this paper construct cycles on abelian varieties of Weil type and on nothing
-else, so by themselves they give no case of \textup{(F3$'$)} outside
-$\mathcal{A}$, and \textup{(F3$'$)} enters \Cref{thm:closure} as a
-hypothesis.
+conjecture asks for, now on $B\times X$ instead of on $X$. The cases of
+\textup{(F3$'$)} proved below outside $\mathcal{A}$ come from the Hodge
+conjecture itself, from hypotheses on zero-cycles, and, in degree four, from
+correspondences with members of $\mathcal{A}$
+(\Cref{prop:k3powers} to \Cref{prop:f3primedominant}); none of them reaches a
+variety in general position, and \textup{(F3$'$)} enters \Cref{thm:closure} as
+a hypothesis.
 \end{remark}
 
 Two further facts fix the position of \textup{(F3$'$)}. The first says how
@@ -646,10 +648,7 @@ $E(Y)=\QQ$.
 \end{proof}
 
 The class $\mathcal{A}$ of \Cref{prop:f3prime}(iii) is larger than the
-closure properties recorded there show, and apart from the Hodge conjecture
-itself, as in \Cref{prop:k3powers}, \Cref{prop:k3ntype} and
-\Cref{cor:fanolines}, its growth is the only unconditional way in which this
-paper enlarges the domain of \textup{(F3$'$)}. Four further operations
+closure properties recorded there show. Four further operations
 preserve it, the last of them domination by correspondences, which brings in
 the varieties whose motives are known to be built from those of abelian
 varieties, and two classical families lie in it.
@@ -1201,8 +1200,8 @@ degree of the Fermat fourfold that covers it. All of them satisfy
 
 A sextic fourfold has $h^{4,0}=1$, so no hypothesis on zero-cycles or on
 rationally connected fibrations reaches it (\Cref{rem:f3primesharp}), and
-among the smooth sextic fourfolds only the Fermat one was covered before
-\Cref{prop:delsarte}. The Delsarte sextics are finitely many
+among the smooth sextic fourfolds only the Fermat one is covered by
+\Cref{prop:aclosure}. The Delsarte sextics are finitely many
 up to isomorphism, since the torus rescales the coefficients of a Delsarte
 polynomial to $1$, so they are isolated points in the $426$-dimensional
 moduli of smooth sextic fourfolds: \Cref{prop:delsarte} adds points, not a
@@ -1536,8 +1535,8 @@ Fermat septic curve by a group of order seven; \Cref{fig:simplextype} draws
 its Newton triangle and the smooth adapted fan of the proof. For $r=4$,
 \Cref{cor:delsarteall}(i) recovers \Cref{prop:delsarte}(ii), with the Fermat
 degree lowered to $e_{A}$. Its content lies in dimension five and more, where
-this paper had covered only the Fermat hypersurfaces, and in the cyclic
-covers, among them the Calabi--Yau
+otherwise only the Fermat hypersurfaces are covered
+(\Cref{prop:aclosure}(iii)), and in the cyclic covers, among them the Calabi--Yau
 varieties $\{y^{2}=F_{A}(x)\}$ with $F_{A}$ of degree $2r+4$ in $r+2$
 variables. A computation in \cite{BMB26} checks the ingredients:
 the invariant factors for the $29$ sextic shapes; the Euler number
@@ -2651,7 +2650,7 @@ the split families of the fields of degree at least four
 a secant object in every dimension, Question 11.4
   & $\delta=\delta_{0}$ & \Cref{prop:splitgeom} \\
 a Cohen--Macaulay support, smooth or singular
-  & one secant object & \Cref{cor:disjointroutes} \\
+  & one secant object & \Cref{cor:cmdichotomy} \\
 one secant object, Question 11.4
   & $\mathbf{W}(K,4,\delta_{0})$ & \Cref{cor:markmancondition} \\
 \midrule
@@ -2708,7 +2707,7 @@ With the notation of \Cref{setup:rules}:
 \item In each of the five, every element is necessary: removing any one
   leaves $\mathbf{HC}$ outside the closure.
 \item The secant route lies in no minimal sufficient set. Granting both of its
-  demands, a secant object satisfying \eqref{eq:heisenberg} in every
+  demands, a secant object satisfying the weakened criterion in every
   dimension and an affirmative answer to \cite[Question 11.4]{Mar25b}, puts
   $\mathbf{W}(K,n,\delta_{0})$ in the closure, and with it, by
   \Cref{prop:descent}, $\mathbf{W}(K,n,\delta)$ for every $\delta$; it leaves
@@ -2908,8 +2907,8 @@ derivation that uses (F3). With \textup{(F3$'$)} in its place the route
 $\{\mathrm{P2}_{\mathrm{split}},\mathrm{F2},\mathrm{F3}'\}$ is minimal, and it is not the
 shortest: (F1) and (F2), which between them give the conjecture for abelian
 varieties along this route, are replaced on the routes of the literature by
-the single statement \textup{(V)}, or by \textup{(L)}, which implies it
-(\Cref{thm:vhcab}). Second, every element of every minimal sufficient set
+the single statement \textup{(V)} (\Cref{thm:vhcab}), or by \textup{(L)},
+which implies it (\Cref{prop:lefvhc}). Second, every element of every minimal sufficient set
 except $\mathrm{P2}_{\mathrm{split}}$ is a consequence of the conjecture
 (\Cref{thm:closure}(vi)), and
 two of the sets, $\{\mathrm{F3}\}$ and $\{\mathrm{L},\mathrm{M}\}$, are
@@ -3419,20 +3418,21 @@ Objects with effective Chern character at a base point
   & closed by \Cref{thm:positivity}
   & objects indecomposable in $D^{b}$, \Cref{rem:whatitmustbe} \\
 The weakened criterion for a secant object of positive rank
-  & reduced to one identity on the factor, \Cref{thm:factor}; the identity
-    fails for Markman's candidate, \Cref{thm:candidatefails}, and at every
+  & reduced to two conditions on the factor, \Cref{thm:factor}, the first
+    automatic for Markman's construction, \Cref{cor:markmancondition}; the
+    identity fails for Markman's candidate, \Cref{thm:candidatefails}, and at every
     transversal double point, \Cref{cor:localobstruction}
   & objects whose support has no such point, \Cref{rem:candidatemeaning} \\
-A secant object of rank one with smooth support
-  & invariants forced and the discriminant bounded by $9$,
+A secant object $\cI_{S}(b\Theta)$ with smooth support
+  & invariants forced and $d\le b^{2}$, so $d\le9$ at $b=3$,
     \Cref{thm:smoothinvariants}, \Cref{cor:fourdiscriminants}
-  & existence for $d\in\{1,3,5,7\}$, and one vanishing in
-    $H^{1}(S,N_{S/X})$, \Cref{rem:smoothremains} \\
+  & existence for $d\in\{1,3,5,7\}$ at $b=3$, one vanishing in
+    $H^{1}(S,N_{S/X})$ and first-order extension, \Cref{rem:smoothremains} \\
 The local part of the weakened criterion
   & it is a condition on depth: no obstruction at a Cohen--Macaulay point,
     \Cref{thm:cmvanishing}, \Cref{cor:cmdichotomy}
-  & Cohen--Macaulay supports, where the criterion becomes one global
-    vanishing \\
+  & Cohen--Macaulay supports, where the identity becomes one global
+    vanishing beside first-order extension \\
 A support that is a complete intersection
   & closed for every $b$ and every $d$, \Cref{thm:noci}
   & supports of higher Hilbert--Burch rank, \Cref{thm:burchsearch} \\
@@ -3459,13 +3459,12 @@ The bounded form (P1), read on the minimal representative
   & closed: equivalent to the conjecture for the family,
     \Cref{thm:p1equivalent}
   & nothing; it is a restatement, so it is not a route \\
-The semiregularity form (P2), for a given representative
+The pure form of (P2), for a given representative
   & forces the evaluation map to vanish on the $4n^{2}$-dimensional
     annihilator, and excludes every representative that is a sheaf on a
     smooth germ of codimension two of its support, \Cref{thm:p2forces},
     \Cref{cor:p2shape}
-  & representatives that are genuine complexes along every such component;
-    members with an abelian subvariety tangent to an eigenspace \\
+  & nothing: no representative exists, \Cref{thm:p2false} \\
 The same form, tested by a number
   & $\dim\Ext^{2}(E,E)=2n(2n-1)$ at one base point would suffice,
     \Cref{thm:p2numerical}, and no representative attains it,
@@ -3476,13 +3475,12 @@ The same form, for a representative in codimension $n$
     component of codimension less than $n$, and at a general member every
     component of codimension at least two has multiplicity zero,
     \Cref{lem:finiteproduct}, \Cref{thm:p2support}
-  & representatives glued along components of lower codimension with
-    alternating length zero \\
+  & nothing: no representative exists, \Cref{thm:p2false} \\
 The Hochschild action on such a representative
   & the annihilator is the mixed part of a splitting of $HH^{1}$ and the
     action factors through a ring of dimension $2^{2n+1}-1$ in one of
     dimension $2^{4n}$, \Cref{thm:hhsplitting}, \Cref{cor:hhfactor}
-  & whether a complex with that action exists \\
+  & nothing: no such complex exists, \Cref{thm:p2false} \\
 The shape of such a representative
   & an indecomposable summand carries the class; at $n=2$, and at $n=3$
     granting the compatibility of \Cref{cor:hhfactor}(iii), its
@@ -3595,12 +3593,12 @@ The conjecture modulo abelian varieties, (F3$'$)
     $2n-2$, $2n$, and in dimension at most three, \Cref{prop:f3prime};
     on the Delsarte hypersurfaces and the diagonal complete intersections
     of Vandermonde type, \Cref{cor:delsarteall}, \Cref{thm:vandermonde};
-    on the fourfolds and fivefolds of \Cref{prop:f3primesmall} and
-    \Cref{prop:f3primefibration};
+    on the fourfolds and fivefolds of \Cref{prop:f3primesmall},
+    \Cref{prop:f3primefibration} and \Cref{prop:f3primedominant};
     through the Hodge conjecture on the varieties of \Cref{prop:k3powers}
     and \Cref{prop:k3ntype}
-  & degree four on fourfolds outside $\mathcal{A}$ not covered by
-    \Cref{prop:f3primesmall} or \Cref{prop:f3primefibration}, and beyond, for
+  & degree four on fourfolds outside $\mathcal{A}$ not covered by these
+    results, and beyond, for
     instance squares of K3 surfaces with real multiplication, such as
     $S_{\lambda}$, \Cref{rem:f3primeopen},
     \Cref{rem:f3primefrontier} \\
