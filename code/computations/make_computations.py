@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """make_computations.py -- build COMPUTATIONS.md at the root of the archive.
 
-The sources are items.tex (the computations, items (I) to (LXXII)), lean.tex
+The sources are items.tex (the computations, items (I) to (LXXVI)), lean.tex
 (the Lean certificate and its table of theorems) and item_labels.json (for
 each item, the labels of the results of the paper that cite it).  Every
 cross-reference is resolved to the numbering of the compiled paper through
@@ -56,7 +56,7 @@ def convert(s):
     s = re.sub(r'\\ref\{([^}]*)\}', lambda m: num.get(m.group(1), m.group(1)), s)
     s = re.sub(r'\\cite\[([^\]]*)\]\{([^}]*)\}', r'[\2, \1]', s)
     s = re.sub(r'\\cite\{([^}]*)\}', r'[\1]', s)
-    s = re.sub(r'\\emph\{([^{}]*)\}', r'*\1*', s)
+    s = re.sub(r'\\emph\{((?:[^{}]|\{[^{}]*\})*)\}', r'*\1*', s)
     s = re.sub(r'\\textup\{([^{}]*)\}', r'\1', s)
     s = re.sub(r'\\texttt\{([^{}]*)\}', r'`\1`', s)
     s = s.replace('~', ' ').replace("``", '"').replace("''", '"')
@@ -96,8 +96,8 @@ for line in body.split('\n'):
 if cur.strip(): parts.append(cur)
 out = []
 out.append('# Computations\n')
-out.append('This document accompanies the paper *Density of Algebraic Loci of Weil '
-           'Classes on Abelian Varieties* by Deep Bhattacharjee, Priyabrata Mandal '
+out.append('This document accompanies the paper *Algebraic Loci of Weil Classes '
+           'from Abelian Varieties to Diagonal Complete Intersections* by Deep Bhattacharjee, Priyabrata Mandal '
            'and Ushashi Bhattacharya. The paper cites the programs of this archive '
            'as [BMB26]. Below, each computation is listed under the item number '
            'that the programs, `code/verify_all.py` and the README use, with the '

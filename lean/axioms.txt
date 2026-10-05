@@ -115,3 +115,16 @@
 'HodgeObstruction.ff_partner_counts' does not depend on any axioms
 'HodgeObstruction.ff_shift_table' does not depend on any axioms
 'HodgeObstruction.ff_noconvolution_counts' does not depend on any axioms
+'HodgeObstruction.efour_partner_counts' does not depend on any axioms
+'HodgeObstruction.efour_run_drop' does not depend on any axioms
+'HodgeObstruction.efour_two_level_degrees' does not depend on any axioms
+'HodgeObstruction.vandermonde_counts' does not depend on any axioms
+'HodgeObstruction.vg_chain_determinants' depends on axioms: [propext]
+'HodgeObstruction.vg_quadric_counts' does not depend on any axioms
+'HodgeObstruction.vg_cubic_counts' does not depend on any axioms
+'HodgeObstruction.vg_triple_signatures' does not depend on any axioms
+'HodgeObstruction.cyclic_base_count' depends on axioms: [propext]
+'HodgeObstruction.cyclic_merge_small' depends on axioms: [propext]
+'HodgeObstruction.cyclic_norms' does not depend on any axioms
+'HodgeObstruction.cyclic_vg_counts' depends on axioms: [propext]
+'HodgeObstruction.cyclic_nonsplit_example' depends on axioms: [propext]

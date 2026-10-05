@@ -1,9 +1,9 @@
-# Density of Algebraic Loci of Weil Classes on Abelian Varieties
+# Algebraic Loci of Weil Classes from Abelian Varieties to Diagonal Complete Intersections
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22950275.svg)](https://doi.org/10.5281/zenodo.22950275)
 
-Verification code and figure sources for the paper *Density of Algebraic
-Loci of Weil Classes on Abelian Varieties*, by Deep
+Verification code and figure sources for the paper *Algebraic Loci of Weil
+Classes from Abelian Varieties to Diagonal Complete Intersections*, by Deep
 Bhattacharjee, Priyabrata Mandal and Ushashi Bhattacharya.
 
 Release v3.2.0 accompanies the current version of the paper, which cites this
@@ -35,9 +35,11 @@ licence, or a package other than those named below.
                 lefschetz_closure.py, twistor_locus.py and hk_pullback.py, numpy
                 integer arrays for pte_remaining.py and weil_tori.py, and
                 python-flint exact rational matrices for attack_checks.py;
-                fourfold_products.py alone works in double precision, with
-                its ranks read off from a gap of the singular values)
-    code/attack/  the round-12 attack scripts, with their verifiers' scripts
+                fourfold_products.py works in double precision, with its
+                ranks read off from a gap of the singular values, and two
+                parts of diagonal_ci.py test a map on random points in
+                double precision)
+    code/attack/  the attack scripts of item (LV), with their verifiers' scripts
                 and transcripts (item (LV))
     code/extreme/ longer runs of several items, with transcripts
     verify.ps1  the whole verification on Windows, Python suite then Lean
@@ -62,7 +64,7 @@ Lean check:
 
 The last lines are
 
-    2135 checks passed, 0 failed
+    2175 checks passed, 0 failed
     overall: PASS
 
 and the exit status is zero. The driver runs five self-contained checks and
@@ -92,7 +94,7 @@ then calls the companion scripts in the same directory:
 | `pte_search.py` | which split objects supported on R can be semiregular: the level sums, the level sets that survive them at n = 3, and the exhaustive search that removes them |
 | `smooth_support.py` | the invariants a smooth support must have, read off the Chern character, and the Bogomolov-Miyaoka-Yau bound that leaves four discriminants |
 | `hilbert_burch.py` | Cohen-Macaulay supports with a split resolution: the complete intersections are excluded outright, ranks two and three are empty, and the candidates at higher rank are printed |
-| `closure_graph.py` | the logical skeleton of the paper and of the literature it quotes as a rule set: the conjecture is not in the closure of what is proved; the conjecture for varieties that are not abelian, (F3), gives it for every abelian variety A through A x P^1 and so is the conjecture itself; with (F3'), the conjecture modulo abelian varieties, added, there are exactly five minimal sufficient sets, {(F3)}, {Lefschetz standard conjecture B, every Hodge class motivated}, {B, (F3')}, {variational Hodge conjecture for algebraic classes, (F3')} and the route of the paper {(P2), (F2), (F3')}; (F3') alone gives nothing on abelian varieties; without the two additions the search returns the four sets of the earlier version; and the secant route lies in no minimal set |
+| `closure_graph.py` | the logical skeleton of the paper and of the literature it quotes as a rule set: the conjecture is not in the closure of what is proved; the conjecture for varieties that are not abelian, (F3), gives it for every abelian variety A through A x P^1 and so is the conjecture itself; with (F3'), the conjecture modulo abelian varieties, added, there are exactly five minimal sufficient sets, {(F3)}, {Lefschetz standard conjecture B, every Hodge class motivated}, {B, (F3')}, {variational Hodge conjecture for algebraic classes, (F3')} and the route of the paper {(P2), (F2), (F3')}; (F3') alone gives nothing on abelian varieties; without the two additions the search returns four sets; and the secant route lies in no minimal set |
 | `hochschild_annihilator.py` | the annihilator of a Weil class in the whole exterior algebra HH^*(A) of dimension 2^{4n}: that HH^1 splits as P + Q with P and Q the annihilators of the two conjugate pieces of the class, each of dimension 2n; that the degree-two annihilator is exactly P ^ Q, of dimension 4n^2; the dimension binom(4n,k) - 2 binom(2n,k) in every degree with one extra class at k = 2n; the codimension 2^{2n+1} - 1 of the ideal generated; and the unconditional lower bound dim Ext^2(E,E) >= 2n(2n-1) |
 | `p2_support.py` | the finite linear algebra of the numerical form of the semiregularity criterion and of the support theorem: the rank 2n(2n-1) of contraction into the Weil class on HH^2 and its injectivity on wedge^2 P + wedge^2 Q, the class of a point on a torus contracted with a ^ b, the dichotomy in the normal space, the eigenspace bookkeeping in an explicit rational model over Q(i), and the separation of the Weil line from the classes pulled back from quotients by abelian subvarieties tangent to an eigenspace |
 | `lefschetz_family.py` | the Lefschetz standard conjecture for the total space of an abelian scheme over a curve with algebraic invariant cycles: on abelian varieties with g <= 4 the operator Lambda equals D^{-1} times the Pontryagin product with l^{g-1}/(g-1)!, computed from mu_* and mu^*; on product families the operator assembled from the relative and base parts satisfies [L, Lambda] = H; and the invariants of the Mumford group in wedge^q V are 1,0,1,0,1,0,1,0,1 |
@@ -108,7 +110,7 @@ then calls the companion scripts in the same directory:
 | `p2prime.py` | the corrected criterion (P2') as a number: for a Chern character N omega + sum c_k theta^k the annihilator in HT^2 has dimension n^2(4 - rho), rho the rank of the Hankel matrix of the k! c_k, so dim Ext^2(E,E) >= (4 + rho) n^2 - 2n with equality forcing injective semiregularity; for a general shape the annihilator is exactly the tangent space of the polarised Weil family; the n = 2 formula with its two exceptional ratios; the first-order Hodge locus; chi(E,E); at the exceptional n = 2 ratio, the stabiliser so(4,3) of the character (dimension 21, trace-form signature (12,9), invariants 1, 0, 0, 0, 1, 0, 0, 0, 1) and the constant sign of int gamma kappa^2 on the Kaehler cone; exact over Q(i) by torus-weight blocks, to n = 4 by default and n = 9 with --extreme |
 | `p2prime_profile.py` | the whole Hochschild profile of such a character: the ranks of contraction on every HT^k equal 2 binom(2n,k) + M_k min(k+1, 2n+1-k, r) - [k=n] d, their symmetry, the middle degeneracy, and the parity of chi(E,E), which makes the numerical criterion unattainable at the n = 2 points with rho_2 = 23 |
 | `descent.py` | descent and scalar extension for Weil classes: the correspondence pr_{B*}(x . pr_Y^*(eta_Y^{2m-2} y')) maps the Weil classes of B x Y onto those of B, so W(F,n+1,delta'') gives W(F,n,delta) for every discriminant; and W(F,n,iota(delta)) gives W(K,n,delta) for K in F; exact over seven CM fields |
-| `attack_checks.py` | item (LV): a fast subset (about two and a half minutes) of the round-12 attack scripts in `attack/`, each track with its verifier's independent re-implementation: the Hodge classes and the criterion numbers of a quartic CM family at n = 2 (2 and 7 Hodge classes, phi^2 = (det H)^{-1}, r = 120, 80, 112 and the bound 68); pull-backs and one composite of correspondences on powers of a Mumford fourfold (7 of 8, then 8); the Hochschild profiles, the n = 2 certificate and the S^2 parity numbers of explicit objects at a split member, and the erratum to the n = 3 example; the natural objects at n = 4 (dim T = 16, rank 6, the relation giving 14 W_2, the lattice index 2612736000); needs python-flint, sympy and numpy |
+| `attack_checks.py` | item (LV): a fast subset (about two and a half minutes) of the attack scripts in `attack/`, each track with its verifier's independent re-implementation: the Hodge classes and the criterion numbers of a quartic CM family at n = 2 (2 and 7 Hodge classes, phi^2 = (det H)^{-1}, r = 120, 80, 112 and the bound 68); pull-backs and one composite of correspondences on powers of a Mumford fourfold (7 of 8, then 8); the Hochschild profiles, the n = 2 certificate and the S^2 parity numbers of explicit objects at a split member, and the erratum to the n = 3 example; the natural objects at n = 4 (dim T = 16, rank 6, the relation giving 14 W_2, the lattice index 2612736000); needs python-flint, sympy and numpy |
 | `sextic_count.py` | item (LVI): the dimension count for Orlov products over a sextic CM field: the contraction ranks r^1 = 12, r^2 = 4(A_12+A_13+A_23) + rho_1+rho_2+rho_3 and r^3 = 8 N_w + 2 sum (rk M_+ + rk M_-) into a secant class, exactly over Q(i) and modulo a prime for three cubic fields; the Euler form -64 Nm(q) sum |w|^2 on the secant space, and +16 Nm(q) sum |w|^2 for two places; the profile (1, 12, r^2, e_3, r^2, 12, 1) of a minimal object with e_3 = 2 r^2 - 22 - chi and the bound chi <= -(r^3 - 2 r^2 + 22); standard library only |
 | `sextic_lattice.py` | item (LVII): integral flat characters in degree six: chi(v, v) is even on a sixfold, r^3 - 2 r^2 <= 4 for every shape of a secant class (so the profile threshold of Proposition 19.27 is at most 26), and for sixteen totally real cubic fields and q in {1, k + alpha} the lattice of integral points of S(0,q), computed modulo split primes with rational reconstruction, has -chi >= 32, with -chi = 32 exactly at the real and imaginary parts of exp(i theta) when q = 1; the model and the lattice code are in `attack/gaps/sextic/s2_lattice.py`; standard library only |
 | `sextic_weil.py` | item (LVIII): the F-Weil part of the twisted character of an Orlov product over a sextic CM field, in closed form (Lemma 19.31), and for the sixteen cubic fields of item (LVII) and q in {1, k + alpha, k + 1 + alpha} the least -chi of an integral flat secant character whose Orlov square has a nonzero F-Weil part: 192, attained only at +-v(-1, 0, 2 - alpha^2, 0) over Q(zeta_7)^+ with q = 3 + alpha; the lattice code is in `attack/gaps/sextic/s3_weil.py`; standard library only |
@@ -126,6 +128,10 @@ then calls the companion scripts in the same directory:
 | `burch_rank.py` | item (LXX): resolutions 0 -> E_1 -> E_0 -> I_Z -> 0 by vector bundles of ranks r, r + 1 of a secant ideal I_Z(b Theta): c(I_Z(b Theta)) = 1 + b T + N T^2 + (bN/3) T^3 + N(b^2 - 3d)/12 T^4 by Newton's identities, hard Lefschetz for T^2 on H^2 (rank 28), c_4(G) = -(b^2 + d)(b^2 + 9d)/72 T^4 != 0 at r = 1 (no zero locus of a section of a rank two bundle), 6m = 3d - b^2 - 4ab and chi(E) = a^4 - 2a^2 m + m^2/2 at r = 2, so d = 3 mod 4 at b = 3, confirmed by a brute-force search, and the route note's rank two example (c_4(G) = 180, 144, 84, 0 at d = 1, 3, 5, 7); sympy and exact rational arithmetic |
 | `line_bundle_convolutions.py` | item (LXXI): convolutions of line bundles on E^{2n}, E = C/Z[i]: the 2 4^{n-1} bundles L_zeta with prod zeta = +-1, whose signed exponentials sum to the pure Weil class 2 4^{n-1} (alpha + conj alpha), exactly for n = 2, 3; the index lemma n(X + Y) <= n(X) + n(Y); every closed walk of steps of degree one has positive excess at n = 3, 4, so no Massey product enters the diagonal classes of Ext^2, while one of excess 0 exists at n = 2; the degree drop on binary trees; the cup products on the 525 diagonal classes at n = 3 (graph components 4 and 16, generic rank 276, kernel 204 + 45 = 249); among the products of length at least three only the fourfold paths M_{t2} -> M_{t3} -> L -> M_{t1} survive, for sigma_1 = sigma_3 = -sigma_2, with values in a space of dimension (t_2 - t_1)^6, and with t_1 below p and t_2, t_3 above only M_{t2} -> M_{t3} -> M_{t1} -> L and M_{t3} -> M_{t1} -> L -> M_{t2}, for sigma_1 = sigma_2 = -sigma_3; at n = 4 paths of length three and four survive |
 | `fourfold_products.py` | item (LXXII): the fourfold products of the surviving family on E_0^6 computed in theta functions: the pieces pulled back along the degree-4 covers (w_1, w_2) -> (w_1 + w_2, u(w_1 - w_2)) of each factor E_0^2, where they become exterior products of line bundles on curves; the automorphy factors, holomorphy and Landau-level norms of the theta functions for d = 2, 6, 14; the selection rules on the two curves; only the tree (x_1 x_2)(y x_3) of the five survives; the explicit convolution M_{t2} -> M_{t3} -> L_zeta -> M_{t1} whose Maurer-Cartan equation is exactly x_1 x_2^zeta = 0 and sum_zeta x_2^zeta x_3^zeta = 0, with 908979, 233213, 12142 classes in degrees 1, 2, 3 of its endomorphism complex; rank 12 at each of the 16 pieces and rank 192 on the 192 diagonal classes of type (1,1,0) (smallest to largest singular value about 0.02, for t = (2,5,6), (2,5,7), both signs, and with the Maurer-Cartan equation imposed), so the diagonal count of the corrected criterion can be met; the partner counts 3, 6, 7 of a piece and the dimensions Prod |zeta_j - zeta'_j|^2 (16 six times and 64 once) of the blocks between pieces of opposite parity that differ in every coordinate; the 112 isolated blocks and 2560 classes of the explicit convolution; random arrangements of the three placements in which every such block with shifts differing by one is isolated; and the bound 249 - (45 + 15 * 9) = 69 > 57 of the theorem that no convolution of these pieces meets the criterion. Double precision |
+| `diagonal_ci.py` | item (LXXIII): diagonal complete intersections of Vandermonde type, X = {sum_i w_i lambda_i^k x_i^d = 0, k < c} in P^N: the Lagrange identity sum_i w_i f(lambda_i) = 0 for deg f <= N - 1 and the spaces Lambda_r of values of polynomials of degree <= r, exactly; the c x c minors of 957 matrices of Vandermonde type, and 40 pairs of diagonal equations brought to Vandermonde form; in double precision, the map Phi : C^r -> X from the generalised Fermat curve, smooth points of X and fibres of exactly |G| = r! d^{N(r-1)} points; the genus of C three ways, the Euler number of X against the orbifold Euler number of C^r/G in 23 cases, the middle Hodge numbers by Hirzebruch's formula against the sum over characters for 43 triples (d, N, r), dim B_[a] <= 5 for d = 3, 4, 6, N <= 6 and d = 2, N <= 12, and the 70, 490, 6125 balanced orbits of Weil type in P^6 with h^{2,2} = 267, 2584, 48588 |
+| `convolutions_efour.py` | item (LXXIV): convolutions of the 128 Weil pieces L_zeta on E_0^8 with three multiples: 4, 12, 28, 20 partners of the other parity differing in 1, 2, 3, 4 coordinates, the 28 with D = 16 or 64 and 640 classes, 64 * 640 = 40960 > 104; no H^0 between distinct pieces and H^1 only across one coordinate; the 1020 runs through the multiples lowering the shift by at least 4; every chain of components the degrees allow at the 1792 pairs of the two-shift theorem, for four placements and both signs, with no element of degree one reaching the classes and no term of d_E leaving them; terms on 6 of 28 groups once a piece moves to a third shift |
+| `very_general.py` | item (LXXV): the very general diagonal complete intersections of Vandermonde type: the Lie algebra generated by the logarithms N_k = <., c_k> c_k of a chain of vanishing cycles has dimension g(2g + 1), that of sp, for g <= 7; the intersection matrices of the chains, with determinant 1 at even length, for g <= 12; the invariants of sp and sl in the exterior powers (only the powers of the symplectic form, and only the top power); the relations between the signature of a trielliptic curve and its exponents compared with the theorem of Achter and Pries; the determinant formula for the trace form of a hermitian lattice over Z[zeta_3] on 24 random lattices; the dimensions of the space of Hodge classes of the very general member by enumeration of the characters against the closed formulas, 1 + sum_{j > r/2} C(N+1, 2j) for d = 2 and 1 + C(N+1, r+2) C(r+2, r/2+1) for d = 3, never above h^{r/2,r/2} and equal to it for a hypersurface and for two quadrics |
+| `cyclic_monodromy.py` | item (LXXVI): the monodromy of the cyclic covers y^m = prod (t - lambda_i)^{a_i} of the line for m = 3, 4, 6, in exact arithmetic over Q(zeta_m): the model of the eigenspace as ker(d)/K l with pure braids acting by Fox Jacobians, its pseudo-reflections and its invariant hermitian form of signature {p, q}; the 38 base cases with n = 3, 4, where the logarithms of the unipotent twists generate sl_n; the collision of two branch points (61 cases), the merge lemma (57213 multisets) and the discriminant of the new part (2 is a norm from Q(i), not from Q(sqrt(-3))); the counts of Hodge classes of the very general member for d = 4, 6 against h^{r/2,r/2} |
 | `transport_growth.py` | the transport of the base cycle along the rational orbit: det(phi) = c^{2G}, phi^* E = c^2 E and phi^* omega = c^{2n} omega on an explicit sample of rational symplectic elements with denominators to 29; the multiplicity of a component as the order of the stabiliser its kernel meets, computed as a lattice index by Smith normal form, against the image degree computed as a Pfaffian; and the contrast between a subtorus the isogeny preserves, where the image degree is constant, and one it does not, where it grows |
 | `cm_fields.py` | the Weil classes of a CM field of degree four and six: the CM base point of every family, the balanced divisor classes delta_i(f), the identity that the balanced n-fold product of them is the Weil class w(f) = sum_sigma sigma(f) alpha_sigma, checked for six pairs (F, n) with m = 2, 3 and n = 1, 2, 3, and the identity that the Weil classes of a composite field generate those of its imaginary quadratic subfield |
 | `exceptional_classes.py` | the exceptional Hodge classes on the self-product of a Mumford fourfold (eight invariants against six divisor products), the Hodge numbers and adjoint weights that keep the H^3 of a quintic threefold outside abelian type, and the 4n^2-dimensional annihilator of the Weil class in Hochschild cohomology with the two linear-algebra lemmas behind the theorem on the semiregularity form of propagation |
@@ -143,7 +149,9 @@ then calls the companion scripts in the same directory:
 All arithmetic is exact: `fractions.Fraction`, Python integers, exterior
 algebra over the rationals with integer structure constants, or, in
 `weil_tangent.py`, the Gaussian rationals built from `fractions.Fraction`.
-No step converts to a float. Two scripts, `semireg_fast.py` and
+No step converts to a float, except in `fourfold_products.py` and in parts
+(C) and (D) of `diagonal_ci.py`, which test a map proved by hand on random
+points; no statement of the paper rests on those two parts. Two scripts, `semireg_fast.py` and
 `weil_annihilator.py`, also work modulo a prime, where full rank is a
 certificate of full rank in characteristic zero; `weil_tangent.py` uses no
 reduction at all.
@@ -158,14 +166,14 @@ reduction at all.
 No Mathlib and no dependencies. The file ends with one `#print axioms` line
 per theorem; every one must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
-through `decide`, and none may mention `sorryAx`. There are one hundred and seventeen theorems. `lean/README.md` lists them
+through `decide`, and none may mention `sorryAx`. There are one hundred and thirty theorems. `lean/README.md` lists them
 and says what each one does and does not establish. The workflow in
 `.github/workflows/lean.yml` runs the check on every push and fails if the
-number of theorems is not one hundred and seventeen, or if any of them depends on an axiom other than propext.
+number of theorems is not one hundred and thirty, or if any of them depends on an axiom other than propext.
 
 ## The computations, item by item
 
-`COMPUTATIONS.md` describes the computations as items (I) to (LXXII) and lists,
+`COMPUTATIONS.md` describes the computations as items (I) to (LXXVI) and lists,
 for each result of the paper, the items that check it. The programs that carry
 them out are:
 
@@ -243,6 +251,10 @@ them out are:
 | (LXX) | `code/burch_rank.py` |
 | (LXXI) | `code/line_bundle_convolutions.py` |
 | (LXXII) | `code/fourfold_products.py` |
+| (LXXIII) | `code/diagonal_ci.py` |
+| (LXXIV) | `code/convolutions_efour.py` |
+| (LXXV) | `code/very_general.py` |
+| (LXXVI) | `code/cyclic_monodromy.py` |
 
 Items (I) to (V) are computed inside `code/verify_all.py` itself; items
 (XXIX), (XXXI) and (XL) are the Macaulay2 computations described below; item
@@ -277,12 +289,13 @@ Their unedited transcripts are the `.txt` files beside them, and
 
     cd figures
     python3 make_core.py        # the Weil cube, the Hodge spike, the character
-                                # grid, the Chern line, the annihilator
+                                # grid, the Chern line, the annihilator, the
+                                # witnesses of the two characters
     python3 make_plates.py      # the quadric, the Lagrangian sweep, the fibres
-    python3 make_secant.py      # the moment curve and the secant plane
+    python3 make_secant.py      # the moment curve, the secant plane and the
+                                # least multiple M
     python3 make_smooth.py      # the Bogomolov-Miyaoka-Yau window
     python3 make_more.py        # the hypothesis cube and the null cone
-    python3 make_spinor.py      # the spinor quadric and its two rulings
     python3 make_properness.py  # the closed strata of the algebraic locus
     python3 make_diagrams.py    # the Lefschetz ladder, the moduli count, the
                                 # signature surface
@@ -316,6 +329,13 @@ Their unedited transcripts are the `.txt` files beside them, and
     python3 make_round32.py     # the excess of a cycle of line bundles, the
                                 # surviving fourfold path, and the budget of
                                 # diagonal classes at n = 3
+    python3 make_round37.py     # the special locus and the escaping sequence
+    python3 make_round40.py     # diagonal complete intersections of
+                                # Vandermonde type, two shifts on E_0^8
+    python3 make_round41.py     # the monodromy of the curves D_a, the very
+                                # general complete intersections by degree
+                                # and dimension, their Hodge classes against
+                                # h^{r/2,r/2}, and the map of the paper
     for f in fig_*.tex; do pdflatex -interaction=nonstopmode "$f"; done
     python3 checkfigs.py        # must print 0 overlapping label pairs
 
@@ -414,9 +434,7 @@ not abelian include A x P^1 for every abelian variety A, and the conjecture
 for A x P^1 gives it for A (pull back along the projection, cup with the
 class of A x {0}, push forward), so it alone implies the conjecture for
 abelian varieties and then the whole conjecture (Proposition prop:f3ishc of
-the paper). An earlier version said the conjecture follows from no two of the
-three; that rested on a rule set that omitted this implication, and it was
-wrong. The statement that belongs in its place, (F3'), asks for every Hodge
+the paper). The statement that belongs in its place, (F3'), asks for every Hodge
 class to be algebraic modulo images of Hodge classes of abelian varieties
 under algebraic correspondences. It holds on every variety whose cohomology
 is reached from abelian varieties in that way (curves, abelian varieties,
@@ -426,7 +444,7 @@ puts every smooth Delsarte fourfold in its domain, among them 28 sextic
 fourfolds besides the Fermat one (Propositions prop:f3primedominant and
 prop:delsarte, `delsarte.py`); beyond that it is open, and nothing here
 closes it (Proposition prop:f3prime and Remark rem:f3primeopen). With (F3') the three statements are
-a minimal route again (`closure_graph.py`, and Section 24 of the Lean file).
+a minimal route (`closure_graph.py`, and Section 24 of the Lean file).
 The second and
 third are not reductions: the self-product of a
 Mumford fourfold carries two Hodge classes outside the subring of divisor and
@@ -453,9 +471,7 @@ product B x Y with an abelian surface Y of Weil type, and a push-forward
 against the Weil class of Y, carries the Weil classes of a family in dimension
 n+1 to those of every family in dimension n, of every discriminant; and
 scalar extension from K to a CM field F containing it carries the Weil
-classes of F-families to those of K-families (`descent.py`). An earlier
-version said the triples (K, n, delta) are separate problems; that was wrong.
-The consequence is that the secant route, granted every demand it makes,
+classes of F-families to those of K-families (`descent.py`). The consequence is that the secant route, granted every demand it makes,
 reaches every imaginary quadratic family and still no CM field of higher
 degree, so it remains outside every minimal set. One new case of
 (L) is proved: for an abelian scheme over a curve whose invariant cycles are
@@ -519,8 +535,35 @@ and the target is equivalent to a bound on the Hilbert data of those cycles on
 a Zariski dense set of closed points of the arithmetic model. No such complex
 and no such bound is known.
 
-Round 12 (`code/attack/`, item (LV)) examined the inputs the closure graph
-leaves open, each with an independent adversarial re-implementation. For a
+A complete intersection of diagonal hypersurfaces of one degree d in P^N whose
+coefficient columns lie on a rational normal curve, which holds for every
+smooth complete intersection of two diagonal hypersurfaces, is the quotient
+C^r/G of a power of a generalised Fermat curve C by a finite group, so it
+satisfies (F3') in every degree, and its Hodge conjecture is that of the
+abelian varieties B_[a] cut out of the Jacobian of C by the characters; it
+holds when they have dimension at most five, in particular for two diagonal
+cubics, quartics or sextics in P^6, through Markman's theorem
+(`diagonal_ci.py`). At a very general configuration the monodromy of the
+cyclic covers D_a of the line decides the Hodge classes: for characters of
+order two it contains Sp(H^1(D_a)) (chains of vanishing cycles, A'Campo), so
+only powers of the polarisation survive; for characters of order three, four
+and six its identity component contains SL of the eigenspace, proved by
+letting two branch points collide, a lemma on two copies of SL of a
+hyperplane, a merge lemma and 38 computed base cases, so only Weil classes
+of abelian r-folds of Weil type for Q(sqrt(-3)) or Q(i) survive, of trivial
+discriminant except for characters of order six with an odd number of
+coordinates 3. Hence the very general member satisfies the Hodge conjecture
+for d = 2 in every dimension, for d = 3, 4 up to dimension seven and for
+d = 6 up to dimension five, in every P^N; for d = 6 in dimension six the
+Hodge classes are algebraic except on non-split Weil sixfolds. The space of
+Hodge classes of degree r has dimension 1 + C(N+1, r+2) T_d(r+2), plus
+sum_{j > r/2+1} C(N+1, 2j) for d even, for instance 141 for two cubics in
+P^6 against h^{2,2} = 267 and 3950 for three quartics in P^7 against 29872
+(`very_general.py`, `cyclic_monodromy.py`). These use known cases of (F2)
+and are not new cases of it.
+
+The attack scripts (`code/attack/`, item (LV)) examine the inputs the closure
+graph leaves open, each with an independent adversarial re-implementation. For a
 quartic CM field F at n = 2, the smallest open case of the propagation
 statement the minimal route needs, divisor classes reach the Weil classes
 exactly on a Noether-Lefschetz locus of the weight-two part R_F, of

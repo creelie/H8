@@ -1,4 +1,5 @@
 \section{Introduction}\label{sec:intro}
+\addcontentsline{toc}{part}{\protect\tocpart{}{}{Introduction}}
 
 Let $X$ be a smooth complex projective variety. The Hodge conjecture asserts
 that the cycle class map
@@ -110,7 +111,17 @@ quadratic fields; \Cref{part:semiregularity} determines what closing
 $\Sigma_{F}$ requires of a single object at a single point;
 \Cref{part:cmfields} completes the proof for every CM field and computes the
 requirement exactly for quartic fields; and \Cref{part:beyond} places the
-Weil classes inside the whole conjecture.
+Weil classes inside the whole conjecture (\Cref{fig:parts}).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{fig_roadmap}
+\caption{The five parts of the paper. Parts I to IV lead to
+\Cref{thm:main}; all five lead to the closure theorem of
+\Cref{sec:final}, by which the Hodge conjecture is equivalent to the two
+statements (F2) and (F3$'$), both of which remain open.}
+\label{fig:parts}
+\end{figure}
 
 \begin{figure}[htbp]
 \centering
@@ -160,7 +171,13 @@ identity component of $G_{F}(\RR)$; so every orbit is dense
 
 The third step is properness. The relative Hilbert scheme of the universal
 family, for one tuple of Hilbert polynomials, is proper over the Shimura
-variety, and the class of a flat family of cycles is locally constant, so the
+variety,%
+\footnote{By Grothendieck's construction the Hilbert scheme of a projective
+morphism, for a fixed Hilbert polynomial, is projective over the base; here
+the base is the Shimura variety of the family, after a level structure that
+makes the universal family exist, and the morphism is the universal abelian
+scheme.}
+and the class of a flat family of cycles is locally constant, so the
 set of points at which a Weil class is represented by cycles with prescribed
 Hilbert data is Zariski closed; $\Sigma_{F}$ is the countable union of these
 strata (\Cref{thm:closedlocus}). The Baire category theorem then gives the
@@ -185,7 +202,14 @@ three Hodge classes in degree $2n$ and one in every other degree
 (\Cref{thm:hdgcount}), so the Hodge conjecture for it, in every degree at
 once, is the algebraicity of the one class $\omega_{1}$, with $2^{2n-1}$
 integer coefficients (\Cref{cor:whatisleft}). By Deligne's theorem
-\cite{Del82} that class is absolutely Hodge at every point, and the Hodge
+\cite{Del82} that class is absolutely Hodge at every point,%
+\footnote{A class is absolutely Hodge if its image under every automorphism
+$\sigma$ of $\CC$, through the comparison of Betti cohomology with
+algebraic de Rham cohomology of the conjugate variety $X^{\sigma}$, is again
+a Hodge class. Algebraic classes have this property, so it is a necessary
+condition for algebraicity; Deligne proved it for every Hodge class on an
+abelian variety.}
+and the Hodge
 conjecture for the family is equivalent to its algebraicity at every point of
 one connected domain (\Cref{cor:exactform}).
 
@@ -207,7 +231,13 @@ the degree of a component by $c^{2n}$ and divides it only by the order of a
 stabiliser (\Cref{thm:p1forces}). So the bound restates the problem rather
 than reducing it.
 The bound is needed only on a small set: by the theorem of Pila, Shankar
-and Tsimerman on the Andr\'e--Oort conjecture \cite{PST}, it suffices along
+and Tsimerman on the Andr\'e--Oort conjecture \cite{PST},%
+\footnote{In the form used here: an irreducible closed subvariety of a
+Shimura variety of abelian type that contains a Zariski dense set of CM
+points is a special subvariety. Hence a sequence of CM points that leaves
+every proper special subvariety is Zariski dense, and so is every infinite
+subsequence of it.}
+it suffices along
 one sequence of CM points that leaves every proper special subvariety, and
 such a sequence exists inside the orbit (\Cref{thm:escape}). Every
 member at which this paper exhibits algebraic Weil classes has endomorphisms
@@ -220,7 +250,16 @@ do not decide the dichotomy by themselves, and a proof that $\Sigma_{F}$ is
 everything has to reach a member with full Hodge group.
 
 The second is semiregularity. By the theorem of Buchweitz and Flenner, in the
-form of Pridham for perfect complexes \cite{BF03,Pri24}, a perfect complex at
+form of Pridham for perfect complexes \cite{BF03,Pri24},%
+\footnote{The semiregularity map of a perfect complex $E$ on $X$ sends
+$\Ext^{2}(E,E)$ to $\bigoplus_{q}H^{q+2}(X,\Omega^{q}_{X})$ by the trace of
+the product with powers of the Atiyah class of $E$; it carries the
+obstruction to deforming $E$ along a first order deformation of $X$ to the
+obstruction to keeping $\ch(E)$ of Hodge type. If it is injective, $E$
+deforms, formally and then along the whole family, in every direction in
+which $\ch(E)$ stays a Hodge class. Bloch introduced it for local complete
+intersection subvarieties.}
+a perfect complex at
 one base point whose Chern character is a nonzero multiple of a Weil class
 plus a polynomial in the polarisation, and whose semiregularity map is
 injective, extends along the whole family and makes $\Sigma_{F}$ everything
@@ -316,7 +355,13 @@ hyperplane sections, and the restriction map kills every primitive class of
 middle degree (\Cref{thm:hyperplane}); below the middle degree the return
 trip is the Lefschetz standard conjecture (\Cref{thm:returntrip}). The
 Kuga--Satake construction, which changes the variety rather than cutting it,
-reaches the Weil line only in dimension two (\Cref{prop:normpart}). A rational
+reaches the Weil line only in dimension two (\Cref{prop:normpart}).%
+\footnote{The construction attaches to a polarised Hodge structure $T$ of
+weight two with $h^{2,0}=1$ an abelian variety $A$ with
+$H^{1}(A,\QQ)=C^{+}(T)$, the even Clifford algebra, and an embedding of
+$T$ into $\End(H^{1}(A,\QQ))$ by Hodge structures, which is a Hodge class on
+the product of a variety carrying $T$ with $A\times A$; the Kuga--Satake
+Hodge conjecture asks that this class be algebraic.} A rational
 class of the Weil line has a $\Kx$-orbit spanning a plane, so any
 construction reaching it must be bilinear in a pair of inputs exchanged by
 $\Gal(K/\QQ)$ (\Cref{prop:orbitplane}), and Markman's construction is of that
@@ -352,7 +397,22 @@ and, by a toric compactification whose boundary is again of the same kind, for
 every hypersurface of simplex type, so for every smooth Delsarte hypersurface
 of every dimension and every cyclic cover branched along one, whose Hodge
 conjecture then follows from that of Fermat varieties of one degree
-(\Cref{thm:simplextype}, \Cref{cor:delsarteall}). On the powers, Hilbert
+(\Cref{thm:simplextype}, \Cref{cor:delsarteall}). A complete intersection
+of diagonal hypersurfaces whose coefficients are of Vandermonde type, which
+holds for every smooth complete intersection of two of them, is a quotient
+of a power of a generalised Fermat curve, so it satisfies (F3$'$), and its
+Hodge conjecture reduces to abelian varieties attached to the characters of
+the curve; for two diagonal hypersurfaces of degree $3$, $4$ or $6$ in
+$\PP^{6}$ these have dimension at most five, and the Hodge conjecture holds,
+the exceptional classes being Weil classes of abelian fourfolds of Weil type
+(\Cref{thm:vandermonde}, \Cref{cor:twodiagonal}). At a very general
+configuration the monodromy of the curve leaves only the Hodge classes that
+come from polarisations and from Weil classes; we compute that monodromy for
+cyclic covers of degree three, four and six by an induction on the number of
+branch points (\Cref{prop:cyclicmonodromy}), so the Hodge conjecture holds
+for the very general such intersection of quadrics in every dimension, of
+cubics and quartics up to dimension seven, and of sextics up to dimension
+five, in every projective space (\Cref{thm:vgvandermonde}). On the powers, Hilbert
 schemes and moduli spaces of a K3 surface whose transcendental field is a CM
 field, and on the fourfolds of K3$^{[2]}$ type with field $\QQ$ or a CM
 field, the Hodge conjecture itself holds (\Cref{prop:k3powers},
@@ -396,40 +456,14 @@ rule set, and taking consequences in it is a computation. It determines the
 minimal sets of statements from which the conjecture follows
 (\Cref{thm:closure}, \Cref{rem:f2rule}): (F3$'$) together with the Lefschetz standard
 conjecture, with the variational Hodge conjecture for algebraic classes, or
-with (F2), besides two sets that are each equivalent to the conjecture.
+with (F2), besides two sets that are each equivalent to the conjecture.%
+\footnote{The Lefschetz standard conjecture asks that the inverse of the
+hard Lefschetz isomorphism $L^{\dim X-k}\colon H^{k}(X,\QQ)\to
+H^{2\dim X-k}(X,\QQ)$ be induced by an algebraic correspondence. The
+variational Hodge conjecture asks that a flat section of Hodge classes over
+the base of a smooth projective family that is algebraic at one fibre be
+algebraic at every fibre.}
 \Cref{sec:final} collects the results in one theorem.
-
-\subsection{Organisation}
-
-\Cref{part:obstructions} develops abelian varieties of Weil type from the
-definitions (\Cref{sec:weiltype}), writes the Weil classes in coordinates and
-counts the Hodge classes (\Cref{sec:explicit}), proves the character
-obstruction (\Cref{sec:characters}), computes the cohomological
-Fourier--Mukai transform in closed form (\Cref{sec:fm}) and proves the
-divisor obstruction (\Cref{sec:divisor}); it then shows that the numerical
-count obstructs nothing (\Cref{sec:numerology}), computes the semiregularity
-target (\Cref{sec:semireg}), proves the hyperplane obstruction
-(\Cref{sec:hyperplane}), marks the boundary of the Kuga--Satake construction
-(\Cref{sec:ks}), reduces the conjecture to the middle degree and the
-Lefschetz standard conjecture (\Cref{sec:reduction}), and identifies what a
-construction must break (\Cref{sec:escape}). \Cref{part:basepoints} writes the
-secant plane down in every dimension (\Cref{sec:construction}), constructs a
-base point in every Weil family (\Cref{sec:basepoints}), and proves
-\Cref{thm:main} for imaginary quadratic fields together with the two
-propagation criteria (\Cref{sec:propagation}). \Cref{part:semiregularity}
-treats the semiregularity criterion in its pure and polarised forms
-(\Cref{sec:polarised}) and the secant objects (\Cref{sec:secantobjects}).
-\Cref{part:cmfields} proves \Cref{thm:main} for every CM field, describes
-the special locus and the escaping sequences of CM points, and analyses the
-quartic and sextic fields (\Cref{sec:cmfields}). \Cref{part:beyond}
-treats the Lefschetz standard conjecture, the conjecture modulo abelian
-varieties and the closure of the implications (\Cref{sec:scope}), the Hodge
-classes beyond the Weil lines (\Cref{sec:beyond}), the main theorem in every
-family (\Cref{sec:families}), and the closure theorem (\Cref{sec:final}).
-\Cref{app:exterior} carries the coordinate computation
-behind the Fourier--Mukai transform, \Cref{app:cdk} the theorem of Cattani,
-Deligne and Kaplan on the locus of Hodge classes, and \Cref{app:albert} the
-place of Weil type in Albert's classification.
 
 Several proofs rest on finite computations: exact linear algebra over number
 fields and over function fields, exhaustive searches over finite sets, and

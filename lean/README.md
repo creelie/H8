@@ -1,4 +1,4 @@
-# Machine verification for *Density of Algebraic Loci of Weil Classes on Abelian Varieties*
+# Machine verification for *Algebraic Loci of Weil Classes from Abelian Varieties to Diagonal Complete Intersections*
 
 `HodgeObstruction.lean` is a certificate, checked by the Lean 4 kernel, of the
 finite arithmetic on which the results of the paper turn.
@@ -27,10 +27,10 @@ per theorem. Every line must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
 through `decide` or the core lemmas on natural numbers, and none may mention `sorryAx`. The GitHub workflow in
 `.github/workflows/lean.yml` enforces all three, and fails the build if the
-number of theorems is not one hundred and seventeen or if any of them reaches for a further
+number of theorems is not one hundred and thirty or if any of them reaches for a further
 axiom.
 
-## The one hundred and seventeen theorems
+## The one hundred and thirty theorems
 
 | theorem | statement |
 | --- | --- |
@@ -151,6 +151,19 @@ axiom.
 | `ff_partner_counts` | with `zeta_j = i^(e_j)`, the sixteen pieces with `prod zeta = 1` and the sixteen with `prod zeta = -1`; every piece has `3`, `6`, `7` partners of the other parity differing in `1`, `2`, `3` coordinates, and for the `7` the block dimension `D = prod_j |zeta_j - zeta'_j|^2` is `16` six times and `64` once, `160` in all; the `112` pairs carry `2560` classes (`decide +kernel`) |
 | `ff_shift_table` | in the three placements of the multiples relative to `p`, the shifts `mu_i`, `nu_i` of a piece one step from or to `M_i` and the extremes `lambda_i`, `kappa_i` over steps between the multiples are those of the table in the proof of the lemma on pieces that differ everywhere, and satisfy `lambda_i <= 0 <= kappa_k`, `kappa_i >= lambda_i + 2`, `lambda_i <= mu_i + 2`, `nu_i <= kappa_i + 2` (`decide +kernel`) |
 | `ff_noconvolution_counts` | the kernels `11`, `19` of `x_1`, `x_3` on a surface at `t = (2, 5, 6)`; the cover degrees; `3^6 = 729`, `16 * 24^3 = 221184`, `4^6 = 4096`; and the bounds `249 - (45 + 15 * 9) = 69 > 57` and `16 * 12 = 192 > 57` of the theorem that no convolution of the pieces meets the criterion. The rank `192` of the fourfold products is a floating-point computation and is not certified here |
+| `efour_partner_counts` | at `n = 4`, the `128` pieces of `(Z/4)^4` of even sum, `64` of each parity; each has `4, 12, 28, 20` partners of the other parity differing in `1, 2, 3, 4` coordinates, those differing in one coordinate differ there by `2`; the `28` have `D = 16` twenty-four times and `64` four times, `640` in all; `64 * 640 = 40960 > 104 = 7 * 16 - 2 * 4` |
+| `efour_run_drop` | with `p` at any rank among the four values, every run from `p` through two selections of distinct multiples back to `p`, the marked step between them a component or a class of `H^1(a, a)`, changes the shift by at most `-4`, a step up by `+1` and a step down by `-7`: the finite core of the lemma on shifts along chains at `n = 4` |
+| `efour_two_level_degrees` | with `p` at any rank, every pair of chains `c -> ... -> W`, `V -> ... -> e` through distinct multiples, not both empty, gives `Ext` degree `4 - U + 7D` different from `3` when `c = e`, from `0` when `e` is above `c` and from `8` when `e` is below `c`: the case analysis of the two-shift theorem on `E_0^8` |
+| `vandermonde_counts` | the genus of the generalised Fermat curve by Riemann-Hurwitz equals that by adjunction for `d = 2..7`, `N = 2..8`; `r! d^(N(r-1)) = 16, 32, 54, 1536, 162` at the five cases of the fibre count; the units of `Z/d` number `1, 2, 2, 2` for `d = 2, 3, 4, 6`; the balanced characters with six nonzero coordinates and a fixed zero number `20, 140, 1750`, so `70, 490, 6125` orbits in `P^6` and at least `141, 981, 12251` Hodge classes |
+| `vg_chain_determinants` | the intersection matrix of a chain of `m` vanishing cycles (`1` above the diagonal, `-1` below) has determinant `1` for `m` even and `0` for `m` odd, `m = 1..7`, so `2g` cycles of the chain form a basis of `H_1` of a hyperelliptic curve of genus `g` |
+| `vg_quadric_counts` | `1 + sum_{j > r/2} C(N+1, 2j)` equals one plus the number of subsets of `{0..N}` of even size at least `r + 2`, for `N <= 9`, `r = 2, 4, 6`; it is `N + 2` for two quadrics in `P^N`, `N` even, `2` for a quadric of even dimension, and `2, 8, 30, 94, 257` for `r = 4`, `N = 5..9` |
+| `vg_cubic_counts` | `1 + C(N+1, r+2) C(r+2, r/2+1)` equals one plus the number of vectors in `{0,1,2}^(N+1)` with `r + 2` nonzero entries, `r/2 + 1` of them equal to `1`, and sum divisible by `3`, for `N <= 7`, `r = 2, 4`; it is `7, 21, 71` for the Fermat cubics of dimension `2, 4, 6`, `141` for two cubics in `P^6` and `631` for two cubics in `P^8` |
+| `vg_triple_signatures` | for `n_1, n_2 < 20` branch points of exponents `1, 2` with `n_1 + 2 n_2` divisible by `3`, the signature `p = (2 n_1 + n_2)/3 - 1`, `q = (n_1 + 2 n_2)/3 - 1` gives back `n_1 = 2p - q + 1`, `n_2 = 2q - p + 1`, the branch data of Achter and Pries, and `p = q` exactly when `n_1 = n_2` |
+| `cyclic_base_count` | the vectors of nonzero residues modulo `m = 3, 4, 6` with `5` or `6` coordinates, sum `0`, order `m` and `p, q >= 1`, written as count vectors, number `38` up to sign: the base cases of the proposition on the monodromy of cyclic covers |
+| `cyclic_merge_small` | every such vector with `7 <= k <= 8, 11, 10` coordinates at `m = 3, 4, 6` has two entries `u, w` with `u + w != 0` whose merge keeps the order `m` and `p, q >= 1`: a check of the merge lemma, which the paper proves by hand |
+| `cyclic_norms` | `x^2 + xy + y^2` is never `2` modulo `4` and is even only for `x, y` even, so `2` is not a norm from `Q(sqrt(-3))` and norms have even `2`-adic valuation; `2 = 1 + 1`, `3 = 1 + 1 + 1` and `4` are norms where the lemma on the discriminant of the new part needs them |
+| `cyclic_vg_counts` | `T_d(k)` by a recursion equals the enumeration for `(d, k) = (3, 6), (4, 6), (6, 4)`; `T_4(6) = 141`, `T_6(6) = 1751`, `T_4(8) = 1107`, `T_6(8) = 38165`; the formula of the very general theorem equals a direct count of the characters for `(d, N, r) = (4, 5, 4), (3, 6, 4), (6, 4, 2)` and gives `142, 988, 3950, 1108, 1752, 12258, 38166` |
+| `cyclic_nonsplit_example` | `(1, 1, 2, 2, 3, 5, 5, 5)` modulo `6` has sum `0`, order `6`, `p = q = 3` and one coordinate `3`: a character whose abelian sixfold is of non-split Weil type |
 
 
 ## Two statements that look true and are not
@@ -174,12 +187,12 @@ careful reading does not catch and a kernel check does.
 `code/verify_all.py` in the parent directory performs the same checks in exact
 rational arithmetic over Q, independently of Lean, together with the exterior
 algebra computations that Lean does not carry, and prints
-`2135 checks passed, 0 failed`.
+`2175 checks passed, 0 failed`.
 
 ## Transcript
 
 `axioms.txt` is the unedited output of `lean HodgeObstruction.lean` under
-Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and seventeen lines, one per
-theorem, ninety-three reading `does not depend on any axioms` and twenty-four reading
+Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and thirty lines, one per
+theorem, one hundred and one reading `does not depend on any axioms` and twenty-nine reading
 `depends on axioms: [propext]`, exit status 0, no `sorryAx`. `lake build`
 completes with the same report. Each run takes a few minutes.

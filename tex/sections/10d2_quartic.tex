@@ -2193,55 +2193,6 @@ rows (i), (ii) and (x) are \Cref{lem:freegerm}, row (iii) is
 \label{fig:quarticlocal}
 \end{figure}
 
-\begin{remark}[What is missing at $n=2$]\label{rem:quarticgap}
-The Weil classes of an $(F,2,\delta)$-family are known to be algebraic at the
-CM points, on $\mathrm{NL}(R_{F})$, for biquadratic $F$ on the
-scalar-extension loci, and for $F=\QQ(\zeta_{5})$, $\QQ(\zeta_{8})$,
-$\QQ(\zeta_{12})$ with $\delta$ trivial on the Prym loci of
-\Cref{rem:quarticprym}, of dimension at most $6$, in a period domain of
-dimension $8$. Each mechanism examined here either stops on a locus of
-codimension at least two, or is
-equivalent to the statement to be proved, or is excluded at a member with
-full Hodge group. By \Cref{prop:descent}(i), $\mathbf{W}(F,3,\delta')$ for a
-single discriminant $\delta'$, the trivial one for instance, would give
-$\mathbf{W}(F,2,\delta)$ for every $\delta$; by \Cref{prop:descent}(ii) the
-families of $F$ at $n=2$ give nothing new for the imaginary quadratic subfields
-of $F$, if it has any, whose fourfolds are settled by Markman. What is missing
-is propagation, in the form of \Cref{thm:quarticp2prime}(v): one perfect
-complex on one member, with Chern character a nonzero multiple of a rational
-Weil class plus a polynomial in the $\eta_{t}$, and with
-$\dim\Ext^{2}(E,E)=r(\ch E)$, which is $112$ for a general shape. Every such
-complex has $\dim\Ext^{2}(E,E)\ge81$, and one that meets the criterion has a
-polynomial part that is not constant and $\dim\Ext^{2}(E,E)\ge88$
-(\Cref{cor:quarticleast}); at $88$ that part is exponential or linear in
-each $\theta_{t}$, the shape $b\,\theta_{1}^{4}+\iota(b)\,\theta_{2}^{4}$
-being excluded by the Weil tori as well (\Cref{prop:quarticweiltori}), and
-for the characters left there the Hodge locus is $\cD_{F}$ itself, so that no
-deformation of $A$ to a torus that is not algebraic can exclude them
-(\Cref{cor:quarticlocus}). When $\delta$ is trivial the secant
-sheaves of \cite{Mar25c}, on $X\times\widehat{X}$ with $X$ an abelian fourfold
-with real multiplication by $F_{0}$, are natural candidates for the twisted
-form of that criterion, which is the form of Markman's reduction
-\cite[Theorem~1.1.2, Corollary~10.2.3]{Mar25c} (\Cref{rem:quarticsecantshape}).
-For objects of the form $\Phi(F_{1}\boxtimes F_{2}^{\vee})$ with $F_{1},F_{2}$
-sheaves on a principally polarised $X$, \Cref{thm:quarticobstruction} shows
-that their semiregularity, if it holds, cannot be proved by a dimension count,
-whatever the quartic field, and when the $B$-field is trivial their twisted
-character is flat \cite[Proposition~10.2.1(1)]{Mar25c}. For the explicit pair
-of \cite[Example~11.2.7]{Mar25c} the weakened criterion fails at the points of
-the glued curves (\Cref{cor:markmanquarticfails}).
-\Cref{prop:quarticexclusions} excludes complexes supported on graphs of real
-multiplication and objects with pure spinor characters, and the kernel of
-\Cref{rem:quarticmixedkernel} gives an untwisted character of the required
-form, with $r=94$; no object with that character and $\dim\Ext^{2}=94$ is
-known. Even $\mathbf{W}(F,2,\delta)$ for every quartic $F$ and every
-$\delta$ would be only the first case of the conclusion of
-$\mathrm{P2}_{\mathrm{split}}$, which concerns every field of degree at least
-four in infinitely many dimensions, and it would leave (F2) and (F3$'$) of
-\Cref{cor:fourremain} untouched. \Cref{ssec:sextic} shows that
-\Cref{thm:quarticobstruction} does not extend to CM fields of degree six.
-\end{remark}
-
 \subsection{Sextic CM fields}\label{ssec:sextic}
 
 The dimension count of \Cref{thm:quarticobstruction} does not extend to CM
@@ -2618,35 +2569,6 @@ For $\QQ(\zeta_{7})^{+}$ and $\QQ(\zeta_{9})^{+}$ one has $k=2$, and $2+\alpha$
 is the square of a unit (\Cref{prop:sexticweilmin}(i)), so both values of $q$
 give the same CM field $F_{0}(\sqrt{-1})$, with different secant spaces.
 \end{proof}
-
-\begin{remark}[What the lattice test leaves]\label{rem:sexticnoexclusion}
-\Cref{prop:sexticintegral} is the degree-six counterpart of
-\Cref{prop:quarticother}, and it points the other way. In degree four the
-minimal profile forces $\chi(F_{i},F_{i})\in\{4,6\}$ and integrality excludes
-both values; in degree six it only asks $\chi(F_{i},F_{i})\le-26$, and every
-integral flat character that we have computed has $\chi\le-32$. So for those
-fields every integral point of $S(0,q)$ is the character of a numerically
-admissible minimal factor, with profile
-$(1,12,r^{2},2r^{2}-22-\chi,r^{2},12,1)$, and the Orlov product of two such
-factors would satisfy $\dim\Ext^{2}(E,E)=r(\kappa)$ on the twelvefold with a
-flat twisted character. Numerical admissibility is not enough, because a
-flat twisted character need not have a component in $W_{F}(A)$. The classes
-that attain $\chi=-32$ for $q=1$, the real and imaginary parts of
-$e^{\sqrt{-1}\,\theta}$, of shape $N_{w}=2$ and profile
-$(1,12,30,70,30,12,1)$, are not candidates for $\mathrm{P2}_{\mathrm{split}}$:
-they span the secant plane of the subfield $\QQ(\sqrt{-1})$ of $F$, and the
-Orlov products of complexes with characters in their span have twisted
-characters with no component in $W_{F}(A)$ (\Cref{lem:sexticweil}(iii)).
-The least $-\chi$ of an integral flat character whose Orlov square has such
-a component is $192$ over the lattices computed here
-(\Cref{prop:sexticweilmin}), and the targets that remain are described in
-\Cref{rem:sextictargets}. The computations cover sixteen fields, with two
-values of $q$ in \Cref{prop:sexticintegral} and three in
-\Cref{prop:sexticweilmin}; the bound $\chi\le-32$ is proved for these
-sixteen fields. What changes from degree four to degree six is that no
-numerical invariant considered in this paper stands in the way of a
-certificate over a sextic field.
-\end{remark}
 
 The flatness of \Cref{prop:sexticcount}(iv) makes $\kappa$ a Hodge class on
 every member of the family, but in degree four the Hodge classes of a very

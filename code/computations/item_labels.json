@@ -284,5 +284,28 @@
   "lem:allthree",
   "thm:noconvolution",
   "rem:convolutionsopen"
+ ],
+ "LXXIII": [
+  "thm:vandermonde",
+  "cor:twodiagonal",
+  "rem:vandermonde"
+ ],
+ "LXXIV": [
+  "lem:efourshifts",
+  "thm:efourtwolevels",
+  "rem:convolutionsopen"
+ ],
+ "LXXV": [
+  "lem:vgmonodromy",
+  "thm:vgvandermonde",
+  "rem:vandermonde"
+ ],
+ "LXXVI": [
+  "lem:foxmodel",
+  "lem:cabling",
+  "lem:merge",
+  "prop:cyclicmonodromy",
+  "lem:newdisc",
+  "thm:vgvandermonde"
  ]
 }

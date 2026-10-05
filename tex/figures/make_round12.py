@@ -24,7 +24,7 @@ Two plates for the results of round twelve.
   fig_quarticloci     where the Weil classes of an abelian eightfold of
                       (F,2,delta)-Weil type, F a quartic CM field, are known to
                       be algebraic (prop:quarticnl, cor:quarticbase,
-                      prop:quarticscalar, rem:quarticgap).  The period domain
+                      prop:quarticscalar).  The period domain
                       D_F, of dimension 8, is drawn as a ball, and each
                       subdomain as a linear section of it, as in the Klein
                       model, since every locus drawn is a totally geodesic

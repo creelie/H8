@@ -2876,6 +2876,391 @@ theorem ff_noconvolution_counts :
     && (7 - (16 - 10) == 1) && (16 * 160 == 2560)) = true := by
   decide
 
+/-! ## 43.  Two shifts on `E_0^8`, and diagonal complete intersections of
+Vandermonde type
+
+Four finite facts behind Lemma (Shifts along chains at `n = 4`), Theorem
+(Two shifts on `E_0^8`), Theorem (Diagonal complete intersections of
+Vandermonde type) and Corollary (Two diagonal hypersurfaces).
+
+(a) Partners at `n = 4`.  The `128` pieces are the exponent vectors in
+`(Z/4)^4` of even sum, `64` of each parity.  Each has `4, 12, 28, 20`
+partners of the other parity differing in `1, 2, 3, 4` coordinates.  Two
+pieces differing in one coordinate differ there by `2`, so `zeta'_j/zeta_j =
+-1`.  For the `28`, `D = prod |zeta_j - zeta'_j|^2` is `16` twenty-four times
+and `64` four times, `640` in all; `64 * 640 = 40960` and the rank of the
+polarised criterion is `7 * 16 - 2 * 4 = 104`.
+
+(b) Runs through the multiples.  Only the order of the four values `p, t_1,
+t_2, t_3` matters, so they are the ranks `0, 1, 2, 3` with `p` at rank `r`.
+A step up raises the shift by `1`, a step down lowers it by `7`
+(`Ext` degrees `0` and `8`).  A run goes from `p` through a selection `A` of
+distinct multiples and a selection `B` of distinct multiples back to `p`;
+the marked step between them is either a component (`A` and `B` not ending
+and starting at the same multiple) or a class of `H^1(a, a)` at the common
+multiple, which keeps the shift.  Every run lowers the shift by at least `4`.
+
+(c) The degrees of the two-shift theorem.  A chain `c -> ... -> W` through
+distinct multiples and a chain `V -> ... -> e` through distinct multiples,
+not both empty, give a term of `Ext` degree `4 - U + 7D`.  It is never `3`
+when `c = e`, never `0` when `e` is above `c` and never `8` when `e` is below
+`c`, the degrees of the group from `c` to `e`.
+
+(d) Vandermonde arithmetic.  The genus of the generalised Fermat curve by
+Riemann-Hurwitz and by adjunction, `d = 2..7`, `N = 2..8`; the order
+`r! d^(N(r-1))` of `G` at the five cases of the computation; the units of
+`Z/d` for `d = 2, 3, 4, 6`, so `|[a]| <= 2`; and the balanced orbits with
+six nonzero coordinates in `P^6`: `70`, `490`, `6125` for `d = 3, 4, 6`.
+-/
+
+def efPieces : List (List Nat) := (cvTuples 4).filter (fun z => cvSum z % 2 == 0)
+def efEven : List (List Nat) := efPieces.filter (fun z => cvSum z % 4 == 0)
+def efOdd : List (List Nat) := efPieces.filter (fun z => cvSum z % 4 == 2)
+
+/-- `D = prod |zeta_j - zeta'_j|^2` over the coordinates where they differ. -/
+def efD (z w : List Nat) : Nat :=
+  ((z.zip w).filter (fun q => q.1 != q.2)).foldl (fun a q => a * ffGap q.1 q.2) 1
+
+/-- **Partners at `n = 4`.** -/
+theorem efour_partner_counts :
+    (efPieces.length == 128 && efEven.length == 64 && efOdd.length == 64
+      && ([efEven, efOdd].all fun P => P.all fun z =>
+            let Q := if cvSum z % 4 == 0 then efOdd else efEven;
+            let T := Q.filter (fun w => ffDiff z w == 3);
+            ((Q.filter (fun w => ffDiff z w == 1)).length == 4)
+            && ((Q.filter (fun w => ffDiff z w == 1)).all fun w => efD z w == 4)
+            && ((Q.filter (fun w => ffDiff z w == 2)).length == 12)
+            && (T.length == 28)
+            && ((Q.filter (fun w => ffDiff z w == 4)).length == 20)
+            && ((T.map (efD z)).foldl (· + ·) 0 == 640)
+            && ((T.filter (fun w => efD z w == 16)).length == 24)
+            && ((T.filter (fun w => efD z w == 64)).length == 4))
+      && (64 * 640 == 40960) && (7 * 16 - 2 * 4 == 104) && (40960 > 104)) = true := by
+  decide +kernel
+
+/-- the change of the shift along a step between values of ranks `a, b`. -/
+def efStep (a b : Nat) : Int := if a < b then 1 else -7
+
+def efWalk (vals : List Nat) : Int :=
+  ((vals.zip vals.tail).map (fun q => efStep q.1 q.2)).foldl (· + ·) 0
+
+/-- the change of the shift along a run with selections `A`, `B`. -/
+def efRunMarkedComponent (r : Nat) (A B : List Nat) : Int := efWalk ([r] ++ A ++ B ++ [r])
+def efRunMarkedDiagonal (r : Nat) (A B : List Nat) : Int := efWalk ([r] ++ A ++ B.tail ++ [r])
+
+/-- **Runs through the multiples drop the shift by at least four.** -/
+theorem efour_run_drop :
+    ((List.range 4).all fun r =>
+      let ms := (List.range 4).filter (· != r);
+      let sel := [0, 1, 2, 3].flatMap (cvSelections ms);
+      sel.all fun A => sel.all fun B =>
+        (((A.length + B.length == 0) || (A.getLast? == B.head? && A.length > 0))
+          || decide (efRunMarkedComponent r A B ≤ -4))
+        && ((A.length == 0 || B.length == 0 || A.getLast? != B.head?)
+          || decide (efRunMarkedDiagonal r A B ≤ -4))) = true := by
+  decide +kernel
+
+/-- the `Ext` degree `4 - U + 7D` of a term through the chains `A -> W` and
+`V -> B`, the values of `W` and `V` being the rank `r` of `p`. -/
+def efTermDegree (r : Nat) (A B : List Nat) : Int :=
+  4 - efWalk (A ++ [r]) - efWalk ([r] ++ B)
+
+/-- **The degrees of the two-shift theorem.** -/
+theorem efour_two_level_degrees :
+    ((List.range 4).all fun r =>
+      let ms := (List.range 4).filter (· != r);
+      let sel := [0, 1, 2, 3].flatMap (cvSelections ms);
+      sel.all fun A => sel.all fun B =>
+        (A.length + B.length == 0) ||
+        (let c := A.headD r; let e := B.getLastD r; let q := efTermDegree r A B;
+         if c == e then q != 3 else if c < e then q != 0 else q != 8)) = true := by
+  decide +kernel
+
+/-- the `k`-tuples with entries in `1, ..., d - 1`. -/
+def vdTuples (d : Nat) : Nat → List (List Nat)
+  | 0 => [[]]
+  | k + 1 => (vdTuples d k).flatMap (fun t => ((List.range (d - 1)).map (· + 1)).map (· :: t))
+
+/-- the balanced characters with six nonzero coordinates and a fixed zero:
+entries summing to `3d`, of order at least three. -/
+def vdBalanced (d : Nat) : Nat :=
+  ((vdTuples d 6).filter (fun t => cvSum t == 3 * d
+      && d / (t.foldl Nat.gcd d) ≥ 3)).length
+
+def vdFact : Nat → Nat
+  | 0 => 1
+  | k + 1 => (k + 1) * vdFact k
+
+def vdGenusRH (d N : Nat) : Int :=
+  (-2 * (Int.ofNat d) ^ N + Int.ofNat (N + 1) * (Int.ofNat d) ^ (N - 1) * (Int.ofNat d - 1))
+def vdGenusAdj (d N : Nat) : Int :=
+  (Int.ofNat d) ^ (N - 1) * (Int.ofNat (N - 1) * Int.ofNat d - Int.ofNat N - 1)
+
+/-- **Vandermonde arithmetic.** -/
+theorem vandermonde_counts :
+    (([2, 3, 4, 5, 6, 7].all fun d => [2, 3, 4, 5, 6, 7, 8].all fun N =>
+        vdGenusRH d N == vdGenusAdj d N)
+      && ([(2, 3, 2, 16), (2, 4, 2, 32), (3, 3, 2, 54), (2, 4, 3, 1536), (3, 4, 2, 162)].all
+            fun (d, N, r, f) => vdFact r * d ^ (N * (r - 1)) == f)
+      && ([2, 3, 4, 6].map fun d => ((List.range d).filter (fun u => Nat.gcd u d == 1)).length)
+            == [1, 2, 2, 2]
+      && ([3, 4, 6].map vdBalanced == [20, 140, 1750])
+      && ([3, 4, 6].map fun d => 7 * vdBalanced d / 2) == [70, 490, 6125]
+      && ([70, 490, 6125].map fun k => 1 + 2 * k) == [141, 981, 12251]) = true := by
+  decide +kernel
+
+/-! ## 44.  Very general diagonal complete intersections
+
+Four finite facts behind Theorem (Very general diagonal complete
+intersections).
+
+(a) The chain of vanishing cycles.  The intersection matrix of a chain of
+`m` curves, `0` on the diagonal, `1` above it and `-1` below it, has
+determinant `1` for `m` even and `0` for `m` odd (`m = 1..7`): `2g` cycles
+of the chain form a basis of `H_1` of a hyperelliptic curve of genus `g`.
+
+(b) Quadrics.  The number `1 + sum_{j > r/2} C(N+1, 2j)` of Hodge classes of
+degree `r` on the very general member equals one plus the number of subsets
+of `{0, ..., N}` of even size at least `r + 2` (`N <= 9`); it is `N + 2` for
+two quadrics in `P^N`, `N` even, and `2` for a quadric of even dimension.
+
+(c) Cubics.  The number `1 + C(N+1, r+2) C(r+2, r/2+1)` equals one plus the
+number of vectors in `{0,1,2}^(N+1)` with exactly `r + 2` nonzero entries,
+`r/2 + 1` of them equal to `1`, and sum divisible by `3` (`N <= 7`,
+`r = 2, 4`); it is `7, 21, 71` for the Fermat cubics of dimension `2, 4, 6`,
+`141` for two cubics in `P^6` and `631` for two cubics in `P^8`.
+
+(d) Signatures of triple covers.  With `n_1, n_2` branch points of exponent
+`1, 2` and `n_1 + 2 n_2` divisible by `3`, the eigenspace has signature
+`p = (2 n_1 + n_2)/3 - 1`, `q = (n_1 + 2 n_2)/3 - 1`, and then
+`n_1 = 2p - q + 1`, `n_2 = 2q - p + 1`, the branch data of Achter and Pries;
+it is balanced exactly when `n_1 = n_2`.
+-/
+
+/-- the intersection matrix of a chain of `m` vanishing cycles. -/
+def vgChain (m : Nat) : List (List Int) :=
+  (List.range m).map fun i => (List.range m).map fun j =>
+    if j == i + 1 then 1 else if i == j + 1 then -1 else 0
+
+/-- **The chain of vanishing cycles.** -/
+theorem vg_chain_determinants :
+    ((List.range 7).map fun k => detF (k + 1) (vgChain (k + 1)))
+      == [0, 1, 0, 1, 0, 1, 0] := by
+  decide +kernel
+
+def vgQuadric (N r : Nat) : Nat :=
+  1 + ((List.range (N + 2)).filter fun j => j > r / 2 && 2 * j ≤ N + 1).foldl
+        (fun acc j => acc + choose (N + 1) (2 * j)) 0
+
+def vgSubsets (N r : Nat) : Nat :=
+  ((List.range (2 ^ (N + 1))).filter fun mask =>
+    let s := ((List.range (N + 1)).filter fun i => (mask >>> i) % 2 == 1).length
+    s % 2 == 0 && s ≥ r + 2).length
+
+/-- **Hodge classes of very general intersections of quadrics.** -/
+theorem vg_quadric_counts :
+    (((List.range 7).all fun k => let N := k + 3;
+        [2, 4, 6].all fun r => r + 1 > N || vgQuadric N r == 1 + vgSubsets N r)
+      && ((List.range 7).all fun k => let N := 2 * k + 4; vgQuadric N (N - 2) == N + 2)
+      && ((List.range 7).all fun k => let N := 2 * k + 3; vgQuadric N (N - 1) == 2)
+      && (([5, 6, 7, 8, 9].map fun N => vgQuadric N 4) == [2, 8, 30, 94, 257])) = true := by
+  decide +kernel
+
+def vgCubic (N r : Nat) : Nat :=
+  1 + choose (N + 1) (r + 2) * choose (r + 2) (r / 2 + 1)
+
+/-- all lists of length `n` with entries `0, 1, 2`. -/
+def vgTernary : Nat → List (List Nat)
+  | 0 => [[]]
+  | n + 1 => (vgTernary n).flatMap (fun t => [0, 1, 2].map (· :: t))
+
+def vgBalanced (N r : Nat) : Nat :=
+  ((vgTernary (N + 1)).filter fun t =>
+    (t.filter (· != 0)).length == r + 2
+      && (t.filter (· == 1)).length == r / 2 + 1
+      && cvSum t % 3 == 0).length
+
+/-- **Hodge classes of very general intersections of cubics.** -/
+theorem vg_cubic_counts :
+    (((List.range 5).all fun k => let N := k + 3;
+        [2, 4].all fun r => r + 1 > N || vgCubic N r == 1 + vgBalanced N r)
+      && (([2, 4, 6].map fun r => vgCubic (r + 1) r) == [7, 21, 71])
+      && (vgCubic 6 4 == 141) && (vgCubic 8 6 == 631)) = true := by
+  decide +kernel
+
+/-- **Signatures of triple covers.** -/
+theorem vg_triple_signatures :
+    ((List.range 20).all fun n1 => (List.range 20).all fun n2 =>
+      ((n1 + 2 * n2) % 3 != 0 || n1 + n2 < 3) ||
+        (let p := (2 * n1 + n2) / 3 - 1; let q := (n1 + 2 * n2) / 3 - 1;
+         3 * (p + 1) == 2 * n1 + n2 && 3 * (q + 1) == n1 + 2 * n2
+           && n1 + q == 2 * p + 1 && n2 + p == 2 * q + 1
+           && (p == q) == (n1 == n2))) = true := by
+  decide +kernel
+
+/-! ## 45.  Monodromy of cyclic covers of degree 3, 4 and 6
+
+Five finite facts behind Proposition (Monodromy of cyclic covers), Lemma (The
+discriminant of the new part) and Theorem (Very general diagonal complete
+intersections), for degree `m ∈ {3, 4, 6}`.  A multiset of nonzero residues
+modulo `m` is a count vector `c`, `c_v` the number of entries equal to `v`;
+it has `k = sum c_v` points, sum `sum v c_v`, and `m (p + 1) = sum (m - v) c_v`,
+`m (q + 1) = sum v c_v`.
+
+(a) The base of the induction.  The vectors with `k = 5, 6` points, sum `0`,
+order `m` and `p, q ≥ 1` are `38` up to sign.
+
+(b) The merge lemma, proved by hand in the paper, for `7 ≤ k ≤ 8, 11, 10`
+points at `m = 3, 4, 6`: every such vector has two entries `u, w` with
+`u + w ≠ 0` whose merge keeps the order `m` and `p, q ≥ 1`.
+
+(c) Norms.  `x^2 + xy + y^2` is never `2` modulo `4`, and is even only when
+`x` and `y` are, so `2` is not a norm from `Q(sqrt(-3))` and every norm has
+even `2`-adic valuation; `2 = 1 + 1` is a norm from `Q(i)`, and
+`3 = 1 + 1 + 1`, `4 = 4` are norms from `Q(sqrt(-3))`.
+
+(d) Counts.  `T_d(k)`, the number of `(s_i) ∈ {1, ..., d-1}^k` with
+`sum s_i = dk/2`, computed by a recursion and checked against enumeration
+for `(d, k) = (3, 6), (4, 6), (6, 4)`; `T_4(6) = 141`, `T_6(6) = 1751`,
+`T_4(8) = 1107`, `T_6(8) = 38165`; the formula of the theorem agrees with a
+direct count of the characters for `(d, N, r) = (4, 5, 4), (3, 6, 4),
+(6, 4, 2)`, and gives `142`, `988`, `3950`, `1108`, `1752`, `12258`,
+`38166`.
+
+(e) A non-split sixfold.  `a = (1, 1, 2, 2, 3, 5, 5, 5)` modulo `6` has sum
+`0`, order `6`, `p = q = 3` and one coordinate equal to `3`.
+-/
+
+/-- the residues `1, ..., m - 1` present in a count vector `c`. -/
+def cyPresent (c : List Nat) : List Nat :=
+  ((List.range c.length).filter fun i => c.getD i 0 > 0).map (· + 1)
+
+/-- the order of a count vector modulo `m`. -/
+def cyOrder (m : Nat) (c : List Nat) : Nat :=
+  m / ((cyPresent c).foldl Nat.gcd m)
+
+def cyK (c : List Nat) : Nat := cvSum c
+
+def cySum (c : List Nat) : Nat :=
+  ((List.range c.length).map fun i => (i + 1) * c.getD i 0).foldl (· + ·) 0
+
+/-- `m (p + 1)` and `m (q + 1)`. -/
+def cyP1 (m : Nat) (c : List Nat) : Nat :=
+  ((List.range c.length).map fun i => (m - (i + 1)) * c.getD i 0).foldl (· + ·) 0
+
+def cyQ1 (c : List Nat) : Nat := cySum c
+
+/-- admissible: sum `0`, order `m`, `p, q ≥ 1`. -/
+def cyAdm (m : Nat) (c : List Nat) : Bool :=
+  cySum c % m == 0 && cyOrder m c == m && cyP1 m c ≥ 2 * m && cyQ1 c ≥ 2 * m
+
+/-- all count vectors of length `l` with total `k`. -/
+def cyVectors : Nat → Nat → List (List Nat)
+  | 0, k => if k == 0 then [[]] else []
+  | l + 1, k => (List.range (k + 1)).flatMap fun j => (cyVectors l (k - j)).map (j :: ·)
+
+/-- the negative of a count vector: `v ↦ m - v`. -/
+def cyNeg (c : List Nat) : List Nat := c.reverse
+
+/-- one representative of each pair `{a, -a}`: the lexicographically larger. -/
+def cyRep (c : List Nat) : Bool := decide (cyNeg c ≤ c)
+
+/-- the count vector after merging one entry `u` and one entry `w`. -/
+def cyMerge (m : Nat) (c : List Nat) (u w : Nat) : List Nat :=
+  let c1 := c.set (u - 1) (c.getD (u - 1) 0 - 1)
+  let c2 := c1.set (w - 1) (c1.getD (w - 1) 0 - 1)
+  let v := (u + w) % m
+  c2.set (v - 1) (c2.getD (v - 1) 0 + 1)
+
+/-- `f` holds at every count vector of length `l` and total `k`, extending `acc`. -/
+def cyAll : Nat → Nat → List Nat → (List Nat → Bool) → Bool
+  | 0, k, acc, f => k != 0 || f acc.reverse
+  | l + 1, k, acc, f => (List.range (k + 1)).all fun j => cyAll l (k - j) (j :: acc) f
+
+def cyHasMerge (m : Nat) (c : List Nat) : Bool :=
+  (List.range (m - 1)).any fun i => (List.range (m - 1)).any fun j =>
+    let u := i + 1; let w := j + 1
+    u ≤ w && (u + w) % m != 0 && c.getD i 0 ≥ 1
+      && (if u == w then c.getD i 0 ≥ 2 else c.getD j 0 ≥ 1)
+      && cyAdm m (cyMerge m c u w)
+
+/-- **The base of the induction.** -/
+theorem cyclic_base_count :
+    ([3, 4, 6].foldl (fun acc m => acc + ([5, 6].foldl (fun acc' k =>
+        acc' + ((cyVectors (m - 1) k).filter fun c =>
+          cyAdm m c && cyRep c).length) 0)) 0) == 38 := by
+  decide +kernel
+
+/-- **The merge lemma for few points.** -/
+theorem cyclic_merge_small :
+    ([3, 4, 6].all fun m => (List.range (if m == 6 then 4 else 3 * m - 7)).all fun i =>
+      cyAll (m - 1) (i + 7) [] fun c => !cyAdm m c || cyHasMerge m c) = true := by
+  decide +kernel
+
+/-- **Norms from `Q(i)` and `Q(sqrt(-3))`.** -/
+theorem cyclic_norms :
+    ((List.range 4).all fun x => (List.range 4).all fun y =>
+        (x * x + x * y + y * y) % 4 != 2)
+      && ((List.range 2).all fun x => (List.range 2).all fun y =>
+        (x * x + x * y + y * y) % 2 != 0 || (x == 0 && y == 0))
+      && (1 * 1 + 1 * 1 == 2) && (1 * 1 + 1 * 1 + 1 * 1 == 3)
+      && (2 * 2 + 2 * 0 + 0 * 0 == 4) = true := by
+  decide +kernel
+
+/-- the polynomial `(x + ... + x^(d-1))^k`, as its list of coefficients. -/
+def cyPow (d : Nat) : Nat → List Nat
+  | 0 => [1]
+  | k + 1 =>
+    let f := cyPow d k
+    (List.range (f.length + d - 1)).map fun e =>
+      (List.range (d - 1)).foldl (fun acc j =>
+        let s := j + 1; if s ≤ e then acc + f.getD (e - s) 0 else acc) 0
+
+def cyT (d k : Nat) : Nat := (cyPow d k).getD (d * k / 2) 0
+
+/-- all lists of length `n` with entries in `0, ..., d - 1`. -/
+def cyTuples (d : Nat) : Nat → List (List Nat)
+  | 0 => [[]]
+  | n + 1 => (cyTuples d n).flatMap fun t => (List.range d).map (· :: t)
+
+def cyTEnum (d k : Nat) : Nat :=
+  ((cyTuples (d - 1) k).filter fun t => 2 * (cvSum t + k) == d * k).length
+
+/-- the formula of the theorem. -/
+def cyFormula (d N r : Nat) : Nat :=
+  1 + choose (N + 1) (r + 2) * cyT d (r + 2)
+    + (if d % 2 == 0 then
+        ((List.range (N + 2)).filter fun j => j ≥ r / 2 + 2 && 2 * j ≤ N + 1).foldl
+          (fun acc j => acc + choose (N + 1) (2 * j)) 0
+      else 0)
+
+/-- the direct count of the characters that carry a Hodge class. -/
+def cyEnum (d N r : Nat) : Nat :=
+  1 + ((cyTuples d (N + 1)).filter fun a =>
+    let s := a.filter (· != 0)
+    let o := d / (s.foldl Nat.gcd d)
+    cvSum a % d == 0 && s.length > 0 &&
+      (if o == 2 then s.length ≥ r + 2
+       else s.length == r + 2 && cvSum (s.map (d - ·)) == d * (r / 2 + 1))).length
+
+/-- **Counts of Hodge classes.** -/
+theorem cyclic_vg_counts :
+    (cyT 3 6 == cyTEnum 3 6 && cyT 4 6 == cyTEnum 4 6 && cyT 6 4 == cyTEnum 6 4
+      && ([cyT 4 6, cyT 6 6, cyT 4 8, cyT 6 8] == [141, 1751, 1107, 38165])
+      && cyFormula 4 5 4 == cyEnum 4 5 4 && cyFormula 3 6 4 == cyEnum 3 6 4
+      && cyFormula 6 4 2 == cyEnum 6 4 2
+      && ([cyFormula 4 5 4, cyFormula 4 6 4, cyFormula 4 7 4, cyFormula 4 7 6,
+           cyFormula 6 5 4, cyFormula 6 6 4, cyFormula 6 7 6]
+          == [142, 988, 3950, 1108, 1752, 12258, 38166])) = true := by
+  decide +kernel
+
+/-- **A non-split sixfold.** -/
+theorem cyclic_nonsplit_example :
+    (let c := [2, 2, 1, 0, 3]
+     cyAdm 6 c && cyK c == 8 && cyP1 6 c == 24 && cyQ1 c == 24 && c.getD 2 0 == 1)
+      = true := by
+  decide +kernel
+
 end HodgeObstruction
 
 /-! ## The axioms each theorem depends on
@@ -3002,3 +3387,16 @@ propositional extensionality enters through `decide`, and in no case
 #print axioms HodgeObstruction.ff_partner_counts
 #print axioms HodgeObstruction.ff_shift_table
 #print axioms HodgeObstruction.ff_noconvolution_counts
+#print axioms HodgeObstruction.efour_partner_counts
+#print axioms HodgeObstruction.efour_run_drop
+#print axioms HodgeObstruction.efour_two_level_degrees
+#print axioms HodgeObstruction.vandermonde_counts
+#print axioms HodgeObstruction.vg_chain_determinants
+#print axioms HodgeObstruction.vg_quadric_counts
+#print axioms HodgeObstruction.vg_cubic_counts
+#print axioms HodgeObstruction.vg_triple_signatures
+#print axioms HodgeObstruction.cyclic_base_count
+#print axioms HodgeObstruction.cyclic_merge_small
+#print axioms HodgeObstruction.cyclic_norms
+#print axioms HodgeObstruction.cyclic_vg_counts
+#print axioms HodgeObstruction.cyclic_nonsplit_example

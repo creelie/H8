@@ -706,7 +706,7 @@ transported. Second, those classes lie in the kernel of $\sigma_{E}$ by
 \eqref{eq:sigmaob}, and \eqref{eq:sigmaob} holds for every object whose
 Chern character is a flat section of Hodge classes along the family, so the
 semiregularity map cannot detect the obstruction of any such object. The
-obstruction is therefore genuine, and it is invisible to the criterion. For
+obstruction is therefore nonzero, and the criterion cannot see it. For
 the explicit object the
 situation is the worst possible: the twelve dimensions
 $\Delta\oplus\image\ob_{E}$ of the kernel are accounted for by the two
@@ -1140,7 +1140,10 @@ diagonal count (\Cref{prop:explicitconvolution}). The obstruction then
 moves off the diagonal: the classes between two pieces that differ in every
 coordinate are reached by no product (\Cref{lem:allthree}), and no
 convolution of these pieces meets the polarised criterion
-(\Cref{thm:noconvolution}).
+(\Cref{thm:noconvolution}). At $n=4$ the same classes, now between pieces
+that differ in three coordinates, are reached by no product in any
+convolution, and they exclude every convolution whose $128$ pieces
+$L_{\zeta}$ occupy two shifts (\Cref{thm:efourtwolevels}).
 
 \begin{setupenv}[Convolutions]\label{setup:convolution}
 Let $A$ be an abelian variety of dimension $g$ with a flat K\"ahler metric,
@@ -1548,7 +1551,7 @@ $t_{i}$, so the placement $p=0$, $t=(2,4,6)$ is general. A computation in
 of the pieces and with every choice of shifts of the given parities, which
 is more than any single convolution allows.\footnote{Enumerating too many
 paths is harmless: a path that is discarded is carried by no convolution,
-and a path that is kept only adds to the products that might act.} It then discards the paths with
+and a path that is kept only adds to the products that can act.} It then discards the paths with
 two consecutive steps of $\Ext$ degree $0$ whose product is the only term of
 its component of the Maurer--Cartan equation: that equation makes the
 product of the two sections zero, and a product of nonzero sections is
@@ -1994,6 +1997,190 @@ $W\mapsto W^{\tau}$ is injective. Adding over $Q$, \Cref{lem:allthree}
 gives $\dim\Ext^{2}(E,E)\ge16\cdot12=192$.
 \end{proof}
 
+At $n=4$ there are $128$ pieces $L_{\zeta}$, and the classes that no
+product reaches are again those between pieces that differ in three
+coordinates and have adjacent shifts. The shifts along a chain are now
+controlled by counting alone.
+
+\begin{lemma}[Shifts along chains at $n=4$]\label{lem:efourshifts}
+Keep \Cref{prop:weilpieces} with $n=4$, take the $L_{\zeta}$ to be external
+products $N_{1,\zeta_{1}}\boxtimes\dots\boxtimes N_{4,\zeta_{4}}$ of line
+bundles on the $B_{j}$, let $t_{1},t_{2},t_{3}$ be distinct with
+$|t_{i}-p|\ge2$, and let $E$ be a convolution of the $L_{\zeta}$ and of
+$M_{1},M_{2},M_{3}$ with shifts of the given parities. Call a component of
+$\delta^{H}$, or an element of degree one of $\cH_{E}$ in one group
+$\cH(a,b)$, a step from $P_{a}$ to $P_{b}$; a step of $\Ext$ degree $q$ has
+$d_{b}=d_{a}+1-q$. Put $\phi(L_{\zeta})=p$ and $\phi(M_{i})=t_{i}$.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item A step between distinct $L_{\zeta}$ has $\Ext$ degree at least two, so
+  it lowers the shift by at least one, and by exactly one only in $\Ext$
+  degree two. A step in $\cH^{1}(a,a)=H^{1}(A,\cO_{A})$ keeps the shift.
+\item A step between an $L_{\zeta}$ and a multiple, or between two
+  multiples, has $\Ext$ degree $0$ if it goes up the value $\phi$ and $8$ if
+  it goes down, so it raises the shift by one or lowers it by seven.
+\item A sequence of steps from an $L_{\zeta}$ to an $L_{\zeta'}$ through
+  multiples, distinct before one marked step and distinct after it, where
+  the marked step may lie in $\cH^{1}(a,a)$ at a multiple, lowers the shift
+  by at least four. Consequently a sequence of steps from one $L_{\zeta}$ to
+  another, at most one of them not a component, lowers the shift by at least
+  one, and by exactly one only if it consists of steps between pieces
+  $L_{\zeta}$, one of $\Ext$ degree two and the others in $\cH^{1}(a,a)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) For $\zeta\ne\zeta'$ the group $\cH(L_{\zeta},L_{\zeta'})$ is the tensor
+product over the surfaces of $H^{1}$ of a line bundle with a nondegenerate
+form, on the $k\ge1$ surfaces where $\zeta$ and $\zeta'$ differ, and of
+$H^{*}(B_{j},\cO_{B_{j}})$ on the others, the factors of $L_{\zeta}$ and
+$L_{\zeta'}$ on those being equal. So its degrees are at least $k$, and degree
+one needs $k=1$. Then the ratio $\zeta'_{j}/\zeta_{j}\ne1$ in the one
+coordinate is the ratio of $\prod\zeta'$ and $\prod\zeta$, which is $-1$, and
+the shifts have opposite parities, while a step of $\Ext$ degree one keeps
+the shift. (ii) The forms of $M_{i}\otimes L_{\zeta}^{-1}$ have the
+eigenvalues $t_{i}-p\pm1$ on every surface, which have the sign of $t_{i}-p$;
+the form of $M_{k}\otimes M_{i}^{-1}$ is $(t_{k}-t_{i})\,\mathrm{Id}$. A
+definite form has cohomology in degree $0$ if it is positive and $2n=8$ if
+it is negative \cite[Chapter~3]{BL04}.%
+\footnote{This is Mumford's index theorem: a line bundle on an abelian
+variety whose hermitian form is nondegenerate with $i$ negative eigenvalues
+has cohomology only in degree $i$. On $B_{j}=E_{0}\times E_{0}$ the form of
+$M_{i}\otimes L_{\zeta}^{-1}$ is
+$\bigl(\begin{smallmatrix}t_{i}-p&-\zeta_{j}\\-\bar\zeta_{j}&t_{i}-p\end{smallmatrix}\bigr)$,
+with eigenvalues $t_{i}-p\pm1$, and $|t_{i}-p|\ge2$ makes both of the sign of
+$t_{i}-p$; over the four surfaces the index is $0$ or $8$. The hypothesis
+$|t_{i}-p|\ge2$ is what keeps the steps between a piece and a multiple out
+of the middle degrees.}
+(iii) Let $U$ and $D$ be the numbers of steps up and down outside
+$\cH^{1}(a,a)$; by (ii) the shift changes by $U-7D$. The values start and
+end at $p$ and pass through the values of multiples, so $D\ge1$. If $D=1$,
+the values increase strictly before the step down and strictly after it, so
+those before it lie above $p$ and those after it below $p$, each multiple
+occurs once, and $U\le3$: the drop $7-U$ is at least four.%
+\footnote{The bound is attained: with $p$ below the three values $t_{i}$, the
+run $L_{\zeta}\to M_{1}\to M_{2}\to M_{3}\to L_{\zeta'}$, up three times and
+down once, changes the shift by $3-7=-4$. With $p$ in the middle,
+$t_{1}<p<t_{2}<t_{3}$, the run up through $M_{2}$ and $M_{3}$, down to $M_{1}$
+and up to $L_{\zeta'}$ changes it by $3-7=-4$ as well. The Lean certificate of
+\cite{BMB26} runs over all four positions of $p$.} If $D\ge2$, at most
+six multiples occur, counted with repetition, so there are at most seven
+steps outside $\cH^{1}(a,a)$, $U\le7-D$, and the drop $7D-U\ge8D-7$ is at
+least nine. For the consequence, split the sequence at the pieces
+$L_{\zeta}$ it visits: each part through multiples lowers the shift by at
+least four, and by (i) each other part lowers it by at least one, unless it
+lies in $\cH^{1}(a,a)$.
+\end{proof}
+
+\begin{theorem}[Two shifts on $E_{0}^{8}$]\label{thm:efourtwolevels}
+Keep \Cref{lem:efourshifts}, and let $L_{\zeta}$ and $L_{\zeta'}$ differ in
+exactly three coordinates and have the shifts $d_{L_{\zeta}}=d_{L_{\zeta'}}+1$.
+Then $\cH(L_{\zeta},L_{\zeta'})$ has its classes of degree two in
+$\cH^{3}(L_{\zeta},L_{\zeta'})$, of dimension
+$D(\zeta,\zeta')=\prod_{\zeta_{j}\ne\zeta'_{j}}|\zeta_{j}-\zeta'_{j}|^{2}$,
+which is $16$ or $64$, and:
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item for every convolution, no element of degree one has a differential
+  with a nonzero component in $\cH^{3}(L_{\zeta},L_{\zeta'})$;
+\item if the $L_{\zeta}$ occupy two consecutive shifts, those with
+  $\prod\zeta=\epsilon$ the shift $s$ and the others $s-1$, for a sign
+  $\epsilon$ and an integer $s$, then $d_{E}$ vanishes on these groups, and
+  for every order of the pieces, every choice of the shifts of the $M_{i}$
+  and every placement of the $t_{i}$,
+  \[
+    \dim\Ext^{2}(E,E)\;\ge\;64\cdot640=40960 .
+  \]
+  In particular $E$ does not meet the polarised criterion, which asks for
+  $\dim\Ext^{2}(E,E)=104$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Write $W=L_{\zeta}$ and $V=L_{\zeta'}$. By the proof of
+\Cref{lem:efourshifts}(i), $\cH(W,V)$ has degrees $3$, $4$ and $5$, the last
+two from the surface where $\zeta$ and $\zeta'$ agree, and its classes of
+degree $w=2$ have $\Ext$ degree $2+d_{W}-d_{V}=3$; the dimension of
+$\cH^{3}(W,V)$ is the product over the three other surfaces of the
+determinants $|\zeta_{j}-\zeta'_{j}|^{2}$, as in \Cref{lem:allthree}.
+
+(i) As in the proof of \Cref{lem:allthree}, a term of the differential of an
+element $u$ of degree one in $\cH(a',b')$ with a component in $\cH(W,V)$
+runs along a chain of components $W\to\dots\to a'$, the step $u$, and a chain
+$b'\to\dots\to V$, with $(a',b')\ne(W,V)$. This is a sequence of steps from
+$W$ to $V$, one of them $u$, lowering the shift by one. By
+\Cref{lem:efourshifts}(iii) it consists of steps between pieces $L_{\zeta}$,
+one of $\Ext$ degree two and at most one, $u$, in $\cH^{1}(a,a)$. If $u$ is
+not in $\cH^{1}(a,a)$, it is the step of degree two and both chains are
+empty, against $(a',b')\ne(W,V)$. If $u$ is in $\cH^{1}(a,a)$, the rest is a
+single component $W\to V$ of $\Ext$ degree two, in $\cH^{2}(W,V)=0$.
+
+(ii) A term of $d_{E}$ on $x\in\cH^{3}(W,V)$ runs along chains of components
+$c\to\dots\to W$ and $V\to\dots\to e$, not both empty, and lands in $\cH(c,e)$
+in $\Ext$ degree $3+1+(d_{c}-d_{W})+(d_{V}-d_{e})=3+d_{c}-d_{e}$. No piece
+$L_{\zeta''}$ other than $W$ lies on the first chain: by
+\Cref{lem:efourshifts}(iii) it would have the shift at least $d_{W}+1=s+1$.
+Likewise only multiples follow $V$ on the second chain, and each chain has at
+most three pieces besides $W$ or $V$. Let $U$ and $D$ be the numbers of steps
+up and down along both chains, so that $U+D\le6$; by
+\Cref{lem:efourshifts}(ii), $d_{W}=d_{c}+U_{1}-7D_{1}$ and
+$d_{e}=d_{V}+U_{2}-7D_{2}$, and the $\Ext$ degree is
+\[
+  3+d_{c}-d_{e}=4-U+7D .
+\]
+If $c=e$, this degree is $3$, so $U=7D+1$, and $D\ge1$ because the values
+return to $\phi(c)\ne p$; then $U\ge8$, which is impossible. If $c\ne e$, the
+group $\cH(c,e)$ sits in degree $0$ if $\phi(e)>\phi(c)$ and in degree $8$ if
+$\phi(e)<\phi(c)$, by \Cref{lem:efourshifts}(ii). Degree $0$ needs
+$U=4+7D\ge4$ with $D=0$, so the values increase strictly, the multiples are
+distinct and $U\le3$. Degree $8$ needs $7D=U+4$, so $D=1$ and $U=3$; the
+values increase strictly before the step down, from $\phi(c)$, and after it,
+up to $\phi(e)<\phi(c)$, so the five values along the path, with $W$ and $V$
+counted once, are distinct, and four of them are values of multiples, of
+which there are three. So no term reaches a nonzero group, and $d_{E}$
+vanishes on $\cH^{3}(W,V)$.
+
+By (i) and (ii) the classes of these groups are cocycles of degree two, and
+no nonzero combination of them is a coboundary, since every coboundary has
+zero components there. Each piece of the shift $s$ has $28$ partners of the
+other parity differing from it in exactly three
+coordinates,\footnote{The ratios $\zeta'_{j}/\zeta_{j}$ in the three
+coordinates have product $-1$, so they are $(-1,-1,-1)$, with $D=64$, or a
+permutation of $(i,-i,-1)$, with $D=16$; with four places for the
+coordinate where they agree this gives $4\cdot7=28$ partners and
+$4\cdot(64+6\cdot16)=640$ classes.} all of the shift $s-1$, and the $28$
+groups have dimensions adding up to $640$; there are $64$ pieces of the shift
+$s$.
+\end{proof}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\textwidth]{fig_efourshifts}
+\caption{\Cref{lem:efourshifts} and \Cref{thm:efourtwolevels}, in the
+placement $p<t_{1}<t_{2}<t_{3}$. Horizontal: the value $\phi$ of a piece;
+vertical: its shift. The pieces $L_{\zeta}$ with $\prod\zeta=\epsilon$ sit at
+the shift $s$ and the others at $s-1$. A run through the multiples, up three
+times with $\Ext$ degree $0$ and down once with $\Ext$ degree $8$, ends four
+shifts lower, the least drop of \Cref{lem:efourshifts}(iii), so it never
+joins a top piece $W$ to a partner $V$ one shift lower; the group
+$\mathcal{H}^{3}(W,V)$ survives in $\Ext^{2}(E,E)$.}
+\label{fig:efourshifts}
+\end{figure}
+
+\Cref{fig:efourshifts} draws the shifts along a run. The hypothesis of (ii) is the arrangement of the explicit convolution of
+\Cref{prop:explicitconvolution} at $n=3$, where the sixteen pieces of each
+parity share a shift. A computation in \cite{BMB26} checks
+\Cref{lem:efourshifts} and \Cref{thm:efourtwolevels} independently of the
+proofs, by enumerating, for the four placements of the $t_{i}$ relative to
+$p$ and both choices of $\epsilon$, every chain of components that the
+degrees allow, with the shifts of the multiples left free, at every one of
+the $1792$ pairs of pieces of (ii): no element of degree one reaches their
+groups and no term of $d_{E}$ the degrees allow leaves them; the Lean
+certificate of \cite{BMB26} repeats the counts of the footnote, the drop of
+\Cref{lem:efourshifts}(iii) and the case analysis of the degrees in (ii) for
+every position of $p$ among the four values. The pieces
+must not be twisted by line bundles of degree zero here, unlike in
+\Cref{thm:noconvolution}: a twist that is nontrivial on the surface where
+$\zeta$ and $\zeta'$ agree removes $\cH(L_{\zeta},L_{\zeta'})$.
+
 \begin{remark}[What the route gives]\label{rem:convolutionsopen}
 At $n=3$ the route through convolutions of these pieces is decided. The
 diagonal obstruction of \Cref{thm:esixdiagonal} can be removed: the
@@ -2017,10 +2204,19 @@ into $-\sigma_{i}$ and keeps everything else.} The member $E_{0}^{6}$ with
 this Weil structure has trivial discriminant, where the Weil classes are
 algebraic on every member by Markman's theorem \cite{Mar25a,Mar25b}, so a
 convolution meeting the criterion here would have given a second proof of a
-known case rather than a new one. At $n=4$ the analysis does not close:
-products of length three and four among the $L_{\zeta}$ already pass every
-test of \Cref{thm:esixdiagonal}, and there are $3668$ diagonal classes
-against $r=104$. \Cref{fig:convolutions} shows the excess count and the
+known case rather than a new one. At $n=4$ the classes between pieces that
+differ in three coordinates and have adjacent shifts are again reached by
+nothing, in every convolution, and when the pieces $L_{\zeta}$ occupy two
+shifts, as in the explicit convolution, no term of $d_{E}$ leaves them, so
+that $\dim\Ext^{2}(E,E)\ge40960$ against the $104$ allowed
+(\Cref{thm:efourtwolevels}). With three or more shifts the argument stops:
+a component between two pieces of the lower shifts can follow such a class,
+and the computation in \cite{BMB26} finds terms that the degrees allow as
+soon as one piece is moved to a third shift; products of length three and
+four among the $L_{\zeta}$ also pass every test of \Cref{thm:esixdiagonal}
+on the $3668$ diagonal classes. Whether some convolution of the $131$ pieces
+with three or more shifts meets the criterion at $n=4$ is open.
+\Cref{fig:convolutions} shows the excess count and the
 surviving path, and \Cref{fig:diagonalbudget} the budget of diagonal
 classes.
 \end{remark}

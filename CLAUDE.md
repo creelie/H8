@@ -327,6 +327,82 @@ request: the dagger stays on Deep, Mandal's double dagger is gone, and the
 title-page footnote reads "Corresponding author: Deep Bhattacharjee" with
 both of Deep's addresses on one line; the author order is unchanged (Deep,
 Mandal, Ushashi Bhattacharya); 383 pages, no code or label change.
+Round 40 retitled the paper "Algebraic Loci of Weil Classes from Abelian
+Varieties to Diagonal Complete Intersections" (Deep picked it on a decision
+card; he asked for a title claiming the Hodge conjecture, which was declined
+because nothing proves it), added a second sentence to the abstract, and
+proved (F3') for diagonal complete intersections of Vandermonde type
+(`thm:vandermonde`, `cor:twodiagonal`, `rem:vandermonde`, `fig_vandermonde`
+in `tex/sections/11b_closuregraph.tex`): X = C^r/G for the generalised
+Fermat curve C [GDHL09], so X lies in the class A, every smooth complete
+intersection of two diagonal hypersurfaces is of this type, the Hodge
+conjecture on X reduces to the abelian varieties B_[a] cut out by the
+characters, and it holds for d in {3,4,6}, N <= 6 and d = 2, N <= 12
+(dimension at most five, Markman and Moonen-Zarhin), in particular for two
+diagonal cubics, quartics or sextics in P^6 (70, 490, 6125 Weil orbits); this
+uses known (F2) cases and is not new progress on (F2). It also proved the
+two-shift case at n = 4 on E_0^8 (`lem:efourshifts`, `thm:efourtwolevels`,
+`fig_efourshifts` in `tex/sections/10c6_objects.tex`: dim Ext^2 >= 40960 >
+104; three or more shifts stay open in `rem:convolutionsopen`), with items
+(LXXIII) `code/diagonal_ci.py` (16 checks; parts (C), (D) in double
+precision, no statement rests on them) and (LXXIV)
+`code/convolutions_efour.py` (9 checks), Lean Section 43 (121 theorems),
+two rows of `tab:scope`, the figures of `figures/make_round40.py`, footnotes,
+and the references [Ter88] (doi verified on J-STAGE; by its title it
+treats complete intersections of Fermat type and of quadrics; it could not be
+read, so any overlap with `thm:vandermonde` is unchecked) and [Har77]; [GDHL09] has no verified DOI and carries none.
+2160 checks, 121 Lean theorems, 391 pages, 740 labels. Two stale
+`\enlargethispage` commands in `tex/sections/10c4_rank.tex` were removed.
+Round 41 proved the Hodge conjecture for the very general member of the
+Vandermonde family (`lem:vgmonodromy`, `thm:vgvandermonde` after
+`thm:vandermonde` in `tex/sections/11b_closuregraph.tex`): for characters of
+order two the squared Dehn twists along a chain of vanishing cycles give the
+monodromy sp(V_a), whose invariants are the powers of the polarisation
+[FH91]; for order three Achter-Pries [AP07, Cor. 3.10] gives SU and a class
+only when dim V_a = r and p_a = r/2, an abelian variety of Weil type for
+Q(sqrt(-3)) with trivial discriminant, so Markman's theorem applies for r = 4, 6;
+hence HC for d = 2 in every dimension and d = 3 with r <= 6, in every P^N
+(counts 1 + sum_{j>r/2} C(N+1,2j) and 1 + C(N+1,r+2) C(r+2,r/2+1)). Item
+(LXXV), `code/very_general.py` (8 checks, 2168 in all); Lean Section 44 (125
+theorems); `fig_vgmonodromy`, `fig_vgscope`, `fig_vgcounts` and the roadmap of
+the five parts `fig_roadmap` (label `fig:parts`) from
+`figures/make_round41.py`; a strip at the foot of `fig_vandermonde`; the
+unused figures `fig_witness`, `fig_multiple`, `fig_hodgecount` placed, and the
+duplicate `fig_spinor` with `make_spinor.py` deleted. At Deep's choice "Trim
+prose" the side remarks `rem:outside`, `rem:secantplace`, `rem:notreductions`,
+`rem:remaindershape`, `rem:targetsstatus`, `rem:routemap`, `rem:quarticgap`,
+`rem:sexticnoexclusion`, `rem:thirdclosed`, `rem:whyterminal` and
+`rem:p2search` were removed (every proved result stays), with the five
+bibliography entries cited only there (BKT20, Kim05, Mil99, Orl05, Voi07);
+hedges were rewritten, footnotes added in the introduction, the abstract cut
+to two sentences, the keywords to three, the MSC given with section names,
+and the contents list set to the parts (`tocdepth` 0, with entries for the
+appendices and for the declarations and references). FH91 carries no DOI
+(doi.org and Crossref could not be reached to verify it). Stale counts and
+round wording were removed from `README.md`, `lean/README.md`,
+`.zenodo.json`, the workflow, the figure scripts and the code docstrings.
+2168 checks, 125 Lean theorems, 391 pages, 738 labels.
+Round 42 proved the degree 4 and 6 analogue of Achter-Pries itself
+(`setup:cyclic`, `lem:foxmodel`, `lem:cabling`, `lem:hyperplanes`,
+`lem:merge`, `prop:cyclicmonodromy`, `lem:newdisc`, `fig_cyclicmerge` before
+`thm:vgvandermonde` in `tex/sections/11b_closuregraph.tex`): for a cyclic
+cover of degree m in {3,4,6} with n >= 3 and p, q >= 1 the identity component
+of the monodromy contains SL(V_a), by the Fox model of the eigenspace, the
+collision of two branch points (Y + KI), a lemma on two copies of SL of a
+hyperplane, a merge lemma (proved by hand, checked to k = 40) and 38
+computed base cases with n = 3, 4; the discriminant of the new part is
+trivial for m = 3, 4, and for m = 6 exactly when an even number of
+coordinates equal 3 (2 is not a norm from Q(sqrt(-3))). So `thm:vgvandermonde`
+now gives HC for the very general member for d = 2, for d = 3, 4 with r <= 6,
+and for d = 6 with r <= 4; for d = 6, r = 6 the classes are algebraic except
+on the non-split Weil sixfolds (example (1,1,2,2,3,5,5,5)), which stay open.
+Count 1 + C(N+1,r+2) T_d(r+2) + [d even] sum_{j >= r/2+2} C(N+1,2j).
+References [Fox53], [DM86] carry no DOI (Crossref and doi.org could not be
+reached). Item (LXXVI), `code/cyclic_monodromy.py` (7 checks, 2175 in all);
+Lean Section 45 (130 theorems); `figures/make_round42.py`, with
+`fig_vgmonodromy`, `fig_vgscope`, `fig_vgcounts` and the strip of
+`fig_vandermonde` redrawn; a one-sentence abstract at Deep's request.
+2175 checks, 130 Lean theorems, 395 pages, 746 labels.
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 
@@ -353,7 +429,7 @@ section.
 - `cd code && python3 verify_all.py` ends with `N checks passed, 0 failed`;
   keep the count in `README.md`, `lean/README.md`, `.zenodo.json`,
   `.github/workflows/lean.yml` and `tex/declarations.tex` in step.
-- `cd lean && lean HodgeObstruction.lean`: 117 theorems, each axiom-free or
+- `cd lean && lean HodgeObstruction.lean`: 130 theorems, each axiom-free or
   depending on `propext` only.
 - `cd tex && latexmk -pdf main.tex`: 0 errors, 0 overfull or underfull boxes,
   no undefined references.
