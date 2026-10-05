@@ -9,8 +9,9 @@ The theorems of the paper are statements of algebraic geometry and are **not**
 formalised. The cohomology of an abelian variety, the Hodge decomposition, the
 Fourier-Mukai transform, Grothendieck-Riemann-Roch, the Lefschetz hyperplane
 theorem, hard Lefschetz and the invariant theory of `SL_{2n}` are used as
-mathematics and none of them is formalised here. What is formalised is every
-place where the paper computes.
+mathematics and none of them is formalised here. What is formalised is the
+finite arithmetic listed in the table below; the computations of the paper
+that are not, and why, are listed after it.
 
 ## Running it
 
@@ -21,16 +22,16 @@ A Lean 4 toolchain and nothing else. No Mathlib, no dependencies.
     lean HodgeObstruction.lean
 
 `lake build` builds the package declared in `lakefile.toml`; the second line
-prints the axiom report. Each takes about ten minutes. Silence from the elaborator means the kernel
+prints the axiom report. Each takes about seventeen minutes and about 6.5 GB of memory. Silence from the elaborator means the kernel
 accepted every theorem; the block at the foot of the file then prints one line
 per theorem. Every line must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
 through `decide` or the core lemmas on natural numbers, and none may mention `sorryAx`. The GitHub workflow in
 `.github/workflows/lean.yml` enforces all three, and fails the build if the
-number of theorems is not one hundred and forty-seven or if any of them reaches for a further
+number of theorems is not one hundred and sixty-nine or if any of them reaches for a further
 axiom.
 
-## The one hundred and forty-seven theorems
+## The one hundred and sixty-nine theorems
 
 | theorem | statement |
 | --- | --- |
@@ -150,7 +151,7 @@ axiom.
 | `conv_esix_thresholds` | along `M_2 -> M_3 -> L -> M_1` with `Ext` degrees `0, 6, 0` the shifts are `d, d + 1, d - 4, d - 3`, the product lands in `Ext` degree `6` and `sigma_1 = sigma_3 = -sigma_2`; `r = 24, 57, 104` at `n = 2, 3, 4`; `(t_2 - t_1)^6 = 1, 64, 729`, `249 - 64 = 185 > 57`, `249 - 57 = 192`, and `(t_2 - t_1)^6 >= 192` exactly when `t_2 - t_1 >= 3` |
 | `ff_partner_counts` | with `zeta_j = i^(e_j)`, the sixteen pieces with `prod zeta = 1` and the sixteen with `prod zeta = -1`; every piece has `3`, `6`, `7` partners of the other parity differing in `1`, `2`, `3` coordinates, and for the `7` the block dimension `D = prod_j |zeta_j - zeta'_j|^2` is `16` six times and `64` once, `160` in all; the `112` pairs carry `2560` classes (`decide +kernel`) |
 | `ff_shift_table` | in the three placements of the multiples relative to `p`, the shifts `mu_i`, `nu_i` of a piece one step from or to `M_i` and the extremes `lambda_i`, `kappa_i` over steps between the multiples are those of the table in the proof of the lemma on pieces that differ everywhere, and satisfy `lambda_i <= 0 <= kappa_k`, `kappa_i >= lambda_i + 2`, `lambda_i <= mu_i + 2`, `nu_i <= kappa_i + 2` (`decide +kernel`) |
-| `ff_noconvolution_counts` | the kernels `11`, `19` of `x_1`, `x_3` on a surface at `t = (2, 5, 6)`; the cover degrees; `3^6 = 729`, `16 * 24^3 = 221184`, `4^6 = 4096`; and the bounds `249 - (45 + 15 * 9) = 69 > 57` and `16 * 12 = 192 > 57` of the theorem that no convolution of the pieces meets the criterion. The rank `192` of the fourfold products is a floating-point computation and is not certified here |
+| `ff_noconvolution_counts` | the kernels `11`, `19` of `x_1`, `x_3` on a surface at `t = (2, 5, 6)`; the cover degrees; `3^6 = 729`, `16 * 24^3 = 221184`, `4^6 = 4096`; and the bounds `249 - (45 + 15 * 9) = 69 > 57` and `16 * 12 = 192 > 57` of the theorem that no convolution of the pieces meets the criterion. The rank `192` of the fourfold products is certified in ball arithmetic by part (H) of item (LXXII), not here |
 | `efour_partner_counts` | at `n = 4`, the `128` pieces of `(Z/4)^4` of even sum, `64` of each parity; each has `4, 12, 28, 20` partners of the other parity differing in `1, 2, 3, 4` coordinates, those differing in one coordinate differ there by `2`; the `28` have `D = 16` twenty-four times and `64` four times, `640` in all; `64 * 640 = 40960 > 104 = 7 * 16 - 2 * 4` |
 | `efour_run_drop` | with `p` at any rank among the four values, every run from `p` through two selections of distinct multiples back to `p`, the marked step between them a component or a class of `H^1(a, a)`, changes the shift by at most `-4`, a step up by `+1` and a step down by `-7`: the finite core of the lemma on shifts along chains at `n = 4` |
 | `efour_two_level_degrees` | with `p` at any rank, every pair of chains `c -> ... -> W`, `V -> ... -> e` through distinct multiples, not both empty, gives `Ext` degree `4 - U + 7D` different from `3` when `c = e`, from `0` when `e` is above `c` and from `8` when `e` is below `c`: the case analysis of the two-shift theorem on `E_0^8` |
@@ -181,7 +182,53 @@ axiom.
 | `divisor_profiles` | the Betti numbers of the connected sum of two real `n`-tori have Euler characteristic `0` (odd `n`) and `-2` (even `n`), `2 <= n <= 40`; at `n = 5` they are `1, 10, 20, 20, 10, 1`; for `5 <= n <= 16`, eight `d` and `0 <= a <= 3`, `|b| <= 3`, the profile of part (i) of the proposition on sheaves on divisors meets every condition |
 | `divisor_endo_positive` | `r^2 (20 d + 1) + 6 < 32 r^2 d^2` for all `d, r >= 1`, so `6 chi(End_0 G) > 0` at `n = 5` |
 | `divisor_rank_two_mod3` | `3` divides `2 (d + 1)` exactly when `d = 2` modulo `3`, for every `d` |
+| `hh_annihilator_small` | for `n = 1, 2, 3` and every monomial of `HH^*`: the mixed monomials kill `alpha_+` and `alpha_-`, the pure ones send one of them to distinct monomials, so `dim Ann_{HH^k}(omega) = C(4n,k) - 2 C(2n,k) + [k = 2n]`; `n^2` mixed wedge products in degree two |
+| `polarised_number_three` | at `n = 3`, fourteen characters `sum c_k theta^k + u alpha_+ + conj(u) alpha_-`, two of each Hankel rank `rho`: the annihilator in `HT^2` has dimension `n^2 (4 - rho)` and contraction rank `(4 + rho) n^2 - 2n`, by exact annihilating vectors and independent images modulo `998244353` |
+| `polarised_number_four_rho0` | the same at `n = 4` for the pure Weil character: annihilator `64`, rank `56` |
+| `polarised_number_four_rho1` | `n = 4`, `e^theta` plus the Weil part: annihilator `48`, rank `72` |
+| `polarised_number_four_rho2` | `n = 4`, `theta` plus the Weil part: annihilator `32`, rank `88` |
+| `polarised_number_four_rho3` | `n = 4`, a general integral polynomial part: annihilator `16`, rank `104` |
+| `weil_product_formula` | `d^n c_n(t) = d^(2n-t) delta^t` in `Z[delta]`, `delta = sqrt(-d)`, where `c_n(t)` is the coefficient of a monomial `w^(T)`, `|T| = t`, in the Weil class: `eq:omegaprod`, for seven fields and `n <= 10` |
+| `weil_multiplicative_coefficients` | `c_(n1)(t1) c_(n2)(t2) = c_(n1+n2)(t1+t2)` for seven fields and `n1, n2 <= 6`: the Weil class of a product is the product of the Weil classes, coefficientwise |
+| `weil_multiplicative_exterior` | in the exterior algebra over `Z[sqrt(-d)]`, with signs: `prod_j (d x_j + delta y_j) = d^n omega` for `n <= 3`, and the product of the classes of the factors of every composition of `n` is the class of the product, for `n <= 3` at five fields and for the eight compositions of `4` at `d = 1, 3` |
+| `split_member_closed_form` | on the split member `n! omega = (-1)^(n(n-1)/2) (gamma + delta ell)^n` for `n <= 3` |
+| `secant_chern_recursion` | the three-term recursion for the Chern classes of a secant character is Newton's identities, for `k <= 8` |
+| `secant_discriminant` | the discriminant of the secant recursion is the norm `a^2 d + b^2`, positive unless `a = b = 0` |
+| `secant_rank_one_chern` | at `a = 1`: `gamma_2 = b^2 + d`, `gamma_3 = b (b^2 + d)`, `gamma_4 = (b^2 + d)(b^2 - 3d)` |
+| `weil_plane_gram` | the Weil classes are primitive and the rational Weil plane has Gram matrix `(-1)^n 2^(2n-1) diag(d^n, d^(n-1))` |
+| `lattice_secant_moments` | the binomial moments of `a u + b v` against the lattice spanned by the `e^(j Theta)` |
+| `lattice_u3v_moments` | the moments of `u + 3v` are integral exactly when `24` divides `-12 (d + 3)`, `24` and `(d + 9)(d - 2)` |
+| `lattice_u3v_criterion` | for every `d`: `u + 3v` lies in the lattice exactly when `d = 15, 23 (mod 24)` |
+| `lattice_moments_d3` | at `d = 3` the moments of `u + v` are `(1, 1, -2, 4/3, -1/2)`, least common denominator `6` |
+| `lattice_smooth_support` | `ch(O_S) = (0, 0, 2N, -12N, 4N(18 - N))` is not in the lattice for `N = 5, ..., 8` |
+| `burch_rank_one_c4` | rank one: `c_1(E) = -b/3` is forced and then `72 c_4(G) = -(b^2 + d)(b^2 + 9d) < 0` |
+| `burch_rank_two_c4` | rank two: `24 c_4(G) = gamma_2 (b^2 - 3d + 4ab + 6m)`, and `chi(E) = a^4 - 2 a^2 m + m^2/2` is an integer exactly when `m` is even |
+| `burch_rank_two_parity` | for every `d`: `12` divides `3d + 3` exactly when `d = 3 (mod 4)`, so at `b = 3` rank two data need `d = 3 (mod 4)` |
 
+
+## What is not in the certificate
+
+Every computation of the paper is checked in exact arithmetic by
+`code/verify_all.py`; the items are those of `COMPUTATIONS.md`. The following
+have no Lean counterpart, or only a partial one.
+
+* Outside the reach of a kernel with no libraries: the Macaulay2 computations
+  of local Ext algebras and jet classes, items (XXIX), (XXXI), (XL) and the
+  local part of (LXVIII); the evaluation of theta integrals in ball
+  arithmetic, part (H) of item (LXXII); and the sign-pattern search of item
+  (XXII), of up to `4.29 * 10^14` patterns. The parts of items (LXXII) and
+  (LXXIII) that run in double precision certify nothing on their own.
+* Exact linear algebra in exterior algebras over `Q` or `Q(i)` that has not
+  yet been carried into Lean, either at all or beyond the counts checked by
+  an earlier section: items (I), (XIII), (XVI), (XVIII), (XIX), (XXIII),
+  (XXIV), (XXXIV) to (XXXVII), (XLI) to (XLIII), (XLVII) to (XLIX), (LI),
+  (LIII), (LIV) and (LVII) to (LXIII). These are within reach of the
+  certificate method of Section 51 (exact kernel vectors and independence
+  modulo a prime), at the cost of larger data.
+
+`generate/make_section51.py` writes the certificates of Section 51 from the
+model of `code/p2prime.py`; run from the repository root, it prints the data
+block of that section.
 
 ## Two statements that look true and are not
 
@@ -209,7 +256,7 @@ algebra computations that Lean does not carry, and prints
 ## Transcript
 
 `axioms.txt` is the unedited output of `lean HodgeObstruction.lean` under
-Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and forty-seven lines, one per
-theorem, one hundred and ten reading `does not depend on any axioms` and thirty-seven reading
+Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and sixty-nine lines, one per
+theorem, one hundred and fourteen reading `does not depend on any axioms` and fifty-five reading
 `depends on axioms: [propext]`, exit status 0, no `sorryAx`. `lake build`
 completes with the same report.

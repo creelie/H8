@@ -513,6 +513,31 @@ only sympy, numpy and python-flint): its pivoted QR is a numpy
 Businger-Golub pivoting in `_pivots`.
 2218 checks, 147 Lean theorems (110 axiom-free, 37 on `propext`), 411 pages,
 763 labels.
+Round 47 answered Deep's "verify everything in lean" with Lean Sections 50 to
+55 (twenty-two theorems): the annihilator of a Weil class in HH^* at
+n = 1, 2, 3 (`lem:annihilator`, item (XXXVIII)); the polarised criterion as
+a number (`thm:p2primenumber`, item (LII)) on fourteen characters at n = 3
+and one of each Hankel rank at n = 4, by rank certificates (exact
+annihilating vectors and images independent modulo 998244353, written by
+`lean/generate/make_section51.py` from `code/p2prime.py`; one theorem per
+n = 4 case to keep the kernel's memory near 6 GB); `eq:omegaprod`,
+`eq:weilmult`, `thm:weilmult` and `ex:splitsmall` (items (XV), (X)); the
+secant Chern recursion and rank one (item (XX)); the Gram matrix of the
+Weil plane (item (L)(A)); the lattice and Burch-rank results
+`thm:lattice`, `prop:lowrankburch` (items (LXIX), (LXX)). Statements for
+all d are proved without `omega`, which pulls in Classical.choice and
+Quot.sound. `lean/README.md` and `code/computations/lean.tex` now list the
+computations that have no Lean counterpart (Macaulay2, ball arithmetic, the
+search of (XXII); and exact linear algebra of about thirty items not yet
+ported). No Python change (2218 checks); 169 Lean theorems (114 axiom-free,
+55 on `propext`).
+At Deep's request the Data availability section credits him with the
+computations: "carried out by Deep Bhattacharjee in Python, with the C
+libraries FLINT and Arb through python-flint, in Macaulay2 and in shell
+scripts, and the finite arithmetic was formalised by him in Lean 4", with the
+Claude Code sentence kept. Deep also named Julia, C and PARI; the archive
+contains none of them, so they are not listed (add them only if such code is
+added to the archive).
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 
@@ -539,7 +564,7 @@ section.
 - `cd code && python3 verify_all.py` ends with `N checks passed, 0 failed`;
   keep the count in `README.md`, `lean/README.md`, `.zenodo.json`,
   `.github/workflows/lean.yml` and `tex/declarations.tex` in step.
-- `cd lean && lean HodgeObstruction.lean`: 147 theorems, each axiom-free or
+- `cd lean && lean HodgeObstruction.lean`: 169 theorems, each axiom-free or
   depending on `propext` only; the number, in words, is also in
   `README.md`, `lean/README.md`, `code/computations/lean.tex`, `.zenodo.json`
   and `tex/declarations.tex`, and in figures in the workflow.
