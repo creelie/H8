@@ -2,7 +2,7 @@
 """
 mumford_rigidity.py
 
-Item (XLIV) of the verification section: the exact computations behind the
+Item (XLIV) of COMPUTATIONS.md: the exact computations behind the
 rigidity of the exceptional classes on the square of a Mumford fourfold, and
 behind the numerical form of the semiregularity criterion for them.
 

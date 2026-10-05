@@ -117,8 +117,8 @@ $(2,2)$, $(2,2)$, $(3,1)$, $(1,3)$. All are distinct except for the pair
 $\beta\widehat\beta$ and $\ell^{2}$, and those two are independent in
 $\bigwedge^{2}U\otimes\bigwedge^{2}U^{\vee}$ because
 $\beta\widehat\beta=\beta\otimes\widehat\beta$ is decomposable there while
-$\ell^{2}=-2\sum_{i<j}(x_{i}x_{j})\otimes(\xi_{i}\xi_{j})$ has all
-$\binom{2n}{2}$ terms and $\binom{2n}{2}>n$ for $n\ge2$. The second
+$\ell^{2}=-2\sum_{i<j}(x_{i}x_{j})\otimes(\xi_{i}\xi_{j})$ is diagonal in
+the induced bases, of tensor rank $\binom{2n}{2}>1$. The second
 description follows because the change of basis between the two sets of six
 classes is invertible over $K$: $\eta=d\beta+\widehat\beta$ and
 $\gamma=d\beta-\widehat\beta$ span the same plane as
@@ -491,7 +491,7 @@ $15=\dim H^{2}(\cO_{A_{0}})$.
 \begin{proof}
 Everything asserted is a finite exact computation, carried out in \cite{BMB26}. The classes are the images under
 $\theta(u)=2g\gamma+2dh\,\ell$, $u=g+h\sqrt{-3}$, of the six roots of unity
-of $K$ scaled by $2$; the Chern character is \Cref{prop:chintermsofu} with the
+of $K$; the Chern character is \Cref{prop:chintermsofu} with the
 Prouhet--Tarry--Escott data above; the index computation and the rank of
 $\Phi$ are the two remaining items. For the shift, condition (ii) asks that
 $2+p_{i}-p_{j}\ne3$ whenever $i\ne j$, that is $p_{i}-p_{j}\ne1$; within each
@@ -604,7 +604,7 @@ q_{a}\rangle$ and $H^{0,1}(\widehat X)=\langle q_{a}\rangle$: the Hodge
 structure of $\widehat X$ is the dual one. Since $\beta$ is of type $(1,1)$
 and nondegenerate, $\beta=\sum_{a,b}h_{ab}\,p_{a}\wedge\bbar p_{b}$ with
 $h\in\GL_{n}(\CC)$; and since $\beta$ is principal with Gram matrix $B$ in a
-symplectic basis of $U$ and $\widehat\beta$ has Gram matrix $B=-B^{-1}$ in
+symplectic basis of $U$ and $\widehat\beta$ has Gram matrix $-B^{-1}=B$ in
 the dual basis of $U^{\vee}$, the Gram matrix of $\widehat\beta$ in the
 basis $p_{a},\bbar p_{a}$ is minus the inverse of the Gram matrix
 $\begin{psmallmatrix}0&h\\-h^{\top}&0\end{psmallmatrix}$ of $\beta$ in the
@@ -915,9 +915,12 @@ By (ii), $\Delta\oplus\Sigma\subseteq\ker\sigma_{E}\cap\image\operatorname{ev}_{
 and its dimension $9+6=15$ equals $\dim\ker\sigma_{E}$ by
 \Cref{prop:explicitobject}, so the three spaces coincide. The rank of
 $\operatorname{ev}_{E}$ and the statement for the eighteen configurations
-are the computations of \cite{BMB26}, which also
-recomputes every dimension in this proof in the model of \cite{BMB26}.
+are computations of \cite{BMB26}, which also recompute every dimension in
+this proof.
 \end{proof}
+
+\Cref{fig:evaluation} draws the three kernels and their images in
+$\Ext^{2}(E,E)$.
 
 \begin{figure}[tbp]
 \centering

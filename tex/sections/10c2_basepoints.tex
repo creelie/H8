@@ -141,17 +141,25 @@ classes are algebraic, so both are algebraic.
 \end{proof}
 
 \begin{example}\label{ex:splitsmall}
-At $n=2$ the formula reads
+The $2n$ classes $x_{1},\dots,x_{2n}$ form a $K$-basis of $H^{1}(A,\QQ)$, on
+which $\sqrt{-d}$ acts by $x\mapsto-Bx$, so \eqref{eq:omegaprod} applies to
+them; with \eqref{eq:splitclosed} it gives the integral generators of
+\Cref{thm:explicitgens} for this basis in closed form,
 \[
-  \omega_{1}=d\,\ell^{2}-\gamma^{2},
+  \omega_{1}+\sqrt{-d}\,\omega_{2}
+  =\frac{(-1)^{n(n-1)/2}}{n!}\,\bigl(\gamma+\sqrt{-d}\,\ell\bigr)^{n}.
+\]
+At $n=2$ this reads
+\[
+  \omega_{1}=\tfrac12\bigl(d\,\ell^{2}-\gamma^{2}\bigr),
   \qquad
-  \omega_{2}=2\,\gamma\,\ell,
+  \omega_{2}=-\gamma\,\ell,
 \]
 and at $n=3$,
 \[
-  \omega_{1}=d\,\gamma\,\ell^{2}-\tfrac13\gamma^{3},
+  \omega_{1}=\tfrac12\,d\,\gamma\,\ell^{2}-\tfrac16\gamma^{3},
   \qquad
-  \omega_{2}=\gamma^{2}\ell-\tfrac13\,d\,\ell^{3},
+  \omega_{2}=\tfrac16\,d\,\ell^{3}-\tfrac12\gamma^{2}\ell,
 \]
 with $\gamma=d\beta-\widehat{\beta}$ throughout. Both formulas, and the
 expansion of \eqref{eq:splitclosed} for every $n\le5$ and several values of
@@ -218,12 +226,16 @@ and the same for the other three, which is \Cref{lem:balanced} for
 $n=n_{1}+n_{2}$.
 \end{proof}
 
-By \Cref{prop:weilline}(i) and (iii) the Weil line $\HW(A)$ is free of rank
-one over $K$, and the basis $\omega_{1},\omega_{2}$ of
-\Cref{thm:explicitgens} identifies $\HW(A)$ with $K$ itself by
-$a\omega_{1}+b\omega_{2}\mapsto a+b\sqrt{-d}$. Write
-$\omega(A)=\omega_{1}(A)+\sqrt{-d}\,\omega_{2}(A)$ for the resulting
-$K$-valued invariant.
+For an abelian variety $A$ of $(K,-1,n)$-Weil type and a $K$-basis of
+$H^{1}(A,\QQ)$, let $\omega_{1}(A),\omega_{2}(A)$ be the generators of the
+Weil line given by \eqref{eq:omegagens} in that basis, and write
+\[
+  \omega(A)=\omega_{1}(A)+\sqrt{-d}\,\omega_{2}(A)\;\in\;
+  K\otimes_{\QQ}H^{2n}(A,\QQ)
+\]
+for the $K$-valued Weil class; by \eqref{eq:omegaprod} its image in
+$H^{2n}(A,\CC)$ is $d^{-n}\prod_{j}(d\,x_{j}+\delta\,y_{j})$. On a product we
+use the $K$-basis obtained by concatenating bases of the factors.
 
 The Weil line is the top exterior power over $K$, and a top exterior power of
 a direct sum is the tensor product of the top exterior powers. This is the
@@ -236,50 +248,42 @@ With the notation of \Cref{lem:prodweil}, and cup product on
 $H^{*}(A,\QQ)$ taken after pullback along the two projections,
 \begin{equation}\label{eq:weilmult}
 \begin{aligned}
-  \omega_{1}(A)&=\tfrac12\bigl(\omega_{1}(A_{1})\,\omega_{1}(A_{2})
-    -\omega_{2}(A_{1})\,\omega_{2}(A_{2})\bigr),\\
-  \omega_{2}(A)&=\tfrac12\bigl(\omega_{1}(A_{1})\,\omega_{2}(A_{2})
-    +\omega_{2}(A_{1})\,\omega_{1}(A_{2})\bigr),
+  \omega_{1}(A)&=\omega_{1}(A_{1})\,\omega_{1}(A_{2})
+    -d\,\omega_{2}(A_{1})\,\omega_{2}(A_{2}),\\
+  \omega_{2}(A)&=\omega_{1}(A_{1})\,\omega_{2}(A_{2})
+    +\omega_{2}(A_{1})\,\omega_{1}(A_{2}),
 \end{aligned}
 \end{equation}
-that is $\omega(A_{1})\,\omega(A_{2})=2\,\omega(A_{1}\times A_{2})$ in the
-$K$-valued notation. For $k$ factors,
-$\prod_{j}\omega(A_{j})=2^{k-1}\,\omega(A_{1}\times\cdots\times A_{k})$.
+that is $\omega(A_{1})\,\omega(A_{2})=\omega(A_{1}\times A_{2})$ for the
+$K$-valued Weil class. For $k$ factors,
+$\prod_{j}\omega(A_{j})=\omega(A_{1}\times\cdots\times A_{k})$.
 \end{theorem}
 
 \begin{proof}
-Let $\alpha_{\pm}^{i}$ generate $\bigwedge^{2n_{i}}V_{i,\pm}$. Since
-$V_{\pm}=V_{1,\pm}\oplus V_{2,\pm}$,
+Let $u_{1},\dots,u_{2n_{1}}$ and $u_{2n_{1}+1},\dots,u_{2n}$ be the
+$K$-bases of $H^{1}(A_{1},\QQ)$ and $H^{1}(A_{2},\QQ)$, so that together they
+form the $K$-basis of $H^{1}(A,\QQ)$. By \eqref{eq:omegaprod},
 \[
-  \textstyle\bigwedge^{2n}V_{+}=\bigwedge^{2n_{1}}V_{1,+}\otimes
-  \bigwedge^{2n_{2}}V_{2,+},
+  \omega(A)
+  =d^{-n}\prod_{j=1}^{2n}\bigl(d\,x_{j}+\delta\,y_{j}\bigr)
+  =\Bigl(d^{-n_{1}}\prod_{j\le2n_{1}}\bigl(d\,x_{j}+\delta\,y_{j}\bigr)\Bigr)
+   \Bigl(d^{-n_{2}}\prod_{j>2n_{1}}\bigl(d\,x_{j}+\delta\,y_{j}\bigr)\Bigr)
+  =\omega(A_{1})\,\omega(A_{2})
 \]
-so $\alpha_{+}=\alpha_{+}^{1}\wedge\alpha_{+}^{2}$ generates it, and likewise
-$\alpha_{-}=\alpha_{-}^{1}\wedge\alpha_{-}^{2}$; the classes
-$\alpha_{\pm}^{i}$ have even degree $2n_{i}$, so no sign enters when the two
-blocks of generators are interleaved. By
-\Cref{thm:explicitgens}(iii), $\omega_{1}=\alpha_{+}+\alpha_{-}$ and
-$\omega_{2}=\sqrt{-d}\,(\alpha_{+}-\alpha_{-})/(-d)$ up to the normalisation
-fixed there, so it suffices to expand. Writing $\omega_{1}^{i}$ and
-$\omega_{2}^{i}$ for the generators of the factors,
-\[
-  \omega_{1}^{1}\omega_{1}^{2}-\omega_{2}^{1}\omega_{2}^{2}
-  =(\alpha_{+}^{1}+\alpha_{-}^{1})(\alpha_{+}^{2}+\alpha_{-}^{2})
-  +(\alpha_{+}^{1}-\alpha_{-}^{1})(\alpha_{+}^{2}-\alpha_{-}^{2})
-  =2(\alpha_{+}^{1}\alpha_{+}^{2}+\alpha_{-}^{1}\alpha_{-}^{2})
-  =2\,\omega_{1}(A),
-\]
-the cross terms cancelling in pairs, and the same computation with one factor
-conjugated gives the second identity of \eqref{eq:weilmult}. In the $K$-valued
-notation the two identities together say
-$\omega(A_{1})\omega(A_{2})=2\omega(A)$, since the map
-$a\omega_{1}+b\omega_{2}\mapsto a+b\sqrt{-d}$ carries the right-hand sides of
-\eqref{eq:weilmult} to the real and imaginary parts of the product. The
-statement for $k$ factors follows by induction, each application contributing
-one factor of $2$. A computation in \cite{BMB26} verifies the
-identities in exact arithmetic over $\QQ(\sqrt{-d})$ for all
-$n_{1},n_{2}\le3$ and for the four-factor products listed there.
+in $H^{2n}(A,\CC)$, the products being taken in the order of the basis, so
+that no sign arises. Expanding
+$\bigl(\omega_{1}(A_{1})+\delta\omega_{2}(A_{1})\bigr)
+\bigl(\omega_{1}(A_{2})+\delta\omega_{2}(A_{2})\bigr)$ with $\delta^{2}=-d$,
+and comparing rational parts and $\delta$-parts, which is legitimate because
+the classes $\omega_{j}(A_{i})$ are rational and $1,\delta$ are linearly
+independent over $\QQ$, gives \eqref{eq:weilmult}. The statement for $k$
+factors follows by induction. A computation in \cite{BMB26} verifies
+\eqref{eq:weilmult} in exact arithmetic for all $n_{1},n_{2}\le3$ and
+$d\in\{1,2,3,5,7\}$, together with \eqref{eq:omegaprod} for $n\le4$ and the
+products of three and four factors listed there.
 \end{proof}
+
+\Cref{fig:product} shows the multiplicativity and the loci it reaches.
 
 \begin{corollary}[Algebraicity propagates along products]\label{cor:prodalg}
 If the Weil classes of $A_{1}$ and of $A_{2}$ are algebraic, then so are those
@@ -310,8 +314,8 @@ $(1,1)$ classes. No hypothesis on $A_{0}$ beyond the Weil structure is used.
 Let $n\ge1$, let $d>0$ be squarefree, and let $A_{1},\dots,A_{n}$ be abelian
 surfaces of $(K,-1,1)$-Weil type. Then $A=A_{1}\times\cdots\times A_{n}$ is of
 $(K,-1,n)$-Weil type and its Weil classes are algebraic; explicitly, by
-\Cref{thm:weilmult} and \Cref{lem:basecase} they are
-$2^{-(n-1)}$ times the real and imaginary parts of
+\Cref{thm:weilmult} and \Cref{lem:basecase} they are the rational part and
+the coefficient of $\sqrt{-d}$ in
 $\prod_{j=1}^{n}\bigl(\omega_{1}(A_{j})+\sqrt{-d}\,\omega_{2}(A_{j})\bigr)$,
 a polynomial with integer coefficients in $2n$ divisor classes.
 \end{theorem}
@@ -353,8 +357,7 @@ propagation statement.
   \includegraphics[width=0.96\textwidth]{fig_product}
 \caption{\Cref{thm:weilmult} and its reach. Left: the Weil line of each factor
 is a $K$-line, the Weil line of the product is the tensor product of the two
-over $K$, and in the $K$-valued notation the class is multiplicative up to the
-factor $2$. Algebraicity therefore passes from the factors to the product, and
+over $K$, and the $K$-valued Weil class is multiplicative. Algebraicity therefore passes from the factors to the product, and
 at $n=1$ the factors are divisor classes, so a product of $n$ abelian surfaces
 of Weil type carries an explicit algebraic Weil class in every dimension.
 Right: the dimensions of the loci on which the class is known to be algebraic,
@@ -945,9 +948,12 @@ with $a,b\in\ZZ$. Then
 \item every $\ch_{k}$ is an integral multiple of the integral class
   $t^{k}/k!$, the multiple being $\pm a d^{j}$ in even degree $k=2j$ and
   $\pm b d^{j}$ in odd degree $k=2j+1$;
-\item the Chern classes $c_{1},\dots,c_{n}$ obtained from $\ch$ by Newton's
-  identities are integral, for every $n\le8$, every squarefree $d\le11$ and
-  every $a\le4$, $|b|\le4$;
+\item for all integers $a$, $b$ and every positive integer $d$, the Chern
+  classes obtained from $\ch$ by Newton's identities are integral in every
+  degree: $c_{k}=\gamma_{k}\,t^{k}/k!$ with $\gamma_{0}=1$, $\gamma_{1}=b$ and
+  \[
+    \gamma_{k+1}\;=\;b\,\gamma_{k}+d\,k\,(a-k+1)\,\gamma_{k-1}\qquad(k\ge1);
+  \]
 \item the discriminant is
   $\Delta=2rc_{2}-(r-1)c_{1}^{2}=\bigl(a^{2}d+b^{2}\bigr)t^{2}
   =\Nm_{K/\QQ}(b+a\sqrt{-d})\,t^{2}$, which is positive, so Bogomolov's
@@ -958,10 +964,25 @@ with $a,b\in\ZZ$. Then
 \begin{proof}
 (i) is the definition of $u$ and $v$: the coefficient of $t^{k}$ is
 $a(-d)^{j}/(2j)!$ or $b(-d)^{j}/(2j+1)!$, and multiplying by $k!$ clears the
-factorial and leaves $\pm ad^{j}$ or $\pm bd^{j}$. For (ii), Newton's
-identities express $k!\,c_{k}$ as an integer polynomial in the $i!\,\ch_{i}$
-apart from one division by $k$ at each step; a computation in \cite{BMB26} carries out these divisions over the stated range,
-and each of them is exact. (iii) is the computation recorded in
+factorial and leaves $\pm ad^{j}$ or $\pm bd^{j}$. For (ii), write the total
+Chern class as a power series $c(t)=\sum_{k}\gamma_{k}t^{k}/k!$ in the
+variable $t$. Newton's identities in generating-function form say
+$\log c=\sum_{k\ge1}(-1)^{k-1}(k-1)!\,\ch_{k}$, and with the coefficients of
+(i) the two halves of this sum are recognised series:
+\[
+  \log c(t)\;=\;-a\sum_{j\ge1}\frac{(-d)^{j}t^{2j}}{2j}
+     +b\sum_{j\ge0}\frac{(-d)^{j}t^{2j+1}}{2j+1}
+  \;=\;\frac{a}{2}\log\bigl(1+dt^{2}\bigr)
+     +\frac{b}{\sqrt{d}}\arctan\bigl(\sqrt{d}\,t\bigr).
+\]
+Differentiating, $(1+dt^{2})\,c'(t)=(b+adt)\,c(t)$. Comparing the
+coefficients of $t^{k}/k!$ on the two sides gives
+$\gamma_{k+1}+d\,k(k-1)\gamma_{k-1}=b\gamma_{k}+ad\,k\,\gamma_{k-1}$, which is
+the stated recursion. Its coefficients are integers and it starts from
+$\gamma_{0}=1$, $\gamma_{1}=b$, so every $\gamma_{k}$ is an integer, and
+$c_{k}=\gamma_{k}\,t^{k}/k!$ is an integral class because $t^{k}/k!$ is. A
+computation in \cite{BMB26} compares the recursion with Newton's identities
+for $n\le8$, $d\le11$ squarefree, $0\le a\le4$ and $|b|\le4$. (iii) is the computation recorded in
 \Cref{thm:secantinvariants}, and the norm form of an imaginary quadratic field
 is positive definite.
 \end{proof}
@@ -972,7 +993,7 @@ is positive definite.
 object required by the construction at $n\ge4$ were forbidden by its
 numerical invariants, the secant route would fail on arithmetic grounds
 alone. It is not: the Chern character is integral, the Chern classes are
-integral throughout the range of \Cref{prop:notforbidden}(ii), the
+integral in every degree by \Cref{prop:notforbidden}(ii), the
 discriminant is positive, and neither Riemann--Roch nor Bogomolov's
 inequality stands in the way.
 Together with \Cref{prop:objectsize}, which bounds the size of the object from
@@ -1035,6 +1056,8 @@ symmetric forms, the isotropy of its members, and the two dimensions are
 checked for $n\le5$ in a computation in \cite{BMB26}.
 \end{proof}
 
+\Cref{fig:lagsweep} draws these loci as a pencil of leaves.
+
 \begin{figure}[htbp]
 \centering
   \includegraphics[width=0.80\textwidth]{fig_lagsweep}
@@ -1082,10 +1105,11 @@ would answer \Cref{q:residual} in the affirmative.
 \subsection{Absolutely Hodge classes and the exact form}\label{ssec:exactform}
 
 The algebraicity of a Hodge class is usually approached through an
-intermediate property. A rational class of type $(p,p)$ is \emph{absolutely
-Hodge} if, after spreading the variety out over a finitely generated field and
-applying any automorphism of $\CC$, the de Rham component of the class remains
-of type $(p,p)$ in every comparison. The implications
+intermediate property. A rational class of type $(p,p)$ on a smooth
+projective variety $X$ over $\CC$ is \emph{absolutely Hodge} if, for every
+automorphism $\sigma$ of $\CC$, the conjugate under $\sigma$ of its de Rham
+component is the de Rham component of a rational class of type $(p,p)$ on the
+conjugate variety $X^{\sigma}$. The implications
 \begin{equation}\label{eq:threechain}
   \text{algebraic}
   \;\Longrightarrow\;

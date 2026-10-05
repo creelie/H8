@@ -2,7 +2,7 @@
 """
 targets_reduction.py
 
-Item (XLIII) of the verification section: the finite computations behind the
+Item (XLIII) of COMPUTATIONS.md: the finite computations behind the
 subsection "The two remaining targets, reduced to the Lefschetz standard
 conjecture of one variety each".
 

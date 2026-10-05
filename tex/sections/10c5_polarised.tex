@@ -685,7 +685,8 @@ $\theta$-semistable, and it excludes no complex. A computation in \cite{BMB26} c
 displayed identity at $c_{2}=1$, $\phi=1$, and the constancy of the sign at
 random K\"ahler classes; for comparison, it checks that both signs occur at
 $R=3/16$, where $R=c_{2}^{2}\int\theta^{4}\big/\!\int\omega^{2}$ is the ratio
-that equals $\frac34$ here. Since Markman's theorem settles every Weil
+that equals $\frac34$ here. \Cref{fig:kahlersign} draws the infimum of the
+ratio as a function of $R$. Since Markman's theorem settles every Weil
 fourfold, this remark concerns the shape of \textup{(P2$'$)}, not the
 conjecture.
 \end{remark}
@@ -779,9 +780,9 @@ Let $n\ge2$, $s_{0}\in\cD_{n,n}$, and let $E$ be a bounded complex of vector
 bundles on $A_{s_{0}}$ with $\ch(E)=N\omega_{1}+\sum_{k}c_{k}\theta^{k}$ and
 $N\ne0$. Let $K_{E}$ be the base of a miniversal deformation of $E$ on the
 fixed variety $A_{s_{0}}$, put $e=\dim\Ext^{1}(E,E)$ and
-$k=\dim\ker\sigma_{E}$, and grant \Cref{thm:BF} in Pridham's form, in which
-$\sigma_{E}$ annihilates every obstruction, both on $A_{s_{0}}$ and along the
-Artinian deformations of $A_{s_{0}}$ in $\cD_{n,n}$.
+$k=\dim\ker\sigma_{E}$. By \Cref{thm:BF} in Pridham's form, $\sigma_{E}$
+annihilates every obstruction, both on $A_{s_{0}}$ and along the Artinian
+deformations of $A_{s_{0}}$ in $\cD_{n,n}$.
 \begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
 \item $\dim K_{E}\ge e-k$.
 \item If $\dim K_{E}=e-k$, then $\Sigma=\cD_{n,n}$, and the Hodge conjecture
@@ -1105,7 +1106,9 @@ products over $i$ of classes of even degree, so no signs arise. Each identity
 is therefore the tensor product of $n$ copies of the identity for $n=1$, up to
 a nonzero scalar, where for the Weil class one uses
 $(\gamma-\sigma s\ell)^{n}=n!\prod_{i}(\gamma_{i}-\sigma s\ell_{i})$, valid because
-$(\gamma_{i}-\sigma s\ell_{i})^{2}=0$ (\Cref{thm:weilmult}). The four identities
+the factors commute and $(\gamma_{i}-\sigma s\ell_{i})^{2}=0$: by
+\Cref{thm:splitclosed}(i) at $n=1$ the class $\gamma_{i}-\sigma s\ell_{i}$
+spans the top exterior power of a two-dimensional eigenspace. The four identities
 for $n=1$ are checked exactly, with $d$ a symbol, in a computation in \cite{BMB26}. For the consequence, write
 $\ch(F_{1})=w_{1}e^{s\theta}+\bbar w_{1}e^{-s\theta}$ and
 $\ch(F_{2}^{\vee})=w_{2}e^{-s\theta}+\bbar w_{2}e^{s\theta}$ as in the proof of
@@ -1275,6 +1278,9 @@ coefficient nonzero, and it is rational by Galois symmetry. Its part along the
 span of $\nu_{4}(C_{\eta})$ vanishes, because quartics restrict onto the sum of
 the octics on the two disjoint conics, so the relation is pure.
 \end{proof}
+
+\Cref{fig:minimalsupport} draws the quadric of Lagrangians, the conic
+$C_{\eta}$ and a conic through eight natural characters.
 
 \begin{figure}[tbp]
 \centering

@@ -2,7 +2,7 @@
 """
 mumford_routes.py
 
-Item (XLIX) of the verification section: which of the open routes to the
+Item (XLIX) of COMPUTATIONS.md: which of the open routes to the
 Mumford target are needed, computed rather than listed.
 
 The Mumford target is the first case of (F2): the Hodge conjecture for

@@ -41,9 +41,10 @@ the family and acting trivially on $L/NL$. Write
 \[
   p\colon\cD_{n,n}\longrightarrow\cS=\Gamma\backslash\cD_{n,n} .
 \]
-By Baily and Borel \cite{BB66} the quotient $\cS$ is a smooth quasi-projective
-complex variety, and it is irreducible because $\cD_{n,n}$ is connected. Since
-$N\ge3$ the level structure rigidifies, so $\cS$ carries a universal family
+Since $N\ge3$ the group $\Gamma$ is torsion-free, so it acts freely on
+$\cD_{n,n}$, and by Baily and Borel \cite{BB66} the quotient $\cS$ is a smooth
+quasi-projective complex variety; it is irreducible because $\cD_{n,n}$ is
+connected. The level structure rigidifies, so $\cS$ carries a universal family
 \[
   f\colon\cA\longrightarrow\cS,
 \]
@@ -112,7 +113,8 @@ the statements certified by the Lean certificate of \cite{BMB26}.
 \begin{theorem}[The algebraic locus is a countable union of closed
 subvarieties]\label{thm:closedlocus}
 Keep \Cref{setup:shimura}. For a finite tuple $\underline{P}=(P_{1},\dots
-,P_{m})$ of Hilbert polynomials and a tuple $\underline{q}\in\QQ^{m}$ put
+,P_{m})$ of Hilbert polynomials of degree $n$ and a tuple
+$\underline{q}\in\QQ^{m}$ put
 \begin{align*}
   \cH_{\underline{P}}
   &\;=\;
@@ -207,6 +209,8 @@ again gives that this intersection is dense. At each of its points
 $\omega_{s}$ is a Hodge class by \Cref{lem:omegadescends} and is not
 algebraic, so the Hodge conjecture fails there.
 \end{proof}
+
+\Cref{fig:properness} draws the two cases.
 
 \begin{figure}[htbp]
 \centering
@@ -391,9 +395,9 @@ effective part alone.
 This bound is not automatic, and the mechanism that threatens it can be seen
 directly. The transport at $g$ is by the isogeny obtained from $g$ by
 clearing denominators; if $g$ has denominator $m$ on the reference lattice,
-which has rank $4n$, the isogeny has degree dividing $m^{4n}$, and pushing a
-cycle forward along it multiplies the multiplicities by factors of that
-order. Elements of $G(\QQ)$ of bounded denominator form a discrete subset of
+which has rank $4n$, the isogeny has degree $m^{4n}$ (\Cref{lem:transport}
+below), and pushing a cycle forward along it multiplies its multiplicities
+and degrees by powers of $m$ (\Cref{lem:multiplicity}). Elements of $G(\QQ)$ of bounded denominator form a discrete subset of
 $G(\RR)$, so along a dense orbit the denominators, and with them the isogeny
 degrees, are unbounded. What \Cref{thm:degreebound} asks is that the cycles
 nevertheless simplify: that at each point of the orbit the class $\omega$,
@@ -651,7 +655,8 @@ $b\in\ZZ_{>0}$. Put
 \]
 so that $Z_{b}+\sqrt{-d}\,Z'_{b}=(g_{b}+\sqrt{-d}\,\lambda_{b})^{2}$ and
 $Z_{b},Z'_{b}$ span the Weil plane. Write $x\in\cO_{b}$ as $x=u+vj$ with
-$u,v\in\ZZ[i]$; the pair $(\Lambda_{b},i)$ is then the same $\ZZ[i]$-module
+$u,v\in\ZZ[i]$, where $i^{2}=-d$ as in \Cref{setup:quat}, so that
+$\ZZ[i]=\ZZ[\sqrt{-d}]$; the pair $(\Lambda_{b},i)$ is then the same $\ZZ[i]$-module
 $\ZZ[i]^{4}$ for every $b$, and we use this identification throughout.
 
 \begin{proposition}[Divisibility of the quaternionic Weil cycle]
@@ -962,9 +967,10 @@ polarised lattice, and \Cref{fig:pencil} illustrates it.
 pencil, each a Siegel threefold inside the four-dimensional family, with the
 member $k=-2$, where $\beta=1$ and a rational point $J_{0}$ can be written
 down, drawn apart. Right: along the pencil the ratio $\mu_{k}/\beta(k)$ is
-the constant $2592$, so the Weil class is the same size at every member, while
-the least degree of a divisor not proportional to $\eta$ grows linearly in
-$k$. The class does not change; the divisors that produce it must.}
+the constant $2592=\int\eta^{4}/12$, so $\mu_{k}$ grows like $k^{2}$ and the
+least degree of a divisor not proportional to $\eta$ grows linearly in $k$.
+The Weil class is a flat class of the one fixed lattice and does not change;
+the divisors that produce it must.}
 \label{fig:pencil}
 \end{figure}
 

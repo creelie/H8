@@ -26,14 +26,19 @@ geometry is attempted:
       Delta = 2 r c_2 - (r - 1) c_1^2 >= 0.  A negative discriminant would
       forbid a semistable realisation.
 
-This script settles both, exactly, for 1 <= n <= 8, every squarefree d in a
-range, and every rank a and twist b in a range.  The answer to both is that
+This script settles both, exactly, for 1 <= n <= 8, every squarefree d <= 11,
+and every rank 0 <= a <= 4 and twist |b| <= 4.  It also compares the Chern
+classes with the recursion that proves integrality in general (the paper,
+Proposition "Numerical admissibility of the secant plane"): from
+(1 + d t^2) c'(t) = (b + a d t) c(t), the coefficients gamma_k = k! c_k / t^k
+satisfy gamma_0 = 1, gamma_1 = b, gamma_{k+1} = b gamma_k
++ d k (a - k + 1) gamma_{k-1}, so they are integers.  The answer to both is that
 nothing is forbidden: the invariants are integral and the discriminant is
 positive.  That is a negative result and it is the point of the script.  It
 removes the last hope that the object at n >= 4 could be ruled out, or ruled
 in, by counting; what is missing is the object, not a number.
 
-Item (XX) of the verification section.
+Item (XX) of COMPUTATIONS.md.
 """
 from fractions import Fraction as F
 
@@ -79,6 +84,14 @@ def chern_from_ch(n, g):
     return e
 
 
+def recursion(n, a, b, d):
+    """gamma_0..gamma_n from gamma_{k+1} = b gamma_k + d k (a-k+1) gamma_{k-1}."""
+    gam = [1, b]
+    for k in range(1, n):
+        gam.append(b * gam[k] + d * k * (a - k + 1) * gam[k - 1])
+    return gam[:n + 1]
+
+
 def run(n):
     print()
     print("  == n = %d ==" % n)
@@ -87,7 +100,7 @@ def run(n):
         fact.append(fact[-1] * k)
 
     bad_int, bad_bog = [], []
-    for d in (1, 2, 3, 5, 7, 11):
+    for d in (1, 2, 3, 5, 6, 7, 10, 11):
         for a in range(0, 5):
             for b in range(-4, 5):
                 if a == 0 and b == 0:
@@ -96,9 +109,10 @@ def run(n):
                 e = chern_from_ch(n, g)
                 # c_k = e[k] t^k = e[k] * k! * (t^k / k!), and t^k/k! is
                 # integral, so integrality of c_k is integrality of e[k]*k!
+                gam = recursion(n, a, b, d)
                 for k in range(1, n + 1):
                     val = e[k] * fact[k]
-                    if val.denominator != 1:
+                    if val.denominator != 1 or val != gam[k]:
                         bad_int.append((d, a, b, k, val))
                 # Bogomolov: Delta = 2 r c_2 - (r-1) c_1^2, as a multiple of t^2
                 if n >= 2:
@@ -115,7 +129,8 @@ def run(n):
 
     check("n=%d: every Chern class of the required ch is integral" % n,
           not bad_int,
-          "tested 6 fields x 5 ranks x 9 twists" if not bad_int
+          "8 fields x 5 ranks x 9 twists; equal to the integer recursion"
+          if not bad_int
           else str(bad_int[:2]))
     if n >= 2:
         check("n=%d: Delta = N(b + a sqrt(-d)) = a^2 d + b^2 >= 0" % n,

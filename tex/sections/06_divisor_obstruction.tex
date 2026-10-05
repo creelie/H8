@@ -105,16 +105,16 @@ imposes a nontrivial algebraic condition on the period point, and there are
 only countably many candidates, the endomorphisms of the lattice
 $H_{1}(A_{s},\ZZ)$. So $\End^{0}(A_{s})=\iota(K)$ at a very general point
 $s$, and there the Hodge group is the full special unitary group
-$\mathrm{SU}(V,\psi)$ of the $K$-hermitian form $\psi$ attached to the
-polarisation, by Weil's computation of the Hodge group of a general abelian
+$\SU(V,H)$ of the $K$-hermitian form $H$ attached to the
+polarisation (\Cref{lem:hermform}), by Weil's computation of the Hodge group of a general abelian
 variety of Weil type \cite{Weil77}. The space
 $\Hdg^{1}(A_{s})=\NS(A_{s})\otimes\QQ$ is the space of Hodge-group invariants
 in $H^{2}(A_{s},\QQ)$. By \Cref{prop:grading} in degree two,
 $H^{2}\otimes\CC=\bigwedge^{2}V_{+}\oplus(V_{+}\otimes V_{-})\oplus\bigwedge^{2}V_{-}$.
-The group $\mathrm{SU}(V,\psi)$ acts on $V_{+}\otimes V_{-}$ with a
-one-dimensional space of invariants, spanned by $\psi$ itself, and on
+The group $\SU(V,H)$ acts on $V_{+}\otimes V_{-}\cong V_{+}\otimes V_{+}^{\vee}$
+with a one-dimensional space of invariants, spanned by the class of $H$, and on
 $\bigwedge^{2}V_{\pm}$ with no invariants, since $2n\ge4$ and $\bigwedge^{2}$
-of the standard representation of $\mathrm{SL}_{2n}$ has no invariant vector
+of the standard representation of $\SL_{2n}$ has no invariant vector
 unless $2n=2$. Hence the invariants are one-dimensional, and they are spanned
 by $\eta_{s}$.
 \end{proof}
@@ -133,7 +133,8 @@ Weil class only if $\ch_{n}(\cE)=0$.
 The first proof passes through \Cref{prop:notpoly}. The second replaces that
 proposition by the characters of \Cref{sec:characters} and explains in terms
 of representations why the first had to succeed: the $\Kx$-isotypic
-decomposition of $H^{2n}(A,\QQ)$ separates the two classes in question.
+decomposition of $H^{2n}(A,\QQ)$ separates the two classes in question
+(\Cref{fig:route}).
 
 \begin{proof}[Proof of \Cref{cor:neverweil}]
 We work under the hypothesis of \Cref{thm:divisor}. Let $g=2n$ and let

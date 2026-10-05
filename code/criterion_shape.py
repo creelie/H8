@@ -2,7 +2,7 @@
 """
 criterion_shape.py
 
-Item (L) of the verification section: what an object meeting the numerical
+Item (L) of COMPUTATIONS.md: what an object meeting the numerical
 criterion of the theorem "the criterion is a dimension" must look like.
 
 Let A be an abelian 2n-fold of (K,-1,n)-Weil type, omega = a alpha_+ + b

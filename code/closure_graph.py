@@ -3,7 +3,7 @@
 closure_graph.py
 
 What is left between this paper and the Hodge conjecture, computed rather than
-asserted.  Item (XXXIII) of the verification section.
+asserted.  Item (XXXIII) of COMPUTATIONS.md.
 
 The paper proves a number of implications and leaves a number of statements
 open.  Written out in prose, the relation between the two is easy to get

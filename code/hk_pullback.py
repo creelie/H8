@@ -2,7 +2,7 @@
 """
 hk_pullback.py
 
-Item (XLVIII) of the verification section: the finite computations behind
+Item (XLVIII) of COMPUTATIONS.md: the finite computations behind
 the description of the square of a Mumford fourfold as a holomorphic
 symplectic variety whose symplectic class generates the Hodge structure T of
 K3 type, behind the formula for the exceptional classes as products of two

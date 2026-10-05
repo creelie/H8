@@ -51,7 +51,7 @@ of a and b:
       symplectic lattice and finding every coefficient an integer.  That is
       what makes the coordinates c_k integers in the first place.
 
-Item (XXI) of the verification section.
+Item (XXI) of COMPUTATIONS.md.
 """
 from fractions import Fraction as F
 from itertools import combinations

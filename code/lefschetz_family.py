@@ -2,7 +2,7 @@
 """
 lefschetz_family.py
 
-Item (XLII) of the verification section: the finite linear algebra behind
+Item (XLII) of COMPUTATIONS.md: the finite linear algebra behind
 the Lefschetz standard conjecture for the total space of an abelian scheme
 over a curve whose invariant cycles are algebraic, and in particular for the
 total space of a Mumford family (the theorems of the subsection "A new case of

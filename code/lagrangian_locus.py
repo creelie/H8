@@ -41,7 +41,7 @@ What is checked, exactly, in an explicit model over Q(sqrt(-d)) and over Q:
       psi.  The loci fail to cover only because psi has to be rational to be
       an endomorphism, and the rational psi are countable.
 
-Item (XVII) of the verification section.
+Item (XVII) of COMPUTATIONS.md.
 """
 from fractions import Fraction as F
 from itertools import combinations
