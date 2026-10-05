@@ -531,6 +531,13 @@ computations that have no Lean counterpart (Macaulay2, ball arithmetic, the
 search of (XXII); and exact linear algebra of about thirty items not yet
 ported). No Python change (2218 checks); 169 Lean theorems (114 axiom-free,
 55 on `propext`).
+At Deep's request the Data availability section credits him with the
+computations: "carried out by Deep Bhattacharjee in Python, with the C
+libraries FLINT and Arb through python-flint, in Macaulay2 and in shell
+scripts, and the finite arithmetic was formalised by him in Lean 4", with the
+Claude Code sentence kept. Deep also named Julia, C and PARI; the archive
+contains none of them, so they are not listed (add them only if such code is
+added to the archive).
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 
