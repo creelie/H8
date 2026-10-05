@@ -145,3 +145,25 @@
 'HodgeObstruction.divisor_profiles' does not depend on any axioms
 'HodgeObstruction.divisor_endo_positive' depends on axioms: [propext]
 'HodgeObstruction.divisor_rank_two_mod3' depends on axioms: [propext]
+'HodgeObstruction.hh_annihilator_small' depends on axioms: [propext]
+'HodgeObstruction.polarised_number_three' depends on axioms: [propext]
+'HodgeObstruction.polarised_number_four_rho0' depends on axioms: [propext]
+'HodgeObstruction.polarised_number_four_rho1' depends on axioms: [propext]
+'HodgeObstruction.polarised_number_four_rho2' depends on axioms: [propext]
+'HodgeObstruction.polarised_number_four_rho3' depends on axioms: [propext]
+'HodgeObstruction.weil_product_formula' does not depend on any axioms
+'HodgeObstruction.weil_multiplicative_coefficients' does not depend on any axioms
+'HodgeObstruction.weil_multiplicative_exterior' depends on axioms: [propext]
+'HodgeObstruction.split_member_closed_form' depends on axioms: [propext]
+'HodgeObstruction.secant_chern_recursion' depends on axioms: [propext]
+'HodgeObstruction.secant_discriminant' depends on axioms: [propext]
+'HodgeObstruction.secant_rank_one_chern' depends on axioms: [propext]
+'HodgeObstruction.weil_plane_gram' depends on axioms: [propext]
+'HodgeObstruction.lattice_secant_moments' depends on axioms: [propext]
+'HodgeObstruction.lattice_u3v_moments' does not depend on any axioms
+'HodgeObstruction.lattice_u3v_criterion' depends on axioms: [propext]
+'HodgeObstruction.lattice_moments_d3' does not depend on any axioms
+'HodgeObstruction.lattice_smooth_support' depends on axioms: [propext]
+'HodgeObstruction.burch_rank_one_c4' depends on axioms: [propext]
+'HodgeObstruction.burch_rank_two_c4' depends on axioms: [propext]
+'HodgeObstruction.burch_rank_two_parity' depends on axioms: [propext]

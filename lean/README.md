@@ -22,7 +22,7 @@ A Lean 4 toolchain and nothing else. No Mathlib, no dependencies.
     lean HodgeObstruction.lean
 
 `lake build` builds the package declared in `lakefile.toml`; the second line
-prints the axiom report. Each takes about ten minutes. Silence from the elaborator means the kernel
+prints the axiom report. Each takes about seventeen minutes and about 6.5 GB of memory. Silence from the elaborator means the kernel
 accepted every theorem; the block at the foot of the file then prints one line
 per theorem. Every line must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
