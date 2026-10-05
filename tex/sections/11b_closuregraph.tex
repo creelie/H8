@@ -1871,12 +1871,279 @@ branch points $\lambda_{0},\dots,\lambda_{N}$ (five sheets stand for the
 $d^{N}$ of the cover). Top: $C$, the complete intersection
 $X\cong C^{r}/G$ with the map $\Phi$ of degree $|G|$, and the decomposition
 of $H^{r}(X)$ through $\Phi^{*}$. Bottom: where the Hodge conjecture for $X$
-stands, according to the abelian varieties $B_{[a]}$ that carry its Hodge
-classes: known when they have dimension at most five, which happens for
-$d\in\{3,4,6\}$ and $N\le6$ and for $d=2$ and $N\le12$, and open when they
-are larger, a case of (F2), or carry Weil classes of $\QQ(\zeta_{e})$ with
-$\varphi(e)\ge4$, the case $\mathrm{P2}_{\mathrm{split}}$ of the paper.}
+stands at an arbitrary configuration, according to the abelian varieties
+$B_{[a]}$ that carry its Hodge classes: known when they have dimension at
+most five, which happens for $d\in\{3,4,6\}$ and $N\le6$ and for $d=2$ and
+$N\le12$, and open when they are larger, a case of (F2), or carry Weil
+classes of $\QQ(\zeta_{e})$ with $\varphi(e)\ge4$, the case
+$\mathrm{P2}_{\mathrm{split}}$ of the paper. Foot: the very general
+configuration, \Cref{thm:vgvandermonde}.}
 \label{fig:vandermonde}
+\end{figure}
+
+At a very general configuration the abelian varieties $B_{[a]}$ carry only
+the Hodge classes that the monodromy of the curves allows, and the
+conjecture can then be decided in every dimension for $d=2$ and up to
+dimension seven for $d=3$. Write $U\subset\CC^{N+1}$ for the space of
+$(N+1)$-tuples of distinct numbers. The varieties $X_{d,r}(\lambda)$ with
+$\lambda\in U$ form a smooth projective family over $U$, and so do the
+curves $C$ and the maps $\Phi$, with $H$ acting on the family of curves.
+
+\begin{lemma}[Hodge classes of a very general member]\label{lem:vgmonodromy}
+Let $\mathbb{V}$ be a polarised variation of $\ZZ$-Hodge structure of weight
+$2p$ on a smooth connected quasi-projective variety $S$, and let
+$\Pi=\pi_{1}(S,s)$ act on $\mathbb{V}_{s}$. If $s$ lies outside a countable
+union of proper Zariski closed subsets of $S$, the space $\Hdg(\mathbb{V}_{s})$
+of rational classes of type $(p,p)$ is stable under $\Pi$, and a subgroup of
+finite index of $\Pi$ fixes it pointwise.
+\end{lemma}
+
+\begin{proof}
+The locus of Hodge classes has countably many components
+(\Cref{def:hodgelocus}, \Cref{lem:hodgeanalytic}), and the image in $S$ of
+each is Zariski closed (\Cref{thm:cdk}); let $s$ avoid the images that are
+not all of $S$. For $\alpha\in\Hdg(\mathbb{V}_{s})$ the component through
+$(s,\alpha)$ maps onto $S$, locally biholomorphically onto its image, so the
+flat section $\tilde\alpha$ through $\alpha$ on the universal cover $\tilde S$
+is of type $(p,p)$ on a nonempty open set. The set where it is of type
+$(p,p)$ is a closed analytic subset of the connected manifold $\tilde S$, so it
+is all of $\tilde S$, and every transport of $\alpha$ along a loop at $s$ is a
+Hodge class at $s$. The group $\Pi$ therefore preserves
+$\Hdg(\mathbb{V}_{s})$, the lattice $\mathbb{V}_{s,\ZZ}\cap\Hdg(\mathbb{V}_{s})$
+and the flat form $\tilde Q$ of the proof of \Cref{lem:boundednorm}, which is
+positive definite on the real classes of type $(p,p)$; so it acts on
+$\Hdg(\mathbb{V}_{s})$ through a finite group, whose kernel is the subgroup
+of the statement.
+\end{proof}
+
+\begin{theorem}[Very general diagonal complete
+intersections]\label{thm:vgvandermonde}
+Keep the notation of \Cref{thm:vandermonde}, let $r\ge2$ be even, and let
+$\lambda\in U$ lie outside a countable union of proper Zariski closed
+subsets of $U$. For a Hodge class $x$ of degree $r$ on $X=X_{d,r}(\lambda)$,
+write $x_{[a]}$ for the component of $\Phi^{*}x$ in $W_{[a]}$.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item If $a$ has order two, then $x_{[a]}$ is a rational multiple of the
+  image of $\theta_{a}^{r/2}$, where $\theta_{a}$ is the class of a
+  polarisation of $B_{[a]}$, under the correspondence of the proof of
+  \Cref{thm:vandermonde}(iv); in particular $x_{[a]}$ is algebraic.
+\item If $a$ has order three and $x_{[a]}\ne0$, then $\dim V_{a}=r$ and
+  $\dim V_{a}^{1,0}=r/2$. In that case $B_{[a]}$ is an abelian variety of
+  dimension $r$ of Weil type for $\QQ(\sqrt{-3})$ with trivial
+  discriminant, and $W_{[a]}$ is the image of its space of Weil classes.
+\item The Hodge conjecture holds on $X_{2,r}(\lambda)$ for every $N$ and
+  every $r$, and on $X_{3,r}(\lambda)$ for every $N$ when $r\le6$. The
+  Hodge classes of degree $r$ form a space of dimension
+  \[
+    1+\sum_{j>r/2}\binom{N+1}{2j}\quad\text{for }d=2,
+    \qquad
+    1+\binom{N+1}{r+2}\binom{r+2}{r/2+1}\quad\text{for }d=3.
+  \]
+\end{enumerate}
+\end{theorem}
+
+For odd $r$ there is nothing to prove, since every Hodge class of $X$ is
+then a multiple of a power of the hyperplane class. So the theorem gives the
+Hodge conjecture for the very general complete intersection of diagonal
+quadrics of Vandermonde type in every dimension, and of diagonal cubics of
+Vandermonde type in every dimension up to seven, in every $\PP^{N}$.
+
+\begin{proof}
+Apply \Cref{lem:vgmonodromy} to $H^{r}(X_{d,r}(\lambda),\ZZ)$ over $U$,
+polarised by the hyperplane class, and let $\Pi'\subset\pi_{1}(U,\lambda)$ be
+the subgroup of finite index that fixes the Hodge classes. The monodromy
+commutes with $H$ and with $\Phi^{*}$, so $\Pi'$ fixes $x_{[a]}$ and each of
+its parts in the spaces $\bigwedge^{r}V_{a'}$. Let $m$ be the order of $a$,
+take representatives $0\le a_{i}<d$, and put $a_{i}'=ma_{i}/d$. The function
+$y=\prod_{i}u_{i}^{a_{i}}$ is invariant under the kernel of $\chi_{a}$ and
+satisfies $y^{m}=\prod_{i}(t-\lambda_{i})^{a_{i}'}$, so the quotient of $C$ by
+that kernel is the cyclic cover $D_{a}$ of $\PP^{1}$ of degree $m$ given by
+this equation, and pull-back identifies $H^{1}(D_{a},\QQ)$ with the part
+$\bigoplus_{j\ne0}V_{ja}$ of $H^{1}(C,\QQ)$, compatibly with the monodromy.
+The image $B_{[a]}$ is isogenous to the Jacobian $J(D_{a})$, its
+polarisation being a rational multiple of the principal one, since pull-back
+along a map of degree $e$ multiplies the cup product by $e$.
+
+(i) For $m=2$, $D_{a}$ is the hyperelliptic curve
+$y^{2}=\prod_{i\in S}(t-\lambda_{i})$ over the support $S$ of $a$, of genus
+$g=|S|/2-1$, and $H^{1}(D_{a},\QQ)=V_{a}$. Move the base point so that the
+$\lambda_{i}$ with $i\in S$ are real and consecutive, $\lambda_{s_{1}}<\dots<
+\lambda_{s_{2g+2}}$, the others lying away from the segment they span. The
+loop in which $\lambda_{s_{k}}$ and $\lambda_{s_{k+1}}$ turn once around each
+other, inside a disc that contains no other $\lambda_{i}$, makes $D_{a}$
+acquire a node with vanishing cycle $c_{k}$, the lift of the segment
+$[\lambda_{s_{k}},\lambda_{s_{k+1}}]$, and acts by the square of the
+Picard--Lefschetz transvection,
+$T_{k}^{2}(z)=z+2\langle z,c_{k}\rangle c_{k}$ up to orientation
+\cite[Chapter~3]{Voi03}.%
+\footnote{Near the collision the curve is $y^{2}=(t-\lambda_{s_{k}})
+(t-\lambda_{s_{k+1}})\,v$ with $v$ a unit, analytically $y^{2}=t^{2}-\epsilon$
+with $\epsilon$ a multiple of $(\lambda_{s_{k+1}}-\lambda_{s_{k}})^{2}$; one
+turn of the two points around each other is two turns of $\epsilon$ around
+$0$, and one turn
+of $\epsilon$ acts by the Dehn twist along the vanishing cycle, whose action on
+$H_{1}$ is the transvection $T_{k}$.} The classes $c_{1},\dots,c_{2g}$ satisfy
+$\langle c_{k},c_{k+1}\rangle=\pm1$ and $\langle c_{k},c_{l}\rangle=0$ for
+$|k-l|\ge2$, so their intersection matrix has determinant $1$ and they form a
+basis of $H_{1}(D_{a},\QQ)$; they are the distinguished basis of type $A$ of
+\cite{ACa79}. Some power $T_{k}^{2e}$ with $e\ge1$ lies in the image of
+$\Pi'$; it is unipotent, so the Zariski closure of that image contains the
+one-parameter group $\exp(\tau N_{k})$, $N_{k}(z)=\langle z,c_{k}\rangle c_{k}$,
+and its Lie algebra contains $N_{1},\dots,N_{2g}$. These generate the Lie
+algebra $\mathfrak{sp}(V_{a})$.%
+\footnote{Identify $\mathfrak{sp}(V)$ with $\mathrm{Sym}^{2}V$, the product $uv$
+acting by $z\mapsto\langle z,u\rangle v+\langle z,v\rangle u$, so that
+$N_{k}=\tfrac12c_{k}^{2}$ and
+$[uv,wz]=\langle u,w\rangle vz+\langle u,z\rangle vw+\langle v,w\rangle uz
++\langle v,z\rangle uw$ up to an overall sign. Then
+$[c_{k}^{2},c_{k+1}^{2}]=\pm4c_{k}c_{k+1}$, and if all products
+$c_{i}c_{j}$ with $i,j\le k$ lie in the generated algebra, so do the
+$c_{i}c_{k+1}=\pm\tfrac12[c_{i}c_{k},c_{k+1}^{2}]$ for $i<k$, because
+$c_{k+1}$ meets only $c_{k}$ among $c_{1},\dots,c_{k}$. By induction every
+$c_{i}c_{j}$ lies in it, and these span $\mathrm{Sym}^{2}V$. A computation in
+\cite{BMB26} confirms the dimension $g(2g+1)$ for $g\le7$.} So the Zariski
+closure contains $\Sp(V_{a})$, whose invariants in
+$\bigwedge^{r}V_{a}$ are the multiples of $\omega_{a}^{r/2}$, $\omega_{a}$ the
+polarisation form \cite[Theorem~17.5]{FH91}.%
+\footnote{The exterior algebra of $V$ is a representation of $\Sp(V)$
+and of the $\mathfrak{sl}_{2}$ spanned by $\omega\wedge{}$ and its adjoint,
+and $\bigwedge^{r}V=\bigoplus_{j}\omega^{j}\wedge P^{r-2j}$, where $P^{k}$, the
+kernel of the contraction with $\omega$ in degree $k\le g$, is irreducible
+and nontrivial for $k\ge1$; so the only invariants are the multiples of
+$\omega^{r/2}$, and only for $r$ even.} The correspondence of the proof of
+\Cref{thm:vandermonde}(iv) maps $H^{r}(B_{[a]},\QQ)=\bigwedge^{r}H^{1}(B_{[a]},
+\QQ)$ isomorphically and equivariantly onto $\bigwedge^{r}V_{a}$; the class
+$\theta_{a}$ goes to an invariant nondegenerate form, a nonzero multiple of
+$\omega_{a}$, and $\theta_{a}^{r/2}$ to a nonzero multiple of
+$\omega_{a}^{r/2}$, which is algebraic.
+
+(ii) For $m=3$, $D_{a}$ is a cyclic triple cover of genus $g=\dim V_{a}$
+with labelled branch points of exponents $a_{i}'\in\{1,2\}$, and
+$H^{1}(D_{a},\QQ)=V_{a}\oplus V_{-a}$. If $g\le2$, then $\bigwedge^{r}V_{a}$ is
+zero unless $r=g=2$. If $g\ge3$, then by the theorem of Achter and Pries
+\cite[Corollary~3.10]{AP07}, for every prime $\ell\ge5$ the $\ell$-adic
+monodromy of the moduli space of labelled trielliptic curves of this type is
+the special unitary group of the $\ZZ_{\ell}[\zeta_{3}]$-hermitian form on
+$H^{1}(D_{a},\ZZ_{\ell})$. The classifying map from $U$ to that moduli space is
+dominant, so the closure of the image of $\Pi'$ is open in that group, and an
+open subgroup is Zariski dense in the connected group $\SU$.%
+\footnote{A labelled trielliptic curve of this type is determined by its
+labelled branch points up to projective transformations, and the
+configurations of $g+2$ distinct points of $\CC$ map onto the space
+$M_{0,g+2}$ of these by a fibration with connected fibres, which is
+surjective on fundamental groups; the moduli space differs from $M_{0,g+2}$
+by the finite group of automorphisms. The \'etale fundamental group of the
+complex moduli space is the profinite completion of the topological one, so
+the $\ell$-adic monodromy is the closure of the image of the topological
+monodromy. The passage from $\Pi$ to $\Pi'$ costs a finite index. The Zariski closure of the image of $\Pi'$ over $\QQ$ therefore
+contains, after extension to $\QQ_{\ell}$, an open subgroup of
+$\SU(\ZZ_{\ell})$, hence all of $\SU$.} Over $\CC$ that group acts on $V_{a}$
+through $\SL(V_{a})$, whose invariants in $\bigwedge^{r}V_{a}$ vanish
+for $0<r<g$. In both cases $x_{[a]}\ne0$ forces $r=g$, and then
+$\bigwedge^{r}V_{a}$ is a line of type $(p_{a},r-p_{a})$ with
+$p_{a}=\dim V_{a}^{1,0}$, which contains a class of type $(r/2,r/2)$ only if
+$p_{a}=r/2$. The field $\QQ(\zeta_{3})$ then acts on $B_{[a]}$, of dimension
+$|[a]|\dim V_{a}/2=r$, with multiplicities $(r/2,r/2)$ on the tangent space
+and compatibly with the polarisation, the automorphism of $D_{a}$ preserving
+the cup product; so $B_{[a]}$ is of Weil type (\Cref{def:weiltype}), and
+$W_{[a]}=\bigwedge^{r}V_{a}\oplus\bigwedge^{r}V_{-a}$ is the image of
+$\bigwedge^{r}_{\QQ(\zeta_{3})}H^{1}(B_{[a]},\QQ)$, its space of Weil classes.
+For the discriminant (\Cref{def:disc}), $L=H^{1}(D_{a},\ZZ)$ is a torsion-free
+module over the principal ideal domain $\ZZ[\zeta_{3}]$, hence free of rank
+$r$, and the cup product $Q$ is unimodular on it. With $\delta=\sqrt{-3}$ and
+$Q=\tfrac12\Tr(\delta^{-1}H)$ as in \Cref{lem:hermform}, the determinant of the
+trace form of a hermitian lattice gives
+$1=|\det Q|=3^{r}\,\Nm(\tfrac{1}{2\delta})^{r}(\det H)^{2}=(\det H)^{2}/4^{r}$,
+so $\det H=\pm2^{r}$,%
+\footnote{For a free $\cO_{K}$-module with hermitian Gram matrix $M$ and
+$c\in K^{\times}$, the $\ZZ$-bilinear form $\Tr_{K/\QQ}(c\,v^{T}M\bar w)$ has
+determinant of absolute value $|d_{K}|^{g}\Nm(c)^{g}(\det M)^{2}$, where
+$d_{K}$ is the discriminant of $K$: for $g=1$ this is the discriminant of the
+trace form of $\cO_{K}$ scaled by $\Nm(cM)$. Changing the basis by
+$P\in\GL_{g}(K)$ multiplies both sides by $\Nm_{K/\QQ}(\det P)^{2}$, and a
+basis in which $M$ is diagonal makes the form an orthogonal sum of forms of
+rank one. Here $d_{K}=-3$ and
+$\Nm(1/(2\delta))=1/12$. A computation in \cite{BMB26} checks the formula on
+random lattices.} and $(-1)^{r/2}\det H=2^{r}=\Nm(2^{r/2})$ is a norm, the sign
+being that of a form of signature $(r/2,r/2)$. The discriminant is trivial,
+and it does not change under the isogeny, which scales the polarisation by
+a rational number and $\det H$ by its $r$-th power.
+
+(iii) Let $x$ be a Hodge class of degree $r$. The component of $\Phi^{*}x$
+along $\eta$ is algebraic. For $d=2$ every $a\ne0$ has order two, and (i)
+applies. For $d=3$ every $a\ne0$ has order three; by (ii) only the $a$ with
+$\dim V_{a}=r$ and $\dim V_{a}^{1,0}=r/2$ contribute, and their components are
+images of Weil classes of $B_{[a]}$, which are algebraic: for $r=2$ by the
+theorem of Lefschetz, for $r=4$ by Markman's theorem on abelian fourfolds of
+Weil type, and for $r=6$ by Markman's theorem on abelian sixfolds of split
+Weil type \cite{Mar25a,Mar25b}, the discriminant being trivial. So $\Phi^{*}x$
+is algebraic, and so is $x=\Phi_{*}\Phi^{*}x/|G|$. For the dimensions, the
+classes found are Hodge at every $\lambda$, and by (i) and (ii) there are no
+others. For $d=2$ each $S$ of even size at least $r+2$ gives one class, the
+image of $\theta_{a}^{r/2}$, which is nonzero since $r\le\dim V_{a}$. For $d=3$
+a character with $|S|=r+2$ has $\dim V_{a}^{1,0}=\tfrac13(2n_{1}+n_{2})-1$,
+where $n_{1}$ and $n_{2}$ count its coordinates equal to $1$ and $2$; this is
+$r/2$ exactly when $n_{1}=n_{2}=r/2+1$, and then $W_{[a]}$ gives two classes,
+one for each of $a$ and $-a$.
+\end{proof}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\textwidth]{fig_vgmonodromy}
+\caption{The proof of \Cref{thm:vgvandermonde}. Left: the hyperelliptic
+curve $D_{a}$ of a character of order two, drawn over the six points of its
+support for $g=2$, with the chain of vanishing cycles $c_{1},\dots,c_{5}$;
+a full twist of two neighbouring branch points, drawn as a braid, acts by
+the square of the transvection $T_{k}$. Middle: the chain as a graph, and the
+induction in $\mathrm{Sym}^{2}V_{a}$ by which the logarithms $N_{k}$ generate
+$\mathfrak{sp}(V_{a})$. Right: what the monodromy leaves of the Hodge
+classes, the powers of the polarisation for characters of order two, and
+for characters of order three the Weil classes of an abelian variety of Weil
+type for $\QQ(\sqrt{-3})$ of trivial discriminant.}
+\label{fig:vgmonodromy}
+\end{figure}
+
+A computation in \cite{BMB26} checks the finite facts behind
+\Cref{thm:vgvandermonde}: the Lie algebra generated by the $N_{k}$, the
+intersection matrices of the chains, the invariants of $\mathfrak{sp}$ and
+$\mathfrak{sl}$ in the exterior powers, the relation between the signature
+and the exponents used by Achter and Pries, the determinant of the trace
+form, and the dimensions of (iii) by enumeration of the characters. These
+dimensions never exceed $h^{r/2,r/2}(X)$, and they equal it for a quadric, for
+the Fermat cubics ($7$, $21$ and $71$ in dimensions $2$, $4$ and $6$) and for
+two quadrics in $\PP^{N}$ with $N$ even ($N+2$), where every class of type
+$(r/2,r/2)$ is algebraic; for two cubics in $\PP^{6}$ the very general member
+has $141$ Hodge classes of degree four against $h^{2,2}=267$
+(\Cref{fig:vgcounts}). The Lean certificate of \cite{BMB26} repeats the
+counts. \Cref{fig:vgscope} shows, for each degree $d$ and dimension $r$,
+what is known for the very general member.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\textwidth]{fig_vgcounts}
+\caption{The dimension of the space of Hodge classes of degree $r$ on the
+very general member, from \Cref{thm:vgvandermonde}(iii), against the Hodge
+number $h^{r/2,r/2}$, on a logarithmic scale. Where the two agree, the
+space $H^{r/2,r/2}$ is spanned by Hodge classes at every configuration;
+elsewhere the very general member has fewer Hodge classes, and the members
+with more lie over a countable union of proper closed subsets of the space
+of configurations.}
+\label{fig:vgcounts}
+\end{figure}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\textwidth]{fig_vgscope}
+\caption{The Hodge conjecture for the very general complete intersection
+$X_{d,r}(\lambda)$ of Vandermonde type, for every $N$. Grass: proved, by the
+theorem of Lefschetz for $r=2$ and by \Cref{thm:vgvandermonde} for $d=2$
+and for $d=3$, $r\le6$. Teal hatching: it would follow from the analogue of
+the theorem of Achter and Pries for cyclic covers of degree four and six.
+Clay: open, the Weil classes of abelian varieties of Weil type over
+$\QQ(i)$ or $\QQ(\sqrt{-3})$ in dimension at least six, or, hatched, of a
+CM field of degree at least four (\Cref{rem:vandermonde}). For odd $r$ there
+is nothing to prove.}
+\label{fig:vgscope}
 \end{figure}
 
 \begin{remark}[What the diagonal complete intersections give]
@@ -1896,8 +2163,16 @@ fourfolds are Fano and the conjecture also follows from the theorem of Conte
 and Murre on uniruled fourfolds \cite{CM78}; for $d=4$ and $d=6$ they are of
 general type, with $h^{2,2}=2584$ and $48588$. Complete intersections of
 diagonal hypersurfaces, and of quadrics, are also the subject of Terasoma's
-paper \cite{Ter88}. Beyond these cases the same
-reduction meets (F2) itself: for $d=5$ or $d\ge7$ and $N$ large enough, some
+paper \cite{Ter88}. At a very general configuration
+\Cref{thm:vgvandermonde} goes further, in every $\PP^{N}$: for $d=2$ in every
+dimension and for $d=3$ up to dimension seven. For $d=3$ and $r\ge8$ the
+conjecture for the very general member is the algebraicity of the Weil
+classes of the abelian $r$-folds $B_{[a]}$ of split Weil type for
+$\QQ(\sqrt{-3})$, which is open from dimension eight on. For $d\in\{4,6\}$ the characters of
+order four and six need the analogue of the theorem of Achter and Pries for
+cyclic covers of degree four and six; given it, the same proof gives the
+conjecture for the very general member when $r\le4$. Beyond these cases the
+same reduction meets (F2) itself: for $d=5$ or $d\ge7$ and $N$ large enough, some
 $B_{[a]}$ with $\dim V_{a}=r$ carries an action of $\QQ(\zeta_{e})$, $e\mid d$,
 with $\varphi(e)\ge4$, and $W_{[a]}$ is the top exterior power of its first
 cohomology over that CM field, which consists of Hodge classes when the
@@ -1928,7 +2203,9 @@ other varieties of \Cref{prop:aclosure}(v), and every blow-up and projective bun
 built from these. Through the Hodge conjecture itself it holds on the
 complete intersections of \Cref{cor:twodiagonal}(ii), among them the
 fourfolds of general type cut out by two diagonal quartics or sextics in
-$\PP^{6}$, and on the
+$\PP^{6}$, on the very general complete intersections of diagonal quadrics,
+and of diagonal cubics up to dimension seven, of \Cref{thm:vgvandermonde},
+and on the
 varieties of \Cref{prop:k3powers}, \Cref{prop:k3ntype} and
 \Cref{cor:fanolines}: for a K3 surface $S$ with
 $E=\End_{\mathrm{Hdg}}(T(S))$ a CM field, on every power, Hilbert scheme and
@@ -2331,7 +2608,7 @@ this paper.
 
 \subsubsection*{Two of the three are not reductions}
 
-A reader might hope that (F2) and (F3) are reductions in the ordinary sense,
+One could hope that (F2) and (F3) are reductions in the ordinary sense,
 statements to the effect that every Hodge class is carried, by some
 correspondence, to a class on a Weil type variety or on an abelian variety,
 so that the whole conjecture would follow from the Weil classes alone. Both
@@ -2469,35 +2746,6 @@ displayed endomorphism in a four-dimensional model with the same weights, and
 lists the adjoint weights that occur.
 \end{proof}
 
-\begin{remark}[What the two propositions do to the frontier]
-\label{rem:notreductions}
-Neither proposition changes \Cref{thm:closure}: the rule set uses (F2) and
-(F3) as implications, and an implication whose hypothesis is the conjecture
-for one class of Hodge classes and whose conclusion is the conjecture for a
-larger class is true whatever the classes are. What does change it is
-\Cref{prop:f3ishc}: the varieties of (F3) are not a class disjoint from the
-abelian ones but contain them, through products with $\PP^{1}$, so (F3) is
-the whole conjecture and not its non-abelian half. What they change is how the
-two statements may be read. Before them one could hope that (F2) and (F3) were
-structural facts awaiting proof, so that the conjecture would be a theorem
-about Weil classes and nothing else; \Cref{prop:mumfordproduct} shows that the
-Hodge classes on abelian varieties are not exhausted by divisor and Weil
-classes once the dimension reaches eight, and \Cref{prop:noabeliantype} that
-the cohomology of a general variety cannot be moved into that of abelian
-varieties at all. Each of the two is therefore the Hodge conjecture for a class
-of varieties on which the methods of this paper, which are methods about Weil
-lines, have no purchase. The product $X\times X$ is itself of
-Weil type for every imaginary quadratic $K$, through an embedding
-$K\subset M_{2}(\QQ)=\End^{0}(X\times X)$ whose Rosati involution for the
-product polarisation is conjugation, with signature $(4,4)$; its Weil classes
-lie in $H^{8}$, and its Hodge group is far smaller than $\SU(4,4)$. The two
-classes in $H^{4}$ are of a different kind, and they show that even on a
-variety of Weil type the Weil line need not be the whole of the exceptional
-cohomology once the Hodge group is small. They are the smallest instance of
-(F2), and \Cref{ssec:mumford} identifies them and says what one K3 surface
-would have to supply for them to be algebraic.
-\end{remark}
-
 \begin{figure}[tbp]
 \centering
   \includegraphics[width=\textwidth]{fig_closure}
@@ -2528,42 +2776,6 @@ of higher degree. The bounded criterion (P1) stands apart, closed on itself:
 it is equivalent to its own conclusion.}
 \label{fig:closure}
 \end{figure}
-
-\begin{remark}[Where this leaves the secant route]\label{rem:secantplace}
-\Cref{thm:closure}(iv) is a statement about the shape of the argument, not
-about its difficulty.
-
-The secant route is the only route on which anything above dimension four
-has been proved, it is the route that
-settles $n=2$ at every discriminant and $n=3$ at trivial discriminant, and the
-reduction of
-\Cref{thm:factor} turns its remaining demand into one identity in the Yoneda
-algebra of a sheaf on a fourfold, which is the form in which a demand can be
-attacked. What \Cref{cor:cmdichotomy}, \Cref{thm:noci} and
-\Cref{thm:nosplit} do to that identity is narrow it to two shapes of
-support, neither resolved by sums of line bundles, and, in the smooth shape,
-to four discriminants.
-
-What \Cref{thm:closure}(iv) shows is that finishing the secant route would
-not finish the problem, and would not reduce it either. Through \Cref{prop:descent} it would
-give every imaginary quadratic family, the trivial discriminant directly and
-the others by descent, which is a great deal. It would give nothing over the CM fields of degree
-at least four, whose split families need (P2) for themselves, and by
-\Cref{prop:descent}(ii) that statement gives the imaginary quadratic fields as
-well. Markman's extension of the secant construction to those split families
-\cite{Mar25c} is aimed at exactly that statement, through a semiregularity
-step that is not among the rules of \Cref{setup:rules}. So the statement that
-has to be proved in any case is the
-propagation statement for those split families, and once proved it subsumes
-the secant route entirely.
-
-(C1) and (C2) are therefore not the last steps of the imaginary quadratic
-case: the computation places a theorem about propagation where they would
-place a construction.
-(C1) and (C2) are demands whose satisfaction would be a considerable
-achievement, would settle the Weil classes of every imaginary quadratic field,
-and would close nothing that (P2) does not close.
-\end{remark}
 
 
 \subsection{Routes from outside algebraic geometry}\label{ssec:outside}
@@ -2817,77 +3029,6 @@ $N\omega$ changes the bound $56NM$ by nothing.}
 \label{fig:massgap}
 \end{figure}
 
-\begin{remark}[What the other routes give]\label{rem:outside}
-\leavevmode
-\begin{enumerate}[label=\textup{(\arabic*)},leftmargin=2.6em,itemsep=3pt]
-\item \emph{Flows and deformations.} A proof in the manner of the Ricci flow
-  would move a representative of the class to a canonical one. In the
-  analytic picture of \Cref{thm:massgap} the canonical representatives are
-  the calibrated integral currents, the real problem is already solved by a
-  smooth form, and what a flow would have to close is the integrality gap: a
-  flow of integral currents decreasing mass to the bound $L_{h}(c)$, or a
-  flow from the positive form to an integral current at the same mass. No
-  geometric flow is known to carry an integral current to a calibrated one in
-  codimension larger than one, or to preserve the bidegree of the classes
-  along the way, and King observed that the closed positive rectifiable currents on a
-  K\"ahler manifold are mass minimising \cite[Introduction and \S5.2]{Kin71},
-  so a flow would have nothing to improve once it reached one. The algebraic picture of the same idea is a deformation of the variety to a
-  special member where the class is algebraic, and transport back; that is
-  the variational Hodge conjecture \textup{(V)}, which is in two of the five
-  minimal sets of \Cref{thm:closure} and gives \textup{(F2)} by
-  \Cref{thm:vhcab}. Its first order form is the semiregularity criterion, and
-  this paper computes what it asks: the polarised criterion
-  (\Cref{thm:p2primenumber}) for Weil classes, and the single dimension $119$
-  for the Mumford classes (\Cref{thm:mumfordnumerical}), at which the natural
-  objects fail (\Cref{thm:quarticobstruction}, \Cref{thm:lefschetzclosure}).
-\item \emph{Tame geometry.} Definability of period maps in an o-minimal
-  structure recovers the algebraicity of Hodge loci
-  \cite[Theorem~1.6]{BKT20}, and for a variation of Hodge structure on a
-  variety defined over a number field it gives that the special subvarieties
-  which are weakly non-factor, in particular the maximal strict ones with
-  nontrivial algebraic monodromy when the adjoint generic Mumford--Tate group
-  is simple, are defined over $\bar{\QQ}$, and that the question for all
-  special subvarieties reduces to the special points
-  \cite[Theorem~1.12, Corollaries~1.13 and~1.14]{KOU}. Definedness over
-  $\bar{\QQ}$ of Hodge loci is a consequence of the Hodge conjecture, and
-  Voisin showed that for a Hodge class whose locus is so defined the
-  conjecture reduces to varieties over number fields \cite{Voi07}. These
-  theorems prove properties that the cycles would have, and construct no
-  cycle. For the exceptional classes of a Mumford family the Hodge locus is
-  the curve itself (\Cref{thm:mumfordrigid}), a Shimura curve defined over a
-  number field, so they add nothing there.
-\item \emph{Arithmetic.} \textup{(F3$'$)} implies that every Hodge class is
-  motivated and hence absolute Hodge (\Cref{prop:f3primestrength}), so a
-  proof of \textup{(F3$'$)} proves on the way that every Hodge class on every
-  variety is absolute Hodge. Over finite fields, Milne proved
-  that the Hodge conjecture for all abelian varieties of CM type implies the
-  Tate conjecture for all abelian varieties over the algebraic closure of a
-  finite field \cite[Theorem~7.1]{Mil99}, and for CM abelian varieties the
-  two conjectures are equivalent by Pohlmann's theorem, as he notes; so the
-  arithmetic route to \textup{(F2)} runs uphill: the Tate conjecture for
-  abelian fourfolds \cite{Li26} is used here only through the specialisation
-  of cycle classes (\Cref{thm:modpdensity}), and the return to characteristic
-  zero is a bound on the cycles found, or the $p$-adic variational
-  conjecture (\Cref{rem:modpremains}).
-\item \emph{Motives.} Finite dimensionality of Chow motives in the sense of
-  Kimura \cite{Kim05} is known for abelian varieties and has strong
-  consequences for Chow groups, but it is a statement about correspondences
-  that are already algebraic, and gives no Hodge class a cycle. Derived
-  equivalence transports the conjecture between varieties whose rational
-  Chow motives are isomorphic, which Orlov conjectures for all derived
-  equivalent varieties and proves when the kernel is supported in the right
-  dimension \cite{Orl05}; a transport is not a source.
-\item \emph{Physics.} In dimension three every Hodge class is algebraic, so
-  mirror symmetry for Calabi--Yau threefolds has no case of the conjecture to
-  address, and in higher dimension no mechanism relating Hodge classes on
-  mirror partners to cycles is known.
-\end{enumerate}
-None of the five produces a cycle for a class that is not already
-algebraic by other means, and each, when it is made precise, lands on one of the statements
-of \Cref{setup:rules} or on \Cref{thm:massgap}, which is the conjecture in
-another language. The rule set is unchanged.
-\end{remark}
-
 \subsection{The routes at a glance}
 
 \begingroup
@@ -3084,9 +3225,7 @@ The Weil classes of every CM field
 Routes from outside algebraic geometry
   & positivity of currents sees nothing; the conjecture is the vanishing of
     the integrality gap of a mass minimisation whose real version is solved,
-    \Cref{prop:positivitynotest}, \Cref{thm:massgap}; tame geometry, the
-    Tate conjecture, motives and derived equivalence land on the
-    hypotheses, \Cref{rem:outside}
+    \Cref{prop:positivitynotest}, \Cref{thm:massgap}
   & a calibrated integral current in one class, \Cref{ex:mumfordmass} \\
 The closure, as a whole
   & five minimal sets of hypotheses: $\{\mathrm{F3}\}$ and
@@ -3106,9 +3245,13 @@ Diagonal complete intersections of Vandermonde type
   & quotients of powers of a generalised Fermat curve, so in $\mathcal{A}$;
     the conjecture holds when it holds on the abelian varieties $B_{[a]}$, and
     holds for two diagonal hypersurfaces of degree $3$, $4$, $6$ in
-    $\PP^{6}$, \Cref{thm:vandermonde}, \Cref{cor:twodiagonal}
-  & $B_{[a]}$ of dimension above five, and the Weil classes of
-    $\QQ(\zeta_{e})$ with $\varphi(e)\ge4$, \Cref{rem:vandermonde} \\
+    $\PP^{6}$, \Cref{thm:vandermonde}, \Cref{cor:twodiagonal}; it holds on
+    the very general member for $d=2$ in every dimension and for $d=3$ up
+    to dimension seven, \Cref{thm:vgvandermonde}
+  & $B_{[a]}$ of dimension above five, the Weil classes of
+    $\QQ(\zeta_{e})$ with $\varphi(e)\ge4$, and the very general member
+    for $d=3$ from dimension eight on and for $d=4,6$,
+    \Cref{rem:vandermonde} \\
 The conjecture modulo abelian varieties, (F3$'$)
   & holds on the class $\mathcal{A}$ of varieties whose cohomology is
     reached from abelian varieties by algebraic correspondences (curves,

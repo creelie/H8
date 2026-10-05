@@ -52,9 +52,9 @@ What is checked:
       of trivial discriminant, because every base point that route produces
       is a split member, and through descent (prop:descent) it then yields
       every imaginary quadratic family; it yields nothing over the CM fields
-      of degree at least four.  An earlier version of this rule set lacked the
-      descent rules and reported that the route stops at the trivial
-      discriminant; that was an omission of the rule set, not a fact;
+      of degree at least four.  Without the descent rules the rule set
+      reports that the route stops at the trivial discriminant; that is an
+      omission of the rule set, not a fact;
 
   (g) the derivation of the Hodge conjecture from the proved statements
       together with each minimal sufficient set is printed in full, one rule
@@ -87,14 +87,14 @@ What is checked:
       prop:f3ishc: the Hodge conjecture for the varieties that are not
       abelian covers A x P^1 for every abelian variety A, and the conjecture
       for A x P^1 gives it for A (pull back along the projection, cup with
-      the class of A x {0}, push forward).  An earlier version of this rule
-      set omitted that rule and reported four minimal sets, among them
-      {P2, red_ab, red_weil}, with no single statement sufficient.  With the
-      rule, red_ab alone suffices and is equivalent to the conjecture.  The
+      the class of A x {0}, push forward).  Without that rule the rule set
+      reports four minimal sets, among them {P2, red_ab, red_weil}, with no
+      single statement sufficient.  With the rule, red_ab alone suffices and
+      is equivalent to the conjecture.  The
       set also carries the weaker statement red_ab_mod of def:f3prime, with
       the rule of prop:f3prime(i).  The check (i) below removes both
-      additions and confirms that the earlier answer is what the rule set
-      without them gives, so that the change is traced to them.
+      additions and confirms that the four sets are what the rule set
+      without them gives, so that the difference is traced to them.
 
   (j) prop:f2isab proves red_weil => HC_ab: a Hodge class beta on an
       abelian variety A gives the class beta x e on A x X x X, with X a
@@ -730,8 +730,8 @@ def run():
                     was.append(S)
     finally:
         RULES = full
-    check("without prop:f3ishc and red_ab_mod the search returns the four "
-          "sets of the earlier version",
+    check("without prop:f3ishc and red_ab_mod the search returns four sets, "
+          "none of them a single statement",
           sorted(was) == sorted([("lef_B", "mot"), ("lef_B", "red_ab"),
                                  ("red_ab", "vhc"),
                                  ("P2_cm_s", "red_ab", "red_weil")]),

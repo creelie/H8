@@ -16,7 +16,7 @@ by the line bundles O(-sum a_i D_i), D_i = pr_i^{-1}(0), and ch O(-a.D) = prod (
 
 The degree of K in each variable is at most m, so a truncation at degree m+1 is exact.
 
-Target (paper, Theorem thm:smoothinvariants / Remark rem:routemap): a secant object
+Target (paper, Theorem thm:smoothinvariants): a secant object
 I_Z(b Theta) with ch = u + b v needs
     ch_2(O_Z) = N Theta^2,   ch_3(O_Z) = -(2 b N / 3) Theta^3,   chi(O_Z) = 4 N (2 b^2 - N),
 with N = (b^2 + d)/2.  On E^4: Theta^2 = 2 sum theta_i theta_j, Theta^3 = 6 sum theta_i theta_j theta_k.

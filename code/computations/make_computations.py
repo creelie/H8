@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """make_computations.py -- build COMPUTATIONS.md at the root of the archive.
 
-The sources are items.tex (the computations, items (I) to (LXXIV)), lean.tex
+The sources are items.tex (the computations, items (I) to (LXXV)), lean.tex
 (the Lean certificate and its table of theorems) and item_labels.json (for
 each item, the labels of the results of the paper that cite it).  Every
 cross-reference is resolved to the numbering of the compiled paper through

@@ -157,6 +157,19 @@ integers. The same holds for $4+\sqrt{-d}$ and $3+2\sqrt{-d}$. The finiteness
 argument in the proof covers all fields at once and needs no witness.
 \end{remark}
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.78\textwidth]{fig_witness}
+\caption{\Cref{rem:witness}. The values $c(\tau)^{n}=(\tau/\bbar\tau)^{n}$,
+$0\le n\le12$, on the unit circle, stacked over $n$ as a helix; the
+characters $\tau^{2n}$ and $\Nm^{n}$ agree at $\tau$ exactly where the helix
+meets the vertical line $c^{n}=1$ (circled). Left, $K=\QQ(\sqrt{-1})$: the
+candidate $1+\sqrt{-1}$ returns every fourth step, and $2+\sqrt{-1}$ never.
+Right, $K=\QQ(\sqrt{-3})$: $1+\sqrt{-3}$ returns every third step,
+$3+\sqrt{-3}$ every sixth, and $2+\sqrt{-3}$ never.}
+\label{fig:witness}
+\end{figure}
+
 \subsection{The obstruction}
 
 \begin{theorem}[Character obstruction]\label{thm:character}
@@ -247,7 +260,7 @@ summands $(r,r)$, and the Weil line lies at the two ends of the grading.
 \end{remark}
 
 \begin{remark}[Determinant and character]\label{rem:failuremode}
-A plausible chain of statements leads to the opposite conclusion, that $\Kx$
+A natural chain of statements leads to the opposite conclusion, that $\Kx$
 acts on the Weil line through a power of the norm. The Weil line is
 $\bigwedge^{2n}_{K}V$, a free $K$-module of rank one; such a module is
 two-dimensional over $\QQ$; and multiplication by $\tau$ on it is a

@@ -3,9 +3,13 @@
 verify_all.py
 
 The single verification driver for the paper.  It runs the five self-contained
-checks (I) to (V) below and then calls the four companion scripts, which carry
-items (VI) to (IX).  Everything is exact: rational arithmetic, integer
-arithmetic and exterior algebra over Q.  No floating point is used anywhere.
+checks (I) to (V) below and then calls the companion scripts in this
+directory, which carry the items (VI) to (LXXV) other than the Macaulay2
+items (XXIX), (XXXI) and (XL).  The arithmetic is exact (rational, integer,
+or exterior algebra over Q) except in fourfold_products.py, whose one
+double-precision rank the paper states as such, and in parts (C) and (D) of
+diagonal_ci.py, which test a map proved by hand and on which no statement of
+the paper rests.
 
 Run with
 
@@ -147,7 +151,7 @@ Contents
   (LIV)  descent and scalar extension: W(F,n+1,delta'') gives W(F,n,delta)
          for every delta, and W(F,n,iota(delta)) gives W(K,n,delta) for
          K in F  [descent.py]
-  (LV)   the round-12 attack scripts, a fast subset of their computations:
+  (LV)   the attack scripts, a fast subset of their computations:
          the Hodge classes and the criterion numbers of a quartic CM family
          at n = 2, the pull-backs and composites on powers of a Mumford
          fourfold, the explicit objects at a split member, and the natural
@@ -234,6 +238,12 @@ Contents
          pieces, the drop of runs through the multiples, the enumeration
          of every chain the degrees allow at the 1792 pairs, and the
          terms that appear at a third shift  [convolutions_efour.py]
+  (LXXV) very general diagonal complete intersections: the Lie algebra
+         of the squared transvections along a chain of vanishing cycles,
+         the invariants of sp and sl in exterior powers, the signatures of
+         triple covers, the trace form of a hermitian lattice over
+         Z[zeta_3], and the Hodge classes of the very general member
+         against the Hodge numbers  [very_general.py]
 """
 
 import os
@@ -634,7 +644,7 @@ def main():
     head("(LIV) descent and scalar extension for Weil classes")
     run_module("LIV", "descent.py")
 
-    head("(LV) the round-12 attack scripts: a fast subset of their "
+    head("(LV) the attack scripts: a fast subset of their "
          "computations")
     run_module("LV", "attack_checks.py")
 
@@ -695,6 +705,9 @@ def main():
 
     head("(LXXIV) convolutions of the Weil pieces on E_0^8 at two shifts")
     run_module("LXXIV", "convolutions_efour.py")
+
+    head("(LXXV) very general diagonal complete intersections")
+    run_module("LXXV", "very_general.py")
 
     print()
     print("=" * 70)

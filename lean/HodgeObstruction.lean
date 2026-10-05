@@ -3009,6 +3009,95 @@ theorem vandermonde_counts :
       && ([70, 490, 6125].map fun k => 1 + 2 * k) == [141, 981, 12251]) = true := by
   decide +kernel
 
+/-! ## 44.  Very general diagonal complete intersections
+
+Four finite facts behind Theorem (Very general diagonal complete
+intersections).
+
+(a) The chain of vanishing cycles.  The intersection matrix of a chain of
+`m` curves, `0` on the diagonal, `1` above it and `-1` below it, has
+determinant `1` for `m` even and `0` for `m` odd (`m = 1..7`): `2g` cycles
+of the chain form a basis of `H_1` of a hyperelliptic curve of genus `g`.
+
+(b) Quadrics.  The number `1 + sum_{j > r/2} C(N+1, 2j)` of Hodge classes of
+degree `r` on the very general member equals one plus the number of subsets
+of `{0, ..., N}` of even size at least `r + 2` (`N <= 9`); it is `N + 2` for
+two quadrics in `P^N`, `N` even, and `2` for a quadric of even dimension.
+
+(c) Cubics.  The number `1 + C(N+1, r+2) C(r+2, r/2+1)` equals one plus the
+number of vectors in `{0,1,2}^(N+1)` with exactly `r + 2` nonzero entries,
+`r/2 + 1` of them equal to `1`, and sum divisible by `3` (`N <= 7`,
+`r = 2, 4`); it is `7, 21, 71` for the Fermat cubics of dimension `2, 4, 6`,
+`141` for two cubics in `P^6` and `631` for two cubics in `P^8`.
+
+(d) Signatures of triple covers.  With `n_1, n_2` branch points of exponent
+`1, 2` and `n_1 + 2 n_2` divisible by `3`, the eigenspace has signature
+`p = (2 n_1 + n_2)/3 - 1`, `q = (n_1 + 2 n_2)/3 - 1`, and then
+`n_1 = 2p - q + 1`, `n_2 = 2q - p + 1`, the branch data of Achter and Pries;
+it is balanced exactly when `n_1 = n_2`.
+-/
+
+/-- the intersection matrix of a chain of `m` vanishing cycles. -/
+def vgChain (m : Nat) : List (List Int) :=
+  (List.range m).map fun i => (List.range m).map fun j =>
+    if j == i + 1 then 1 else if i == j + 1 then -1 else 0
+
+/-- **The chain of vanishing cycles.** -/
+theorem vg_chain_determinants :
+    ((List.range 7).map fun k => detF (k + 1) (vgChain (k + 1)))
+      == [0, 1, 0, 1, 0, 1, 0] := by
+  decide +kernel
+
+def vgQuadric (N r : Nat) : Nat :=
+  1 + ((List.range (N + 2)).filter fun j => j > r / 2 && 2 * j ≤ N + 1).foldl
+        (fun acc j => acc + choose (N + 1) (2 * j)) 0
+
+def vgSubsets (N r : Nat) : Nat :=
+  ((List.range (2 ^ (N + 1))).filter fun mask =>
+    let s := ((List.range (N + 1)).filter fun i => (mask >>> i) % 2 == 1).length
+    s % 2 == 0 && s ≥ r + 2).length
+
+/-- **Hodge classes of very general intersections of quadrics.** -/
+theorem vg_quadric_counts :
+    (((List.range 7).all fun k => let N := k + 3;
+        [2, 4, 6].all fun r => r + 1 > N || vgQuadric N r == 1 + vgSubsets N r)
+      && ((List.range 7).all fun k => let N := 2 * k + 4; vgQuadric N (N - 2) == N + 2)
+      && ((List.range 7).all fun k => let N := 2 * k + 3; vgQuadric N (N - 1) == 2)
+      && (([5, 6, 7, 8, 9].map fun N => vgQuadric N 4) == [2, 8, 30, 94, 257])) = true := by
+  decide +kernel
+
+def vgCubic (N r : Nat) : Nat :=
+  1 + choose (N + 1) (r + 2) * choose (r + 2) (r / 2 + 1)
+
+/-- all lists of length `n` with entries `0, 1, 2`. -/
+def vgTernary : Nat → List (List Nat)
+  | 0 => [[]]
+  | n + 1 => (vgTernary n).flatMap (fun t => [0, 1, 2].map (· :: t))
+
+def vgBalanced (N r : Nat) : Nat :=
+  ((vgTernary (N + 1)).filter fun t =>
+    (t.filter (· != 0)).length == r + 2
+      && (t.filter (· == 1)).length == r / 2 + 1
+      && cvSum t % 3 == 0).length
+
+/-- **Hodge classes of very general intersections of cubics.** -/
+theorem vg_cubic_counts :
+    (((List.range 5).all fun k => let N := k + 3;
+        [2, 4].all fun r => r + 1 > N || vgCubic N r == 1 + vgBalanced N r)
+      && (([2, 4, 6].map fun r => vgCubic (r + 1) r) == [7, 21, 71])
+      && (vgCubic 6 4 == 141) && (vgCubic 8 6 == 631)) = true := by
+  decide +kernel
+
+/-- **Signatures of triple covers.** -/
+theorem vg_triple_signatures :
+    ((List.range 20).all fun n1 => (List.range 20).all fun n2 =>
+      ((n1 + 2 * n2) % 3 != 0 || n1 + n2 < 3) ||
+        (let p := (2 * n1 + n2) / 3 - 1; let q := (n1 + 2 * n2) / 3 - 1;
+         3 * (p + 1) == 2 * n1 + n2 && 3 * (q + 1) == n1 + 2 * n2
+           && n1 + q == 2 * p + 1 && n2 + p == 2 * q + 1
+           && (p == q) == (n1 == n2))) = true := by
+  decide +kernel
+
 end HodgeObstruction
 
 /-! ## The axioms each theorem depends on
@@ -3139,3 +3228,7 @@ propositional extensionality enters through `decide`, and in no case
 #print axioms HodgeObstruction.efour_run_drop
 #print axioms HodgeObstruction.efour_two_level_degrees
 #print axioms HodgeObstruction.vandermonde_counts
+#print axioms HodgeObstruction.vg_chain_determinants
+#print axioms HodgeObstruction.vg_quadric_counts
+#print axioms HodgeObstruction.vg_cubic_counts
+#print axioms HodgeObstruction.vg_triple_signatures

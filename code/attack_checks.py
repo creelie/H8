@@ -2,16 +2,16 @@
 """
 attack_checks.py
 
-The round-12 attack scripts as a verification item.  Item (LV).
+The attack scripts as a verification item.  Item (LV).
 
-Round 12 ran four attack tracks on the inputs that the closure graph leaves
+The scripts in attack/ run four tracks on the inputs that the closure graph leaves
 open, and an adversarial verifier re-implemented the central computations of
 each track.  The track scripts, the verifiers' scripts and the unedited
 transcripts of their runs are packaged in attack/, one subdirectory per
 track, and attack/README.md states every claim in the corrected form the
 verifiers gave it, says which claims are proved, which are computed and
 which are conditional, and gives the run time of every script.  Nothing
-proved or computed in round 12 is a new unconditional case of the Hodge
+proved or computed there is a new unconditional case of the Hodge
 conjecture.
 
 This script runs a fast subset of the packaged scripts, each in its own
@@ -738,7 +738,7 @@ def main():
 
 
 if __name__ == "__main__":
-    print("(LV) the round-12 attack scripts: a fast subset of their "
+    print("(LV) the attack scripts: a fast subset of their "
           "computations")
     main()
     print()

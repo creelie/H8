@@ -353,6 +353,35 @@ treats complete intersections of Fermat type and of quadrics; it could not be
 read, so any overlap with `thm:vandermonde` is unchecked) and [Har77]; [GDHL09] has no verified DOI and carries none.
 2160 checks, 121 Lean theorems, 391 pages, 740 labels. Two stale
 `\enlargethispage` commands in `tex/sections/10c4_rank.tex` were removed.
+Round 41 proved the Hodge conjecture for the very general member of the
+Vandermonde family (`lem:vgmonodromy`, `thm:vgvandermonde` after
+`thm:vandermonde` in `tex/sections/11b_closuregraph.tex`): for characters of
+order two the squared Dehn twists along a chain of vanishing cycles give the
+monodromy sp(V_a), whose invariants are the powers of the polarisation
+[FH91]; for order three Achter-Pries [AP07, Cor. 3.10] gives SU and a class
+only when dim V_a = r and p_a = r/2, an abelian variety of Weil type for
+Q(sqrt(-3)) with trivial discriminant, so Markman's theorem applies for r = 4, 6;
+hence HC for d = 2 in every dimension and d = 3 with r <= 6, in every P^N
+(counts 1 + sum_{j>r/2} C(N+1,2j) and 1 + C(N+1,r+2) C(r+2,r/2+1)). Item
+(LXXV), `code/very_general.py` (8 checks, 2168 in all); Lean Section 44 (125
+theorems); `fig_vgmonodromy`, `fig_vgscope`, `fig_vgcounts` and the roadmap of
+the five parts `fig_roadmap` (label `fig:parts`) from
+`figures/make_round41.py`; a strip at the foot of `fig_vandermonde`; the
+unused figures `fig_witness`, `fig_multiple`, `fig_hodgecount` placed, and the
+duplicate `fig_spinor` with `make_spinor.py` deleted. At Deep's choice "Trim
+prose" the side remarks `rem:outside`, `rem:secantplace`, `rem:notreductions`,
+`rem:remaindershape`, `rem:targetsstatus`, `rem:routemap`, `rem:quarticgap`,
+`rem:sexticnoexclusion`, `rem:thirdclosed`, `rem:whyterminal` and
+`rem:p2search` were removed (every proved result stays), with the five
+bibliography entries cited only there (BKT20, Kim05, Mil99, Orl05, Voi07);
+hedges were rewritten, footnotes added in the introduction, the abstract cut
+to two sentences, the keywords to three, the MSC given with section names,
+and the contents list set to the parts (`tocdepth` 0, with entries for the
+appendices and for the declarations and references). FH91 carries no DOI
+(doi.org and Crossref could not be reached to verify it). Stale counts and
+round wording were removed from `README.md`, `lean/README.md`,
+`.zenodo.json`, the workflow, the figure scripts and the code docstrings.
+2168 checks, 125 Lean theorems, 391 pages, 738 labels.
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 
@@ -379,7 +408,7 @@ section.
 - `cd code && python3 verify_all.py` ends with `N checks passed, 0 failed`;
   keep the count in `README.md`, `lean/README.md`, `.zenodo.json`,
   `.github/workflows/lean.yml` and `tex/declarations.tex` in step.
-- `cd lean && lean HodgeObstruction.lean`: 121 theorems, each axiom-free or
+- `cd lean && lean HodgeObstruction.lean`: 125 theorems, each axiom-free or
   depending on `propext` only.
 - `cd tex && latexmk -pdf main.tex`: 0 errors, 0 overfull or underfull boxes,
   no undefined references.

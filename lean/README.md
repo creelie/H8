@@ -27,10 +27,10 @@ per theorem. Every line must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
 through `decide` or the core lemmas on natural numbers, and none may mention `sorryAx`. The GitHub workflow in
 `.github/workflows/lean.yml` enforces all three, and fails the build if the
-number of theorems is not one hundred and twenty-one or if any of them reaches for a further
+number of theorems is not one hundred and twenty-five or if any of them reaches for a further
 axiom.
 
-## The one hundred and twenty-one theorems
+## The one hundred and twenty-five theorems
 
 | theorem | statement |
 | --- | --- |
@@ -155,6 +155,10 @@ axiom.
 | `efour_run_drop` | with `p` at any rank among the four values, every run from `p` through two selections of distinct multiples back to `p`, the marked step between them a component or a class of `H^1(a, a)`, changes the shift by at most `-4`, a step up by `+1` and a step down by `-7`: the finite core of the lemma on shifts along chains at `n = 4` |
 | `efour_two_level_degrees` | with `p` at any rank, every pair of chains `c -> ... -> W`, `V -> ... -> e` through distinct multiples, not both empty, gives `Ext` degree `4 - U + 7D` different from `3` when `c = e`, from `0` when `e` is above `c` and from `8` when `e` is below `c`: the case analysis of the two-shift theorem on `E_0^8` |
 | `vandermonde_counts` | the genus of the generalised Fermat curve by Riemann-Hurwitz equals that by adjunction for `d = 2..7`, `N = 2..8`; `r! d^(N(r-1)) = 16, 32, 54, 1536, 162` at the five cases of the fibre count; the units of `Z/d` number `1, 2, 2, 2` for `d = 2, 3, 4, 6`; the balanced characters with six nonzero coordinates and a fixed zero number `20, 140, 1750`, so `70, 490, 6125` orbits in `P^6` and at least `141, 981, 12251` Hodge classes |
+| `vg_chain_determinants` | the intersection matrix of a chain of `m` vanishing cycles (`1` above the diagonal, `-1` below) has determinant `1` for `m` even and `0` for `m` odd, `m = 1..7`, so `2g` cycles of the chain form a basis of `H_1` of a hyperelliptic curve of genus `g` |
+| `vg_quadric_counts` | `1 + sum_{j > r/2} C(N+1, 2j)` equals one plus the number of subsets of `{0..N}` of even size at least `r + 2`, for `N <= 9`, `r = 2, 4, 6`; it is `N + 2` for two quadrics in `P^N`, `N` even, `2` for a quadric of even dimension, and `2, 8, 30, 94, 257` for `r = 4`, `N = 5..9` |
+| `vg_cubic_counts` | `1 + C(N+1, r+2) C(r+2, r/2+1)` equals one plus the number of vectors in `{0,1,2}^(N+1)` with `r + 2` nonzero entries, `r/2 + 1` of them equal to `1`, and sum divisible by `3`, for `N <= 7`, `r = 2, 4`; it is `7, 21, 71` for the Fermat cubics of dimension `2, 4, 6`, `141` for two cubics in `P^6` and `631` for two cubics in `P^8` |
+| `vg_triple_signatures` | for `n_1, n_2 < 20` branch points of exponents `1, 2` with `n_1 + 2 n_2` divisible by `3`, the signature `p = (2 n_1 + n_2)/3 - 1`, `q = (n_1 + 2 n_2)/3 - 1` gives back `n_1 = 2p - q + 1`, `n_2 = 2q - p + 1`, the branch data of Achter and Pries, and `p = q` exactly when `n_1 = n_2` |
 
 
 ## Two statements that look true and are not
@@ -178,12 +182,12 @@ careful reading does not catch and a kernel check does.
 `code/verify_all.py` in the parent directory performs the same checks in exact
 rational arithmetic over Q, independently of Lean, together with the exterior
 algebra computations that Lean does not carry, and prints
-`2160 checks passed, 0 failed`.
+`2168 checks passed, 0 failed`.
 
 ## Transcript
 
 `axioms.txt` is the unedited output of `lean HodgeObstruction.lean` under
-Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and twenty-one lines, one per
-theorem, ninety-seven reading `does not depend on any axioms` and twenty-four reading
+Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and twenty-five lines, one per
+theorem, one hundred reading `does not depend on any axioms` and twenty-five reading
 `depends on axioms: [propext]`, exit status 0, no `sorryAx`. `lake build`
 completes with the same report. Each run takes a few minutes.

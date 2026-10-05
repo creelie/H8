@@ -7,14 +7,14 @@ computational content is checked in exact arithmetic by the computations of
 \Cref{sec:verification}. The certificate is a single Lean~4 file that
 accompanies the paper. It compiles against a bare Lean~4 toolchain, contains
 no \texttt{sorry}, and depends on no library, Mathlib included. The axiom
-report at the end of the file lists, for each of its one hundred and twenty-one theorems,
+report at the end of the file lists, for each of its one hundred and twenty-five theorems,
 the axioms on which it depends. Ninety-seven depend on none, and the remaining
 twenty-four on propositional extensionality alone, which enters when
 \texttt{decide} reduces an equality of Booleans or when a bound is proved from
 the lemmas on natural numbers in the core library; no theorem uses anything
 else. The annihilator dimension and the rank-zero obstruction of
 \Cref{ssec:rankzero}, \Cref{lem:annihilator} and \Cref{thm:rankzero}, are not
-among the one hundred and twenty-one: they are proved by hand, and the dimension count of
+among the one hundred and twenty-five: they are proved by hand, and the dimension count of
 the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \Cref{sec:verification}.
 
@@ -24,7 +24,7 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \small
 \renewcommand{\arraystretch}{1.06}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.31\linewidth}>{\raggedright\arraybackslash}p{0.62\linewidth}@{}}
-\caption{The one hundred and twenty-one machine-checked theorems.}\label{tab:lean}\\
+\caption{The one hundred and twenty-five machine-checked theorems.}\label{tab:lean}\\
 \toprule
 \textbf{theorem} & \textbf{statement} \\
 \midrule
@@ -162,6 +162,10 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \texttt{efour\_}\allowbreak\texttt{run\_}\allowbreak\texttt{drop} & with $p$ at any rank among the four values, every run from $p$ through distinct multiples before and after a marked step, a component or a class of $H^{1}(a,a)$, back to $p$ lowers the shift by at least $4$, \Cref{lem:efourshifts}(iii) \\
 \texttt{efour\_}\allowbreak\texttt{two\_}\allowbreak\texttt{level\_}\allowbreak\texttt{degrees} & with $p$ at any rank, for chains $c\to\dots\to W$ and $V\to\dots\to e$ through distinct multiples, not both empty, the degree $4-U+7D$ is not $3$ if $c=e$, not $0$ if $e$ lies above $c$ and not $8$ if below, \Cref{thm:efourtwolevels}(ii) \\
 \texttt{vandermonde\_}\allowbreak\texttt{counts} & the genus of the generalised Fermat curve by the Riemann--Hurwitz formula and by adjunction for $2\le d\le7$, $2\le N\le8$; $r!\,d^{N(r-1)}=16,32,54,1536,162$ at the five fibre counts; the units of $\ZZ/d$ for $d=2,3,4,6$; the $70$, $490$, $6125$ balanced orbits in $\PP^{6}$ and the bounds $141$, $981$, $12251$, \Cref{thm:vandermonde}, \Cref{cor:twodiagonal} \\
+\texttt{vg\_}\allowbreak\texttt{chain\_}\allowbreak\texttt{determinants} & the intersection matrix of a chain of $m$ vanishing cycles has determinant $1$ for $m$ even and $0$ for $m$ odd, $m\le7$, \Cref{thm:vgvandermonde}(i) \\
+\texttt{vg\_}\allowbreak\texttt{quadric\_}\allowbreak\texttt{counts} & $1+\sum_{j>r/2}\binom{N+1}{2j}$ is one plus the number of subsets of even size at least $r+2$ ($N\le9$), $N+2$ for two quadrics and $2$ for a quadric; $2,8,30,94,257$ for $r=4$, $N=5,\dots,9$, \Cref{thm:vgvandermonde}(iii) \\
+\texttt{vg\_}\allowbreak\texttt{cubic\_}\allowbreak\texttt{counts} & $1+\binom{N+1}{r+2}\binom{r+2}{r/2+1}$ is one plus the number of balanced characters ($N\le7$, $r=2,4$); $7$, $21$, $71$ for the Fermat cubics, $141$ and $631$ for two cubics in $\PP^{6}$ and $\PP^{8}$, \Cref{thm:vgvandermonde}(iii) \\
+\texttt{vg\_}\allowbreak\texttt{triple\_}\allowbreak\texttt{signatures} & for $n_{1},n_{2}<20$ branch points of exponents $1,2$, the signature $(p,q)$ satisfies $n_{1}=2p-q+1$, $n_{2}=2q-p+1$, balanced exactly when $n_{1}=n_{2}$, \Cref{thm:vgvandermonde}(ii) \\
 \end{longtable}
 \endgroup
 

@@ -119,3 +119,7 @@
 'HodgeObstruction.efour_run_drop' does not depend on any axioms
 'HodgeObstruction.efour_two_level_degrees' does not depend on any axioms
 'HodgeObstruction.vandermonde_counts' does not depend on any axioms
+'HodgeObstruction.vg_chain_determinants' depends on axioms: [propext]
+'HodgeObstruction.vg_quadric_counts' does not depend on any axioms
+'HodgeObstruction.vg_cubic_counts' does not depend on any axioms
+'HodgeObstruction.vg_triple_signatures' does not depend on any axioms

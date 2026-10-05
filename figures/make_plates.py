@@ -3,8 +3,7 @@
 make_plates.py
 
 Three plates computed from the equations of the paper, and the label placer
-that the plates of make_properness.py, make_spinor.py and make_support.py
-share.
+that the plates of make_properness.py and make_support.py share.
 
   fig_quadric    Theorem thm:plane at n = 2 and d = 2.  (a) A real affine
                  section of the spinor quadric in the chart a = 1 of the

@@ -294,5 +294,10 @@
   "lem:efourshifts",
   "thm:efourtwolevels",
   "rem:convolutionsopen"
+ ],
+ "LXXV": [
+  "lem:vgmonodromy",
+  "thm:vgvandermonde",
+  "rem:vandermonde"
  ]
 }

@@ -18,6 +18,9 @@ The figures of round 40.
                     phi(e) >= 4.  The numbers printed are checked below
                     against the formulas of the theorem.
 
+                    A strip at the foot (added in round 41) records
+                    thm:vgvandermonde: the very general member, every N.
+
   fig_efourshifts   lem:efourshifts and thm:efourtwolevels.  The value phi
                     of a piece on the horizontal axis (p below t_1 < t_2 <
                     t_3, one of the four placements), the shift on the
@@ -166,6 +169,17 @@ def fig_vandermonde():
     F.seg([(11.10, top0 - 0.06), (7.60, bot1 + 0.08)], arrow)
     F.seg([(11.50, top0 - 0.06), (11.00, bot1 + 0.08)], arrow)
     F.seg([(11.90, top0 - 0.06), (14.20, bot1 + 0.08)], arrow)
+
+    # the very general member (thm:vgvandermonde)
+    F.rect(0.05, -1.16, 15.65, -0.16, fill="PGrass!20!white", bg=True, rc=3)
+    F.text(0.21, -0.43,
+           r"\textbf{very general $\lambda$, every $N$:} the Hodge "
+           r"conjecture holds for $d=2$ in every dimension and for $d=3$ "
+           r"up to dimension $7$;", anchor="west", font=SN, onbg=True)
+    F.text(0.21, -0.88,
+           r"for $d\in\{4,6\}$ and $r\le4$ it follows from an analogue of "
+           r"the theorem of Achter and Pries for cyclic covers of degree $4$ "
+           r"and $6$", anchor="west", font=SN, onbg=True)
     F.write()
     return F.name
 
