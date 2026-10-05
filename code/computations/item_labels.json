@@ -299,5 +299,13 @@
   "lem:vgmonodromy",
   "thm:vgvandermonde",
   "rem:vandermonde"
+ ],
+ "LXXVI": [
+  "lem:foxmodel",
+  "lem:cabling",
+  "lem:merge",
+  "prop:cyclicmonodromy",
+  "lem:newdisc",
+  "thm:vgvandermonde"
  ]
 }

@@ -7,14 +7,14 @@ computational content is checked in exact arithmetic by the computations of
 \Cref{sec:verification}. The certificate is a single Lean~4 file that
 accompanies the paper. It compiles against a bare Lean~4 toolchain, contains
 no \texttt{sorry}, and depends on no library, Mathlib included. The axiom
-report at the end of the file lists, for each of its one hundred and twenty-five theorems,
-the axioms on which it depends. Ninety-seven depend on none, and the remaining
-twenty-four on propositional extensionality alone, which enters when
+report at the end of the file lists, for each of its one hundred and thirty theorems,
+the axioms on which it depends. One hundred and one depend on none, and the
+remaining twenty-nine on propositional extensionality alone, which enters when
 \texttt{decide} reduces an equality of Booleans or when a bound is proved from
 the lemmas on natural numbers in the core library; no theorem uses anything
 else. The annihilator dimension and the rank-zero obstruction of
 \Cref{ssec:rankzero}, \Cref{lem:annihilator} and \Cref{thm:rankzero}, are not
-among the one hundred and twenty-five: they are proved by hand, and the dimension count of
+among the one hundred and thirty: they are proved by hand, and the dimension count of
 the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \Cref{sec:verification}.
 
@@ -24,7 +24,7 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \small
 \renewcommand{\arraystretch}{1.06}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.31\linewidth}>{\raggedright\arraybackslash}p{0.62\linewidth}@{}}
-\caption{The one hundred and twenty-five machine-checked theorems.}\label{tab:lean}\\
+\caption{The one hundred and thirty machine-checked theorems.}\label{tab:lean}\\
 \toprule
 \textbf{theorem} & \textbf{statement} \\
 \midrule
@@ -166,6 +166,11 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \texttt{vg\_}\allowbreak\texttt{quadric\_}\allowbreak\texttt{counts} & $1+\sum_{j>r/2}\binom{N+1}{2j}$ is one plus the number of subsets of even size at least $r+2$ ($N\le9$), $N+2$ for two quadrics and $2$ for a quadric; $2,8,30,94,257$ for $r=4$, $N=5,\dots,9$, \Cref{thm:vgvandermonde}(iii) \\
 \texttt{vg\_}\allowbreak\texttt{cubic\_}\allowbreak\texttt{counts} & $1+\binom{N+1}{r+2}\binom{r+2}{r/2+1}$ is one plus the number of balanced characters ($N\le7$, $r=2,4$); $7$, $21$, $71$ for the Fermat cubics, $141$ and $631$ for two cubics in $\PP^{6}$ and $\PP^{8}$, \Cref{thm:vgvandermonde}(iii) \\
 \texttt{vg\_}\allowbreak\texttt{triple\_}\allowbreak\texttt{signatures} & for $n_{1},n_{2}<20$ branch points of exponents $1,2$, the signature $(p,q)$ satisfies $n_{1}=2p-q+1$, $n_{2}=2q-p+1$, balanced exactly when $n_{1}=n_{2}$, \Cref{thm:vgvandermonde}(ii) \\
+\texttt{cyclic\_}\allowbreak\texttt{base\_}\allowbreak\texttt{count} & the vectors of nonzero residues modulo $m=3,4,6$ with $5$ or $6$ coordinates, sum $0$, order $m$ and $p,q\ge1$ number $38$ up to sign, \Cref{prop:cyclicmonodromy} \\
+\texttt{cyclic\_}\allowbreak\texttt{merge\_}\allowbreak\texttt{small} & every such vector with $k$ coordinates, $7\le k\le8$, $11$, $10$ for $m=3,4,6$, has two entries $u,w$ with $u+w\ne0$ whose merge keeps the order $m$ and $p,q\ge1$, a check of \Cref{lem:merge} \\
+\texttt{cyclic\_}\allowbreak\texttt{norms} & $x^{2}+xy+y^{2}$ is never $2$ modulo $4$ and is even only for $x,y$ even, so $2$ is not a norm from $\QQ(\sqrt{-3})$; $2$, $3$ and $4$ are norms where they are used, \Cref{lem:newdisc} \\
+\texttt{cyclic\_}\allowbreak\texttt{vg\_}\allowbreak\texttt{counts} & $T_{d}(k)$ by a recursion agrees with enumeration; $T_{4}(6)=141$, $T_{6}(6)=1751$, $T_{4}(8)=1107$, $T_{6}(8)=38165$; the formula agrees with a direct count of the characters and gives $142$, $988$, $3950$, $1108$, $1752$, $12258$, $38166$, \Cref{thm:vgvandermonde}(iii) \\
+\texttt{cyclic\_}\allowbreak\texttt{nonsplit\_}\allowbreak\texttt{example} & $(1,1,2,2,3,5,5,5)$ modulo $6$ has sum $0$, order $6$, $p=q=3$ and one coordinate $3$, \Cref{rem:vandermonde} \\
 \end{longtable}
 \endgroup
 

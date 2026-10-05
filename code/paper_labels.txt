@@ -167,6 +167,7 @@ fig:cmcube
 fig:cmseed
 fig:cmsource
 fig:convolutions
+fig:cyclicmerge
 fig:delsarte
 fig:descent
 fig:diagonalbudget
@@ -240,6 +241,7 @@ lem:blochduality
 lem:blocks
 lem:boundednorm
 lem:burchmoments
+lem:cabling
 lem:charsdiffer
 lem:chicompare
 lem:cibig
@@ -255,6 +257,7 @@ lem:edge
 lem:efourshifts
 lem:eigenbasis
 lem:finiteproduct
+lem:foxmodel
 lem:freegerm
 lem:genericNS
 lem:gysinrestrict
@@ -263,12 +266,15 @@ lem:hermform
 lem:hodgeanalytic
 lem:hodgenumbers
 lem:hyperclass
+lem:hyperplanes
 lem:indexsum
 lem:lefinvolution
 lem:localproducts
+lem:merge
 lem:multiplicity
 lem:mumfordmu
 lem:nefnorm
+lem:newdisc
 lem:omegadescends
 lem:onecomponent
 lem:oneexceptional
@@ -319,6 +325,7 @@ prop:composite
 prop:concentrated
 prop:corestriction
 prop:cupkernel
+prop:cyclicmonodromy
 prop:delsarte
 prop:densealg
 prop:descent
@@ -586,6 +593,7 @@ setup:cmweiltori
 setup:construction
 setup:convolution
 setup:criterion
+setup:cyclic
 setup:family
 setup:hh
 setup:k3type

@@ -14,20 +14,23 @@ The figures of round 41.
                     makes the logarithms N_k generate sp(V_a).  Right: what
                     the monodromy leaves of the Hodge classes, for
                     characters of order two (powers of the polarisation)
-                    and of order three (Weil classes of Q(sqrt(-3))).
+                    and of order three, four and six (Weil classes of
+                    Q(sqrt(-3)) and Q(i), prop:cyclicmonodromy).
 
   fig_vgscope       the very general X_{d,r}(lambda), for every N, by the
                     degree d of the equations and the dimension r: proved,
-                    proved given an analogue of the theorem of Achter and
-                    Pries, open (Weil classes of an imaginary quadratic
-                    field), open (Weil classes of a CM field of degree at
-                    least four), and the odd dimensions, where there is
-                    nothing to prove.
+                    proved except for the Weil classes of abelian sixfolds
+                    of non-split Weil type for Q(sqrt(-3)) (d = 6, r = 6),
+                    open (Weil classes of abelian r-folds over an imaginary
+                    quadratic field, r >= 8), open (Weil classes of a CM
+                    field of degree at least four), and the odd
+                    dimensions, where there is nothing to prove.
 
   fig_vgcounts      the dimension of the space of Hodge classes of the very
                     general member, from thm:vgvandermonde(iii), against
                     the Hodge number h^{r/2,r/2}, on a logarithmic scale,
-                    for ten complete intersections.  The numbers are
+                    for fourteen complete intersections of degree 2, 3, 4
+                    and 6.  The numbers are
                     computed here from the formulas of the theorem and from
                     the Hodge numbers of code/diagonal_ci.py.
 
@@ -54,6 +57,7 @@ for p in (HERE, CODE):
 import make_round19                                 # noqa: E402
 from make_round19 import Plate, build, TIP, FN, SN  # noqa: E402
 from diagonal_ci import hodge_middle_ci             # noqa: E402
+from cyclic_monodromy import vg_count_formula       # noqa: E402
 
 make_round19.GEN = "make_round41.py"
 
@@ -61,10 +65,7 @@ make_round19.GEN = "make_round41.py"
 # ------------------------------------------------------------ the numbers
 def vg_count(d, N, r):
     """thm:vgvandermonde(iii)"""
-    if d == 2:
-        return 1 + sum(math.comb(N + 1, 2 * j)
-                       for j in range(r // 2 + 1, (N + 1) // 2 + 1))
-    return 1 + math.comb(N + 1, r + 2) * math.comb(r + 2, r // 2 + 1)
+    return vg_count_formula(d, N, r)
 
 
 def hmid(d, N, r):
@@ -74,19 +75,25 @@ def hmid(d, N, r):
 COUNTS = [  # (d, N, r, name)
     (2, 4, 2, r"two quadrics in $\PP^{4}$"),
     (2, 6, 4, r"two quadrics in $\PP^{6}$"),
-    (2, 7, 4, r"three quadrics in $\PP^{7}$"),
     (2, 8, 4, r"four quadrics in $\PP^{8}$"),
     (2, 9, 6, r"three quadrics in $\PP^{9}$"),
     (3, 5, 4, r"the Fermat cubic in $\PP^{5}$"),
     (3, 7, 6, r"the Fermat cubic in $\PP^{7}$"),
     (3, 6, 4, r"two cubics in $\PP^{6}$"),
-    (3, 8, 6, r"two cubics in $\PP^{8}$"),
     (3, 7, 4, r"three cubics in $\PP^{7}$"),
+    (4, 5, 4, r"the Fermat quartic in $\PP^{5}$"),
+    (4, 7, 6, r"the Fermat quartic in $\PP^{7}$"),
+    (4, 6, 4, r"two quartics in $\PP^{6}$"),
+    (4, 7, 4, r"three quartics in $\PP^{7}$"),
+    (6, 5, 4, r"the Fermat sextic in $\PP^{5}$"),
+    (6, 6, 4, r"two sextics in $\PP^{6}$"),
 ]
-EXPECT = {(2, 4, 2): (6, 6), (2, 6, 4): (8, 8), (2, 7, 4): (30, 38),
-          (2, 8, 4): (94, 166), (2, 9, 6): (47, 62), (3, 5, 4): (21, 21),
-          (3, 7, 6): (71, 71), (3, 6, 4): (141, 267),
-          (3, 8, 6): (631, 1303), (3, 7, 4): (561, 2295)}
+EXPECT = {(2, 4, 2): (6, 6), (2, 6, 4): (8, 8), (2, 8, 4): (94, 166),
+          (2, 9, 6): (47, 62), (3, 5, 4): (21, 21), (3, 7, 6): (71, 71),
+          (3, 6, 4): (141, 267), (3, 7, 4): (561, 2295),
+          (4, 5, 4): (142, 142), (4, 7, 6): (1108, 1108),
+          (4, 6, 4): (988, 2584), (4, 7, 4): (3950, 29872),
+          (6, 5, 4): (1752, 1752), (6, 6, 4): (12258, 48588)}
 for d, N, r, _ in COUNTS:
     assert (vg_count(d, N, r), hmid(d, N, r)) == EXPECT[(d, N, r)], (d, N, r)
 # the Lie algebra of the chain has the dimension of sp: g(2g+1)
@@ -183,17 +190,17 @@ def fig_vgmonodromy():
                font=FN if k == 0 else SN, onbg=True,
                color="PTeal" if k == 0 else "PInk")
     F.rect(10.70, ybot, 15.70, 2.40, fill="WOchre", bg=True, rc=3)
-    rows3 = [r"\textbf{order three}",
-             r"Achter--Pries: $\mathrm{SU}$, acting as $\mathrm{SL}(V_{a})$;",
+    rows3 = [r"\textbf{order $m=3,4,6$}",
+             r"$G_{a}^{0}\supseteq\mathrm{SL}(V_{a})$ by collisions;",
              r"a class only if $r=\dim V_{a}$, $p_{a}=r/2$:",
-             r"Weil type for $\QQ(\sqrt{-3})$, $\delta$ trivial;",
-             r"algebraic for $r\le6$ by Markman"]
+             r"Weil type for $\QQ(\zeta_{m})$; if $\delta$ is trivial",
+             r"($m=6$: $c_{3}$ even), Markman for $r\le6$"]
     for k, s in enumerate(rows3):
         F.text(10.90, 2.10 - 0.47 * k, s, anchor="west",
                font=FN if k == 0 else SN, onbg=True,
                color="POchre!85!black" if k == 0 else "PInk")
-    F.text(10.90, ybot + 0.24, r"HC: $d=2$, every $r$; $d=3$, $r\le6$",
-           anchor="west", color="PGrass", font=SN, onbg=True)
+    F.text(10.90, ybot + 0.24, r"HC: $d=2$; $d\le4$, $r\le6$; $d=6$, "
+           r"$r\le4$", anchor="west", color="PGrass", font=SN, onbg=True)
 
     # arrows between the panels
     F.seg([(5.10, 2.45), (5.40, 2.45)], arrow)
@@ -207,12 +214,12 @@ def fig_vgmonodromy():
 def vg_status(d, r):
     if r % 2:
         return "odd"
-    if r == 2 or d == 2 or (d == 3 and r <= 6):
+    if r == 2 or d == 2 or (d in (3, 4) and r <= 6) or (d == 6 and r <= 4):
         return "P"
-    if d == 3:
+    if d == 6 and r == 6:
+        return "A"
+    if d in (3, 4, 6):
         return "W"
-    if d in (4, 6):
-        return "A" if r == 4 else "W"
     return "Z"
 
 
@@ -260,12 +267,13 @@ def fig_vgscope():
     # legend
     lx, ly, s = x0 + 7 * CW + 0.55, y0 + 9 * CH - 0.25, 0.26
     entries = [
-        ("P", r"proved for every $N$: the theorem of Lefschetz for $r=2$, "
-              r"\\ the very general theorem for $d=2$, and for $d=3$, $r\le6$"),
-        ("A", r"proved given the analogue of Achter--Pries for cyclic"
-              r"\\ covers of degree $4$ and $6$, by Markman's theorem"),
+        ("P", r"proved for every $N$: the theorem of Lefschetz for $r=2$,"
+              r"\\ and the very general theorem for $d=2$, for $d=3,4$"
+              r"\\ with $r\le6$ and for $d=6$ with $r\le4$"),
+        ("A", r"proved except for the Weil classes of abelian sixfolds"
+              r"\\ of non-split Weil type for $\QQ(\sqrt{-3})$"),
         ("W", r"open: Weil classes of abelian $r$-folds over $\QQ(i)$ or"
-              r"\\ $\QQ(\sqrt{-3})$, from dimension $6$ or $8$ on"),
+              r"\\ $\QQ(\sqrt{-3})$, from dimension $8$ on"),
         ("Z", r"open for $N$ large: Weil classes of $\QQ(\zeta_{e})$, "
               r"$\varphi(e)\ge4$,\\ the case $\mathrm{P2}_{\mathrm{split}}$ "
               r"of the paper"),
@@ -289,46 +297,49 @@ def fig_vgscope():
 
 
 # ------------------------------------------------------------ fig_vgcounts
+CCOL = {2: "PTeal", 3: "PBlue", 4: "POchre", 6: "PMag"}
+
+
 def fig_vgcounts():
     F = Plate("fig_vgcounts",
               "Hodge classes of degree r on the very general member against "
               "h^{r/2,r/2} (thm:vgvandermonde(iii)).")
-    xa, W, RH = 5.40, 8.20, 0.50
+    xa, W, RH, E = 5.60, 8.00, 0.46, 5
     n = len(COUNTS)
 
     def X(v):
-        return xa + W * math.log10(v) / 4.0
+        return xa + W * math.log10(v) / E
 
     def Y(i):
         return (n - 1 - i) * RH
 
     # grid and axis
-    for e in range(5):
-        F.seg([(X(10 ** e), -0.35), (X(10 ** e), Y(0) + 0.32)],
+    for e in range(E + 1):
+        F.seg([(X(10 ** e), -0.35), (X(10 ** e), Y(0) + 0.30)],
               "PRule,line width=0.35pt,dash pattern=on 1.4pt off 1.6pt")
         F.text(X(10 ** e), -0.42, r"$10^{%d}$" % e, anchor="north", font=SN)
-    F.seg([(xa, -0.35), (X(10 ** 4) + 0.10, -0.35)], "PInk,line width=0.5pt")
+    F.seg([(xa, -0.35), (X(10 ** E) + 0.10, -0.35)], "PInk,line width=0.5pt")
     for i, (d, N, r, name) in enumerate(COUNTS):
         c, h = vg_count(d, N, r), hmid(d, N, r)
         y = Y(i)
-        F.rect(xa, y - 0.15, X(h), y + 0.15, fill="PRule!55!white")
-        F.rect(xa, y - 0.09, X(c), y + 0.09,
-               fill="PTeal" if d == 2 else "PBlue")
+        F.rect(xa, y - 0.14, X(h), y + 0.14, fill="PRule!55!white")
+        F.rect(xa, y - 0.08, X(c), y + 0.08, fill=CCOL[d])
         F.text(xa - 0.12, y, r"%s, $r=%d$" % (name, r), anchor="east",
                font=SN)
         tag = (r"$%d=h^{%d,%d}$" % (c, r // 2, r // 2) if c == h
                else r"$%d$ of $%d$" % (c, h))
-        F.text(X(10 ** 4) + 0.25, y, tag, anchor="west", font=SN,
+        F.text(X(10 ** E) + 0.25, y, tag, anchor="west", font=SN,
                color="PGrass" if c == h else "PInk")
     # key
-    ky = -1.15
-    F.rect(xa, ky - 0.09, xa + 0.45, ky + 0.09, fill="PTeal")
-    F.text(xa + 0.55, ky, r"Hodge classes of the very general member, $d=2$",
-           anchor="west", font=SN)
-    F.rect(xa, ky - 0.55, xa + 0.45, ky - 0.37, fill="PBlue")
-    F.text(xa + 0.55, ky - 0.46, r"the same, $d=3$", anchor="west", font=SN)
-    F.rect(xa, ky - 1.06, xa + 0.45, ky - 0.76, fill="PRule!55!white")
-    F.text(xa + 0.55, ky - 0.91, r"$h^{r/2,r/2}(X)$, the classes of type "
+    ky = -1.20
+    for k, d in enumerate((2, 3, 4, 6)):
+        kx = xa + 1.55 * k
+        F.rect(kx, ky - 0.08, kx + 0.40, ky + 0.08, fill=CCOL[d])
+        F.text(kx + 0.50, ky, r"$d=%d$" % d, anchor="west", font=SN)
+    F.text(xa - 0.12, ky, r"Hodge classes of the very general member:",
+           anchor="east", font=SN)
+    F.rect(xa, ky - 0.62, xa + 0.40, ky - 0.34, fill="PRule!55!white")
+    F.text(xa + 0.50, ky - 0.48, r"$h^{r/2,r/2}(X)$, the classes of type "
            r"$(r/2,r/2)$", anchor="west", font=SN)
     F.write()
     return F.name

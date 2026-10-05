@@ -174,12 +174,12 @@ def fig_vandermonde():
     F.rect(0.05, -1.16, 15.65, -0.16, fill="PGrass!20!white", bg=True, rc=3)
     F.text(0.21, -0.43,
            r"\textbf{very general $\lambda$, every $N$:} the Hodge "
-           r"conjecture holds for $d=2$ in every dimension and for $d=3$ "
-           r"up to dimension $7$;", anchor="west", font=SN, onbg=True)
+           r"conjecture holds for $d=2$ in every dimension, for $d=3,4$ "
+           r"up to dimension $7$", anchor="west", font=SN, onbg=True)
     F.text(0.21, -0.88,
-           r"for $d\in\{4,6\}$ and $r\le4$ it follows from an analogue of "
-           r"the theorem of Achter and Pries for cyclic covers of degree $4$ "
-           r"and $6$", anchor="west", font=SN, onbg=True)
+           r"and for $d=6$ up to dimension $5$, through the monodromy of the "
+           r"cyclic covers of degree $3$, $4$ and $6$ of $\PP^{1}$",
+           anchor="west", font=SN, onbg=True)
     F.write()
     return F.name
 

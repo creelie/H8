@@ -123,3 +123,8 @@
 'HodgeObstruction.vg_quadric_counts' does not depend on any axioms
 'HodgeObstruction.vg_cubic_counts' does not depend on any axioms
 'HodgeObstruction.vg_triple_signatures' does not depend on any axioms
+'HodgeObstruction.cyclic_base_count' depends on axioms: [propext]
+'HodgeObstruction.cyclic_merge_small' depends on axioms: [propext]
+'HodgeObstruction.cyclic_norms' does not depend on any axioms
+'HodgeObstruction.cyclic_vg_counts' depends on axioms: [propext]
+'HodgeObstruction.cyclic_nonsplit_example' depends on axioms: [propext]

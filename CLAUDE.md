@@ -382,6 +382,27 @@ appendices and for the declarations and references). FH91 carries no DOI
 round wording were removed from `README.md`, `lean/README.md`,
 `.zenodo.json`, the workflow, the figure scripts and the code docstrings.
 2168 checks, 125 Lean theorems, 391 pages, 738 labels.
+Round 42 proved the degree 4 and 6 analogue of Achter-Pries itself
+(`setup:cyclic`, `lem:foxmodel`, `lem:cabling`, `lem:hyperplanes`,
+`lem:merge`, `prop:cyclicmonodromy`, `lem:newdisc`, `fig_cyclicmerge` before
+`thm:vgvandermonde` in `tex/sections/11b_closuregraph.tex`): for a cyclic
+cover of degree m in {3,4,6} with n >= 3 and p, q >= 1 the identity component
+of the monodromy contains SL(V_a), by the Fox model of the eigenspace, the
+collision of two branch points (Y + KI), a lemma on two copies of SL of a
+hyperplane, a merge lemma (proved by hand, checked to k = 40) and 38
+computed base cases with n = 3, 4; the discriminant of the new part is
+trivial for m = 3, 4, and for m = 6 exactly when an even number of
+coordinates equal 3 (2 is not a norm from Q(sqrt(-3))). So `thm:vgvandermonde`
+now gives HC for the very general member for d = 2, for d = 3, 4 with r <= 6,
+and for d = 6 with r <= 4; for d = 6, r = 6 the classes are algebraic except
+on the non-split Weil sixfolds (example (1,1,2,2,3,5,5,5)), which stay open.
+Count 1 + C(N+1,r+2) T_d(r+2) + [d even] sum_{j >= r/2+2} C(N+1,2j).
+References [Fox53], [DM86] carry no DOI (Crossref and doi.org could not be
+reached). Item (LXXVI), `code/cyclic_monodromy.py` (7 checks, 2175 in all);
+Lean Section 45 (130 theorems); `figures/make_round42.py`, with
+`fig_vgmonodromy`, `fig_vgscope`, `fig_vgcounts` and the strip of
+`fig_vandermonde` redrawn; a one-sentence abstract at Deep's request.
+2175 checks, 130 Lean theorems, 395 pages, 746 labels.
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 
@@ -408,7 +429,7 @@ section.
 - `cd code && python3 verify_all.py` ends with `N checks passed, 0 failed`;
   keep the count in `README.md`, `lean/README.md`, `.zenodo.json`,
   `.github/workflows/lean.yml` and `tex/declarations.tex` in step.
-- `cd lean && lean HodgeObstruction.lean`: 125 theorems, each axiom-free or
+- `cd lean && lean HodgeObstruction.lean`: 130 theorems, each axiom-free or
   depending on `propext` only.
 - `cd tex && latexmk -pdf main.tex`: 0 errors, 0 overfull or underfull boxes,
   no undefined references.

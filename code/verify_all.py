@@ -4,7 +4,7 @@ verify_all.py
 
 The single verification driver for the paper.  It runs the five self-contained
 checks (I) to (V) below and then calls the companion scripts in this
-directory, which carry the items (VI) to (LXXV) other than the Macaulay2
+directory, which carry the items (VI) to (LXXVI) other than the Macaulay2
 items (XXIX), (XXXI) and (XL).  The arithmetic is exact (rational, integer,
 or exterior algebra over Q) except in fourfold_products.py, whose one
 double-precision rank the paper states as such, and in parts (C) and (D) of
@@ -244,6 +244,12 @@ Contents
          triple covers, the trace form of a hermitian lattice over
          Z[zeta_3], and the Hodge classes of the very general member
          against the Hodge numbers  [very_general.py]
+  (LXXVI) monodromy of cyclic covers of degree 3, 4 and 6: the Fox model
+         of the eigenspace and its invariant hermitian form, the base of
+         the induction (the transvections generate sl at n = 3, 4), the
+         degeneration step, the merge lemma, the discriminant of the new
+         part, and the very general count for d = 2, 3, 4, 6
+         [cyclic_monodromy.py]
 """
 
 import os
@@ -708,6 +714,9 @@ def main():
 
     head("(LXXV) very general diagonal complete intersections")
     run_module("LXXV", "very_general.py")
+
+    head("(LXXVI) monodromy of cyclic covers of degree 3, 4 and 6")
+    run_module("LXXVI", "cyclic_monodromy.py")
 
     print()
     print("=" * 70)

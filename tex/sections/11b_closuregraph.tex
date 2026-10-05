@@ -1883,8 +1883,8 @@ configuration, \Cref{thm:vgvandermonde}.}
 
 At a very general configuration the abelian varieties $B_{[a]}$ carry only
 the Hodge classes that the monodromy of the curves allows, and the
-conjecture can then be decided in every dimension for $d=2$ and up to
-dimension seven for $d=3$. Write $U\subset\CC^{N+1}$ for the space of
+conjecture can then be decided in every dimension for $d=2$, up to dimension
+seven for $d=3$ and $d=4$, and up to dimension five for $d=6$. Write $U\subset\CC^{N+1}$ for the space of
 $(N+1)$-tuples of distinct numbers. The varieties $X_{d,r}(\lambda)$ with
 $\lambda\in U$ form a smooth projective family over $U$, and so do the
 curves $C$ and the maps $\Phi$, with $H$ acting on the family of curves.
@@ -1916,6 +1916,336 @@ $\Hdg(\mathbb{V}_{s})$ through a finite group, whose kernel is the subgroup
 of the statement.
 \end{proof}
 
+For the characters of order three, four and six the monodromy of the
+curves $D_{a}$ is computed by induction on the number of branch points. The
+step lets two branch points collide, and a lemma on two copies of $\SL$ of a
+hyperplane closes it; the base is a finite computation
+(\Cref{fig:cyclicmerge}).
+
+\begin{setupenv}[Cyclic covers]\label{setup:cyclic}
+Let $m\in\{3,4,6\}$, $\zeta=e^{2\pi i/m}$ and $K=\QQ(\zeta)$, and let
+$a=(a_{1},\dots,a_{k})$ with $a_{i}\in\ZZ/m$ nonzero, $\sum_{i}a_{i}=0$ and
+$\gcd(m,a_{1},\dots,a_{k})=1$, so that $a$ has order $m$. For $\lambda$ in
+the space $\mathrm{Conf}_{k}$ of $k$-tuples of distinct complex numbers let
+$D_{a}$ be the cyclic cover $y^{m}=\prod_{i}(t-\lambda_{i})^{a_{i}}$ of
+$\PP^{1}$, with representatives $0<a_{i}<m$; it is unramified over
+$\infty$. Let $V_{a}\subset H^{1}(D_{a},\CC)$ be the eigenspace of the deck
+group on which $H^{1,0}$ is spanned by the forms
+$t^{j}\prod_{i}(t-\lambda_{i})^{-b_{i}/m}\,dt$, where $0<b_{i}<m$, $b_{i}\equiv
+-a_{i}$ and $0\le j\le\sum_{i}b_{i}/m-2$ \cite[\S2]{DM86}, and put
+$n=\dim V_{a}$,
+$p=\dim V_{a}^{1,0}=\sum_{i}b_{i}/m-1$ and $q=n-p$. Let $\Gamma_{a}\subset
+\GL(V_{a})$ be the image of the pure braid group
+$P_{k}=\pi_{1}(\mathrm{Conf}_{k})$ and $G_{a}^{0}$ the identity component of
+its Zariski closure.
+\end{setupenv}
+
+\begin{lemma}[A model of the monodromy]\label{lem:foxmodel}
+Let $F_{k}$ be the free group on loops $x_{1},\dots,x_{k}$ around
+$\lambda_{1},\dots,\lambda_{k}$, put $t_{i}=\zeta^{a_{i}}$, let
+$\partial\colon K^{k}\to K$ map $e_{i}$ to $t_{i}-1$, and let
+$E_{a}=\ker\partial/K\ell$, where $\ell=\sum_{i}t_{1}\cdots t_{i-1}e_{i}$. A pure
+braid $\beta$ acts on $F_{k}$ by Artin's automorphism and on $K^{k}$ by
+$v\mapsto vJ_{\beta}$, where $J_{\beta}$ is the matrix of Fox derivatives
+$\partial\beta(x_{i})/\partial x_{j}$ evaluated at $x_{j}\mapsto t_{j}$. This
+action preserves $\ker\partial$ and fixes $\ell$, and the representation of
+$P_{k}$ on $E_{a}$, of dimension $k-2$, is isomorphic to $V_{a}$, to its dual
+or to its complex conjugate. So $n=k-2$, and $G_{a}^{0}\supseteq\SL(V_{a})$ if
+and only if the identity component of the Zariski closure of the image of
+$P_{k}$ in $\GL(E_{a})$ contains $\SL(E_{a})$.
+\end{lemma}
+
+\begin{proof}
+Fox's formula $\sum_{j}(\partial w/\partial x_{j})(x_{j}-1)=w-1$ \cite{Fox53},
+evaluated at $x_{j}\mapsto t_{j}$, shows that the vector
+$\sum_{j}(\partial w/\partial x_{j})(t)\,e_{j}$ of a word $w$ with $t(w)=1$ lies
+in $\ker\partial$. It is the class of the lift of the loop $w$ in the summand
+of $H_{1}(D_{a}^{\circ},K)$ on which the deck group acts through
+$x_{i}\mapsto t_{i}$, where $D_{a}^{\circ}$ is the unramified part of the
+cover, and that summand is $H_{1}(F_{k},K_{t})=\ker\partial$, computed from the
+free resolution of length one of the augmentation ideal of a free group.%
+\footnote{By Shapiro's lemma $H_{1}(D_{a}^{\circ},K)=H_{1}(F_{k},K[\mu_{m}])$,
+and its summand for the character $x_{i}\mapsto t_{i}$ is $H_{1}(F_{k},K_{t})$.
+The augmentation ideal of $\ZZ[F_{k}]$ is free on the $x_{i}-1$, so
+$H_{1}(F_{k},K_{t})$ is the kernel of $\bigoplus_{i}Ke_{i}\to K$,
+$e_{i}\mapsto t_{i}-1$, the chain $e_{i}$ standing for the loop $x_{i}$ and a word
+$w$ for $\sum_{j}(\partial w/\partial x_{j})(t)e_{j}$.} Filling in the points
+over $\lambda_{i}$ adds no relation: the loop around such a point lifts
+$x_{i}^{e}$, $e$ the order of $t_{i}$, whose vector
+$(1+t_{i}+\dots+t_{i}^{e-1})e_{i}$ is zero. Filling in the $m$ points over
+$\infty$, where the cover is unramified, kills the lift of $x_{1}\cdots
+x_{k}$, whose vector is $\ell\ne0$. So $E_{a}$ is the summand of
+$H_{1}(D_{a},K)$ for the character $x_{i}\mapsto t_{i}$, of dimension $k-2$. A
+pure braid fixes $x_{1}\cdots x_{k}$ and maps each $x_{i}$ to a conjugate of
+itself, so it preserves $t$, and the chain rule for Fox derivatives makes
+$\beta\mapsto J_{\beta}$ the action of $P_{k}$ on this summand.%
+\footnote{Artin's automorphism of the half twist $\sigma_{i}$ of the $i$-th
+and $(i+1)$-st points is $x_{i}\mapsto x_{i}x_{i+1}x_{i}^{-1}$,
+$x_{i+1}\mapsto x_{i}$, the other generators being fixed; $P_{k}$ is generated
+by the full twists $A_{st}=\sigma_{t-1}\cdots\sigma_{s+1}\sigma_{s}^{2}
+\sigma_{s+1}^{-1}\cdots\sigma_{t-1}^{-1}$. For a pure braid the chain rule
+reads $J_{\beta\beta'}=J_{\beta'}J_{\beta}$ or $J_{\beta}J_{\beta'}$, according
+to the convention for composing braids, with no twist of the coefficients,
+since $t\circ\beta=t$.} Poincar\'e duality and the choice of the generator
+of the deck group identify it with $V_{a}$, its dual or its conjugate, and
+the automorphisms $g\mapsto{}^{t}g^{-1}$ and $g\mapsto\bar g$ of $\GL$ preserve
+$\SL$.
+\end{proof}
+
+\begin{lemma}[Collision of two branch points]\label{lem:cabling}
+In \Cref{lem:foxmodel} suppose that $a_{1}+a_{2}\ne0$, and let
+$a'=(a_{1}+a_{2},a_{3},\dots,a_{k})$. Let $I=(1-t_{2})e_{1}-(1-t_{1})e_{2}$,
+the cycle of a disc around $\lambda_{1}$ and $\lambda_{2}$, and let
+$Y\subset E_{a}$ be the image of the cycles outside that disc, the vectors of
+$\ker\partial$ with $v_{2}=t_{1}v_{1}$. Then $E_{a}=Y\oplus KI$, and
+$\iota(v_{1},v_{3},\dots,v_{k})=(v_{1},t_{1}v_{1},v_{3},\dots,v_{k})$ induces an
+isomorphism $E_{a'}\to Y$. If $\beta\in P_{k}$ is obtained from
+$\beta'\in P_{k-1}$ by doubling its first strand, then $\beta$ preserves $Y$
+and $KI$, acts on $Y$ as $\beta'$ acts on $E_{a'}$, and multiplies $I$ by a
+power of $\zeta$.
+\end{lemma}
+
+\begin{proof}
+The vectors of $Y$ have $(v_{1},v_{2})$ proportional to $(1,t_{1})$, and
+$(1-t_{2},t_{1}-1)$ is proportional to $(1,t_{1})$ only if $t_{1}t_{2}=1$; so
+$I\notin Y$. The map $\iota$ carries the kernel of $\partial'$, where
+$\partial'(e_{1})=t_{1}t_{2}-1$, onto the cycles outside the disc, because
+$v_{1}(t_{1}t_{2}-1)=v_{1}(t_{1}-1)+t_{1}v_{1}(t_{2}-1)$, and it carries the
+vector $\ell'$ of $a'$ to $\ell$; as $\dim E_{a'}+1=\dim E_{a}$, both
+assertions about $Y$ follow. The doubled braid moves a disc containing
+$\lambda_{1},\lambda_{2}$ rigidly. Its automorphism therefore maps
+$x_{1}\mapsto wx_{1}w^{-1}$, $x_{2}\mapsto wx_{2}w^{-1}$ and $x_{j}\mapsto
+u_{j}$ for $j\ge3$, where $y\mapsto w'yw'^{-1}$, $x_{j}\mapsto u_{j}'$ is the
+automorphism of $\beta'$ on the free group on $y,x_{3},\dots,x_{k}$, and
+$w,u_{j}$ are $w',u_{j}'$ with $y$ replaced by $x_{1}x_{2}$. For such a word
+$u$ the chain rule gives $\partial u/\partial x_{1}=\partial u/\partial y$
+and $\partial u/\partial x_{2}=(\partial u/\partial y)\,x_{1}$, which at $t$ is
+the relation $v_{2}=t_{1}v_{1}$; together with
+$\partial(wx_{i}w^{-1})/\partial x_{j}=(1-t_{i})\,\partial w/\partial
+x_{j}+t(w)\delta_{ij}$ at $t$, this shows that the rows of $J_{\beta}$ for
+$j\ge3$, and the first row plus $t_{1}$ times the second, are the images under
+$\iota$ of the rows of $J_{\beta'}$; this is the equivariance of $\iota$. The
+same formula gives $IJ_{\beta}=(1-t_{2})\bigl((1-t_{1})\partial w+t(w)e_{1}\bigr)
+-(1-t_{1})\bigl((1-t_{2})\partial w+t(w)e_{2}\bigr)=t(w)I$, and $t(w)$ is a
+power of $\zeta$.
+\end{proof}
+
+\begin{lemma}[Two hyperplanes]\label{lem:hyperplanes}
+Let $E=Y\oplus L$ be a complex vector space with $\dim Y\ge3$ and
+$\dim L=1$, let $S\subset\SL(E)$ be the subgroup acting on $Y$ through
+$\SL(Y)$ and trivially on $L$, and let $\gamma\in\GL(E)$ satisfy
+$\gamma L\ne L$ and $\gamma Y\ne Y$. Then $S$ and $\gamma S\gamma^{-1}$ generate
+$\SL(E)$.
+\end{lemma}
+
+\begin{proof}
+The group $T$ they generate is connected. As a representation of $S$, $E$ is
+the sum of the irreducible nontrivial $Y$ and the trivial $L$, so its
+$S$-stable subspaces are $0$, $L$, $Y$ and $E$, and those of
+$\gamma S\gamma^{-1}$ are $0$, $\gamma L$, $\gamma Y$ and $E$; by the
+hypotheses and the dimensions only $0$ and $E$ are in both lists, and $T$ is
+irreducible. As a representation of $\mathfrak{sl}(Y)$,
+\[
+  \mathfrak{sl}(E)=\mathfrak{sl}(Y)\oplus\mathrm{Hom}(L,Y)\oplus
+  \mathrm{Hom}(Y,L)\oplus\CC z,
+\]
+$z$ acting by $1$ on $Y$ and by $-\dim Y$ on $L$, and the four summands, the
+adjoint representation, $Y$, $Y^{*}$ and the trivial one, are pairwise
+non-isomorphic since $\dim Y\ge3$. The Lie algebra $\mathfrak{t}$ of $T$
+contains $\mathfrak{sl}(Y)$ and is stable under it, so it is
+$\mathfrak{sl}(Y)$ plus some of the other three summands. Without
+$\mathrm{Hom}(L,Y)$ it preserves $L$, and without $\mathrm{Hom}(Y,L)$ it
+preserves $Y$; both are excluded by irreducibility. The bracket of a nonzero
+map $L\to Y$ with a map $Y\to L$ not vanishing on its image has a nonzero
+component along $z$, so $\mathfrak{t}=\mathfrak{sl}(E)$ and $T=\SL(E)$.
+\end{proof}
+
+\begin{lemma}[Merging two branch points]\label{lem:merge}
+Let $m$ and $a$ be as in \Cref{setup:cyclic}, with $k\ge7$ and $p,q\ge1$.
+Then there are $i\ne j$ with $a_{i}+a_{j}\ne0$ such that the vector $a'$
+obtained by replacing $a_{i}$ and $a_{j}$ by $a_{i}+a_{j}$ has order $m$, and
+its numbers $p'$ and $q'$ are at least $1$.
+\end{lemma}
+
+\begin{proof}
+Put $f_{i}=b_{i}/m\in[1/m,1-1/m]$, so that $p+1=\sum_{i}f_{i}$ and
+$q+1=\sum_{i}(1-f_{i})$. Merging $a_{i}$ and $a_{j}$ keeps $p$ and lowers $q$
+by one if $f_{i}+f_{j}<1$, and lowers $p$ by one and keeps $q$ if
+$f_{i}+f_{j}>1$. Since $a_{i}+a_{j}=-\sum_{l\ne i,j}a_{l}$, the order of $a'$ is
+that of the subgroup generated by the $a_{l}$ with $l\ne i,j$, the rest of
+$a$. Replacing $a$ by $-a$ exchanges $p$ and $q$, so we may assume $q\ge p$,
+hence $q\ge3$ as $p+q=k-2\ge5$; if $p\ge2$, every merge keeps $p',q'\ge1$
+and only the order matters.
+
+\emph{The order.} For $m=3$ two equal coordinates exist, their sum is not
+$0$, and any nonzero rest generates $\ZZ/3$. For $m=4$ the number of odd
+coordinates is even and positive; if it is at least $4$, merge two equal odd
+ones, and if it is $2$, merge an odd one with one of the at least five
+coordinates equal to $2$. For $m=6$ the rest generates $\ZZ/6$ exactly when
+it contains an odd coordinate and one prime to $3$. The odd coordinates
+are even in number and the coordinates prime to $3$ have sum divisible by
+$3$, so each kind occurs at least twice. If exactly two coordinates are
+odd, the at least five others lie in $\{2,4\}$; merge two equal ones among
+them. If exactly two are prime to $3$, the others equal $3$; merge a $3$
+with one of the two. Otherwise each kind occurs at least three times, and
+any two coordinates with nonzero sum can be merged; they exist, since
+pairwise sums $0$ would force every coordinate to be $3$.
+
+\emph{The case $p=1$.} Then $\sum_{i}b_{i}=2m$ with $k\ge7$ terms $b_{i}\ge1$,
+so $k\le2m$, $m\in\{4,6\}$, and at most $2m-k$ coordinates have
+$b_{i}\ge2$; the merge must have $b_{i}+b_{j}<m$. For $m=4$ at least six
+coordinates equal $3$ ($b=1$) and at most one equals $2$; merge two $3$'s,
+whose sum is $2$, leaving a $3$. For $m=6$ at least $2k-12\ge2$ coordinates
+equal $5$ ($b=1$). If three do, merge two of them, whose sum is $4$, leaving
+a $5$; if exactly two do, then $k=7$ and $a=(5,5,4,4,4,4,4)$, and merging a
+$5$ with a $4$, of sum $3$ and $b_{i}+b_{j}=3$, leaves a $5$. In both cases
+$q'=q-1\ge2$ and the order is kept.\footnote{A computation in \cite{BMB26}
+runs through all $57213$ admissible multisets of residues with $7\le k\le40$
+($k\le30$ for $m=6$) and finds such a merge in each.}
+\end{proof}
+
+\begin{proposition}[Monodromy of cyclic covers]\label{prop:cyclicmonodromy}
+In \Cref{setup:cyclic}, if $p=0$ or $q=0$ then $\Gamma_{a}$ is finite, and if
+$n\ge3$ and $p,q\ge1$ then $G_{a}^{0}\supseteq\SL(V_{a})$.
+\end{proposition}
+
+\begin{proof}
+If $pq=0$, the polarisation is definite on $V_{a}$ up to sign, and
+$\Gamma_{a}$ preserves it and the $\ZZ[\zeta]$-lattice spanned by
+$H^{1}(D_{a},\ZZ)$; a discrete subgroup of a compact group is finite. Assume
+$p,q\ge1$ and use the model of \Cref{lem:foxmodel}. Two facts are used
+throughout: if $u\in\Gamma_{a}$ is unipotent, the Zariski closure of its
+powers is the group $\exp(\tau\log u)$, so $\log u$ lies in the Lie algebra
+$\mathfrak{g}_{a}$ of $G_{a}^{0}$; and $\mathfrak{g}_{a}$ is stable under
+conjugation by $\Gamma_{a}$, which normalises $G_{a}^{0}$.
+
+For $n=3,4$, that is $k=5,6$, there are $38$ vectors $a$ up to order and
+sign. In each, after a relabelling, a set $J$ of at most $k-2$ consecutive
+points has $\sum_{i\in J}a_{i}=0$, so a loop around $J$ lifts to closed curves
+and the full twist of $J$ acts as a unipotent $u_{J}$ with $u_{J}-1$ of rank
+one and square zero. A computation in \cite{BMB26} shows that the smallest
+subspace of $\mathfrak{gl}(E_{a})$ that contains these $\log u_{J}=u_{J}-1$
+and is stable under brackets and under conjugation by the images of the
+$A_{st}$ is $\mathfrak{sl}(E_{a})$, of dimension $n^{2}-1$. Hence
+$\mathfrak{g}_{a}\supseteq\mathfrak{sl}(E_{a})$.%
+\footnote{The same computation checks the model: in all $40$ cases with
+$k=5,6$ each $A_{st}$ acts as a pseudo-reflection of determinant
+$(t_{s}t_{t})^{\pm1}$, and for $k=5,6,7$ the invariant hermitian form of the
+$70$ cases is unique up to a scalar, of signature $\{p,q\}$, computed
+exactly by congruence over $K$.}
+
+Let $n\ge5$ and assume the assertion for $n-1$. By \Cref{lem:merge} and a
+relabelling, $a_{1}+a_{2}\ne0$, and $a'=(a_{1}+a_{2},a_{3},\dots,a_{k})$ has
+order $m$ and $p',q'\ge1$, so the monodromy of $E_{a'}$ has a Zariski closure
+whose identity component contains $\SL(E_{a'})$. Let $H$ be the identity
+component of the Zariski closure of the doubled braids of
+\Cref{lem:cabling}. Then $H\subseteq G_{a}^{0}$, $H$ preserves $Y$ and $KI$
+and acts trivially on $KI$, where the doubled braids act through a finite
+group, and its image in $\GL(Y)$ is the identity component of the Zariski
+closure of the monodromy of $E_{a'}$, which contains $\SL(Y)$. So $G_{a}^{0}$
+contains the group $S$ of \Cref{lem:hyperplanes} for $E_{a}=Y\oplus KI$. Let
+$\gamma=A_{23}$, the full twist of the second and third points; its
+automorphism fixes $x_{1}$ and maps $x_{2}\mapsto
+x_{2}x_{3}x_{2}x_{3}^{-1}x_{2}^{-1}$ and $x_{3}\mapsto x_{2}x_{3}x_{2}^{-1}$. Then
+$\gamma(I)=I+(1-t_{1})t_{2}I_{23}$ with $I_{23}=(1-t_{3})e_{2}-(1-t_{2})e_{3}$,
+and $\gamma(KI)\ne KI$, since $I$, $I_{23}$ and $\ell$ are independent, $\ell$
+having a nonzero fourth coordinate. The functional $v\mapsto
+v_{2}-t_{1}v_{1}$ vanishes on $\ell$ and cuts out $Y$, and at $\gamma(v)$ for
+$v\in Y$ it equals $(t_{3}-1)(t_{1}t_{2}v_{1}-v_{3})$, which is nonzero for the
+cycle $(1-t_{4})e_{3}-(1-t_{3})e_{4}$ of $Y$; so $\gamma Y\ne Y$. As
+$\gamma\in\Gamma_{a}$ normalises $G_{a}^{0}$, \Cref{lem:hyperplanes} gives
+$G_{a}^{0}\supseteq\SL(E_{a})$.
+\end{proof}
+
+For $m=3$ the proposition also follows from the $\ell$-adic theorem of
+Achter and Pries \cite[Corollary~3.10]{AP07}, which identifies the monodromy
+of trielliptic curves with a special unitary group.
+
+\begin{lemma}[The discriminant of the new part]\label{lem:newdisc}
+In \Cref{setup:cyclic} let $n$ be even with $p=q=n/2$, let
+$L=H^{1}(D_{a},\ZZ)$ with the cup product $Q$, and let
+$L_{a}=L\cap(V_{a}\oplus\overline{V_{a}})$. Then $L_{a}$ is a free
+$\ZZ[\zeta]$-module of rank $n$, the $K$-hermitian form $H$ with
+$Q=\tfrac12\Tr_{K/\QQ}(\delta^{-1}H)$ on it, $\delta=\sqrt{-1}$ for $m=4$ and
+$\delta=\sqrt{-3}$ otherwise (\Cref{lem:hermform}), has signature
+$(n/2,n/2)$, and the class of $(-1)^{n/2}\det H$ in
+$\QQ^{\times}/\Nm(K^{\times})$ is trivial for $m=3$ and $m=4$; for $m=6$ it is
+trivial if and only if the number of $i$ with $a_{i}=3$ is even.
+\end{lemma}
+
+\begin{proof}
+The deck transformation $g$ is an isometry of the unimodular lattice $L$, so
+its eigenspaces for eigenvalues $\mu,\nu$ are orthogonal unless $\mu\nu=1$.
+Hence $L_{a}$, the part for the primitive $m$-th roots of unity, and the
+part $L^{\mathrm{old}}$ for the other eigenvalues are orthogonal primitive
+sublattices, each the orthogonal complement of the other, and
+$|\det(L_{a})|=|\det(L^{\mathrm{old}})|$, which is $1$ for $m=3$, when
+$L^{\mathrm{old}}=0$.%
+\footnote{If $M\subset L$ is primitive and $L$ is unimodular, restriction
+$L\to M^{\vee}$ is onto with kernel $M^{\perp}$, so $L/(M\oplus M^{\perp})\cong
+M^{\vee}/M$, and likewise $\cong(M^{\perp})^{\vee}/M^{\perp}$; the order of
+$M^{\vee}/M$ is $|\det M|$.} For a quotient map $\pi\colon D_{a}\to D'$ of
+prime degree $e$ that is ramified, $\pi^{*}H^{1}(D',\ZZ)$ is primitive in $L$
+and the cup product on it is $e$ times that of $D'$.%
+\footnote{A loop in $D'$ avoiding the branch points, composed with a loop
+around a branch point, whose monodromy generates the group of order $e$,
+lifts to a closed loop with the same image in $H_{1}(D',\ZZ)$; so
+$\pi_{*}\colon H_{1}(D_{a},\ZZ)\to H_{1}(D',\ZZ)$ is onto, and its transpose
+$\pi^{*}$ is a split injection. The factor $e$ is $\pi_{*}\pi^{*}=e$.} For
+$m=4$, $L^{\mathrm{old}}=\pi^{*}H^{1}(D',\ZZ)$ for the quotient $D'$ by $g^{2}$,
+ramified over the $\lambda_{i}$ with $a_{i}$ odd, so
+$|\det L^{\mathrm{old}}|=2^{2g'}$, $g'$ the genus of $D'$. For $m=6$, the
+quotients $D_{2}$ by $g^{2}$ and $D_{3}$ by $g^{3}$ are ramified over the
+$\lambda_{i}$ with $3\nmid a_{i}$ and with $a_{i}$ odd, which exist since $a$
+has order six, and $L^{\mathrm{old}}$ contains $A\oplus B$ with
+$A=\pi_{2}^{*}H^{1}(D_{2},\ZZ)$ and $B=\pi_{3}^{*}H^{1}(D_{3},\ZZ)$, of determinants
+$3^{2g_{2}}$ and $2^{2g_{3}}$; the quotient $L^{\mathrm{old}}/(A\oplus B)$ embeds in
+$A^{\vee}/A$ and in $B^{\vee}/B$, of coprime orders, so $L^{\mathrm{old}}=A\oplus B$
+and $|\det L^{\mathrm{old}}|=3^{2g_{2}}2^{2g_{3}}$.
+
+On $L_{a}$ the deck transformation satisfies the cyclotomic equation of $\zeta$,
+so $L_{a}$ is a torsion-free module over the principal ideal domain
+$\ZZ[\zeta]$, free of rank $n$; the signature of $H$ is $(p,q)$
+(\Cref{rem:twosignatures}). The determinant of the trace form of a hermitian
+lattice gives $|\det(L_{a})|=|d_{K}|^{n}\Nm(\tfrac{1}{2\delta})^{n}(\det H)^{2}$,
+that is $(\det H)^{2}$ for $K=\QQ(i)$ and $(\det H)^{2}/4^{n}$ for
+$K=\QQ(\sqrt{-3})$.%
+\footnote{For a free $\cO_{K}$-module with hermitian Gram matrix $M$ and
+$c\in K^{\times}$, the $\ZZ$-bilinear form $\Tr_{K/\QQ}(c\,v^{T}M\bar w)$ has
+determinant of absolute value $|d_{K}|^{n}\Nm(c)^{n}(\det M)^{2}$, where
+$d_{K}$ is the discriminant of $K$: for $n=1$ this is the discriminant of the
+trace form of $\cO_{K}$ scaled by $\Nm(cM)$. Changing the basis by
+$P\in\GL_{n}(K)$ multiplies both sides by $\Nm_{K/\QQ}(\det P)^{2}$, and a
+basis in which $M$ is diagonal makes the form an orthogonal sum of forms of
+rank one. Here $d_{K}=-4$ and $\Nm(\tfrac{1}{2i})=\tfrac14$, or $d_{K}=-3$ and
+$\Nm(\tfrac{1}{2\sqrt{-3}})=\tfrac1{12}$. A computation in \cite{BMB26} checks
+the formula on random lattices over $\ZZ[\zeta_{3}]$ and $\ZZ[i]$.}
+Hence $(-1)^{n/2}\det H$ equals $2^{n}$ for $m=3$, $2^{g'}$ for $m=4$ and
+$2^{n+g_{3}}3^{g_{2}}$ for $m=6$, the sign being that of a form of signature
+$(n/2,n/2)$. For $m=3$ this is $\Nm(2^{n/2})$, and for $m=4$ a norm as
+$2=\Nm(1+i)$. For $m=6$, $3=\Nm(\sqrt{-3})$ and $4=\Nm(2)$
+are norms and $2$ is not, since $x^{2}+xy+y^{2}$ is even only when $x$ and $y$
+are, so that every norm has even $2$-adic valuation; so the class is trivial
+exactly when $g_{3}$ is even. By the Riemann--Hurwitz formula $D_{3}$, the
+triple cover $y^{3}=\prod_{i}(t-\lambda_{i})^{a_{i}}$ branched over the $i$
+with $3\nmid a_{i}$, has genus $k-c_{3}-2=n-c_{3}$, where $c_{3}$ is the number
+of $i$ with $a_{i}=3$; as $n$ is even, this is the assertion.
+\end{proof}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\textwidth]{fig_cyclicmerge}
+\caption{The proof of \Cref{prop:cyclicmonodromy}. Left: two branch points
+$\lambda_{1},\lambda_{2}$ collide inside a disc (\Cref{lem:cabling}); the
+cycles outside the disc form the hyperplane $Y\cong E_{a'}$, the cycle $I$
+of the disc spans the complementary line, and the twist $\gamma$ of the
+second and third points moves both. Middle: the two copies of $\SL(Y)$ of
+\Cref{lem:hyperplanes} generate $\SL(E_{a})$. Right: the induction on
+$n=k-2$, each merge lowering $p$ or $q$ by one (\Cref{lem:merge}), down to
+the $38$ computed cases with $n=3,4$.}
+\label{fig:cyclicmerge}
+\end{figure}
+
 \begin{theorem}[Very general diagonal complete
 intersections]\label{thm:vgvandermonde}
 Keep the notation of \Cref{thm:vandermonde}, let $r\ge2$ be even, and let
@@ -1927,26 +2257,35 @@ write $x_{[a]}$ for the component of $\Phi^{*}x$ in $W_{[a]}$.
   image of $\theta_{a}^{r/2}$, where $\theta_{a}$ is the class of a
   polarisation of $B_{[a]}$, under the correspondence of the proof of
   \Cref{thm:vandermonde}(iv); in particular $x_{[a]}$ is algebraic.
-\item If $a$ has order three and $x_{[a]}\ne0$, then $\dim V_{a}=r$ and
-  $\dim V_{a}^{1,0}=r/2$. In that case $B_{[a]}$ is an abelian variety of
-  dimension $r$ of Weil type for $\QQ(\sqrt{-3})$ with trivial
-  discriminant, and $W_{[a]}$ is the image of its space of Weil classes.
-\item The Hodge conjecture holds on $X_{2,r}(\lambda)$ for every $N$ and
-  every $r$, and on $X_{3,r}(\lambda)$ for every $N$ when $r\le6$. The
-  Hodge classes of degree $r$ form a space of dimension
+\item If $a$ has order $m\in\{3,4,6\}$ and $x_{[a]}\ne0$, then $\dim V_{a}=r$
+  and $\dim V_{a}^{1,0}=r/2$. In that case $B_{[a]}$ is an abelian variety of
+  dimension $r$ of Weil type for $\QQ(\zeta_{m})$, and $W_{[a]}$ is the image
+  of its space of Weil classes. Its discriminant is trivial for $m=3,4$, and
+  for $m=6$ exactly when an even number of the coordinates of $a$ equal
+  $d/2$.
+\item The Hodge conjecture holds on $X_{d,r}(\lambda)$ for every $N$ when
+  $d=2$, when $d\in\{3,4\}$ and $r\le6$, and when $d=6$ and $r\le4$. For
+  $d=6$ and $r=6$ the Hodge classes are algebraic modulo the spaces
+  $W_{[a]}$ of the characters of order six of (ii) with an odd number of
+  coordinates $3$, which are spaces of Weil classes of abelian sixfolds of
+  non-split Weil type for $\QQ(\sqrt{-3})$ and occur for every $N$. For
+  $d\in\{2,3,4,6\}$ the Hodge classes of degree $r$ form a space of dimension
   \[
-    1+\sum_{j>r/2}\binom{N+1}{2j}\quad\text{for }d=2,
-    \qquad
-    1+\binom{N+1}{r+2}\binom{r+2}{r/2+1}\quad\text{for }d=3.
+    1+\binom{N+1}{r+2}T_{d}(r+2)+\epsilon_{d}\sum_{j\ge r/2+2}\binom{N+1}{2j},
   \]
+  where $T_{d}(k)$ is the number of $(s_{1},\dots,s_{k})\in\{1,\dots,d-1\}^{k}$
+  with $\sum_{i}s_{i}=dk/2$, and $\epsilon_{d}$ is $1$ for $d$ even and $0$ for
+  $d$ odd; thus $T_{2}(k)=1$, $T_{3}(k)=\binom{k}{k/2}$, $T_{4}(6)=141$ and
+  $T_{6}(6)=1751$.
 \end{enumerate}
 \end{theorem}
 
 For odd $r$ there is nothing to prove, since every Hodge class of $X$ is
 then a multiple of a power of the hyperplane class. So the theorem gives the
-Hodge conjecture for the very general complete intersection of diagonal
-quadrics of Vandermonde type in every dimension, and of diagonal cubics of
-Vandermonde type in every dimension up to seven, in every $\PP^{N}$.
+Hodge conjecture for the very general complete intersection of Vandermonde
+type of diagonal quadrics in every dimension, of diagonal cubics or quartics
+up to dimension seven, and of diagonal sextics up to dimension five, in
+every $\PP^{N}$.
 
 \begin{proof}
 Apply \Cref{lem:vgmonodromy} to $H^{r}(X_{d,r}(\lambda),\ZZ)$ over $U$,
@@ -1960,9 +2299,11 @@ satisfies $y^{m}=\prod_{i}(t-\lambda_{i})^{a_{i}'}$, so the quotient of $C$ by
 that kernel is the cyclic cover $D_{a}$ of $\PP^{1}$ of degree $m$ given by
 this equation, and pull-back identifies $H^{1}(D_{a},\QQ)$ with the part
 $\bigoplus_{j\ne0}V_{ja}$ of $H^{1}(C,\QQ)$, compatibly with the monodromy.
-The image $B_{[a]}$ is isogenous to the Jacobian $J(D_{a})$, its
-polarisation being a rational multiple of the principal one, since pull-back
-along a map of degree $e$ multiplies the cup product by $e$.
+The image $B_{[a]}$ is isogenous to the abelian subvariety of $J(D_{a})$
+whose first cohomology is $\bigoplus_{j\in(\ZZ/m)^{\times}}V_{ja}$, all of
+$J(D_{a})$ for $m\le3$, its polarisation being a rational multiple of the
+restriction of the principal one, since pull-back along a map of degree $e$
+multiplies the cup product by $e$.
 
 (i) For $m=2$, $D_{a}$ is the hyperelliptic curve
 $y^{2}=\prod_{i\in S}(t-\lambda_{i})$ over the support $S$ of $a$, of genus
@@ -2009,82 +2350,64 @@ polarisation form \cite[Theorem~17.5]{FH91}.%
 and of the $\mathfrak{sl}_{2}$ spanned by $\omega\wedge{}$ and its adjoint,
 and $\bigwedge^{r}V=\bigoplus_{j}\omega^{j}\wedge P^{r-2j}$, where $P^{k}$, the
 kernel of the contraction with $\omega$ in degree $k\le g$, is irreducible
-and nontrivial for $k\ge1$; so the only invariants are the multiples of
-$\omega^{r/2}$, and only for $r$ even.} The correspondence of the proof of
+and nontrivial for $k\ge1$, so the invariants are the multiples of
+$\omega^{r/2}$, for $r$ even.} The correspondence of the proof of
 \Cref{thm:vandermonde}(iv) maps $H^{r}(B_{[a]},\QQ)=\bigwedge^{r}H^{1}(B_{[a]},
 \QQ)$ isomorphically and equivariantly onto $\bigwedge^{r}V_{a}$; the class
 $\theta_{a}$ goes to an invariant nondegenerate form, a nonzero multiple of
 $\omega_{a}$, and $\theta_{a}^{r/2}$ to a nonzero multiple of
 $\omega_{a}^{r/2}$, which is algebraic.
 
-(ii) For $m=3$, $D_{a}$ is a cyclic triple cover of genus $g=\dim V_{a}$
-with labelled branch points of exponents $a_{i}'\in\{1,2\}$, and
-$H^{1}(D_{a},\QQ)=V_{a}\oplus V_{-a}$. If $g\le2$, then $\bigwedge^{r}V_{a}$ is
-zero unless $r=g=2$. If $g\ge3$, then by the theorem of Achter and Pries
-\cite[Corollary~3.10]{AP07}, for every prime $\ell\ge5$ the $\ell$-adic
-monodromy of the moduli space of labelled trielliptic curves of this type is
-the special unitary group of the $\ZZ_{\ell}[\zeta_{3}]$-hermitian form on
-$H^{1}(D_{a},\ZZ_{\ell})$. The classifying map from $U$ to that moduli space is
-dominant, so the closure of the image of $\Pi'$ is open in that group, and an
-open subgroup is Zariski dense in the connected group $\SU$.%
-\footnote{A labelled trielliptic curve of this type is determined by its
-labelled branch points up to projective transformations, and the
-configurations of $g+2$ distinct points of $\CC$ map onto the space
-$M_{0,g+2}$ of these by a fibration with connected fibres, which is
-surjective on fundamental groups; the moduli space differs from $M_{0,g+2}$
-by the finite group of automorphisms. The \'etale fundamental group of the
-complex moduli space is the profinite completion of the topological one, so
-the $\ell$-adic monodromy is the closure of the image of the topological
-monodromy. The passage from $\Pi$ to $\Pi'$ costs a finite index. The Zariski closure of the image of $\Pi'$ over $\QQ$ therefore
-contains, after extension to $\QQ_{\ell}$, an open subgroup of
-$\SU(\ZZ_{\ell})$, hence all of $\SU$.} Over $\CC$ that group acts on $V_{a}$
-through $\SL(V_{a})$, whose invariants in $\bigwedge^{r}V_{a}$ vanish
-for $0<r<g$. In both cases $x_{[a]}\ne0$ forces $r=g$, and then
-$\bigwedge^{r}V_{a}$ is a line of type $(p_{a},r-p_{a})$ with
-$p_{a}=\dim V_{a}^{1,0}$, which contains a class of type $(r/2,r/2)$ only if
-$p_{a}=r/2$. The field $\QQ(\zeta_{3})$ then acts on $B_{[a]}$, of dimension
-$|[a]|\dim V_{a}/2=r$, with multiplicities $(r/2,r/2)$ on the tangent space
-and compatibly with the polarisation, the automorphism of $D_{a}$ preserving
-the cup product; so $B_{[a]}$ is of Weil type (\Cref{def:weiltype}), and
+\enlargethispage{2pt}%
+(ii) For $m\in\{3,4,6\}$, $D_{a}$ is the cyclic cover of \Cref{setup:cyclic}
+for the exponents $a_{i}'\in\{1,\dots,m-1\}$ on the support $S$ of $a$, and
+$V_{a}$ is its eigenspace, of dimension $n=|S|-2$ (\Cref{lem:foxmodel}). The
+map from $U$ to $\mathrm{Conf}_{|S|}$ that forgets the $\lambda_{i}$ outside
+$S$ is a fibration with connected fibres, so it is onto on fundamental groups,
+and $\Pi'$ maps onto a subgroup of finite index of $P_{|S|}$; the Zariski
+closure of its image in $\GL(V_{a})$ therefore contains $G_{a}^{0}$. If
+$n\le2$, then $\bigwedge^{r}V_{a}$ is zero unless $r=n=2$. If $V_{a}^{1,0}$ or
+$V_{a}^{0,1}$ is zero, then $\bigwedge^{r}V_{a}$ has type $(r,0)$ or $(0,r)$
+and contains no class of type $(r/2,r/2)$. Otherwise $n\ge3$, and
+\Cref{prop:cyclicmonodromy} gives $G_{a}^{0}\supseteq\SL(V_{a})$, whose
+invariants in $\bigwedge^{r}V_{a}$ vanish for $0<r<n$. In every case
+$x_{[a]}\ne0$ forces $r=n$, and then $\bigwedge^{r}V_{a}$ is a line of type
+$(p_{a},r-p_{a})$ with $p_{a}=\dim V_{a}^{1,0}$, which contains a class of type
+$(r/2,r/2)$ only if $p_{a}=r/2$. The field $\QQ(\zeta_{m})$ then acts on
+$B_{[a]}$, of dimension $|[a]|\dim V_{a}/2=r$, with multiplicities
+$(r/2,r/2)$ on the tangent space and compatibly with the polarisation, the
+automorphism of $D_{a}$ preserving the cup product; so $B_{[a]}$ is of Weil
+type (\Cref{def:weiltype}), and
 $W_{[a]}=\bigwedge^{r}V_{a}\oplus\bigwedge^{r}V_{-a}$ is the image of
-$\bigwedge^{r}_{\QQ(\zeta_{3})}H^{1}(B_{[a]},\QQ)$, its space of Weil classes.
-For the discriminant (\Cref{def:disc}), $L=H^{1}(D_{a},\ZZ)$ is a torsion-free
-module over the principal ideal domain $\ZZ[\zeta_{3}]$, hence free of rank
-$r$, and the cup product $Q$ is unimodular on it. With $\delta=\sqrt{-3}$ and
-$Q=\tfrac12\Tr(\delta^{-1}H)$ as in \Cref{lem:hermform}, the determinant of the
-trace form of a hermitian lattice gives
-$1=|\det Q|=3^{r}\,\Nm(\tfrac{1}{2\delta})^{r}(\det H)^{2}=(\det H)^{2}/4^{r}$,
-so $\det H=\pm2^{r}$,%
-\footnote{For a free $\cO_{K}$-module with hermitian Gram matrix $M$ and
-$c\in K^{\times}$, the $\ZZ$-bilinear form $\Tr_{K/\QQ}(c\,v^{T}M\bar w)$ has
-determinant of absolute value $|d_{K}|^{g}\Nm(c)^{g}(\det M)^{2}$, where
-$d_{K}$ is the discriminant of $K$: for $g=1$ this is the discriminant of the
-trace form of $\cO_{K}$ scaled by $\Nm(cM)$. Changing the basis by
-$P\in\GL_{g}(K)$ multiplies both sides by $\Nm_{K/\QQ}(\det P)^{2}$, and a
-basis in which $M$ is diagonal makes the form an orthogonal sum of forms of
-rank one. Here $d_{K}=-3$ and
-$\Nm(1/(2\delta))=1/12$. A computation in \cite{BMB26} checks the formula on
-random lattices.} and $(-1)^{r/2}\det H=2^{r}=\Nm(2^{r/2})$ is a norm, the sign
-being that of a form of signature $(r/2,r/2)$. The discriminant is trivial,
-and it does not change under the isogeny, which scales the polarisation by
-a rational number and $\det H$ by its $r$-th power.
+$\bigwedge^{r}_{\QQ(\zeta_{m})}H^{1}(B_{[a]},\QQ)$, its space of Weil classes.
+Its discriminant (\Cref{def:disc}) is that of the lattice $L_{a}$ of
+\Cref{lem:newdisc}: the isogeny with the abelian subvariety of $J(D_{a})$
+whose first cohomology is $L_{a}\otimes\QQ$ scales the polarisation by a
+rational number and $\det H$ by its $r$-th power, a norm. The coordinates of
+$a$ equal to $d/2$ are those with $a_{i}'=3$ when $m=6$, and
+\Cref{lem:newdisc} gives the assertion.
 
 (iii) Let $x$ be a Hodge class of degree $r$. The component of $\Phi^{*}x$
-along $\eta$ is algebraic. For $d=2$ every $a\ne0$ has order two, and (i)
-applies. For $d=3$ every $a\ne0$ has order three; by (ii) only the $a$ with
-$\dim V_{a}=r$ and $\dim V_{a}^{1,0}=r/2$ contribute, and their components are
-images of Weil classes of $B_{[a]}$, which are algebraic: for $r=2$ by the
-theorem of Lefschetz, for $r=4$ by Markman's theorem on abelian fourfolds of
-Weil type, and for $r=6$ by Markman's theorem on abelian sixfolds of split
-Weil type \cite{Mar25a,Mar25b}, the discriminant being trivial. So $\Phi^{*}x$
-is algebraic, and so is $x=\Phi_{*}\Phi^{*}x/|G|$. For the dimensions, the
-classes found are Hodge at every $\lambda$, and by (i) and (ii) there are no
-others. For $d=2$ each $S$ of even size at least $r+2$ gives one class, the
-image of $\theta_{a}^{r/2}$, which is nonzero since $r\le\dim V_{a}$. For $d=3$
-a character with $|S|=r+2$ has $\dim V_{a}^{1,0}=\tfrac13(2n_{1}+n_{2})-1$,
-where $n_{1}$ and $n_{2}$ count its coordinates equal to $1$ and $2$; this is
-$r/2$ exactly when $n_{1}=n_{2}=r/2+1$, and then $W_{[a]}$ gives two classes,
-one for each of $a$ and $-a$.
+along $\eta$ is algebraic. For $d\in\{2,3,4,6\}$ every $a\ne0$ has order $2$,
+$3$, $4$ or $6$, and by (i) and (ii) the components $x_{[a]}$ are images of
+powers of polarisations or of Weil classes of abelian $r$-folds of Weil type
+for $\QQ(\sqrt{-3})$ or $\QQ(i)$. These are algebraic for $r=2$ by the theorem
+of Lefschetz, for $r=4$ by Markman's theorem on abelian fourfolds of Weil
+type, and for $r=6$ by Markman's theorem on abelian sixfolds of split Weil
+type \cite{Mar25a,Mar25b} when the discriminant is trivial: always for
+$d=3,4$, and for $d=6$ except along the characters of order six with an odd
+number of coordinates $3$. So $\Phi^{*}x$ is
+algebraic in the cases stated, and so is $x=\Phi_{*}\Phi^{*}x/|G|$. For the
+dimension, the classes found are Hodge at every $\lambda$, and by (i) and (ii)
+there are no others. Each character of order two with $|S|\ge r+2$ gives one
+class, the image of $\theta_{a}^{r/2}$, nonzero since $r\le\dim V_{a}$. A
+character of order at least three gives a class only if $|S|=r+2$ and
+$\dim V_{a}^{1,0}=\sum_{i\in S}(d-a_{i})/d-1=r/2$, that is
+$\sum_{i}a_{i}=d(r+2)/2$ with representatives $0\le a_{i}<d$, and then exactly
+one, in $\bigwedge^{r}V_{a}$. The characters with $|S|=r+2$ whose coordinates
+on $S$ average $d/2$ are counted by $T_{d}(r+2)$; for $d$ even they include
+the one of order two with all coordinates $d/2$, and the characters of order
+two with $|S|\ge r+4$ give the last sum.
 \end{proof}
 
 \begin{figure}[tbp]
@@ -2098,8 +2421,8 @@ the square of the transvection $T_{k}$. Middle: the chain as a graph, and the
 induction in $\mathrm{Sym}^{2}V_{a}$ by which the logarithms $N_{k}$ generate
 $\mathfrak{sp}(V_{a})$. Right: what the monodromy leaves of the Hodge
 classes, the powers of the polarisation for characters of order two, and
-for characters of order three the Weil classes of an abelian variety of Weil
-type for $\QQ(\sqrt{-3})$ of trivial discriminant.}
+for characters of order three, four and six the Weil classes of an abelian
+variety of Weil type for $\QQ(\sqrt{-3})$ or $\QQ(i)$.}
 \label{fig:vgmonodromy}
 \end{figure}
 
@@ -2110,11 +2433,13 @@ $\mathfrak{sl}$ in the exterior powers, the relation between the signature
 and the exponents used by Achter and Pries, the determinant of the trace
 form, and the dimensions of (iii) by enumeration of the characters. These
 dimensions never exceed $h^{r/2,r/2}(X)$, and they equal it for a quadric, for
-the Fermat cubics ($7$, $21$ and $71$ in dimensions $2$, $4$ and $6$) and for
-two quadrics in $\PP^{N}$ with $N$ even ($N+2$), where every class of type
-$(r/2,r/2)$ is algebraic; for two cubics in $\PP^{6}$ the very general member
-has $141$ Hodge classes of degree four against $h^{2,2}=267$
-(\Cref{fig:vgcounts}). The Lean certificate of \cite{BMB26} repeats the
+the Fermat hypersurfaces (for cubics $7$, $21$ and $71$ in dimensions $2$, $4$
+and $6$, for quartics $142$ and $1108$ in dimensions $4$ and $6$, for sextics
+$1752$ in dimension $4$) and for two quadrics in $\PP^{N}$ with $N$ even
+($N+2$), where every class of type $(r/2,r/2)$ is algebraic. For two cubics
+in $\PP^{6}$ the very general member has $141$ Hodge classes of degree four
+against $h^{2,2}=267$, and for three quartics in $\PP^{7}$ it has $3950$
+against $h^{2,2}=29872$ (\Cref{fig:vgcounts}). The Lean certificate of \cite{BMB26} repeats the
 counts. \Cref{fig:vgscope} shows, for each degree $d$ and dimension $r$,
 what is known for the very general member.
 
@@ -2136,13 +2461,13 @@ of configurations.}
 \includegraphics[width=\textwidth]{fig_vgscope}
 \caption{The Hodge conjecture for the very general complete intersection
 $X_{d,r}(\lambda)$ of Vandermonde type, for every $N$. Grass: proved, by the
-theorem of Lefschetz for $r=2$ and by \Cref{thm:vgvandermonde} for $d=2$
-and for $d=3$, $r\le6$. Teal hatching: it would follow from the analogue of
-the theorem of Achter and Pries for cyclic covers of degree four and six.
-Clay: open, the Weil classes of abelian varieties of Weil type over
-$\QQ(i)$ or $\QQ(\sqrt{-3})$ in dimension at least six, or, hatched, of a
-CM field of degree at least four (\Cref{rem:vandermonde}). For odd $r$ there
-is nothing to prove.}
+theorem of Lefschetz for $r=2$ and by \Cref{thm:vgvandermonde} for $d=2$,
+for $d=3,4$ with $r\le6$ and for $d=6$ with $r\le4$. Teal hatching: proved
+except for the Weil classes of abelian sixfolds of non-split Weil type for
+$\QQ(\sqrt{-3})$. Clay: open, the Weil classes of abelian varieties of Weil
+type over $\QQ(i)$ or $\QQ(\sqrt{-3})$ in dimension at least eight, or,
+hatched, of a CM field of degree at least four (\Cref{rem:vandermonde}).
+For odd $r$ there is nothing to prove.}
 \label{fig:vgscope}
 \end{figure}
 
@@ -2165,13 +2490,16 @@ general type, with $h^{2,2}=2584$ and $48588$. Complete intersections of
 diagonal hypersurfaces, and of quadrics, are also the subject of Terasoma's
 paper \cite{Ter88}. At a very general configuration
 \Cref{thm:vgvandermonde} goes further, in every $\PP^{N}$: for $d=2$ in every
-dimension and for $d=3$ up to dimension seven. For $d=3$ and $r\ge8$ the
+dimension, for $d=3$ and $d=4$ up to dimension seven, and for $d=6$ up to
+dimension five, through the monodromy of cyclic covers of degree three, four
+and six (\Cref{prop:cyclicmonodromy}). For $d=3$ and $r\ge8$ the
 conjecture for the very general member is the algebraicity of the Weil
 classes of the abelian $r$-folds $B_{[a]}$ of split Weil type for
-$\QQ(\sqrt{-3})$, which is open from dimension eight on. For $d\in\{4,6\}$ the characters of
-order four and six need the analogue of the theorem of Achter and Pries for
-cyclic covers of degree four and six; given it, the same proof gives the
-conjecture for the very general member when $r\le4$. Beyond these cases the
+$\QQ(\sqrt{-3})$, which is open from dimension eight on, and the same holds
+for $d=4$ with $\QQ(i)$. For $d=6$ and $r=6$ the open classes are those of
+the abelian sixfolds of non-split Weil type for $\QQ(\sqrt{-3})$ of
+\Cref{thm:vgvandermonde}(iii), such as the one of the character
+$(1,1,2,2,3,5,5,5)$ on eight points. Beyond these cases the
 same reduction meets (F2) itself: for $d=5$ or $d\ge7$ and $N$ large enough, some
 $B_{[a]}$ with $\dim V_{a}=r$ carries an action of $\QQ(\zeta_{e})$, $e\mid d$,
 with $\varphi(e)\ge4$, and $W_{[a]}$ is the top exterior power of its first
@@ -2204,8 +2532,8 @@ built from these. Through the Hodge conjecture itself it holds on the
 complete intersections of \Cref{cor:twodiagonal}(ii), among them the
 fourfolds of general type cut out by two diagonal quartics or sextics in
 $\PP^{6}$, on the very general complete intersections of diagonal quadrics,
-and of diagonal cubics up to dimension seven, of \Cref{thm:vgvandermonde},
-and on the
+of diagonal cubics and quartics up to dimension seven and of diagonal
+sextics up to dimension five, of \Cref{thm:vgvandermonde}, and on the
 varieties of \Cref{prop:k3powers}, \Cref{prop:k3ntype} and
 \Cref{cor:fanolines}: for a K3 surface $S$ with
 $E=\End_{\mathrm{Hdg}}(T(S))$ a CM field, on every power, Hilbert scheme and
@@ -3246,11 +3574,12 @@ Diagonal complete intersections of Vandermonde type
     the conjecture holds when it holds on the abelian varieties $B_{[a]}$, and
     holds for two diagonal hypersurfaces of degree $3$, $4$, $6$ in
     $\PP^{6}$, \Cref{thm:vandermonde}, \Cref{cor:twodiagonal}; it holds on
-    the very general member for $d=2$ in every dimension and for $d=3$ up
-    to dimension seven, \Cref{thm:vgvandermonde}
+    the very general member for $d=2$ in every dimension, for $d=3,4$ up
+    to dimension seven and for $d=6$ up to dimension five,
+    \Cref{thm:vgvandermonde}
   & $B_{[a]}$ of dimension above five, the Weil classes of
     $\QQ(\zeta_{e})$ with $\varphi(e)\ge4$, and the very general member
-    for $d=3$ from dimension eight on and for $d=4,6$,
+    for $d=3,4,6$ from dimension eight on and for $d=6$ in dimension six,
     \Cref{rem:vandermonde} \\
 The conjecture modulo abelian varieties, (F3$'$)
   & holds on the class $\mathcal{A}$ of varieties whose cohomology is

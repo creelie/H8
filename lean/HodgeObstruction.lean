@@ -3098,6 +3098,169 @@ theorem vg_triple_signatures :
            && (p == q) == (n1 == n2))) = true := by
   decide +kernel
 
+/-! ## 45.  Monodromy of cyclic covers of degree 3, 4 and 6
+
+Five finite facts behind Proposition (Monodromy of cyclic covers), Lemma (The
+discriminant of the new part) and Theorem (Very general diagonal complete
+intersections), for degree `m ∈ {3, 4, 6}`.  A multiset of nonzero residues
+modulo `m` is a count vector `c`, `c_v` the number of entries equal to `v`;
+it has `k = sum c_v` points, sum `sum v c_v`, and `m (p + 1) = sum (m - v) c_v`,
+`m (q + 1) = sum v c_v`.
+
+(a) The base of the induction.  The vectors with `k = 5, 6` points, sum `0`,
+order `m` and `p, q ≥ 1` are `38` up to sign.
+
+(b) The merge lemma, proved by hand in the paper, for `7 ≤ k ≤ 8, 11, 10`
+points at `m = 3, 4, 6`: every such vector has two entries `u, w` with
+`u + w ≠ 0` whose merge keeps the order `m` and `p, q ≥ 1`.
+
+(c) Norms.  `x^2 + xy + y^2` is never `2` modulo `4`, and is even only when
+`x` and `y` are, so `2` is not a norm from `Q(sqrt(-3))` and every norm has
+even `2`-adic valuation; `2 = 1 + 1` is a norm from `Q(i)`, and
+`3 = 1 + 1 + 1`, `4 = 4` are norms from `Q(sqrt(-3))`.
+
+(d) Counts.  `T_d(k)`, the number of `(s_i) ∈ {1, ..., d-1}^k` with
+`sum s_i = dk/2`, computed by a recursion and checked against enumeration
+for `(d, k) = (3, 6), (4, 6), (6, 4)`; `T_4(6) = 141`, `T_6(6) = 1751`,
+`T_4(8) = 1107`, `T_6(8) = 38165`; the formula of the theorem agrees with a
+direct count of the characters for `(d, N, r) = (4, 5, 4), (3, 6, 4),
+(6, 4, 2)`, and gives `142`, `988`, `3950`, `1108`, `1752`, `12258`,
+`38166`.
+
+(e) A non-split sixfold.  `a = (1, 1, 2, 2, 3, 5, 5, 5)` modulo `6` has sum
+`0`, order `6`, `p = q = 3` and one coordinate equal to `3`.
+-/
+
+/-- the residues `1, ..., m - 1` present in a count vector `c`. -/
+def cyPresent (c : List Nat) : List Nat :=
+  ((List.range c.length).filter fun i => c.getD i 0 > 0).map (· + 1)
+
+/-- the order of a count vector modulo `m`. -/
+def cyOrder (m : Nat) (c : List Nat) : Nat :=
+  m / ((cyPresent c).foldl Nat.gcd m)
+
+def cyK (c : List Nat) : Nat := cvSum c
+
+def cySum (c : List Nat) : Nat :=
+  ((List.range c.length).map fun i => (i + 1) * c.getD i 0).foldl (· + ·) 0
+
+/-- `m (p + 1)` and `m (q + 1)`. -/
+def cyP1 (m : Nat) (c : List Nat) : Nat :=
+  ((List.range c.length).map fun i => (m - (i + 1)) * c.getD i 0).foldl (· + ·) 0
+
+def cyQ1 (c : List Nat) : Nat := cySum c
+
+/-- admissible: sum `0`, order `m`, `p, q ≥ 1`. -/
+def cyAdm (m : Nat) (c : List Nat) : Bool :=
+  cySum c % m == 0 && cyOrder m c == m && cyP1 m c ≥ 2 * m && cyQ1 c ≥ 2 * m
+
+/-- all count vectors of length `l` with total `k`. -/
+def cyVectors : Nat → Nat → List (List Nat)
+  | 0, k => if k == 0 then [[]] else []
+  | l + 1, k => (List.range (k + 1)).flatMap fun j => (cyVectors l (k - j)).map (j :: ·)
+
+/-- the negative of a count vector: `v ↦ m - v`. -/
+def cyNeg (c : List Nat) : List Nat := c.reverse
+
+/-- one representative of each pair `{a, -a}`: the lexicographically larger. -/
+def cyRep (c : List Nat) : Bool := decide (cyNeg c ≤ c)
+
+/-- the count vector after merging one entry `u` and one entry `w`. -/
+def cyMerge (m : Nat) (c : List Nat) (u w : Nat) : List Nat :=
+  let c1 := c.set (u - 1) (c.getD (u - 1) 0 - 1)
+  let c2 := c1.set (w - 1) (c1.getD (w - 1) 0 - 1)
+  let v := (u + w) % m
+  c2.set (v - 1) (c2.getD (v - 1) 0 + 1)
+
+/-- `f` holds at every count vector of length `l` and total `k`, extending `acc`. -/
+def cyAll : Nat → Nat → List Nat → (List Nat → Bool) → Bool
+  | 0, k, acc, f => k != 0 || f acc.reverse
+  | l + 1, k, acc, f => (List.range (k + 1)).all fun j => cyAll l (k - j) (j :: acc) f
+
+def cyHasMerge (m : Nat) (c : List Nat) : Bool :=
+  (List.range (m - 1)).any fun i => (List.range (m - 1)).any fun j =>
+    let u := i + 1; let w := j + 1
+    u ≤ w && (u + w) % m != 0 && c.getD i 0 ≥ 1
+      && (if u == w then c.getD i 0 ≥ 2 else c.getD j 0 ≥ 1)
+      && cyAdm m (cyMerge m c u w)
+
+/-- **The base of the induction.** -/
+theorem cyclic_base_count :
+    ([3, 4, 6].foldl (fun acc m => acc + ([5, 6].foldl (fun acc' k =>
+        acc' + ((cyVectors (m - 1) k).filter fun c =>
+          cyAdm m c && cyRep c).length) 0)) 0) == 38 := by
+  decide +kernel
+
+/-- **The merge lemma for few points.** -/
+theorem cyclic_merge_small :
+    ([3, 4, 6].all fun m => (List.range (if m == 6 then 4 else 3 * m - 7)).all fun i =>
+      cyAll (m - 1) (i + 7) [] fun c => !cyAdm m c || cyHasMerge m c) = true := by
+  decide +kernel
+
+/-- **Norms from `Q(i)` and `Q(sqrt(-3))`.** -/
+theorem cyclic_norms :
+    ((List.range 4).all fun x => (List.range 4).all fun y =>
+        (x * x + x * y + y * y) % 4 != 2)
+      && ((List.range 2).all fun x => (List.range 2).all fun y =>
+        (x * x + x * y + y * y) % 2 != 0 || (x == 0 && y == 0))
+      && (1 * 1 + 1 * 1 == 2) && (1 * 1 + 1 * 1 + 1 * 1 == 3)
+      && (2 * 2 + 2 * 0 + 0 * 0 == 4) = true := by
+  decide +kernel
+
+/-- the polynomial `(x + ... + x^(d-1))^k`, as its list of coefficients. -/
+def cyPow (d : Nat) : Nat → List Nat
+  | 0 => [1]
+  | k + 1 =>
+    let f := cyPow d k
+    (List.range (f.length + d - 1)).map fun e =>
+      (List.range (d - 1)).foldl (fun acc j =>
+        let s := j + 1; if s ≤ e then acc + f.getD (e - s) 0 else acc) 0
+
+def cyT (d k : Nat) : Nat := (cyPow d k).getD (d * k / 2) 0
+
+/-- all lists of length `n` with entries in `0, ..., d - 1`. -/
+def cyTuples (d : Nat) : Nat → List (List Nat)
+  | 0 => [[]]
+  | n + 1 => (cyTuples d n).flatMap fun t => (List.range d).map (· :: t)
+
+def cyTEnum (d k : Nat) : Nat :=
+  ((cyTuples (d - 1) k).filter fun t => 2 * (cvSum t + k) == d * k).length
+
+/-- the formula of the theorem. -/
+def cyFormula (d N r : Nat) : Nat :=
+  1 + choose (N + 1) (r + 2) * cyT d (r + 2)
+    + (if d % 2 == 0 then
+        ((List.range (N + 2)).filter fun j => j ≥ r / 2 + 2 && 2 * j ≤ N + 1).foldl
+          (fun acc j => acc + choose (N + 1) (2 * j)) 0
+      else 0)
+
+/-- the direct count of the characters that carry a Hodge class. -/
+def cyEnum (d N r : Nat) : Nat :=
+  1 + ((cyTuples d (N + 1)).filter fun a =>
+    let s := a.filter (· != 0)
+    let o := d / (s.foldl Nat.gcd d)
+    cvSum a % d == 0 && s.length > 0 &&
+      (if o == 2 then s.length ≥ r + 2
+       else s.length == r + 2 && cvSum (s.map (d - ·)) == d * (r / 2 + 1))).length
+
+/-- **Counts of Hodge classes.** -/
+theorem cyclic_vg_counts :
+    (cyT 3 6 == cyTEnum 3 6 && cyT 4 6 == cyTEnum 4 6 && cyT 6 4 == cyTEnum 6 4
+      && ([cyT 4 6, cyT 6 6, cyT 4 8, cyT 6 8] == [141, 1751, 1107, 38165])
+      && cyFormula 4 5 4 == cyEnum 4 5 4 && cyFormula 3 6 4 == cyEnum 3 6 4
+      && cyFormula 6 4 2 == cyEnum 6 4 2
+      && ([cyFormula 4 5 4, cyFormula 4 6 4, cyFormula 4 7 4, cyFormula 4 7 6,
+           cyFormula 6 5 4, cyFormula 6 6 4, cyFormula 6 7 6]
+          == [142, 988, 3950, 1108, 1752, 12258, 38166])) = true := by
+  decide +kernel
+
+/-- **A non-split sixfold.** -/
+theorem cyclic_nonsplit_example :
+    (let c := [2, 2, 1, 0, 3]
+     cyAdm 6 c && cyK c == 8 && cyP1 6 c == 24 && cyQ1 c == 24 && c.getD 2 0 == 1)
+      = true := by
+  decide +kernel
+
 end HodgeObstruction
 
 /-! ## The axioms each theorem depends on
@@ -3232,3 +3395,8 @@ propositional extensionality enters through `decide`, and in no case
 #print axioms HodgeObstruction.vg_quadric_counts
 #print axioms HodgeObstruction.vg_cubic_counts
 #print axioms HodgeObstruction.vg_triple_signatures
+#print axioms HodgeObstruction.cyclic_base_count
+#print axioms HodgeObstruction.cyclic_merge_small
+#print axioms HodgeObstruction.cyclic_norms
+#print axioms HodgeObstruction.cyclic_vg_counts
+#print axioms HodgeObstruction.cyclic_nonsplit_example
