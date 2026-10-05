@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """make_computations.py -- build COMPUTATIONS.md at the root of the archive.
 
-The sources are items.tex (the computations, items (I) to (LXXVI)), lean.tex
+The sources are items.tex (the computations, items (I) to (LXXVIII)), lean.tex
 (the Lean certificate and its table of theorems) and item_labels.json (for
 each item, the labels of the results of the paper that cite it).  Every
 cross-reference is resolved to the numbering of the compiled paper through
@@ -149,6 +149,7 @@ for r in re.split(r'\\\\\s*\n', rows):
     a = a.replace('\\allowbreak', '').replace('}\\texttt{', '')
     mdrows.append('| %s | %s |' % (convert(a).strip().replace('\\_', '_'), convert(b).strip().rstrip('\\').strip()))
 E = E[:lt0] + '\n\nTABLEPLACEHOLDER\n\n' + E[lt1:]
+E = E.replace('\\allowbreak', '').replace('}\\texttt{', '')
 E = convert(E)
 E = re.sub(r'\\begin\{(enumerate|itemize|description)\}(\[[^\]]*\])?', '', E)
 E = re.sub(r'\\end\{(enumerate|itemize|description)\}', '', E)

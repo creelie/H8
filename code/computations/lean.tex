@@ -7,16 +7,16 @@ computational content is checked in exact arithmetic by the computations of
 \Cref{sec:verification}. The certificate is a single Lean~4 file that
 accompanies the paper. It compiles against a bare Lean~4 toolchain, contains
 no \texttt{sorry}, and depends on no library, Mathlib included. The axiom
-report at the end of the file lists, for each of its one hundred and forty-seven theorems,
-the axioms on which it depends. One hundred and ten depend on none, and the
-remaining thirty-seven on propositional extensionality alone, which enters when
+report at the end of the file lists, for each of its one hundred and sixty-nine theorems,
+the axioms on which it depends. One hundred and fourteen depend on none, and the
+remaining fifty-five on propositional extensionality alone, which enters when
 \texttt{decide} reduces an equality of Booleans or when a bound is proved from
 the lemmas on natural numbers in the core library; no theorem uses anything
-else. The annihilator dimension and the rank-zero obstruction of
-\Cref{ssec:rankzero}, \Cref{lem:annihilator} and \Cref{thm:rankzero}, are not
-among the one hundred and forty-seven: they are proved by hand, and the dimension count of
-the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
-\Cref{sec:verification}.
+else. The rank-zero obstruction of \Cref{thm:rankzero} is not among the
+one hundred and sixty-nine: it is proved by hand from \Cref{lem:annihilator}, whose count
+the certificate checks in its model of Hochschild cohomology, and its
+application to the explicit object is verified in exact arithmetic modulo a
+prime by item (XIV) of \Cref{sec:verification}.
 
 \subsection{Contents of the certificate}
 
@@ -24,7 +24,7 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \small
 \renewcommand{\arraystretch}{1.06}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.31\linewidth}>{\raggedright\arraybackslash}p{0.62\linewidth}@{}}
-\caption{The one hundred and forty-seven machine-checked theorems.}\label{tab:lean}\\
+\caption{The one hundred and sixty-nine machine-checked theorems.}\label{tab:lean}\\
 \toprule
 \textbf{theorem} & \textbf{statement} \\
 \midrule
@@ -188,28 +188,60 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \texttt{divisor\_}\allowbreak\texttt{profiles} & the Betti numbers of the connected sum of two real $n$-tori have Euler characteristic $0$ for odd $n$ and $-2$ for even $n$, $2\le n\le40$; at $n=5$ they are $1,10,20,20,10,1$; for $5\le n\le16$, eight values of $d$ and $0\le a\le3$, $|b|\le3$ the profile of part (i) meets every condition, \Cref{prop:divisortemplate}(i) \\
 \texttt{divisor\_}\allowbreak\texttt{endo\_}\allowbreak\texttt{positive} & $r^{2}(20d+1)+6<32r^{2}d^{2}$ for all $d,r\ge1$, so $6\chi(D,\End_{0}G)>0$, \Cref{prop:divisortemplate}(iv) \\
 \texttt{divisor\_}\allowbreak\texttt{rank\_}\allowbreak\texttt{two\_}\allowbreak\texttt{mod3} & $3$ divides $2(d+1)$ exactly when $d\equiv2\pmod3$, for every $d$, \Cref{prop:divisortemplate}(ii) \\
+\texttt{hh\_}\allowbreak\texttt{annihilator\_}\allowbreak\texttt{small} & for $n=1,2,3$ and every monomial $S$ of $HH^{*}$: if $S$ meets $P$ and $Q$ it kills $\alpha_{+}$ and $\alpha_{-}$; if it lies in $Q$ (in $P$) it sends $\alpha_{+}$ ($\alpha_{-}$) to a monomial and kills the other; the images are distinct except for $S=Q$, $S'=P$ in degree $2n$; so $\dim\operatorname{Ann}_{HH^{k}}(\omega)=\binom{4n}{k}-2\binom{2n}{k}+\delta_{k,2n}$, the mixed products of two wedges number $n^{2}$, and $2^{2n+1}-1$ monomials lie outside the ideal of $P\wedge Q$, \Cref{lem:annihilator}, \Cref{thm:hhsplitting}, \Cref{cor:hhfactor} \\
+\texttt{polarised\_}\allowbreak\texttt{number\_}\allowbreak\texttt{three} & at $n=3$, for two characters of each Hankel rank $\rho=0,1,2,3$, each with $u=1$ and $u=2+3i$, $\dim\operatorname{Ann}_{HT^{2}}(\gamma)=n^{2}(4-\rho)$ and the contraction has rank $(4+\rho)n^{2}-2n$: exact annihilating vectors, and images independent modulo $998244353$, \Cref{thm:p2primenumber} \\
+\texttt{polarised\_}\allowbreak\texttt{number\_}\allowbreak\texttt{four\_}\allowbreak\texttt{rho0} & the same at $n=4$ for $\gamma=(2+3i)\alpha_{+}+(2-3i)\alpha_{-}$: annihilator $64$, rank $56$, \Cref{thm:p2primenumber} \\
+\texttt{polarised\_}\allowbreak\texttt{number\_}\allowbreak\texttt{four\_}\allowbreak\texttt{rho1} & the same for $e^{\theta}$ with that Weil part: annihilator $48$, rank $72$, \Cref{thm:p2primenumber} \\
+\texttt{polarised\_}\allowbreak\texttt{number\_}\allowbreak\texttt{four\_}\allowbreak\texttt{rho2} & the same for $\theta$ with that Weil part: annihilator $32$, rank $88$, \Cref{thm:p2primenumber} \\
+\texttt{polarised\_}\allowbreak\texttt{number\_}\allowbreak\texttt{four\_}\allowbreak\texttt{rho3} & the same for a general integral polynomial part: annihilator $16$, rank $104$, \Cref{thm:p2primenumber} \\
+\texttt{weil\_}\allowbreak\texttt{product\_}\allowbreak\texttt{formula} & the coefficient $c_{n}(t)$ of $w^{(T)}$, $|T|=t$, in $\omega_{1}+\sqrt{-d}\,\omega_{2}$ satisfies $d^{n}c_{n}(t)=d^{2n-t}(\sqrt{-d})^{t}$, seven fields, $n\le10$, \eqref{eq:omegaprod} \\
+\texttt{weil\_}\allowbreak\texttt{multiplicative\_}\allowbreak\texttt{coefficients} & $c_{n_{1}}(t_{1})\,c_{n_{2}}(t_{2})=c_{n_{1}+n_{2}}(t_{1}+t_{2})$ in $\ZZ[\sqrt{-d}]$, seven fields, $n_{1},n_{2}\le6$, \eqref{eq:weilmult} \\
+\texttt{weil\_}\allowbreak\texttt{multiplicative\_}\allowbreak\texttt{exterior} & in the exterior algebra over $\ZZ[\sqrt{-d}]$, $\prod_{j}(d\,x_{j}+\sqrt{-d}\,y_{j})=d^{n}\omega$ for $n\le3$, and for every composition $n=n_{1}+\dots+n_{k}$ the product of the classes $\omega$ of the factors is the class of the product, computed with signs, for $n\le3$ and five fields and for $n=4$ and $d=1,3$, \eqref{eq:omegaprod}, \Cref{thm:weilmult} \\
+\texttt{split\_}\allowbreak\texttt{member\_}\allowbreak\texttt{closed\_}\allowbreak\texttt{form} & on $X\times\widehat{X}$, $n!\,\omega=(-1)^{n(n-1)/2}(\gamma+\sqrt{-d}\,\ell)^{n}$ for $n\le3$; $2\omega_{1}=d\ell^{2}-\gamma^{2}$ and $\omega_{2}=-\gamma\ell$ at $n=2$; $6\omega_{1}=3d\gamma\ell^{2}-\gamma^{3}$ and $6\omega_{2}=d\ell^{3}-3\gamma^{2}\ell$ at $n=3$; five fields, \Cref{ex:splitsmall} \\
+\texttt{secant\_}\allowbreak\texttt{chern\_}\allowbreak\texttt{recursion} & the recursion $\gamma_{k+1}=b\gamma_{k}+dk(a-k+1)\gamma_{k-1}$ agrees with Newton's identities for $k\le8$, eight squarefree $d\le11$, $0\le a\le4$ and $|b|\le4$, a box on which agreement is the identity, \Cref{prop:notforbidden}(ii) \\
+\texttt{secant\_}\allowbreak\texttt{discriminant} & $a\gamma_{2}-(a-1)b^{2}=a^{2}d+b^{2}$, which is positive unless $a=b=0$, \Cref{prop:notforbidden}(iii) \\
+\texttt{secant\_}\allowbreak\texttt{rank\_}\allowbreak\texttt{one\_}\allowbreak\texttt{chern} & at $a=1$, $\gamma_{2}=b^{2}+d$, $\gamma_{3}=b(b^{2}+d)$ and $\gamma_{4}=(b^{2}+d)(b^{2}-3d)$, the Chern classes of $\cI_{Z}(b\Theta)$ in \Cref{prop:lowrankburch} \\
+\texttt{weil\_}\allowbreak\texttt{plane\_}\allowbreak\texttt{gram} & $\eta\,\omega_{1}=\eta\,\omega_{2}=0$, $\eta^{2n}$ is $(2n)!$ times the top monomial, and the Gram matrix of the rational Weil plane is $(-1)^{n}2^{2n-1}\operatorname{diag}(d^{n},d^{n-1})$, for $n\le3$ and five fields, \Cref{thm:p2endo} \\
+\texttt{lattice\_}\allowbreak\texttt{secant\_}\allowbreak\texttt{moments} & the binomial moments of $a\,u_{\Theta}+b\,v_{\Theta}$ are those of the theorem, on a box on which agreement is the identity, \Cref{lem:binomialmoments}, \Cref{thm:lattice} \\
+\texttt{lattice\_}\allowbreak\texttt{u3v\_}\allowbreak\texttt{moments} & $24\,m(u_{\Theta}+3v_{\Theta})=\bigl(24,72,-12(d+3),24,(d+9)(d-2)\bigr)$, \Cref{thm:lattice} \\
+\texttt{lattice\_}\allowbreak\texttt{u3v\_}\allowbreak\texttt{criterion} & for every $d$, $d$ is odd and $24\mid(d+9)(d-2)$ exactly when $d\equiv15,23\pmod{24}$, \Cref{thm:lattice} \\
+\texttt{lattice\_}\allowbreak\texttt{moments\_}\allowbreak\texttt{d3} & at $d=3$, $m(u_{\Theta}+v_{\Theta})=(1,1,-2,\tfrac43,-\tfrac12)$, with least common denominator $6$, \Cref{thm:lattice} \\
+\texttt{lattice\_}\allowbreak\texttt{smooth\_}\allowbreak\texttt{support} & $m(\cO_{S})=\bigl(0,0,N,-3N,N(83-2N)/12\bigr)$, not integral for $N=5,\dots,8$, \Cref{rem:latticedefect} \\
+\texttt{burch\_}\allowbreak\texttt{rank\_}\allowbreak\texttt{one\_}\allowbreak\texttt{c4} & at $r=1$, $c_{1}(E)=-\frac b3\Theta$ kills $c_{3}(G)$, and then $72\,c_{4}(G)=-(b^{2}+d)(b^{2}+9d)\ne0$, \Cref{prop:lowrankburch}(i) \\
+\texttt{burch\_}\allowbreak\texttt{rank\_}\allowbreak\texttt{two\_}\allowbreak\texttt{c4} & at $r=2$, $24\,c_{4}(G)=\gamma_{2}(b^{2}-3d+4ab+6m)$, and $\chi(E)=a^{4}-2a^{2}m+\frac12m^{2}$ by Newton's identities, an integer exactly when $m$ is even, \Cref{prop:lowrankburch}(ii) \\
+\texttt{burch\_}\allowbreak\texttt{rank\_}\allowbreak\texttt{two\_}\allowbreak\texttt{parity} & for every $d$, $12\mid3d+3$ exactly when $d\equiv3\pmod4$; as $3d-9-12a=(3d+3)-12(a+1)$ this is the case $b=3$, \Cref{prop:lowrankburch}(ii) \\
 \end{longtable}
 \endgroup
 
 An element of $\ZZ[\sqrt{-d}]$ is represented by a pair of integers, with
-multiplication and conjugation the evident operations. With four exceptions,
+multiplication and conjugation the evident operations. With eight exceptions,
 every statement in the table is a closed Boolean expression and is proved by
 \texttt{decide}, which asks the kernel to evaluate it by reduction; for the
-two computations in the exterior algebra on eight generators, of the
-compensated bivectors and of the rank certificates, and for three of the four
-theorems on convolutions of line bundles, the form
+larger computations, those in exterior algebras among them, the form
 \texttt{decide +kernel} hands the evaluation to the kernel directly. This is
 the strongest check available and the least flexible: it works only over
 finite ranges, which is why each of these theorems carries an explicit bound,
-and why none of them can be the general statement that the paper proves. The
-four exceptions, \texttt{criterion\_}\allowbreak\texttt{endomorphisms\_n2},
+and why none of them can be the general statement that the paper proves.
+Where the statement is a polynomial identity, the box is chosen large enough
+in each variable for agreement on it to be the identity. The rank
+certificates of \texttt{polarised\_}\allowbreak\texttt{number\_}\allowbreak\texttt{three}
+and the four theorems after it record exact vectors annihilating $\gamma$ and
+a family of images independent modulo the prime $998244353$, at which
+$\sqrt{-1}$ has a square root; reduction modulo that prime is a ring map on
+$\ZZ[\sqrt{-1}]$, so the family is independent over $\QQ(\sqrt{-1})$, and the
+two sizes add up to $\dim HT^{2}$. The eight exceptions,
+\texttt{criterion\_}\allowbreak\texttt{endomorphisms\_n2},
 \texttt{criterion\_}\allowbreak\texttt{endomorphisms\_n3},
-\texttt{quartic\_}\allowbreak\texttt{rank\_}\allowbreak\texttt{two\_}\allowbreak\texttt{large\_}\allowbreak\texttt{odd\_}\allowbreak\texttt{part}
-and the second half of \texttt{orlov\_}\allowbreak\texttt{n4\_}\allowbreak\texttt{euler},
+\texttt{quartic\_}\allowbreak\texttt{rank\_}\allowbreak\texttt{two\_}\allowbreak\texttt{large\_}\allowbreak\texttt{odd\_}\allowbreak\texttt{part},
+the second half of \texttt{orlov\_}\allowbreak\texttt{n4\_}\allowbreak\texttt{euler},
+\texttt{divisor\_}\allowbreak\texttt{endo\_}\allowbreak\texttt{positive},
+\texttt{divisor\_}\allowbreak\texttt{rank\_}\allowbreak\texttt{two\_}\allowbreak\texttt{mod3},
+\texttt{lattice\_}\allowbreak\texttt{u3v\_}\allowbreak\texttt{criterion} and
+\texttt{burch\_}\allowbreak\texttt{rank\_}\allowbreak\texttt{two\_}\allowbreak\texttt{parity},
 are stated for all natural numbers and proved from the lemmas on natural
 numbers in the core library, with \texttt{decide} used at most for a final
-numerical inequality. In every case nothing is quoted: the kernel recomputes
-each assertion from the definitions.
+check over finitely many residues. In every case nothing is quoted: the
+kernel recomputes each assertion from the definitions.
 
 Two of the entries need a word on what they settle and what they do not.
 \texttt{hodge\_dim\_count} verifies the bookkeeping of \Cref{thm:hdgcount}:
@@ -254,3 +286,16 @@ Lefschetz standard conjecture. Formalising them would require a library of
 complex algebraic geometry that does not at present exist. What the Lean file
 establishes is that the arithmetic of \Cref{tab:lean} is correct; where the
 paper reasons, the reader must still read.
+
+Some computations of \Cref{sec:verification} have no counterpart in the
+file, or only a partial one. The Macaulay2 computations of local $\Ext$
+algebras and jet classes, items (XXIX), (XXXI), (XL) and the local part of
+(LXVIII), the evaluation of theta integrals in ball arithmetic in part (H) of
+item (LXXII), and the search of item (XXII) over up to $4.29\times10^{14}$
+sign patterns are beyond a kernel with no libraries. The exact linear algebra
+of items (I), (XIII), (XVI), (XVIII), (XIX), (XXIII), (XXIV), (XXXIV) to
+(XXXVII), (XLI) to (XLIII), (XLVII) to (XLIX), (LI), (LIII), (LIV) and
+(LVII) to (LXIII) is checked in exact arithmetic there and has not been
+carried into Lean beyond the counts checked by the theorems listed above;
+it is within reach of the certificate method of
+\texttt{polarised\_}\allowbreak\texttt{number\_}\allowbreak\texttt{three}.

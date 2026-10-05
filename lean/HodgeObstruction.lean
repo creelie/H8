@@ -102,6 +102,18 @@ which in every case is finite and integral.
     shifts on E_0^8; Section 49 checks the arithmetic of the sheaves on
     divisors in the Orlov template.
 
+  * Section 50 computes the action of every monomial of Hochschild
+    cohomology on the two Weil monomials, which gives the annihilator of a
+    Weil class in every degree.  Section 51 certifies the rank of the
+    polarised criterion at n = 3 and n = 4: exact annihilating vectors and a
+    family of images independent modulo a prime, whose sizes add up to
+    dim HT^2.  Section 52 checks the product formula of the Weil class, its
+    multiplicativity in Z[sqrt(-d)] and in the exterior algebra, and the
+    closed form on the split member; Section 53 the integrality of the
+    Chern classes of a secant character; Section 54 the intersection form on
+    the rational Weil plane; Section 55 the secant plane against the lattice
+    of line bundles and the resolutions of rank one and two.
+
 Most theorems are settled by `decide`, many by its kernel-only form
 `decide +kernel`, and a few by short proofs from the core lemmas on natural
 numbers, so the kernel checks every one.  There is no `sorry` and no
@@ -3741,6 +3753,1452 @@ theorem divisor_rank_two_mod3 : ∀ d : Nat, (2 * (d + 1)) % 3 = 0 ↔ d % 3 = 2
     rw [e1, Nat.add_mul_mod_self_left, Nat.add_mod_right]
     exact ih
 
+/-! ## 50.  The annihilator of a Weil class in Hochschild cohomology
+
+The finite facts behind Lemma (The annihilator of the Weil line in
+`H^{0,2}`), Theorem (The annihilator is the mixed part of a splitting) and
+Corollary (Consequences for the Hochschild action).
+
+Model.  `H^1(A,C)` has the `4n` generators `x_1..x_n, y_1..y_n` of type
+`(1,0)` and their conjugates `xbar, ybar`, numbered `0..4n-1` in that order;
+`alpha_+ = x ^ xbar` and `alpha_- = y ^ ybar` are monomials.  `HH^1` has the
+`4n` operators `P = (wedge xbar_i, contract y_i)` and
+`Q = (wedge ybar_i, contract x_i)`, numbered `0..2n-1` and `2n..4n-1`; each
+acts on a single generator, and no two act on the same one, so a monomial `S`
+of `HH^*` sends a cohomology monomial `m` to zero or to plus or minus the
+monomial `m xor gens(S)`.
+
+The theorem checks, for `n = 1, 2, 3` and every monomial `S` of `HH^*`:
+`S` kills `alpha_+` and `alpha_-` when it meets both `P` and `Q`; a nonempty
+`S` inside `Q` sends `alpha_+` to a nonzero monomial and kills `alpha_-`, and
+symmetrically for `P`; the images of two different nonempty monomials inside
+`Q` (resp. `P`) are different; and an image of a monomial inside `Q` equals
+an image of a monomial inside `P` only for `S = Q`, `S' = P`, in degree `2n`.
+For `omega = a alpha_+ + b alpha_-` with `a b != 0` the images of the
+monomials of degree `k >= 1` are therefore zero (the mixed ones), or nonzero
+multiples of `2 C(2n,k)` distinct monomials, two of which coincide when
+`k = 2n`; so `dim Ann_{HH^k}(omega) = C(4n,k) - 2 C(2n,k) + [k = 2n]`.  The
+count of mixed monomials is checked against this formula in every degree, the
+mixed products of two wedge operators number `n^2` (the annihilator in
+`H^{0,2}` of Lemma (The annihilator of the Weil line in `H^{0,2}`)), and the
+monomials meeting only one of `P`, `Q` number `2^(2n+1) - 1`.  The count
+`C(4n,2) - 4n^2 = 2n(2n-1)` in degree two is `p2_minimal_count` of
+Section 25.
+-/
+
+/-- the generator on which operator `t` acts. -/
+def haGen (n t : Nat) : Nat :=
+  if t < n then 2 * n + t            -- wedge xbar
+  else if t < 2 * n then t           -- contract y  (y_i is generator n + i)
+  else if t < 3 * n then n + t       -- wedge ybar  (generator 3n + (t - 2n))
+  else t - 3 * n                     -- contract x
+
+/-- operator `t` wedges (`true`) or contracts (`false`). -/
+def haWedge (n t : Nat) : Bool := t < n || (2 * n ≤ t && t < 3 * n)
+
+/-- the mask of the generators touched by the operator monomial `S`. -/
+def haGens (n S : Nat) : Nat :=
+  (List.range (4 * n)).foldl (fun acc t => if S.testBit t then acc ||| (1 <<< haGen n t) else acc) 0
+
+/-- the operator monomial `S` applied to the cohomology monomial `m`:
+`none` for zero, `some m'` for plus or minus the monomial `m'`. -/
+def haAct (n S m : Nat) : Option Nat :=
+  (List.range (4 * n)).foldl
+    (fun acc t =>
+      match acc with
+      | none => none
+      | some m' =>
+        if S.testBit t then
+          let g := haGen n t
+          if haWedge n t then (if m'.testBit g then none else some (m' ||| (1 <<< g)))
+          else (if m'.testBit g then some (m' ^^^ (1 <<< g)) else none)
+        else some m')
+    (some m)
+
+def haAlphaPlus (n : Nat) : Nat :=
+  (List.range n).foldl (fun acc i => acc ||| (1 <<< i) ||| (1 <<< (2 * n + i))) 0
+def haAlphaMinus (n : Nat) : Nat :=
+  (List.range n).foldl (fun acc i => acc ||| (1 <<< (n + i)) ||| (1 <<< (3 * n + i))) 0
+
+def haPmask (n : Nat) : Nat := (1 <<< (2 * n)) - 1
+def haQmask (n : Nat) : Nat := ((1 <<< (4 * n)) - 1) ^^^ haPmask n
+
+def haPopcount (m : Nat) (w : Nat) : Nat := (List.range w).countP (fun i => m.testBit i)
+
+/-- the operators act on distinct generators, and each is one of the `4n`. -/
+def haGensDistinct (n : Nat) : Bool :=
+  let gs := (List.range (4 * n)).map (haGen n)
+  gs.all (fun g => g < 4 * n) && (List.range (4 * n)).all (fun g => gs.count g == 1)
+
+/-- the vanishing pattern: mixed monomials kill both, pure ones kill exactly
+one, and a nonzero image is `m xor gens(S)`. -/
+def haPattern (n : Nat) : Bool :=
+  let ap := haAlphaPlus n
+  let am := haAlphaMinus n
+  (List.range (1 <<< (4 * n))).all fun S =>
+    let inP := S &&& haQmask n == 0
+    let inQ := S &&& haPmask n == 0
+    let ip := haAct n S ap
+    let im := haAct n S am
+    if S == 0 then ip == some ap && im == some am
+    else if inQ then ip == some (ap ^^^ haGens n S) && im == none
+    else if inP then im == some (am ^^^ haGens n S) && ip == none
+    else ip == none && im == none
+
+/-- the images of the nonempty monomials inside `Q` on `alpha_+`, and inside
+`P` on `alpha_-`, are pairwise distinct, and meet only at `S = Q`, `S' = P`. -/
+def haDistinct (n : Nat) : Bool :=
+  let ap := haAlphaPlus n
+  let am := haAlphaMinus n
+  let qs := (List.range (1 <<< (2 * n))).map (fun s => s <<< (2 * n))
+  let ps := List.range (1 <<< (2 * n))
+  let imQ := (qs.filter (· != 0)).map (fun S => ap ^^^ haGens n S)
+  let imP := (ps.filter (· != 0)).map (fun S => am ^^^ haGens n S)
+  (imQ.all fun x => imQ.count x == 1) && (imP.all fun x => imP.count x == 1)
+    && (qs.all fun S => ps.all fun S' =>
+          S == 0 || S' == 0 || ((ap ^^^ haGens n S == am ^^^ haGens n S') ==
+            (S == haQmask n && S' == haPmask n)))
+
+/-- the number of mixed monomials of `HH^*` in each degree `0..4n`, in one
+pass over the `2^(4n)` monomials. -/
+def haMixedByDegree (n : Nat) : List Nat :=
+  let N := 4 * n
+  (List.range (1 <<< N)).foldl (fun acc S =>
+    if S &&& haPmask n != 0 && S &&& haQmask n != 0 then
+      let k := haPopcount S N
+      acc.modify k (· + 1)
+    else acc) (List.replicate (N + 1) 0)
+
+/-- the count of mixed monomials in each degree, against the formula. -/
+def haCounts (n : Nat) : Bool :=
+  let N := 4 * n
+  let mixed := haMixedByDegree n
+  (List.range (N + 1)).all fun k =>
+    k == 0 || mixed.getD k 0 + 2 * choose (2 * n) k == choose N k
+
+/-- the mixed products of two wedge operators: `n^2` of them. -/
+def haH02 (n : Nat) : Nat :=
+  ((List.range (4 * n)).filter (haWedge n)).foldl (fun acc s =>
+    acc + (((List.range (4 * n)).filter (haWedge n)).filter (fun t =>
+      s < t && s < 2 * n && 2 * n ≤ t)).length) 0
+
+/-- the monomials meeting at most one of `P`, `Q`. -/
+def haOutsideIdeal (n : Nat) : Nat :=
+  (List.range (1 <<< (4 * n))).countP (fun S => S &&& haPmask n == 0 || S &&& haQmask n == 0)
+
+/-- **The annihilator of a Weil class in Hochschild cohomology**, for
+`n = 1, 2, 3`. -/
+theorem hh_annihilator_small :
+    ([1, 2, 3].all fun n =>
+      haGensDistinct n && haPattern n && haDistinct n && haCounts n
+        && haH02 n == n * n && haOutsideIdeal n == 2 ^ (2 * n + 1) - 1) = true := by
+  decide +kernel
+
+/-! ## 51.  The polarised criterion as a number
+
+The certificates behind Theorem (The polarised criterion as a number) at
+`n = 3` and `n = 4`.
+
+Model (that of item (LII)).  `H^1(A,C)` has the basis `e_0..e_{2n-1}` of
+`V_+` (generators `0..2n-1`) and `f_0..f_{2n-1}` of `V_-` (generators
+`2n..4n-1`), with `H^{1,0}` spanned by `e_j` (`j < n`) and `f_j` (`j >= n`).
+The polarisation is `theta = i sum_j s_j e_j f_j` with `s_j = 1` for `j < n`
+and `-1` otherwise, and the Weil classes are `alpha_+ = e_0 ... e_{2n-1}` and
+`alpha_- = f_0 ... f_{2n-1}`.  `HT^1` acts through the `4n` operators
+`wedge e_j` (`j >= n`), `wedge f_j` (`j < n`), `contract e_j` (`j < n`),
+`contract f_j` (`j >= n`), each with the sign `(-1)^(generators of the
+monomial below it)`, and `HT^2` has the basis `op_s op_t`, `s < t`, of
+dimension `C(4n,2)`.  An element of the exterior algebra is a list of
+`(monomial, re, im)` with Gaussian integer coefficients.
+
+For each case `(n, c, u)` the kernel computes `theta^k` by repeated products,
+the class `gamma = sum_k c_k theta^k + u alpha_+ + conj(u) alpha_-` and its
+images under the basis of `HT^2`, and checks:
+
+* `rho`, the rank of the Hankel matrix `[mu_(j+i)]` (`mu_m = m! c_m`,
+  `0 <= j <= 2n-2`, `0 <= i <= 2`), computed exactly from its minors;
+* that each of the `n^2 (4 - rho)` recorded vectors of `HT^2` sends `gamma` to
+  zero, exactly, and that they are linearly independent modulo the prime
+  `p = 998244353`, at which `i` goes to a square root of `-1`;
+* that the images of `r = (4 + rho) n^2 - 2n` recorded basis elements of
+  `HT^2` are linearly independent modulo `p`;
+* and that `r + n^2 (4 - rho) = C(4n,2)`.
+
+`Z[i] -> F_p` is a ring map, so a family independent modulo `p` is independent
+over `Q(i)`: the rank of the contraction is at least `r` and the
+annihilator has dimension at least `n^2 (4 - rho)`; as the two add up to
+`dim HT^2`, both are equalities.  At `n = 3` the shapes are: pure
+(`rho = 0`), `c_0` only and `e^theta` (`rho = 1`), `c_1` only and
+`c_0, c_(2n)` (`rho = 2`), `c_n` only and a general integral shape
+(`rho = 3`), each with `u = 1` and `u = 2 + 3i`; at `n = 4` they are pure,
+`e^theta`, `c_1` only and the general shape, with `u = 2 + 3i`, one theorem
+each.  The certificates are written by `lean/generate/make_section51.py`.
+-/
+
+/-- an element of the exterior algebra on `4n` generators, as a list of
+`(monomial, re, im)`. -/
+abbrev PcElt := List (Nat × Int × Int)
+
+/-- `x xor (x >>> s)`. -/
+def pcFold (s x : Nat) : Nat := x ^^^ (x >>> s)
+
+/-- the parity of the number of generators of `x`, for `x < 2^32`, by
+folding. -/
+def pcParity (x : Nat) : Bool := (pcFold 1 (pcFold 2 (pcFold 4 (pcFold 8 (pcFold 16 x))))) % 2 == 1
+
+/-- the parity of the number of generators of `m` below `b`. -/
+def pcBelowOdd (m b : Nat) : Bool := pcParity (m &&& ((1 <<< b) - 1))
+
+/-- wedge (`true`) or contract (`false`) with generator `b`, with the sign
+`(-1)` to the power the number of generators of `m` below `b`. -/
+def pcOp (wedge : Bool) (b : Nat) (v : PcElt) : PcElt :=
+  v.filterMap fun t =>
+    let m := t.1
+    if wedge == m.testBit b then none
+    else if pcBelowOdd m b then some (m ^^^ (1 <<< b), -t.2.1, -t.2.2)
+    else some (m ^^^ (1 <<< b), t.2.1, t.2.2)
+
+/-- the `4n` operators of `HT^1`, in the order of the model. -/
+def pcOps (n : Nat) : List (Bool × Nat) :=
+  ((List.range n).map fun j => (true, n + j))
+  ++ ((List.range n).map fun j => (true, 2 * n + j))
+  ++ ((List.range n).map fun j => (false, j))
+  ++ ((List.range n).map fun j => (false, 3 * n + j))
+
+/-- the basis `op_s op_t`, `s < t`, of `HT^2`. -/
+def pcHT2 (n : Nat) : List (Nat × Nat) :=
+  (List.range (4 * n)).flatMap fun s =>
+    ((List.range (4 * n)).filter (fun t => s < t)).map fun t => (s, t)
+
+def pcApply2 (n : Nat) (st : Nat × Nat) (v : PcElt) : PcElt :=
+  let ops := pcOps n
+  let o1 := ops.getD st.1 (true, 0)
+  let o2 := ops.getD st.2 (true, 0)
+  pcOp o1.1 o1.2 (pcOp o2.1 o2.2 v)
+
+/-- merge two lists sorted by monomial, with fuel. -/
+def pcMerge : Nat → PcElt → PcElt → PcElt
+  | 0, xs, ys => xs ++ ys
+  | _ + 1, [], ys => ys
+  | _ + 1, xs, [] => xs
+  | f + 1, x :: xs, y :: ys =>
+    if x.1 ≤ y.1 then x :: pcMerge f xs (y :: ys) else y :: pcMerge f (x :: xs) ys
+
+/-- merge sort by monomial, with fuel. -/
+def pcSort : Nat → PcElt → PcElt
+  | 0, xs => xs
+  | f + 1, xs =>
+    if xs.length ≤ 1 then xs
+    else
+      let h := xs.length / 2
+      pcMerge (xs.length + 1) (pcSort f (xs.take h)) (pcSort f (xs.drop h))
+
+/-- add the coefficients of equal monomials in a sorted list and drop zeros. -/
+def pcCombine : PcElt → PcElt
+  | [] => []
+  | x :: xs =>
+    match pcCombine xs with
+    | [] => if x.2.1 == 0 && x.2.2 == 0 then [] else [x]
+    | y :: ys =>
+      if x.1 == y.1 then
+        (if x.2.1 + y.2.1 == 0 && x.2.2 + y.2.2 == 0 then ys
+         else (x.1, x.2.1 + y.2.1, x.2.2 + y.2.2) :: ys)
+      else if x.2.1 == 0 && x.2.2 == 0 then y :: ys
+      else x :: y :: ys
+
+def pcNormal (v : PcElt) : PcElt := pcCombine (pcSort 40 v)
+
+/-- `(x + i y) v`. -/
+def pcScale (x y : Int) (v : PcElt) : PcElt :=
+  v.map fun t => (t.1, x * t.2.1 - y * t.2.2, x * t.2.2 + y * t.2.1)
+
+/-- the sign of `e_m1 e_m2 -> e_(m1 | m2)`: odd when the number of pairs
+`i` in `m1`, `j` in `m2`, `i > j` is odd. -/
+def pcMergeOdd (w m1 m2 : Nat) : Bool :=
+  (List.range w).foldl (fun s j => if m2.testBit j then s ^^ pcParity (m1 >>> (j + 1)) else s) false
+
+/-- the product of two elements on `w` generators. -/
+def pcMul (w : Nat) (u v : PcElt) : PcElt :=
+  pcNormal (u.flatMap fun s => v.filterMap fun t =>
+    if s.1 &&& t.1 != 0 then none
+    else
+      let re := s.2.1 * t.2.1 - s.2.2 * t.2.2
+      let im := s.2.1 * t.2.2 + s.2.2 * t.2.1
+      if pcMergeOdd w s.1 t.1 then some (s.1 ||| t.1, -re, -im) else some (s.1 ||| t.1, re, im))
+
+/-- `theta = i sum_j s_j e_j f_j`. -/
+def pcTheta (n : Nat) : PcElt :=
+  (List.range (2 * n)).map fun j =>
+    ((1 <<< j) ||| (1 <<< (2 * n + j)), 0, if j < n then 1 else -1)
+
+/-- `theta^0, ..., theta^(2n)`. -/
+def pcThetaPowers (n : Nat) : List PcElt :=
+  (List.range (2 * n)).foldl (fun acc _ =>
+    acc ++ [pcMul (4 * n) (acc.getLast?.getD []) (pcTheta n)]) [[(0, 1, 0)]]
+
+/-- `gamma = sum_k c_k theta^k + u alpha_+ + conj(u) alpha_-`. -/
+def pcGamma (n : Nat) (c : List Int) (u : Int × Int) : PcElt :=
+  let pw := pcThetaPowers n
+  let ap := (1 <<< (2 * n)) - 1
+  let am := ((1 <<< (4 * n)) - 1) ^^^ ap
+  pcNormal (((List.range (2 * n + 1)).flatMap fun k => pcScale (c.getD k 0) 0 (pw.getD k []))
+    ++ [(ap, u.1, u.2), (am, u.1, -u.2)])
+
+/-- the factorial. -/
+def pcFact (m : Nat) : Int := ((List.range m).foldl (fun a i => a * (i + 1)) 1 : Nat)
+
+def pcDet2 (a b c d : Int) : Int := a * d - b * c
+
+def pcDet3 (r1 r2 r3 : List Int) : Int :=
+  let g := fun (r : List Int) (i : Nat) => r.getD i 0
+  g r1 0 * pcDet2 (g r2 1) (g r2 2) (g r3 1) (g r3 2)
+    - g r1 1 * pcDet2 (g r2 0) (g r2 2) (g r3 0) (g r3 2)
+    + g r1 2 * pcDet2 (g r2 0) (g r2 1) (g r3 0) (g r3 1)
+
+/-- the rank of the `(2n-1) x 3` Hankel matrix `[mu_(j+i)]`, from its minors. -/
+def pcHankelRank (n : Nat) (c : List Int) : Nat :=
+  let mu := fun (m : Nat) => pcFact m * c.getD m 0
+  let H := (List.range (2 * n - 1)).map fun j => (List.range 3).map fun i => mu (j + i)
+  let idx := List.range (2 * n - 1)
+  let has3 := idx.any fun a => idx.any fun b => idx.any fun d =>
+    a < b && b < d && pcDet3 (H.getD a []) (H.getD b []) (H.getD d []) != 0
+  let has2 := idx.any fun a => idx.any fun b => a < b &&
+    ([(0,1),(0,2),(1,2)].any fun ij =>
+      pcDet2 ((H.getD a []).getD ij.1 0) ((H.getD a []).getD ij.2 0)
+             ((H.getD b []).getD ij.1 0) ((H.getD b []).getD ij.2 0) != 0)
+  let has1 := H.any fun r => r.any (· != 0)
+  if has3 then 3 else if has2 then 2 else if has1 then 1 else 0
+
+def pcPrime : Nat := 998244353
+/-- a square root of `-1` modulo the prime: `3^((p-1)/4)`. -/
+def pcI : Nat := 911660635
+
+def pcMod (x y : Int) : Nat :=
+  (Int.emod (x + y * (pcI : Int)) (pcPrime : Int)).toNat
+
+def pcPowMod : Nat → Nat → Nat → Nat → Nat
+  | 0, _, _, acc => acc
+  | f + 1, b, e, acc =>
+    if e == 0 then acc
+    else pcPowMod f (b * b % pcPrime) (e / 2) (if e % 2 == 1 then acc * b % pcPrime else acc)
+
+def pcInv (a : Nat) : Nat := pcPowMod 40 (a % pcPrime) (pcPrime - 2) 1
+
+/-- a sparse vector modulo the prime: `(column, value)`, sorted by column,
+with nonzero values. -/
+abbrev PcSparse := List (Nat × Nat)
+
+/-- `v - f b` modulo the prime, for sorted sparse `v`, `b`, with fuel. -/
+def pcAxpy : Nat → Nat → PcSparse → PcSparse → PcSparse
+  | 0, _, v, _ => v
+  | _ + 1, _, v, [] => v
+  | k + 1, f, [], y :: ys =>
+    let z := (pcPrime - f * y.2 % pcPrime) % pcPrime
+    if z == 0 then pcAxpy k f [] ys else (y.1, z) :: pcAxpy k f [] ys
+  | k + 1, f, x :: xs, y :: ys =>
+    if x.1 < y.1 then x :: pcAxpy k f xs (y :: ys)
+    else if y.1 < x.1 then
+      let z := (pcPrime - f * y.2 % pcPrime) % pcPrime
+      if z == 0 then pcAxpy k f (x :: xs) ys else (y.1, z) :: pcAxpy k f (x :: xs) ys
+    else
+      let z := (x.2 + pcPrime - f * y.2 % pcPrime) % pcPrime
+      if z == 0 then pcAxpy k f xs ys else (x.1, z) :: pcAxpy k f xs ys
+
+/-- reduce `v` by a basis of vectors with leading entry `1` at distinct
+columns, until its leading column is not a pivot, with fuel. -/
+def pcReduce : Nat → List (Nat × PcSparse) → PcSparse → PcSparse
+  | 0, _, v => v
+  | f + 1, basis, v =>
+    match v with
+    | [] => []
+    | x :: _ =>
+      match basis.find? (fun b => b.1 == x.1) with
+      | none => v
+      | some b => pcReduce f basis (pcAxpy (v.length + b.2.length + 1) x.2 v b.2)
+
+/-- the rank modulo the prime of a list of sparse vectors, by reducing each
+against the basis built from the previous ones. -/
+def pcRank (rows : List PcSparse) : Nat :=
+  (rows.foldl (fun basis v =>
+    match pcReduce (basis.length + 1) basis v with
+    | [] => basis
+    | x :: rest =>
+      let inv := pcInv x.2
+      (x.1, (x.1, 1) :: rest.map fun t => (t.1, t.2 * inv % pcPrime)) :: basis) []).length
+
+/-- the reduction modulo the prime of a sorted element, as a sparse vector
+indexed by monomials. -/
+def pcSparseOf (v : List (Nat × Int × Int)) : PcSparse :=
+  v.filterMap fun t => let z := pcMod t.2.1 t.2.2; if z == 0 then none else some (t.1, z)
+
+/-- one case: the Hankel rank, the closed form, the annihilating vectors and
+their independence, and the independent images. -/
+def pcCaseOk (n : Nat) (c : List Int) (u : Int × Int) (rho r a : Nat)
+    (ker : List (List (Nat × Int × Int))) (rows : List Nat) : Bool :=
+  let ht2 := pcHT2 n
+  let gam := pcGamma n c u
+  let imgs := ht2.map fun st => pcNormal (pcApply2 n st gam)
+  let kills := ker.all fun v =>
+    (pcNormal (v.flatMap fun t => pcScale t.2.1 t.2.2 (imgs.getD t.1 []))).isEmpty
+  pcHankelRank n c == rho && a == n * n * (4 - rho) && r + 2 * n == (4 + rho) * n * n
+    && r + a == choose (4 * n) 2 && ker.length == a && rows.length == r && kills
+    && pcRank (ker.map pcSparseOf) == a
+    && pcRank (rows.map fun k => pcSparseOf (imgs.getD k [])) == r
+def pc3pureaKer : List (List (Nat × Int × Int)) := [
+  [(2, 1, 0)],
+  [(3, 1, 0)],
+  [(4, 1, 0)],
+  [(5, 1, 0)],
+  [(6, 1, 0)],
+  [(7, 1, 0)],
+  [(12, 1, 0)],
+  [(13, 1, 0)],
+  [(14, 1, 0)],
+  [(15, 1, 0)],
+  [(16, 1, 0)],
+  [(17, 1, 0)],
+  [(21, 1, 0)],
+  [(22, 1, 0)],
+  [(23, 1, 0)],
+  [(24, 1, 0)],
+  [(25, 1, 0)],
+  [(26, 1, 0)],
+  [(35, 1, 0)],
+  [(36, 1, 0)],
+  [(37, 1, 0)],
+  [(42, 1, 0)],
+  [(43, 1, 0)],
+  [(44, 1, 0)],
+  [(48, 1, 0)],
+  [(49, 1, 0)],
+  [(50, 1, 0)],
+  [(53, 1, 0)],
+  [(54, 1, 0)],
+  [(55, 1, 0)],
+  [(57, 1, 0)],
+  [(58, 1, 0)],
+  [(59, 1, 0)],
+  [(60, 1, 0)],
+  [(61, 1, 0)],
+  [(62, 1, 0)]]
+def pc3pureaRows : List Nat := [0, 1, 8, 9, 10, 11, 18, 19, 20, 27, 28, 29, 30, 31, 32, 33, 34, 38, 39, 40, 41, 45, 46, 47, 51, 52, 56, 63, 64, 65]
+
+def pc3purebKer : List (List (Nat × Int × Int)) := [
+  [(2, 1, 0)],
+  [(3, 1, 0)],
+  [(4, 1, 0)],
+  [(5, 1, 0)],
+  [(6, 1, 0)],
+  [(7, 1, 0)],
+  [(12, 1, 0)],
+  [(13, 1, 0)],
+  [(14, 1, 0)],
+  [(15, 1, 0)],
+  [(16, 1, 0)],
+  [(17, 1, 0)],
+  [(21, 1, 0)],
+  [(22, 1, 0)],
+  [(23, 1, 0)],
+  [(24, 1, 0)],
+  [(25, 1, 0)],
+  [(26, 1, 0)],
+  [(35, 1, 0)],
+  [(36, 1, 0)],
+  [(37, 1, 0)],
+  [(42, 1, 0)],
+  [(43, 1, 0)],
+  [(44, 1, 0)],
+  [(48, 1, 0)],
+  [(49, 1, 0)],
+  [(50, 1, 0)],
+  [(53, 1, 0)],
+  [(54, 1, 0)],
+  [(55, 1, 0)],
+  [(57, 1, 0)],
+  [(58, 1, 0)],
+  [(59, 1, 0)],
+  [(60, 1, 0)],
+  [(61, 1, 0)],
+  [(62, 1, 0)]]
+def pc3purebRows : List Nat := [0, 1, 8, 9, 10, 11, 18, 19, 20, 27, 28, 29, 30, 31, 32, 33, 34, 38, 39, 40, 41, 45, 46, 47, 51, 52, 56, 63, 64, 65]
+
+def pc3c0aKer : List (List (Nat × Int × Int)) := [
+  [(5, 1, 0)],
+  [(6, 1, 0)],
+  [(7, 1, 0)],
+  [(15, 1, 0)],
+  [(16, 1, 0)],
+  [(17, 1, 0)],
+  [(24, 1, 0)],
+  [(25, 1, 0)],
+  [(26, 1, 0)],
+  [(35, 1, 0)],
+  [(36, 1, 0)],
+  [(37, 1, 0)],
+  [(42, 1, 0)],
+  [(43, 1, 0)],
+  [(44, 1, 0)],
+  [(48, 1, 0)],
+  [(49, 1, 0)],
+  [(50, 1, 0)],
+  [(53, 1, 0)],
+  [(54, 1, 0)],
+  [(55, 1, 0)],
+  [(57, 1, 0)],
+  [(58, 1, 0)],
+  [(59, 1, 0)],
+  [(60, 1, 0)],
+  [(61, 1, 0)],
+  [(62, 1, 0)]]
+def pc3c0aRows : List Nat := [0, 1, 2, 3, 4, 8, 9, 10, 11, 12, 13, 14, 18, 19, 20, 21, 22, 23, 27, 28, 29, 30, 31, 32, 33, 34, 38, 39, 40, 41, 45, 46, 47, 51, 52, 56, 63, 64, 65]
+
+def pc3c0bKer : List (List (Nat × Int × Int)) := [
+  [(5, 1, 0)],
+  [(6, 1, 0)],
+  [(7, 1, 0)],
+  [(15, 1, 0)],
+  [(16, 1, 0)],
+  [(17, 1, 0)],
+  [(24, 1, 0)],
+  [(25, 1, 0)],
+  [(26, 1, 0)],
+  [(35, 1, 0)],
+  [(36, 1, 0)],
+  [(37, 1, 0)],
+  [(42, 1, 0)],
+  [(43, 1, 0)],
+  [(44, 1, 0)],
+  [(48, 1, 0)],
+  [(49, 1, 0)],
+  [(50, 1, 0)],
+  [(53, 1, 0)],
+  [(54, 1, 0)],
+  [(55, 1, 0)],
+  [(57, 1, 0)],
+  [(58, 1, 0)],
+  [(59, 1, 0)],
+  [(60, 1, 0)],
+  [(61, 1, 0)],
+  [(62, 1, 0)]]
+def pc3c0bRows : List Nat := [0, 1, 2, 3, 4, 8, 9, 10, 11, 12, 13, 14, 18, 19, 20, 21, 22, 23, 27, 28, 29, 30, 31, 32, 33, 34, 38, 39, 40, 41, 45, 46, 47, 51, 52, 56, 63, 64, 65]
+
+def pc3expoaKer : List (List (Nat × Int × Int)) := [
+  [(2, 1, 0), (53, -1, 0)],
+  [(3, 1, 0), (57, -1, 0)],
+  [(4, 1, 0), (60, -1, 0)],
+  [(5, 1, 0), (53, 0, -1)],
+  [(6, 1, 0), (57, 0, -1)],
+  [(7, 1, 0), (60, 0, -1)],
+  [(12, 1, 0), (54, -1, 0)],
+  [(13, 1, 0), (58, -1, 0)],
+  [(14, 1, 0), (61, -1, 0)],
+  [(15, 1, 0), (54, 0, -1)],
+  [(16, 1, 0), (58, 0, -1)],
+  [(17, 1, 0), (61, 0, -1)],
+  [(21, 1, 0), (55, -1, 0)],
+  [(22, 1, 0), (59, -1, 0)],
+  [(23, 1, 0), (62, -1, 0)],
+  [(24, 1, 0), (55, 0, -1)],
+  [(25, 1, 0), (59, 0, -1)],
+  [(26, 1, 0), (62, 0, -1)],
+  [(35, 1, 0), (53, 0, 1)],
+  [(36, 1, 0), (54, 0, 1)],
+  [(37, 1, 0), (55, 0, 1)],
+  [(42, 1, 0), (57, 0, 1)],
+  [(43, 1, 0), (58, 0, 1)],
+  [(44, 1, 0), (59, 0, 1)],
+  [(48, 1, 0), (60, 0, 1)],
+  [(49, 1, 0), (61, 0, 1)],
+  [(50, 1, 0), (62, 0, 1)]]
+def pc3expoaRows : List Nat := [0, 1, 2, 3, 4, 8, 9, 10, 11, 12, 13, 14, 18, 19, 20, 21, 22, 23, 27, 28, 29, 30, 31, 32, 33, 34, 38, 39, 40, 41, 45, 46, 47, 51, 52, 56, 63, 64, 65]
+
+def pc3expobKer : List (List (Nat × Int × Int)) := [
+  [(2, 1, 0), (53, -1, 0)],
+  [(3, 1, 0), (57, -1, 0)],
+  [(4, 1, 0), (60, -1, 0)],
+  [(5, 1, 0), (53, 0, -1)],
+  [(6, 1, 0), (57, 0, -1)],
+  [(7, 1, 0), (60, 0, -1)],
+  [(12, 1, 0), (54, -1, 0)],
+  [(13, 1, 0), (58, -1, 0)],
+  [(14, 1, 0), (61, -1, 0)],
+  [(15, 1, 0), (54, 0, -1)],
+  [(16, 1, 0), (58, 0, -1)],
+  [(17, 1, 0), (61, 0, -1)],
+  [(21, 1, 0), (55, -1, 0)],
+  [(22, 1, 0), (59, -1, 0)],
+  [(23, 1, 0), (62, -1, 0)],
+  [(24, 1, 0), (55, 0, -1)],
+  [(25, 1, 0), (59, 0, -1)],
+  [(26, 1, 0), (62, 0, -1)],
+  [(35, 1, 0), (53, 0, 1)],
+  [(36, 1, 0), (54, 0, 1)],
+  [(37, 1, 0), (55, 0, 1)],
+  [(42, 1, 0), (57, 0, 1)],
+  [(43, 1, 0), (58, 0, 1)],
+  [(44, 1, 0), (59, 0, 1)],
+  [(48, 1, 0), (60, 0, 1)],
+  [(49, 1, 0), (61, 0, 1)],
+  [(50, 1, 0), (62, 0, 1)]]
+def pc3expobRows : List Nat := [0, 1, 2, 3, 4, 8, 9, 10, 11, 12, 13, 14, 18, 19, 20, 21, 22, 23, 27, 28, 29, 30, 31, 32, 33, 34, 38, 39, 40, 41, 45, 46, 47, 51, 52, 56, 63, 64, 65]
+
+def pc3c1aKer : List (List (Nat × Int × Int)) := [
+  [(5, 1, 0), (35, 1, 0)],
+  [(6, 1, 0), (42, 1, 0)],
+  [(7, 1, 0), (48, 1, 0)],
+  [(15, 1, 0), (36, 1, 0)],
+  [(16, 1, 0), (43, 1, 0)],
+  [(17, 1, 0), (49, 1, 0)],
+  [(24, 1, 0), (37, 1, 0)],
+  [(25, 1, 0), (44, 1, 0)],
+  [(26, 1, 0), (50, 1, 0)],
+  [(53, 1, 0)],
+  [(54, 1, 0)],
+  [(55, 1, 0)],
+  [(57, 1, 0)],
+  [(58, 1, 0)],
+  [(59, 1, 0)],
+  [(60, 1, 0)],
+  [(61, 1, 0)],
+  [(62, 1, 0)]]
+def pc3c1aRows : List Nat := [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 38, 39, 40, 41, 45, 46, 47, 51, 52, 56, 63, 64, 65]
+
+def pc3c1bKer : List (List (Nat × Int × Int)) := [
+  [(5, 1, 0), (35, 1, 0)],
+  [(6, 1, 0), (42, 1, 0)],
+  [(7, 1, 0), (48, 1, 0)],
+  [(15, 1, 0), (36, 1, 0)],
+  [(16, 1, 0), (43, 1, 0)],
+  [(17, 1, 0), (49, 1, 0)],
+  [(24, 1, 0), (37, 1, 0)],
+  [(25, 1, 0), (44, 1, 0)],
+  [(26, 1, 0), (50, 1, 0)],
+  [(53, 1, 0)],
+  [(54, 1, 0)],
+  [(55, 1, 0)],
+  [(57, 1, 0)],
+  [(58, 1, 0)],
+  [(59, 1, 0)],
+  [(60, 1, 0)],
+  [(61, 1, 0)],
+  [(62, 1, 0)]]
+def pc3c1bRows : List Nat := [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 38, 39, 40, 41, 45, 46, 47, 51, 52, 56, 63, 64, 65]
+
+def pc3c0c2naKer : List (List (Nat × Int × Int)) := [
+  [(5, 1, 0)],
+  [(6, 1, 0)],
+  [(7, 1, 0)],
+  [(15, 1, 0)],
+  [(16, 1, 0)],
+  [(17, 1, 0)],
+  [(24, 1, 0)],
+  [(25, 1, 0)],
+  [(26, 1, 0)],
+  [(35, 1, 0)],
+  [(36, 1, 0)],
+  [(37, 1, 0)],
+  [(42, 1, 0)],
+  [(43, 1, 0)],
+  [(44, 1, 0)],
+  [(48, 1, 0)],
+  [(49, 1, 0)],
+  [(50, 1, 0)]]
+def pc3c0c2naRows : List Nat := [0, 1, 2, 3, 4, 8, 9, 10, 11, 12, 13, 14, 18, 19, 20, 21, 22, 23, 27, 28, 29, 30, 31, 32, 33, 34, 38, 39, 40, 41, 45, 46, 47, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65]
+
+def pc3c0c2nbKer : List (List (Nat × Int × Int)) := [
+  [(5, 1, 0)],
+  [(6, 1, 0)],
+  [(7, 1, 0)],
+  [(15, 1, 0)],
+  [(16, 1, 0)],
+  [(17, 1, 0)],
+  [(24, 1, 0)],
+  [(25, 1, 0)],
+  [(26, 1, 0)],
+  [(35, 1, 0)],
+  [(36, 1, 0)],
+  [(37, 1, 0)],
+  [(42, 1, 0)],
+  [(43, 1, 0)],
+  [(44, 1, 0)],
+  [(48, 1, 0)],
+  [(49, 1, 0)],
+  [(50, 1, 0)]]
+def pc3c0c2nbRows : List Nat := [0, 1, 2, 3, 4, 8, 9, 10, 11, 12, 13, 14, 18, 19, 20, 21, 22, 23, 27, 28, 29, 30, 31, 32, 33, 34, 38, 39, 40, 41, 45, 46, 47, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65]
+
+def pc3cnaKer : List (List (Nat × Int × Int)) := [
+  [(5, 1, 0), (35, 1, 0)],
+  [(6, 1, 0), (42, 1, 0)],
+  [(7, 1, 0), (48, 1, 0)],
+  [(15, 1, 0), (36, 1, 0)],
+  [(16, 1, 0), (43, 1, 0)],
+  [(17, 1, 0), (49, 1, 0)],
+  [(24, 1, 0), (37, 1, 0)],
+  [(25, 1, 0), (44, 1, 0)],
+  [(26, 1, 0), (50, 1, 0)]]
+def pc3cnaRows : List Nat := [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 38, 39, 40, 41, 45, 46, 47, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65]
+
+def pc3cnbKer : List (List (Nat × Int × Int)) := [
+  [(5, 1, 0), (35, 1, 0)],
+  [(6, 1, 0), (42, 1, 0)],
+  [(7, 1, 0), (48, 1, 0)],
+  [(15, 1, 0), (36, 1, 0)],
+  [(16, 1, 0), (43, 1, 0)],
+  [(17, 1, 0), (49, 1, 0)],
+  [(24, 1, 0), (37, 1, 0)],
+  [(25, 1, 0), (44, 1, 0)],
+  [(26, 1, 0), (50, 1, 0)]]
+def pc3cnbRows : List Nat := [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 38, 39, 40, 41, 45, 46, 47, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65]
+
+def pc3genericaKer : List (List (Nat × Int × Int)) := [
+  [(5, 1, 0), (35, 1, 0)],
+  [(6, 1, 0), (42, 1, 0)],
+  [(7, 1, 0), (48, 1, 0)],
+  [(15, 1, 0), (36, 1, 0)],
+  [(16, 1, 0), (43, 1, 0)],
+  [(17, 1, 0), (49, 1, 0)],
+  [(24, 1, 0), (37, 1, 0)],
+  [(25, 1, 0), (44, 1, 0)],
+  [(26, 1, 0), (50, 1, 0)]]
+def pc3genericaRows : List Nat := [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 38, 39, 40, 41, 45, 46, 47, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65]
+
+def pc3genericbKer : List (List (Nat × Int × Int)) := [
+  [(5, 1, 0), (35, 1, 0)],
+  [(6, 1, 0), (42, 1, 0)],
+  [(7, 1, 0), (48, 1, 0)],
+  [(15, 1, 0), (36, 1, 0)],
+  [(16, 1, 0), (43, 1, 0)],
+  [(17, 1, 0), (49, 1, 0)],
+  [(24, 1, 0), (37, 1, 0)],
+  [(25, 1, 0), (44, 1, 0)],
+  [(26, 1, 0), (50, 1, 0)]]
+def pc3genericbRows : List Nat := [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 38, 39, 40, 41, 45, 46, 47, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65]
+
+def pc4purebKer : List (List (Nat × Int × Int)) := [
+  [(3, 1, 0)],
+  [(4, 1, 0)],
+  [(5, 1, 0)],
+  [(6, 1, 0)],
+  [(7, 1, 0)],
+  [(8, 1, 0)],
+  [(9, 1, 0)],
+  [(10, 1, 0)],
+  [(17, 1, 0)],
+  [(18, 1, 0)],
+  [(19, 1, 0)],
+  [(20, 1, 0)],
+  [(21, 1, 0)],
+  [(22, 1, 0)],
+  [(23, 1, 0)],
+  [(24, 1, 0)],
+  [(30, 1, 0)],
+  [(31, 1, 0)],
+  [(32, 1, 0)],
+  [(33, 1, 0)],
+  [(34, 1, 0)],
+  [(35, 1, 0)],
+  [(36, 1, 0)],
+  [(37, 1, 0)],
+  [(42, 1, 0)],
+  [(43, 1, 0)],
+  [(44, 1, 0)],
+  [(45, 1, 0)],
+  [(46, 1, 0)],
+  [(47, 1, 0)],
+  [(48, 1, 0)],
+  [(49, 1, 0)],
+  [(61, 1, 0)],
+  [(62, 1, 0)],
+  [(63, 1, 0)],
+  [(64, 1, 0)],
+  [(71, 1, 0)],
+  [(72, 1, 0)],
+  [(73, 1, 0)],
+  [(74, 1, 0)],
+  [(80, 1, 0)],
+  [(81, 1, 0)],
+  [(82, 1, 0)],
+  [(83, 1, 0)],
+  [(88, 1, 0)],
+  [(89, 1, 0)],
+  [(90, 1, 0)],
+  [(91, 1, 0)],
+  [(95, 1, 0)],
+  [(96, 1, 0)],
+  [(97, 1, 0)],
+  [(98, 1, 0)],
+  [(101, 1, 0)],
+  [(102, 1, 0)],
+  [(103, 1, 0)],
+  [(104, 1, 0)],
+  [(106, 1, 0)],
+  [(107, 1, 0)],
+  [(108, 1, 0)],
+  [(109, 1, 0)],
+  [(110, 1, 0)],
+  [(111, 1, 0)],
+  [(112, 1, 0)],
+  [(113, 1, 0)]]
+def pc4purebRows : List Nat := [0, 1, 2, 11, 12, 13, 14, 15, 16, 25, 26, 27, 28, 29, 38, 39, 40, 41, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 65, 66, 67, 68, 69, 70, 75, 76, 77, 78, 79, 84, 85, 86, 87, 92, 93, 94, 99, 100, 105, 114, 115, 116, 117, 118, 119]
+
+def pc4expobKer : List (List (Nat × Int × Int)) := [
+  [(3, 1, 0), (95, -1, 0)],
+  [(4, 1, 0), (101, -1, 0)],
+  [(5, 1, 0), (106, -1, 0)],
+  [(6, 1, 0), (110, -1, 0)],
+  [(7, 1, 0), (95, 0, -1)],
+  [(8, 1, 0), (101, 0, -1)],
+  [(9, 1, 0), (106, 0, -1)],
+  [(10, 1, 0), (110, 0, -1)],
+  [(17, 1, 0), (96, -1, 0)],
+  [(18, 1, 0), (102, -1, 0)],
+  [(19, 1, 0), (107, -1, 0)],
+  [(20, 1, 0), (111, -1, 0)],
+  [(21, 1, 0), (96, 0, -1)],
+  [(22, 1, 0), (102, 0, -1)],
+  [(23, 1, 0), (107, 0, -1)],
+  [(24, 1, 0), (111, 0, -1)],
+  [(30, 1, 0), (97, -1, 0)],
+  [(31, 1, 0), (103, -1, 0)],
+  [(32, 1, 0), (108, -1, 0)],
+  [(33, 1, 0), (112, -1, 0)],
+  [(34, 1, 0), (97, 0, -1)],
+  [(35, 1, 0), (103, 0, -1)],
+  [(36, 1, 0), (108, 0, -1)],
+  [(37, 1, 0), (112, 0, -1)],
+  [(42, 1, 0), (98, -1, 0)],
+  [(43, 1, 0), (104, -1, 0)],
+  [(44, 1, 0), (109, -1, 0)],
+  [(45, 1, 0), (113, -1, 0)],
+  [(46, 1, 0), (98, 0, -1)],
+  [(47, 1, 0), (104, 0, -1)],
+  [(48, 1, 0), (109, 0, -1)],
+  [(49, 1, 0), (113, 0, -1)],
+  [(61, 1, 0), (95, 0, 1)],
+  [(62, 1, 0), (96, 0, 1)],
+  [(63, 1, 0), (97, 0, 1)],
+  [(64, 1, 0), (98, 0, 1)],
+  [(71, 1, 0), (101, 0, 1)],
+  [(72, 1, 0), (102, 0, 1)],
+  [(73, 1, 0), (103, 0, 1)],
+  [(74, 1, 0), (104, 0, 1)],
+  [(80, 1, 0), (106, 0, 1)],
+  [(81, 1, 0), (107, 0, 1)],
+  [(82, 1, 0), (108, 0, 1)],
+  [(83, 1, 0), (109, 0, 1)],
+  [(88, 1, 0), (110, 0, 1)],
+  [(89, 1, 0), (111, 0, 1)],
+  [(90, 1, 0), (112, 0, 1)],
+  [(91, 1, 0), (113, 0, 1)]]
+def pc4expobRows : List Nat := [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 25, 26, 27, 28, 29, 30, 31, 32, 33, 38, 39, 40, 41, 42, 43, 44, 45, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 65, 66, 67, 68, 69, 70, 75, 76, 77, 78, 79, 84, 85, 86, 87, 92, 93, 94, 99, 100, 105, 114, 115, 116, 117, 118, 119]
+
+def pc4c1bKer : List (List (Nat × Int × Int)) := [
+  [(7, 1, 0), (61, 1, 0)],
+  [(8, 1, 0), (71, 1, 0)],
+  [(9, 1, 0), (80, 1, 0)],
+  [(10, 1, 0), (88, 1, 0)],
+  [(21, 1, 0), (62, 1, 0)],
+  [(22, 1, 0), (72, 1, 0)],
+  [(23, 1, 0), (81, 1, 0)],
+  [(24, 1, 0), (89, 1, 0)],
+  [(34, 1, 0), (63, 1, 0)],
+  [(35, 1, 0), (73, 1, 0)],
+  [(36, 1, 0), (82, 1, 0)],
+  [(37, 1, 0), (90, 1, 0)],
+  [(46, 1, 0), (64, 1, 0)],
+  [(47, 1, 0), (74, 1, 0)],
+  [(48, 1, 0), (83, 1, 0)],
+  [(49, 1, 0), (91, 1, 0)],
+  [(95, 1, 0)],
+  [(96, 1, 0)],
+  [(97, 1, 0)],
+  [(98, 1, 0)],
+  [(101, 1, 0)],
+  [(102, 1, 0)],
+  [(103, 1, 0)],
+  [(104, 1, 0)],
+  [(106, 1, 0)],
+  [(107, 1, 0)],
+  [(108, 1, 0)],
+  [(109, 1, 0)],
+  [(110, 1, 0)],
+  [(111, 1, 0)],
+  [(112, 1, 0)],
+  [(113, 1, 0)]]
+def pc4c1bRows : List Nat := [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 65, 66, 67, 68, 69, 70, 75, 76, 77, 78, 79, 84, 85, 86, 87, 92, 93, 94, 99, 100, 105, 114, 115, 116, 117, 118, 119]
+
+def pc4genericbKer : List (List (Nat × Int × Int)) := [
+  [(7, 1, 0), (61, 1, 0)],
+  [(8, 1, 0), (71, 1, 0)],
+  [(9, 1, 0), (80, 1, 0)],
+  [(10, 1, 0), (88, 1, 0)],
+  [(21, 1, 0), (62, 1, 0)],
+  [(22, 1, 0), (72, 1, 0)],
+  [(23, 1, 0), (81, 1, 0)],
+  [(24, 1, 0), (89, 1, 0)],
+  [(34, 1, 0), (63, 1, 0)],
+  [(35, 1, 0), (73, 1, 0)],
+  [(36, 1, 0), (82, 1, 0)],
+  [(37, 1, 0), (90, 1, 0)],
+  [(46, 1, 0), (64, 1, 0)],
+  [(47, 1, 0), (74, 1, 0)],
+  [(48, 1, 0), (83, 1, 0)],
+  [(49, 1, 0), (91, 1, 0)]]
+def pc4genericbRows : List Nat := [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 65, 66, 67, 68, 69, 70, 75, 76, 77, 78, 79, 84, 85, 86, 87, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119]
+
+/-- the cases: `(n, c, u, rho, r, dim Ann, annihilator, rows)`. -/
+def pcCases : List (Nat × List Int × (Int × Int) × Nat × Nat × Nat × List (List (Nat × Int × Int)) × List Nat) := [
+  (3, [0, 0, 0, 0, 0, 0, 0], (1, 0), 0, 30, 36, pc3pureaKer, pc3pureaRows),
+  (3, [0, 0, 0, 0, 0, 0, 0], (2, 3), 0, 30, 36, pc3purebKer, pc3purebRows),
+  (3, [1, 0, 0, 0, 0, 0, 0], (1, 0), 1, 39, 27, pc3c0aKer, pc3c0aRows),
+  (3, [1, 0, 0, 0, 0, 0, 0], (2, 3), 1, 39, 27, pc3c0bKer, pc3c0bRows),
+  (3, [720, 720, 360, 120, 30, 6, 1], (1, 0), 1, 39, 27, pc3expoaKer, pc3expoaRows),
+  (3, [720, 720, 360, 120, 30, 6, 1], (2, 3), 1, 39, 27, pc3expobKer, pc3expobRows),
+  (3, [0, 1, 0, 0, 0, 0, 0], (1, 0), 2, 48, 18, pc3c1aKer, pc3c1aRows),
+  (3, [0, 1, 0, 0, 0, 0, 0], (2, 3), 2, 48, 18, pc3c1bKer, pc3c1bRows),
+  (3, [1, 0, 0, 0, 0, 0, 3], (1, 0), 2, 48, 18, pc3c0c2naKer, pc3c0c2naRows),
+  (3, [1, 0, 0, 0, 0, 0, 3], (2, 3), 2, 48, 18, pc3c0c2nbKer, pc3c0c2nbRows),
+  (3, [0, 0, 0, 1, 0, 0, 0], (1, 0), 3, 57, 9, pc3cnaKer, pc3cnaRows),
+  (3, [0, 0, 0, 1, 0, 0, 0], (2, 3), 3, 57, 9, pc3cnbKer, pc3cnbRows),
+  (3, [3, -1, 2, 5, -4, 1, 7], (1, 0), 3, 57, 9, pc3genericaKer, pc3genericaRows),
+  (3, [3, -1, 2, 5, -4, 1, 7], (2, 3), 3, 57, 9, pc3genericbKer, pc3genericbRows),
+  (4, [0, 0, 0, 0, 0, 0, 0, 0, 0], (2, 3), 0, 56, 64, pc4purebKer, pc4purebRows),
+  (4, [40320, 40320, 20160, 6720, 1680, 336, 56, 8, 1], (2, 3), 1, 72, 48, pc4expobKer, pc4expobRows),
+  (4, [0, 1, 0, 0, 0, 0, 0, 0, 0], (2, 3), 2, 88, 32, pc4c1bKer, pc4c1bRows),
+  (4, [3, -1, 2, 5, -4, 1, 7, -2, 6], (2, 3), 3, 104, 16, pc4genericbKer, pc4genericbRows)]
+
+def pcCaseCheck : (Nat × List Int × (Int × Int) × Nat × Nat × Nat
+    × List (List (Nat × Int × Int)) × List Nat) → Bool
+  | (n, c, u, rho, r, a, ker, rows) => pcCaseOk n c u rho r a ker rows
+
+/-- the recorded cases with given `n` and Hankel rank. -/
+def pcCasesAt (n rho : Nat) := pcCases.filter fun x => x.1 == n && x.2.2.2.1 == rho
+
+/-- **The polarised criterion as a number at `n = 3`**: on fourteen cases,
+two shapes of each Hankel rank `rho = 0, 1, 2, 3`, each with `u = 1` and
+`u = 2 + 3i`, the annihilator of `gamma` in `HT^2` has dimension
+`n^2 (4 - rho)` and the contraction has rank `(4 + rho) n^2 - 2n`. -/
+theorem polarised_number_three :
+    ((pcCases.filter (fun x => x.1 == 3)).all pcCaseCheck
+      && (pcCases.filter (fun x => x.1 == 3)).length == 14) = true := by
+  decide +kernel
+
+/-- **The same at `n = 4`, `rho = 0`**: `gamma = (2 + 3i) alpha_+ + (2 - 3i)
+alpha_-`, annihilator `64`, rank `56`. -/
+theorem polarised_number_four_rho0 :
+    ((pcCasesAt 4 0).all pcCaseCheck && (pcCasesAt 4 0).length == 1) = true := by
+  decide +kernel
+
+/-- **`n = 4`, `rho = 1`**: `e^theta` plus the Weil part, annihilator `48`,
+rank `72`. -/
+theorem polarised_number_four_rho1 :
+    ((pcCasesAt 4 1).all pcCaseCheck && (pcCasesAt 4 1).length == 1) = true := by
+  decide +kernel
+
+/-- **`n = 4`, `rho = 2`**: `theta` plus the Weil part, annihilator `32`,
+rank `88`. -/
+theorem polarised_number_four_rho2 :
+    ((pcCasesAt 4 2).all pcCaseCheck && (pcCasesAt 4 2).length == 1) = true := by
+  decide +kernel
+
+/-- **`n = 4`, `rho = 3`**: a general integral polynomial part, annihilator
+`16`, rank `104`. -/
+theorem polarised_number_four_rho3 :
+    ((pcCasesAt 4 3).all pcCaseCheck && (pcCasesAt 4 3).length == 1) = true := by
+  decide +kernel
+
+/-! ## 52.  The Weil class as a product
+
+The finite facts behind the product formula `eq:omegaprod` for the Weil
+generators, Theorem (The Weil class is multiplicative) with its version for
+`k` factors, and the closed form of the integral generators of the split
+member in the example after Theorem (The Weil line of the split member).
+
+Write `delta = sqrt(-d)` and `omega = omega_1 + delta omega_2` for the
+`K`-valued Weil class, with `omega_1, omega_2` given by `eq:omegagens`.  The
+coefficient of the monomial `w^(T)` in `omega` depends only on `t = |T|`; call
+it `c_n(t)`, an element of `Z[delta]`.
+
+* `eq:omegaprod` says `d^n c_n(t) = d^(2n-t) delta^t`, and Theorem (The Weil
+  class is multiplicative) says `c_(n1)(t1) c_(n2)(t2) = c_(n1+n2)(t1+t2)`;
+  both are checked in `Z[delta]` for `d` in `{1,2,3,5,7,11,19}`, the first for
+  `n <= 10` and the second for `n1, n2 <= 6`.  Comparing the parts without and
+  with `delta` in the second is `eq:weilmult`.
+
+* In the exterior algebra over `Z[delta]` on `x_1, y_1, ..., x_(2n), y_(2n)`
+  (generators `0, 1, ..., 4n-1` in this order), the product
+  `prod_j (d x_j + delta y_j)` is `d^n omega` for `n <= 3`, and for every
+  composition `n = n_1 + ... + n_k` the product of the classes `omega` of the
+  factors, on consecutive blocks of generators, is the class `omega` of the
+  product, with `d` in `{1,2,3,5,7}` for `n <= 3` and `d` in `{1,3}` for
+  `n = 4`; the products are computed with their signs.
+
+* On the split member `X x Xhat`, with `x_1..x_(2n)` a basis of `H^1(X)`,
+  `xi_1..xi_(2n)` the dual basis, `B x_j = xi_(n+j)`, `B x_(n+j) = -xi_j`,
+  `y_j = -B x_j`, `beta = sum_(j<=n) x_j x_(n+j)`,
+  `betahat = sum_j B x_j B x_(n+j)`, `ell = sum_i x_i xi_i` and
+  `gamma = d beta - betahat`, the class `omega` built from `eq:omegagens` in
+  the `K`-basis `x_1..x_(2n)` satisfies
+  `n! omega = (-1)^(n(n-1)/2) (gamma + delta ell)^n` for `n <= 3`, which gives
+  `2 omega_1 = d ell^2 - gamma^2`, `omega_2 = -gamma ell` at `n = 2` and
+  `6 omega_1 = 3 d gamma ell^2 - gamma^3`, `6 omega_2 = d ell^3 - 3 gamma^2 ell`
+  at `n = 3`.
+-/
+
+/-- the coefficient `c_n(t)` of `w^(T)`, `|T| = t`, in `omega_1 + delta omega_2`. -/
+def wpCoef (d : Int) (n t : Nat) : Quad :=
+  if t % 2 == 0 then (ipow (-1) (t / 2) * ipow d (n - t / 2), 0)
+  else (0, ipow (-1) ((t - 1) / 2) * ipow d (n - (t + 1) / 2))
+
+def wpDs : List Int := [1, 2, 3, 5, 7, 11, 19]
+
+/-- **`eq:omegaprod`, coefficientwise**: `d^n c_n(t) = d^(2n-t) delta^t`. -/
+theorem weil_product_formula :
+    (wpDs.all fun d => (List.range 10).all fun m =>
+      let n := m + 1
+      (List.range (2 * n + 1)).all fun t =>
+        qmul d (ipow d n, 0) (wpCoef d n t)
+          == qmul d (ipow d (2 * n - t), 0) (qpow d qdelta t)) = true := by
+  decide +kernel
+
+/-- **The Weil class is multiplicative, coefficientwise**:
+`c_(n1)(t1) c_(n2)(t2) = c_(n1+n2)(t1+t2)` in `Z[delta]`. -/
+theorem weil_multiplicative_coefficients :
+    (wpDs.all fun d => (List.range 6).all fun a => (List.range 6).all fun b =>
+      let n1 := a + 1
+      let n2 := b + 1
+      (List.range (2 * n1 + 1)).all fun t1 => (List.range (2 * n2 + 1)).all fun t2 =>
+        qmul d (wpCoef d n1 t1) (wpCoef d n2 t2) == wpCoef d (n1 + n2) (t1 + t2)) = true := by
+  decide +kernel
+
+/-- the product of two elements of the exterior algebra over `Z[sqrt(-d)]`
+on `w` generators. -/
+def wpMul (d : Int) (w : Nat) (u v : PcElt) : PcElt :=
+  pcNormal (u.flatMap fun s => v.filterMap fun t =>
+    if s.1 &&& t.1 != 0 then none
+    else
+      let q := qmul d (s.2.1, s.2.2) (t.2.1, t.2.2)
+      if pcMergeOdd w s.1 t.1 then some (s.1 ||| t.1, -q.1, -q.2) else some (s.1 ||| t.1, q.1, q.2))
+
+def wpScale (d : Int) (q : Quad) (v : PcElt) : PcElt :=
+  v.map fun t => let r := qmul d q (t.2.1, t.2.2); (t.1, r.1, r.2)
+
+def wpAdd (u v : PcElt) : PcElt := pcNormal (u ++ v)
+
+def wpPopcount (m w : Nat) : Nat := (List.range w).countP (fun i => m.testBit i)
+
+/-- `omega` of an abelian variety of dimension `2n` whose generators
+`x_j, y_j` are `2(o + j)`, `2(o + j) + 1` for `j < 2n`: the sum over the
+subsets `T` of `c_n(|T|) w^(T)`. -/
+def wpOmega (d : Int) (o n : Nat) : PcElt :=
+  pcNormal ((List.range (1 <<< (2 * n))).map fun T =>
+    let m := (List.range (2 * n)).foldl (fun acc j =>
+      acc ||| (1 <<< (2 * (o + j) + (if T.testBit j then 1 else 0)))) 0
+    let c := wpCoef d n (wpPopcount T (2 * n))
+    (m, c.1, c.2))
+
+/-- `prod_j (d x_j + delta y_j)`, multiplied out in the order `j = 1..2n`. -/
+def wpProd (d : Int) (n : Nat) : PcElt :=
+  (List.range (2 * n)).foldl (fun acc j =>
+    wpMul d (4 * n) acc [(1 <<< (2 * j), d, 0), (1 <<< (2 * j + 1), 0, 1)]) [(0, 1, 0)]
+
+/-- the compositions of `n` into positive parts, by structural recursion on
+the fuel `f >= n`. -/
+def wpCompositionsAux : Nat → Nat → List (List Nat)
+  | _, 0 => [[]]
+  | 0, _ + 1 => []
+  | f + 1, n + 1 => (List.range (n + 1)).flatMap fun k =>
+      (wpCompositionsAux f (n - k)).map fun c => (k + 1) :: c
+
+def wpCompositions (n : Nat) : List (List Nat) := wpCompositionsAux n n
+
+/-- the product of the classes `omega` of the factors of a composition, on
+consecutive blocks of generators. -/
+def wpProductOf (d : Int) (parts : List Nat) : PcElt :=
+  let w := 4 * parts.sum
+  (parts.foldl (fun acc p => (wpMul d w acc.1 (wpOmega d acc.2 p), acc.2 + 2 * p))
+    ([(0, 1, 0)], 0)).1
+
+/-- **`eq:omegaprod` in the exterior algebra**, and **the Weil class of a
+product is the product of the Weil classes**, for every composition of
+`n <= 4`, the eight compositions of `4` among them. -/
+theorem weil_multiplicative_exterior :
+    (([1, 2, 3, 5, 7].all fun d =>
+      ([1, 2, 3].all fun n => wpProd d n == wpScale d (ipow d n, 0) (wpOmega d 0 n))
+      && ([2, 3].all fun n => (wpCompositions n).all fun c =>
+            wpProductOf d c == wpOmega d 0 n))
+      && ([1, 3].all fun d => (wpCompositions 4).all fun c =>
+            wpProductOf d c == wpOmega d 0 4)
+      && (wpCompositions 4).length == 8) = true := by
+  decide +kernel
+
+/-! The split member.  Generators `x_1..x_(2n)` are `0..2n-1` and
+`xi_1..xi_(2n)` are `2n..4n-1`. -/
+
+def spX (j : Nat) : PcElt := [(1 <<< j, 1, 0)]
+def spXi (n j : Nat) : PcElt := [(1 <<< (2 * n + j), 1, 0)]
+
+/-- `B x_j` (indices from `0`): `xi_(n+j)` for `j < n`, `-xi_(j-n)` otherwise. -/
+def spB (n j : Nat) : PcElt :=
+  if j < n then spXi n (n + j) else [(1 <<< (2 * n + (j - n)), -1, 0)]
+
+/-- `y_j = sqrt(-d) x_j = -B x_j`. -/
+def spY (n j : Nat) : PcElt := (spB n j).map fun t => (t.1, -t.2.1, -t.2.2)
+
+/-- `omega` from `eq:omegagens` in the basis `x_1..x_(2n)`: `w^(T)` is the
+ordered product of `y_j` (`j` in `T`) and `x_j` (`j` not in `T`). -/
+def spOmega (d : Int) (n : Nat) : PcElt :=
+  pcNormal ((List.range (1 <<< (2 * n))).flatMap fun T =>
+    let w := (List.range (2 * n)).foldl (fun acc j =>
+      wpMul d (4 * n) acc (if T.testBit j then spY n j else spX j)) [(0, 1, 0)]
+    wpScale d (wpCoef d n (wpPopcount T (2 * n))) w)
+
+def spSum (l : List PcElt) : PcElt := pcNormal l.flatten
+
+def spBeta (d : Int) (n : Nat) : PcElt :=
+  spSum ((List.range n).map fun j => wpMul d (4 * n) (spX j) (spX (n + j)))
+def spBetaHat (d : Int) (n : Nat) : PcElt :=
+  spSum ((List.range n).map fun j => wpMul d (4 * n) (spB n j) (spB n (n + j)))
+def spEll (d : Int) (n : Nat) : PcElt :=
+  spSum ((List.range (2 * n)).map fun i => wpMul d (4 * n) (spX i) (spXi n i))
+def spGamma (d : Int) (n : Nat) : PcElt :=
+  wpAdd (wpScale d (d, 0) (spBeta d n)) (wpScale d (-1, 0) (spBetaHat d n))
+
+def spPow (d : Int) (w : Nat) (v : PcElt) (k : Nat) : PcElt :=
+  (List.range k).foldl (fun acc _ => wpMul d w acc v) [(0, 1, 0)]
+
+/-- **The split member in closed form**: `n! omega = (-1)^(n(n-1)/2)
+(gamma + delta ell)^n` for `n <= 3`, and the forms at `n = 2, 3`. -/
+theorem split_member_closed_form :
+    ([1, 2, 3, 5, 7].all fun d =>
+      ([1, 2, 3].all fun n =>
+        let g := wpAdd (spGamma d n) (wpScale d (0, 1) (spEll d n))
+        wpScale d (pcFact n, 0) (spOmega d n)
+          == wpScale d (ipow (-1) (n * (n - 1) / 2), 0) (spPow d (4 * n) g n))
+      && (let w := 8
+          let om := spOmega d 2
+          let ga := spGamma d 2
+          let el := spEll d 2
+          let o1 := om.filterMap fun t => if t.2.1 == 0 then none else some (t.1, t.2.1, 0)
+          let o2 := om.filterMap fun t => if t.2.2 == 0 then none else some (t.1, t.2.2, 0)
+          wpScale d (2, 0) o1 == wpAdd (wpScale d (d, 0) (spPow d w el 2)) (wpScale d (-1, 0) (spPow d w ga 2))
+          && o2 == wpScale d (-1, 0) (wpMul d w ga el))
+      && (let w := 12
+          let om := spOmega d 3
+          let ga := spGamma d 3
+          let el := spEll d 3
+          let o1 := om.filterMap fun t => if t.2.1 == 0 then none else some (t.1, t.2.1, 0)
+          let o2 := om.filterMap fun t => if t.2.2 == 0 then none else some (t.1, t.2.2, 0)
+          wpScale d (6, 0) o1 == wpAdd (wpScale d (3 * d, 0) (wpMul d w ga (spPow d w el 2)))
+              (wpScale d (-1, 0) (spPow d w ga 3))
+          && wpScale d (6, 0) o2 == wpAdd (wpScale d (d, 0) (spPow d w el 3))
+              (wpScale d (-3, 0) (wpMul d w (spPow d w ga 2) el)))) = true := by
+  decide +kernel
+
+/-! ## 53.  Integrality of the Chern classes of a secant character
+
+The finite facts behind Proposition (Numerical admissibility of the secant
+plane).  On a principally polarised `X` with polarisation `t`, the secant
+character `a u + b v` has `ch_k = mu_k t^k / k!` with `mu_(2j) = a (-d)^j` and
+`mu_(2j+1) = b (-d)^j`.  Writing `c_k = gamma_k t^k / k!`, Newton's identities
+`k c_k = sum_(i=1..k) (-1)^(i-1) c_(k-i) (i! ch_i)` become, after
+multiplication by `(k-1)! / t^k`,
+
+    gamma_k = sum_(i=1..k) (-1)^(i-1) ((k-1)!/(k-i)!) gamma_(k-i) mu_i ,
+
+with integral coefficients, and the proposition replaces them by the
+three-term recursion `gamma_0 = 1`, `gamma_1 = b`,
+`gamma_(k+1) = b gamma_k + d k (a-k+1) gamma_(k-1)`.  The kernel checks that
+the two agree for `k <= 8`, every squarefree `d <= 11`, `0 <= a <= 4` and
+`|b| <= 4`; for each such `k` both sides are polynomials of degree at most
+four in `a` and in `d` and at most eight in `b`, so agreement on this box is
+the identity (the proposition proves it for all `k` from the differential
+equation `(1 + d t^2) c' = (b + a d t) c`).  It checks that the discriminant
+`2 r c_2 - (r-1) c_1^2 = (a gamma_2 - (a-1) b^2) t^2` equals
+`(a^2 d + b^2) t^2`, which is positive unless `a = b = 0`; and, for the rank
+one case `a = 1` used in Section 55, the closed forms `gamma_2 = b^2 + d`,
+`gamma_3 = b (b^2 + d)`, `gamma_4 = (b^2 + d)(b^2 - 3d)`; these are
+polynomial identities of degree at most four in each variable, and the boxes
+below are large enough for agreement on them to be the identity.
+-/
+
+/-- `mu_i`, the coefficient of `t^i / i!` in `a u + b v`. -/
+def niMu (a b d : Int) (i : Nat) : Int :=
+  if i % 2 == 0 then a * ipow (-d) (i / 2) else b * ipow (-d) (i / 2)
+
+/-- `gamma_0, ..., gamma_K` by the three-term recursion. -/
+def niRec (a b d : Int) (K : Nat) : List Int :=
+  (List.range K).foldl (fun acc k =>
+    if k == 0 then acc ++ [b]
+    else
+      let g1 := acc.getD k 0
+      let g0 := acc.getD (k - 1) 0
+      acc ++ [b * g1 + d * (k : Int) * (a - (k : Int) + 1) * g0]) [1]
+
+/-- the falling factorial `(k-1)! / (k-i)!`, the product of `k-i+1, ..., k-1`. -/
+def niFall (k i : Nat) : Int :=
+  ((List.range (i - 1)).foldl (fun acc j => acc * (k - i + 1 + j)) 1 : Nat)
+
+/-- `gamma_0, ..., gamma_K` by Newton's identities. -/
+def niNewton (a b d : Int) (K : Nat) : List Int :=
+  (List.range K).foldl (fun acc m =>
+    let k := m + 1
+    acc ++ [(List.range k).foldl (fun s i' =>
+      let i := i' + 1
+      s + ipow (-1) (i - 1) * niFall k i * acc.getD (k - i) 0 * niMu a b d i) 0]) [1]
+
+def niDs : List Int := [1, 2, 3, 5, 6, 7, 10, 11]
+
+/-- **The recursion is Newton's identities**, for `k <= 8`. -/
+theorem secant_chern_recursion :
+    (niDs.all fun d => (List.range 5).all fun i => (List.range 9).all fun j =>
+      let a : Int := i
+      let b : Int := (j : Int) - 4
+      niRec a b d 8 == niNewton a b d 8) = true := by
+  decide +kernel
+
+/-- **The discriminant is the norm `a^2 d + b^2`**, positive unless
+`a = b = 0`. -/
+theorem secant_discriminant :
+    ((List.range 12).all fun k => (List.range 11).all fun i => (List.range 11).all fun j =>
+      let d : Int := (k : Int) + 1
+      let a : Int := (i : Int) - 5
+      let b : Int := (j : Int) - 5
+      let g2 := (niRec a b d 2).getD 2 0
+      a * g2 - (a - 1) * b * b == a * a * d + b * b
+        && (a * a * d + b * b > 0 || (a == 0 && b == 0))) = true := by
+  decide +kernel
+
+/-- **Rank one**: at `a = 1`, `gamma_2 = b^2 + d`, `gamma_3 = b (b^2 + d)` and
+`gamma_4 = (b^2 + d)(b^2 - 3d)`. -/
+theorem secant_rank_one_chern :
+    ((List.range 13).all fun i => (List.range 30).all fun k =>
+      let b : Int := i
+      let d : Int := (k : Int) + 1
+      let g := niRec 1 b d 4
+      g.getD 2 0 == b * b + d && g.getD 3 0 == b * (b * b + d)
+        && g.getD 4 0 == (b * b + d) * (b * b - 3 * d)) = true := by
+  decide +kernel
+
+/-! ## 54.  The intersection form on the rational Weil plane
+
+The finite facts of Theorem (The shape of an object meeting the criterion)
+that concern the Weil classes themselves.  In the coordinate model of Theorem
+(The model is of Weil type) the generators `x_1..x_(2n)` are `0..2n-1` and `y_1..y_(2n)` are
+`2n..4n-1`, the polarisation is `eta = sum_j eps_j x_j y_j` with `eps_j = -1`
+for `j <= n` and `+1` otherwise, and `omega_1, omega_2` are given by
+`eq:omegagens`, the monomial `w^(T)` being the ordered product computed with
+its sign.  For `n = 1, 2, 3` and `d` in `{1, 2, 3, 5, 7}` the kernel checks
+that `eta omega_1 = eta omega_2 = 0`, that `eta^(2n)` is `(2n)!` times the top
+monomial, and that in the orientation in which `eta^(2n)` is positive the
+Gram matrix of the intersection form in the basis `omega_1, omega_2` is
+
+    (-1)^n 2^(2n-1) diag(d^n, d^(n-1)),
+
+that is `diag(8 d^2, 8 d)` at `n = 2` and `diag(-32 d^3, -32 d^2)` at `n = 3`:
+positive definite at `n = 2` and negative definite at `n = 3`, as the
+Hodge-Riemann relations require.
+-/
+
+/-- `omega = omega_1 + delta omega_2` in the coordinate model. -/
+def gmOmega (d : Int) (n : Nat) : PcElt :=
+  pcNormal ((List.range (1 <<< (2 * n))).flatMap fun T =>
+    let w := (List.range (2 * n)).foldl (fun acc j =>
+      wpMul d (4 * n) acc [(1 <<< (if T.testBit j then 2 * n + j else j), 1, 0)]) [(0, 1, 0)]
+    wpScale d (wpCoef d n (wpPopcount T (2 * n))) w)
+
+/-- `eta = sum_j eps_j x_j y_j`. -/
+def gmEta (n : Nat) : PcElt :=
+  pcNormal ((List.range (2 * n)).map fun j =>
+    ((1 <<< j) ||| (1 <<< (2 * n + j)), if j < n then -1 else 1, 0))
+
+/-- the coefficient of the top monomial. -/
+def gmTop (n : Nat) (v : PcElt) : Int :=
+  match v.find? (fun t => t.1 == (1 <<< (4 * n)) - 1) with
+  | some t => t.2.1
+  | none => 0
+
+/-- **The Weil classes are primitive, and the Gram matrix of the rational
+Weil plane is `(-1)^n 2^(2n-1) diag(d^n, d^(n-1))`.** -/
+theorem weil_plane_gram :
+    ([1, 2, 3, 5, 7].all fun d => [1, 2, 3].all fun n =>
+      let w := 4 * n
+      let om := gmOmega d n
+      let o1 := om.filterMap fun t => if t.2.1 == 0 then none else some (t.1, t.2.1, 0)
+      let o2 := om.filterMap fun t => if t.2.2 == 0 then none else some (t.1, t.2.2, 0)
+      let eta := gmEta n
+      let vol := gmTop n (spPow d w eta (2 * n))
+      let s : Int := if vol > 0 then 1 else -1
+      let e : Int := ipow (-1) n * ipow 2 (2 * n - 1)
+      (wpMul d w eta o1).isEmpty && (wpMul d w eta o2).isEmpty
+        && vol == pcFact (2 * n)
+        && s * gmTop n (wpMul d w o1 o1) == e * ipow d n
+        && s * gmTop n (wpMul d w o1 o2) == 0
+        && s * gmTop n (wpMul d w o2 o2) == e * ipow d (n - 1)) = true := by
+  decide +kernel
+
+/-! ## 55.  The secant plane against the lattice of line bundles, and
+resolutions of low rank
+
+The finite facts behind Theorem (The secant plane and the lattice of line
+bundles) and Proposition (Resolutions of rank one and two), on a principally
+polarised abelian fourfold with polarisation `Theta`.
+
+*The lattice.*  A class `sum_k c_k Theta^k / k!` (`k <= 4`) has binomial
+moments `m_k` defined by `c_i = sum_k S(i,k) k! m_k`, `S` the Stirling numbers
+of the second kind, and lies in the lattice spanned by the `e^(j Theta)` if and
+only if every `m_k` is an integer (Lemma (Binomial moments)).  For the secant
+class `a u + b v`, `c = (a, b, -a d, -b d, a d^2)`, the theorem gives
+`24 m = (24 a, 24 b, -12 (a d + b), 4 (3 a d + 2 b - b d),
+a d^2 - 11 a d + 6 b d - 6 b)`.  The kernel checks this on a box (both sides
+are polynomials of degree at most two in `d` and one in `a, b`, so the box
+gives the identity); it proves for every `d` that at `(a, b) = (1, 3)` the
+moments are integers exactly when `d = 15, 23 (mod 24)`; it checks that at
+`d = 3` the moments of `u + v` have least common denominator `6`; and it
+checks that the structure sheaf of a smooth support with
+`[S] = N Theta^2` has `m_4 = N (83 - 2N)/12`, not an integer, for
+`N = 5, ..., 8`.
+
+*Resolutions.*  With `0 -> E -> G -> I_Z(b Theta) -> 0`, `rk E = r`,
+`rk G = r + 1`, Whitney's formula `c(G) = c(E) c(F)` and `c_k(G) = 0` for
+`k > r + 1`, with `c_k(F) = gamma_k Theta^k / k!` from Section 53 at `a = 1`:
+at `r = 1` the unique `c_1(E) = l Theta` with `c_3(G) = 0` is `l = -b/3`
+(that is `gamma_3 = b gamma_2`), and then
+`72 c_4(G) = 3 gamma_4 - 4 b gamma_3 = -(b^2 + d)(b^2 + 9 d) < 0`; at `r = 2`,
+with `c(E) = 1 + a Theta + (m/2) Theta^2`,
+`24 c_4(G) = gamma_4 + 4 a gamma_3 + 6 m gamma_2
+= gamma_2 (b^2 - 3d + 4ab + 6m)`, so `c_4(G) = 0` reads
+`6 m = 3 d - b^2 - 4 a b`; `chi(E) = a^4 - 2 a^2 m + m^2/2` forces `m` even,
+and at `b = 3` an even `m` with `6m = 3d - 9 - 12a` exists exactly when
+`d = 3 (mod 4)`, which the kernel proves for every `d`.  The other
+identities are polynomial, of degree at most four in each variable, and the
+boxes on which they are checked are large enough for agreement to be the
+identity.
+-/
+
+/-- the Stirling numbers of the second kind `S(i,k)`, `i, k <= 4`. -/
+def ltS (i k : Nat) : Int :=
+  ([[1, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 1, 1, 0, 0], [0, 1, 3, 1, 0],
+    [0, 1, 7, 6, 1]].getD i []).getD k 0
+
+/-- `sum_k S(i,k) k! x_k`. -/
+def ltFromMoments (x : List Int) (i : Nat) : Int :=
+  (List.range 5).foldl (fun s k => s + ltS i k * pcFact k * x.getD k 0) 0
+
+def ltSecant (a b d : Int) : List Int := [a, b, -a * d, -b * d, a * d * d]
+
+/-- `24 m(a u + b v)`, the formula of the theorem. -/
+def ltMoments24 (a b d : Int) : List Int :=
+  [24 * a, 24 * b, -12 * (a * d + b), 4 * (3 * a * d + 2 * b - b * d),
+   a * d * d - 11 * a * d + 6 * b * d - 6 * b]
+
+/-- **The binomial moments of `a u + b v`.** -/
+theorem lattice_secant_moments :
+    ((List.range 7).all fun i => (List.range 7).all fun j => (List.range 12).all fun k =>
+      let a : Int := (i : Int) - 3
+      let b : Int := (j : Int) - 3
+      let d : Int := (k : Int) + 1
+      (List.range 5).all fun l =>
+        ltFromMoments (ltMoments24 a b d) l == 24 * (ltSecant a b d).getD l 0) = true := by
+  decide +kernel
+
+/-- the moments of `u + 3v` are integers exactly when the last three entries
+of `24 m` are divisible by `24`: `-12 (d + 3)`, `24` and `(d + 9)(d - 2)`. -/
+theorem lattice_u3v_moments :
+    ((List.range 48).all fun k =>
+      let d : Int := (k : Int) + 1
+      ltMoments24 1 3 d == [24, 72, -12 * (d + 3), 24, (d + 9) * (d - 2)]) = true := by
+  decide +kernel
+
+/-- **`u + 3v` is in the lattice exactly when `d = 15, 23 (mod 24)`**, for
+every `d`: `d` odd and `24 | (d + 9)(d - 2)`, where `d - 2` is replaced by
+`d + 22`, congruent modulo `24`. -/
+theorem lattice_u3v_criterion (d : Nat) :
+    (d % 2 = 1 ∧ ((d + 9) * (d + 22)) % 24 = 0) ↔ (d % 24 = 15 ∨ d % 24 = 23) := by
+  have h1 : ((d + 9) * (d + 22)) % 24 = ((d % 24 + 9) * (d % 24 + 22)) % 24 := by
+    rw [Nat.mul_mod, Nat.add_mod d 9, Nat.add_mod d 22]
+    conv => rhs; rw [Nat.mul_mod, Nat.add_mod (d % 24) 9, Nat.add_mod (d % 24) 22, Nat.mod_mod]
+  have h2 : d % 2 = (d % 24) % 2 := (Nat.mod_mod_of_dvd d (by decide : 2 ∣ 24)).symm
+  rw [h1, h2]
+  have hr : d % 24 < 24 := Nat.mod_lt _ (by decide)
+  generalize d % 24 = r at hr ⊢
+  revert r
+  decide
+
+/-- **The moments at `d = 3`**: `m(u + v) = (1, 1, -2, 4/3, -1/2)`, whose
+least common denominator is `6`, the multiple of the line bundle witness of
+Theorem (Secant sheaves exist in every dimension) (`secant_witness_at_n_four`
+of Section 14). -/
+theorem lattice_moments_d3 :
+    (ltMoments24 1 1 3 == [24, 24, -48, 32, -12]
+      && (ltMoments24 1 1 3).all (fun x => x % 4 == 0)
+      && !((ltMoments24 1 1 3).all (fun x => x % 8 == 0))
+      && !((ltMoments24 1 1 3).all (fun x => x % 12 == 0))) = true := by
+  decide +kernel
+
+/-- **The structure sheaf of a smooth support is not in the lattice**:
+`ch(O_S) = (0, 0, 2N, -12N, 4N(18 - N))` has `12 m = (0, 0, 12N, -36N,
+N(83 - 2N))`, and `12` does not divide `N(83 - 2N)` for `N = 5, ..., 8`. -/
+theorem lattice_smooth_support :
+    ([5, 6, 7, 8] : List Int).all fun N =>
+      let m12 : List Int := [0, 0, 12 * N, -36 * N, N * (83 - 2 * N)]
+      ((List.range 5).all fun l =>
+        2 * ltFromMoments m12 l == 24 * ([0, 0, 2 * N, -12 * N, 4 * N * (18 - N)] : List Int).getD l 0)
+      && N * (83 - 2 * N) % 12 != 0 := by
+  decide +kernel
+
+/-- **Rank one**: `gamma_3 = b gamma_2`, so `l = -b/3` is the unique
+`c_1(E)` killing `c_3(G)` (its coefficient `c_2(F) = gamma_2/2` is not zero),
+and then `72 c_4(G) = 3 gamma_4 - 4 b gamma_3 = -(b^2 + d)(b^2 + 9d) < 0`. -/
+theorem burch_rank_one_c4 :
+    ((List.range 12).all fun i => (List.range 30).all fun k =>
+      let b : Int := (i : Int) + 1
+      let d : Int := (k : Int) + 1
+      let g := niRec 1 b d 4
+      g.getD 3 0 == b * g.getD 2 0 && g.getD 2 0 != 0
+        && 3 * g.getD 4 0 - 4 * b * g.getD 3 0 == -((b * b + d) * (b * b + 9 * d))
+        && (b * b + d) * (b * b + 9 * d) > 0) = true := by
+  decide +kernel
+
+/-- **Rank two**: `24 c_4(G) = gamma_4 + 4 a gamma_3 + 6 m gamma_2
+= gamma_2 (b^2 - 3d + 4ab + 6m)`; for `c(E) = 1 + a Theta + (m/2) Theta^2`
+Newton's identities give the power sums `p_1 = a`, `p_2 = a^2 - m`,
+`2 p_3 = 2 a p_2 - m p_1`, `2 p_4 = 2 a p_3 - m p_2`, and
+`chi(E) = p_4 = a^4 - 2 a^2 m + m^2/2` is an integer exactly when `m` is
+even. -/
+theorem burch_rank_two_c4 :
+    ((List.range 6).all fun i => (List.range 12).all fun k =>
+      (List.range 7).all fun ia => (List.range 13).all fun im =>
+        let b : Int := (i : Int) + 1
+        let d : Int := (k : Int) + 1
+        let a : Int := (ia : Int) - 3
+        let m : Int := (im : Int) - 6
+        let g := niRec 1 b d 4
+        let p1 := a
+        let p2 := a * p1 - m
+        let p3x2 := 2 * a * p2 - m * p1
+        let p4x2 := a * p3x2 - m * p2
+        g.getD 4 0 + 4 * a * g.getD 3 0 + 6 * m * g.getD 2 0
+            == g.getD 2 0 * (b * b - 3 * d + 4 * a * b + 6 * m)
+          && p4x2 == 2 * a * a * a * a - 4 * a * a * m + m * m
+          && (p4x2 % 2 == 0) == (m % 2 == 0)) = true := by
+  decide +kernel
+
+/-- **At `b = 3` rank two data exist exactly when `d = 3 (mod 4)`**: `6m =
+3d - 9 - 12a` with `m` even means `12 | 3d - 9 - 12a`, and as
+`3d - 9 - 12a = (3d + 3) - 12(a + 1)` this is `12 | 3d + 3`; for every `d`
+that holds exactly when `d = 3 (mod 4)`. -/
+theorem burch_rank_two_parity (d : Nat) : (3 * d + 3) % 12 = 0 ↔ d % 4 = 3 := by
+  have h1 : (3 * d + 3) % 12 = (3 * (d % 12) + 3) % 12 := by
+    rw [Nat.add_mod, Nat.mul_mod]
+    conv => rhs; rw [Nat.add_mod, Nat.mul_mod, Nat.mod_mod]
+  have h2 : d % 4 = (d % 12) % 4 := (Nat.mod_mod_of_dvd d (by decide : 4 ∣ 12)).symm
+  rw [h1, h2]
+  have hr : d % 12 < 12 := Nat.mod_lt _ (by decide)
+  generalize d % 12 = r at hr ⊢
+  revert r
+  decide
+
 end HodgeObstruction
 
 /-! ## The axioms each theorem depends on
@@ -3897,3 +5355,25 @@ propositional extensionality enters through `decide`, and in no case
 #print axioms HodgeObstruction.divisor_profiles
 #print axioms HodgeObstruction.divisor_endo_positive
 #print axioms HodgeObstruction.divisor_rank_two_mod3
+#print axioms HodgeObstruction.hh_annihilator_small
+#print axioms HodgeObstruction.polarised_number_three
+#print axioms HodgeObstruction.polarised_number_four_rho0
+#print axioms HodgeObstruction.polarised_number_four_rho1
+#print axioms HodgeObstruction.polarised_number_four_rho2
+#print axioms HodgeObstruction.polarised_number_four_rho3
+#print axioms HodgeObstruction.weil_product_formula
+#print axioms HodgeObstruction.weil_multiplicative_coefficients
+#print axioms HodgeObstruction.weil_multiplicative_exterior
+#print axioms HodgeObstruction.split_member_closed_form
+#print axioms HodgeObstruction.secant_chern_recursion
+#print axioms HodgeObstruction.secant_discriminant
+#print axioms HodgeObstruction.secant_rank_one_chern
+#print axioms HodgeObstruction.weil_plane_gram
+#print axioms HodgeObstruction.lattice_secant_moments
+#print axioms HodgeObstruction.lattice_u3v_moments
+#print axioms HodgeObstruction.lattice_u3v_criterion
+#print axioms HodgeObstruction.lattice_moments_d3
+#print axioms HodgeObstruction.lattice_smooth_support
+#print axioms HodgeObstruction.burch_rank_one_c4
+#print axioms HodgeObstruction.burch_rank_two_c4
+#print axioms HodgeObstruction.burch_rank_two_parity

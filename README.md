@@ -169,10 +169,10 @@ reduction at all.
 No Mathlib and no dependencies. The file ends with one `#print axioms` line
 per theorem; every one must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
-through `decide`, and none may mention `sorryAx`. There are one hundred and forty-seven theorems. `lean/README.md` lists them
+through `decide`, and none may mention `sorryAx`. There are one hundred and sixty-nine theorems. `lean/README.md` lists them
 and says what each one does and does not establish. The workflow in
 `.github/workflows/lean.yml` runs the check on every push and fails if the
-number of theorems is not one hundred and forty-seven, or if any of them depends on an axiom other than propext.
+number of theorems is not one hundred and sixty-nine, or if any of them depends on an axiom other than propext.
 
 ## The computations, item by item
 
