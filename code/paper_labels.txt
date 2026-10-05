@@ -8,6 +8,7 @@ cor:cmdichotomy
 cor:countnotbind
 cor:delsarteall
 cor:disjointroutes
+cor:efourfive
 cor:equivariant
 cor:exactform
 cor:fanolines
@@ -173,6 +174,7 @@ fig:descent
 fig:diagonalbudget
 fig:doublepoint
 fig:efourshifts
+fig:efourspread
 fig:efourthree
 fig:escape
 fig:evaluation
@@ -243,6 +245,7 @@ lem:blocks
 lem:boundednorm
 lem:burchmoments
 lem:cabling
+lem:cayleycut
 lem:charsdiffer
 lem:chicompare
 lem:cibig
@@ -256,6 +259,7 @@ lem:degreedrop
 lem:divisorgerm
 lem:edge
 lem:efourshifts
+lem:efourspread
 lem:eigenbasis
 lem:finiteproduct
 lem:foxmodel
@@ -333,6 +337,8 @@ prop:descent
 prop:disjoint
 prop:divfails
 prop:divroute
+prop:efourcupkernel
+prop:efourgap
 prop:evaluation
 prop:explicitconvolution
 prop:explicitobject
@@ -672,6 +678,8 @@ thm:degreebound
 thm:deligneAH
 thm:divcriterion
 thm:divisor
+thm:efourspreadthree
+thm:efourspreadtwo
 thm:efourthreelevels
 thm:efourtwolevels
 thm:equalnorms

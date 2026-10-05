@@ -308,5 +308,15 @@
   "prop:cyclicmonodromy",
   "lem:newdisc",
   "thm:vgvandermonde"
+ ],
+ "LXXVII": [
+  "lem:efourspread",
+  "lem:cayleycut",
+  "thm:efourspreadtwo",
+  "thm:efourspreadthree",
+  "prop:efourgap",
+  "cor:efourfive",
+  "prop:efourcupkernel",
+  "rem:convolutionsopen"
  ]
 }

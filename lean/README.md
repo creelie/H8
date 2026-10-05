@@ -27,10 +27,10 @@ per theorem. Every line must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
 through `decide` or the core lemmas on natural numbers, and none may mention `sorryAx`. The GitHub workflow in
 `.github/workflows/lean.yml` enforces all three, and fails the build if the
-number of theorems is not one hundred and thirty-three or if any of them reaches for a further
+number of theorems is not one hundred and thirty-nine or if any of them reaches for a further
 axiom.
 
-## The one hundred and thirty-three theorems
+## The one hundred and thirty-nine theorems
 
 | theorem | statement |
 | --- | --- |
@@ -167,6 +167,12 @@ axiom.
 | `efour_three_targets` | every piece of `E_0^8` has `18`, `24`, `21` partners of its parity differing in `2`, `3`, `4` coordinates, with groups `H^5` of dimensions `64` (six times) and `16` (twelve times), `16`, and `0`, adding up to `960`; `32 * 960 = 30720` and `40960 - 30720 = 10240 > 104`: the targets of the three-shift theorem |
 | `efour_three_degrees` | with `p` at any rank and `delta = 1, 2`, every pair of runs through distinct multiples, not both empty, gives `Ext` degree `3 + delta - U + 7D` different from `3` when `c = e`, from `0` when `e` is above `c` and from `8` when `e` is below `c`: the case analysis of the three-shift theorem |
 | `efour_three_spectrum` | the character sums of the weighted Cayley graph of the targets are real and take the values `960, 384, 192, 96, -32, -64, -128, -192`; `64 (960 + 192) / 4 = 18432`, the split `zeta_3 zeta_4 in {1, i}` has weight `18432` in both parities, and `40960 - 18432 = 22528` |
+| `efour_spread_ratios` | the ratios of sum `0` modulo `4` that move every coordinate are `21`; the `13` with an entry `2` (a coordinate moved by `-1`) have `D = 256` once and `64` twelve times, `1024` in all, and the other `8` have `D = 16`: the groups of spread two |
+| `efour_spread_parity` | for each of the `13` and every set `K` of coordinates with even exponent sum over `K`, that sum is not `2 (|K| - 1)` modulo `4`, while each of the other `8` attains it for some `K`: the last step of the spread-two lemma, and why the entry `-1` is needed |
+| `efour_cut_bound` | the `13` ratios generate the `64` ratios of sum `0` in three steps; `|H| (1024 - 256 - 64 (|H| - 2))` is `1536, 2560, 3072` for `|H| = 2, 4, 8`, and `64 |H| >= 1024` for `|H| = 16, 32`: the stabiliser bound for the cuts |
+| `efour_spread_three_counts` | between every piece and the `64` of the other parity the groups `H^5` add up to `1072` and the groups `H^7` to `16`; `4 * 60 + 12 * 16 + 4 * (64 + 6 * 16) = 1072`, `64 * 1072 - 128 * 8 = 67584`, `64 * 16 = 1024`: shifts three and five apart |
+| `efour_five_values` | with one parity at values in `{0, 2, 4}` and the other in `{1, 3}`, every pair of occupied sets is covered by adjacent single shifts, one parity at two values two apart or three, single shifts three apart, or a gap of four beside a single shift; within six values exactly `([0], [5])` and `([0, 4], [1, 5])` are left |
+| `efour_cup_kernel_counts` | `4 * 4 + 6 * 16 * 4 = 400`, `400 + 3 * 28 = 484`, `131 * 28 = 3668`, `3584 - 400 = 3184`, `484 - 104 = 380`, and the pieces take `4` values in each coordinate and `16` in each pair: the cup products on the diagonal at `n = 4` |
 
 
 ## Two statements that look true and are not
@@ -190,12 +196,12 @@ careful reading does not catch and a kernel check does.
 `code/verify_all.py` in the parent directory performs the same checks in exact
 rational arithmetic over Q, independently of Lean, together with the exterior
 algebra computations that Lean does not carry, and prints
-`2182 checks passed, 0 failed`.
+`2203 checks passed, 0 failed`.
 
 ## Transcript
 
 `axioms.txt` is the unedited output of `lean HodgeObstruction.lean` under
-Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and thirty-three lines, one per
-theorem, one hundred and three reading `does not depend on any axioms` and thirty reading
+Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and thirty-nine lines, one per
+theorem, one hundred and six reading `does not depend on any axioms` and thirty-three reading
 `depends on axioms: [propext]`, exit status 0, no `sorryAx`. `lake build`
 completes with the same report. Each run takes a few minutes.

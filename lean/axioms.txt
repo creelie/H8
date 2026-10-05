@@ -131,3 +131,9 @@
 'HodgeObstruction.efour_three_targets' does not depend on any axioms
 'HodgeObstruction.efour_three_degrees' does not depend on any axioms
 'HodgeObstruction.efour_three_spectrum' depends on axioms: [propext]
+'HodgeObstruction.efour_spread_ratios' does not depend on any axioms
+'HodgeObstruction.efour_spread_parity' depends on axioms: [propext]
+'HodgeObstruction.efour_cut_bound' does not depend on any axioms
+'HodgeObstruction.efour_spread_three_counts' does not depend on any axioms
+'HodgeObstruction.efour_five_values' depends on axioms: [propext]
+'HodgeObstruction.efour_cup_kernel_counts' depends on axioms: [propext]

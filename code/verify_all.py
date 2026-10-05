@@ -252,6 +252,12 @@ Contents
          degeneration step, the merge lemma, the discriminant of the new
          part, and the very general count for d = 2, 3, 4, 6
          [cyclic_monodromy.py]
+  (LXXVII) groups of spread two and three on E_0^8: the thirteen groups
+         H^4 that nothing touches, the enumeration over the ratios with the
+         degree drop, the runs through the multiples, the cuts of their
+         Cayley graph (at least 1024), shifts three apart and gaps of four
+         piece by piece, the arrangements within five consecutive values,
+         and the cup kernel 484 at n = 4  [efour_blocks.py]
 """
 
 import os
@@ -719,6 +725,10 @@ def main():
 
     head("(LXXVI) monodromy of cyclic covers of degree 3, 4 and 6")
     run_module("LXXVI", "cyclic_monodromy.py")
+
+    head("(LXXVII) groups of spread two and three on E_0^8, and five "
+         "consecutive shifts")
+    run_module("LXXVII", "efour_blocks.py")
 
     print()
     print("=" * 70)

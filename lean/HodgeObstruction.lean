@@ -3362,6 +3362,143 @@ theorem efour_three_spectrum :
       && (64 * 640 - 18432 == 22528)) = true := by
   decide +kernel
 
+/-! ## 47.  Groups of spread two and three on `E_0^8`, and five consecutive shifts
+
+Six finite facts behind Lemma (Groups of spread two and three), Lemma (Cuts
+of a Cayley graph), the theorems on one parity at two or three values and
+on shifts three apart, Proposition (A gap of four), Corollary (Five
+consecutive shifts) and Proposition (Cup products on the diagonal at
+`n = 4`).  Ratios of pieces are exponent vectors `g` in `(Z/4)^4`.
+
+(a) The thirteen ratios.  The ratios of sum `0 mod 4` that move every
+coordinate and one of them by `-1` (exponent `2`) are thirteen, with
+`D = 256` once and `64` twelve times, `1024` in all; the eight others that
+move every coordinate have `D = 16`.
+
+(b) The parity.  For each of the thirteen and every set `K` of coordinates
+over which the exponents have even sum, that sum is not `2 (|K| - 1) mod 4`;
+for each of the eight others some `K` attains it.  This is the last step of
+part (ii) of the lemma.
+
+(c) The cut.  The thirteen ratios generate the `64` ratios of sum `0` in
+three steps, a vertex has weight `1024`, and `|H| (1024 - 256 - 64(|H| - 2))`
+is `1536, 2560, 3072` for `|H| = 2, 4, 8`, while `64 |H| >= 1024` for
+`|H| = 16, 32`.
+
+(d) Spread three and five.  Between a piece and the `64` of the other
+parity, the groups `H^5` have dimensions adding up to `1072` and the groups
+`H^7` to `16`; `64 * 1072 - 128 * 8 = 67584` and `64 * 16 = 1024`.
+
+(e) Five values.  With one parity at values in `{0, 2, 4}` and the other in
+`{1, 3}`, every occupied pair of sets is covered by two adjacent single
+shifts, one parity at two values two apart or three, single shifts three
+apart, or a gap of four beside a single shift; within six values exactly
+two pairs are left.
+
+(f) The diagonal.  `4 * 4 + 6 * 16 * 4 = 400`, `400 + 3 * 28 = 484`,
+`131 * 28 = 3668`, `3584 - 400 = 3184`, `484 - 104 = 380`; the pieces have
+`4` values of one coordinate and `16` of two.
+-/
+
+def efG0Moving : List (List Nat) :=
+  efG0.filter (fun g => g.all (· != 0))
+
+def efThirteen : List (List Nat) := efG0Moving.filter (fun g => g.contains 2)
+def efEight : List (List Nat) := efG0Moving.filter (fun g => !(g.contains 2))
+
+/-- **The thirteen ratios.** -/
+theorem efour_spread_ratios :
+    (efThirteen.length == 13 && efEight.length == 8
+      && (efThirteen.map (efD [0, 0, 0, 0])).foldl (· + ·) 0 == 1024
+      && (efThirteen.filter (fun g => efD [0, 0, 0, 0] g == 256)).length == 1
+      && (efThirteen.filter (fun g => efD [0, 0, 0, 0] g == 64)).length == 12
+      && efEight.all (fun g => efD [0, 0, 0, 0] g == 16)) = true := by
+  decide +kernel
+
+/-- the coordinates in the set with bit mask `m`. -/
+def efMask (m : Nat) : List Nat := (List.range 4).filter (fun j => (m / 2 ^ j) % 2 == 1)
+
+/-- the parity identity `sum_K g = 2 (|K| - 1) mod 4` of the proof. -/
+def efParityHolds (g : List Nat) (m : Nat) : Bool :=
+  let K := efMask m
+  let t := cvSum (K.map (fun j => g.getD j 0))
+  t % 2 == 0 && t % 4 == 2 * ((K.length + 1) % 2)
+
+/-- **The parity at spread two.** -/
+theorem efour_spread_parity :
+    (efThirteen.all (fun g => (List.range 16).all (fun m => !(efParityHolds g m)))
+      && efEight.all (fun g => (List.range 16).any (efParityHolds g))) = true := by
+  decide +kernel
+
+def efAddV (a b : List Nat) : List Nat := (a.zip b).map (fun q => (q.1 + q.2) % 4)
+
+def efGrow (S : List (List Nat)) : List (List Nat) :=
+  (S ++ S.flatMap (fun a => efThirteen.map (efAddV a))).eraseDups
+
+/-- **The cut.** -/
+theorem efour_cut_bound :
+    ((efGrow (efGrow (efGrow [[0, 0, 0, 0]]))).length == 64
+      && (efGrow (efGrow (efGrow [[0, 0, 0, 0]]))).all (fun g => cvSum g % 4 == 0)
+      && [2, 4, 8].all (fun h => h * (1024 - 256 - 64 * (h - 2)) ≥ 1024)
+      && [2, 4, 8].map (fun h => h * (1024 - 256 - 64 * (h - 2))) == [1536, 2560, 3072]
+      && [16, 32].all (fun h => 64 * h ≥ 1024)) = true := by
+  decide +kernel
+
+/-- `dim H^7` between two pieces, by the number `k` of differing coordinates. -/
+def efH7 (z w : List Nat) : Nat :=
+  let k := ffDiff z w
+  if 1 ≤ k && k ≤ 4 then efD z w * choose (2 * (4 - k)) (7 - k) else 0
+
+/-- **Spread three and five.** -/
+theorem efour_spread_three_counts :
+    (efPieces.all (fun z =>
+        let Q := if cvSum z % 4 == 0 then efOdd else efEven
+        (Q.map (efH5 z)).foldl (· + ·) 0 == 1072
+          && (Q.map (efH7 z)).foldl (· + ·) 0 == 16)
+      && (4 * 60 + 12 * 16 + 4 * (64 + 6 * 16) == 1072)
+      && (64 * 1072 - 128 * 8 == 67584) && (64 * 16 == 1024)) = true := by
+  decide +kernel
+
+/-- the values `S`, listed in increasing order, are two or three values two apart. -/
+def efIsStep2 (S : List Int) : Bool :=
+  (S.length == 2 || S.length == 3) && (S.zip S.tail).all (fun q => q.2 - q.1 == 2)
+
+def efGapAt (y : Int) (O : List Int) : Bool :=
+  (O.contains (y + 1) && !(O.contains (y - 1)) && !(O.contains (y + 3)))
+    || (O.contains (y - 1) && !(O.contains (y + 1)) && !(O.contains (y - 3)))
+
+/-- the arrangement of the two parities at the sets `A`, `B` is excluded. -/
+def efCovered (A B : List Int) : Bool :=
+  efIsStep2 A || efIsStep2 B
+    || (A.length == 1 && B.length == 1 &&
+        ((A.headD 0 - B.headD 0).natAbs == 1 || (A.headD 0 - B.headD 0).natAbs == 3))
+    || (A.length == 1 && efGapAt (A.headD 0) B)
+    || (B.length == 1 && efGapAt (B.headD 0) A)
+
+def efNonemptySubsets (l : List Int) : List (List Int) :=
+  (List.range (2 ^ l.length)).filterMap (fun m =>
+    let s := (List.range l.length).filter (fun j => (m / 2 ^ j) % 2 == 1)
+    if s.isEmpty then none else some (s.map (fun j => l.getD j 0)))
+
+/-- **Five consecutive shifts.** -/
+theorem efour_five_values :
+    ((efNonemptySubsets [0, 2, 4]).all (fun A =>
+        (efNonemptySubsets [1, 3]).all (fun B => efCovered A B))
+      && ((efNonemptySubsets [0, 2, 4]).flatMap (fun A =>
+          ((efNonemptySubsets [1, 3, 5]).filter (fun B => !(efCovered A B))).map
+            (fun B => (A, B))))
+        == [([0], [5]), ([0, 4], [1, 5])]) = true := by
+  decide +kernel
+
+/-- **The diagonal at `n = 4`.** -/
+theorem efour_cup_kernel_counts :
+    ((4 * 4 * 1 + 6 * 16 * 4 == 400) && (400 + 3 * 28 == 484) && (131 * 28 == 3668)
+      && (128 * 28 == 3584) && (3584 - 400 == 3184) && (484 - 104 == 380)
+      && (List.range 4).all (fun j => (efPieces.map (fun z => z.getD j 0)).eraseDups.length == 4)
+      && (List.range 4).all (fun j => (List.range 4).all (fun k => j == k ||
+            (efPieces.map (fun z => (z.getD j 0, z.getD k 0))).eraseDups.length == 16))) = true := by
+  decide +kernel
+
 end HodgeObstruction
 
 /-! ## The axioms each theorem depends on
@@ -3504,3 +3641,9 @@ propositional extensionality enters through `decide`, and in no case
 #print axioms HodgeObstruction.efour_three_targets
 #print axioms HodgeObstruction.efour_three_degrees
 #print axioms HodgeObstruction.efour_three_spectrum
+#print axioms HodgeObstruction.efour_spread_ratios
+#print axioms HodgeObstruction.efour_spread_parity
+#print axioms HodgeObstruction.efour_cut_bound
+#print axioms HodgeObstruction.efour_spread_three_counts
+#print axioms HodgeObstruction.efour_five_values
+#print axioms HodgeObstruction.efour_cup_kernel_counts

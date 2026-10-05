@@ -420,6 +420,30 @@ three shifts (`code/convolutions_efour.py`, parts (F) to (I), 16 checks,
 `propext`); `fig_efourthree` from `figures/make_round43.py` and the strip of
 `fig_efourshifts` redrawn; a row of `tab:scope`.
 2182 checks, 133 Lean theorems, 397 pages, 748 labels.
+Round 44 excluded every convolution on E_0^8 whose Weil pieces have their
+shifts within five consecutive values (`cor:efourfive`, dim Ext^2 >= 640),
+after `fig_efourthree` in `tex/sections/10c6_objects.tex`:
+`lem:efourspread` (for positive spread d_E has all its leaves between pieces;
+the groups H^4 of spread two whose ratio moves all four coordinates, one by
+-1, thirteen ratios of weight 256 once and 64 twelve times, are reached by no
+coboundary and killed by no term, by the parity count X = |K| - 1; d_E
+vanishes on spread three; spread-one H^3 terms drop the shift by one or two),
+`lem:cayleycut` (a cut of a Cayley graph weighs at least min_H |H| w(S \ H),
+1024 for the group of the 64 ratios of one parity, only at H = 0),
+`thm:efourspreadtwo` (one parity at {s, s-2} or {s+2, s, s-2}: >= 1024),
+`thm:efourspreadthree` (one parity at s, the other in {s-3, s+3}:
+64 1072 - 128 8 = 67584), `prop:efourgap` (one parity at y, pieces at y+1,
+none at y-1, y+3, or the dual: >= 640 |T|), and `prop:efourcupkernel` (the
+cup products leave at least 484 = 400 + 84 of the 3668 diagonal classes,
+exactly 484 for general components, rank 3184 mod 1000003, so longer
+products must remove 380); within six values the arrangements single shifts
+five apart and {s, s-4} with {s-1, s-5} are left, and wider ones are open in
+`rem:convolutionsopen`. Item (LXXVII), `code/efour_blocks.py` (21 checks,
+2203 in all; the piece-by-piece part takes about eight minutes); Lean
+Section 47 (139 theorems, 106 axiom-free, 33 on `propext`);
+`fig_efourspread` from `figures/make_round44.py`; a row of `tab:scope`; an
+`\enlargethispage{2pt}` in `tex/sections/11b_closuregraph.tex`.
+2203 checks, 139 Lean theorems, 402 pages, 756 labels.
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 
@@ -446,7 +470,7 @@ section.
 - `cd code && python3 verify_all.py` ends with `N checks passed, 0 failed`;
   keep the count in `README.md`, `lean/README.md`, `.zenodo.json`,
   `.github/workflows/lean.yml` and `tex/declarations.tex` in step.
-- `cd lean && lean HodgeObstruction.lean`: 133 theorems, each axiom-free or
+- `cd lean && lean HodgeObstruction.lean`: 139 theorems, each axiom-free or
   depending on `propext` only.
 - `cd tex && latexmk -pdf main.tex`: 0 errors, 0 overfull or underfull boxes,
   no undefined references.
