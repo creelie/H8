@@ -444,6 +444,39 @@ Section 47 (139 theorems, 106 axiom-free, 33 on `propext`);
 `fig_efourspread` from `figures/make_round44.py`; a row of `tab:scope`; an
 `\enlargethispage{2pt}` in `tex/sections/11b_closuregraph.tex`.
 2203 checks, 139 Lean theorems, 402 pages, 756 labels.
+Round 45 settled the two arrangements left within six values
+(`lem:efourlonely`, `prop:efoursingle`, `prop:efourpairs`, `cor:efoursix`,
+`fig_efoursix`, after `cor:efourfive` in `tex/sections/10c6_objects.tex`):
+with each parity at a single shift, at an odd distance g >= 5, a nonzero
+term on a diagonal class at a piece a has a as its only piece and runs
+through M_1, M_2, M_3 (U = 3, D = 0 or U = 2, D = 1); every step adds 1 to
+the shift mod 4, so the four nodes have distinct residues and the multiples
+serve at most one of the two shifts, and the 64 28 = 1792 diagonal classes
+at the other inject by `prop:nothingenters` (g = 1, 3 by the earlier
+theorems); with {s, s-4} and {s-1, s-5} the groups H^3 of
+`thm:efourtwolevels` between adjacent shifts are touched by nothing and form
+the cut of A u B' in the Cayley graph of the 28 ratios that move three
+coordinates and change the parity (weight 640, 636 subgroups, least only at
+H = 0), so >= 640. Hence every convolution whose shifts lie in six
+consecutive values fails (`cor:efoursix`, >= 640 > 104); wider
+arrangements, other than single shifts at any odd distance, stay open in
+`rem:convolutionsopen`. Item (LXXVIII), `code/efour_six.py` (6 checks,
+2209 in all; about seven minutes, mostly the interleaved splits piece by
+piece); Lean Section 48 (144 theorems, 109 axiom-free, 35 on `propext`);
+`fig_efoursix` from `figures/make_round45.py`; the row of `tab:scope`.
+Round 45 also replaced the one double-precision rank of the paper
+(`prop:fourfoldrank`) by a proof in ball arithmetic: `code/fourfold_certified.py`,
+part (H) of item (LXXII) (8 checks, about six minutes), reduces every
+integral of theta functions to coefficients of holomorphic sections by
+(nabla a) b = (d_a nabla(ab) + H)/(d_a + d_b), H holomorphic, finds them by
+interpolation at rational points in Arb at 128 bits with the theta tails
+bounded, takes the invariant sections on B_j as the image of the projector
+of the two half periods, and certifies rank 12 per piece and 192 in all by
+Gram determinants whose intervals exclude 0 (also with x1 x2 = x2 x3 = 0,
+the sign reversed, t = (2,5,7)); the introduction and the computations list
+say that no statement rests on floating point. `fig_product` was redrawn
+(the plot to n = 7 with ticks and the shaded codimension).
+2217 checks, 144 Lean theorems, 405 pages, 761 labels.
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 
@@ -470,8 +503,10 @@ section.
 - `cd code && python3 verify_all.py` ends with `N checks passed, 0 failed`;
   keep the count in `README.md`, `lean/README.md`, `.zenodo.json`,
   `.github/workflows/lean.yml` and `tex/declarations.tex` in step.
-- `cd lean && lean HodgeObstruction.lean`: 139 theorems, each axiom-free or
-  depending on `propext` only.
+- `cd lean && lean HodgeObstruction.lean`: 144 theorems, each axiom-free or
+  depending on `propext` only; the number, in words, is also in
+  `README.md`, `lean/README.md`, `code/computations/lean.tex`, `.zenodo.json`
+  and `tex/declarations.tex`, and in figures in the workflow.
 - `cd tex && latexmk -pdf main.tex`: 0 errors, 0 overfull or underfull boxes,
   no undefined references.
 - Regenerate `code/paper_labels.txt` from the `\label`s in `tex/` whenever

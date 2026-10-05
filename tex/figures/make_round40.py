@@ -18,7 +18,7 @@ The figures of round 40.
                     phi(e) >= 4.  The numbers printed are checked below
                     against the formulas of the theorem.
 
-                    A strip at the foot (added in round 41) records
+                    A strip at the foot records
                     thm:vgvandermonde: the very general member, every N.
 
   fig_efourshifts   lem:efourshifts and thm:efourtwolevels.  The value phi

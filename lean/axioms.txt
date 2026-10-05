@@ -137,3 +137,8 @@
 'HodgeObstruction.efour_spread_three_counts' does not depend on any axioms
 'HodgeObstruction.efour_five_values' depends on axioms: [propext]
 'HodgeObstruction.efour_cup_kernel_counts' depends on axioms: [propext]
+'HodgeObstruction.efour_run_drops' does not depend on any axioms
+'HodgeObstruction.efour_lonely_degrees' does not depend on any axioms
+'HodgeObstruction.efour_lonely_residues' depends on axioms: [propext]
+'HodgeObstruction.efour_interleaved_cut' does not depend on any axioms
+'HodgeObstruction.efour_six_values' depends on axioms: [propext]

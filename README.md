@@ -35,10 +35,10 @@ licence, or a package other than those named below.
                 lefschetz_closure.py, twistor_locus.py and hk_pullback.py, numpy
                 integer arrays for pte_remaining.py and weil_tori.py, and
                 python-flint exact rational matrices for attack_checks.py;
-                fourfold_products.py works in double precision, with its
-                ranks read off from a gap of the singular values, and two
-                parts of diagonal_ci.py test a map on random points in
-                double precision)
+                fourfold_certified.py works in ball arithmetic (Arb, through
+                python-flint), so its rank is proved; fourfold_products.py
+                and two parts of diagonal_ci.py work in double precision and
+                check statements proved or certified otherwise)
     code/attack/  the attack scripts of item (LV), with their verifiers' scripts
                 and transcripts (item (LV))
     code/extreme/ longer runs of several items, with transcripts
@@ -64,7 +64,7 @@ Lean check:
 
 The last lines are
 
-    2203 checks passed, 0 failed
+    2217 checks passed, 0 failed
     overall: PASS
 
 and the exit status is zero. The driver runs five self-contained checks and
@@ -128,11 +128,13 @@ then calls the companion scripts in the same directory:
 | `burch_rank.py` | item (LXX): resolutions 0 -> E_1 -> E_0 -> I_Z -> 0 by vector bundles of ranks r, r + 1 of a secant ideal I_Z(b Theta): c(I_Z(b Theta)) = 1 + b T + N T^2 + (bN/3) T^3 + N(b^2 - 3d)/12 T^4 by Newton's identities, hard Lefschetz for T^2 on H^2 (rank 28), c_4(G) = -(b^2 + d)(b^2 + 9d)/72 T^4 != 0 at r = 1 (no zero locus of a section of a rank two bundle), 6m = 3d - b^2 - 4ab and chi(E) = a^4 - 2a^2 m + m^2/2 at r = 2, so d = 3 mod 4 at b = 3, confirmed by a brute-force search, and the route note's rank two example (c_4(G) = 180, 144, 84, 0 at d = 1, 3, 5, 7); sympy and exact rational arithmetic |
 | `line_bundle_convolutions.py` | item (LXXI): convolutions of line bundles on E^{2n}, E = C/Z[i]: the 2 4^{n-1} bundles L_zeta with prod zeta = +-1, whose signed exponentials sum to the pure Weil class 2 4^{n-1} (alpha + conj alpha), exactly for n = 2, 3; the index lemma n(X + Y) <= n(X) + n(Y); every closed walk of steps of degree one has positive excess at n = 3, 4, so no Massey product enters the diagonal classes of Ext^2, while one of excess 0 exists at n = 2; the degree drop on binary trees; the cup products on the 525 diagonal classes at n = 3 (graph components 4 and 16, generic rank 276, kernel 204 + 45 = 249); among the products of length at least three only the fourfold paths M_{t2} -> M_{t3} -> L -> M_{t1} survive, for sigma_1 = sigma_3 = -sigma_2, with values in a space of dimension (t_2 - t_1)^6, and with t_1 below p and t_2, t_3 above only M_{t2} -> M_{t3} -> M_{t1} -> L and M_{t3} -> M_{t1} -> L -> M_{t2}, for sigma_1 = sigma_2 = -sigma_3; at n = 4 paths of length three and four survive |
 | `fourfold_products.py` | item (LXXII): the fourfold products of the surviving family on E_0^6 computed in theta functions: the pieces pulled back along the degree-4 covers (w_1, w_2) -> (w_1 + w_2, u(w_1 - w_2)) of each factor E_0^2, where they become exterior products of line bundles on curves; the automorphy factors, holomorphy and Landau-level norms of the theta functions for d = 2, 6, 14; the selection rules on the two curves; only the tree (x_1 x_2)(y x_3) of the five survives; the explicit convolution M_{t2} -> M_{t3} -> L_zeta -> M_{t1} whose Maurer-Cartan equation is exactly x_1 x_2^zeta = 0 and sum_zeta x_2^zeta x_3^zeta = 0, with 908979, 233213, 12142 classes in degrees 1, 2, 3 of its endomorphism complex; rank 12 at each of the 16 pieces and rank 192 on the 192 diagonal classes of type (1,1,0) (smallest to largest singular value about 0.02, for t = (2,5,6), (2,5,7), both signs, and with the Maurer-Cartan equation imposed), so the diagonal count of the corrected criterion can be met; the partner counts 3, 6, 7 of a piece and the dimensions Prod |zeta_j - zeta'_j|^2 (16 six times and 64 once) of the blocks between pieces of opposite parity that differ in every coordinate; the 112 isolated blocks and 2560 classes of the explicit convolution; random arrangements of the three placements in which every such block with shifts differing by one is isolated; and the bound 249 - (45 + 15 * 9) = 69 > 57 of the theorem that no convolution of these pieces meets the criterion. Double precision |
+| `fourfold_certified.py` | item (LXXII), part (H): the rank of the fourfold products proved in ball arithmetic (Arb at 128 bits): every integral of theta functions reduced to coefficients of holomorphic sections by (nabla a) b = (d_a nabla(ab) + H)/(d_a + d_b) with H holomorphic, the coefficients found by interpolation at rational points with the tails of the theta series bounded, the invariant sections on B_j the image of the projector of the two half periods (commuting involutions, checked in rational arithmetic), the theta basis of B_j pulled back by interpolation; agreement with the quadrature to 1e-14; Gram determinants of the 12 columns at each L_zeta and of all 192 columns intervals excluding 0, at t = (2,5,6), with x1 x2 = x2 x3 = 0 (kernels 11 and 19 certified), with the sign reversed and at t = (2,5,7) |
 | `diagonal_ci.py` | item (LXXIII): diagonal complete intersections of Vandermonde type, X = {sum_i w_i lambda_i^k x_i^d = 0, k < c} in P^N: the Lagrange identity sum_i w_i f(lambda_i) = 0 for deg f <= N - 1 and the spaces Lambda_r of values of polynomials of degree <= r, exactly; the c x c minors of 957 matrices of Vandermonde type, and 40 pairs of diagonal equations brought to Vandermonde form; in double precision, the map Phi : C^r -> X from the generalised Fermat curve, smooth points of X and fibres of exactly |G| = r! d^{N(r-1)} points; the genus of C three ways, the Euler number of X against the orbifold Euler number of C^r/G in 23 cases, the middle Hodge numbers by Hirzebruch's formula against the sum over characters for 43 triples (d, N, r), dim B_[a] <= 5 for d = 3, 4, 6, N <= 6 and d = 2, N <= 12, and the 70, 490, 6125 balanced orbits of Weil type in P^6 with h^{2,2} = 267, 2584, 48588 |
 | `convolutions_efour.py` | item (LXXIV): convolutions of the 128 Weil pieces L_zeta on E_0^8 with three multiples: 4, 12, 28, 20 partners of the other parity differing in 1, 2, 3, 4 coordinates, the 28 with D = 16 or 64 and 640 classes, 64 * 640 = 40960 > 104; no H^0 between distinct pieces and H^1 only across one coordinate; the 1020 runs through the multiples lowering the shift by at least 4; every chain of components the degrees allow at the 1792 pairs of the two-shift theorem, for four placements and both signs, with no element of degree one reaching the classes and no term of d_E leaving them; terms on 6 of 28 groups once a piece moves to a third shift; at three consecutive shifts, 18, 24, 21 partners of the same parity with groups H^5 adding up to 960 per piece, every term the degrees allow landing in H^5 between the highest and the lowest shift (by types for every split, and piece by piece), and the Cayley graph of the targets with least eigenvalue -192, so a cut weighs at most 18432 (attained) and dim Ext^2 >= 22528 |
 | `very_general.py` | item (LXXV): the very general diagonal complete intersections of Vandermonde type: the Lie algebra generated by the logarithms N_k = <., c_k> c_k of a chain of vanishing cycles has dimension g(2g + 1), that of sp, for g <= 7; the intersection matrices of the chains, with determinant 1 at even length, for g <= 12; the invariants of sp and sl in the exterior powers (only the powers of the symplectic form, and only the top power); the relations between the signature of a trielliptic curve and its exponents compared with the theorem of Achter and Pries; the determinant formula for the trace form of a hermitian lattice over Z[zeta_3] on 24 random lattices; the dimensions of the space of Hodge classes of the very general member by enumeration of the characters against the closed formulas, 1 + sum_{j > r/2} C(N+1, 2j) for d = 2 and 1 + C(N+1, r+2) C(r+2, r/2+1) for d = 3, never above h^{r/2,r/2} and equal to it for a hypersurface and for two quadrics |
 | `cyclic_monodromy.py` | item (LXXVI): the monodromy of the cyclic covers y^m = prod (t - lambda_i)^{a_i} of the line for m = 3, 4, 6, in exact arithmetic over Q(zeta_m): the model of the eigenspace as ker(d)/K l with pure braids acting by Fox Jacobians, its pseudo-reflections and its invariant hermitian form of signature {p, q}; the 38 base cases with n = 3, 4, where the logarithms of the unipotent twists generate sl_n; the collision of two branch points (61 cases), the merge lemma (57213 multisets) and the discriminant of the new part (2 is a norm from Q(i), not from Q(sqrt(-3))); the counts of Hodge classes of the very general member for d = 4, 6 against h^{r/2,r/2} |
 | `efour_blocks.py` | item (LXXVII): groups that no product touches on E_0^8: the 13 ratios of one parity that move every coordinate, one of them by -1 (D = 256 once and 64 twelve times, 1024 in all), whose groups H^4 at spread two are reached by no coboundary and left by no term, by an enumeration over the ratios with the degrees on the four surfaces and the degree drop (the 8 ratios with entries +-i are reached and left); nothing leaves a group of spread three; at spread one every term leaving a group H^3 has chains of drop one or two; the runs through the multiples never act at spread 1, 2, 3; every proper subgroup H of the 64 ratios has |H| w(S - H) >= 1024 and the least cut is 1024 (Stoer-Wagner, 129 subgroups); random splits of one parity between two values; piece by piece, the spread-three arrangement (68608 classes, reached only through the loops) and four gap arrangements; every arrangement within five consecutive values excluded, two left within six; the cup products at n = 4 with general components: rank 3184 on the 3584 classes of the L_zeta, kernel 400 + 84 = 484 |
+| `efour_six.py` | item (LXXVIII): the diagonal at a lonely shift on E_0^8: a run from a piece through distinct multiples to a piece lowers the shift by 4, 5, 6, 12, 13 or 20, never by 7; with the parities at single shifts s and s - g, g = 5, ..., 13, every term on a diagonal class that the degrees allow runs through the three multiples and no other piece, with shifts pairwise incongruent mod 4, never serving both shifts (320 patterns), so the 1792 diagonal classes at one shift survive; the 28 ratios that move three coordinates and change the parity weigh 640 and every proper subgroup H of the 128 ratios has |H| w(S_3 - H) >= 640 (636 subgroups, least cut 640 by Stoer-Wagner); random interleaved splits {s, s-4}, {s-1, s-5} piece by piece, whose groups H^3 are reached by nothing and left by nothing; every arrangement within six consecutive values excluded |
 | `transport_growth.py` | the transport of the base cycle along the rational orbit: det(phi) = c^{2G}, phi^* E = c^2 E and phi^* omega = c^{2n} omega on an explicit sample of rational symplectic elements with denominators to 29; the multiplicity of a component as the order of the stabiliser its kernel meets, computed as a lattice index by Smith normal form, against the image degree computed as a Pfaffian; and the contrast between a subtorus the isogeny preserves, where the image degree is constant, and one it does not, where it grows |
 | `cm_fields.py` | the Weil classes of a CM field of degree four and six: the CM base point of every family, the balanced divisor classes delta_i(f), the identity that the balanced n-fold product of them is the Weil class w(f) = sum_sigma sigma(f) alpha_sigma, checked for six pairs (F, n) with m = 2, 3 and n = 1, 2, 3, and the identity that the Weil classes of a composite field generate those of its imaginary quadratic subfield |
 | `exceptional_classes.py` | the exceptional Hodge classes on the self-product of a Mumford fourfold (eight invariants against six divisor products), the Hodge numbers and adjoint weights that keep the H^3 of a quintic threefold outside abelian type, and the 4n^2-dimensional annihilator of the Weil class in Hochschild cohomology with the two linear-algebra lemmas behind the theorem on the semiregularity form of propagation |
@@ -167,14 +169,14 @@ reduction at all.
 No Mathlib and no dependencies. The file ends with one `#print axioms` line
 per theorem; every one must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
-through `decide`, and none may mention `sorryAx`. There are one hundred and thirty-nine theorems. `lean/README.md` lists them
+through `decide`, and none may mention `sorryAx`. There are one hundred and forty-four theorems. `lean/README.md` lists them
 and says what each one does and does not establish. The workflow in
 `.github/workflows/lean.yml` runs the check on every push and fails if the
-number of theorems is not one hundred and thirty-nine, or if any of them depends on an axiom other than propext.
+number of theorems is not one hundred and forty-four, or if any of them depends on an axiom other than propext.
 
 ## The computations, item by item
 
-`COMPUTATIONS.md` describes the computations as items (I) to (LXXVII) and lists,
+`COMPUTATIONS.md` describes the computations as items (I) to (LXXVIII) and lists,
 for each result of the paper, the items that check it. The programs that carry
 them out are:
 
@@ -251,12 +253,13 @@ them out are:
 | (LXIX) | `code/lattice_congruence.py` |
 | (LXX) | `code/burch_rank.py` |
 | (LXXI) | `code/line_bundle_convolutions.py` |
-| (LXXII) | `code/fourfold_products.py` |
+| (LXXII) | `code/fourfold_products.py`, with `code/fourfold_certified.py` for part (H) |
 | (LXXIII) | `code/diagonal_ci.py` |
 | (LXXIV) | `code/convolutions_efour.py` |
 | (LXXV) | `code/very_general.py` |
 | (LXXVI) | `code/cyclic_monodromy.py` |
 | (LXXVII) | `code/efour_blocks.py` |
+| (LXXVIII) | `code/efour_six.py` |
 
 Items (I) to (V) are computed inside `code/verify_all.py` itself; items
 (XXIX), (XXXI) and (XL) are the Macaulay2 computations described below; item
@@ -345,6 +348,8 @@ Their unedited transcripts are the `.txt` files beside them, and
                                 # targets, budget and spectrum
     python3 make_round44.py     # groups of spread two, the arrangements
                                 # within five values, the diagonal at n = 4
+    python3 make_round45.py     # the diagonal at a lonely shift,
+                                # interleaved shifts, six values
     for f in fig_*.tex; do pdflatex -interaction=nonstopmode "$f"; done
     python3 checkfigs.py        # must print 0 overlapping label pairs
 

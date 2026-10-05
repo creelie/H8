@@ -3499,6 +3499,138 @@ theorem efour_cup_kernel_counts :
             (efPieces.map (fun z => (z.getD j 0, z.getD k 0))).eraseDups.length == 16))) = true := by
   decide +kernel
 
+/-! ## 48.  The diagonal at a lonely shift, interleaved shifts, and six
+consecutive shifts on `E_0^8`
+
+Five finite facts behind Lemma (The diagonal at a lonely shift),
+Proposition (Single shifts), Proposition (Interleaved shifts) and
+Corollary (Six consecutive shifts).  The values `t_1 < t_2 < t_3` and `p`
+are replaced by their ranks `0, 1, 2, 3`; a step up raises the shift by one
+and a step down lowers it by seven (`efStep`).
+
+(a) The runs.  A run from a piece through one, two or three distinct
+multiples back to a piece lowers the shift by `4, 5, 6, 12, 13` or `20`,
+for every rank of `p`, and never by `7`.
+
+(b) The degrees.  For odd `g` from `5` to `31`, `X` in `{0, g}` and runs
+with `U` steps up and `D` down, the degree `3 + X - U + 7D` of a term on a
+diagonal class is `0` or `8` only if `X = 0` and `U + D = 3`, or `X = 7`,
+`D = 0`, `U = 2` (excluded by (a)); with no run it is at least `8`.
+
+(c) The residues.  Along three steps the four shifts are pairwise
+incongruent modulo `4`; for every rank of `p` the four paths of the lemma
+give four distinct shifts of the multiples, and none of them is shared by
+two shifts of the piece at an odd distance.
+
+(d) The cut.  The `28` ratios that move three coordinates and change the
+parity weigh `640` (`16` twenty-four times, `64` four times) and generate
+the `128` ratios in three steps; the bounds for `|H| = 2, 4, 8, 16, 32, 64`
+are at least `640`.
+
+(e) Six values.  Within six consecutive values every occupied pair of sets
+is covered by the results of Section 47, by single shifts at an odd
+distance, or by the interleaved sets `{s, s - 4}`, `{s - 1, s - 5}`; single
+shifts at every odd distance up to `41` are covered; and `64 * 28 = 1792 > 104`.
+-/
+
+/-- the lists of `m` distinct ranks other than `r`. -/
+def efRunsOf (r m : Nat) : List (List Nat) :=
+  (cvTuples m).filter (fun x => !(x.contains r) && x.eraseDups.length == m)
+
+def efRunDrops (r : Nat) : List Int :=
+  ([1, 2, 3].flatMap (fun m => (efRunsOf r m).map (fun x => -(efWalk ([r] ++ x ++ [r])))))
+    |>.eraseDups
+
+/-- **The runs.** -/
+theorem efour_run_drops :
+    ((List.range 4).all (fun r =>
+        (efRunDrops r).all (fun d => [4, 5, 6, 12, 13, 20].contains d) && !((efRunDrops r).contains 7))
+      && [4, 5, 6, 12, 13, 20].all (fun d => (List.range 4).any (fun r => (efRunDrops r).contains d)))
+      = true := by
+  decide +kernel
+
+/-- the conclusion of the lemma for one choice of `g, X, U, D`. -/
+def efLonelyOk (X U D : Int) : Bool :=
+  let q := 3 + X - U + 7 * D
+  !(q == 0 || q == 8) || (X == 0 && U + D == 3) || (X == 7 && D == 0 && U == 2)
+
+/-- **The degrees.** -/
+theorem efour_lonely_degrees :
+    ((List.range 14).all (fun k =>
+        [0, 2 * k + 5].all (fun x =>
+          (List.range 4).all (fun u => (List.range 4).all (fun d =>
+            !(1 ≤ u + d && u + d ≤ 3) || efLonelyOk (x : Int) (u : Int) (d : Int))))
+          && 3 + (2 * k + 5) ≥ 8)) = true := by
+  decide +kernel
+
+/-- the order of the ranks along the `j`-th path: in increasing order for
+`j = 0`, the largest `j` first otherwise. -/
+def efPath (j : Nat) : List Nat :=
+  if j == 0 then [0, 1, 2, 3] else [0, 1, 2, 3].drop (4 - j) ++ [0, 1, 2, 3].take (4 - j)
+
+/-- the shifts along a path, starting from `0`. -/
+def efShifts (l : List Nat) : List Int :=
+  (List.range l.length).map (fun k => efWalk (l.take (k + 1)))
+
+/-- the shifts of the three multiples, by rank, relative to the piece of rank `r`. -/
+def efPattern (r j : Nat) : List Int :=
+  let l := efPath j
+  let sh := efShifts l
+  let base := sh.getD (l.idxOf r) 0
+  ([0, 1, 2, 3].filter (· != r)).map (fun x => sh.getD (l.idxOf x) 0 - base)
+
+/-- **The residues.** -/
+theorem efour_lonely_residues :
+    ([[1, 1, 1], [1, 1, -7], [1, -7, 1], [-7, 1, 1]].all (fun st =>
+        let ps : List Int := [0, st.getD 0 0, st.getD 0 0 + st.getD 1 0,
+          st.getD 0 0 + st.getD 1 0 + st.getD 2 0]
+        (ps.map (fun x => x % 4)).eraseDups.length == 4)
+      && (List.range 4).all (fun r =>
+        ((List.range 4).map (efPattern r)).eraseDups.length == 4
+        && (List.range 4).all (fun j => (List.range 4).all (fun j' =>
+            (List.range 20).all (fun k =>
+              let g : Int := 2 * k + 1
+              (efPattern r j).map (· + g) != efPattern r j'
+                && (efPattern r j).map (· - g) != efPattern r j'))))) = true := by
+  decide +kernel
+
+def efS3 : List (List Nat) :=
+  efPieces.filter (fun g => ffDiff [0, 0, 0, 0] g == 3 && cvSum g % 4 == 2)
+
+def efGrow3 (S : List (List Nat)) : List (List Nat) :=
+  (S ++ S.flatMap (fun a => efS3.map (efAddV a))).eraseDups
+
+/-- **The cut of the interleaved shifts.** -/
+theorem efour_interleaved_cut :
+    (efS3.length == 28
+      && (efS3.map (efD [0, 0, 0, 0])).foldl (· + ·) 0 == 640
+      && (efS3.filter (fun g => efD [0, 0, 0, 0] g == 16)).length == 24
+      && (efS3.filter (fun g => efD [0, 0, 0, 0] g == 64)).length == 4
+      && (efGrow3 (efGrow3 (efGrow3 [[0, 0, 0, 0]]))).length == 128
+      && [2 * (640 - 64), 4 * (640 - 3 * 64), 8 * (640 - 4 * 64 - 3 * 16),
+          16 * (640 - 4 * 64 - 11 * 16), 32 * 32, 64 * 16] == [1152, 1792, 2688, 3328, 1024, 1024]
+      && [1152, 1792, 2688, 3328, 1024, 1024].all (· > 640)) = true := by
+  decide +kernel
+
+/-- the arrangement is excluded, now with single shifts at an odd distance
+and the interleaved sets. -/
+def efCovered6 (A B : List Int) : Bool :=
+  efCovered A B
+    || (A.length == 1 && B.length == 1 && (A.headD 0 - B.headD 0) % 2 != 0)
+    || (A.length == 2 && B.length == 2 && A.getD 1 0 - A.getD 0 0 == 4
+        && B.getD 1 0 - B.getD 0 0 == 4
+        && ((A.getD 1 0 - B.getD 1 0 == 1) || (B.getD 1 0 - A.getD 1 0 == 1)))
+
+/-- **Six consecutive shifts.** -/
+theorem efour_six_values :
+    ((efNonemptySubsets [0, 2, 4]).all (fun A =>
+        (efNonemptySubsets [1, 3, 5]).all (fun B => efCovered6 A B))
+      && (efNonemptySubsets [1, 3, 5]).all (fun A =>
+        (efNonemptySubsets [0, 2, 4]).all (fun B => efCovered6 A B))
+      && (List.range 21).all (fun k => efCovered6 [0] [2 * (k : Int) + 1])
+      && (64 * 28 == 1792) && (1792 > 104)) = true := by
+  decide +kernel
+
 end HodgeObstruction
 
 /-! ## The axioms each theorem depends on
@@ -3647,3 +3779,8 @@ propositional extensionality enters through `decide`, and in no case
 #print axioms HodgeObstruction.efour_spread_three_counts
 #print axioms HodgeObstruction.efour_five_values
 #print axioms HodgeObstruction.efour_cup_kernel_counts
+#print axioms HodgeObstruction.efour_run_drops
+#print axioms HodgeObstruction.efour_lonely_degrees
+#print axioms HodgeObstruction.efour_lonely_residues
+#print axioms HodgeObstruction.efour_interleaved_cut
+#print axioms HodgeObstruction.efour_six_values

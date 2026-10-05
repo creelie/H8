@@ -21,16 +21,16 @@ A Lean 4 toolchain and nothing else. No Mathlib, no dependencies.
     lean HodgeObstruction.lean
 
 `lake build` builds the package declared in `lakefile.toml`; the second line
-prints the axiom report. Each takes about a minute. Silence from the elaborator means the kernel
+prints the axiom report. Each takes about ten minutes. Silence from the elaborator means the kernel
 accepted every theorem; the block at the foot of the file then prints one line
 per theorem. Every line must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
 through `decide` or the core lemmas on natural numbers, and none may mention `sorryAx`. The GitHub workflow in
 `.github/workflows/lean.yml` enforces all three, and fails the build if the
-number of theorems is not one hundred and thirty-nine or if any of them reaches for a further
+number of theorems is not one hundred and forty-four or if any of them reaches for a further
 axiom.
 
-## The one hundred and thirty-nine theorems
+## The one hundred and forty-four theorems
 
 | theorem | statement |
 | --- | --- |
@@ -173,6 +173,11 @@ axiom.
 | `efour_spread_three_counts` | between every piece and the `64` of the other parity the groups `H^5` add up to `1072` and the groups `H^7` to `16`; `4 * 60 + 12 * 16 + 4 * (64 + 6 * 16) = 1072`, `64 * 1072 - 128 * 8 = 67584`, `64 * 16 = 1024`: shifts three and five apart |
 | `efour_five_values` | with one parity at values in `{0, 2, 4}` and the other in `{1, 3}`, every pair of occupied sets is covered by adjacent single shifts, one parity at two values two apart or three, single shifts three apart, or a gap of four beside a single shift; within six values exactly `([0], [5])` and `([0, 4], [1, 5])` are left |
 | `efour_cup_kernel_counts` | `4 * 4 + 6 * 16 * 4 = 400`, `400 + 3 * 28 = 484`, `131 * 28 = 3668`, `3584 - 400 = 3184`, `484 - 104 = 380`, and the pieces take `4` values in each coordinate and `16` in each pair: the cup products on the diagonal at `n = 4` |
+| `efour_run_drops` | a run from a piece through one, two or three distinct multiples to a piece lowers the shift by `4, 5, 6, 12, 13` or `20`, for every rank of `p`, and never by `7`: the footnote to the lemma on the diagonal at a lonely shift |
+| `efour_lonely_degrees` | for odd `g` from `5` to `31`, `X` in `{0, g}` and runs with `U` steps up and `D` down, `1 <= U + D <= 3`, the degree `3 + X - U + 7D` of a term on a diagonal class is `0` or `8` only if `X = 0` and `U + D = 3`, or `X = 7`, `D = 0`, `U = 2`; with no run it is at least `8` |
+| `efour_lonely_residues` | along three steps of `+1` or `-7` the four shifts are pairwise incongruent modulo `4`; for every rank of `p` the four paths of the lemma give four patterns of shifts of the multiples, none shared by two shifts at an odd distance below `40`: the proposition on single shifts |
+| `efour_interleaved_cut` | the `28` ratios that move three coordinates and change the parity weigh `640` (`16` twenty-four times, `64` four times) and generate the `128` ratios in three steps; the bounds `1152, 1792, 2688, 3328, 1024, 1024` for `|H| = 2, 4, ..., 64` exceed `640`: the proposition on interleaved shifts |
+| `efour_six_values` | with one parity at values in `{0, 2, 4}` and the other in `{1, 3, 5}`, every pair of occupied sets is covered by the exclusions of Section 47, by single shifts at an odd distance or by the interleaved sets `{s, s - 4}`, `{s - 1, s - 5}`; single shifts at every odd distance up to `41` are covered; `64 * 28 = 1792 > 104` |
 
 
 ## Two statements that look true and are not
@@ -196,12 +201,12 @@ careful reading does not catch and a kernel check does.
 `code/verify_all.py` in the parent directory performs the same checks in exact
 rational arithmetic over Q, independently of Lean, together with the exterior
 algebra computations that Lean does not carry, and prints
-`2203 checks passed, 0 failed`.
+`2217 checks passed, 0 failed`.
 
 ## Transcript
 
 `axioms.txt` is the unedited output of `lean HodgeObstruction.lean` under
-Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and thirty-nine lines, one per
-theorem, one hundred and six reading `does not depend on any axioms` and thirty-three reading
+Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and forty-four lines, one per
+theorem, one hundred and nine reading `does not depend on any axioms` and thirty-five reading
 `depends on axioms: [propext]`, exit status 0, no `sorryAx`. `lake build`
-completes with the same report. Each run takes a few minutes.
+completes with the same report.

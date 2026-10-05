@@ -2,11 +2,13 @@
 
 Every numerical assertion in this paper is checked in exact arithmetic:
 rational, integer or exterior-algebra computations, and exact linear algebra
-over number fields and over function fields in one variable, with one
-exception: item (LXXII) evaluates integrals of theta functions by quadrature
-in double precision and reads a rank off from the ratio of the smallest to
-the largest singular value, which it compares with the change of the entries
-under a finer grid. A rank computed modulo a prime is used only
+over number fields and over function fields in one variable, or, for the
+integrals of theta functions behind \Cref{prop:fourfoldrank}, in ball
+arithmetic, which returns for every number an interval guaranteed to
+contain it (part (H) of item (LXXII)). No statement rests on a computation
+in floating point: the quadrature of item (LXXII) and the random tests in
+items (LXXI) and (LXXIII) check statements that are proved in the text or
+certified otherwise. A rank computed modulo a prime is used only
 as a lower bound for the rank over $\QQ$, since reduction can only lower a
 rank, and the bound is matched by an exact computation in the other
 direction. Items (XXIX), (XXXI) and (XL) are $\Ext$
@@ -1810,11 +1812,25 @@ computed, how it is computed, and which statements of the paper it supports.
   $3$ of the endomorphism complex number $908979$, $233213$ and $12142$, of
   which $16\cdot24^{3}=221184$ in degree two lie between $M_{2}$ and the
   $L_{\zeta}$. At $p=0$, $t=(2,5,6)$ the fourfold products on the $192$
-  classes of type $(1,1,0)$ are found to have rank $12$ at each of the
-  sixteen $L_{\zeta}$ and rank $192$ together, with smallest singular value
-  $0.016$ of the largest; also with $x_{1}x_{2}^{\zeta}=x_{2}^{\zeta}x_{3}^{\zeta}=0$
-  (kernels of dimensions $11$ and $19$ on every surface), with the relative
-  sign of the two terms reversed, and at $t=(2,5,7)$. Each piece is found to
+  classes of type $(1,1,0)$, evaluated by quadrature in double precision,
+  have numerical rank $12$ at each of the sixteen $L_{\zeta}$ and $192$
+  together. (H) The same products are then evaluated in ball arithmetic at
+  $128$ bits. Every integral is reduced to coefficients of holomorphic
+  sections in a theta basis by the decomposition
+  $(\nabla_{z}a)\,b=\bigl(d_{a}\nabla_{z}(ab)+H\bigr)/(d_{a}+d_{b})$ with
+  $H$ holomorphic; the coefficients are found by interpolation at rational
+  points, with the tails of the theta series bounded explicitly; the
+  invariant sections on $B_{j}$ are the image of the projector of the two
+  half periods, which are checked in rational arithmetic to act by commuting
+  involutions, and have dimension $|\det|$ on all twelve surfaces; and the
+  theta basis of $B_{j}$ is pulled back by interpolation. The values agree
+  with the quadrature to $10^{-14}$. The Gram determinants of the $12$
+  columns at each $L_{\zeta}$ and of all $192$ columns are intervals that
+  exclude $0$, so the rank is exactly $192$ (smallest singular value $0.014$
+  of the largest, radii below $10^{-25}$); the same holds with
+  $x_{1}x_{2}^{\zeta}=x_{2}^{\zeta}x_{3}^{\zeta}=0$, the kernels of dimensions
+  $11$ and $19$ on every surface being certified, with the relative sign of
+  the two terms reversed, and at $t=(2,5,7)$. Each piece is found to
   have $3$, $6$, $7$ partners of the other parity differing in one, two,
   three coordinates, the last with $D=16$ six times and $64$ once. In the
   explicit convolution the $112$ groups $\cH^{3}$ of pieces that differ
@@ -1962,12 +1978,38 @@ computed, how it is computed, and which statements of the paper it supports.
   \Cref{lem:efourspread}, \Cref{lem:cayleycut}, \Cref{thm:efourspreadtwo},
   \Cref{thm:efourspreadthree}, \Cref{prop:efourgap}, \Cref{cor:efourfive},
   \Cref{prop:efourcupkernel} and \Cref{rem:convolutionsopen}.
+\item \emph{The diagonal at a lonely shift, interleaved shifts, and six
+  consecutive shifts on $E_0^8$.} A run from a piece through one, two or
+  three distinct multiples to a piece lowers the shift by $4$, $5$, $6$,
+  $12$, $13$ or $20$ in the four placements, never by $7$. With the parities
+  at single shifts $s$ and $s-g$, for $g=5,7,9,11,13$, both parities on top
+  and the four placements, every term on a diagonal class that the degrees
+  allow is enumerated with the shifts of the multiples left free: at each
+  shift there are exactly four, each runs through the three multiples and no
+  other piece along the paths of the footnote to \Cref{lem:efourlonely}, the
+  shifts of the piece and the multiples are pairwise incongruent modulo $4$,
+  and the multiples never serve both shifts ($320$ patterns). The $28$ ratios
+  that move three coordinates and change the parity weigh $640$ and generate
+  the $128$ ratios; over all $636$ subgroups $H$,
+  $|H|\,w(S_{3}\setminus H)\ge640$ with equality only at $H=0$, and the
+  algorithm of Stoer and Wagner finds the least cut, $640$, at one vertex.
+  For two random splits of the parities between $\{s,s-4\}$ and
+  $\{s-1,s-5\}$, in two placements, one for each parity on top, the groups
+  $H^{3}$ between adjacent shifts are reached by nothing and left by
+  nothing, piece by piece with the degrees of item (LXXIV) and the shifts of
+  the multiples left free, and weigh at least $640$. Every arrangement of
+  the two parities within six consecutive values is excluded by the results
+  of item (LXXVII), by single shifts at an odd distance or by the
+  interleaved shifts, and so are single shifts at every odd distance up to
+  $41$. That is \Cref{lem:efourlonely}, \Cref{prop:efoursingle},
+  \Cref{prop:efourpairs}, \Cref{cor:efoursix} and
+  \Cref{rem:convolutionsopen}.
 \end{enumerate}
 
-Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LXXVII) are the ones
+Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LXXVIII) are the ones
 on which theorems depend. Items (IV) and (V) support statements that no
 obstruction exists; a failure there would strengthen the paper rather than
 weaken it, and they are included for completeness.
-The seventy-four items other than (XXIX), (XXXI) and (XL) perform $2203$
+The seventy-five items other than (XXIX), (XXXI) and (XL) perform $2217$
 checks, all of which pass; those three, and the local part of (LXVIII), are
 $\Ext$ computations over a polynomial ring, recorded with their output.

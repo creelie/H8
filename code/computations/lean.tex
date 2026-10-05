@@ -7,14 +7,14 @@ computational content is checked in exact arithmetic by the computations of
 \Cref{sec:verification}. The certificate is a single Lean~4 file that
 accompanies the paper. It compiles against a bare Lean~4 toolchain, contains
 no \texttt{sorry}, and depends on no library, Mathlib included. The axiom
-report at the end of the file lists, for each of its one hundred and thirty-nine theorems,
-the axioms on which it depends. One hundred and six depend on none, and the
-remaining thirty-three on propositional extensionality alone, which enters when
+report at the end of the file lists, for each of its one hundred and forty-four theorems,
+the axioms on which it depends. One hundred and nine depend on none, and the
+remaining thirty-five on propositional extensionality alone, which enters when
 \texttt{decide} reduces an equality of Booleans or when a bound is proved from
 the lemmas on natural numbers in the core library; no theorem uses anything
 else. The annihilator dimension and the rank-zero obstruction of
 \Cref{ssec:rankzero}, \Cref{lem:annihilator} and \Cref{thm:rankzero}, are not
-among the one hundred and thirty-nine: they are proved by hand, and the dimension count of
+among the one hundred and forty-four: they are proved by hand, and the dimension count of
 the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \Cref{sec:verification}.
 
@@ -24,7 +24,7 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \small
 \renewcommand{\arraystretch}{1.06}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.31\linewidth}>{\raggedright\arraybackslash}p{0.62\linewidth}@{}}
-\caption{The one hundred and thirty-nine machine-checked theorems.}\label{tab:lean}\\
+\caption{The one hundred and forty-four machine-checked theorems.}\label{tab:lean}\\
 \toprule
 \textbf{theorem} & \textbf{statement} \\
 \midrule
@@ -180,6 +180,11 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \texttt{efour\_}\allowbreak\texttt{spread\_}\allowbreak\texttt{three\_}\allowbreak\texttt{counts} & between every piece and the $64$ of the other parity the groups $\cH^{5}$ add up to $1072$ and the groups $\cH^{7}$ to $16$; $64\cdot1072-128\cdot8=67584$ and $64\cdot16=1024$, \Cref{thm:efourspreadthree} \\
 \texttt{efour\_}\allowbreak\texttt{five\_}\allowbreak\texttt{values} & with one parity at values in $\{0,2,4\}$ and the other in $\{1,3\}$, every pair of occupied sets is covered by one of the four exclusions; within six values exactly two pairs are left, \Cref{cor:efourfive} \\
 \texttt{efour\_}\allowbreak\texttt{cup\_}\allowbreak\texttt{kernel\_}\allowbreak\texttt{counts} & $4\cdot4+6\cdot16\cdot4=400$, $400+3\cdot28=484$, $131\cdot28=3668$, $3584-400=3184$, $484-104=380$; the pieces take $4$ values in each coordinate and $16$ in each pair, \Cref{prop:efourcupkernel} \\
+\texttt{efour\_}\allowbreak\texttt{run\_}\allowbreak\texttt{drops} & a run from a piece through one, two or three distinct multiples to a piece lowers the shift by $4$, $5$, $6$, $12$, $13$ or $20$, for every rank of $p$, and never by $7$, \Cref{lem:efourlonely} \\
+\texttt{efour\_}\allowbreak\texttt{lonely\_}\allowbreak\texttt{degrees} & for odd $g$ from $5$ to $31$, $X\in\{0,g\}$ and runs with $U$ steps up and $D$ down, $1\le U+D\le3$, the degree $3+X-U+7D$ is $0$ or $8$ only if $X=0$ and $U+D=3$, or $X=7$, $D=0$ and $U=2$; with no run it is at least $8$, \Cref{lem:efourlonely} \\
+\texttt{efour\_}\allowbreak\texttt{lonely\_}\allowbreak\texttt{residues} & along three steps of $+1$ or $-7$ the four shifts are pairwise incongruent modulo $4$; for every rank of $p$ the four paths give four patterns of shifts of the multiples, none shared by two shifts at an odd distance below $40$, \Cref{prop:efoursingle} \\
+\texttt{efour\_}\allowbreak\texttt{interleaved\_}\allowbreak\texttt{cut} & the $28$ ratios that move three coordinates and change the parity weigh $640$, $16$ twenty-four times and $64$ four times, and generate the $128$ ratios in three steps; the bounds $1152$, $1792$, $2688$, $3328$, $1024$, $1024$ for $|H|=2,4,\dots,64$ exceed $640$, \Cref{prop:efourpairs} \\
+\texttt{efour\_}\allowbreak\texttt{six\_}\allowbreak\texttt{values} & with one parity at values in $\{0,2,4\}$ and the other in $\{1,3,5\}$, every pair of occupied sets is covered by the exclusions of \Cref{cor:efourfive}, by single shifts at an odd distance or by the interleaved sets; single shifts at every odd distance up to $41$ are covered; $64\cdot28=1792>104$, \Cref{cor:efoursix} \\
 \end{longtable}
 \endgroup
 
