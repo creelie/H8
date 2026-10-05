@@ -224,6 +224,16 @@ Contents
          explicit convolution with its Maurer-Cartan equation, the
          isolated blocks between Weil pieces that differ everywhere, the
          bound 69 > 57  [fourfold_products.py]
+  (LXXIII) diagonal complete intersections of Vandermonde type: the
+         Lagrange identity, the Vandermonde minors, the map from C^r and
+         its degree |G|, the genus of the generalised Fermat curve, the
+         Euler number and the Hodge numbers of the complete intersection
+         against the quotient C^r/G  [diagonal_ci.py]
+  (LXXIV) convolutions of the Weil pieces on E_0^8 at two shifts: the 28
+         partners and 640 classes, the degrees of the groups between
+         pieces, the drop of runs through the multiples, the enumeration
+         of every chain the degrees allow at the 1792 pairs, and the
+         terms that appear at a third shift  [convolutions_efour.py]
 """
 
 import os
@@ -679,6 +689,12 @@ def main():
     head("(LXXII) the fourfold products on E_0^6 and the classes no "
          "product removes")
     run_module("LXXII", "fourfold_products.py")
+
+    head("(LXXIII) diagonal complete intersections of Vandermonde type")
+    run_module("LXXIII", "diagonal_ci.py")
+
+    head("(LXXIV) convolutions of the Weil pieces on E_0^8 at two shifts")
+    run_module("LXXIV", "convolutions_efour.py")
 
     print()
     print("=" * 70)

@@ -327,6 +327,32 @@ request: the dagger stays on Deep, Mandal's double dagger is gone, and the
 title-page footnote reads "Corresponding author: Deep Bhattacharjee" with
 both of Deep's addresses on one line; the author order is unchanged (Deep,
 Mandal, Ushashi Bhattacharya); 383 pages, no code or label change.
+Round 40 retitled the paper "Algebraic Loci of Weil Classes from Abelian
+Varieties to Diagonal Complete Intersections" (Deep picked it on a decision
+card; he asked for a title claiming the Hodge conjecture, which was declined
+because nothing proves it), added a second sentence to the abstract, and
+proved (F3') for diagonal complete intersections of Vandermonde type
+(`thm:vandermonde`, `cor:twodiagonal`, `rem:vandermonde`, `fig_vandermonde`
+in `tex/sections/11b_closuregraph.tex`): X = C^r/G for the generalised
+Fermat curve C [GDHL09], so X lies in the class A, every smooth complete
+intersection of two diagonal hypersurfaces is of this type, the Hodge
+conjecture on X reduces to the abelian varieties B_[a] cut out by the
+characters, and it holds for d in {3,4,6}, N <= 6 and d = 2, N <= 12
+(dimension at most five, Markman and Moonen-Zarhin), in particular for two
+diagonal cubics, quartics or sextics in P^6 (70, 490, 6125 Weil orbits); this
+uses known (F2) cases and is not new progress on (F2). It also proved the
+two-shift case at n = 4 on E_0^8 (`lem:efourshifts`, `thm:efourtwolevels`,
+`fig_efourshifts` in `tex/sections/10c6_objects.tex`: dim Ext^2 >= 40960 >
+104; three or more shifts stay open in `rem:convolutionsopen`), with items
+(LXXIII) `code/diagonal_ci.py` (16 checks; parts (C), (D) in double
+precision, no statement rests on them) and (LXXIV)
+`code/convolutions_efour.py` (9 checks), Lean Section 43 (121 theorems),
+two rows of `tab:scope`, the figures of `figures/make_round40.py`, footnotes,
+and the references [Ter88] (doi verified on J-STAGE; by its title it
+treats complete intersections of Fermat type and of quadrics; it could not be
+read, so any overlap with `thm:vandermonde` is unchecked) and [Har77]; [GDHL09] has no verified DOI and carries none.
+2160 checks, 121 Lean theorems, 391 pages, 740 labels. Two stale
+`\enlargethispage` commands in `tex/sections/10c4_rank.tex` were removed.
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 
@@ -353,7 +379,7 @@ section.
 - `cd code && python3 verify_all.py` ends with `N checks passed, 0 failed`;
   keep the count in `README.md`, `lean/README.md`, `.zenodo.json`,
   `.github/workflows/lean.yml` and `tex/declarations.tex` in step.
-- `cd lean && lean HodgeObstruction.lean`: 117 theorems, each axiom-free or
+- `cd lean && lean HodgeObstruction.lean`: 121 theorems, each axiom-free or
   depending on `propext` only.
 - `cd tex && latexmk -pdf main.tex`: 0 errors, 0 overfull or underfull boxes,
   no undefined references.

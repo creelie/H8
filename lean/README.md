@@ -1,4 +1,4 @@
-# Machine verification for *Density of Algebraic Loci of Weil Classes on Abelian Varieties*
+# Machine verification for *Algebraic Loci of Weil Classes from Abelian Varieties to Diagonal Complete Intersections*
 
 `HodgeObstruction.lean` is a certificate, checked by the Lean 4 kernel, of the
 finite arithmetic on which the results of the paper turn.
@@ -27,10 +27,10 @@ per theorem. Every line must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
 through `decide` or the core lemmas on natural numbers, and none may mention `sorryAx`. The GitHub workflow in
 `.github/workflows/lean.yml` enforces all three, and fails the build if the
-number of theorems is not one hundred and seventeen or if any of them reaches for a further
+number of theorems is not one hundred and twenty-one or if any of them reaches for a further
 axiom.
 
-## The one hundred and seventeen theorems
+## The one hundred and twenty-one theorems
 
 | theorem | statement |
 | --- | --- |
@@ -151,6 +151,10 @@ axiom.
 | `ff_partner_counts` | with `zeta_j = i^(e_j)`, the sixteen pieces with `prod zeta = 1` and the sixteen with `prod zeta = -1`; every piece has `3`, `6`, `7` partners of the other parity differing in `1`, `2`, `3` coordinates, and for the `7` the block dimension `D = prod_j |zeta_j - zeta'_j|^2` is `16` six times and `64` once, `160` in all; the `112` pairs carry `2560` classes (`decide +kernel`) |
 | `ff_shift_table` | in the three placements of the multiples relative to `p`, the shifts `mu_i`, `nu_i` of a piece one step from or to `M_i` and the extremes `lambda_i`, `kappa_i` over steps between the multiples are those of the table in the proof of the lemma on pieces that differ everywhere, and satisfy `lambda_i <= 0 <= kappa_k`, `kappa_i >= lambda_i + 2`, `lambda_i <= mu_i + 2`, `nu_i <= kappa_i + 2` (`decide +kernel`) |
 | `ff_noconvolution_counts` | the kernels `11`, `19` of `x_1`, `x_3` on a surface at `t = (2, 5, 6)`; the cover degrees; `3^6 = 729`, `16 * 24^3 = 221184`, `4^6 = 4096`; and the bounds `249 - (45 + 15 * 9) = 69 > 57` and `16 * 12 = 192 > 57` of the theorem that no convolution of the pieces meets the criterion. The rank `192` of the fourfold products is a floating-point computation and is not certified here |
+| `efour_partner_counts` | at `n = 4`, the `128` pieces of `(Z/4)^4` of even sum, `64` of each parity; each has `4, 12, 28, 20` partners of the other parity differing in `1, 2, 3, 4` coordinates, those differing in one coordinate differ there by `2`; the `28` have `D = 16` twenty-four times and `64` four times, `640` in all; `64 * 640 = 40960 > 104 = 7 * 16 - 2 * 4` |
+| `efour_run_drop` | with `p` at any rank among the four values, every run from `p` through two selections of distinct multiples back to `p`, the marked step between them a component or a class of `H^1(a, a)`, changes the shift by at most `-4`, a step up by `+1` and a step down by `-7`: the finite core of the lemma on shifts along chains at `n = 4` |
+| `efour_two_level_degrees` | with `p` at any rank, every pair of chains `c -> ... -> W`, `V -> ... -> e` through distinct multiples, not both empty, gives `Ext` degree `4 - U + 7D` different from `3` when `c = e`, from `0` when `e` is above `c` and from `8` when `e` is below `c`: the case analysis of the two-shift theorem on `E_0^8` |
+| `vandermonde_counts` | the genus of the generalised Fermat curve by Riemann-Hurwitz equals that by adjunction for `d = 2..7`, `N = 2..8`; `r! d^(N(r-1)) = 16, 32, 54, 1536, 162` at the five cases of the fibre count; the units of `Z/d` number `1, 2, 2, 2` for `d = 2, 3, 4, 6`; the balanced characters with six nonzero coordinates and a fixed zero number `20, 140, 1750`, so `70, 490, 6125` orbits in `P^6` and at least `141, 981, 12251` Hodge classes |
 
 
 ## Two statements that look true and are not
@@ -174,12 +178,12 @@ careful reading does not catch and a kernel check does.
 `code/verify_all.py` in the parent directory performs the same checks in exact
 rational arithmetic over Q, independently of Lean, together with the exterior
 algebra computations that Lean does not carry, and prints
-`2135 checks passed, 0 failed`.
+`2160 checks passed, 0 failed`.
 
 ## Transcript
 
 `axioms.txt` is the unedited output of `lean HodgeObstruction.lean` under
-Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and seventeen lines, one per
-theorem, ninety-three reading `does not depend on any axioms` and twenty-four reading
+Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and twenty-one lines, one per
+theorem, ninety-seven reading `does not depend on any axioms` and twenty-four reading
 `depends on axioms: [propext]`, exit status 0, no `sorryAx`. `lake build`
 completes with the same report. Each run takes a few minutes.

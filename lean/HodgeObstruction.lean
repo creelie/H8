@@ -2876,6 +2876,139 @@ theorem ff_noconvolution_counts :
     && (7 - (16 - 10) == 1) && (16 * 160 == 2560)) = true := by
   decide
 
+/-! ## 43.  Two shifts on `E_0^8`, and diagonal complete intersections of
+Vandermonde type
+
+Four finite facts behind Lemma (Shifts along chains at `n = 4`), Theorem
+(Two shifts on `E_0^8`), Theorem (Diagonal complete intersections of
+Vandermonde type) and Corollary (Two diagonal hypersurfaces).
+
+(a) Partners at `n = 4`.  The `128` pieces are the exponent vectors in
+`(Z/4)^4` of even sum, `64` of each parity.  Each has `4, 12, 28, 20`
+partners of the other parity differing in `1, 2, 3, 4` coordinates.  Two
+pieces differing in one coordinate differ there by `2`, so `zeta'_j/zeta_j =
+-1`.  For the `28`, `D = prod |zeta_j - zeta'_j|^2` is `16` twenty-four times
+and `64` four times, `640` in all; `64 * 640 = 40960` and the rank of the
+polarised criterion is `7 * 16 - 2 * 4 = 104`.
+
+(b) Runs through the multiples.  Only the order of the four values `p, t_1,
+t_2, t_3` matters, so they are the ranks `0, 1, 2, 3` with `p` at rank `r`.
+A step up raises the shift by `1`, a step down lowers it by `7`
+(`Ext` degrees `0` and `8`).  A run goes from `p` through a selection `A` of
+distinct multiples and a selection `B` of distinct multiples back to `p`;
+the marked step between them is either a component (`A` and `B` not ending
+and starting at the same multiple) or a class of `H^1(a, a)` at the common
+multiple, which keeps the shift.  Every run lowers the shift by at least `4`.
+
+(c) The degrees of the two-shift theorem.  A chain `c -> ... -> W` through
+distinct multiples and a chain `V -> ... -> e` through distinct multiples,
+not both empty, give a term of `Ext` degree `4 - U + 7D`.  It is never `3`
+when `c = e`, never `0` when `e` is above `c` and never `8` when `e` is below
+`c`, the degrees of the group from `c` to `e`.
+
+(d) Vandermonde arithmetic.  The genus of the generalised Fermat curve by
+Riemann-Hurwitz and by adjunction, `d = 2..7`, `N = 2..8`; the order
+`r! d^(N(r-1))` of `G` at the five cases of the computation; the units of
+`Z/d` for `d = 2, 3, 4, 6`, so `|[a]| <= 2`; and the balanced orbits with
+six nonzero coordinates in `P^6`: `70`, `490`, `6125` for `d = 3, 4, 6`.
+-/
+
+def efPieces : List (List Nat) := (cvTuples 4).filter (fun z => cvSum z % 2 == 0)
+def efEven : List (List Nat) := efPieces.filter (fun z => cvSum z % 4 == 0)
+def efOdd : List (List Nat) := efPieces.filter (fun z => cvSum z % 4 == 2)
+
+/-- `D = prod |zeta_j - zeta'_j|^2` over the coordinates where they differ. -/
+def efD (z w : List Nat) : Nat :=
+  ((z.zip w).filter (fun q => q.1 != q.2)).foldl (fun a q => a * ffGap q.1 q.2) 1
+
+/-- **Partners at `n = 4`.** -/
+theorem efour_partner_counts :
+    (efPieces.length == 128 && efEven.length == 64 && efOdd.length == 64
+      && ([efEven, efOdd].all fun P => P.all fun z =>
+            let Q := if cvSum z % 4 == 0 then efOdd else efEven;
+            let T := Q.filter (fun w => ffDiff z w == 3);
+            ((Q.filter (fun w => ffDiff z w == 1)).length == 4)
+            && ((Q.filter (fun w => ffDiff z w == 1)).all fun w => efD z w == 4)
+            && ((Q.filter (fun w => ffDiff z w == 2)).length == 12)
+            && (T.length == 28)
+            && ((Q.filter (fun w => ffDiff z w == 4)).length == 20)
+            && ((T.map (efD z)).foldl (· + ·) 0 == 640)
+            && ((T.filter (fun w => efD z w == 16)).length == 24)
+            && ((T.filter (fun w => efD z w == 64)).length == 4))
+      && (64 * 640 == 40960) && (7 * 16 - 2 * 4 == 104) && (40960 > 104)) = true := by
+  decide +kernel
+
+/-- the change of the shift along a step between values of ranks `a, b`. -/
+def efStep (a b : Nat) : Int := if a < b then 1 else -7
+
+def efWalk (vals : List Nat) : Int :=
+  ((vals.zip vals.tail).map (fun q => efStep q.1 q.2)).foldl (· + ·) 0
+
+/-- the change of the shift along a run with selections `A`, `B`. -/
+def efRunMarkedComponent (r : Nat) (A B : List Nat) : Int := efWalk ([r] ++ A ++ B ++ [r])
+def efRunMarkedDiagonal (r : Nat) (A B : List Nat) : Int := efWalk ([r] ++ A ++ B.tail ++ [r])
+
+/-- **Runs through the multiples drop the shift by at least four.** -/
+theorem efour_run_drop :
+    ((List.range 4).all fun r =>
+      let ms := (List.range 4).filter (· != r);
+      let sel := [0, 1, 2, 3].flatMap (cvSelections ms);
+      sel.all fun A => sel.all fun B =>
+        (((A.length + B.length == 0) || (A.getLast? == B.head? && A.length > 0))
+          || decide (efRunMarkedComponent r A B ≤ -4))
+        && ((A.length == 0 || B.length == 0 || A.getLast? != B.head?)
+          || decide (efRunMarkedDiagonal r A B ≤ -4))) = true := by
+  decide +kernel
+
+/-- the `Ext` degree `4 - U + 7D` of a term through the chains `A -> W` and
+`V -> B`, the values of `W` and `V` being the rank `r` of `p`. -/
+def efTermDegree (r : Nat) (A B : List Nat) : Int :=
+  4 - efWalk (A ++ [r]) - efWalk ([r] ++ B)
+
+/-- **The degrees of the two-shift theorem.** -/
+theorem efour_two_level_degrees :
+    ((List.range 4).all fun r =>
+      let ms := (List.range 4).filter (· != r);
+      let sel := [0, 1, 2, 3].flatMap (cvSelections ms);
+      sel.all fun A => sel.all fun B =>
+        (A.length + B.length == 0) ||
+        (let c := A.headD r; let e := B.getLastD r; let q := efTermDegree r A B;
+         if c == e then q != 3 else if c < e then q != 0 else q != 8)) = true := by
+  decide +kernel
+
+/-- the `k`-tuples with entries in `1, ..., d - 1`. -/
+def vdTuples (d : Nat) : Nat → List (List Nat)
+  | 0 => [[]]
+  | k + 1 => (vdTuples d k).flatMap (fun t => ((List.range (d - 1)).map (· + 1)).map (· :: t))
+
+/-- the balanced characters with six nonzero coordinates and a fixed zero:
+entries summing to `3d`, of order at least three. -/
+def vdBalanced (d : Nat) : Nat :=
+  ((vdTuples d 6).filter (fun t => cvSum t == 3 * d
+      && d / (t.foldl Nat.gcd d) ≥ 3)).length
+
+def vdFact : Nat → Nat
+  | 0 => 1
+  | k + 1 => (k + 1) * vdFact k
+
+def vdGenusRH (d N : Nat) : Int :=
+  (-2 * (Int.ofNat d) ^ N + Int.ofNat (N + 1) * (Int.ofNat d) ^ (N - 1) * (Int.ofNat d - 1))
+def vdGenusAdj (d N : Nat) : Int :=
+  (Int.ofNat d) ^ (N - 1) * (Int.ofNat (N - 1) * Int.ofNat d - Int.ofNat N - 1)
+
+/-- **Vandermonde arithmetic.** -/
+theorem vandermonde_counts :
+    (([2, 3, 4, 5, 6, 7].all fun d => [2, 3, 4, 5, 6, 7, 8].all fun N =>
+        vdGenusRH d N == vdGenusAdj d N)
+      && ([(2, 3, 2, 16), (2, 4, 2, 32), (3, 3, 2, 54), (2, 4, 3, 1536), (3, 4, 2, 162)].all
+            fun (d, N, r, f) => vdFact r * d ^ (N * (r - 1)) == f)
+      && ([2, 3, 4, 6].map fun d => ((List.range d).filter (fun u => Nat.gcd u d == 1)).length)
+            == [1, 2, 2, 2]
+      && ([3, 4, 6].map vdBalanced == [20, 140, 1750])
+      && ([3, 4, 6].map fun d => 7 * vdBalanced d / 2) == [70, 490, 6125]
+      && ([70, 490, 6125].map fun k => 1 + 2 * k) == [141, 981, 12251]) = true := by
+  decide +kernel
+
 end HodgeObstruction
 
 /-! ## The axioms each theorem depends on
@@ -3002,3 +3135,7 @@ propositional extensionality enters through `decide`, and in no case
 #print axioms HodgeObstruction.ff_partner_counts
 #print axioms HodgeObstruction.ff_shift_table
 #print axioms HodgeObstruction.ff_noconvolution_counts
+#print axioms HodgeObstruction.efour_partner_counts
+#print axioms HodgeObstruction.efour_run_drop
+#print axioms HodgeObstruction.efour_two_level_degrees
+#print axioms HodgeObstruction.vandermonde_counts

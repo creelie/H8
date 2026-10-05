@@ -115,3 +115,7 @@
 'HodgeObstruction.ff_partner_counts' does not depend on any axioms
 'HodgeObstruction.ff_shift_table' does not depend on any axioms
 'HodgeObstruction.ff_noconvolution_counts' does not depend on any axioms
+'HodgeObstruction.efour_partner_counts' does not depend on any axioms
+'HodgeObstruction.efour_run_drop' does not depend on any axioms
+'HodgeObstruction.efour_two_level_degrees' does not depend on any axioms
+'HodgeObstruction.vandermonde_counts' does not depend on any axioms

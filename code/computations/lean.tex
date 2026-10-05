@@ -7,14 +7,14 @@ computational content is checked in exact arithmetic by the computations of
 \Cref{sec:verification}. The certificate is a single Lean~4 file that
 accompanies the paper. It compiles against a bare Lean~4 toolchain, contains
 no \texttt{sorry}, and depends on no library, Mathlib included. The axiom
-report at the end of the file lists, for each of its one hundred and seventeen theorems,
-the axioms on which it depends. Ninety-three depend on none, and the remaining
+report at the end of the file lists, for each of its one hundred and twenty-one theorems,
+the axioms on which it depends. Ninety-seven depend on none, and the remaining
 twenty-four on propositional extensionality alone, which enters when
 \texttt{decide} reduces an equality of Booleans or when a bound is proved from
 the lemmas on natural numbers in the core library; no theorem uses anything
 else. The annihilator dimension and the rank-zero obstruction of
 \Cref{ssec:rankzero}, \Cref{lem:annihilator} and \Cref{thm:rankzero}, are not
-among the one hundred and seventeen: they are proved by hand, and the dimension count of
+among the one hundred and twenty-one: they are proved by hand, and the dimension count of
 the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \Cref{sec:verification}.
 
@@ -24,7 +24,7 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \small
 \renewcommand{\arraystretch}{1.06}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.31\linewidth}>{\raggedright\arraybackslash}p{0.62\linewidth}@{}}
-\caption{The one hundred and seventeen machine-checked theorems.}\label{tab:lean}\\
+\caption{The one hundred and twenty-one machine-checked theorems.}\label{tab:lean}\\
 \toprule
 \textbf{theorem} & \textbf{statement} \\
 \midrule
@@ -158,6 +158,10 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \texttt{ff\_}\allowbreak\texttt{partner\_}\allowbreak\texttt{counts} & with $\zeta_{j}=i^{e_{j}}$, every piece has $3$, $6$, $7$ partners of the other parity differing in $1$, $2$, $3$ coordinates; for the $7$ the dimension $D=\prod_{j}|\zeta_{j}-\zeta'_{j}|^{2}$ is $16$ six times and $64$ once, $160$ in all, and the $112$ pairs carry $2560$ classes, \Cref{lem:allthree}, \Cref{prop:explicitconvolution} \\
 \texttt{ff\_}\allowbreak\texttt{shift\_}\allowbreak\texttt{table} & in the three placements of the multiples, the shifts $\mu_{i}$, $\nu_{i}$, $\lambda_{i}$, $\kappa_{i}$ are those of the table in the proof, and $\lambda_{i}\le r\le\kappa_{k}$, $\kappa_{i}\ge\lambda_{i}+2$, $\lambda_{i}\le\mu_{i}+2$, $\nu_{i}\le\kappa_{i}+2$, \Cref{lem:allthree} \\
 \texttt{ff\_}\allowbreak\texttt{noconvolution\_}\allowbreak\texttt{counts} & the kernels $11$, $19$ of $x_{1}$, $x_{3}$ on a surface at $t=(2,5,6)$, the degrees of the covers, $3^{6}=729$, $16\cdot24^{3}=221184$, $4^{6}=4096$, and the bounds $249-(45+15\cdot9)=69>57$ and $16\cdot12=192>57$, \Cref{thm:noconvolution} \\
+\texttt{efour\_}\allowbreak\texttt{partner\_}\allowbreak\texttt{counts} & at $n=4$ the $128$ pieces, $64$ of each parity; every piece has $4$, $12$, $28$, $20$ partners of the other parity differing in $1$, $2$, $3$, $4$ coordinates, those differing in one coordinate differ there by $2$; for the $28$, $D$ is $16$ twenty-four times and $64$ four times, $640$ in all, and $64\cdot640=40960>104$, \Cref{lem:efourshifts}, \Cref{thm:efourtwolevels} \\
+\texttt{efour\_}\allowbreak\texttt{run\_}\allowbreak\texttt{drop} & with $p$ at any rank among the four values, every run from $p$ through distinct multiples before and after a marked step, a component or a class of $H^{1}(a,a)$, back to $p$ lowers the shift by at least $4$, \Cref{lem:efourshifts}(iii) \\
+\texttt{efour\_}\allowbreak\texttt{two\_}\allowbreak\texttt{level\_}\allowbreak\texttt{degrees} & with $p$ at any rank, for chains $c\to\dots\to W$ and $V\to\dots\to e$ through distinct multiples, not both empty, the degree $4-U+7D$ is not $3$ if $c=e$, not $0$ if $e$ lies above $c$ and not $8$ if below, \Cref{thm:efourtwolevels}(ii) \\
+\texttt{vandermonde\_}\allowbreak\texttt{counts} & the genus of the generalised Fermat curve by the Riemann--Hurwitz formula and by adjunction for $2\le d\le7$, $2\le N\le8$; $r!\,d^{N(r-1)}=16,32,54,1536,162$ at the five fibre counts; the units of $\ZZ/d$ for $d=2,3,4,6$; the $70$, $490$, $6125$ balanced orbits in $\PP^{6}$ and the bounds $141$, $981$, $12251$, \Cref{thm:vandermonde}, \Cref{cor:twodiagonal} \\
 \end{longtable}
 \endgroup
 

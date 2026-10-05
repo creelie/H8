@@ -1825,12 +1825,64 @@ computed, how it is computed, and which statements of the paper it supports.
   \Cref{prop:fourfoldrank}, \Cref{prop:explicitconvolution},
   \Cref{lem:allthree}, \Cref{thm:noconvolution} and
   \Cref{rem:convolutionsopen}.
+
+\item \emph{Diagonal complete intersections of Vandermonde type.} The
+  Lagrange identity $\sum_{i}w_{i}\lambda_{i}^{k}=0$ for $k\le N-1$ is checked
+  in exact rational arithmetic for random distinct $\lambda_{i}$, and the
+  space cut out by the $c$ equations is found to be the space of values of
+  the polynomials of degree at most $r$. Every $c\times c$ minor of $957$
+  matrices of Vandermonde type is found to be nonzero, and $40$ random pairs
+  of diagonal equations with nonzero $2\times2$ minors are brought to the
+  Vandermonde form exactly. In double precision, random points of $C^{r}$
+  are found to map into $X$, where the Jacobian has rank $c$ (residual
+  $10^{-14}$ at $81$ points); random points of $X$ are lifted through the
+  roots of $F$, and the fibres of $\Phi$ are found to have exactly $|G|$
+  points ($16$, $32$, $54$, $1536$ and $162$ for
+  $(d,N,r)=(2,3,2),(2,4,2),(3,3,2),(2,4,3),(3,4,2)$). These two parts test
+  a map whose properties are proved by hand, and no statement rests on
+  them. The genus of $C$ is found three ways: by the Riemann--Hurwitz formula,
+  by adjunction, and as the number of holomorphic forms
+  $t^{j}\prod_{i}(t-\lambda_{i})^{-b_{i}/d}\,dt$ summed over the characters.
+  The Euler number of $X$ from the complete intersection formula is found
+  equal to the orbifold Euler number of $C^{r}/G$ in $23$ cases, and the
+  middle Hodge numbers from Hirzebruch's formula for complete intersections
+  are found equal to the sums over the characters of
+  $\binom{\dim V_{a}^{1,0}}{p}\binom{\dim V_{a}^{0,1}}{r-p}$ for $43$ triples
+  $(d,N,r)$, with $h^{2,2}=267$, $2584$, $48588$ for the fourfolds of two
+  diagonal hypersurfaces of degrees $3$, $4$, $6$ in $\PP^{6}$. Over all
+  characters, $\dim V_{a}$ is found to be the number of nonzero coordinates
+  less two, and $\dim B_{[a]}$ to be at most five for $d\in\{3,4,6\}$,
+  $N\le6$ and for $d=2$, $N\le12$, and to reach six at $N=7$ and $N=13$. The balanced orbits of
+  \Cref{cor:twodiagonal}(iii) are counted: $70$, $490$ and $6125$. That is
+  \Cref{thm:vandermonde}, \Cref{cor:twodiagonal} and
+  \Cref{rem:vandermonde}.
+
+\item \emph{Convolutions of the Weil pieces on $E_0^8$ at two shifts.} Each
+  of the $128$ pieces $L_{\zeta}$ at $n=4$ is found to have $4$, $12$, $28$
+  and $20$ partners of the other parity differing in one, two, three and
+  four coordinates; the $28$ have $D=16$ twenty-four times and $D=64$ four
+  times, $640$ in all, and $64\cdot640=40960$. From the hermitian forms of
+  the quotients, no $H^{0}$ is found between distinct pieces, and $H^{1}$
+  only between pieces of opposite parity differing in one coordinate. All
+  $1020$ runs from a piece through the multiples back to a piece, distinct
+  before and after one marked step, are found to lower the shift by at least
+  four in the four placements $t=(2,5,6)$, $(-2,2,5)$, $(-5,-2,2)$,
+  $(-6,-5,-2)$ at $p=0$. For each placement and both signs $\epsilon$, every
+  chain of components that the degrees allow is enumerated at each of the
+  $1792$ pairs of pieces of \Cref{thm:efourtwolevels}(ii), with the shifts
+  of the multiples left free: no element of degree one reaches the
+  $40960$ classes, and no term of $d_{E}$ leaves them; the identity
+  $3+d_{c}-d_{e}=4-U+7D$ is checked on every chain. When one piece is moved
+  to a third shift, terms that the degrees allow are found on $6$ of its
+  $28$ groups, so the argument needs the two shifts. That is
+  \Cref{lem:efourshifts}, \Cref{thm:efourtwolevels} and
+  \Cref{rem:convolutionsopen}.
 \end{enumerate}
 
-Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LXXII) are the ones
+Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LXXIV) are the ones
 on which theorems depend. Items (IV) and (V) support statements that no
 obstruction exists; a failure there would strengthen the paper rather than
 weaken it, and they are included for completeness.
-The sixty-nine items other than (XXIX), (XXXI) and (XL) perform $2135$
+The seventy-one items other than (XXIX), (XXXI) and (XL) perform $2160$
 checks, all of which pass; those three, and the local part of (LXVIII), are
 $\Ext$ computations over a polynomial ring, recorded with their output.

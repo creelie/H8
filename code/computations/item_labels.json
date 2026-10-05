@@ -284,5 +284,15 @@
   "lem:allthree",
   "thm:noconvolution",
   "rem:convolutionsopen"
+ ],
+ "LXXIII": [
+  "thm:vandermonde",
+  "cor:twodiagonal",
+  "rem:vandermonde"
+ ],
+ "LXXIV": [
+  "lem:efourshifts",
+  "thm:efourtwolevels",
+  "rem:convolutionsopen"
  ]
 }
