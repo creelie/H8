@@ -128,3 +128,20 @@
 'HodgeObstruction.cyclic_norms' does not depend on any axioms
 'HodgeObstruction.cyclic_vg_counts' depends on axioms: [propext]
 'HodgeObstruction.cyclic_nonsplit_example' depends on axioms: [propext]
+'HodgeObstruction.efour_three_targets' does not depend on any axioms
+'HodgeObstruction.efour_three_degrees' does not depend on any axioms
+'HodgeObstruction.efour_three_spectrum' depends on axioms: [propext]
+'HodgeObstruction.efour_spread_ratios' does not depend on any axioms
+'HodgeObstruction.efour_spread_parity' depends on axioms: [propext]
+'HodgeObstruction.efour_cut_bound' does not depend on any axioms
+'HodgeObstruction.efour_spread_three_counts' does not depend on any axioms
+'HodgeObstruction.efour_five_values' depends on axioms: [propext]
+'HodgeObstruction.efour_cup_kernel_counts' depends on axioms: [propext]
+'HodgeObstruction.efour_run_drops' does not depend on any axioms
+'HodgeObstruction.efour_lonely_degrees' does not depend on any axioms
+'HodgeObstruction.efour_lonely_residues' depends on axioms: [propext]
+'HodgeObstruction.efour_interleaved_cut' does not depend on any axioms
+'HodgeObstruction.efour_six_values' depends on axioms: [propext]
+'HodgeObstruction.divisor_profiles' does not depend on any axioms
+'HodgeObstruction.divisor_endo_positive' depends on axioms: [propext]
+'HodgeObstruction.divisor_rank_two_mod3' depends on axioms: [propext]

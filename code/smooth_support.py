@@ -67,7 +67,7 @@ from scratch rather than quoted:
       and that it is excluded again for being a square;
   (e) that K_S is never numerically proportional to lambda.
 
-Item (XXX) of the verification section.
+Item (XXX) of COMPUTATIONS.md.
 """
 from fractions import Fraction as F
 

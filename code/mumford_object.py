@@ -2,7 +2,7 @@
 """
 mumford_object.py
 
-Item (XLV) of the verification section: what a perfect complex with the
+Item (XLV) of COMPUTATIONS.md: what a perfect complex with the
 Chern character of an exceptional class on the square Y = X x X of a Mumford
 fourfold must look like.  The model is that of mumford_rigidity.py:
 H^1(Y) = V (+) V with V = V_1 (x) V_2 (x) V_3, the Hodge structure coming from

@@ -3,7 +3,7 @@
 closure_graph.py
 
 What is left between this paper and the Hodge conjecture, computed rather than
-asserted.  Item (XXXIII) of the verification section.
+asserted.  Item (XXXIII) of COMPUTATIONS.md.
 
 The paper proves a number of implications and leaves a number of statements
 open.  Written out in prose, the relation between the two is easy to get
@@ -45,10 +45,10 @@ What is checked:
       sets is what every route needs; where they differ is where there is a
       genuine choice of route;
 
-  (f) the secant route of Section 14, taken as far as it can go, does not lie
-      in any minimal sufficient set.  Granting its two open demands, a secant
-      object satisfying the Heisenberg identity in every dimension and an
-      affirmative answer to Markman's Question 11.4, yields the Weil classes
+  (f) the secant route (sec:secantobjects), taken as far as it can go, does
+      not lie in any minimal sufficient set.  Granting its two open demands, a
+      secant object satisfying the weakened criterion in every dimension and
+      an affirmative answer to Markman's Question 11.4, yields the Weil classes
       of trivial discriminant, because every base point that route produces
       is a split member, and through descent (prop:descent) it then yields
       every imaginary quadratic family; it yields nothing over the CM fields
@@ -167,8 +167,8 @@ STATEMENTS = {
     "weil_nontriv": ("derived",
                      "W(K,n,delta) for delta not trivial"),
     "s1": ("derived",
-           "a secant object on an abelian fourfold satisfying the Heisenberg "
-           "identity"),
+           "a secant object on an abelian fourfold that extends along the "
+           "polarised deformations and satisfies the Heisenberg identity"),
     "w4triv": ("derived", "W(K,4,delta_0)"),
     "known": ("derived", "the range settled in the literature"),
 
@@ -213,20 +213,22 @@ STATEMENTS = {
     "P2_cm_ns": ("open",
                  "(P2) for the other Weil families of those fields"),
     "secant_all": ("open",
-                   "a secant object satisfying the Heisenberg identity exists "
+                   "a secant object satisfying the weakened criterion exists "
                    "on an abelian n-fold for every n"),
     "Q114": ("open",
              "Markman's Question 11.4 has an affirmative answer"),
     "smooth_exists": ("open",
                       "a smooth surface with the forced invariants exists on a "
-                      "principally polarised abelian fourfold"),
+                      "principally polarised abelian fourfold and moves with "
+                      "it to first order in every polarised direction"),
     "smooth_vanish": ("open",
                       "the image of the product of translation classes "
                       "vanishes in H^1(S, N_{S/X})"),
     "sing_exists": ("open",
                     "a singular Cohen-Macaulay support exists whose "
                     "Hilbert-Burch resolution is over a bundle that is not "
-                    "projectively flat"),
+                    "projectively flat and whose twisted ideal sheaf extends "
+                    "along the polarised deformations"),
     "sing_vanish": ("open",
                     "the image of the product of translation classes vanishes "
                     "in H^1(Z, Ext^1)"),
@@ -241,8 +243,9 @@ STATEMENTS = {
                     "the algebraic locus is stable under the rational points "
                     "and their orbit is dense"),
     "factor": ("proved",
-               "the weakened criterion for the transform is the Heisenberg "
-               "identity for the factor"),
+               "the weakened criterion for the transform is extension along "
+               "the polarised deformations and the Heisenberg identity for "
+               "the factor"),
     "class_cond": ("proved",
                    "the three conditions of Markman's strategy that are "
                    "conditions on the Chern character hold at the point (1,3)"),
@@ -337,8 +340,8 @@ RULES = [
       "reduction"), "weil_triv", "prop:splitgeom"),
 
     # the secant route at n = 4, written out
-    (("smooth_exists", "smooth_vanish", "cm_line"), "s1", "cor:disjointroutes"),
-    (("sing_exists", "sing_vanish", "cm_line"), "s1", "cor:disjointroutes"),
+    (("smooth_exists", "smooth_vanish", "cm_line"), "s1", "cor:cmdichotomy"),
+    (("sing_exists", "sing_vanish", "cm_line"), "s1", "cor:cmdichotomy"),
     (("s1", "Q114", "factor", "class_cond"), "w4triv", "cor:markmancondition"),
 
     # what the literature gives, recorded and not used

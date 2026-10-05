@@ -113,12 +113,9 @@ appear or disappear without its $Q$-norm changing.
 \end{proof}
 
 \begin{theorem}[Cattani, Deligne and Kaplan \cite{CDK95}]\label{thm:cdk}%
-\footnote{The paper is short and the proof is not. It draws on the whole
-asymptotic theory of degenerating Hodge structures built in the two decades
-before it, and the two inputs isolated below are the ones that carry the
-weight. Deligne had earlier shown by a different route that Hodge classes on
-abelian varieties are absolute; the theorem here carries the relevant
-consequences beyond abelian varieties.}
+\footnote{The paper is short and the proof is not: the two inputs isolated
+below, the nilpotent orbit theorem and the $\SL_{2}$-orbit theorem, carry the
+weight.}
 Let $S$ be a smooth complex quasi-projective variety and $\mathbb{V}$ a
 polarised variation of $\ZZ$-Hodge structure of weight $2p$ on $S$. Then each
 connected component of $\Hdg^{p}(\mathbb{V})$ is a closed algebraic subvariety
@@ -159,7 +156,8 @@ theorems.
 Together these give a two-sided estimate for the Hodge norm of a flat section
 near the boundary, of the shape $\|\alpha\|_{s}\sim\prod_{j}(\log|t_{j}|^{-1})^{m_{j}}$
 with integers $m_{j}$ determined by the weight filtration. A flat section that
-is Hodge on $Z$ has $\tilde Q$-norm bounded by \Cref{lem:boundednorm}, and the
+is Hodge on $Z$ has its norm for the positive definite form $\tilde Q$ of
+the proof of \Cref{lem:boundednorm} bounded by that lemma, and the
 estimate converts that bound into a statement that the possible boundary
 behaviours form a finite list. Algebraicity then follows from the analytic
 extension across the boundary together with Chow's theorem in $\bar S$.
@@ -252,8 +250,24 @@ algebraic everywhere is still known to be algebraic only through
 cycle. The distinction is easily blurred, and \Cref{cor:weilalgebraic} is
 exactly the kind of statement that invites it: the Weil locus is an algebraic
 subvariety, even a Shimura subvariety, and none of that produces the class
-$\omega_{1}$ of \eqref{eq:omegagens}.
+$\omega_{1}$ of \eqref{eq:omegagens}. \Cref{fig:moduli} compares the
+dimension of the Weil locus with that of $\cA_{2n}$.
 \end{remark}
+
+\begin{figure}[htbp]
+\centering
+  \includegraphics[width=0.92\textwidth]{fig_moduli}
+\caption{The Weil locus inside the moduli of principally polarised abelian
+$2n$-folds, for $n=1,\dots,6$. Each prism has the height $n(2n+1)$ of the
+moduli space $\cA_{2n}$; its lower part, of height $n^{2}$, is the
+dimension of the period domain $\cD_{n,n}$ of \Cref{prop:weildomain}, and
+its upper part is the codimension $n(n+1)$. The codimension grows
+quadratically, so the Weil locus is thin, and by \Cref{cor:weilalgebraic} it
+is an algebraic subvariety. Both facts matter for propagation: the locus
+along which one would have to deform is small and is a variety, but neither
+fact produces a cycle on it.}
+\label{fig:moduli}
+\end{figure}
 
 \begin{remark}[The variational Hodge conjecture]\label{rem:variational}
 The property that would turn \Cref{thm:cdk} into a tool is the variational

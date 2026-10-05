@@ -2,11 +2,12 @@
 HodgeObstruction.lean
 
 A machine check, by Lean 4's kernel, of the finite arithmetic behind the
-results of "Density of the Algebraic Locus of Weil Classes on Abelian Varieties".
+results of "Algebraic Loci of Weil Classes from Abelian Varieties to Diagonal
+Complete Intersections".
 
-The two theorems are statements of algebraic geometry and are not formalised
-here; what is formalised is the arithmetic on which each of them turns, and in
-both cases that arithmetic is finite and integral.
+The theorems of the paper are statements of algebraic geometry and are not
+formalised here; what is formalised is the arithmetic on which they turn,
+which in every case is finite and integral.
 
   * The character obstruction turns on the assertion that the
     characters  tau |-> tau^(2n)  and  tau |-> N(tau)^n  of K^x are distinct.
@@ -95,9 +96,16 @@ both cases that arithmetic is finite and integral.
     0, 6, 0, which fixes its shifts, its signs and the threshold 192.
     Section 41 checks them.
 
-Everything is settled by `decide`, in five cases by its kernel-only form
-`decide +kernel`, so the kernel checks it.  There is no
-`sorry` and no dependence on Mathlib.
+  * Sections 42 to 48 check in the same way the counts behind the fourfold
+    products on E_0^6, the diagonal complete intersections and their very
+    general members, the monodromy of cyclic covers, and the arrangements of
+    shifts on E_0^8; Section 49 checks the arithmetic of the sheaves on
+    divisors in the Orlov template.
+
+Most theorems are settled by `decide`, many by its kernel-only form
+`decide +kernel`, and a few by short proofs from the core lemmas on natural
+numbers, so the kernel checks every one.  There is no `sorry` and no
+dependence on Mathlib.
 -/
 
 set_option maxRecDepth 20000
@@ -166,11 +174,11 @@ theorem characters_differ' :
         [((4 : Int), (1 : Int)), (3, 2), (5, 2), (2, 3), (5, 1)].all fun t =>
           qpow d t (2 * n) != qint (ipow (qnorm d t) n)) = true := by decide
 
-/-- **Not every witness works, and this is the whole subtlety of Lemma 4.4.**
+/-- **Not every witness works, and this is the whole subtlety of Lemma (The two characters differ).**
 For `tau = 1 + sqrt(-1)` the ratio `tau / conj(tau)` is `sqrt(-1)`, a primitive
 fourth root of unity, so the two characters agree at that single `tau` when
 `4 | n`; and for `tau = 1 + sqrt(-3)` the ratio is a primitive sixth root of
-unity, so they agree when `3 | n`.  A proof of Lemma 4.4 must therefore choose
+unity, so they agree when `3 | n`.  A proof of that lemma must therefore choose
 its witness, and cannot argue from an arbitrary one. -/
 theorem bad_witness :
     (qpow 1 (1, 1) (2 * 4) == qint (ipow (qnorm 1 (1, 1)) 4))
@@ -242,7 +250,8 @@ def predSign (g k : Nat) : Int :=
   if (g * (g + 1) / 2 + k) % 2 == 0 then 1 else -1
 
 /-- **The sign is uniform over index sets and equal to the closed form.**
-This is the step in the proof of Theorem 5.4 that the reader is most likely to
+This is the step in the proof of Theorem (Transform of the polarisation powers)
+that the reader is most likely to
 want checked. -/
 theorem sign_uniform_and_closed :
     ([1, 2, 3, 4, 5].all fun g =>
@@ -263,14 +272,15 @@ theorem subsets_count :
 
 /-! ## 3.  The semiregularity target -/
 
-/-- `sum_q C(2n,q) * C(2n,q+2) = C(4n, 2n-2)`, which is Proposition 8.2. -/
+/-- `sum_q C(2n,q) * C(2n,q+2) = C(4n, 2n-2)`, which is Proposition (The
+semiregularity target). -/
 theorem semiregularity_target :
     ([1, 2, 3, 4, 5, 6, 7].all fun n =>
       ((List.range (2 * n + 1)).map
         (fun q => choose (2 * n) q * choose (2 * n) (q + 2))).sum
         == choose (4 * n) (2 * n - 2)) = true := by decide
 
-/-! ## 4.  The numerical comparison of Section 7 -/
+/-! ## 4.  The numerical comparison of the section on secant numerology -/
 
 def pow2 : Nat → Nat
   | 0 => 1
@@ -286,7 +296,8 @@ theorem secant_count_below_thresholds :
       decide (2 * n * n + 2 * n < pow2 (2 * n))
         && decide (pow2 (2 * n) < pow3 (2 * n))) = true := by decide
 
-/-- The two counterexamples of Proposition 7.3, which show that neither
+/-- The two counterexamples of Proposition (The thresholds are not necessary),
+which show that neither
 threshold is a necessary condition: an abelian surface carries a
 base-point-free system with `chi = 3 < 4` and a very ample one with
 `chi = 5 < 9`. -/
@@ -645,7 +656,8 @@ theorem tensor_rank_gap :
 
 /-! ## 14.  The secant witness in line bundles
 
-Theorem 14.13 produces a coherent sheaf whose Chern character is a positive
+Theorem (Secant sheaves exist in every dimension) produces a coherent sheaf
+whose Chern character is a positive
 multiple of a rational point of the secant plane, and the multiple together
 with the witness is obtained by inverting a Vandermonde matrix.  Two things
 are finite there and are checked here: that the Vandermonde nodes are
@@ -662,7 +674,7 @@ def zpow : Int → Nat → Int
 def secantTarget (d a b : Int) (k : Nat) : Int :=
   if k % 2 = 0 then a * zpow (-d) (k / 2) else b * zpow (-d) (k / 2)
 
-/-- the witness of Theorem 14.13 at `n = 4`, `d = 3`, `a = b = 1`. -/
+/-- the witness of that theorem at `n = 4`, `d = 3`, `a = b = 1`. -/
 def witness4 : List Int := [-23, 66, -54, 20, -3]
 
 /-- `sum_j n_j j^k`, the `k`-th moment of a witness on the nodes `0, 1, ...`. -/
@@ -676,7 +688,7 @@ theorem secant_witness_at_n_four :
       moment witness4 k == 6 * secantTarget 3 1 1 k) = true := by decide
 
 /-- **The witness has the rank the construction needs**, namely `M a = 6`,
-which is positive, so Lemma 14.12 applies to it. -/
+which is positive, so Lemma (Positive rank is enough) applies to it. -/
 theorem secant_witness_rank :
     (witness4.foldl (· + ·) 0 == (6 : Int)) = true := by decide
 
@@ -692,7 +704,8 @@ theorem vandermonde_nodes_distinct :
 
 /-! ## 15.  The level sums of a split object supported on R
 
-Theorem 14.40 turns the diagonal part of the Chern character conditions into
+Theorem (Where a semiregular split object can live) turns the diagonal part
+of the Chern character conditions into
 `sum_j M_j N_j^r = 0` for `r = 1, ..., n`, and at `n+1` distinct norms the
 `M_j` are forced.  The identities below are the ones the search of item (XXII)
 rests on: that the recorded level sums do satisfy the conditions, that the
@@ -707,7 +720,7 @@ def levelCheck (N M : List Int) : Bool :=
     ((List.range N.length).foldl
       (fun s j => s + (M.getD j 0) * zpow (N.getD j 0) (r + 1)) 0) == 0
 
-/-- **The level sums recorded in Theorem 14.40 satisfy the conditions.** -/
+/-- **The level sums recorded in that theorem satisfy the conditions.** -/
 theorem level_sums_forced :
     (levelCheck [1, 2, 3, 4] [4, -6, 4, -1]
       && levelCheck [9, 18, 27, 36] [4, -6, 4, -1]
@@ -730,7 +743,8 @@ def levelDet (N : List Int) : Int :=
       ((List.range j).foldl (fun a i => a * ((N.getD j 0) - (N.getD i 0))) 1)) 1
 
 /-- **With at most `n` distinct norms the matrix is nonsingular**, so every
-level sum vanishes and the object has rank zero; that is Corollary 14.36. -/
+level sum vanishes and the object has rank zero; that is Corollary (At least
+`n+1` norms). -/
 theorem level_matrix_nonsingular :
     ([[1, 2, 3], [1, 2, 4], [2, 3, 5], [5, 20, 45], [9, 18, 27]].all fun N =>
       decide (levelDet N != 0)) = true := by decide
@@ -934,7 +948,8 @@ theorem candidate_unnormalised_points :
 
 /-! ## 22.  A rank one secant object with smooth support
 
-Theorem 14.118 reads the invariants of a smooth support off the Chern
+Theorem (The invariants of a smooth support) reads the invariants of a smooth
+support off the Chern
 character.  Writing `N = (b^2+d)/2` for the class multiple, the five numbers
 are, cleared of the halves,
 
@@ -1004,7 +1019,7 @@ theorem smooth_four_discriminants :
     (((List.range 60).map fun j => j + 1).filter fun d =>
       sqFree d && decide (d <= 9) && (d % 2 == 1)) = [1, 3, 5, 7] := by decide
 
-/-- **The table of Theorem 14.118 at `b = 3`.** -/
+/-- **The table of that theorem at `b = 3`.** -/
 theorem smooth_table :
     (([1, 3, 5, 7] : List Int).map fun d =>
       (sChi 3 d, sK2 3 d, sE 3 d))
@@ -1014,8 +1029,8 @@ theorem smooth_table :
 
 /-! ## 23.  Cohen-Macaulay supports with a split resolution
 
-Theorem 14.126 turns the Chern character condition for a support resolved by
-sums of line bundles into four equations on the twists,
+Setup (A resolution of the support) turns the Chern character condition for a
+support resolved by sums of line bundles into four equations on the twists,
 
     sum_i p_i^k - sum_j q_j^k = c_k ,   c = (1, b, -d, -d b, d^2),
 
@@ -3261,6 +3276,471 @@ theorem cyclic_nonsplit_example :
       = true := by
   decide +kernel
 
+/-! ## 46.  Three consecutive shifts on `E_0^8`
+
+Three finite facts behind Theorem (Three consecutive shifts on `E_0^8`).
+
+(a) The targets.  Two pieces of the same parity have a group `H^5` of
+dimension `D * C(2(4 - k), 5 - k)` when they differ in `k <= 3`
+coordinates and none when `k = 4`.  Every piece has `18`, `24` and `21`
+partners of its parity differing in `2`, `3` and `4` coordinates; the
+groups `H^5` have dimensions `64` six times and `16` twelve times for the
+first, `16` for the second, and add up to `576 + 384 = 960`.  So the
+targets weigh at most `32 * 960 = 30720`, and `40960 - 30720 = 10240`.
+
+(b) The degrees with three shifts.  A chain from a multiple through the
+distinct multiples `A` to the first piece `L_1`, a chain from the last
+piece `L_2` through the distinct multiples `B`, not both empty, and
+`delta = d(L_1) - d(L_2)` in `{1, 2}` give a term of `Ext` degree
+`3 + delta - U + 7D`, which is never `3` when `c = e`, never `0` when `e`
+is above `c` and never `8` when `e` is below `c`.  With `delta = 1` this is
+item (c) of Section 43.
+
+(c) The spectrum.  The weights depend only on the ratio of two pieces, so
+the targets form a cut of a Cayley graph on the `64` ratios of even sum, of
+degree `960`.  Its eigenvalues are the character sums
+`sum_g w(g) i^(m . g)`, all real, and their values are `960, 384, 192, 96,
+-32, -64, -128, -192`; a cut weighs at most `64 (960 + 192) / 4 = 18432`,
+the split `zeta_3 zeta_4 in {1, i}` attains it in both parities, and
+`40960 - 18432 = 22528`.
+-/
+
+/-- `dim H^5` between two pieces, by the number `k` of differing coordinates. -/
+def efH5 (z w : List Nat) : Nat :=
+  let k := ffDiff z w
+  if 1 ≤ k && k ≤ 3 then efD z w * choose (2 * (4 - k)) (5 - k) else 0
+
+def efSame (z : List Nat) : List (List Nat) :=
+  efPieces.filter (fun w => w != z && cvSum w % 4 == cvSum z % 4)
+
+/-- **The targets with three shifts.** -/
+theorem efour_three_targets :
+    ((efPieces.all fun z =>
+      let S := efSame z
+      let two := S.filter (fun w => ffDiff z w == 2)
+      let three := S.filter (fun w => ffDiff z w == 3)
+      let four := S.filter (fun w => ffDiff z w == 4)
+      S.length == 63 && two.length == 18 && three.length == 24 && four.length == 21
+        && (two.filter (fun w => efH5 z w == 64)).length == 6
+        && (two.filter (fun w => efH5 z w == 16)).length == 12
+        && three.all (fun w => efH5 z w == 16)
+        && four.all (fun w => efH5 z w == 0)
+        && (S.map (efH5 z)).foldl (· + ·) 0 == 960)
+      && (32 * 960 == 30720) && (64 * 640 - 30720 == 10240) && (10240 > 104)) = true := by
+  decide +kernel
+
+/-- the `Ext` degree `3 + delta - U + 7D` of a term through the runs `A -> L_1`
+and `L_2 -> B`. -/
+def efThreeDegree (r δ : Nat) (A B : List Nat) : Int :=
+  3 + Int.ofNat δ - efWalk (A ++ [r]) - efWalk ([r] ++ B)
+
+/-- **The degrees with three shifts.** -/
+theorem efour_three_degrees :
+    ((List.range 4).all fun r =>
+      let ms := (List.range 4).filter (· != r);
+      let sel := [0, 1, 2, 3].flatMap (cvSelections ms);
+      [1, 2].all fun δ => sel.all fun A => sel.all fun B =>
+        (A.length + B.length == 0) ||
+        (let c := A.headD r; let e := B.getLastD r; let q := efThreeDegree r δ A B;
+         if c == e then q != 3 else if c < e then q != 0 else q != 8)) = true := by
+  decide +kernel
+
+def efG0 : List (List Nat) := (cvTuples 4).filter (fun g => cvSum g % 4 == 0)
+
+def efDot (m g : List Nat) : Nat := ((m.zip g).map (fun q => q.1 * q.2)).foldl (· + ·) 0
+
+def efRe (k : Nat) : Int := if k % 4 == 0 then 1 else if k % 4 == 2 then -1 else 0
+def efIm (k : Nat) : Int := if k % 4 == 1 then 1 else if k % 4 == 3 then -1 else 0
+
+def efWeights : List (List Nat × Int) :=
+  (efG0.filter (· != [0, 0, 0, 0])).map (fun g => (g, Int.ofNat (efH5 [0, 0, 0, 0] g)))
+
+def efEig (m : List Nat) : Int :=
+  (efWeights.map (fun q => q.2 * efRe (efDot m q.1))).foldl (· + ·) 0
+def efEigIm (m : List Nat) : Int :=
+  (efWeights.map (fun q => q.2 * efIm (efDot m q.1))).foldl (· + ·) 0
+
+def efCut (P : List (List Nat)) : Nat :=
+  let T := P.filter (fun z => (z.getD 2 0 + z.getD 3 0) % 4 < 2)
+  let B := P.filter (fun z => (z.getD 2 0 + z.getD 3 0) % 4 ≥ 2)
+  (T.flatMap (fun z => B.map (efH5 z))).foldl (· + ·) 0
+
+/-- **The spectrum of the targets.** -/
+theorem efour_three_spectrum :
+    (let vals : List Int := [960, 384, 192, 96, -32, -64, -128, -192]
+     (efWeights.map (·.2)).foldl (· + ·) 0 == 960
+      && (cvTuples 4).all (fun m => efEigIm m == 0 && vals.contains (efEig m))
+      && vals.all (fun v => (cvTuples 4).any (fun m => efEig m == v))
+      && (64 * (960 + 192) / 4 == 18432)
+      && efCut efEven == 18432 && efCut efOdd == 18432
+      && (efEven.filter (fun z => (z.getD 2 0 + z.getD 3 0) % 4 < 2)).length == 32
+      && (64 * 640 - 18432 == 22528)) = true := by
+  decide +kernel
+
+/-! ## 47.  Groups of spread two and three on `E_0^8`, and five consecutive shifts
+
+Six finite facts behind Lemma (Groups of spread two and three), Lemma (Cuts
+of a Cayley graph), the theorems on one parity at two or three values and
+on shifts three apart, Proposition (A gap of four), Corollary (Five
+consecutive shifts) and Proposition (Cup products on the diagonal at
+`n = 4`).  Ratios of pieces are exponent vectors `g` in `(Z/4)^4`.
+
+(a) The thirteen ratios.  The ratios of sum `0 mod 4` that move every
+coordinate and one of them by `-1` (exponent `2`) are thirteen, with
+`D = 256` once and `64` twelve times, `1024` in all; the eight others that
+move every coordinate have `D = 16`.
+
+(b) The parity.  For each of the thirteen and every set `K` of coordinates
+over which the exponents have even sum, that sum is not `2 (|K| - 1) mod 4`;
+for each of the eight others some `K` attains it.  This is the last step of
+part (ii) of the lemma.
+
+(c) The cut.  The thirteen ratios generate the `64` ratios of sum `0` in
+three steps, a vertex has weight `1024`, and `|H| (1024 - 256 - 64(|H| - 2))`
+is `1536, 2560, 3072` for `|H| = 2, 4, 8`, while `64 |H| >= 1024` for
+`|H| = 16, 32`.
+
+(d) Spread three and five.  Between a piece and the `64` of the other
+parity, the groups `H^5` have dimensions adding up to `1072` and the groups
+`H^7` to `16`; `64 * 1072 - 128 * 8 = 67584` and `64 * 16 = 1024`.
+
+(e) Five values.  With one parity at values in `{0, 2, 4}` and the other in
+`{1, 3}`, every occupied pair of sets is covered by two adjacent single
+shifts, one parity at two values two apart or three, single shifts three
+apart, or a gap of four beside a single shift; within six values exactly
+two pairs are left.
+
+(f) The diagonal.  `4 * 4 + 6 * 16 * 4 = 400`, `400 + 3 * 28 = 484`,
+`131 * 28 = 3668`, `3584 - 400 = 3184`, `484 - 104 = 380`; the pieces have
+`4` values of one coordinate and `16` of two.
+-/
+
+def efG0Moving : List (List Nat) :=
+  efG0.filter (fun g => g.all (· != 0))
+
+def efThirteen : List (List Nat) := efG0Moving.filter (fun g => g.contains 2)
+def efEight : List (List Nat) := efG0Moving.filter (fun g => !(g.contains 2))
+
+/-- **The thirteen ratios.** -/
+theorem efour_spread_ratios :
+    (efThirteen.length == 13 && efEight.length == 8
+      && (efThirteen.map (efD [0, 0, 0, 0])).foldl (· + ·) 0 == 1024
+      && (efThirteen.filter (fun g => efD [0, 0, 0, 0] g == 256)).length == 1
+      && (efThirteen.filter (fun g => efD [0, 0, 0, 0] g == 64)).length == 12
+      && efEight.all (fun g => efD [0, 0, 0, 0] g == 16)) = true := by
+  decide +kernel
+
+/-- the coordinates in the set with bit mask `m`. -/
+def efMask (m : Nat) : List Nat := (List.range 4).filter (fun j => (m / 2 ^ j) % 2 == 1)
+
+/-- the parity identity `sum_K g = 2 (|K| - 1) mod 4` of the proof. -/
+def efParityHolds (g : List Nat) (m : Nat) : Bool :=
+  let K := efMask m
+  let t := cvSum (K.map (fun j => g.getD j 0))
+  t % 2 == 0 && t % 4 == 2 * ((K.length + 1) % 2)
+
+/-- **The parity at spread two.** -/
+theorem efour_spread_parity :
+    (efThirteen.all (fun g => (List.range 16).all (fun m => !(efParityHolds g m)))
+      && efEight.all (fun g => (List.range 16).any (efParityHolds g))) = true := by
+  decide +kernel
+
+def efAddV (a b : List Nat) : List Nat := (a.zip b).map (fun q => (q.1 + q.2) % 4)
+
+def efGrow (S : List (List Nat)) : List (List Nat) :=
+  (S ++ S.flatMap (fun a => efThirteen.map (efAddV a))).eraseDups
+
+/-- **The cut.** -/
+theorem efour_cut_bound :
+    ((efGrow (efGrow (efGrow [[0, 0, 0, 0]]))).length == 64
+      && (efGrow (efGrow (efGrow [[0, 0, 0, 0]]))).all (fun g => cvSum g % 4 == 0)
+      && [2, 4, 8].all (fun h => h * (1024 - 256 - 64 * (h - 2)) ≥ 1024)
+      && [2, 4, 8].map (fun h => h * (1024 - 256 - 64 * (h - 2))) == [1536, 2560, 3072]
+      && [16, 32].all (fun h => 64 * h ≥ 1024)) = true := by
+  decide +kernel
+
+/-- `dim H^7` between two pieces, by the number `k` of differing coordinates. -/
+def efH7 (z w : List Nat) : Nat :=
+  let k := ffDiff z w
+  if 1 ≤ k && k ≤ 4 then efD z w * choose (2 * (4 - k)) (7 - k) else 0
+
+/-- **Spread three and five.** -/
+theorem efour_spread_three_counts :
+    (efPieces.all (fun z =>
+        let Q := if cvSum z % 4 == 0 then efOdd else efEven
+        (Q.map (efH5 z)).foldl (· + ·) 0 == 1072
+          && (Q.map (efH7 z)).foldl (· + ·) 0 == 16)
+      && (4 * 60 + 12 * 16 + 4 * (64 + 6 * 16) == 1072)
+      && (64 * 1072 - 128 * 8 == 67584) && (64 * 16 == 1024)) = true := by
+  decide +kernel
+
+/-- the values `S`, listed in increasing order, are two or three values two apart. -/
+def efIsStep2 (S : List Int) : Bool :=
+  (S.length == 2 || S.length == 3) && (S.zip S.tail).all (fun q => q.2 - q.1 == 2)
+
+def efGapAt (y : Int) (O : List Int) : Bool :=
+  (O.contains (y + 1) && !(O.contains (y - 1)) && !(O.contains (y + 3)))
+    || (O.contains (y - 1) && !(O.contains (y + 1)) && !(O.contains (y - 3)))
+
+/-- the arrangement of the two parities at the sets `A`, `B` is excluded. -/
+def efCovered (A B : List Int) : Bool :=
+  efIsStep2 A || efIsStep2 B
+    || (A.length == 1 && B.length == 1 &&
+        ((A.headD 0 - B.headD 0).natAbs == 1 || (A.headD 0 - B.headD 0).natAbs == 3))
+    || (A.length == 1 && efGapAt (A.headD 0) B)
+    || (B.length == 1 && efGapAt (B.headD 0) A)
+
+def efNonemptySubsets (l : List Int) : List (List Int) :=
+  (List.range (2 ^ l.length)).filterMap (fun m =>
+    let s := (List.range l.length).filter (fun j => (m / 2 ^ j) % 2 == 1)
+    if s.isEmpty then none else some (s.map (fun j => l.getD j 0)))
+
+/-- **Five consecutive shifts.** -/
+theorem efour_five_values :
+    ((efNonemptySubsets [0, 2, 4]).all (fun A =>
+        (efNonemptySubsets [1, 3]).all (fun B => efCovered A B))
+      && ((efNonemptySubsets [0, 2, 4]).flatMap (fun A =>
+          ((efNonemptySubsets [1, 3, 5]).filter (fun B => !(efCovered A B))).map
+            (fun B => (A, B))))
+        == [([0], [5]), ([0, 4], [1, 5])]) = true := by
+  decide +kernel
+
+/-- **The diagonal at `n = 4`.** -/
+theorem efour_cup_kernel_counts :
+    ((4 * 4 * 1 + 6 * 16 * 4 == 400) && (400 + 3 * 28 == 484) && (131 * 28 == 3668)
+      && (128 * 28 == 3584) && (3584 - 400 == 3184) && (484 - 104 == 380)
+      && (List.range 4).all (fun j => (efPieces.map (fun z => z.getD j 0)).eraseDups.length == 4)
+      && (List.range 4).all (fun j => (List.range 4).all (fun k => j == k ||
+            (efPieces.map (fun z => (z.getD j 0, z.getD k 0))).eraseDups.length == 16))) = true := by
+  decide +kernel
+
+/-! ## 48.  The diagonal at a lonely shift, interleaved shifts, and six
+consecutive shifts on `E_0^8`
+
+Five finite facts behind Lemma (The diagonal at a lonely shift),
+Proposition (Single shifts), Proposition (Interleaved shifts) and
+Corollary (Six consecutive shifts).  The values `t_1 < t_2 < t_3` and `p`
+are replaced by their ranks `0, 1, 2, 3`; a step up raises the shift by one
+and a step down lowers it by seven (`efStep`).
+
+(a) The runs.  A run from a piece through one, two or three distinct
+multiples back to a piece lowers the shift by `4, 5, 6, 12, 13` or `20`,
+for every rank of `p`, and never by `7`.
+
+(b) The degrees.  For odd `g` from `5` to `31`, `X` in `{0, g}` and runs
+with `U` steps up and `D` down, the degree `3 + X - U + 7D` of a term on a
+diagonal class is `0` or `8` only if `X = 0` and `U + D = 3`, or `X = 7`,
+`D = 0`, `U = 2` (excluded by (a)); with no run it is at least `8`.
+
+(c) The residues.  Along three steps the four shifts are pairwise
+incongruent modulo `4`; for every rank of `p` the four paths of the lemma
+give four distinct shifts of the multiples, and none of them is shared by
+two shifts of the piece at an odd distance.
+
+(d) The cut.  The `28` ratios that move three coordinates and change the
+parity weigh `640` (`16` twenty-four times, `64` four times) and generate
+the `128` ratios in three steps; the bounds for `|H| = 2, 4, 8, 16, 32, 64`
+are at least `640`.
+
+(e) Six values.  Within six consecutive values every occupied pair of sets
+is covered by the results of Section 47, by single shifts at an odd
+distance, or by the interleaved sets `{s, s - 4}`, `{s - 1, s - 5}`; single
+shifts at every odd distance up to `41` are covered; and `64 * 28 = 1792 > 104`.
+-/
+
+/-- the lists of `m` distinct ranks other than `r`. -/
+def efRunsOf (r m : Nat) : List (List Nat) :=
+  (cvTuples m).filter (fun x => !(x.contains r) && x.eraseDups.length == m)
+
+def efRunDrops (r : Nat) : List Int :=
+  ([1, 2, 3].flatMap (fun m => (efRunsOf r m).map (fun x => -(efWalk ([r] ++ x ++ [r])))))
+    |>.eraseDups
+
+/-- **The runs.** -/
+theorem efour_run_drops :
+    ((List.range 4).all (fun r =>
+        (efRunDrops r).all (fun d => [4, 5, 6, 12, 13, 20].contains d) && !((efRunDrops r).contains 7))
+      && [4, 5, 6, 12, 13, 20].all (fun d => (List.range 4).any (fun r => (efRunDrops r).contains d)))
+      = true := by
+  decide +kernel
+
+/-- the conclusion of the lemma for one choice of `g, X, U, D`. -/
+def efLonelyOk (X U D : Int) : Bool :=
+  let q := 3 + X - U + 7 * D
+  !(q == 0 || q == 8) || (X == 0 && U + D == 3) || (X == 7 && D == 0 && U == 2)
+
+/-- **The degrees.** -/
+theorem efour_lonely_degrees :
+    ((List.range 14).all (fun k =>
+        [0, 2 * k + 5].all (fun x =>
+          (List.range 4).all (fun u => (List.range 4).all (fun d =>
+            !(1 ≤ u + d && u + d ≤ 3) || efLonelyOk (x : Int) (u : Int) (d : Int))))
+          && 3 + (2 * k + 5) ≥ 8)) = true := by
+  decide +kernel
+
+/-- the order of the ranks along the `j`-th path: in increasing order for
+`j = 0`, the largest `j` first otherwise. -/
+def efPath (j : Nat) : List Nat :=
+  if j == 0 then [0, 1, 2, 3] else [0, 1, 2, 3].drop (4 - j) ++ [0, 1, 2, 3].take (4 - j)
+
+/-- the shifts along a path, starting from `0`. -/
+def efShifts (l : List Nat) : List Int :=
+  (List.range l.length).map (fun k => efWalk (l.take (k + 1)))
+
+/-- the shifts of the three multiples, by rank, relative to the piece of rank `r`. -/
+def efPattern (r j : Nat) : List Int :=
+  let l := efPath j
+  let sh := efShifts l
+  let base := sh.getD (l.idxOf r) 0
+  ([0, 1, 2, 3].filter (· != r)).map (fun x => sh.getD (l.idxOf x) 0 - base)
+
+/-- **The residues.** -/
+theorem efour_lonely_residues :
+    ([[1, 1, 1], [1, 1, -7], [1, -7, 1], [-7, 1, 1]].all (fun st =>
+        let ps : List Int := [0, st.getD 0 0, st.getD 0 0 + st.getD 1 0,
+          st.getD 0 0 + st.getD 1 0 + st.getD 2 0]
+        (ps.map (fun x => x % 4)).eraseDups.length == 4)
+      && (List.range 4).all (fun r =>
+        ((List.range 4).map (efPattern r)).eraseDups.length == 4
+        && (List.range 4).all (fun j => (List.range 4).all (fun j' =>
+            (List.range 20).all (fun k =>
+              let g : Int := 2 * k + 1
+              (efPattern r j).map (· + g) != efPattern r j'
+                && (efPattern r j).map (· - g) != efPattern r j'))))) = true := by
+  decide +kernel
+
+def efS3 : List (List Nat) :=
+  efPieces.filter (fun g => ffDiff [0, 0, 0, 0] g == 3 && cvSum g % 4 == 2)
+
+def efGrow3 (S : List (List Nat)) : List (List Nat) :=
+  (S ++ S.flatMap (fun a => efS3.map (efAddV a))).eraseDups
+
+/-- **The cut of the interleaved shifts.** -/
+theorem efour_interleaved_cut :
+    (efS3.length == 28
+      && (efS3.map (efD [0, 0, 0, 0])).foldl (· + ·) 0 == 640
+      && (efS3.filter (fun g => efD [0, 0, 0, 0] g == 16)).length == 24
+      && (efS3.filter (fun g => efD [0, 0, 0, 0] g == 64)).length == 4
+      && (efGrow3 (efGrow3 (efGrow3 [[0, 0, 0, 0]]))).length == 128
+      && [2 * (640 - 64), 4 * (640 - 3 * 64), 8 * (640 - 4 * 64 - 3 * 16),
+          16 * (640 - 4 * 64 - 11 * 16), 32 * 32, 64 * 16] == [1152, 1792, 2688, 3328, 1024, 1024]
+      && [1152, 1792, 2688, 3328, 1024, 1024].all (· > 640)) = true := by
+  decide +kernel
+
+/-- the arrangement is excluded, now with single shifts at an odd distance
+and the interleaved sets. -/
+def efCovered6 (A B : List Int) : Bool :=
+  efCovered A B
+    || (A.length == 1 && B.length == 1 && (A.headD 0 - B.headD 0) % 2 != 0)
+    || (A.length == 2 && B.length == 2 && A.getD 1 0 - A.getD 0 0 == 4
+        && B.getD 1 0 - B.getD 0 0 == 4
+        && ((A.getD 1 0 - B.getD 1 0 == 1) || (B.getD 1 0 - A.getD 1 0 == 1)))
+
+/-- **Six consecutive shifts.** -/
+theorem efour_six_values :
+    ((efNonemptySubsets [0, 2, 4]).all (fun A =>
+        (efNonemptySubsets [1, 3, 5]).all (fun B => efCovered6 A B))
+      && (efNonemptySubsets [1, 3, 5]).all (fun A =>
+        (efNonemptySubsets [0, 2, 4]).all (fun B => efCovered6 A B))
+      && (List.range 21).all (fun k => efCovered6 [0] [2 * (k : Int) + 1])
+      && (64 * 28 == 1792) && (1792 > 104)) = true := by
+  decide +kernel
+
+/-! ## 49.  Sheaves on divisors in the Orlov template
+
+Three finite facts behind Proposition (Sheaves on divisors in the Orlov
+template).
+
+(a) The profiles.  The Betti numbers `beta_k` of the connected sum of two real
+`n`-tori (`1`, `2 C(n,k)` for `0 < k < n`, `1`) have Euler characteristic `0`
+for odd `n` and `-2` for even `n`, `2 <= n <= 40`; at `n = 5` they are
+`1, 10, 20, 20, 10, 1`; and for `5 <= n <= 16`, eight values of `d` and
+secant characters `a u + b v` with `0 <= a <= 3`, `|b| <= 3`, the profile of
+part (i), with `e_(n/2)` raised by `c + 2 (-1)^(n/2)` for even `n`, is
+symmetric, starts `1, 2n, n(n-1)`, dominates `beta` and has Euler
+characteristic `chi(F,F)`.
+
+(b) The endomorphisms at `n = 5`.  Six times `chi(End_0 G)` is
+`r^2 (32 d^2 - 20 d - 1) - 6`, and `r^2 (20 d + 1) + 6 < r^2 (32 d^2)` for all
+`d, r >= 1`, so it is positive.
+
+(c) Rank two.  `c_2 = ((d+1)/3) theta^2` is integral exactly when `3`
+divides `2 (d + 1)`, that is when `d = 2` modulo `3`.
+-/
+
+/-- binomial coefficients by the product formula. -/
+def dvChoose (n k : Nat) : Nat :=
+  (List.range k).foldl (fun acc i => acc * (n - i) / (i + 1)) 1
+
+/-- the Betti numbers of the connected sum of two real `n`-tori. -/
+def dvBeta (n k : Nat) : Int :=
+  if k == 0 || k == n then 1 else if k < n then 2 * (dvChoose n k : Int) else 0
+
+/-- the alternating sum of `e_0, ..., e_n`. -/
+def dvEuler (n : Nat) (e : Nat → Int) : Int :=
+  ((List.range (n + 1)).map (fun k => (if k % 2 == 0 then 1 else -1) * e k)).sum
+
+/-- `chi(F,F)` of a secant class `a u + b v`, in closed form. -/
+def dvChi (n : Nat) (a b d : Int) : Int :=
+  if n % 2 == 1 then 0
+  else (if (n / 2) % 2 == 0 then 1 else -1) * 2 ^ (n - 1) * d ^ (n / 2 - 1) * (a * a * d + b * b)
+
+/-- the profile of part (i). -/
+def dvProfile (n : Nat) (a b d : Int) (k : Nat) : Int :=
+  if n % 2 == 0 && k == n / 2 then
+    dvBeta n k + (dvChi n a b d).natAbs + 2 * (if (n / 2) % 2 == 0 then 1 else -1)
+  else dvBeta n k
+
+/-- the conditions of part (i) on a profile. -/
+def dvProfileOk (n : Nat) (a b d : Int) : Bool :=
+  let e := dvProfile n a b d
+  e 0 == 1 && e 1 == 2 * n && e 2 == n * (n - 1)
+    && (List.range (n + 1)).all (fun k => e k == e (n - k) && e k ≥ dvBeta n k)
+    && dvEuler n e == dvChi n a b d
+
+/-- **The profiles.** -/
+theorem divisor_profiles :
+    ((List.range 39).all (fun m =>
+        dvEuler (m + 2) (dvBeta (m + 2)) == (if m % 2 == 1 then 0 else -2)))
+      && ((List.range 6).map (dvBeta 5)) == [1, 10, 20, 20, 10, 1]
+      && ((List.range 12).all (fun m => [1, 2, 3, 5, 6, 7, 10, 11].all (fun d =>
+            (List.range 4).all (fun a => (List.range 7).all (fun b =>
+              (a == 0 && b == 3) || dvProfileOk (m + 5) a ((b : Int) - 3) d))))) = true := by
+  decide +kernel
+
+/-- **The endomorphisms at `n = 5`**: `r^2 (32 d^2 - 20 d - 1) > 6`. -/
+theorem divisor_endo_positive : ∀ d r : Nat, 1 ≤ d → 1 ≤ r →
+    r * r * (20 * d + 1) + 6 < r * r * (32 * d * d) := by
+  intro d r hd hr
+  have h1 : 32 * d ≤ 32 * d * d := Nat.le_mul_of_pos_right (32 * d) hd
+  have h12 : 12 ≤ 12 * d := Nat.le_mul_of_pos_right 12 hd
+  have h2 : 20 * d + 12 ≤ 32 * d := by
+    have e : 32 * d = 20 * d + 12 * d := Nat.add_mul 20 12 d
+    rw [e]; exact Nat.add_le_add_left h12 _
+  have h3 : 20 * d + 1 + 11 ≤ 32 * d * d := by
+    rw [Nat.add_assoc]; exact Nat.le_trans h2 h1
+  have h4 : r * r * (20 * d + 1 + 11) ≤ r * r * (32 * d * d) := Nat.mul_le_mul_left _ h3
+  have hrr : 1 ≤ r * r := Nat.mul_le_mul hr hr
+  have h5 : 11 ≤ r * r * 11 := by
+    have := Nat.mul_le_mul_right 11 hrr
+    rwa [Nat.one_mul] at this
+  rw [Nat.mul_add] at h4
+  have h6 : r * r * (20 * d + 1) + 6 < r * r * (20 * d + 1) + 11 :=
+    Nat.add_lt_add_left (by decide) _
+  exact Nat.lt_of_lt_of_le h6 (Nat.le_trans (Nat.add_le_add_left h5 _) h4)
+
+/-- **Rank two**: `3` divides `2 (d + 1)` exactly when `d = 2` modulo `3`. -/
+theorem divisor_rank_two_mod3 : ∀ d : Nat, (2 * (d + 1)) % 3 = 0 ↔ d % 3 = 2
+  | 0 => by decide
+  | 1 => by decide
+  | 2 => by decide
+  | d + 3 => by
+    have ih := divisor_rank_two_mod3 d
+    have e1 : 2 * (d + 3 + 1) = 2 * (d + 1) + 3 * 2 := by
+      rw [Nat.add_right_comm d 3 1, Nat.mul_add]
+    rw [e1, Nat.add_mul_mod_self_left, Nat.add_mod_right]
+    exact ih
+
 end HodgeObstruction
 
 /-! ## The axioms each theorem depends on
@@ -3400,3 +3880,20 @@ propositional extensionality enters through `decide`, and in no case
 #print axioms HodgeObstruction.cyclic_norms
 #print axioms HodgeObstruction.cyclic_vg_counts
 #print axioms HodgeObstruction.cyclic_nonsplit_example
+#print axioms HodgeObstruction.efour_three_targets
+#print axioms HodgeObstruction.efour_three_degrees
+#print axioms HodgeObstruction.efour_three_spectrum
+#print axioms HodgeObstruction.efour_spread_ratios
+#print axioms HodgeObstruction.efour_spread_parity
+#print axioms HodgeObstruction.efour_cut_bound
+#print axioms HodgeObstruction.efour_spread_three_counts
+#print axioms HodgeObstruction.efour_five_values
+#print axioms HodgeObstruction.efour_cup_kernel_counts
+#print axioms HodgeObstruction.efour_run_drops
+#print axioms HodgeObstruction.efour_lonely_degrees
+#print axioms HodgeObstruction.efour_lonely_residues
+#print axioms HodgeObstruction.efour_interleaved_cut
+#print axioms HodgeObstruction.efour_six_values
+#print axioms HodgeObstruction.divisor_profiles
+#print axioms HodgeObstruction.divisor_endo_positive
+#print axioms HodgeObstruction.divisor_rank_two_mod3

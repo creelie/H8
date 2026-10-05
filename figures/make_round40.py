@@ -18,7 +18,7 @@ The figures of round 40.
                     phi(e) >= 4.  The numbers printed are checked below
                     against the formulas of the theorem.
 
-                    A strip at the foot (added in round 41) records
+                    A strip at the foot records
                     thm:vgvandermonde: the very general member, every N.
 
   fig_efourshifts   lem:efourshifts and thm:efourtwolevels.  The value phi
@@ -274,7 +274,7 @@ def fig_efourshifts():
             r"$D=16$ or $64$, $640$ classes in all:",
             r"$\dim\Ext^{2}(E,E)\ge64\cdot640=40960$,",
             r"against $104$ for the polarised criterion;",
-            r"three or more shifts stay open"]
+            r"three consecutive: $\ge22528$; more stay open"]
     for k, s in enumerate(rows):
         F.text(sx, sy - dy * k, s, anchor="west",
                font=FN if k == 0 else SN,

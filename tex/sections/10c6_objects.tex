@@ -117,8 +117,8 @@ $(2,2)$, $(2,2)$, $(3,1)$, $(1,3)$. All are distinct except for the pair
 $\beta\widehat\beta$ and $\ell^{2}$, and those two are independent in
 $\bigwedge^{2}U\otimes\bigwedge^{2}U^{\vee}$ because
 $\beta\widehat\beta=\beta\otimes\widehat\beta$ is decomposable there while
-$\ell^{2}=-2\sum_{i<j}(x_{i}x_{j})\otimes(\xi_{i}\xi_{j})$ has all
-$\binom{2n}{2}$ terms and $\binom{2n}{2}>n$ for $n\ge2$. The second
+$\ell^{2}=-2\sum_{i<j}(x_{i}x_{j})\otimes(\xi_{i}\xi_{j})$ is diagonal in
+the induced bases, of tensor rank $\binom{2n}{2}>1$. The second
 description follows because the change of basis between the two sets of six
 classes is invertible over $K$: $\eta=d\beta+\widehat\beta$ and
 $\gamma=d\beta-\widehat\beta$ span the same plane as
@@ -491,7 +491,7 @@ $15=\dim H^{2}(\cO_{A_{0}})$.
 \begin{proof}
 Everything asserted is a finite exact computation, carried out in \cite{BMB26}. The classes are the images under
 $\theta(u)=2g\gamma+2dh\,\ell$, $u=g+h\sqrt{-3}$, of the six roots of unity
-of $K$ scaled by $2$; the Chern character is \Cref{prop:chintermsofu} with the
+of $K$; the Chern character is \Cref{prop:chintermsofu} with the
 Prouhet--Tarry--Escott data above; the index computation and the rank of
 $\Phi$ are the two remaining items. For the shift, condition (ii) asks that
 $2+p_{i}-p_{j}\ne3$ whenever $i\ne j$, that is $p_{i}-p_{j}\ne1$; within each
@@ -604,7 +604,7 @@ q_{a}\rangle$ and $H^{0,1}(\widehat X)=\langle q_{a}\rangle$: the Hodge
 structure of $\widehat X$ is the dual one. Since $\beta$ is of type $(1,1)$
 and nondegenerate, $\beta=\sum_{a,b}h_{ab}\,p_{a}\wedge\bbar p_{b}$ with
 $h\in\GL_{n}(\CC)$; and since $\beta$ is principal with Gram matrix $B$ in a
-symplectic basis of $U$ and $\widehat\beta$ has Gram matrix $B=-B^{-1}$ in
+symplectic basis of $U$ and $\widehat\beta$ has Gram matrix $-B^{-1}=B$ in
 the dual basis of $U^{\vee}$, the Gram matrix of $\widehat\beta$ in the
 basis $p_{a},\bbar p_{a}$ is minus the inverse of the Gram matrix
 $\begin{psmallmatrix}0&h\\-h^{\top}&0\end{psmallmatrix}$ of $\beta$ in the
@@ -915,9 +915,12 @@ By (ii), $\Delta\oplus\Sigma\subseteq\ker\sigma_{E}\cap\image\operatorname{ev}_{
 and its dimension $9+6=15$ equals $\dim\ker\sigma_{E}$ by
 \Cref{prop:explicitobject}, so the three spaces coincide. The rank of
 $\operatorname{ev}_{E}$ and the statement for the eighteen configurations
-are the computations of \cite{BMB26}, which also
-recomputes every dimension in this proof in the model of \cite{BMB26}.
+are computations of \cite{BMB26}, which also recompute every dimension in
+this proof.
 \end{proof}
+
+\Cref{fig:evaluation} draws the three kernels and their images in
+$\Ext^{2}(E,E)$.
 
 \begin{figure}[tbp]
 \centering
@@ -1049,8 +1052,9 @@ largest case and finds none.
 \end{proof}
 
 \begin{remark}[Meaning of the range]\label{rem:pterangemeaning}
-The dimension that matters is $n\ge4$, since $n=2$ and $n=3$ are settled by
-\cite{Mar25a,Mar25b} and \cite{FF26}. There
+The dimension that matters is $n\ge4$: for the families with a split member,
+$n=2$ and $n=3$ are settled by Markman \cite{Mar25a,Mar25b}, and $n=2$ in
+discriminant $1$ also by Floccari and Fu \cite{FF26}. There
 \Cref{thm:pterange}(ii) says that the split route closes before any geometry
 is used: the level sums cannot exist, so there is nothing to test for
 semiregularity. At $n=3$, where the geometry does produce an object, the level
@@ -1143,7 +1147,13 @@ convolution of these pieces meets the polarised criterion
 (\Cref{thm:noconvolution}). At $n=4$ the same classes, now between pieces
 that differ in three coordinates, are reached by no product in any
 convolution, and they exclude every convolution whose $128$ pieces
-$L_{\zeta}$ occupy two shifts (\Cref{thm:efourtwolevels}).
+$L_{\zeta}$ occupy two shifts (\Cref{thm:efourtwolevels}) or three
+consecutive ones (\Cref{thm:efourthreelevels}); with the groups between
+pieces whose shifts differ by two or three (\Cref{lem:efourspread}) they
+exclude every convolution whose pieces have their shifts within five
+consecutive values (\Cref{cor:efourfive}); the diagonal classes at a lonely
+shift (\Cref{lem:efourlonely}) and the interleaved shifts
+(\Cref{prop:efourpairs}) extend this to six (\Cref{cor:efoursix}).
 
 \begin{setupenv}[Convolutions]\label{setup:convolution}
 Let $A$ be an abelian variety of dimension $g$ with a flat K\"ahler metric,
@@ -1734,25 +1744,53 @@ it is either the level one part of $x_{1}x_{2}$ lowered by
 $\bar\partial^{*}$, or the level zero or level one part of $x_{1}x_{2}$
 paired with $\nabla_{z}x_{3}$. The two sums come from the two assignments
 of $h_{a}$ and $h_{b}$, and the rank below is the same when their relative
-sign is reversed, so it does not depend on the sign conventions.} A
-computation in \cite{BMB26} evaluates these sums by quadrature, after
-checking the automorphy, the orthonormality and the norms of the levels,
-the selection rules and the invariance under the kernels of the
-$\phi_{\zeta_{j}}$, and pairs the values with a common basis of
-$\cH^{6}(M_{2},M_{1})$, dual to the products of theta functions in the
-coordinates of $A$ pulled back to each cover. For one choice of the line
-bundles and the components the resulting $729\times192$ matrix has rank
-$192$: its smallest singular value is $0.016$ of its largest, while changing
-the quadrature grid moves the entries by less than $10^{-14}$ of their size.
-The computation is in double precision; the integrands are periodic and
-real-analytic, so the quadrature converges geometrically, and by Weyl's
-inequality for singular values the rank is $192$ as long as the error of the
-matrix has norm below $0.016$ of its largest singular value.
+sign is reversed, so it does not depend on the sign conventions.}
+
+Each of these integrals is a coefficient of a holomorphic section in a theta
+basis. For holomorphic sections $a$, $b$ of degrees $d_{a}$, $d_{b}$ on a
+curve, $\nabla_{z}(ab)$ has level one, while
+$H=d_{b}(\nabla_{z}a)\,b-d_{a}\,a\,\nabla_{z}b$ is holomorphic, since
+$\nabla_{\bar z}$ of it is $-\pi d_{a}d_{b}\,ab+\pi d_{a}d_{b}\,ab=0$; so
+$(\nabla_{z}a)\,b=\bigl(d_{a}\nabla_{z}(ab)+H\bigr)/(d_{a}+d_{b})$. Hence
+the pairing of a product of two sections of levels at most one with a
+section of level at most one is the pairing of a holomorphic section with a
+theta function $\vartheta_{k}$ of the same degree $d$, which is the
+coefficient of $\vartheta_{k}$ in that section times
+$\|\vartheta_{k}\|^{2}=(2d)^{-1/2}$. A holomorphic section of degree $d$ is
+determined by its values at $d$ points at which the $\vartheta_{k}$ are
+linearly independent, so these coefficients solve a linear system whose
+entries are values of theta series. The sections on $B_{j}$ are the
+sections on the cover invariant under the kernel of $\phi_{\zeta_{j}}$,
+generated by the half periods $(\frac12,\frac12)$ and
+$(\frac i2,\frac i2)$, which act by commuting involutions; so they form the
+image of the projector $\frac14(1+R_{1})(1+R_{2})$. The theta functions in
+the coordinates of $A$ pull back exactly, since the gauge
+$e^{-\pi d|z|^{2}/2}$ is invariant under the unitary map
+$\phi_{\zeta_{j}}/\sqrt2$, and their coefficients are found in the same
+way; pairing with them gives the values in a basis of
+$\cH^{6}(M_{2},M_{1})$ common to all $\zeta$. Every entry of the
+$729\times192$ matrix of the products on $Y_{110}$ is thereby a finite
+expression in values of theta series, and the tails of the series are
+bounded explicitly. A computation in \cite{BMB26} evaluates the matrix in
+ball arithmetic, which returns for every number an interval that contains
+it, at a precision of $128$ bits, for line bundles with rational
+semicharacters and components with rational coordinates in these bases. The
+Gram determinant of the $192$ columns is an interval that does not contain
+$0$, so at that choice the matrix has rank exactly $192$.\footnote{The radii
+of the intervals are below $10^{-25}$ of the largest entry, and the smallest
+singular value is $0.014$ of the largest. The computation agrees with an
+evaluation of the integrals by quadrature to $10^{-14}$, checks in rational
+arithmetic that $R_{1}$ and $R_{2}$ are commuting involutions, checks that
+the invariant sections have dimension $|\det|$ on every surface, and
+certifies the rank $12$ on each of the sixteen blocks.}
 The entries depend real-analytically on the line bundles and linearly on
 each component, so the rank is $192$ outside the common zero set of the
-maximal minors, which is closed and nowhere dense. The same computation finds
-rank $192$ for components with $x_{1}x_{2}^{\zeta}=x_{2}^{\zeta}x_{3}^{\zeta}=0$
-(those of \Cref{prop:explicitconvolution}(ii)) and at $t=(2,5,7)$.
+maximal minors, which is closed and nowhere dense. The same computation
+certifies rank $192$ for components with
+$x_{1}x_{2}^{\zeta}=x_{2}^{\zeta}x_{3}^{\zeta}=0$ (those of
+\Cref{prop:explicitconvolution}(ii)), after certifying that the kernels of
+$x_{2}\mapsto x_{1}x_{2}$ and $x_{2}\mapsto x_{2}x_{3}$ have dimensions
+$11$ and $19$, and at $t=(2,5,7)$.
 \end{proof}
 
 So the inequality of \Cref{thm:esixdiagonal}(iii) can hold. The
@@ -2181,6 +2219,678 @@ must not be twisted by line bundles of degree zero here, unlike in
 \Cref{thm:noconvolution}: a twist that is nontrivial on the surface where
 $\zeta$ and $\zeta'$ agree removes $\cH(L_{\zeta},L_{\zeta'})$.
 
+With a third shift, a component of $\Ext$ degree two can now follow or
+precede a class of $\cH^{3}(L_{\zeta},L_{\zeta'})$, and the computation in
+\cite{BMB26} finds such terms as soon as one piece is moved two shifts down.
+When the three shifts are consecutive, these terms reach only the groups
+between the highest and the lowest shift, which are too small to remove the
+classes.
+
+\begin{theorem}[Three consecutive shifts on $E_{0}^{8}$]
+\label{thm:efourthreelevels}
+Keep \Cref{lem:efourshifts}, and suppose that the shifts of the $L_{\zeta}$
+lie in $\{s,s-1,s-2\}$ for an integer $s$. By their parities, for a sign
+$\epsilon$, the pieces with $\prod\zeta=\epsilon$ have the shift $s-1$ and
+the others the shift $s$ or $s-2$; let $T$ and $B$ be the sets of pieces of
+the shifts $s$ and $s-2$. Then, for every order of the pieces, every choice
+of the shifts of the $M_{i}$ and every placement of the $t_{i}$:
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item every two pieces $L_{\zeta}$, $L_{\zeta'}$ that differ in exactly three
+  coordinates have shifts differing by one, and the groups
+  $\cH^{3}(L_{\zeta},L_{\zeta'})$ of \Cref{thm:efourtwolevels}, taken from
+  the piece of the larger shift, have dimensions adding up to $40960$;
+\item $d_{E}$ maps the sum of these groups into
+  $\bigoplus_{c\in T,\,e\in B}\cH^{5}(c,e)$, and on them it consists of cup
+  products with a single component of $\Ext$ degree two;
+\item
+  \[
+    \dim\Ext^{2}(E,E)\;\ge\;40960-\sum_{c\in T,\,e\in B}\dim\cH^{5}(c,e)
+    \;\ge\;40960-18432=22528 .
+  \]
+\end{enumerate}
+In particular $E$ does not meet the polarised criterion. When $T$ or $B$ is
+empty this is \Cref{thm:efourtwolevels}(ii).
+\end{theorem}
+
+\begin{proof}
+(i) The ratios $\zeta'_{j}/\zeta_{j}$ in the three coordinates have
+product $-1$, so the two pieces have opposite parities: one has the shift
+$s-1$ and the other $s$ or $s-2$. Each of the $64$ pieces of the shift $s-1$
+has $28$ such partners, whose groups have dimensions adding up to $640$, as
+in the proof of \Cref{thm:efourtwolevels}; this gives $64\cdot640=40960$.
+
+(ii) Let $x\in\cH^{3}(a,b)$ with $d_{a}=d_{b}+1$. As in the proof of
+\Cref{thm:efourtwolevels}(ii), a term of $d_{E}(x)$ runs along chains of
+components $c\to\dots\to a$ and $b\to\dots\to e$, not both empty, and lands
+in $\cH(c,e)$ in $\Ext$ degree $3+d_{c}-d_{e}$. The shifts of the pieces
+$L_{\zeta}$ differ by at most two, so by \Cref{lem:efourshifts}(iii) no part
+of a chain between two pieces $L_{\zeta}$ passes through a multiple. Hence a
+chain $c\to\dots\to a$ that starts at a multiple $M_{i}$ is a run
+$M_{i}=m_{0}\to\dots\to m_{r}\to L_{1}$ of distinct multiples, $r\le2$,
+followed by pieces $L_{\zeta}$ only; let $U_{1}$ and $D_{1}$ be the numbers
+of its steps up and down the value $\phi$ before $L_{1}$, so that
+$d_{L_{1}}=d_{M_{i}}+U_{1}-7D_{1}$ by \Cref{lem:efourshifts}(ii) and
+$U_{1}+D_{1}=r+1\le3$. Likewise a chain $b\to\dots\to e$ ending at a multiple
+$M_{k}$ ends with a run from a piece $L_{2}$ with $U_{2}$ steps up and $D_{2}$
+down, $U_{2}+D_{2}\le3$ and $d_{M_{k}}=d_{L_{2}}+U_{2}-7D_{2}$. Put
+$L_{1}=c$ if $c$ is a piece $L_{\zeta}$ and $L_{2}=e$ if $e$ is one, and
+$\delta=d_{L_{1}}-d_{L_{2}}$; then $1=d_{a}-d_{b}\le\delta\le2$.
+
+If $c$ and $e$ are both pieces $L_{\zeta}$, each nonempty chain lowers the
+shift by at least one, so $3+d_{c}-d_{e}\ge5$, while $\delta\le2$ gives at
+most $5$. So the degree is $5$, $c\in T$, $e\in B$, and the two chains
+together consist of one component, of $\Ext$ degree two by
+\Cref{lem:efourshifts}(i): the term is a cup product of $x$ with that
+component.
+
+If $c=M_{i}$ and $e$ is a piece $L_{\zeta}$, the degree is
+$3+\delta-U_{1}+7D_{1}$, and $\cH(c,e)$ sits in degree $0$ or $8$ by
+\Cref{lem:efourshifts}(ii). Degree $0$ needs $U_{1}\ge3+\delta\ge4$, and
+degree $8$ needs $7D_{1}-U_{1}=5-\delta\in\{3,4\}$, so $D_{1}\ge1$ and
+$U_{1}\ge3$; both contradict $U_{1}+D_{1}\le3$. The case of a piece $c$ and
+a multiple $e$ is the same with the second run.
+
+If $c=M_{i}$ and $e=M_{k}$, the degree is $3+\delta-U+7D$ with
+$U=U_{1}+U_{2}\le6$ and $D=D_{1}+D_{2}$. For $i=k$ it is $3$, so
+$U-7D=\delta\ge1$; $D=0$ is impossible, since the values would increase from
+$t_{i}$ to $p$ along the first run and from $p$ to $t_{i}$ along the second,
+and $D\ge1$ gives $U\ge8$. For $i\ne k$, $\cH(c,e)$ sits in degree $0$ if
+$t_{k}>t_{i}$ and $8$ if $t_{k}<t_{i}$. Degree $0$ needs $U=3+\delta+7D$,
+so $D=0$ and $U\ge4$; but then the multiples of the first run have values
+below $p$ and those of the second values above $p$, so they are distinct and
+$U\le3$. Degree $8$ needs $7D-U=5-\delta$, so $D=1$ and $U\ge3$: the runs
+have at least four steps, so some multiple lies on both. One run increases
+strictly. If it is the second, its values lie in $(p,t_{k}]$, while those of
+the first lie at or above $t_{i}>t_{k}$ before its step down and below $p$
+after it. If it is the first, its values lie in $[t_{i},p)$, while those of
+the second lie above $p$ before its step down and at or below $t_{k}<t_{i}$
+after it. Either way no multiple lies on both runs, a contradiction.
+
+(iii) By \Cref{thm:efourtwolevels}(i), which holds for every convolution, no
+coboundary has a component in these groups, so the kernel of $d_{E}$ on
+their sum injects into $\Ext^{2}(E,E)$, and by (ii) its dimension is at
+least $40960$ minus the dimension of the targets. For pieces $c$, $e$ of the
+same parity, $\cH^{5}(c,e)$ is nonzero only when they differ in two or three
+coordinates, and each piece has such partners with groups $\cH^{5}$ of
+dimensions adding up to $960$.\footnote{The ratios $e_{j}/c_{j}\ne1$ have
+product $1$. In two coordinates they are $(-1,-1)$, with $D=16$, or
+$(i,-i)$, $(-i,i)$, with $D=4$; then
+$\cH^{5}=\cH^{1}\otimes\cH^{1}\otimes\cH^{3}(B_{j}\times B_{k},\cO)$ has
+dimension $4D$, and the six pairs of coordinates give
+$6\cdot64+12\cdot16=576$. In three coordinates they are a permutation of
+$(i,i,-1)$ or of $(-i,-i,-1)$, with $D=16$, and
+$\cH^{5}=(\cH^{1})^{\otimes3}\otimes H^{2}(B_{l},\cO)$ has dimension $16$;
+the four triples give $4\cdot6\cdot16=384$. In four coordinates
+$\cH(c,e)$ sits in degree $4$.} So the sum in (iii) is at most
+$\min(|T|,|B|)\cdot960\le32\cdot960=30720$, which already gives
+$\dim\Ext^{2}(E,E)\ge10240$. The dimension of $\cH^{5}(c,e)$ depends only on
+the ratio $e/c$, so the sum is the weight of the cut $(T,B)$ of a weighted
+Cayley graph on the group of ratios of two pieces of one parity, of order
+$64$ and degree $960$. For the vector $x=\pm1$ of the cut, the weight is
+$\tfrac14\bigl(64\cdot960-x^{\mathsf T}Ax\bigr)\le16\,(960-\lambda)$, with
+$A$ the weighted adjacency matrix and $\lambda$ its least eigenvalue. Its
+eigenvalues are the character sums $\sum_{g}\dim\cH^{5}(1,g)\,\chi(g)$, and
+the least is $-192$,\footnote{The eight distinct values are $960$, $384$,
+$192$, $96$, $-32$, $-64$, $-128$ and $-192$. The bound $18432$ is
+attained by the cut $\zeta_{3}\zeta_{4}\in\{1,i\}$ against
+$\zeta_{3}\zeta_{4}\in\{-1,-i\}$, so $22528$ is the best bound that this
+count gives.} computed in \cite{BMB26}; so the sum is at most
+$16\cdot1152=18432$.
+\end{proof}
+
+A computation in \cite{BMB26} checks (ii) independently of the proof, for
+the four placements of the $t_{i}$ and every split of the pieces between $T$
+and $B$, by enumerating the chains that the degrees allow for the types of
+the pieces, and piece by piece for several splits; it also checks the counts
+of the footnotes and the eigenvalues. \Cref{fig:efourthree} draws the three
+shifts and the budget.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\textwidth]{fig_efourthree}
+\caption{\Cref{thm:efourthreelevels}. Left: the pieces $L_{\zeta}$ at three
+consecutive shifts, those of one parity at $s-1$ and the others split between
+$T$ at $s$ and $B$ at $s-2$; a group $\cH^{3}$ between two pieces that differ
+in three coordinates (teal) can meet a component of $\Ext$ degree two
+(indigo) only in a group $\cH^{5}(c,e)$ with $c\in T$ and $e\in B$ (magenta).
+Middle: the $40960$ classes against the targets, at most $30720$ by counting
+and $18432$ by the least eigenvalue, against the $104$ that the criterion
+allows. Right: the eigenvalues of the Cayley graph of the targets.}
+\label{fig:efourthree}
+\end{figure}
+
+The groups of \Cref{thm:efourtwolevels} join two pieces whose shifts differ
+by one. All groups between pieces whose shifts differ by three, and thirteen
+kinds between pieces whose shifts differ by two, are also left alone by the
+differential, and with them the argument covers every
+arrangement of the shifts within five consecutive values. For pieces $a$ and
+$b$ call $d_{a}-d_{b}$ the \emph{spread} of $\cH(a,b)$; its classes of degree
+two have $\Ext$ degree $2+d_{a}-d_{b}$. For $\zeta,\zeta'\in\mu_{4}^{4}$ call
+$\zeta'/\zeta=(\zeta'_{j}/\zeta_{j})_{j}$ their \emph{ratio}; it
+\emph{moves} the coordinates where it differs from $1$, and it changes the
+parity, $\prod\zeta'=-\prod\zeta$, exactly when the product of its entries is
+$-1$. As before,
+$D(\zeta,\zeta')=\prod_{\zeta_{j}\ne\zeta'_{j}}|\zeta_{j}-\zeta'_{j}|^{2}$.
+
+\begin{lemma}[Groups of spread two and three]\label{lem:efourspread}
+Keep \Cref{lem:efourshifts}, and let $E$ be any convolution of the
+$L_{\zeta}$ and the $M_{i}$, in any order, with any shifts of the given
+parities and any placement of the $t_{i}$.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item For a class $x$ of degree two in $\cH(L_{\zeta},L_{\zeta'})$ of
+  positive spread, every term of $d_{E}(x)$ has all its leaves between
+  pieces $L_{\zeta''}$.
+\item Let $\prod\zeta=\prod\zeta'$, let $\zeta'/\zeta$ move all four
+  coordinates, one of them by $-1$, and let $d_{L_{\zeta}}=d_{L_{\zeta'}}+2$.
+  The classes of degree two of $\cH(L_{\zeta},L_{\zeta'})$ form
+  $\cH^{4}(L_{\zeta},L_{\zeta'})$, of dimension $D(\zeta,\zeta')\in\{64,256\}$;
+  no element of degree one has a differential with a nonzero component in
+  it, and $d_{E}$ vanishes on it.
+\item Let $\prod\zeta=-\prod\zeta'$ and $d_{L_{\zeta}}=d_{L_{\zeta'}}+3$. The
+  classes of degree two of $\cH(L_{\zeta},L_{\zeta'})$ lie in
+  $\cH^{5}(L_{\zeta},L_{\zeta'})$, and $d_{E}$ vanishes on them.
+\item Let $\zeta$ and $\zeta'$ differ in exactly three coordinates, with
+  $d_{L_{\zeta}}=d_{L_{\zeta'}}+1$. Every term of $d_{E}$ on
+  $\cH^{3}(L_{\zeta},L_{\zeta'})$ runs along chains of components
+  $c\to\dots\to L_{\zeta}$ and $L_{\zeta'}\to\dots\to e$ between pieces
+  $L_{\zeta''}$ that together lower the shift by one or two.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Write $a=L_{\zeta}$, $b=L_{\zeta'}$ and $\delta=d_{a}-d_{b}$. As in the proof
+of \Cref{thm:efourtwolevels}(ii), a term of $d_{E}$ on a class of degree two
+in $\cH(a,b)$ runs along chains of components $c\to\dots\to a$ and
+$b\to\dots\to e$, not both empty, and lands in $\cH(c,e)$ in $\Ext$ degree
+$3+d_{c}-d_{e}$, which is $3$ if $c=e$.
+
+(i) Let $L_{1}$ be the first piece $L_{\zeta''}$ of the first chain and
+$L_{2}$ the last of the second, and put
+$X=(d_{L_{1}}-d_{a})+(d_{b}-d_{L_{2}})$. By \Cref{lem:efourshifts}(iii),
+$X\ge0$, and $X\ge4$ if a multiple lies between $L_{1}$ and $a$ or between
+$b$ and $L_{2}$. Before $L_{1}$ the first chain is a run of distinct
+multiples, with $U_{1}$ steps up and $D_{1}$ steps down the value $\phi$ and
+$U_{1}+D_{1}\le3$; after $L_{2}$ the second chain is a run with $U_{2}$ and
+$D_{2}$ steps, $U_{2}+D_{2}\le3$. By \Cref{lem:efourshifts}(ii) the term has
+$\Ext$ degree $3+\delta+X-U+7D$, where $U=U_{1}+U_{2}$ and $D=D_{1}+D_{2}$.
+If $c$ and $e$ are pieces, this is $3+\delta+X$; a multiple on a chain makes
+it at least $8$, but $\cH^{8}(c,e)\ne0$ only for $c=e$, where the degree is
+$3$. If $c=M_{i}$ and $e$ is a piece, $\cH(c,e)$ sits in degree $0$ if
+$t_{i}<p$ and in degree $8$ if $t_{i}>p$. Degree $0$ needs
+$U_{1}\ge3+\delta+X\ge4$. Degree $8$ needs a step down on the run from
+$t_{i}$ to $p$, so $D_{1}\ge1$, and then
+$U_{1}=7D_{1}-5+\delta+X\ge3$. Both contradict $U_{1}+D_{1}\le3$, and a
+piece $c$ with a multiple $e$ is the same. Let $c=M_{i}$ and $e=M_{k}$. For
+$i=k$ the degree is $3$, so $U-7D=\delta+X\ge1$; $D\ge1$ would give $U\ge8$,
+and $D=0$ would make the values increase from $t_{i}$ to $p$ and then from
+$p$ to $t_{i}$. For $i\ne k$, $\cH(c,e)$ sits in degree $0$ if $t_{k}>t_{i}$
+and in degree $8$ if $t_{k}<t_{i}$. Degree $0$ needs $U=3+\delta+X+7D$, so
+$D=0$ and $U\ge4$; but then the first run lies below $p$ and the second
+above, so the multiples are distinct and $U\le3$. Degree $8$ needs $D\ge1$,
+since with $D=0$ the values would satisfy $t_{i}<p<t_{k}$; then
+$7D-U=5-\delta-X\le4$ gives $D=1$ and $U\ge3$, so the runs have at least
+four steps and share a multiple, which the last paragraph of the proof of
+\Cref{thm:efourthreelevels}(ii) excludes.
+
+(ii) By the proof of \Cref{lem:efourshifts}(i), $\cH(a,b)$ is the tensor
+product of four groups $H^{1}$ and sits in degree $4$, of dimension
+$D(\zeta,\zeta')$; the ratio is $(-1,-1,-1,-1)$, with $D=256$, or a
+permutation of $(i,-i,-1,-1)$, with $D=64$.\footnote{A ratio that moves
+every coordinate has entries in $\{i,-1,-i\}$ and product $1$. With a $-1$
+among them it is $(-1,-1,-1,-1)$ or has exactly two entries $-1$ and the
+entries $i$ and $-i$, twelve ratios; together thirteen, and
+$256+12\cdot64=1024$. The other eight ratios have all four entries in
+$\{i,-i\}$ and $D=16$; for them both statements of (ii) fail, by the
+computation in \cite{BMB26}.} A coboundary with a component in $\cH(a,b)$ is
+a sum of terms of \Cref{lem:harmonicmodel}(iii) along a path
+$a\to\dots\to b$ of morphisms of degree one, one of them an element $u$ and
+the others components, that lowers the shift by two. By
+\Cref{lem:efourshifts}(iii) no multiple lies on it, and by
+\Cref{lem:efourshifts}(i) each step between distinct pieces lowers the shift
+by at least one. So the path consists of a component of $\Ext$ degree three
+from $a$ to $b$, which lies in $\cH^{3}(a,b)=0$, and a class of
+$\cH^{1}(a,a)$ or $\cH^{1}(b,b)$; or of two steps $a\to c\to b$ of $\Ext$
+degree two, possibly with a class of $H^{1}(A,\cO_{A})$ at one of the three
+pieces. The output has degree one on every surface. Without the class of
+$H^{1}$ the two steps have degrees adding up to one on every surface, so they
+move disjoint pairs of coordinates and have degree zero elsewhere; a step of
+$\Ext$ degree two changes the parity, so its two moved entries have product
+$-1$ and are $(i,i)$ or $(-i,-i)$, and $\zeta'/\zeta$ has no entry $-1$.
+With the class of $H^{1}$, \Cref{lem:degreedrop} gives a drop of one on a
+surface where all three leaves have positive degree, and the output has
+degree at least two there.
+
+Now let a term of $d_{E}$ on $\cH^{4}(a,b)$ carry the components
+$y_{1},\dots,y_{m}$, $m\ge1$, between pieces by (i), and land in
+$\cH(c,e)$; let $K$ be the set of coordinates fixed by the ratio of $c$ and
+$e$, and $X\ge m$ the drop of the chains. The output has $\Ext$ degree
+$5+X$. Let $n_{j}$ be the number of the $y_{i}$ of positive degree on
+$B_{j}$; the class $x$ has degree one there, so \Cref{lem:degreedrop} bounds
+the drop on $B_{j}$ by $\max(0,n_{j}-1)$. For $j\notin K$ the output has
+degree $1$ on $B_{j}$, so the degrees of the $y_{i}$ there add up to at most
+$\max(0,n_{j}-1)$, which forces $n_{j}=0$. For $j\in K$ the $y_{i}$ undo the
+entry $\zeta'_{j}/\zeta_{j}\ne1$, so $n_{j}\ge1$, and the output has degree
+at least $1+n_{j}-(n_{j}-1)=2$ there, hence exactly $2$. So
+$5+X=(4-|K|)+2|K|$, that is $X=|K|-1$. The components change the parity
+$X$ times modulo two, and together their ratio is $\zeta/\zeta'$ on $K$ and
+$1$ elsewhere, so
+\[
+  \prod_{j\in K}\zeta'_{j}/\zeta_{j}=(-1)^{|K|-1}.
+\]
+For the ratio $(-1,-1,-1,-1)$ the left side is $(-1)^{|K|}$. For a
+permutation of $(i,-i,-1,-1)$ the left side is real only if $K$ contains
+both or neither of the coordinates moved by $\pm i$, and then it is again
+$(-1)^{|K|}$. So no term is nonzero.
+
+(iii) The classes of degree two have $\Ext$ degree $5$. By (i) a term of $d_{E}$ on them lands
+in $\Ext$ degree $6+X$, with $X\ge1$ the drop of the chains between pieces.
+For $X\ge2$ this is at least $8$, which needs $c=e$ and degree $3$. For $X=1$
+the pieces $c$, $e$ have shifts differing by four, hence the same parity, so
+their ratio moves at least two coordinates and $\cH(c,e)$ has no degree above
+$6$.
+
+(iv) By (i) a term lands in $\Ext$ degree $4+X$, with $X\ge1$ the drop of the
+chains between pieces. For $X\ge4$ the degree is at least $8$, which needs
+$c=e$. For $X=3$ the degree is $7$, which needs a ratio moving one
+coordinate, hence opposite parities, while $d_{c}-d_{e}=4$ is even.
+\end{proof}
+
+The groups of (ii) are reached by no coboundary and left by no term in every
+convolution, so they survive in $\Ext^{2}(E,E)$ as soon as the shifts give
+them the spread two. That happens along every edge of a Cayley graph that
+crosses between two shift values of one parity, and a cut of that graph is
+never light.
+
+\begin{lemma}[Cuts of a Cayley graph]\label{lem:cayleycut}
+Let $G$ be a finite abelian group, $S\subset G\setminus\{0\}$ a generating
+set and $w\colon S\to\RR_{>0}$ a weight, extended by $0$ to $G$. For every
+subset $T\subset G$ with $T\ne\emptyset,G$,
+\[
+  \sum_{c\in T,\ e\notin T}w(e-c)\;\ge\;\min_{H}\,|H|\cdot w(S\setminus H),
+\]
+the minimum over the proper subgroups $H$ of $G$. For the group $G_{0}$ of
+the $64$ ratios of pieces of one parity, with $S$ the thirteen ratios of
+\Cref{lem:efourspread}(ii) and $w=D$, the minimum is $1024$, attained only at
+$H=0$, so every such cut weighs at least $1024$.
+\end{lemma}
+
+\begin{proof}
+The left side is $\sum_{s\in S}w(s)\,|(T+s)\setminus T|$. Let $H$ be the
+stabiliser of $T$, a proper subgroup since $T\ne\emptyset,G$. Then $T$ and
+$T+s$ are unions of cosets of $H$, and for $s\notin H$ the set
+$(T+s)\setminus T$ is nonempty, since $|T+s|=|T|$, so it has at least $|H|$
+elements. This gives the inequality. In $G_{0}$, written additively as the
+quadruples in $(\ZZ/4)^{4}$ of sum $0$, the ratios of type $(i,-i,-1,-1)$
+generate, since the differences of two of them give every $e_{j}-e_{k}$. The
+weights are $256$ once and $64$ otherwise, and $|S\cap H|\le|H|-1$. So
+$|H|\,w(S\setminus H)$ is $1024$ for $H=0$, at least
+$|H|\,(1024-256-64(|H|-2))$, which is $1536$, $2560$ and $3072$, for
+$|H|=2,4,8$, and at least $64|H|\ge1024$ for $|H|\ge16$, because some
+generator lies outside $H$.\footnote{The orders of the subgroups of
+$G_{0}\cong(\ZZ/4)^{3}$ are powers of two. A cut at one vertex weighs exactly
+$1024$, so the bound is sharp. The computation in \cite{BMB26} runs over all
+$129$ subgroups and finds the least cut, $1024$, by the algorithm of Stoer
+and Wagner; the least number of edges in a cut is $13$.}
+\end{proof}
+
+\begin{theorem}[One parity at two or three values]\label{thm:efourspreadtwo}
+Keep \Cref{lem:efourshifts}, and suppose that the shifts of the pieces
+$L_{\zeta}$ with $\prod\zeta=\epsilon$ take exactly two values $s$ and $s-2$,
+or exactly three values $s+2$, $s$ and $s-2$, for a sign $\epsilon$ and an
+integer $s$. Then, for every order of the pieces, all shifts of the other
+pieces, every choice of the shifts of the $M_{i}$ and every placement of the
+$t_{i}$,
+\[
+  \dim\Ext^{2}(E,E)\;\ge\;1024 .
+\]
+In particular $E$ does not meet the polarised criterion.
+\end{theorem}
+
+\begin{proof}
+Let $T$ be the set of pieces of parity $\epsilon$ at the shift $s$; it is
+neither empty nor all of them. Two pieces of parity $\epsilon$, one in $T$
+and the other not, have shifts differing by exactly two. When their ratio is
+one of the thirteen of \Cref{lem:efourspread}(ii), the group $\cH^{4}$ from
+the piece of the larger shift to the other is reached by no coboundary and
+killed by no term, so its classes inject into $\Ext^{2}(E,E)$, and those of
+different pairs lie in different summands $\cH(a,b)$. Their dimensions add up
+to the weight of the cut $(T,\complement T)$ of the Cayley graph of
+\Cref{lem:cayleycut}, since the pieces of parity $\epsilon$ form a coset of
+$G_{0}$; so they add up to at least $1024$.
+\end{proof}
+
+\begin{theorem}[Shifts three apart]\label{thm:efourspreadthree}
+Keep \Cref{lem:efourshifts}, and suppose that the pieces $L_{\zeta}$ with
+$\prod\zeta=\epsilon$ all have the shift $s$ and the others have shifts in
+$\{s-3,s+3\}$. Then, for every order, every choice of the shifts of the
+$M_{i}$ and every placement of the $t_{i}$,
+\[
+  \dim\Ext^{2}(E,E)\;\ge\;64\cdot1072-128\cdot8=67584 .
+\]
+\end{theorem}
+
+\begin{proof}
+Every piece $W$ of parity $-\epsilon$ and every piece $V$ of parity $\epsilon$
+have shifts differing by three. By \Cref{lem:efourspread}(iii) the classes
+of degree two of the group from the higher to the lower of the two lie in
+$\cH^{5}$, and $d_{E}$ vanishes on them. For each $W$ these groups have
+dimensions adding up to $1072$.\footnote{Let the ratio move $k$
+coordinates. For $k=1$ it is $-1$ in one coordinate, $D=4$, and $\cH^{5}$
+is $H^{1}$ tensored with the part of degree four of $H^{*}(\cO)$ on the
+other three surfaces, of dimension $\binom{6}{4}=15$: four partners with
+$60$ each. For $k=2$ it is $(i,i)$ or $(-i,-i)$, $D=4$, and the part of
+degree three on the other two surfaces has dimension $\binom43=4$: twelve
+partners with $16$ each. For $k=3$ the part of degree two on the last surface
+has dimension one, and the $28$ partners give $640$ as in
+\Cref{thm:efourtwolevels}. For $k=4$ the group sits in degree $4$. So
+$240+192+640=1072$.} A coboundary with a component in such a group runs
+along a path of morphisms of degree one that lowers the shift by three;
+no multiple lies on it, by \Cref{lem:efourshifts}(iii), and a step between
+distinct pieces lowers the shift by at least one, while no piece has a shift
+strictly between those of $W$ and $V$. So the path is the component between
+$W$ and $V$ together with a class of $H^{1}(A,\cO_{A})$ at one of them, and
+the components of all coboundaries in these groups come from
+$\bigoplus_{a}\cH^{1}(a,a)$ over the $128$ pieces, of dimension
+$128\cdot8=1024$. The $64\cdot1072=68608$ classes are cocycles, and at most
+$1024$ dimensions of them are coboundaries.
+\end{proof}
+
+When one parity sits at a single shift, the groups $\cH^{3}$ of
+\Cref{thm:efourtwolevels} survive next to it unless pieces of the other
+parity crowd it from both sides.
+
+\begin{proposition}[A gap of four]\label{prop:efourgap}
+Keep \Cref{lem:efourshifts}, let the pieces $L_{\zeta}$ with
+$\prod\zeta=\epsilon$ all have the shift $y$, and let $T$ be the set of
+pieces of parity $-\epsilon$ at the shift $y+1$. If $T$ is not empty and no
+piece has the shift $y-1$ or $y+3$, then for every order, every choice of
+the shifts of the $M_{i}$ and every placement of the $t_{i}$, the groups
+$\cH^{3}(W,V)$ with $W\in T$ and $V$ differing from $W$ in exactly three
+coordinates are reached by no coboundary and killed by no term, and
+\[
+  \dim\Ext^{2}(E,E)\;\ge\;640\,|T|\;\ge\;640 .
+\]
+The same holds with $y+1$, $y-1$, $y+3$ replaced by $y-1$, $y+1$, $y-3$ and
+the groups $\cH^{3}(V,W)$.
+\end{proposition}
+
+\begin{proof}
+By \Cref{thm:efourtwolevels}(i), which holds for every convolution, no
+coboundary reaches these groups. By \Cref{lem:efourspread}(iv) a term of
+$d_{E}$ on $\cH^{3}(W,V)$ runs along chains of components between pieces
+into $W$ and out of $V$ that lower the shift by one or two in all; the
+first would pass through a piece at the shift $y+2$ or $y+3$, the second
+through one at $y-1$ or $y-2$. The shifts $y\pm2$ have parity $\epsilon$,
+whose pieces are all at $y$, and $y-1$, $y+3$ are excluded. Each $W\in T$
+has $28$ partners $V$, all at the shift $y$, with groups of dimensions adding
+up to $640$. The second statement has the same proof, with the chains into
+$V$ and out of $W$ in place of those into $W$ and out of $V$.
+\end{proof}
+
+\begin{corollary}[Five consecutive shifts]\label{cor:efourfive}
+Keep \Cref{lem:efourshifts}. If the shifts of the $128$ pieces $L_{\zeta}$
+lie in five consecutive integers, then, for every order, every choice of the
+shifts of the $M_{i}$ and every placement of the $t_{i}$,
+$\dim\Ext^{2}(E,E)\ge640$; no such convolution meets the polarised
+criterion.
+\end{corollary}
+
+\begin{proof}
+Let the values be $s,\dots,s-4$, with one parity at values in
+$\{s,s-2,s-4\}$ and the other at values in $\{s-1,s-3\}$. If the second
+parity takes both its values, or the first takes two values two apart or all
+three, \Cref{thm:efourspreadtwo} applies. Otherwise the second parity sits at
+one value $y$ and the first at one value or at $\{s,s-4\}$. One value each,
+at an odd distance at most three: \Cref{thm:efourtwolevels} or
+\Cref{thm:efourspreadthree}. The first at $\{s,s-4\}$: for $y=s-1$ the
+pieces at $y+1=s$ are not empty and $y-1$, $y+3$ are empty, and for $y=s-3$
+the pieces at $y-1=s-4$ are not empty and $y+1$, $y-3$ are empty, so
+\Cref{prop:efourgap} applies. The least of the bounds is $640$.
+\end{proof}
+
+Within six consecutive values two arrangements are left, up to exchanging
+the parities: each parity at one shift, five apart, and the parities at
+$\{s,s-4\}$ and $\{s-1,s-5\}$. The first is settled by the diagonal, whose
+classes at a shift with no other piece nearby can be reached only through
+all three multiples, and the second by the groups of
+\Cref{thm:efourtwolevels} once more.
+
+\begin{lemma}[The diagonal at a lonely shift]\label{lem:efourlonely}
+Keep \Cref{lem:efourshifts}, and let the pieces $L_{\zeta}$ with
+$\prod\zeta=\epsilon$ all have the shift $s$ and the others the shift $s-g$,
+for a sign $\epsilon$ and an odd integer $g\ge5$. Let $y\in\cH^{2}(a,a)$ be
+a diagonal class at a piece $a$, and let a term of $d_{E}(y)$ in
+\Cref{lem:harmonicmodel}(iii) be nonzero. Then $a$ is the only piece on its
+path, the path passes through $M_{1}$, $M_{2}$ and $M_{3}$, and the shifts
+of $a$, $M_{1}$, $M_{2}$, $M_{3}$ are pairwise incongruent modulo $4$.
+\end{lemma}
+
+\begin{proof}
+Write the path as $c\to\dots\to a\to\dots\to e$, with the chain of
+components into $a$ and the chain out of $a$ not both empty, so that
+$c\ne e$, since the components of a convolution go up the order of the
+pieces. Let $L_{1}$ and $L_{2}$ be the first and the last piece on it and
+$X=d_{L_{1}}-d_{L_{2}}$; before $L_{1}$ and after $L_{2}$ the path is a run
+of distinct multiples, with $U$ steps up and $D$ steps down the value $\phi$
+in all. As in the proof of \Cref{lem:efourspread}(i), now with $\delta=0$,
+the term has $\Ext$ degree $3+X-U+7D$ by \Cref{lem:efourshifts}(ii). A
+sequence of components from one piece to another lowers the shift by
+\Cref{lem:efourshifts}(iii), and the pieces have the shifts $s$ and $s-g$;
+so $X\in\{0,g\}$, and $X=0$ exactly when $a$ is the only piece on the path.
+
+If $c$ and $e$ are pieces, then $U=D=0$ and $X=g$, and $\cH^{3+g}(c,e)=0$
+since $3+g\ge8$ and $c\ne e$. If $c$ is a multiple and $e$ a piece, then
+$\cH(c,e)$ sits in degree $0$ or $8$. Degree $0$ needs $U=3+X+7D$, so
+$X=D=0$ and $U=3$. Degree $8$ needs $7D-U=5-X$: for $X=0$ this gives $D=1$
+and $U=2$; for $X=g$ it gives $D=0$ and $U=g-5$, which is at least one
+because the run before $L_{1}$ is not empty and at most three, so $g=7$; but
+then the path lowers the shift by seven from $L_{1}$ to $e$, by a single
+component, of $\Ext$ degree eight between distinct pieces, or by a run
+through multiples, and neither is possible.\footnote{Between distinct pieces
+$\cH^{8}=0$. A run from a piece through $m\le3$ distinct multiples to a piece
+has $m+1$ steps, at least one up and one down, and lowers the shift by
+$7D'-U'$ with $U'+D'=m+1$: by $6$, $5$, $4$ for $D'=1$, by $13$, $12$ for
+$D'=2$ and by $20$ for $D'=3$, never by seven. The Lean certificate of
+\cite{BMB26} checks the list.} A piece $c$ with a multiple $e$ is the same
+with the runs exchanged. If $c$ and $e$ are multiples, both runs are
+nonempty and together pass through at most three multiples, so $U+D\le3$
+and $U+D\ge2$. Degree $0$ needs $U=3+X+7D$, so $X=D=0$ and $U=3$. Degree $8$
+needs $7D-U=5-X$; $D=0$ gives $U=X-5\ge2$, so $X=g=7$, which is excluded as
+before; $D=1$ gives $U=2+X\le2$, so $X=0$ and $U=2$; $D\ge2$ gives $U\ge9$.
+
+So in every case $X=0$ and $U+D=3$: the path consists of $a$ and the three
+multiples, with three steps. A step up raises the shift by one and a step
+down lowers it by seven, so every step adds one modulo $4$, and the four
+nodes of the path have the shifts $d_{c},d_{c}+1,d_{c}+2,d_{c}+3$ modulo $4$
+in the order of the path.\footnote{With the values $t_{1}<t_{2}<t_{3}$ and
+$p$, the path with $U=3$ visits the four nodes in the order of their values;
+a path with $U=2$ and $D=1$ ending in degree eight visits the largest $j$
+values in increasing order and then the others, $j=1,2,3$. So each placement
+has exactly four such paths, and for each the shifts of the multiples are
+determined by $d_{a}$.}
+\end{proof}
+
+\begin{proposition}[Single shifts]\label{prop:efoursingle}
+Keep \Cref{lem:efourshifts}, and suppose that the pieces $L_{\zeta}$ with
+$\prod\zeta=\epsilon$ all have the shift $s$ and the others all have the
+shift $s-g$, for a sign $\epsilon$ and an odd integer $g$. Then, for every
+order, every choice of the shifts of the $M_{i}$ and every placement of the
+$t_{i}$,
+\[
+  \dim\Ext^{2}(E,E)\;\ge\;64\cdot28=1792 .
+\]
+\end{proposition}
+
+\begin{proof}
+Exchanging the parities, we may take $g>0$. For $g=1$ and $g=3$ this is
+\Cref{thm:efourtwolevels} and \Cref{thm:efourspreadthree}. Let $g\ge5$. If a
+term of $d_{E}$ were nonzero on a diagonal class at a piece of shift $s$ and
+another on a diagonal class at a piece of shift $s-g$, then by
+\Cref{lem:efourlonely} the shifts of the three multiples would be pairwise
+incongruent modulo $4$ and miss both the residue of $s$ and that of $s-g$,
+which differ, since $g$ is odd. So at one of the two shifts $d_{E}$ vanishes
+on the $28$ diagonal classes of each of the $64$ pieces there, and by
+\Cref{prop:nothingenters}, which holds for $n=4$, these $1792$ classes
+inject into $\Ext^{2}(E,E)$.\footnote{The proof does not look at the classes
+between the two parities. For $g=5$ these are $64\cdot16=1024$ classes of
+degree two in groups $\cH^{7}$, on which $d_{E}$ vanishes by
+\Cref{lem:efourspread}(i); but the coboundaries of the loops in
+$\cH^{1}(a,a)$, and, when two multiples have suitable shifts, the products
+along runs $W\to M_{i}\to M_{j}\to V$, reach them, and counting alone gives
+nothing there.}
+\end{proof}
+
+\begin{proposition}[Interleaved shifts]\label{prop:efourpairs}
+Keep \Cref{lem:efourshifts}, and suppose that the shifts of the pieces
+$L_{\zeta}$ with $\prod\zeta=\epsilon$ take exactly the two values $s$ and
+$s-4$, and those of the others exactly the two values $s-1$ and $s-5$. Then,
+for every order, every choice of the shifts of the $M_{i}$ and every
+placement of the $t_{i}$, $\dim\Ext^{2}(E,E)\ge640$.
+\end{proposition}
+
+\begin{proof}
+Let $A$ and $A'$ be the pieces of parity $\epsilon$ at the shifts $s$ and
+$s-4$, and $B$ and $B'$ those of parity $-\epsilon$ at $s-1$ and $s-5$; all
+four are nonempty. Let $W$ and $V$ differ in exactly three coordinates, with
+$d_{W}=d_{V}+1$, that is $W\in A$ and $V\in B$, or $W\in A'$ and $V\in B'$.
+By \Cref{thm:efourtwolevels}(i) no coboundary reaches $\cH^{3}(W,V)$, and by
+\Cref{lem:efourspread}(iv) a term of $d_{E}$ on it passes through a piece at
+the shift $d_{W}+1$ or $d_{W}+2$ or at $d_{V}-1$ or $d_{V}-2$. These are
+$s+1$, $s+2$, $s-2$, $s-3$ for $W\in A$ and $s-3$, $s-2$, $s-6$, $s-7$ for
+$W\in A'$, and no piece has these shifts. So the groups inject into
+$\Ext^{2}(E,E)$.
+
+Let $\Gamma$ be the group of the ratios of two pieces, of order $128$,
+which acts simply transitively on the pieces, and $S_{3}\subset\Gamma$ the
+$28$ ratios that move exactly three coordinates and change the parity, with
+the weight $D$, which adds up to $640$ (\Cref{thm:efourtwolevels}). With
+$X=A\cup B'$ the pairs above are exactly the edges of the Cayley graph of
+$(\Gamma,S_{3})$ between $X$ and its complement $A'\cup B$; so the
+dimensions add up to the weight of that cut, and $X$ is neither empty nor
+everything. Written additively, as the quadruples in $(\ZZ/4)^{4}$ of even
+sum, the differences of two ratios of type $(i,-i,-1,1)$ give every
+$e_{j}-e_{k}$, which generate the quadruples of sum $0$ modulo $4$, and the
+elements of $S_{3}$ have sum $2$ modulo $4$; so $S_{3}$ generates $\Gamma$.
+In \Cref{lem:cayleycut},
+$H=0$ gives $640$; for $|H|=2,4,8,16$ at most $|H|-1$ elements of $S_{3}$ lie
+in $H$, at most four of them of weight $64$, so $|H|\,w(S_{3}\setminus H)$ is
+at least $2\cdot576$, $4\cdot448$, $8\cdot336$ and $16\cdot208$; for
+$|H|=32$ some $r\in S_{3}$ lies outside $H$, and so does $-r$, which gives
+weight at least $32$, or $64$ if $r=-r$; and for $|H|=64$ the weight outside
+$H$ is at least $16$. So every such cut weighs at least $640$.\footnote{The
+subgroups of $\Gamma\cong(\ZZ/4)^{3}\times\ZZ/2$ have orders that are powers
+of two. The computation in \cite{BMB26} runs over all $636$ subgroups, and
+the algorithm of Stoer and Wagner finds the least cut, $640$, at a single
+vertex.}
+\end{proof}
+
+\begin{corollary}[Six consecutive shifts]\label{cor:efoursix}
+Keep \Cref{lem:efourshifts}. If the shifts of the $128$ pieces $L_{\zeta}$
+lie in six consecutive integers, then, for every order, every choice of the
+shifts of the $M_{i}$ and every placement of the $t_{i}$,
+$\dim\Ext^{2}(E,E)\ge640$; no such convolution meets the polarised
+criterion.
+\end{corollary}
+
+\begin{proof}
+By \Cref{cor:efourfive} we may assume that the shifts take both values $s$
+and $s-5$ of the window $s,\dots,s-5$; let the parity at $s$ have its values
+in $\{s,s-2,s-4\}$ and the other in $\{s-1,s-3,s-5\}$. If one of them takes
+two values two apart, or three, \Cref{thm:efourspreadtwo} applies.
+Otherwise the first takes $\{s\}$ or $\{s,s-4\}$ and the second $\{s-5\}$ or
+$\{s-1,s-5\}$. For $\{s\}$ and $\{s-5\}$ this is \Cref{prop:efoursingle},
+and for $\{s,s-4\}$ and $\{s-1,s-5\}$ it is \Cref{prop:efourpairs}. For
+$\{s\}$ and $\{s-1,s-5\}$, \Cref{prop:efourgap} applies in its second form
+with $y=s$: the shift $s-1$ is taken and $s+1$, $s-3$ are not. For
+$\{s,s-4\}$ and $\{s-5\}$ it applies in its first form with $y=s-5$: the
+shift $s-4$ is taken and $s-6$, $s-2$ are not. The least of the bounds is
+$640$.
+\end{proof}
+
+For the arrangements outside these results the diagonal still carries a
+large part of the obstruction.
+
+\begin{proposition}[Cup products on the diagonal at $n=4$]
+\label{prop:efourcupkernel}
+Keep \Cref{lem:efourshifts}, so that $D^{2}$ has dimension $131\cdot28=3668$.
+For every convolution the cup products vanish on the $84$ diagonal classes of
+the $M_{i}$, and on the $3584$ diagonal classes of the $L_{\zeta}$ they have
+a kernel of dimension at least $400$. So their kernel on $D^{2}$ has
+dimension at least $484$, and a convolution meeting the polarised criterion
+needs products of length at least three that remove at least $380$ diagonal
+classes.
+\end{proposition}
+
+\begin{proof}
+As in the proof of \Cref{prop:cupkernel}, the cup products in $\cH(a,b)$
+are $(y_{a}-y_{b})\wedge\delta^{H}_{ab}$, they vanish on the classes of the
+$M_{i}$, and for $L_{\zeta}$, $L_{\zeta'}$ and a type $\tau$ of degree two on
+the four surfaces they vanish on the part of type $\tau$ unless $\zeta'/\zeta$
+fixes the coordinates in the support of $\tau$. So a class whose part of type
+$\tau$ depends only on the coordinates of $\zeta$ in the support of $\tau$
+has vanishing cup products. The four types $(2,0,0,0)$ have dimension one and
+four values of the coordinate, the six types $(1,1,0,0)$ have dimension four
+and sixteen values of the two coordinates: $4\cdot4+6\cdot16\cdot4=400$. By
+\Cref{prop:nothingenters}, which holds for $n=4$, the kernel of $d_{E}$ on
+$D^{2}$ injects into $\Ext^{2}(E,E)$, and it is at most $104$ only if the
+longer products remove $380$ dimensions of these $484$.\footnote{For
+general components on every pair of pieces that the degrees allow, the
+computation in \cite{BMB26} finds that the graphs $\Gamma_{\tau}$ of the
+proof of \Cref{prop:cupkernel} have exactly these $4$ and $16$ components and
+that the cup products have rank $3184$ on the $3584$ classes, modulo the
+prime $1000003$; so $484$ is the least kernel that the cup products can
+leave.}
+\end{proof}
+
+A computation in \cite{BMB26} checks \Cref{lem:efourspread} independently of
+the proof, by enumerating over the ratios every term with leaves between
+pieces that the degrees on the four surfaces and \Cref{lem:degreedrop} allow,
+and every run through the multiples in the four placements; it checks the
+cut of \Cref{lem:cayleycut}, the counts of the footnotes, and, piece by
+piece with the shifts of the multiples left free, the arrangements of
+\Cref{thm:efourspreadtwo}, \Cref{thm:efourspreadthree} and
+\Cref{prop:efourgap}. Another computation in \cite{BMB26} checks
+\Cref{lem:efourlonely} by enumerating, with the shifts of the multiples
+left free, every term on a diagonal class that the degrees allow when the
+parities sit at single shifts at the distances $5$ to $13$, and
+\Cref{prop:efourpairs} piece by piece for random splits, with the $636$
+subgroups of $\Gamma$ and the least cut; it also runs over the occupied sets
+within six values. \Cref{fig:efourspread} and \Cref{fig:efoursix} draw the
+arrangements and the bounds.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\textwidth]{fig_efourspread}
+\caption{The shift arrangements of the pieces $L_{\zeta}$ on $E_{0}^{8}$.
+Left: one parity at two values two apart; a piece $c$ is joined to the
+thirteen pieces whose ratio moves every coordinate, one by $-1$, and the
+groups $\cH^{4}$ of the edges crossing between the values survive, weighing
+at least $1024$ (\Cref{lem:efourspread}(ii), \Cref{lem:cayleycut}). Middle:
+the four kinds of arrangement within five consecutive values, with the
+result that excludes each and its bound on $\dim\Ext^{2}$. Right: the
+diagonal at $n=4$; the cup products leave at least $484$ of the $3668$
+classes, and the criterion allows $104$ (\Cref{prop:efourcupkernel}).}
+\label{fig:efourspread}
+\end{figure}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\textwidth]{fig_efoursix}
+\caption{The arrangements within six consecutive values on $E_{0}^{8}$.
+Left: the parities at single shifts $s$ and $s-g$, $g$ odd and at least five;
+a term on a diagonal class at a piece $a$ runs through $M_{1}$, $M_{2}$,
+$M_{3}$ and no other piece, and since each step adds one to the shift modulo
+$4$ the four nodes have distinct residues, so the multiples serve at most one
+of the two shifts and the $1792$ diagonal classes at the other survive
+(\Cref{lem:efourlonely}, \Cref{prop:efoursingle}). Middle: the interleaved
+shifts; the groups $\cH^{3}$ between $A$ and $B$ and between $A'$ and $B'$
+survive and form a cut of the Cayley graph of the $28$ ratios that move
+three coordinates, of weight at least $640$ (\Cref{prop:efourpairs}).
+Right: the four arrangements left within six values by the results for five
+values, each with its bound on $\dim\Ext^{2}$ (\Cref{cor:efoursix}).}
+\label{fig:efoursix}
+\end{figure}
+
 \begin{remark}[What the route gives]\label{rem:convolutionsopen}
 At $n=3$ the route through convolutions of these pieces is decided. The
 diagonal obstruction of \Cref{thm:esixdiagonal} can be removed: the
@@ -2209,13 +2919,34 @@ differ in three coordinates and have adjacent shifts are again reached by
 nothing, in every convolution, and when the pieces $L_{\zeta}$ occupy two
 shifts, as in the explicit convolution, no term of $d_{E}$ leaves them, so
 that $\dim\Ext^{2}(E,E)\ge40960$ against the $104$ allowed
-(\Cref{thm:efourtwolevels}). With three or more shifts the argument stops:
-a component between two pieces of the lower shifts can follow such a class,
-and the computation in \cite{BMB26} finds terms that the degrees allow as
-soon as one piece is moved to a third shift; products of length three and
-four among the $L_{\zeta}$ also pass every test of \Cref{thm:esixdiagonal}
-on the $3668$ diagonal classes. Whether some convolution of the $131$ pieces
-with three or more shifts meets the criterion at $n=4$ is open.
+(\Cref{thm:efourtwolevels}). With three consecutive shifts the
+differential reaches these classes, but only through cup products into the
+groups between the highest and the lowest shift, and at least $22528$ of
+them survive (\Cref{thm:efourthreelevels}). The groups of spread three, and
+those of spread two whose ratio moves every coordinate, one of them by $-1$,
+are untouched as well, in every convolution
+(\Cref{lem:efourspread}): the latter cross every cut between
+two shift values of one parity, and weigh at least $1024$ there
+(\Cref{thm:efourspreadtwo}); with one parity at a single shift, those of
+spread three, or of spread one beside a gap, survive in their turn
+(\Cref{thm:efourspreadthree}, \Cref{prop:efourgap}). Together they exclude
+every convolution whose pieces $L_{\zeta}$ have their shifts within five
+consecutive values (\Cref{cor:efourfive}). The two arrangements left within
+six values fall as well: with each parity at a single shift, at any odd
+distance, the diagonal classes at one of the two shifts can be reached only
+through all three multiples, and the multiples serve at most one of them
+(\Cref{lem:efourlonely}, \Cref{prop:efoursingle}); the interleaved shifts
+leave the groups of \Cref{thm:efourtwolevels} on a cut
+(\Cref{prop:efourpairs}). So every convolution whose shifts lie in six
+consecutive values fails (\Cref{cor:efoursix}). For wider arrangements the
+cup products still leave $484$ diagonal classes, so products of length at
+least three would have to remove $380$ (\Cref{prop:efourcupkernel}), and
+products of length three and four among the $L_{\zeta}$ pass every test of
+\Cref{thm:esixdiagonal}. Whether some convolution of the $131$ pieces whose
+shifts do not lie in six consecutive values, and whose parities do not each
+sit at one shift, meets the criterion at $n=4$ is open. Markman's theorem
+does not reach the eightfolds of Weil type, so such a convolution would give
+a new case.
 \Cref{fig:convolutions} shows the excess count and the
 surviving path, and \Cref{fig:diagonalbudget} the budget of diagonal
 classes.

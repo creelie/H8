@@ -4,12 +4,12 @@ verify_all.py
 
 The single verification driver for the paper.  It runs the five self-contained
 checks (I) to (V) below and then calls the companion scripts in this
-directory, which carry the items (VI) to (LXXVI) other than the Macaulay2
+directory, which carry the items (VI) to (LXXVIII) other than the Macaulay2
 items (XXIX), (XXXI) and (XL).  The arithmetic is exact (rational, integer,
-or exterior algebra over Q) except in fourfold_products.py, whose one
-double-precision rank the paper states as such, and in parts (C) and (D) of
-diagonal_ci.py, which test a map proved by hand and on which no statement of
-the paper rests.
+or exterior algebra over Q) except in fourfold_certified.py, which works in
+ball arithmetic with rigorous error bounds, and in fourfold_products.py and
+parts (C) and (D) of diagonal_ci.py, which work in double precision and on
+which no statement of the paper rests.
 
 Run with
 
@@ -227,17 +227,20 @@ Contents
          surviving tree, the rank 192 on the classes of type (1,1,0), an
          explicit convolution with its Maurer-Cartan equation, the
          isolated blocks between Weil pieces that differ everywhere, the
-         bound 69 > 57  [fourfold_products.py]
+         bound 69 > 57  [fourfold_products.py]; part (H): the rank 192
+         proved in ball arithmetic  [fourfold_certified.py]
   (LXXIII) diagonal complete intersections of Vandermonde type: the
          Lagrange identity, the Vandermonde minors, the map from C^r and
          its degree |G|, the genus of the generalised Fermat curve, the
          Euler number and the Hodge numbers of the complete intersection
          against the quotient C^r/G  [diagonal_ci.py]
-  (LXXIV) convolutions of the Weil pieces on E_0^8 at two shifts: the 28
-         partners and 640 classes, the degrees of the groups between
-         pieces, the drop of runs through the multiples, the enumeration
-         of every chain the degrees allow at the 1792 pairs, and the
-         terms that appear at a third shift  [convolutions_efour.py]
+  (LXXIV) convolutions of the Weil pieces on E_0^8 at two and three
+         shifts: the 28 partners and 640 classes, the degrees of the
+         groups between pieces, the drop of runs through the multiples,
+         the enumeration of every chain the degrees allow at the 1792
+         pairs, the terms that appear at a third shift, and, at three
+         consecutive shifts, the targets H^5, their weight 960 per piece,
+         and the spectrum of their Cayley graph  [convolutions_efour.py]
   (LXXV) very general diagonal complete intersections: the Lie algebra
          of the squared transvections along a chain of vanishing cycles,
          the invariants of sp and sl in exterior powers, the signatures of
@@ -250,6 +253,17 @@ Contents
          degeneration step, the merge lemma, the discriminant of the new
          part, and the very general count for d = 2, 3, 4, 6
          [cyclic_monodromy.py]
+  (LXXVII) groups of spread two and three on E_0^8: the thirteen groups
+         H^4 that nothing touches, the enumeration over the ratios with the
+         degree drop, the runs through the multiples, the cuts of their
+         Cayley graph (at least 1024), shifts three apart and gaps of four
+         piece by piece, the arrangements within five consecutive values,
+         and the cup kernel 484 at n = 4  [efour_blocks.py]
+  (LXXVIII) the diagonal at a lonely shift on E_0^8: the runs through
+         the multiples, the four paths of a term on a diagonal class and
+         their residues modulo 4, the cut of the interleaved shifts (at
+         least 640, 636 subgroups), and the arrangements within six
+         consecutive values  [efour_six.py]
 """
 
 import os
@@ -705,11 +719,12 @@ def main():
     head("(LXXII) the fourfold products on E_0^6 and the classes no "
          "product removes")
     run_module("LXXII", "fourfold_products.py")
+    run_module("LXXII", "fourfold_certified.py")
 
     head("(LXXIII) diagonal complete intersections of Vandermonde type")
     run_module("LXXIII", "diagonal_ci.py")
 
-    head("(LXXIV) convolutions of the Weil pieces on E_0^8 at two shifts")
+    head("(LXXIV) convolutions of the Weil pieces on E_0^8 at two and three shifts")
     run_module("LXXIV", "convolutions_efour.py")
 
     head("(LXXV) very general diagonal complete intersections")
@@ -717,6 +732,14 @@ def main():
 
     head("(LXXVI) monodromy of cyclic covers of degree 3, 4 and 6")
     run_module("LXXVI", "cyclic_monodromy.py")
+
+    head("(LXXVII) groups of spread two and three on E_0^8, and five "
+         "consecutive shifts")
+    run_module("LXXVII", "efour_blocks.py")
+
+    head("(LXXVIII) the diagonal at a lonely shift on E_0^8, and six "
+         "consecutive shifts")
+    run_module("LXXVIII", "efour_six.py")
 
     print()
     print("=" * 70)

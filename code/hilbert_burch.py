@@ -67,7 +67,7 @@ What is checked:
       by the injectivity of phi, since max Q exceeds max P and the summand
       O(f Theta) of E_1 with f largest admits no nonzero map to E_0.
 
-Item (XXXII) of the verification section.
+Item (XXXII) of COMPUTATIONS.md.
 """
 from fractions import Fraction as F
 from itertools import combinations_with_replacement

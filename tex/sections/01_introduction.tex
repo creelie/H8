@@ -154,8 +154,8 @@ the discriminant of the family is the class of $b^{n}$, which can be any
 discriminant (\Cref{thm:divcriterion}, \Cref{thm:quatweil},
 \Cref{thm:everyfamily}). Products of abelian surfaces of Weil type give a
 third, since the Weil class is multiplicative:
-$\omega(A_{1})\,\omega(A_{2})=2\,\omega(A_{1}\times A_{2})$ for the
-$K$-valued invariant $\omega$ (\Cref{thm:weilmult}, \Cref{thm:everyn}). None
+$\omega(A_{1})\,\omega(A_{2})=\omega(A_{1}\times A_{2})$ for the
+$K$-valued Weil class $\omega$ (\Cref{thm:weilmult}, \Cref{thm:everyn}). None
 of these base points uses anything beyond the theorem of Lefschetz on $(1,1)$
 classes.
 
@@ -276,9 +276,10 @@ sheaf has vanishing Chern character strictly between degree zero and the top
 degree (\Cref{prop:weiltorussheaves}, \Cref{thm:p2false},
 \Cref{thm:cmpurefalse}). With powers of the polarisation added the criterion
 becomes one number: for a Chern character $N\omega+\sum_{k}c_{k}\theta^{k}$
-and $n\ge3$ an object meets it exactly when
-$\dim\Ext^{2}(E,E)=(4+\rho)n^{2}-2n$, where $\rho\le3$ is the rank of the
-Hankel matrix of the numbers $k!\,c_{k}$ (\Cref{thm:p2primenumber}).%
+and $n\ge3$ every object has $\dim\Ext^{2}(E,E)\ge(4+\rho)n^{2}-2n$, where
+$\rho\le3$ is the rank of the Hankel matrix of the numbers $k!\,c_{k}$, and
+an object attaining this bound meets the criterion
+(\Cref{thm:p2primenumber}).%
 \footnote{That is, $\rho$ is the rank of the $(2n-1)\times3$ matrix with
 entries $\mu_{i+j}$, $0\le j\le2n-2$, $0\le i\le2$, where $\mu_{k}=k!\,c_{k}$
 (\Cref{setup:p2prime}). A vector in its kernel is a linear recurrence of order
@@ -313,7 +314,15 @@ is an effective combination of exponentials of divisor classes contributes to
 the Weil line, by a positivity argument with the norm form
 (\Cref{thm:positivity}), and no object with a line bundle summand off the
 polarisation line meets the criterion, so no sum of line bundles does in any
-dimension (\Cref{thm:linebundle}, \Cref{cor:noline}). The weakened criterion
+dimension (\Cref{thm:linebundle}, \Cref{cor:noline}). Convolutions of line
+bundles, their iterated cones, are cut down by the maps between the pieces.
+Fewer than $2n$ pieces with nondegenerate differences never meet the
+criterion (\Cref{thm:fewpieces}). On $E_{0}^{2n}$, $E_{0}=\CC/\ZZ[i]$, the
+signed Chern characters of $2\cdot4^{n-1}$ line bundles add up to a real
+Weil class (\Cref{prop:weilpieces}), and with three multiples of the
+polarisation no convolution of these pieces meets the criterion at $n=3$
+(\Cref{thm:noconvolution}), nor at $n=4$ when the shifts of the pieces lie
+in six consecutive values (\Cref{cor:efoursix}). The weakened criterion
 of \cite[Question~11.4]{Mar25b} reduces, for the transform of
 $\cF\boxtimes\cF$, to the single identity
 $\mathrm{At}(\cF)^{2}=-d\Theta^{2}\cdot\id$ for the sheaf $\cF$ on the
@@ -325,12 +334,14 @@ eigenplanes of the real multiplication, which decides Markman's explicit pair
 \cite[Example~11.2.7]{Mar25c} in the same way (\Cref{thm:quarticlocal},
 \Cref{cor:markmanquarticfails}).
 
-The supports are determined as well. A support that is not Cohen--Macaulay
-carries a local obstruction, and a Cohen--Macaulay one carries none
-(\Cref{cor:cmdichotomy}). For a smooth support, a surface $S$ in the
+The supports are constrained as well. A Cohen--Macaulay support carries no
+local obstruction, while two smooth branches of codimension two meeting
+transversally at a point carry one (\Cref{cor:cmdichotomy}). For a smooth support, a surface $S$ in the
 fourfold, Grothendieck--Riemann--Roch fixes every numerical invariant, and the
-Bogomolov--Miyaoka--Yau inequality leaves only $d\in\{1,3,5,7\}$
-(\Cref{thm:smoothinvariants}, \Cref{cor:fourdiscriminants}). Complete
+Bogomolov--Miyaoka--Yau inequality gives $d\le b^{2}$ for the twist
+$b\Theta$, which leaves only $d\in\{1,3,5,7\}$ for the twist $3\Theta$ of
+Markman's candidate (\Cref{thm:smoothinvariants},
+\Cref{cor:fourdiscriminants}). Complete
 intersections are excluded for every $b$ and $d$ (\Cref{thm:noci}), two-term
 complexes of powers of the polarisation at every rank, twist and
 discriminant (\Cref{thm:nosplit}), and a Hilbert--Burch resolution of a
@@ -467,9 +478,9 @@ algebraic at every fibre.}
 
 Several proofs rest on finite computations: exact linear algebra over number
 fields and over function fields, exhaustive searches over finite sets, and
-Gr\"obner bases. They are carried out in exact arithmetic, apart from one
-rank computed in double precision with an explicit margin
-(\Cref{prop:fourfoldrank}), and the finite
+Gr\"obner bases. They are carried out in exact arithmetic, or, for the
+integrals of theta functions behind \Cref{prop:fourfoldrank}, in ball
+arithmetic with rigorous error bounds, and the finite
 arithmetic behind a number of the theorems is certified a second time in the
 Lean~4 proof assistant; the programs and the certificate are archived with
 the paper \cite{BMB26}, and each computation is cited where it is used.

@@ -2,7 +2,7 @@
 """
 weil_tori.py
 
-Item (LI) of the verification section: the Hodge classes of a very general
+Item (LI) of COMPUTATIONS.md: the Hodge classes of a very general
 K-linear complex torus of Weil type, the input of the theorem that no perfect
 complex whose Chern character is exactly a Weil class is semiregular.
 

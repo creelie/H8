@@ -8,11 +8,16 @@ implications of the literature that join them.
 \subsection{Limits of the divisor obstruction}
 
 \begin{remark}[Markman's construction]\label{rem:markmanscope}
-The objects constructed by Markman \cite{Mar25a,Mar25b} are not obtained by
+The objects through which Markman proves the Weil classes of the sixfolds of
+trivial discriminant algebraic \cite{Mar25a,Mar25b} are not obtained by
 restriction from an ambient projective space, and they are not
 $K$-equivariant. \Cref{sec:escape} analyses exactly which hypotheses they
-escape and why, and \Cref{prop:whichescaped} lists the three. Nothing in this
-paper bears on them, and nothing needs to: their conclusion is a theorem.
+escape and why, and \Cref{prop:whichescaped} lists the three. No obstruction
+of this paper bears on those objects, and none needs to: their conclusion is
+a theorem. The candidates proposed for cases that remain open, in
+\cite[Section~12]{Mar25b} and \cite[Example~11.2.7]{Mar25c}, are another
+matter, and \Cref{thm:candidatefails} and \Cref{cor:markmanquarticfails}
+decide them.
 \end{remark}
 
 \begin{remark}[Twisted objects and gerbes]\label{rem:twisted}
@@ -260,7 +265,7 @@ is that propagation can be started in every family, not that it has to be.
 quartic CM field $F\supset K$, one cell for each $n$ and each kind of
 discriminant, grass where the Weil classes are proved algebraic
 (divisor classes at $n=1$; Markman \cite{Mar25a,Mar25b} at $n=2$ and at
-$n=3$, $\delta=\delta_{0}$) and clay where they are reached through the
+$n=3$, $\delta=\delta_{0}$) and clay where they rest on the open
 propagation statement. The indigo arrows
 are the descent of \Cref{prop:descent}(i), from the trivial discriminant in
 dimension $n+1$ to every discriminant in dimension $n$; the dashed teal
@@ -292,19 +297,23 @@ The list is as follows.
   \Cref{thm:closure} places both. What this paper contributes is the exact
   form of the demand. The local part of the criterion is a condition on depth
   and nothing else: if the support is Cohen--Macaulay there is no local
-  obstruction at any point (\Cref{thm:cmvanishing}), and if it is not, at a
-  point where two components meet only at that point or where there is an
-  embedded point, the criterion fails outright (\Cref{thm:candidatefails},
-  \Cref{cor:localobstruction}, \Cref{cor:cmdichotomy}). The candidate of
+  obstruction at any point (\Cref{thm:cmvanishing}); if it is not, the local
+  $\Ext^{2}$ is nonzero at the bad points, and where two smooth branches of
+  codimension two meet transversally the criterion fails outright
+  (\Cref{thm:candidatefails}, \Cref{cor:localobstruction},
+  \Cref{cor:cmdichotomy}). The candidate of
   \cite[Section 12]{Mar25b} is of the second kind, and it cannot be moved to
   the first: separating the branches is what would restore the depth, and
   \Cref{rem:normalisationcm} shows that doing so moves the Chern character
-  off the secant plane. What is needed is therefore a Cohen--Macaulay
-  support, and for such a support the whole criterion is the single vanishing
-  of the image of $A_{\theta}A_{\theta'}$ in
-  $H^{1}(Z,\cE xt^{1}(\cI_{Z},\cI_{Z}))$. Such a support has one of two
+  off the secant plane. What is needed is therefore a support without such
+  points. For a Cohen--Macaulay support the identity \eqref{eq:heisenberg}
+  is the single vanishing of the image of $A_{\theta}A_{\theta'}$ in
+  $H^{1}(Z,\cE xt^{1}(\cI_{Z},\cI_{Z}))$, and the sheaf must in addition
+  extend to first order along the polarised deformations
+  (\Cref{thm:factor}(iii)). Such a support has one of two
   shapes (\Cref{cor:disjointroutes}): a smooth one, where the invariants are forced
-  outright and $d\le9$ (\Cref{thm:smoothinvariants},
+  outright and $d\le b^{2}$ for the twist $b\Theta$, so $d\le9$ for the twist
+  $3\Theta$ of \Cref{setup:markman} (\Cref{thm:smoothinvariants},
   \Cref{cor:fourdiscriminants}), and a singular one. In neither may the
   Hilbert--Burch resolution split into powers of $\Theta$ or into simple
   semi-homogeneous bundles (\Cref{thm:nosplit}, \Cref{thm:noblocks}), which
@@ -372,8 +381,8 @@ The list is as follows.
   $\mathbf{W}(K(\sqrt2),3,\iota(\delta))$. What this paper contributes: a base
   point in every family, at a member with quaternionic multiplication
   (\Cref{thm:everyfamily}); the locus of such members is a Lagrangian
-  Grassmannian of codimension $n(n-1)/2$ (\Cref{prop:lagrangian}), so
-  the family is reached from it by propagation.
+  Grassmannian of codimension $n(n-1)/2$ (\Cref{prop:lagrangian}), and
+  the rest of the family can be reached from it only by propagation.
 \item \emph{Exceptional classes that are not of Weil type.} On an abelian
   variety the Hodge ring can contain exceptional classes that the Weil
   construction does not produce. Through dimension five it does not
@@ -772,6 +781,9 @@ for $L_{W}$, by its uniqueness, and it is induced by an algebraic cycle by
 Steps 3 and 5.
 \end{proof}
 
+\Cref{fig:lefschetzgrid} draws the summands of the proof in relative
+dimension four.
+
 \begin{corollary}[Mumford families]\label{cor:mumfordlefschetz}
 Let $\pi\colon W\to C$ be a non-isotrivial abelian scheme of relative dimension
 four over a smooth projective connected curve, $W$ projective, whose very
@@ -977,10 +989,11 @@ along the curve. The base points of this paper then turn each of the two
 targets of \Cref{rem:bullseye}, one Weil family and the first
 classes beyond the Weil lines, into \textup{(L)} for one explicit variety. The
 reductions are equivalences, so they locate the difficulty rather than remove
-it. Along the way two things are proved outright: the Hodge conjecture for
-the self-product of a Mumford fourfold at every CM point, and the
-impossibility of realising the two branches of \Cref{rem:twobranches} by two
-objects.
+it. Along the way the Hodge conjecture is proved for the self-product of a
+Mumford fourfold at every CM point (\Cref{thm:mumfordcm}), and the two
+branches of \Cref{rem:twobranches} are shown not to be realisable by two
+objects (\Cref{thm:nosum}), an implication whose hypothesis
+\Cref{thm:p2false} shows is never met.
 
 \begin{lemma}[Spreading along a curve]\label{lem:spreading}
 Let $\pi\colon W\to C$ be a smooth projective morphism onto a smooth projective
@@ -1062,6 +1075,8 @@ holds by \Cref{thm:lefschetzfamily}. Conversely, under $B(W)$, (ii) applied at
 $c_{0}$ to each invariant class makes it the restriction of an algebraic
 class.
 \end{proof}
+
+\Cref{fig:propagation} draws part (ii) along a compact Shimura curve.
 
 \begin{figure}[tbp]
 \centering
@@ -1215,7 +1230,7 @@ general complete intersection curve through $s_{0}$ and $t_{1}$ avoids it.
 \begin{theorem}[Two branches cannot be two objects]\label{thm:nosum}
 Let $A$ be of $(K,-1,n)$-Weil type with $n\ge2$, $\omega\ne0$ a rational class
 on the Weil line, and $E$ a perfect complex with $\ch(E)=N\omega$, $N\ne0$, and
-$\sigma_{E}$ injective, for instance with $\dim\Ext^{2}(E,E)=2n(2n-1)$. Let
+$\sigma_{E}$ injective. Let
 $E\cong\bigoplus_{i}F_{i}[k_{i}]$ be any decomposition. Then every summand
 $F_{i}$ with $\ch(F_{i})\ne0$ has a Yoneda product
 $\bigwedge^{2}\Ext^{1}(F_{i},F_{i})\to\Ext^{2}(F_{i},F_{i})$ that is not

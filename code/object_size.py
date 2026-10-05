@@ -43,7 +43,7 @@ What is checked here, in exact arithmetic in the exterior algebra model:
       measuring omega against eta introduces factors of d and of the
       polarisation type.  No growth rate should be read off it.
 
-Item (XVIII) of the verification section.
+Item (XVIII) of COMPUTATIONS.md.
 """
 from fractions import Fraction as F
 from itertools import combinations

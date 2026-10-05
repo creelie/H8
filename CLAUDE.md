@@ -403,6 +403,116 @@ Lean Section 45 (130 theorems); `figures/make_round42.py`, with
 `fig_vgmonodromy`, `fig_vgscope`, `fig_vgcounts` and the strip of
 `fig_vandermonde` redrawn; a one-sentence abstract at Deep's request.
 2175 checks, 130 Lean theorems, 395 pages, 746 labels.
+Round 43 (Deep chose "Three shifts" on a decision card) proved
+`thm:efourthreelevels` after `thm:efourtwolevels` in
+`tex/sections/10c6_objects.tex`: for a convolution on E_0^8 whose Weil
+pieces sit at three consecutive shifts s, s-1, s-2 (one parity class Q at
+s-1, the other split into T at s and B at s-2), the 40960 classes of
+`thm:efourtwolevels`(i) stay, d_E acts on them only by cup products into
+H^5(c,e) with c in T, e in B (multiples excluded by counting up and down
+steps), each piece has 960 such target dimensions, and the cut of the
+weighted Cayley graph on the 64 ratios is at most 16(960 - lambda_min) =
+18432 (least eigenvalue -192, attained by the split zeta_3 zeta_4 in
+{1, i}), so dim Ext^2 >= 22528 > 104; shifts not in three consecutive
+values stay open in `rem:convolutionsopen`. Item (LXXIV) now covers two and
+three shifts (`code/convolutions_efour.py`, parts (F) to (I), 16 checks,
+2182 in all); Lean Section 46 (133 theorems, 103 axiom-free, 30 on
+`propext`); `fig_efourthree` from `figures/make_round43.py` and the strip of
+`fig_efourshifts` redrawn; a row of `tab:scope`.
+2182 checks, 133 Lean theorems, 397 pages, 748 labels.
+Round 44 excluded every convolution on E_0^8 whose Weil pieces have their
+shifts within five consecutive values (`cor:efourfive`, dim Ext^2 >= 640),
+after `fig_efourthree` in `tex/sections/10c6_objects.tex`:
+`lem:efourspread` (for positive spread d_E has all its leaves between pieces;
+the groups H^4 of spread two whose ratio moves all four coordinates, one by
+-1, thirteen ratios of weight 256 once and 64 twelve times, are reached by no
+coboundary and killed by no term, by the parity count X = |K| - 1; d_E
+vanishes on spread three; spread-one H^3 terms drop the shift by one or two),
+`lem:cayleycut` (a cut of a Cayley graph weighs at least min_H |H| w(S \ H),
+1024 for the group of the 64 ratios of one parity, only at H = 0),
+`thm:efourspreadtwo` (one parity at {s, s-2} or {s+2, s, s-2}: >= 1024),
+`thm:efourspreadthree` (one parity at s, the other in {s-3, s+3}:
+64 1072 - 128 8 = 67584), `prop:efourgap` (one parity at y, pieces at y+1,
+none at y-1, y+3, or the dual: >= 640 |T|), and `prop:efourcupkernel` (the
+cup products leave at least 484 = 400 + 84 of the 3668 diagonal classes,
+exactly 484 for general components, rank 3184 mod 1000003, so longer
+products must remove 380); within six values the arrangements single shifts
+five apart and {s, s-4} with {s-1, s-5} are left, and wider ones are open in
+`rem:convolutionsopen`. Item (LXXVII), `code/efour_blocks.py` (21 checks,
+2203 in all; the piece-by-piece part takes about eight minutes); Lean
+Section 47 (139 theorems, 106 axiom-free, 33 on `propext`);
+`fig_efourspread` from `figures/make_round44.py`; a row of `tab:scope`; an
+`\enlargethispage{2pt}` in `tex/sections/11b_closuregraph.tex`.
+2203 checks, 139 Lean theorems, 402 pages, 756 labels.
+Round 45 settled the two arrangements left within six values
+(`lem:efourlonely`, `prop:efoursingle`, `prop:efourpairs`, `cor:efoursix`,
+`fig_efoursix`, after `cor:efourfive` in `tex/sections/10c6_objects.tex`):
+with each parity at a single shift, at an odd distance g >= 5, a nonzero
+term on a diagonal class at a piece a has a as its only piece and runs
+through M_1, M_2, M_3 (U = 3, D = 0 or U = 2, D = 1); every step adds 1 to
+the shift mod 4, so the four nodes have distinct residues and the multiples
+serve at most one of the two shifts, and the 64 28 = 1792 diagonal classes
+at the other inject by `prop:nothingenters` (g = 1, 3 by the earlier
+theorems); with {s, s-4} and {s-1, s-5} the groups H^3 of
+`thm:efourtwolevels` between adjacent shifts are touched by nothing and form
+the cut of A u B' in the Cayley graph of the 28 ratios that move three
+coordinates and change the parity (weight 640, 636 subgroups, least only at
+H = 0), so >= 640. Hence every convolution whose shifts lie in six
+consecutive values fails (`cor:efoursix`, >= 640 > 104); wider
+arrangements, other than single shifts at any odd distance, stay open in
+`rem:convolutionsopen`. Item (LXXVIII), `code/efour_six.py` (6 checks,
+2209 in all; about seven minutes, mostly the interleaved splits piece by
+piece); Lean Section 48 (144 theorems, 109 axiom-free, 35 on `propext`);
+`fig_efoursix` from `figures/make_round45.py`; the row of `tab:scope`.
+Round 45 also replaced the one double-precision rank of the paper
+(`prop:fourfoldrank`) by a proof in ball arithmetic: `code/fourfold_certified.py`,
+part (H) of item (LXXII) (8 checks, about six minutes), reduces every
+integral of theta functions to coefficients of holomorphic sections by
+(nabla a) b = (d_a nabla(ab) + H)/(d_a + d_b), H holomorphic, finds them by
+interpolation at rational points in Arb at 128 bits with the theta tails
+bounded, takes the invariant sections on B_j as the image of the projector
+of the two half periods, and certifies rank 12 per piece and 192 in all by
+Gram determinants whose intervals exclude 0 (also with x1 x2 = x2 x3 = 0,
+the sign reversed, t = (2,5,7)); the introduction and the computations list
+say that no statement rests on floating point. `fig_product` was redrawn
+(the plot to n = 7 with ticks and the shaded codimension).
+2217 checks, 144 Lean theorems, 405 pages, 761 labels.
+Round 46 was the arXiv v1 pass, a line-by-line read of the whole paper
+against Deep's request for a consistent text with no over- or under-claims.
+It corrected the constants of the multiplicativity formula `eq:weilmult` and
+`cor:prodalg` in `tex/sections/10c2_basepoints.tex` (with
+`code/weil_product.py`), made `ex:splitsmall` integral (`code/split_locus.py`),
+proved the integrality recursion (`code/integrality.py`, new equation
+`eq:omegaprod`), moved `fig_moduli` to Appendix B as `fig:moduli`, and added
+`prop:divisortemplate` after `prop:orlovequality` in
+`tex/sections/10c5_polarised.tex` (sheaves on divisors in the Orlov template:
+the profile allowed by Serre duality and the contraction bounds; a vector
+bundle G on a smooth divisor with ch(i_* G) in P_theta needs [D] = b theta,
+ch(G) = r S(theta) T_b(theta), r >= 2, no line bundle; the Ext profile of
+V|_D; nothing at n = 5), with `code/attack/gaps/orlov_growth/divisor_sheaves.py`
+(19 checks, run by `code/attack_checks.py`) and Lean Section 49. Scope
+corrections: `cor:fourdiscriminants`, `cor:latticeburch` and the smooth case
+hold at the twist 3 Theta only (d <= b^2 in general, d <= 9 at b = 3, d in
+{1,3,5,7} when N = (9+d)/2 is an integer); a non-Cohen-Macaulay support has
+nonzero local Ext^pd (`cor:cmdichotomy`(i), by Auslander-Buchsbaum and
+Nakayama) but is excluded only where two smooth codimension-two branches meet
+transversally; for a Cohen-Macaulay support condition (b) of
+`thm:factor`(iii) is equivalent to one vanishing in H^1(Z, Ext^1) (the scalar
+forced by the trace) and condition (a), first-order extension along the
+polarised deformations, remains, so the rule of `tab:rules` for such
+supports now cites `cor:cmdichotomy` and its open leaves in
+`code/closure_graph.py` include the extension; `rem:markmanscope` says that
+nothing here bears on the objects of Markman's proofs; `thm:nosum` is called
+vacuous by `thm:p2false`; in the introduction and `thm:final`(iv)
+`thm:p2primenumber` is stated as a lower bound for every object, an object
+attaining it meeting the criterion (the converse is not proved); the stale "beyond"
+entries of `tab:scope` for the pure form now read "nothing"; Appendix B lost
+a duplicated footnote and `prop:whichtypes`(ii), (iii) match their proof.
+`code/fourfold_certified.py` no longer imports scipy (the workflow installs
+only sympy, numpy and python-flint): its pivoted QR is a numpy
+Businger-Golub pivoting in `_pivots`.
+2218 checks, 147 Lean theorems (110 axiom-free, 37 on `propext`), 411 pages,
+763 labels.
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 
@@ -429,8 +539,10 @@ section.
 - `cd code && python3 verify_all.py` ends with `N checks passed, 0 failed`;
   keep the count in `README.md`, `lean/README.md`, `.zenodo.json`,
   `.github/workflows/lean.yml` and `tex/declarations.tex` in step.
-- `cd lean && lean HodgeObstruction.lean`: 130 theorems, each axiom-free or
-  depending on `propext` only.
+- `cd lean && lean HodgeObstruction.lean`: 147 theorems, each axiom-free or
+  depending on `propext` only; the number, in words, is also in
+  `README.md`, `lean/README.md`, `code/computations/lean.tex`, `.zenodo.json`
+  and `tex/declarations.tex`, and in figures in the workflow.
 - `cd tex && latexmk -pdf main.tex`: 0 errors, 0 overfull or underfull boxes,
   no undefined references.
 - Regenerate `code/paper_labels.txt` from the `\label`s in `tex/` whenever

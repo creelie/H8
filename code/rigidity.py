@@ -52,7 +52,7 @@ What is checked, exactly over Q(i), for n = 2, 3, 4:
   (d) a generic class has kernel zero, so it rigidifies the family to a
       point.
 
-Item (XIX) of the verification section.
+Item (XIX) of COMPUTATIONS.md.
 """
 from fractions import Fraction as F
 from itertools import combinations

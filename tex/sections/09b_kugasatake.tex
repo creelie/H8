@@ -60,7 +60,7 @@ because the grading is multiplicative and odd plus even plus odd is even.
 \end{proof}
 
 \begin{lemma}[The complex structure]\label{lem:cliffJ}
-With $e_{1},e_{2}$ as in \Cref{setup:k3type}, put $J=e_{1}e_{2}\in C^{+}$.
+With $e_{1},e_{2}$ as in \Cref{setup:k3type}, put $J=e_{1}e_{2}\in C^{+}\otimes_{\QQ}\RR$.
 Then $J^{2}=-1$, and left multiplication by $J$ is an $\RR$-linear operator on
 $C^{+}\otimes_{\QQ}\RR$ whose square is $-\id$.
 \end{lemma}
@@ -72,6 +72,9 @@ $e_{i}^{2}=q(e_{i})=1$.
 Left multiplication by an element of $C^{+}$ preserves $C^{+}$, and the square
 of left multiplication by $J$ is left multiplication by $J^{2}=-1$.
 \end{proof}
+
+\Cref{fig:ks} draws the positive plane $P$, the null cone of $q$ and the
+period domain in the smallest case $b=3$.
 
 \begin{definition}[Kuga--Satake variety]\label{def:ksvariety}
 Fix a lattice $C^{+}_{\ZZ}\subset C^{+}$ stable under multiplication. The
@@ -165,7 +168,8 @@ polarisation instead of recovering the class. The Kuga--Satake
 correspondence is a cohomology class on a triple product of varieties of
 unrelated dimensions, $\dim\mathrm{KS}(T)=2^{b-2}$ against $\dim X$, and it has
 neither property; in particular the composite of $\Psi$ with its transpose is
-multiplication by $q(v_{0})$ on $T$, not a power of a polarisation of $X$. So
+a nonzero multiple of the identity of $T$, not a power of a polarisation of
+$X$. So
 neither of the two properties on which \Cref{thm:hyperplane} rests holds for
 $\Psi$.
 \end{proof}

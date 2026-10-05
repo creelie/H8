@@ -2,7 +2,7 @@
 """
 twistor_locus.py
 
-Item (XLVII) of the verification section: the finite computations behind the
+Item (XLVII) of COMPUTATIONS.md: the finite computations behind the
 description of the Hodge locus of an exceptional class of a Mumford square
 among all complex tori, and behind the statement that no twistor line through
 a member of the Mumford family keeps the class of Hodge type.

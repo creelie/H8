@@ -119,11 +119,11 @@ $\bigwedge^{2}V_{+}\oplus\bigwedge^{2}V_{-}$ it produces is
 $\beta-d\widehat\beta$ rather than $\gamma=d\beta-\widehat\beta$. The
 convention of \eqref{eq:Mdef} is the one whose action on cohomology is
 $x\mapsto-Bx$, $\xi\mapsto dB^{-1}\xi$ in the proof of
-\Cref{thm:splitclosed}, and it is the one used in all the computations of
-\cite{BMB26}. A computation in \cite{BMB26} checks the three eigenvalues that
-determine it, and \cite{BMB26} shows that mixing the two conventions gives the
-wrong answer: the space of polarised deformations killing the Weil line then
-has dimension $n(n+1)/2$ instead of $n^{2}$. For $d=1$ the two conventions
+\Cref{thm:splitclosed}, and it is the one used in the computations of
+\cite{BMB26}, which check the three eigenvalues that determine it and show
+that mixing the two conventions gives the wrong answer: the space of polarised
+deformations killing the Weil line then has dimension $n(n+1)/2$ instead of
+$n^{2}$. For $d=1$ the two conventions
 coincide.
 
 \begin{remark}\label{rem:abundant}
@@ -194,6 +194,9 @@ in the spinor variety. The two points of (ii) are distinct, since
 $u_{t}+sv_{t}$ and $u_{t}-sv_{t}$ have the same component $1$ in $H^{0}$ and
 $v_{t}\ne0$; hence they exhaust the intersection.
 \end{proof}
+
+\Cref{fig:spinor} draws the case $n=2$, in which the line $\PP(P_{t})$
+meets the spinor quadric in the two conjugate points $[e^{\pm st}]$.
 
 \begin{example}\label{ex:planes}
 For $n=4$ and $d=1$,
@@ -475,6 +478,9 @@ linearly independent rational points stay linearly independent after scaling,
 which gives the last assertion.
 \end{proof}
 
+\Cref{fig:moment} draws the theorem at $n=2$ and $d=2$, with the points of
+the secant plane that integer combinations of line bundles reach.
+
 \begin{remark}[The factorials and the multiple $M$]%
 \label{rem:themultiple}
 The integer $M$ is not an artefact of the proof. The lattice spanned by the
@@ -485,18 +491,19 @@ difference of a polynomial of degree $n$ vanishes; and $(e^{t}-1)^{k}=t^{k}+
 contrast, is spanned by classes whose coordinates in the basis $t^{k}/k!$ are
 integers. The integer $M$ measures the index between the two lattices, and
 that index comes from the factorials in $\ch$. A computation in \cite{BMB26}
-determines the least $M$ for $1\le n\le10$, every squarefree $d\le11$ and
-a range of $a$ and $b$, together with the witness \eqref{eq:lbwitness} in each
+determines the least $M$ for $1\le n\le10$, $d\in\{1,2,3,5,7,11\}$,
+$a\in\{1,2,3\}$ and $b\in\{\pm1,\pm2\}$, together with the witness \eqref{eq:lbwitness} in each
 case. At $n=4$, $d=3$, $a=b=1$ the least multiple is $M=6$ and the witness is
 \[
   \alpha=-23\,[\cO_{X}]+66\,[\cO_{X}(t)]-54\,[\cO_{X}(2t)]
          +20\,[\cO_{X}(3t)]-3\,[\cO_{X}(4t)],
 \]
 of rank $6=Ma$; at $n=8$ the largest multiple over the range tested is $2016$,
-and $M=1$ occurs in none of the seventy-two cases tested with $n\ge7$. The
-freedom to rescale is therefore needed.
+and for each $n\ge7$ none of the seventy-two cases tested has $M=1$. The
+freedom to rescale is therefore needed. \Cref{fig:multiple} shows the least
+multiple for $n\le10$.
 
-The same item also checks, in the exterior algebra of a symplectic lattice,
+The same computation also checks, in the exterior algebra of a symplectic lattice,
 that $\theta^{k}/k!$ is an integral class for a principal polarisation
 $\theta$; this is Poincar\'e's formula in a form that does not need a curve,
 and it is why $t^{k}/k!$ is the natural integral basis in which to take the

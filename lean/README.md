@@ -21,16 +21,16 @@ A Lean 4 toolchain and nothing else. No Mathlib, no dependencies.
     lean HodgeObstruction.lean
 
 `lake build` builds the package declared in `lakefile.toml`; the second line
-prints the axiom report. Each takes about a minute. Silence from the elaborator means the kernel
+prints the axiom report. Each takes about ten minutes. Silence from the elaborator means the kernel
 accepted every theorem; the block at the foot of the file then prints one line
 per theorem. Every line must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
 through `decide` or the core lemmas on natural numbers, and none may mention `sorryAx`. The GitHub workflow in
 `.github/workflows/lean.yml` enforces all three, and fails the build if the
-number of theorems is not one hundred and thirty or if any of them reaches for a further
+number of theorems is not one hundred and forty-seven or if any of them reaches for a further
 axiom.
 
-## The one hundred and thirty theorems
+## The one hundred and forty-seven theorems
 
 | theorem | statement |
 | --- | --- |
@@ -69,10 +69,10 @@ axiom.
 | `norm_form_positive` | `a^2 + d b^2 > 0` for every nonzero `(a,b)`, ten fields |
 | `norm_sum_forces_zero` | a positive combination of norms vanishes only when every term does |
 | `semiregularity_source_target` | the source overtakes the target at `s = 5` when `n = 2` |
-| `secant_witness_at_n_four` | the line bundle witness of Theorem 14.13 reproduces `6 (u + v)` in every degree at `n = 4`, `d = 3` |
+| `secant_witness_at_n_four` | the line bundle witness of the theorem on secant sheaves reproduces `6 (u + v)` in every degree at `n = 4`, `d = 3` |
 | `secant_witness_rank` | that witness has rank `6`, which is `M a` and is positive |
 | `vandermonde_nodes_distinct` | the Vandermonde product on the nodes `0, ..., n` is nonzero for `n <= 8` |
-| `level_sums_forced` | the level sums recorded in Theorem 14.40 satisfy `sum_j M_j N_j^r = 0` for `r = 1,2,3`, at six level sets |
+| `level_sums_forced` | the level sums recorded in the theorem on semiregular split objects satisfy `sum_j M_j N_j^r = 0` for `r = 1,2,3`, at six level sets |
 | `level_sums_totals` | their totals are `1`, `3` and `-2`, so none of the objects has rank zero |
 | `level_matrix_nonsingular` | with at most `n` distinct norms the matrix `(N_j^r)` is nonsingular, so every level sum vanishes |
 | `gauss_norm_counts` | the number of Gaussian integers of norm `1, 2, 3, 4, 5, 9, 45` |
@@ -164,6 +164,23 @@ axiom.
 | `cyclic_norms` | `x^2 + xy + y^2` is never `2` modulo `4` and is even only for `x, y` even, so `2` is not a norm from `Q(sqrt(-3))` and norms have even `2`-adic valuation; `2 = 1 + 1`, `3 = 1 + 1 + 1` and `4` are norms where the lemma on the discriminant of the new part needs them |
 | `cyclic_vg_counts` | `T_d(k)` by a recursion equals the enumeration for `(d, k) = (3, 6), (4, 6), (6, 4)`; `T_4(6) = 141`, `T_6(6) = 1751`, `T_4(8) = 1107`, `T_6(8) = 38165`; the formula of the very general theorem equals a direct count of the characters for `(d, N, r) = (4, 5, 4), (3, 6, 4), (6, 4, 2)` and gives `142, 988, 3950, 1108, 1752, 12258, 38166` |
 | `cyclic_nonsplit_example` | `(1, 1, 2, 2, 3, 5, 5, 5)` modulo `6` has sum `0`, order `6`, `p = q = 3` and one coordinate `3`: a character whose abelian sixfold is of non-split Weil type |
+| `efour_three_targets` | every piece of `E_0^8` has `18`, `24`, `21` partners of its parity differing in `2`, `3`, `4` coordinates, with groups `H^5` of dimensions `64` (six times) and `16` (twelve times), `16`, and `0`, adding up to `960`; `32 * 960 = 30720` and `40960 - 30720 = 10240 > 104`: the targets of the three-shift theorem |
+| `efour_three_degrees` | with `p` at any rank and `delta = 1, 2`, every pair of runs through distinct multiples, not both empty, gives `Ext` degree `3 + delta - U + 7D` different from `3` when `c = e`, from `0` when `e` is above `c` and from `8` when `e` is below `c`: the case analysis of the three-shift theorem |
+| `efour_three_spectrum` | the character sums of the weighted Cayley graph of the targets are real and take the values `960, 384, 192, 96, -32, -64, -128, -192`; `64 (960 + 192) / 4 = 18432`, the split `zeta_3 zeta_4 in {1, i}` has weight `18432` in both parities, and `40960 - 18432 = 22528` |
+| `efour_spread_ratios` | the ratios of sum `0` modulo `4` that move every coordinate are `21`; the `13` with an entry `2` (a coordinate moved by `-1`) have `D = 256` once and `64` twelve times, `1024` in all, and the other `8` have `D = 16`: the groups of spread two |
+| `efour_spread_parity` | for each of the `13` and every set `K` of coordinates with even exponent sum over `K`, that sum is not `2 (|K| - 1)` modulo `4`, while each of the other `8` attains it for some `K`: the last step of the spread-two lemma, and why the entry `-1` is needed |
+| `efour_cut_bound` | the `13` ratios generate the `64` ratios of sum `0` in three steps; `|H| (1024 - 256 - 64 (|H| - 2))` is `1536, 2560, 3072` for `|H| = 2, 4, 8`, and `64 |H| >= 1024` for `|H| = 16, 32`: the stabiliser bound for the cuts |
+| `efour_spread_three_counts` | between every piece and the `64` of the other parity the groups `H^5` add up to `1072` and the groups `H^7` to `16`; `4 * 60 + 12 * 16 + 4 * (64 + 6 * 16) = 1072`, `64 * 1072 - 128 * 8 = 67584`, `64 * 16 = 1024`: shifts three and five apart |
+| `efour_five_values` | with one parity at values in `{0, 2, 4}` and the other in `{1, 3}`, every pair of occupied sets is covered by adjacent single shifts, one parity at two values two apart or three, single shifts three apart, or a gap of four beside a single shift; within six values exactly `([0], [5])` and `([0, 4], [1, 5])` are left |
+| `efour_cup_kernel_counts` | `4 * 4 + 6 * 16 * 4 = 400`, `400 + 3 * 28 = 484`, `131 * 28 = 3668`, `3584 - 400 = 3184`, `484 - 104 = 380`, and the pieces take `4` values in each coordinate and `16` in each pair: the cup products on the diagonal at `n = 4` |
+| `efour_run_drops` | a run from a piece through one, two or three distinct multiples to a piece lowers the shift by `4, 5, 6, 12, 13` or `20`, for every rank of `p`, and never by `7`: the footnote to the lemma on the diagonal at a lonely shift |
+| `efour_lonely_degrees` | for odd `g` from `5` to `31`, `X` in `{0, g}` and runs with `U` steps up and `D` down, `1 <= U + D <= 3`, the degree `3 + X - U + 7D` of a term on a diagonal class is `0` or `8` only if `X = 0` and `U + D = 3`, or `X = 7`, `D = 0`, `U = 2`; with no run it is at least `8` |
+| `efour_lonely_residues` | along three steps of `+1` or `-7` the four shifts are pairwise incongruent modulo `4`; for every rank of `p` the four paths of the lemma give four patterns of shifts of the multiples, none shared by two shifts at an odd distance below `40`: the proposition on single shifts |
+| `efour_interleaved_cut` | the `28` ratios that move three coordinates and change the parity weigh `640` (`16` twenty-four times, `64` four times) and generate the `128` ratios in three steps; the bounds `1152, 1792, 2688, 3328, 1024, 1024` for `|H| = 2, 4, ..., 64` exceed `640`: the proposition on interleaved shifts |
+| `efour_six_values` | with one parity at values in `{0, 2, 4}` and the other in `{1, 3, 5}`, every pair of occupied sets is covered by the exclusions of Section 47, by single shifts at an odd distance or by the interleaved sets `{s, s - 4}`, `{s - 1, s - 5}`; single shifts at every odd distance up to `41` are covered; `64 * 28 = 1792 > 104` |
+| `divisor_profiles` | the Betti numbers of the connected sum of two real `n`-tori have Euler characteristic `0` (odd `n`) and `-2` (even `n`), `2 <= n <= 40`; at `n = 5` they are `1, 10, 20, 20, 10, 1`; for `5 <= n <= 16`, eight `d` and `0 <= a <= 3`, `|b| <= 3`, the profile of part (i) of the proposition on sheaves on divisors meets every condition |
+| `divisor_endo_positive` | `r^2 (20 d + 1) + 6 < 32 r^2 d^2` for all `d, r >= 1`, so `6 chi(End_0 G) > 0` at `n = 5` |
+| `divisor_rank_two_mod3` | `3` divides `2 (d + 1)` exactly when `d = 2` modulo `3`, for every `d` |
 
 
 ## Two statements that look true and are not
@@ -187,12 +204,12 @@ careful reading does not catch and a kernel check does.
 `code/verify_all.py` in the parent directory performs the same checks in exact
 rational arithmetic over Q, independently of Lean, together with the exterior
 algebra computations that Lean does not carry, and prints
-`2175 checks passed, 0 failed`.
+`2218 checks passed, 0 failed`.
 
 ## Transcript
 
 `axioms.txt` is the unedited output of `lean HodgeObstruction.lean` under
-Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and thirty lines, one per
-theorem, one hundred and one reading `does not depend on any axioms` and twenty-nine reading
+Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and forty-seven lines, one per
+theorem, one hundred and ten reading `does not depend on any axioms` and thirty-seven reading
 `depends on axioms: [propext]`, exit status 0, no `sorryAx`. `lake build`
-completes with the same report. Each run takes a few minutes.
+completes with the same report.

@@ -295,29 +295,40 @@ def closed_form(n, d):
 
 
 def example_check(n, d):
-    """The displayed formulas of ex:splitsmall lie in the Weil plane:
-    n = 2: d ell^2 - gamma^2 and 2 gamma ell;
-    n = 3: d gamma ell^2 - gamma^3/3 and gamma^2 ell - d ell^3/3."""
+    """The displayed formulas of ex:splitsmall are the integral generators
+    omega_1, omega_2 of eq:omegagens for the K-basis x_1, ..., x_{2n}, on
+    which sqrt(-d) acts by x -> -B x (so y_j = -B x_j):
+    n = 2: omega_1 = (d ell^2 - gamma^2)/2, omega_2 = -gamma ell;
+    n = 3: omega_1 = d gamma ell^2/2 - gamma^3/6,
+           omega_2 = d ell^3/6 - gamma^2 ell/2."""
+    from itertools import combinations
     sp = Split(n, d)
     beta, bh, ell = sp.beta(), sp.betahat(), sp.ell()
     gamma = eadd(escale(F(d), beta), escale(F(-1), bh))
     if n == 2:
-        cands = [eadd(escale(F(d), epow(ell, 2, d)),
-                      escale(F(-1), epow(gamma, 2, d))),
-                 escale(F(2), wedge(gamma, ell, d))]
+        cands = [eadd(escale(F(d, 2), epow(ell, 2, d)),
+                      escale(F(-1, 2), epow(gamma, 2, d))),
+                 escale(F(-1), wedge(gamma, ell, d))]
     else:
-        cands = [eadd(escale(F(d), wedge(gamma, epow(ell, 2, d), d)),
-                      escale(F(-1, 3), epow(gamma, 3, d))),
-                 eadd(wedge(epow(gamma, 2, d), ell, d),
-                      escale(F(-d, 3), epow(ell, 3, d)))]
-    w1, w2 = rational_pair(sp)
-    ok = True
-    for c in cands:
-        c = {k: v for k, v in c.items() if not iszero(v)}
-        keys = set(w1) | set(w2) | set(c)
-        coeff = solve([w1, w2], c, keys)
-        ok = ok and coeff is not None and any(x != 0 for x in coeff)
-    return ok
+        cands = [eadd(escale(F(d, 2), wedge(gamma, epow(ell, 2, d), d)),
+                      escale(F(-1, 6), epow(gamma, 3, d))),
+                 eadd(escale(F(d, 6), epow(ell, 3, d)),
+                      escale(F(-1, 2), wedge(epow(gamma, 2, d), ell, d)))]
+    xs = [{(sp.x(j),): sc(1)} for j in range(1, 2 * n + 1)]
+    ys = [escale(F(-1), sp.Bx(j)) for j in range(1, 2 * n + 1)]
+    w1, w2 = {}, {}
+    for k in range(2 * n + 1):
+        for T in combinations(range(2 * n), k):
+            m = {(): sc(1)}
+            for j in range(2 * n):
+                m = wedge(m, ys[j] if j in T else xs[j], d)
+            if k % 2 == 0:
+                w1 = eadd(w1, escale(F((-1) ** (k // 2) * d ** (n - k // 2)), m))
+            else:
+                w2 = eadd(w2, escale(F((-1) ** ((k - 1) // 2)
+                                       * d ** (n - (k + 1) // 2)), m))
+    return (eadd(cands[0], escale(F(-1), w1)) == {}
+            and eadd(cands[1], escale(F(-1), w2)) == {})
 
 
 def divisor_check_closed(n, d):
@@ -389,7 +400,7 @@ if __name__ == "__main__":
     print("  the displayed formulas of ex:splitsmall at n = 2, 3")
     for (n, d) in [(2, 1), (2, 2), (2, 3), (3, 1), (3, 2), (3, 3), (3, 7)]:
         ok = example_check(n, d)
-        print("    [%s] n=%d, d=%d: both displayed classes lie in the Weil plane"
+        print("    [%s] n=%d, d=%d: the displayed classes are omega_1, omega_2"
               % ("PASS" if ok else "FAIL", n, d))
         npass += 1 if ok else 0
         nfail += 0 if ok else 1

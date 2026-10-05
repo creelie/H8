@@ -73,7 +73,7 @@ What comes out.
     sign assignment satisfies the off-diagonal conditions.  The remaining
     three are settled by pte_remaining.py.
 
-Item (XXII) of the verification section.
+Item (XXII) of COMPUTATIONS.md.
 """
 from fractions import Fraction as F
 from itertools import combinations

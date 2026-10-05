@@ -220,19 +220,22 @@ $\lambda$, hence exactly when $9N=4b^{2}$, and this never happens, because
 $9N=\tfrac92(b^{2}+d)>4b^{2}$ for $d>0$.
 \end{proof}
 
+\Cref{fig:bmywindow} draws the Bogomolov--Miyaoka--Yau defect over the
+quarter plane of $(b,d)$.
+
 \begin{corollary}[Four discriminants on the fourfold]\label{cor:fourdiscriminants}
-In \Cref{setup:markman}, where $b=3$ by \Cref{prop:markman8}(iii), a secant
-object $\cI_{S}(3\Theta)$ with smooth support exists only if $d\le9$; since
-$d$ is squarefree this leaves $d\in\{1,2,3,5,6,7\}$, and if in addition
-$N=(9+d)/2$ is an integer, which is what a support assembled from translates
-of $\Theta$ requires, only
+Let $(X,\Theta)$ be a principally polarised abelian fourfold and $d>0$
+squarefree. A sheaf $\cI_{S}(3\Theta)$ with Chern character
+$u_{\Theta}+3v_{\Theta}$, the value of \Cref{prop:markman8}(iii), and with
+smooth support $S$ exists only if $d\le9$, that is
+$d\in\{1,2,3,5,6,7\}$; if in addition $N=(9+d)/2$ is an integer, as in
+\Cref{setup:markman}, only
 \[
   d\in\{1,\,3,\,5,\,7\},\qquad N\in\{5,\,6,\,7,\,8\}.
 \]
 For these values the invariants are forced to be those of
-\Cref{tab:smoothsupport}. In particular, for every imaginary quadratic field
-of discriminant larger than $9$ there is no secant object of rank one with
-smooth support on an abelian fourfold.
+\Cref{tab:smoothsupport}. In particular, for $d>9$ no such sheaf has smooth
+support.
 \end{corollary}
 
 \begin{proof}
@@ -293,13 +296,14 @@ The local argument does not apply here, for a structural reason given by
 so both sides of \eqref{eq:heisenberg} are locally zero, and the comparison of
 germs that decides \Cref{thm:candidatefails} has nothing to compare.
 
-The surface is rigidly constrained. Its class, its canonical class, its Euler
-characteristic, its Euler number and its two intersection numbers with the
-polarisation are all determined by $d$ alone, and they are compatible with
+The surface is rigidly constrained. At $b=3$ its class, its canonical class,
+its Euler characteristic, its Euler number and its two intersection numbers
+with the polarisation are all determined by $d$, and they are compatible with
 existence only for $d\le9$. This is the content of
 \Cref{cor:fourdiscriminants}, and it restricts the construction: for all but
-finitely many imaginary quadratic fields the secant construction with smooth
-support is not available, whatever the geometry of the surface.
+finitely many imaginary quadratic fields the secant construction of
+\Cref{setup:markman} with smooth support is not available, whatever the
+geometry of the surface.
 
 What remains is a single existence question. For $d\in\{1,3,5,7\}$, does a
 principally polarised abelian fourfold carry a smooth surface $S$ with the
@@ -322,11 +326,12 @@ with $X$ to first order in every polarised direction, in the exact sense of
 \Cref{prop:smoothrank}, while the injectivity that \Cref{lem:annihilation}
 asks of it holds automatically when $X$ is simple (\Cref{lem:smoothinjective}).
 
-A positive answer to both, together with an affirmative answer to
-\cite[Question 11.4]{Mar25b}, would produce Weil classes on abelian
+A positive answer to both, for a surface that moves in this way, together
+with an affirmative answer to \cite[Question 11.4]{Mar25b}, would produce
+Weil classes on abelian
 eightfolds for at most four discriminants; the other discriminants, every
-$n\ge5$ and every field of degree larger than two are reached through
-\Cref{prop:descent} and the propagation statement.
+$n\ge5$ and every field of degree larger than two would still have to be
+reached through \Cref{prop:descent} and the propagation statement.
 \end{remark}
 
 Two of the conditions on a smooth support are decided by the table, and the
@@ -372,7 +377,7 @@ rank four, $\omega|_{S}=0$ says that every tangent plane of $S$ is
 $\omega$-isotropic, that is, $S$ is Lagrangian for $\omega$. If
 $\omega=\alpha\wedge\beta$ has rank two, with $\alpha,\beta\in V^{\vee}$
 independent, then $\alpha|_{S}$ and $\beta|_{S}$ are independent
-holomorphic $1$-forms on $S$, because $S$ generates $X$ and a nonzero
+holomorphic $1$-forms on $S$, because $S$ generates the simple $X$ and a nonzero
 invariant $1$-form restricts nontrivially to a generating subvariety, and
 $\alpha|_{S}\wedge\beta|_{S}=0$. By the theorem of Castelnuovo and de
 Franchis \cite{BHPV04} there is a fibration
@@ -587,12 +592,12 @@ Reducedness, irreducibility and the complete intersection property are
 therefore all irrelevant; what matters is the projective dimension, which by
 Auslander--Buchsbaum is a matter of depth.
 
-Second, the germs at which it does not vanish are exactly those that the
-construction of \Cref{setup:markman} produces. The same computation finds
+Second, the vanishing fails at the germs that the construction of
+\Cref{setup:markman} produces. The same computation finds
 $\cE xt^{2}\ne0$, with nonzero products of translation classes, for two planes
 meeting at a point, for three planes meeting pairwise at a point, and for a
-plane with an embedded point; the projective dimensions there are $3$, $3$ and
-$4$. By Hartshorne's connectedness theorem, a scheme whose local ring at $p$
+plane with an embedded point; the projective dimensions of $\cO_{Z,p}$ there
+are $3$, $3$ and $4$. By Hartshorne's connectedness theorem, a scheme whose local ring at $p$
 is Cohen--Macaulay is connected in codimension one at $p$, so a support with
 two components through $p$ meeting only at $p$ is never Cohen--Macaulay
 there. This is precisely the configuration analysed in
@@ -603,19 +608,24 @@ there. This is precisely the configuration analysed in
 \label{cor:cmdichotomy}
 Let $(X,t)$ be a polarised abelian variety of dimension $n\ge4$ and $F$ a
 perfect complex with $\ch(F)=au_{t}+bv_{t}$, $(a,b)\ne(0,0)$, whose germ at
-each point is the germ of $\cI_{Z}\otimes L$ for a codimension two subscheme
-$Z$. Then exactly one of the following holds.
+each point is the germ of $\cI_{Z}\otimes L$ for a subscheme $Z$ of
+codimension two, and let $p\in Z$.
 \begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em]
-\item $Z$ fails to be Cohen--Macaulay at some point $p$ of one of the types of
-  \Cref{rem:cmsharp}, and then $F$ does not satisfy the weakened criterion,
-  nor does $\Phi(F\boxtimes F_{2})$ for any secant $F_{2}$, by
-  \Cref{thm:candidatefails} and \Cref{cor:localobstruction}.
-\item $Z$ is Cohen--Macaulay, and then there is no local obstruction at any
-  point. The criterion is then a single global condition: the image
-  of $A_{\theta}A_{\theta'}$ in $H^{1}\bigl(Z,\cE xt^{1}(\cI_{Z},\cI_{Z})\bigr)$
-  must vanish for all $\theta,\theta'\in H^{0}(T_{X})$, the scalar on the
-  right of \eqref{eq:heisenberg} entering only through an identity in
-  $H^{2}(\cO_{X})$.
+\item If $Z$ is not Cohen--Macaulay at $p$, then
+  $\cE xt^{q}(\cI_{Z},\cI_{Z})_{p}\ne0$ for $q=\operatorname{pd}\cI_{Z,p}\ge2$,
+  so the comparison of germs of \Cref{lem:edge} has room at $p$. If moreover
+  $Z$ has at $p$ two smooth branches of codimension two meeting
+  transversally, as in \Cref{lem:localproducts} and
+  \Cref{cor:localobstruction}, then $F$ does not satisfy the weakened
+  criterion, nor does $\Phi(F\boxtimes F_{2})$ for any secant $F_{2}$.
+\item If $Z$ is Cohen--Macaulay, then there is no local obstruction at any
+  point. Condition (b) of \Cref{thm:factor}(iii) is then a single global
+  condition: it holds if and only if the image of $A_{\theta}A_{\theta'}$ in
+  $H^{1}\bigl(Z,\cE xt^{1}(\cI_{Z},\cI_{Z})\bigr)$ vanishes for all
+  $\theta,\theta'\in H^{0}(T_{X})$, the scalar on the right of
+  \eqref{eq:heisenberg} being forced by the trace. Condition (a), the
+  extension of $F$ to first order along the polarised deformations, is
+  not affected by the depth and remains to be checked.
 \end{enumerate}
 In case (ii), $\cI_{Z}$ has projective dimension one at every point, so it is
 locally the ideal of maximal minors of a Hilbert--Burch matrix; if $Z$ is
@@ -624,20 +634,33 @@ of $Z$ are those of \Cref{thm:smoothinvariants}.
 \end{corollary}
 
 \begin{proof}
-The two cases are exclusive and exhaustive by definition. In case (i) the
-local ring is not Cohen--Macaulay and the cited results apply, the germs being
-those of \Cref{lem:localproducts} and \Cref{cor:localobstruction}. In case
-(ii), \Cref{thm:cmvanishing} gives $\cE xt^{q}=0$ for $q\ge2$ at every point,
-so the local-to-global spectral sequence for $\Ext^{2}(\cI_{Z},\cI_{Z})$ has
-only the two rows $H^{1}(\cE xt^{1})$ and $H^{2}(\cO_{X})$, and these lie in
-different steps of the filtration, the second being the subgroup of scalars.
-The right side of \eqref{eq:heisenberg} lies in that subgroup, so its image in
-the quotient $H^{1}(\cE xt^{1})$ is zero, and the criterion forces the image
-of the left side there to vanish. The statement on projective dimension was
-established in the proof of \Cref{thm:cmvanishing}, and the Hilbert--Burch
-theorem is the structure theorem for ideals of projective dimension one over
-a regular local ring; the last clause is \Cref{prop:smoothlocal} together
-with \Cref{thm:smoothinvariants}.
+(i) Put $A=\cO_{X,p}$, of dimension $n$, and $I=\cI_{Z,p}$. Since $A/I$ is not
+Cohen--Macaulay, $\operatorname{depth}A/I<\dim A/I\le n-2$, so
+$\operatorname{pd}_{A}(A/I)\ge3$ by the Auslander--Buchsbaum formula and
+$q=\operatorname{pd}_{A}I\ge2$. In a minimal free resolution
+$F_{\bullet}\to I$ the entries of the differentials lie in the maximal ideal
+$\mathfrak m$, so $\Ext^{q}_{A}(I,I)$, the cokernel of
+$\Hom(F_{q-1},I)\to\Hom(F_{q},I)$, surjects onto
+$\Hom(F_{q},I)\otimes A/\mathfrak m\ne0$ by Nakayama's lemma. At two
+transversal branches the conclusion is \Cref{thm:candidatefails} and
+\Cref{cor:localobstruction}. (ii) \Cref{thm:cmvanishing} gives
+$\cE xt^{q}=0$ for $q\ge2$ at every point, so the local-to-global spectral
+sequence for $\Ext^{2}(\cI_{Z},\cI_{Z})$ has only the two rows
+$H^{1}(\cE xt^{1})$ and $H^{2}(\cO_{X})$, and these lie in different steps of
+the filtration, the second being the subgroup of scalars. The right side of
+\eqref{eq:heisenberg} lies in that subgroup, so its image in the quotient
+$H^{1}(\cE xt^{1})$ is zero, and (b) forces the image of the left side there
+to vanish. Conversely, if that image vanishes, then
+$\mathrm{At}(F)^{2}=z\cdot\id_{F}$ for some
+$z\in H^{2}(\cO_{X})\otimes\bigwedge^{2}H^{1,0}$, the map
+$z\mapsto z\cdot\id_{F}$ being injective because its composite with the
+trace is multiplication by $\rk F=1$; taking traces,
+$z=\operatorname{tr}\mathrm{At}(F)^{2}=-d\,t^{2}$ by the last assertion of
+\Cref{thm:factor}(iii), which is (b). The statement on projective dimension
+was established in the proof of \Cref{thm:cmvanishing}, and the Hilbert--Burch theorem is the
+structure theorem for ideals of projective dimension one over a regular local
+ring; the last clause is \Cref{prop:smoothlocal} together with
+\Cref{thm:smoothinvariants}.
 \end{proof}
 
 \begin{remark}[Normalisation and depth]%
@@ -662,7 +685,8 @@ without leaving the plane.
 \subsection{Hilbert--Burch resolutions}
 \label{ssec:hilbertburch}
 
-\Cref{cor:cmdichotomy} leaves one class of supports and one condition on them.
+\Cref{cor:cmdichotomy} leaves one class of supports and, beside the
+extension along the polarised deformations, one condition on them.
 The class consists of the Cohen--Macaulay subschemes of codimension two, and
 for these the proof of \Cref{thm:cmvanishing} gives more than the vanishing
 it was used for: the ideal sheaf has projective dimension one at every point.
@@ -950,9 +974,9 @@ $\ch(\cI_{Z}(b\Theta))=u_{\Theta}+b\,v_{\Theta}$.
   of a section of a vector bundle of rank two.
 \item If $r=2$ and the Chern classes of $E_{1}$ are polynomials in $\Theta$,
   as they are when $\Hdg^{2}(X)=\QQ\Theta$ and $\Hdg^{4}(X)=\QQ\Theta^{2}$,
-  then
+  then, writing $c_{1}(E_{1}(b\Theta))=a\Theta$ with $a\in\ZZ$,
   \[
-    3d-b^{2}-4ab\equiv0\pmod{12},\qquad c_{1}(E_{1}(b\Theta))=a\Theta .
+    3d-b^{2}-4ab\equiv0\pmod{12}.
   \]
   At $b=3$ this says $d\equiv3\pmod4$.
 \end{enumerate}
@@ -1009,7 +1033,8 @@ Part (i) extends \Cref{thm:noci} from two divisors to the zero locus of a
 section of any rank two bundle, stable or not, so the construction of Serre
 produces no secant support; it holds for every $X$, with no condition on
 $\NS(X)$. Part (ii) extends the row $r=2$ of \Cref{tab:burch} from sums of
-line bundles to arbitrary bundles at $d\equiv1\pmod4$. The integrality of
+line bundles to arbitrary bundles whose Chern classes are polynomials in
+$\Theta$, at $d\equiv1\pmod4$. The integrality of
 the Chern classes of $E_{0}$ is automatic, since
 $c(E_{0}(b\Theta))=c(E_{1}(b\Theta))\,c(F)$ and $c(F)$ is integral, so it is
 the vanishing above the rank, and not integrality, that constrains. Neither
@@ -1259,28 +1284,31 @@ Let $(X,\Theta)$ be a principally polarised abelian fourfold.
   candidate of \Cref{tab:burch} is excluded, whether or not its matrix
   degenerates in codimension two.
 \item If a secant object $\cI_{Z}(b\Theta)$ satisfies the criterion, then
-  $Z$ is Cohen--Macaulay, $\cI_{Z}$ has projective dimension one, its
-  Hilbert--Burch resolution does not split into powers of $\Theta$, nor into
-  simple semi-homogeneous bundles, and the restriction
-  $H^{2}(\cO_{X})\to H^{2}(\cO_{Z})$ is injective. If moreover $Z$ is
-  smooth, then $d\in\{1,3,5,7\}$, the two terms of the resolution do not
-  both have classes in $\cL_{\Theta}$, and when $X$ is simple the injectivity
-  is automatic.
-\item Smooth supports and split resolutions are disjoint, for every rank and
-  every twist: a smooth support forces $d\le9$, and a resolution by bundles
-  with classes in $\cL_{\Theta}$ forces $d\equiv15,23\pmod{24}$, hence
-  $d\ge15$, so that, even without (i), no support could have both
-  properties.
+  $Z$ has no point at which two smooth branches of codimension two meet
+  transversally, no two-term resolution of $\cI_{Z}$ splits into powers of
+  $\Theta$ or into simple semi-homogeneous bundles, and the restriction
+  $H^{2}(\cO_{X})\to H^{2}(\cO_{Z})$ is injective. If $Z$ is
+  Cohen--Macaulay, $\cI_{Z}$ has projective dimension one. If $b=3$ and $Z$
+  is smooth, then $d\le9$, so $d\in\{1,3,5,7\}$ when $N=(9+d)/2$ is an
+  integer as in \Cref{setup:markman}, the two terms of a resolution do not
+  both have classes in $\cL_{\Theta}$, and when $X$ is simple the
+  injectivity is automatic.
+\item At $b=3$, smooth supports and split resolutions are disjoint, for
+  every rank and every twist of the resolution: a smooth support forces
+  $d\le9$, and a resolution by bundles with classes in $\cL_{\Theta}$ forces
+  $d\equiv15,23\pmod{24}$, hence $d\ge15$, so that, even without (i), no
+  support could have both properties.
 \end{enumerate}
 \end{corollary}
 
 \begin{proof}
 Part (i) is \Cref{thm:nosplit} with $M=\cO_{X}(\Theta)$, the resolution
 \eqref{eq:burchres} presenting $\cI_{Z}(b\Theta)$ as the cone of
-$\varphi\otimes\cO(b\Theta)$. In (ii), Cohen--Macaulayness and projective
-dimension one come from \Cref{cor:cmdichotomy}(ii), the non-splitting from
-(i) and \Cref{thm:noblocks}, the injectivity from the last assertion of
-\Cref{lem:annihilation}, the four discriminants from
+$\varphi\otimes\cO(b\Theta)$. In (ii), the branches are excluded by
+\Cref{cor:cmdichotomy}(i), projective dimension one comes from
+\Cref{cor:cmdichotomy}(ii), the non-splitting from \Cref{thm:nosplit} and
+\Cref{thm:noblocks}, the injectivity from the last assertion of
+\Cref{lem:annihilation}, the bound on $d$ from
 \Cref{cor:fourdiscriminants}, the statement on the two terms from
 \Cref{cor:latticeburch}, and the automatic injectivity from
 \Cref{lem:smoothinjective}. Part (iii) compares

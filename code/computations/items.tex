@@ -2,11 +2,13 @@
 
 Every numerical assertion in this paper is checked in exact arithmetic:
 rational, integer or exterior-algebra computations, and exact linear algebra
-over number fields and over function fields in one variable, with one
-exception: item (LXXII) evaluates integrals of theta functions by quadrature
-in double precision and reads a rank off from the ratio of the smallest to
-the largest singular value, which it compares with the change of the entries
-under a finer grid. A rank computed modulo a prime is used only
+over number fields and over function fields in one variable, or, for the
+integrals of theta functions behind \Cref{prop:fourfoldrank}, in ball
+arithmetic, which returns for every number an interval guaranteed to
+contain it (part (H) of item (LXXII)). No statement rests on a computation
+in floating point: the quadrature of item (LXXII) and the random tests in
+items (LXXI) and (LXXIII) check statements that are proved in the text or
+certified otherwise. A rank computed modulo a prime is used only
 as a lower bound for the rank over $\QQ$, since reduction can only lower a
 rank, and the bound is matched by an exact computation in the other
 direction. Items (XXIX), (XXXI) and (XL) are $\Ext$
@@ -95,8 +97,10 @@ computed, how it is computed, and which statements of the paper it supports.
   verified directly: $\gamma\mp\sqrt{-d}\,\ell$ is an eigenclass for
   $\tau^{2}$, respectively $\bbar{\tau}^{\,2}$, and \eqref{eq:splitclosed}
   holds exactly, for $n\le5$ and several $d$. Third, the formulas of
-  \Cref{ex:splitsmall} are checked as stated, at $n=2$ for $d\le3$ and at
-  $n=3$ for $d\in\{1,2,3,7\}$.
+  \Cref{ex:splitsmall} are checked as stated, as equalities with the
+  integral generators of \Cref{thm:explicitgens} for the $K$-basis
+  $x_{1},\dots,x_{2n}$, at $n=2$ for $d\le3$ and at $n=3$ for
+  $d\in\{1,2,3,7\}$.
 
 \item \emph{The reach of the base case.} The computation checks the four
   assertions of \Cref{prop:splitgeom}. It verifies $M^{2}=-d$ and
@@ -177,11 +181,13 @@ computed, how it is computed, and which statements of the paper it supports.
   all of them, which is \Cref{rem:familyuniform}.
 
 \item \emph{The Weil class under products.} The computation verifies, in
-  exact arithmetic over $\QQ(\sqrt{-d})$, the two identities \eqref{eq:weilmult} for every pair
-  $n_{1},n_{2}\le3$; their $K$-valued form
-  $\omega(A_{1})\omega(A_{2})=2\,\omega(A_{1}\times A_{2})$ over the same
-  range; the $k$-factor identity with constant $2^{k-1}$ for six partitions
-  with $k=3$ and $k=4$; that the Weil class lies in $H^{2n}$, so that at
+  exact arithmetic over $\QQ(\sqrt{-d})$ for $d\in\{1,2,3,5,7\}$, the two
+  identities \eqref{eq:weilmult} for the integral generators
+  \eqref{eq:omegagens} and every pair $n_{1},n_{2}\le3$; the closed form
+  \eqref{eq:omegaprod} for $n\le4$ and the $K$-valued form
+  $\omega(A_{1})\omega(A_{2})=\omega(A_{1}\times A_{2})$ over the same
+  range; the $k$-factor identity, with constant $1$, for six partitions
+  with $k=3$ and $k=4$ and $d\le3$; that the Weil class lies in $H^{2n}$, so that at
   $n=1$ it is a divisor class, which is \Cref{lem:basecase}; and the
   dimension comparison of \Cref{rem:prodscope}, that the product locus has
   dimension $n$ inside a family of dimension $n^{2}$ and is smaller than the
@@ -249,12 +255,14 @@ computed, how it is computed, and which statements of the paper it supports.
   space is recomputed in the same computation rather than assumed.
 
 \item \emph{The invariants of the required object.} For $1\le n\le8$, every
-  squarefree $d\le11$ and every rank and twist in a range, the Chern classes
-  of the Chern character $au+bv$ are computed by Newton's identities, and
-  every one of them is integral. The computation also confirms the closed
-  form $\Delta=a^{2}d+b^{2}$ of \Cref{thm:secantinvariants} and its
-  positivity. This is \Cref{prop:notforbidden}: nothing numerical forbids the
-  object the construction needs, in any dimension tested.
+  squarefree $d\le11$, every rank $0\le a\le4$ and every twist $|b|\le4$, the
+  Chern classes of the Chern character $au+bv$ are computed by Newton's
+  identities; every one of them is integral and equal to
+  $\gamma_{k}t^{k}/k!$ for the integer recursion of
+  \Cref{prop:notforbidden}(ii), which proves integrality in every degree. The
+  computation also confirms the closed form $\Delta=a^{2}d+b^{2}$ of
+  \Cref{thm:secantinvariants} and its positivity: nothing numerical forbids
+  the object the construction needs.
 
 \item \emph{Existence of a sheaf with the required Chern character.} The
   computation behind \Cref{thm:secantexists} is carried out exactly over
@@ -1158,6 +1166,10 @@ computed, how it is computed, and which statements of the paper it supports.
   Further, for \Cref{prop:flatall}, the four identities at $n=1$ and $n=2$
   with $d$ a symbol; for \Cref{prop:orlovequality}, the Euler characteristic
   of a secant class and the numbers $R_{n}$ for $n\le12$; for
+  \Cref{prop:divisortemplate}, the profiles of part (i) for $5\le n\le24$ on
+  $4320$ secant characters, the series identities of parts (ii) and (iv) with
+  $b$, $d$ and $r$ as symbols, the counts of part (iii) for $n\le39$, and
+  the inequality closing part (iv); for
   \Cref{prop:orthpowers}, the dimensions of the $\SO(t)$- and $\mathrm{O}(t)$-invariants of $V^{\otimes j}$,
   equal for $j<t$ and differing by one at $j=t$, for $t\le8$, with the
   determinant invariant and odd under reflections; and for
@@ -1810,11 +1822,25 @@ computed, how it is computed, and which statements of the paper it supports.
   $3$ of the endomorphism complex number $908979$, $233213$ and $12142$, of
   which $16\cdot24^{3}=221184$ in degree two lie between $M_{2}$ and the
   $L_{\zeta}$. At $p=0$, $t=(2,5,6)$ the fourfold products on the $192$
-  classes of type $(1,1,0)$ are found to have rank $12$ at each of the
-  sixteen $L_{\zeta}$ and rank $192$ together, with smallest singular value
-  $0.016$ of the largest; also with $x_{1}x_{2}^{\zeta}=x_{2}^{\zeta}x_{3}^{\zeta}=0$
-  (kernels of dimensions $11$ and $19$ on every surface), with the relative
-  sign of the two terms reversed, and at $t=(2,5,7)$. Each piece is found to
+  classes of type $(1,1,0)$, evaluated by quadrature in double precision,
+  have numerical rank $12$ at each of the sixteen $L_{\zeta}$ and $192$
+  together. (H) The same products are then evaluated in ball arithmetic at
+  $128$ bits. Every integral is reduced to coefficients of holomorphic
+  sections in a theta basis by the decomposition
+  $(\nabla_{z}a)\,b=\bigl(d_{a}\nabla_{z}(ab)+H\bigr)/(d_{a}+d_{b})$ with
+  $H$ holomorphic; the coefficients are found by interpolation at rational
+  points, with the tails of the theta series bounded explicitly; the
+  invariant sections on $B_{j}$ are the image of the projector of the two
+  half periods, which are checked in rational arithmetic to act by commuting
+  involutions, and have dimension $|\det|$ on all twelve surfaces; and the
+  theta basis of $B_{j}$ is pulled back by interpolation. The values agree
+  with the quadrature to $10^{-14}$. The Gram determinants of the $12$
+  columns at each $L_{\zeta}$ and of all $192$ columns are intervals that
+  exclude $0$, so the rank is exactly $192$ (smallest singular value $0.014$
+  of the largest, radii below $10^{-25}$); the same holds with
+  $x_{1}x_{2}^{\zeta}=x_{2}^{\zeta}x_{3}^{\zeta}=0$, the kernels of dimensions
+  $11$ and $19$ on every surface being certified, with the relative sign of
+  the two terms reversed, and at $t=(2,5,7)$. Each piece is found to
   have $3$, $6$, $7$ partners of the other parity differing in one, two,
   three coordinates, the last with $D=16$ six times and $64$ once. In the
   explicit convolution the $112$ groups $\cH^{3}$ of pieces that differ
@@ -1857,7 +1883,8 @@ computed, how it is computed, and which statements of the paper it supports.
   \Cref{thm:vandermonde}, \Cref{cor:twodiagonal} and
   \Cref{rem:vandermonde}.
 
-\item \emph{Convolutions of the Weil pieces on $E_0^8$ at two shifts.} Each
+\item \emph{Convolutions of the Weil pieces on $E_0^8$ at two and three
+  shifts.} Each
   of the $128$ pieces $L_{\zeta}$ at $n=4$ is found to have $4$, $12$, $28$
   and $20$ partners of the other parity differing in one, two, three and
   four coordinates; the $28$ have $D=16$ twenty-four times and $D=64$ four
@@ -1874,8 +1901,22 @@ computed, how it is computed, and which statements of the paper it supports.
   $40960$ classes, and no term of $d_{E}$ leaves them; the identity
   $3+d_{c}-d_{e}=4-U+7D$ is checked on every chain. When one piece is moved
   to a third shift, terms that the degrees allow are found on $6$ of its
-  $28$ groups, so the argument needs the two shifts. That is
-  \Cref{lem:efourshifts}, \Cref{thm:efourtwolevels} and
+  $28$ groups, so the vanishing of $d_{E}$ needs the two shifts. With
+  three consecutive shifts, every piece is found to have $18$, $24$ and
+  $21$ partners of its own parity differing in two, three and four
+  coordinates, with groups $H^{5}$ of dimensions adding up to $576$, $384$
+  and $0$, so $960$ in all. With the pieces replaced by their three types
+  and the multiples' shifts left free, every chain the degrees allow is
+  enumerated in the four placements, for every split of the pieces between
+  the highest and the lowest shift: the only terms of $d_{E}$ on the
+  $40960$ classes land in groups $H^{5}$ between those two shifts. Piece by
+  piece, for every placement with a random split and, in one placement, the
+  two extreme splits, the $1792$ pairs, the absence of incoming terms and
+  the targets are found again, of total dimension at most $18432$. The
+  character sums of the Cayley graph of the targets are real, with least
+  value $-192$, so a cut weighs at most $18432$, and the split by
+  $\zeta_{3}\zeta_{4}\in\{1,i\}$ attains it. That is \Cref{lem:efourshifts},
+  \Cref{thm:efourtwolevels}, \Cref{thm:efourthreelevels} and
   \Cref{rem:convolutionsopen}.
 \item \emph{Very general diagonal complete intersections.} For a chain of
   $2g$ vanishing cycles with $g\le7$, the logarithms of the squared
@@ -1916,12 +1957,69 @@ computed, how it is computed, and which statements of the paper it supports.
   \Cref{lem:foxmodel}, \Cref{lem:cabling}, \Cref{lem:merge},
   \Cref{prop:cyclicmonodromy}, \Cref{lem:newdisc} and
   \Cref{thm:vgvandermonde}.
+\item \emph{Groups of spread two and three on $E_0^8$, and five consecutive
+  shifts.} Over the ratios of two pieces, every term of the differential with
+  leaves between pieces $L_{\zeta}$ that the degrees on the four surfaces and
+  \Cref{lem:degreedrop} allow is enumerated: the $13$ groups $H^{4}$ of
+  spread two whose ratio moves every coordinate, one of them by $-1$, are
+  reached by no coboundary and left by no term, while the $8$ groups with all
+  entries $\pm i$ are reached and left; no term leaves any of the $76$ groups
+  of spread three; every term leaving a group $H^{3}$ of three moved
+  coordinates at spread one has chains of total drop one or two. Every run
+  through the multiples, in the four placements, gives a degree
+  $3+\delta+X-U+7D$ that is never the degree of its target, for $\delta=1,2,3$
+  and every $X\ge0$. All $129$ subgroups $H$ of the $64$ ratios of one parity
+  satisfy $|H|\,w(S\setminus H)\ge1024$, with equality only for $H=0$, and
+  the algorithm of Stoer and Wagner finds the least cut, $1024$, at one
+  vertex. For $40$ random splits of one parity between two values two apart,
+  or three with the middle one occupied, the groups $H^{4}$ weigh at least
+  $1024$. Piece by piece, with the degrees of item (LXXIV) and the shifts of
+  the multiples left free, the arrangement of single shifts three apart is
+  checked in two placements ($2816$ groups, $68608$ classes, left by no term
+  and reached only through the loops at their two pieces), and four
+  arrangements with a gap of four, whose groups $H^{3}$ beside the gap are
+  reached by nothing and left by nothing. Every arrangement of the two
+  parities within five consecutive values is excluded by one of the four
+  results, and within six values exactly two are left up to the exchange of
+  the parities. For general components on every pair, the cup products on
+  the diagonal at $n=4$ have rank $3184$ modulo $1000003$ on the $3584$
+  classes of the $L_{\zeta}$, with graphs $\Gamma_{\tau}$ of $4$ and $16$
+  components, so their kernel is $400+84=484$. That is
+  \Cref{lem:efourspread}, \Cref{lem:cayleycut}, \Cref{thm:efourspreadtwo},
+  \Cref{thm:efourspreadthree}, \Cref{prop:efourgap}, \Cref{cor:efourfive},
+  \Cref{prop:efourcupkernel} and \Cref{rem:convolutionsopen}.
+\item \emph{The diagonal at a lonely shift, interleaved shifts, and six
+  consecutive shifts on $E_0^8$.} A run from a piece through one, two or
+  three distinct multiples to a piece lowers the shift by $4$, $5$, $6$,
+  $12$, $13$ or $20$ in the four placements, never by $7$. With the parities
+  at single shifts $s$ and $s-g$, for $g=5,7,9,11,13$, both parities on top
+  and the four placements, every term on a diagonal class that the degrees
+  allow is enumerated with the shifts of the multiples left free: at each
+  shift there are exactly four, each runs through the three multiples and no
+  other piece along the paths of the footnote to \Cref{lem:efourlonely}, the
+  shifts of the piece and the multiples are pairwise incongruent modulo $4$,
+  and the multiples never serve both shifts ($320$ patterns). The $28$ ratios
+  that move three coordinates and change the parity weigh $640$ and generate
+  the $128$ ratios; over all $636$ subgroups $H$,
+  $|H|\,w(S_{3}\setminus H)\ge640$ with equality only at $H=0$, and the
+  algorithm of Stoer and Wagner finds the least cut, $640$, at one vertex.
+  For two random splits of the parities between $\{s,s-4\}$ and
+  $\{s-1,s-5\}$, in two placements, one for each parity on top, the groups
+  $H^{3}$ between adjacent shifts are reached by nothing and left by
+  nothing, piece by piece with the degrees of item (LXXIV) and the shifts of
+  the multiples left free, and weigh at least $640$. Every arrangement of
+  the two parities within six consecutive values is excluded by the results
+  of item (LXXVII), by single shifts at an odd distance or by the
+  interleaved shifts, and so are single shifts at every odd distance up to
+  $41$. That is \Cref{lem:efourlonely}, \Cref{prop:efoursingle},
+  \Cref{prop:efourpairs}, \Cref{cor:efoursix} and
+  \Cref{rem:convolutionsopen}.
 \end{enumerate}
 
-Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LXXVI) are the ones
+Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LXXVIII) are the ones
 on which theorems depend. Items (IV) and (V) support statements that no
 obstruction exists; a failure there would strengthen the paper rather than
 weaken it, and they are included for completeness.
-The seventy-three items other than (XXIX), (XXXI) and (XL) perform $2175$
+The seventy-five items other than (XXIX), (XXXI) and (XL) perform $2218$
 checks, all of which pass; those three, and the local part of (LXVIII), are
 $\Ext$ computations over a polynomial ring, recorded with their output.
