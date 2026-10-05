@@ -7,14 +7,14 @@ computational content is checked in exact arithmetic by the computations of
 \Cref{sec:verification}. The certificate is a single Lean~4 file that
 accompanies the paper. It compiles against a bare Lean~4 toolchain, contains
 no \texttt{sorry}, and depends on no library, Mathlib included. The axiom
-report at the end of the file lists, for each of its one hundred and thirty theorems,
-the axioms on which it depends. One hundred and one depend on none, and the
-remaining twenty-nine on propositional extensionality alone, which enters when
+report at the end of the file lists, for each of its one hundred and thirty-three theorems,
+the axioms on which it depends. One hundred and three depend on none, and the
+remaining thirty on propositional extensionality alone, which enters when
 \texttt{decide} reduces an equality of Booleans or when a bound is proved from
 the lemmas on natural numbers in the core library; no theorem uses anything
 else. The annihilator dimension and the rank-zero obstruction of
 \Cref{ssec:rankzero}, \Cref{lem:annihilator} and \Cref{thm:rankzero}, are not
-among the one hundred and thirty: they are proved by hand, and the dimension count of
+among the one hundred and thirty-three: they are proved by hand, and the dimension count of
 the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \Cref{sec:verification}.
 
@@ -24,7 +24,7 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \small
 \renewcommand{\arraystretch}{1.06}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.31\linewidth}>{\raggedright\arraybackslash}p{0.62\linewidth}@{}}
-\caption{The one hundred and thirty machine-checked theorems.}\label{tab:lean}\\
+\caption{The one hundred and thirty-three machine-checked theorems.}\label{tab:lean}\\
 \toprule
 \textbf{theorem} & \textbf{statement} \\
 \midrule
@@ -171,6 +171,9 @@ the lemma is verified in exact arithmetic modulo a prime by item (XIV) of
 \texttt{cyclic\_}\allowbreak\texttt{norms} & $x^{2}+xy+y^{2}$ is never $2$ modulo $4$ and is even only for $x,y$ even, so $2$ is not a norm from $\QQ(\sqrt{-3})$; $2$, $3$ and $4$ are norms where they are used, \Cref{lem:newdisc} \\
 \texttt{cyclic\_}\allowbreak\texttt{vg\_}\allowbreak\texttt{counts} & $T_{d}(k)$ by a recursion agrees with enumeration; $T_{4}(6)=141$, $T_{6}(6)=1751$, $T_{4}(8)=1107$, $T_{6}(8)=38165$; the formula agrees with a direct count of the characters and gives $142$, $988$, $3950$, $1108$, $1752$, $12258$, $38166$, \Cref{thm:vgvandermonde}(iii) \\
 \texttt{cyclic\_}\allowbreak\texttt{nonsplit\_}\allowbreak\texttt{example} & $(1,1,2,2,3,5,5,5)$ modulo $6$ has sum $0$, order $6$, $p=q=3$ and one coordinate $3$, \Cref{rem:vandermonde} \\
+\texttt{efour\_}\allowbreak\texttt{three\_}\allowbreak\texttt{targets} & every piece on $E_{0}^{8}$ has $18$, $24$, $21$ partners of its parity differing in $2$, $3$, $4$ coordinates, with groups $\cH^{5}$ of dimensions $64$ (six times) and $16$ (twelve times), $16$, and $0$, adding up to $960$; $32\cdot960=30720$ and $40960-30720=10240$, \Cref{thm:efourthreelevels}(iii) \\
+\texttt{efour\_}\allowbreak\texttt{three\_}\allowbreak\texttt{degrees} & with $p$ at any rank and $\delta=1,2$, two runs through distinct multiples, not both empty, give $\Ext$ degree $3+\delta-U+7D$, never $3$ when $c=e$, $0$ when $e$ is above $c$ or $8$ when $e$ is below $c$, \Cref{thm:efourthreelevels}(ii) \\
+\texttt{efour\_}\allowbreak\texttt{three\_}\allowbreak\texttt{spectrum} & the character sums of the Cayley graph of the targets are real, with values $960$, $384$, $192$, $96$, $-32$, $-64$, $-128$, $-192$; $64(960+192)/4=18432$, attained by $\zeta_{3}\zeta_{4}\in\{1,i\}$ in both parities, and $40960-18432=22528$, \Cref{thm:efourthreelevels}(iii) \\
 \end{longtable}
 \endgroup
 

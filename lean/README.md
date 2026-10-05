@@ -27,10 +27,10 @@ per theorem. Every line must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
 through `decide` or the core lemmas on natural numbers, and none may mention `sorryAx`. The GitHub workflow in
 `.github/workflows/lean.yml` enforces all three, and fails the build if the
-number of theorems is not one hundred and thirty or if any of them reaches for a further
+number of theorems is not one hundred and thirty-three or if any of them reaches for a further
 axiom.
 
-## The one hundred and thirty theorems
+## The one hundred and thirty-three theorems
 
 | theorem | statement |
 | --- | --- |
@@ -164,6 +164,9 @@ axiom.
 | `cyclic_norms` | `x^2 + xy + y^2` is never `2` modulo `4` and is even only for `x, y` even, so `2` is not a norm from `Q(sqrt(-3))` and norms have even `2`-adic valuation; `2 = 1 + 1`, `3 = 1 + 1 + 1` and `4` are norms where the lemma on the discriminant of the new part needs them |
 | `cyclic_vg_counts` | `T_d(k)` by a recursion equals the enumeration for `(d, k) = (3, 6), (4, 6), (6, 4)`; `T_4(6) = 141`, `T_6(6) = 1751`, `T_4(8) = 1107`, `T_6(8) = 38165`; the formula of the very general theorem equals a direct count of the characters for `(d, N, r) = (4, 5, 4), (3, 6, 4), (6, 4, 2)` and gives `142, 988, 3950, 1108, 1752, 12258, 38166` |
 | `cyclic_nonsplit_example` | `(1, 1, 2, 2, 3, 5, 5, 5)` modulo `6` has sum `0`, order `6`, `p = q = 3` and one coordinate `3`: a character whose abelian sixfold is of non-split Weil type |
+| `efour_three_targets` | every piece of `E_0^8` has `18`, `24`, `21` partners of its parity differing in `2`, `3`, `4` coordinates, with groups `H^5` of dimensions `64` (six times) and `16` (twelve times), `16`, and `0`, adding up to `960`; `32 * 960 = 30720` and `40960 - 30720 = 10240 > 104`: the targets of the three-shift theorem |
+| `efour_three_degrees` | with `p` at any rank and `delta = 1, 2`, every pair of runs through distinct multiples, not both empty, gives `Ext` degree `3 + delta - U + 7D` different from `3` when `c = e`, from `0` when `e` is above `c` and from `8` when `e` is below `c`: the case analysis of the three-shift theorem |
+| `efour_three_spectrum` | the character sums of the weighted Cayley graph of the targets are real and take the values `960, 384, 192, 96, -32, -64, -128, -192`; `64 (960 + 192) / 4 = 18432`, the split `zeta_3 zeta_4 in {1, i}` has weight `18432` in both parities, and `40960 - 18432 = 22528` |
 
 
 ## Two statements that look true and are not
@@ -187,12 +190,12 @@ careful reading does not catch and a kernel check does.
 `code/verify_all.py` in the parent directory performs the same checks in exact
 rational arithmetic over Q, independently of Lean, together with the exterior
 algebra computations that Lean does not carry, and prints
-`2175 checks passed, 0 failed`.
+`2182 checks passed, 0 failed`.
 
 ## Transcript
 
 `axioms.txt` is the unedited output of `lean HodgeObstruction.lean` under
-Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and thirty lines, one per
-theorem, one hundred and one reading `does not depend on any axioms` and twenty-nine reading
+Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and thirty-three lines, one per
+theorem, one hundred and three reading `does not depend on any axioms` and thirty reading
 `depends on axioms: [propext]`, exit status 0, no `sorryAx`. `lake build`
 completes with the same report. Each run takes a few minutes.

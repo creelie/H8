@@ -233,11 +233,13 @@ Contents
          its degree |G|, the genus of the generalised Fermat curve, the
          Euler number and the Hodge numbers of the complete intersection
          against the quotient C^r/G  [diagonal_ci.py]
-  (LXXIV) convolutions of the Weil pieces on E_0^8 at two shifts: the 28
-         partners and 640 classes, the degrees of the groups between
-         pieces, the drop of runs through the multiples, the enumeration
-         of every chain the degrees allow at the 1792 pairs, and the
-         terms that appear at a third shift  [convolutions_efour.py]
+  (LXXIV) convolutions of the Weil pieces on E_0^8 at two and three
+         shifts: the 28 partners and 640 classes, the degrees of the
+         groups between pieces, the drop of runs through the multiples,
+         the enumeration of every chain the degrees allow at the 1792
+         pairs, the terms that appear at a third shift, and, at three
+         consecutive shifts, the targets H^5, their weight 960 per piece,
+         and the spectrum of their Cayley graph  [convolutions_efour.py]
   (LXXV) very general diagonal complete intersections: the Lie algebra
          of the squared transvections along a chain of vanishing cycles,
          the invariants of sp and sl in exterior powers, the signatures of
@@ -709,7 +711,7 @@ def main():
     head("(LXXIII) diagonal complete intersections of Vandermonde type")
     run_module("LXXIII", "diagonal_ci.py")
 
-    head("(LXXIV) convolutions of the Weil pieces on E_0^8 at two shifts")
+    head("(LXXIV) convolutions of the Weil pieces on E_0^8 at two and three shifts")
     run_module("LXXIV", "convolutions_efour.py")
 
     head("(LXXV) very general diagonal complete intersections")

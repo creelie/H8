@@ -173,6 +173,7 @@ fig:descent
 fig:diagonalbudget
 fig:doublepoint
 fig:efourshifts
+fig:efourthree
 fig:escape
 fig:evaluation
 fig:extprofile
@@ -671,6 +672,7 @@ thm:degreebound
 thm:deligneAH
 thm:divcriterion
 thm:divisor
+thm:efourthreelevels
 thm:efourtwolevels
 thm:equalnorms
 thm:equivalence

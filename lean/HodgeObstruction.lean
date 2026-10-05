@@ -3261,6 +3261,107 @@ theorem cyclic_nonsplit_example :
       = true := by
   decide +kernel
 
+/-! ## 46.  Three consecutive shifts on `E_0^8`
+
+Three finite facts behind Theorem (Three consecutive shifts on `E_0^8`).
+
+(a) The targets.  Two pieces of the same parity have a group `H^5` of
+dimension `D * C(2(4 - k), 5 - k)` when they differ in `k <= 3`
+coordinates and none when `k = 4`.  Every piece has `18`, `24` and `21`
+partners of its parity differing in `2`, `3` and `4` coordinates; the
+groups `H^5` have dimensions `64` six times and `16` twelve times for the
+first, `16` for the second, and add up to `576 + 384 = 960`.  So the
+targets weigh at most `32 * 960 = 30720`, and `40960 - 30720 = 10240`.
+
+(b) The degrees with three shifts.  A chain from a multiple through the
+distinct multiples `A` to the first piece `L_1`, a chain from the last
+piece `L_2` through the distinct multiples `B`, not both empty, and
+`delta = d(L_1) - d(L_2)` in `{1, 2}` give a term of `Ext` degree
+`3 + delta - U + 7D`, which is never `3` when `c = e`, never `0` when `e`
+is above `c` and never `8` when `e` is below `c`.  With `delta = 1` this is
+item (c) of Section 43.
+
+(c) The spectrum.  The weights depend only on the ratio of two pieces, so
+the targets form a cut of a Cayley graph on the `64` ratios of even sum, of
+degree `960`.  Its eigenvalues are the character sums
+`sum_g w(g) i^(m . g)`, all real, and their values are `960, 384, 192, 96,
+-32, -64, -128, -192`; a cut weighs at most `64 (960 + 192) / 4 = 18432`,
+the split `zeta_3 zeta_4 in {1, i}` attains it in both parities, and
+`40960 - 18432 = 22528`.
+-/
+
+/-- `dim H^5` between two pieces, by the number `k` of differing coordinates. -/
+def efH5 (z w : List Nat) : Nat :=
+  let k := ffDiff z w
+  if 1 ≤ k && k ≤ 3 then efD z w * choose (2 * (4 - k)) (5 - k) else 0
+
+def efSame (z : List Nat) : List (List Nat) :=
+  efPieces.filter (fun w => w != z && cvSum w % 4 == cvSum z % 4)
+
+/-- **The targets with three shifts.** -/
+theorem efour_three_targets :
+    ((efPieces.all fun z =>
+      let S := efSame z
+      let two := S.filter (fun w => ffDiff z w == 2)
+      let three := S.filter (fun w => ffDiff z w == 3)
+      let four := S.filter (fun w => ffDiff z w == 4)
+      S.length == 63 && two.length == 18 && three.length == 24 && four.length == 21
+        && (two.filter (fun w => efH5 z w == 64)).length == 6
+        && (two.filter (fun w => efH5 z w == 16)).length == 12
+        && three.all (fun w => efH5 z w == 16)
+        && four.all (fun w => efH5 z w == 0)
+        && (S.map (efH5 z)).foldl (· + ·) 0 == 960)
+      && (32 * 960 == 30720) && (64 * 640 - 30720 == 10240) && (10240 > 104)) = true := by
+  decide +kernel
+
+/-- the `Ext` degree `3 + delta - U + 7D` of a term through the runs `A -> L_1`
+and `L_2 -> B`. -/
+def efThreeDegree (r δ : Nat) (A B : List Nat) : Int :=
+  3 + Int.ofNat δ - efWalk (A ++ [r]) - efWalk ([r] ++ B)
+
+/-- **The degrees with three shifts.** -/
+theorem efour_three_degrees :
+    ((List.range 4).all fun r =>
+      let ms := (List.range 4).filter (· != r);
+      let sel := [0, 1, 2, 3].flatMap (cvSelections ms);
+      [1, 2].all fun δ => sel.all fun A => sel.all fun B =>
+        (A.length + B.length == 0) ||
+        (let c := A.headD r; let e := B.getLastD r; let q := efThreeDegree r δ A B;
+         if c == e then q != 3 else if c < e then q != 0 else q != 8)) = true := by
+  decide +kernel
+
+def efG0 : List (List Nat) := (cvTuples 4).filter (fun g => cvSum g % 4 == 0)
+
+def efDot (m g : List Nat) : Nat := ((m.zip g).map (fun q => q.1 * q.2)).foldl (· + ·) 0
+
+def efRe (k : Nat) : Int := if k % 4 == 0 then 1 else if k % 4 == 2 then -1 else 0
+def efIm (k : Nat) : Int := if k % 4 == 1 then 1 else if k % 4 == 3 then -1 else 0
+
+def efWeights : List (List Nat × Int) :=
+  (efG0.filter (· != [0, 0, 0, 0])).map (fun g => (g, Int.ofNat (efH5 [0, 0, 0, 0] g)))
+
+def efEig (m : List Nat) : Int :=
+  (efWeights.map (fun q => q.2 * efRe (efDot m q.1))).foldl (· + ·) 0
+def efEigIm (m : List Nat) : Int :=
+  (efWeights.map (fun q => q.2 * efIm (efDot m q.1))).foldl (· + ·) 0
+
+def efCut (P : List (List Nat)) : Nat :=
+  let T := P.filter (fun z => (z.getD 2 0 + z.getD 3 0) % 4 < 2)
+  let B := P.filter (fun z => (z.getD 2 0 + z.getD 3 0) % 4 ≥ 2)
+  (T.flatMap (fun z => B.map (efH5 z))).foldl (· + ·) 0
+
+/-- **The spectrum of the targets.** -/
+theorem efour_three_spectrum :
+    (let vals : List Int := [960, 384, 192, 96, -32, -64, -128, -192]
+     (efWeights.map (·.2)).foldl (· + ·) 0 == 960
+      && (cvTuples 4).all (fun m => efEigIm m == 0 && vals.contains (efEig m))
+      && vals.all (fun v => (cvTuples 4).any (fun m => efEig m == v))
+      && (64 * (960 + 192) / 4 == 18432)
+      && efCut efEven == 18432 && efCut efOdd == 18432
+      && (efEven.filter (fun z => (z.getD 2 0 + z.getD 3 0) % 4 < 2)).length == 32
+      && (64 * 640 - 18432 == 22528)) = true := by
+  decide +kernel
+
 end HodgeObstruction
 
 /-! ## The axioms each theorem depends on
@@ -3400,3 +3501,6 @@ propositional extensionality enters through `decide`, and in no case
 #print axioms HodgeObstruction.cyclic_norms
 #print axioms HodgeObstruction.cyclic_vg_counts
 #print axioms HodgeObstruction.cyclic_nonsplit_example
+#print axioms HodgeObstruction.efour_three_targets
+#print axioms HodgeObstruction.efour_three_degrees
+#print axioms HodgeObstruction.efour_three_spectrum

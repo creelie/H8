@@ -274,7 +274,7 @@ def fig_efourshifts():
             r"$D=16$ or $64$, $640$ classes in all:",
             r"$\dim\Ext^{2}(E,E)\ge64\cdot640=40960$,",
             r"against $104$ for the polarised criterion;",
-            r"three or more shifts stay open"]
+            r"three consecutive: $\ge22528$; more stay open"]
     for k, s in enumerate(rows):
         F.text(sx, sy - dy * k, s, anchor="west",
                font=FN if k == 0 else SN,

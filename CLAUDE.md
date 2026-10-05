@@ -403,6 +403,23 @@ Lean Section 45 (130 theorems); `figures/make_round42.py`, with
 `fig_vgmonodromy`, `fig_vgscope`, `fig_vgcounts` and the strip of
 `fig_vandermonde` redrawn; a one-sentence abstract at Deep's request.
 2175 checks, 130 Lean theorems, 395 pages, 746 labels.
+Round 43 (Deep chose "Three shifts" on a decision card) proved
+`thm:efourthreelevels` after `thm:efourtwolevels` in
+`tex/sections/10c6_objects.tex`: for a convolution on E_0^8 whose Weil
+pieces sit at three consecutive shifts s, s-1, s-2 (one parity class Q at
+s-1, the other split into T at s and B at s-2), the 40960 classes of
+`thm:efourtwolevels`(i) stay, d_E acts on them only by cup products into
+H^5(c,e) with c in T, e in B (multiples excluded by counting up and down
+steps), each piece has 960 such target dimensions, and the cut of the
+weighted Cayley graph on the 64 ratios is at most 16(960 - lambda_min) =
+18432 (least eigenvalue -192, attained by the split zeta_3 zeta_4 in
+{1, i}), so dim Ext^2 >= 22528 > 104; shifts not in three consecutive
+values stay open in `rem:convolutionsopen`. Item (LXXIV) now covers two and
+three shifts (`code/convolutions_efour.py`, parts (F) to (I), 16 checks,
+2182 in all); Lean Section 46 (133 theorems, 103 axiom-free, 30 on
+`propext`); `fig_efourthree` from `figures/make_round43.py` and the strip of
+`fig_efourshifts` redrawn; a row of `tab:scope`.
+2182 checks, 133 Lean theorems, 397 pages, 748 labels.
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 
@@ -429,7 +446,7 @@ section.
 - `cd code && python3 verify_all.py` ends with `N checks passed, 0 failed`;
   keep the count in `README.md`, `lean/README.md`, `.zenodo.json`,
   `.github/workflows/lean.yml` and `tex/declarations.tex` in step.
-- `cd lean && lean HodgeObstruction.lean`: 130 theorems, each axiom-free or
+- `cd lean && lean HodgeObstruction.lean`: 133 theorems, each axiom-free or
   depending on `propext` only.
 - `cd tex && latexmk -pdf main.tex`: 0 errors, 0 overfull or underfull boxes,
   no undefined references.

@@ -128,3 +128,6 @@
 'HodgeObstruction.cyclic_norms' does not depend on any axioms
 'HodgeObstruction.cyclic_vg_counts' depends on axioms: [propext]
 'HodgeObstruction.cyclic_nonsplit_example' depends on axioms: [propext]
+'HodgeObstruction.efour_three_targets' does not depend on any axioms
+'HodgeObstruction.efour_three_degrees' does not depend on any axioms
+'HodgeObstruction.efour_three_spectrum' depends on axioms: [propext]

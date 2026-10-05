@@ -1,4 +1,5 @@
-"""Item (LXXIV): convolutions of the Weil pieces on E_0^8 at two shifts.
+"""Item (LXXIV): convolutions of the Weil pieces on E_0^8 at two and three
+shifts.
 
 Setting of item (LXXI) at n = 4: A = B_1 x ... x B_4, B_j = E_0 x E_0,
 E_0 = C/Z[i]; the 128 pieces L_zeta, zeta in mu_4^4 with prod zeta = +-1,
@@ -8,7 +9,8 @@ line bundles on the B_j; the multiples M_1, M_2, M_3 with forms t_i Id,
 degree one from P_a to P_b of Ext degree q has d_b = d_a + 1 - q.
 
 Paper: Section "Convolutions of line bundles" (ssec:convolutions):
-lem:efourshifts, thm:efourtwolevels, rem:convolutionsopen.
+lem:efourshifts, thm:efourtwolevels, thm:efourthreelevels,
+rem:convolutionsopen.
 
   (A) the counts: 64 pieces of each parity; each has 4, 12, 28 and 20
       partners of the other parity differing in 1, 2, 3 and 4 coordinates;
@@ -27,7 +29,27 @@ lem:efourshifts, thm:efourtwolevels, rem:convolutionsopen.
       of W differing in three coordinates, with the shifts of the multiples
       left free; also the counting argument of the proof (Q = 4 - U + 7D);
   (E) with a third shift the same enumeration finds terms that the degrees
-      allow on such blocks, so the argument needs the two shifts.
+      allow on such blocks, so the vanishing of d_E needs the two shifts;
+  (F) three consecutive shifts (thm:efourthreelevels): the pieces of one
+      parity at s - 1, the others at s (the set T) or s - 2 (the set B).
+      The targets: a piece has 63 partners of its own parity, 18 differing
+      in two coordinates (H^5 of dimension 4D, D = 16 for 6 and 4 for 12),
+      24 in three (H^5 of dimension D = 16) and 21 in four (no H^5): 960 in
+      all, so the targets weigh at most 32 * 960 = 30720 and the bound is
+      40960 - 30720 = 10240 > 104;
+  (G) the same, at the level of the types T, Q, B and the multiples, valid
+      for every split of the pieces between T and B: the only terms of d_E
+      that the degrees allow on a block land in H^5(c, e), c in T, e in B;
+  (H) piece by piece, for every placement, a random split and the two
+      extreme ones: 1792 blocks of dimension 40960 in total, nothing reaches
+      them, every term the degrees allow lands in H^5(c, e) with c in T,
+      e in B differing in two or three coordinates, and the targets weigh at
+      most min(|T|, |B|) * 960 and at most 18432;
+  (I) the weights depend only on the ratio of the two pieces, so the targets
+      form a cut of a Cayley graph on the group of ratios: its eigenvalues
+      are 960, 384, 192, 96, -32, -64, -128, -192, so a cut weighs at most
+      16 * (960 + 192) = 18432, which the split by zeta_3 zeta_4 in {1, i}
+      attains, and dim Ext^2 >= 40960 - 18432 = 22528.
 """
 import itertools
 import sys
@@ -347,12 +369,216 @@ def part_E():
           found > 0, "%d of 28 blocks at W = (1,1,1,1)" % found)
 
 
+# ----------------------------------------------------------------------
+# three consecutive shifts
+def h5(z, w):
+    """dim H^5(A, L_z^{-1} L_w) for distinct pieces of the same parity"""
+    S = [j for j in range(n) if z[j] != w[j]]
+    D = Dval(z, w)
+    k, rest, m = len(S), 5 - len(S), 2 * (n - len(S))
+    if rest < 0 or rest > m:
+        return 0
+    c = 1
+    for i in range(rest):
+        c = c * (m - i) // (i + 1)
+    return D * c
+
+
+def part_F():
+    ok = True
+    for z in LS:
+        same = [w for w in LS if w != z and parity(w) == parity(z)]
+        by_k = {}
+        for w in same:
+            by_k.setdefault(ndiff(z, w), []).append(h5(z, w))
+        ok &= len(same) == 63
+        ok &= sorted(by_k[2]) == [16] * 12 + [64] * 6
+        ok &= by_k[3] == [16] * 24 and len(by_k[3]) == 24
+        ok &= set(by_k[4]) == {0} and len(by_k[4]) == 21
+        ok &= sum(by_k[2]) == 576 and sum(by_k[3]) == 384
+    ok &= 32 * 960 == 30720 and 64 * 640 - 30720 == 10240 > 104
+    check("(F) three shifts: a piece has 18, 24, 21 partners of its parity "
+          "differing in 2, 3, 4 coordinates, with H^5 of dimensions adding "
+          "up to 576, 384, 0, so 960; 40960 - 32 * 960 = 10240 > 104", ok)
+
+
+TYPES = {'T': 0, 'Q': -1, 'B': -2}
+TCLS = {'T': 0, 'B': 0, 'Q': 1}
+
+
+def type_terms(Ts, p=0, maxlen=8):
+    """the terms of d_E that the degrees allow on a block of type (T, Q) or
+    (Q, B), the L pieces replaced by their types (several pieces of one type
+    may occur on a chain) and the degrees between two types by the union
+    over the possible numbers of differing coordinates"""
+    phi = {'M%d' % i: t for i, t in enumerate(Ts)}
+    for x in TYPES:
+        phi[x] = p
+    nodes = ['T', 'Q', 'B', 'M0', 'M1', 'M2']
+
+    def tdegs(a, b, same=False):
+        if a in TYPES and b in TYPES:
+            if a == b and same:
+                return set(range(2 * n + 1))
+            return set(range(2, 7)) if TCLS[a] == TCLS[b] else set(range(1, 8))
+        if a == b:
+            return set(range(2 * n + 1))
+        return {0} if phi[b] > phi[a] else {2 * n}
+
+    def tchains(start, dirn):
+        out = []
+
+        def rec(x, dx, msh, length):
+            out.append((x, dx, dict(msh), length))
+            if length >= maxlen:
+                return
+            for y in nodes:
+                if y.startswith('M') and (y in msh or y == x):
+                    continue
+                a, b = (x, y) if dirn > 0 else (y, x)
+                ds = tdegs(a, b)
+                cand = [TYPES[y]] if y in TYPES else \
+                    [dx + dirn * (1 - q) for q in ds]
+                for dy in cand:
+                    q = 1 + (dx - dy if dirn > 0 else dy - dx)
+                    if q in ds:
+                        m2 = dict(msh)
+                        if y.startswith('M'):
+                            m2[y] = dy
+                        rec(y, dy, m2, length + 1)
+        rec(start, TYPES[start], {}, 0)
+        return out
+
+    found = set()
+    for (a, b) in (('T', 'Q'), ('Q', 'B')):
+        for (c, dc, mc, l1) in tchains(a, -1):
+            for (e, de, me, l2) in tchains(b, +1):
+                if l1 + l2 == 0 or not consistent(mc, me):
+                    continue
+                q = 3 + dc - de
+                if q in tdegs(c, e, c == e):
+                    found.add((a, b, c, e, q))
+    return found
+
+
+def part_G():
+    ok = True
+    for Ts in PLACEMENTS:
+        found = type_terms(Ts)
+        ok &= found == {('T', 'Q', 'T', 'B', 5), ('Q', 'B', 'T', 'B', 5)}
+    check("(G) three shifts, every split: on the blocks of types (T, Q) and "
+          "(Q, B) the degrees allow terms of d_E only into H^5(c, e), c in T, "
+          "e in B, in all four placements", ok)
+
+
+def three_level(Ts, Pcls, top):
+    C = Conf(Ts)
+    level = [(0 if a in top else -2) if parity(z) == Pcls else -1
+             for a, z in enumerate(LS)] + [None] * 3
+    F, Bk = {}, {}
+
+    def fw(x):
+        if x not in F:
+            F[x] = chains(C, level, x, +1)
+        return F[x]
+
+    def bw(x):
+        if x not in Bk:
+            Bk[x] = chains(C, level, x, -1)
+        return Bk[x]
+    nb = dims = hits = 0
+    targets = set()
+    for a in range(NL):
+        for b in range(NL):
+            if ndiff(LS[a], LS[b]) != 3 or level[a] != level[b] + 1:
+                continue
+            nb += 1
+            dims += Dval(LS[a], LS[b])
+            for (a1, ma, va) in fw(a):
+                for (b1, mb, vb) in bw(b):
+                    if (a1, b1) == (a, b) or not consistent(ma, mb):
+                        continue
+                    qu = 1 + shift_of(C, level, a1, ma) - \
+                        shift_of(C, level, b1, mb)
+                    hits += qu in C.degs(a1, b1)
+            for (c, mc, vc) in bw(a):
+                for (e, me, ve) in fw(b):
+                    if (c, e) == (a, b) or not consistent(mc, me):
+                        continue
+                    q = 3 + shift_of(C, level, c, mc) - \
+                        shift_of(C, level, e, me)
+                    if q in C.degs(c, e):
+                        targets.add((c, e, q))
+    good = all(not C.isM(c) and not C.isM(e) and q == 5 and c in top and
+               level[e] == -2 and ndiff(LS[c], LS[e]) in (2, 3)
+               for (c, e, q) in targets)
+    tdim = sum(h5(LS[c], LS[e]) for (c, e, q) in targets)
+    return nb, dims, hits, good, tdim
+
+
+def part_H():
+    import random
+    rnd = random.Random(43)
+    for i, Ts in enumerate(PLACEMENTS):
+        Pcls = i % 2
+        Ps = [a for a in range(NL) if parity(LS[a]) == Pcls]
+        splits = [set(rnd.sample(Ps, 32))]
+        if i == 0:
+            splits += [set(Ps[:1]), set(Ps[1:])]
+        res = []
+        ok = True
+        for top in splits:
+            nb, dims, hits, good, tdim = three_level(Ts, Pcls, top)
+            bound = min(len(top), 64 - len(top)) * 960
+            ok &= nb == 1792 and dims == 40960 and hits == 0 and good
+            ok &= tdim <= bound and tdim <= 18432
+            res.append("|T| = %d: targets %d" % (len(top), tdim))
+        check("(H) three shifts, t = %s, %s parity in the middle: 1792 blocks, "
+              "40960 classes, nothing reaches them, every term lands in "
+              "H^5(T, B)" % (Ts, "odd" if Pcls == 0 else "even"), ok,
+              "; ".join(res))
+
+
+def part_I():
+    G0 = [g for g in itertools.product(range(4), repeat=n) if sum(g) % 4 == 0]
+    zero = (0,) * n
+    w = {g: h5(zero, g) for g in G0 if g != zero}
+    RE, IM = [1, 0, -1, 0], [0, 1, 0, -1]
+    eig = set()
+    real = True
+    for m in itertools.product(range(4), repeat=n):
+        e = [sum(a * b for a, b in zip(m, g)) % 4 for g in w]
+        re = sum(v * RE[k] for v, k in zip(w.values(), e))
+        real &= sum(v * IM[k] for v, k in zip(w.values(), e)) == 0
+        eig.add(re)
+    ok = real and sorted(eig) == [-192, -128, -64, -32, 96, 192, 384, 960]
+    lam = min(eig)
+    bound = len(G0) * (sum(w.values()) - lam) // 4
+    ok &= sum(w.values()) == 960 and bound == 18432
+    # the split by zeta_3 zeta_4 in {1, i} attains it, in both classes
+    for cls in (0, 1):
+        P = [z for z in LS if parity(z) == cls]
+        T = [z for z in P if (z[2] + z[3]) % 4 in (0, 1)]
+        Bs = [z for z in P if (z[2] + z[3]) % 4 in (2, 3)]
+        cut = sum(h5(z, y) for z in T for y in Bs)
+        ok &= len(T) == len(Bs) == 32 and cut == 18432
+    ok &= 64 * 640 - 18432 == 22528
+    check("(I) the targets form a cut of a Cayley graph with eigenvalues "
+          "960, 384, 192, 96, -32, -64, -128, -192: a cut weighs at most "
+          "16 * 1152 = 18432, attained by zeta_3 zeta_4 in {1, i}; "
+          "40960 - 18432 = 22528", ok)
+
+
 def main():
     part_A()
     part_B()
     part_C()
     part_D()
     part_E()
+    part_F()
+    part_G()
+    part_H()
+    part_I()
     print()
     print("passed %d, failed %d" % (len(PASS), len(FAIL)))
     return 0 if not FAIL else 1
