@@ -560,6 +560,34 @@ under about 6.5 GB. The abstract gained the very general Vandermonde clause
 and two "Clearly" were replaced by reasons. No Python change (2218
 checks); 409 Lean theorems (127 axiom-free, 282 on `propext`); 411 pages,
 763 labels.
+Round 49 answered Deep's asks for a fully analytical, hand-written paper and
+for an attempt on (F2) and (F3'). Proofs that rested on code alone now have
+hand proofs wherever one exists: among them the rank 45 of ev_E in
+`prop:evaluation`, the least eigenvalue -192 in `thm:efourthreelevels`, the
+exceptional ratio of `rem:p2primeexceptional` (the Cayley form, so(4,3),
+citing [HL82] and [Bry87]), `prop:p2primelocus`(iv), ch(O_S) in
+`tex/sections/10c8_supports.tex`, the Weil orbit counts 70, 490, 6125 and
+the lattice degrees of `cor:delsarteall`, the pencil `prop:pencil` (Lean
+Section 16 now checks its polynomial identities, `code/divisor_route.py`
+rewritten), and in the Mumford sections `prop:mumfordwhere`(i) by the skew
+Cauchy formula, `lem:mumfordmu`, Steps 2 and 3 of `thm:mumfordpowers` with
+`rem:mumforddet`, `thm:mumfordcm` for every power by weight multisets,
+`rem:mumfordunitary`, `prop:notwistor`(iii), `prop:hksquare`(i), (ii) (now
+with a nonzero rational factor rho in (ii)), `thm:lefschetzclosure`(ii),
+(iv), `prop:mumforddivisor` and `prop:mumfordmotivic`. Cross-checks that only
+confirmed a hand proof were deleted; the computations that remain are stated
+precisely and cited to [BMB26], and the introduction says so.
+`thm:pterange`(ii) no longer claims n + 2 norms at n = 7, 8. New:
+`lem:pfaffian` (10c3), `prop:jacobiancontinuation` (10c5: line bundles on
+C^(g-1) pushed to the Jacobian do not continue the two certificates for
+g >= 4), `prop:f3primeample` (11b: ample complete intersections inherit (F3')
+and the Hodge conjecture outside the middle degree, and in the middle degree
+for a very general member when the vanishing cohomology is not of type
+(r/2, r/2)); references [ACGH85], [Mac62], [Bry87]. `verify.ps1` was
+rewritten for Windows (Python suite, then the Lean file; logs in
+`verify_python.log` and `lean/axioms.txt`; the expected count is read from
+the file), and Deep ran the Python suite on his Windows machine. 2218 checks,
+409 Lean theorems (128 axiom-free, 281 on `propext`), 416 pages, 766 labels.
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 

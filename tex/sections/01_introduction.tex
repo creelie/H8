@@ -478,11 +478,12 @@ the base of a smooth projective family that is algebraic at one fibre be
 algebraic at every fibre.}
 \Cref{sec:final} collects the results in one theorem.
 
-Several proofs rest on finite computations: exact linear algebra over number
-fields and over function fields, exhaustive searches over finite sets, and
-Gr\"obner bases. They are carried out in exact arithmetic, or, for the
-integrals of theta functions behind \Cref{prop:fourfoldrank}, in ball
-arithmetic with rigorous error bounds, and the finite
-arithmetic behind a number of the theorems is certified a second time in the
-Lean~4 proof assistant; the programs and the certificate are archived with
-the paper \cite{BMB26}, and each computation is cited where it is used.
+The proofs are written to be read by hand. Where a step rests on a finite
+computation that is too large to display (exact linear algebra over number
+fields and over function fields, exhaustive searches over finite sets,
+Gr\"obner bases, and, for the integrals of theta functions behind
+\Cref{prop:fourfoldrank}, ball arithmetic with rigorous error bounds), the
+computation is stated precisely where it is used and cited to the archive
+\cite{BMB26}, which holds the programs; the finite arithmetic behind many of
+the theorems is certified a second time in the Lean~4 proof assistant.
+Computations that only confirm a statement proved by hand are not mentioned.

@@ -288,6 +288,7 @@ lem:omegadescends
 lem:onecomponent
 lem:oneexceptional
 lem:p2primesummands
+lem:pfaffian
 lem:poincare
 lem:posrank
 lem:products
@@ -352,6 +353,7 @@ prop:explicitobject
 prop:f2isab
 prop:f3ishc
 prop:f3prime
+prop:f3primeample
 prop:f3primedominant
 prop:f3primefibration
 prop:f3primesmall
@@ -364,6 +366,7 @@ prop:grading
 prop:grr
 prop:h2pieces
 prop:hksquare
+prop:jacobiancontinuation
 prop:k3ntype
 prop:k3powers
 prop:ksembed
