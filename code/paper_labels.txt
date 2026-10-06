@@ -702,6 +702,7 @@ thm:fmtheta
 thm:hdgcount
 thm:hhsplitting
 thm:hyperplane
+thm:introvandermonde
 thm:lattice
 thm:lefschetzclosure
 thm:lefschetzfamily

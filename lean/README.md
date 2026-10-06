@@ -1,4 +1,4 @@
-# Machine verification for *Algebraic Loci of Weil Classes from Abelian Varieties to Diagonal Complete Intersections*
+# Machine verification for *Hodge Conjecture for Very General Vandermonde Quadric Intersections*
 
 `HodgeObstruction.lean` is a certificate, checked by the Lean 4 kernel, of the
 finite arithmetic on which the results of the paper turn.
@@ -160,7 +160,7 @@ axiom.
 | `vg_quadric_counts` | `1 + sum_{j > r/2} C(N+1, 2j)` equals one plus the number of subsets of `{0..N}` of even size at least `r + 2`, for `N <= 9`, `r = 2, 4, 6`; it is `N + 2` for two quadrics in `P^N`, `N` even, `2` for a quadric of even dimension, and `2, 8, 30, 94, 257` for `r = 4`, `N = 5..9` |
 | `vg_cubic_counts` | `1 + C(N+1, r+2) C(r+2, r/2+1)` equals one plus the number of vectors in `{0,1,2}^(N+1)` with `r + 2` nonzero entries, `r/2 + 1` of them equal to `1`, and sum divisible by `3`, for `N <= 7`, `r = 2, 4`; it is `7, 21, 71` for the Fermat cubics of dimension `2, 4, 6`, `141` for two cubics in `P^6` and `631` for two cubics in `P^8` |
 | `vg_triple_signatures` | for `n_1, n_2 < 20` branch points of exponents `1, 2` with `n_1 + 2 n_2` divisible by `3`, the signature `p = (2 n_1 + n_2)/3 - 1`, `q = (n_1 + 2 n_2)/3 - 1` gives back `n_1 = 2p - q + 1`, `n_2 = 2q - p + 1`, the branch data of Achter and Pries, and `p = q` exactly when `n_1 = n_2` |
-| `cyclic_base_count` | the vectors of nonzero residues modulo `m = 3, 4, 6` with `5` or `6` coordinates, sum `0`, order `m` and `p, q >= 1`, written as count vectors, number `38` up to sign: the base cases of an earlier proof of the proposition on the monodromy of cyclic covers, which the paper now proves by hand |
+| `cyclic_base_count` | the vectors of nonzero residues modulo `m = 3, 4, 6` with `5` or `6` coordinates, sum `0`, order `m` and `p, q >= 1`, written as count vectors, number `38` up to sign: the cases with five or six branch points of the proposition on the monodromy of cyclic covers, which the paper proves by hand |
 | `cyclic_merge_small` | every such vector with `7 <= k <= 8, 11, 10` coordinates at `m = 3, 4, 6` has two entries `u, w` with `u + w != 0` whose merge keeps the order `m` and `p, q >= 1`: a check of the merge lemma, which the paper proves by hand |
 | `cyclic_norms` | `x^2 + xy + y^2` is never `2` modulo `4` and is even only for `x, y` even, so `2` is not a norm from `Q(sqrt(-3))` and norms have even `2`-adic valuation; `2 = 1 + 1`, `3 = 1 + 1 + 1` and `4` are norms where the lemma on the discriminant of the new part needs them |
 | `cyclic_vg_counts` | `T_d(k)` by a recursion equals the enumeration for `(d, k) = (3, 6), (4, 6), (6, 4)`; `T_4(6) = 141`, `T_6(6) = 1751`, `T_4(8) = 1107`, `T_6(8) = 38165`; the formula of the very general theorem equals a direct count of the characters for `(d, N, r) = (4, 5, 4), (3, 6, 4), (6, 4, 2)` and gives `142, 988, 3950, 1108, 1752, 12258, 38166` |

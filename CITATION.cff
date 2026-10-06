@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
-title: "Verification code and figure sources for the paper Algebraic Loci of Weil Classes from Abelian Varieties to Diagonal Complete Intersections"
+title: "Verification code and figure sources for the paper Hodge Conjecture for Very General Vandermonde Quadric Intersections"
 abstract: "Exact-arithmetic verification code, a kernel-checked Lean 4 certificate of the finite arithmetic, Macaulay2 computations and the TikZ sources of every figure accompanying the paper of the same name."
 type: software
 license: MIT

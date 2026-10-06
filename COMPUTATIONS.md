@@ -1,6 +1,6 @@
 # Computations
 
-This document accompanies the paper *Algebraic Loci of Weil Classes from Abelian Varieties to Diagonal Complete Intersections* by Deep Bhattacharjee, Priyabrata Mandal and Ushashi Bhattacharya. The paper cites the programs of this archive as [BMB26]. Below, each computation is listed under the item number that the programs, `code/verify_all.py` and the README use, with the results of the paper that it checks. Theorem, section and equation numbers refer to the compiled paper `tex/main.pdf`.
+This document accompanies the paper *Hodge Conjecture for Very General Vandermonde Quadric Intersections* by Deep Bhattacharjee, Priyabrata Mandal and Ushashi Bhattacharya. The paper cites the programs of this archive as [BMB26]. Below, each computation is listed under the item number that the programs, `code/verify_all.py` and the README use, with the results of the paper that it checks. Theorem, section and equation numbers refer to the compiled paper `tex/main.pdf`.
 
 Every statement of the paper is proved in the text, and no proof rests on
 the items below. They repeat the finite arithmetic of the proofs in exact
@@ -782,7 +782,7 @@ The theorems of this paper are statements of algebraic geometry and are not form
 | `vg_quadric_counts` | $1+\sum_{j>r/2}\binom{N+1}{2j}$ is one plus the number of subsets of even size at least $r+2$ ($N\le9$), $N+2$ for two quadrics and $2$ for a quadric; $2,8,30,94,257$ for $r=4$, $N=5,\dots,9$, Theorem 20.66(iii) |
 | `vg_cubic_counts` | $1+\binom{N+1}{r+2}\binom{r+2}{r/2+1}$ is one plus the number of balanced characters ($N\le7$, $r=2,4$); $7$, $21$, $71$ for the Fermat cubics, $141$ and $631$ for two cubics in $\mathbb{P}^{6}$ and $\mathbb{P}^{8}$, Theorem 20.66(iii) |
 | `vg_triple_signatures` | for $n_{1},n_{2}<20$ branch points of exponents $1,2$, the signature $(p,q)$ satisfies $n_{1}=2p-q+1$, $n_{2}=2q-p+1$, balanced exactly when $n_{1}=n_{2}$, Theorem 20.66(ii) |
-| `cyclic_base_count` | the vectors of nonzero residues modulo $m=3,4,6$ with $5$ or $6$ coordinates, sum $0$, order $m$ and $p,q\ge1$ number $38$ up to sign, the base cases of an earlier proof of Proposition 20.64, which the paper now proves by hand |
+| `cyclic_base_count` | the vectors of nonzero residues modulo $m=3,4,6$ with $5$ or $6$ coordinates, sum $0$, order $m$ and $p,q\ge1$ number $38$ up to sign, the cases with five or six branch points of Proposition 20.64, which the paper proves by hand |
 | `cyclic_merge_small` | every such vector with $k$ coordinates, $7\le k\le8$, $11$, $10$ for $m=3,4,6$, has two entries $u,w$ with $u+w\ne0$ whose merge keeps the order $m$ and $p,q\ge1$, a check of Lemma 20.62 |
 | `cyclic_norms` | $x^{2}+xy+y^{2}$ is never $2$ modulo $4$ and is even only for $x,y$ even, so $2$ is not a norm from $\mathbb{Q}(\sqrt{-3})$; $2$, $3$ and $4$ are norms where they are used, Lemma 20.65 |
 | `cyclic_vg_counts` | $T_{d}(k)$ by a recursion agrees with enumeration; $T_{4}(6)=141$, $T_{6}(6)=1751$, $T_{4}(8)=1107$, $T_{6}(8)=38165$; the formula agrees with a direct count of the characters and gives $142$, $988$, $3950$, $1108$, $1752$, $12258$, $38166$, Theorem 20.66(iii) |

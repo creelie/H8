@@ -113,6 +113,46 @@ $\Sigma_{F}$ requires of a single object at a single point;
 requirement exactly for quartic fields; and \Cref{part:beyond} places the
 Weil classes inside the whole conjecture (\Cref{fig:parts}).
 
+The paper also proves the Hodge conjecture itself on a family of varieties
+of every dimension. Let $X\subset\PP^{N}$ be a complete intersection of $c$
+diagonal hypersurfaces $\sum_{i}a_{ki}x_{i}^{d}=0$ of degree $d$. It is
+\emph{of Vandermonde type} if $a_{ki}=\mu_{i}\sum_{l=1}^{c}g_{kl}\lambda_{i}^{l-1}$
+for distinct numbers $\lambda_{0},\dots,\lambda_{N}$, nonzero numbers
+$\mu_{i}$ and an invertible matrix $(g_{kl})$; for $c\ge2$ this says that the
+columns of $(a_{ki})$ are distinct points of a rational normal curve, and
+every smooth complete intersection of two diagonal hypersurfaces of the same
+degree is of this type. Such an $X$ is isomorphic to a variety
+$X_{d,N-c}(\lambda)$ that depends only on $\lambda$ (\Cref{thm:vandermonde}),
+and \emph{very general} refers to $\lambda$. For $d=2$ we call $X$ a
+\emph{Vandermonde quadric intersection}.
+
+\begin{theorem}[Diagonal complete intersections]\label{thm:introvandermonde}
+Every rational Hodge class is algebraic on the very general Vandermonde
+quadric intersection, in every dimension and in every projective space. The
+same holds for the very general complete intersection of Vandermonde type of
+diagonal cubics or quartics of dimension at most seven, or of diagonal
+sextics of dimension at most five, and for every smooth complete
+intersection of two diagonal cubics, of two diagonal quartics or of two
+diagonal sextics in $\PP^{6}$.
+\end{theorem}
+
+The first two statements are \Cref{thm:vgvandermonde}(iii) and the third is
+\Cref{cor:twodiagonal}(ii). The variety $X$ is a quotient of a power of a
+generalised Fermat curve, so its Hodge classes come from abelian subvarieties
+of the Jacobian of that curve. For quadrics the monodromy of the curve along
+a chain of vanishing cycles is the full symplectic group on every eigenspace,
+so every Hodge class comes from powers of polarisations and no theorem on
+abelian varieties of higher dimension is needed. For cubics, quartics and
+sextics we compute the monodromy by an induction on the number of branch
+points (\Cref{prop:cyclicmonodromy}), and the classes it leaves are divisor
+classes, Weil classes of abelian fourfolds of Weil type, and Weil classes of
+abelian sixfolds of split Weil type, all algebraic by the theorems of
+Lefschetz and Markman \cite{Mar25a,Mar25b}. In odd dimension every Hodge
+class is a multiple of a power of the hyperplane class. So the bound seven
+for cubics and quartics is the point where abelian varieties of dimension
+eight appear, and the bound five for sextics comes from abelian sixfolds of
+non-split Weil type, which occur in dimension six.
+
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{fig_roadmap}
@@ -215,7 +255,7 @@ one connected domain (\Cref{cor:exactform}).
 
 \subsection{Closing the algebraic locus}
 
-By \Cref{thm:main}(iv) the Hodge conjecture for the very general member of a
+\enlargethispage{2pt}By \Cref{thm:main}(iv) the Hodge conjecture for the very general member of a
 Weil family is the closedness of $\Sigma_{F}$, and by (iii) it is enough to
 show that one stratum has an interior point. Two statements would do this,
 and the paper determines what each of them asks.

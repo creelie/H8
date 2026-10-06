@@ -1,9 +1,9 @@
-# Algebraic Loci of Weil Classes from Abelian Varieties to Diagonal Complete Intersections
+# Hodge Conjecture for Very General Vandermonde Quadric Intersections
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22950275.svg)](https://doi.org/10.5281/zenodo.22950275)
 
-Verification code and figure sources for the paper *Algebraic Loci of Weil
-Classes from Abelian Varieties to Diagonal Complete Intersections*, by Deep
+Verification code and figure sources for the paper *Hodge Conjecture for
+Very General Vandermonde Quadric Intersections*, by Deep
 Bhattacharjee, Priyabrata Mandal and Ushashi Bhattacharya. The paper proves
 every statement in its text; the programs here repeat its finite arithmetic
 as an independent check, and some of them record data that the paper does
