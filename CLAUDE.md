@@ -633,6 +633,13 @@ revision traces were removed from `.zenodo.json`, `lean/README.md` and
 when Deep sends its version DOI, record it as described below (and the new
 archive title in `BMB26`). No code change (2218 checks, 409 Lean theorems);
 413 pages, 760 labels.
+Round 52 recorded the version DOI of release v4.0.0 (tag `v4.0.0`, the merge
+commit `ea2d6c3` of round 51, published by Deep from a prefilled release
+link), 10.5281/zenodo.23197107, in `\zenodoCodeID`, the release number of the
+data availability section and of `BMB26` (with the archive title of round
+51), the README table and `CITATION.cff`. Deep sent the DOI; zenodo.org and
+doi.org could not be reached from the session to check the record, while the
+GitHub release itself was checked.
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 
@@ -643,12 +650,14 @@ release v3.0.0 (tag `v3.0.0`, published by Deep; it accompanies round 28)
 under 10.5281/zenodo.23047883, release v3.1.1 (tag `v3.1.1`, published
 by Deep; it accompanies rounds 30 to 33) under 10.5281/zenodo.23078541, and
 release v3.2.0 (tag `v3.2.0`, published by Deep; it accompanies rounds 35 to
-37) under 10.5281/zenodo.23093099; the concept DOI of all versions is
+37) under 10.5281/zenodo.23093099, and release v4.0.0 (tag `v4.0.0`, published
+by Deep; it accompanies rounds 38 to 51) under 10.5281/zenodo.23197107; the
+concept DOI of all versions is
 10.5281/zenodo.22950275. They are listed in the README table and
 `CITATION.cff`. The paper names one DOI for the code, `\zenodoCodeID` in
 `tex/declarations.tex` (used by the data availability section and the `BMB26`
 bibliography entry), and no GitHub URL; it holds the version DOI of release
-v3.2.0. When Deep publishes a later release and sends its version DOI, put it
+v4.0.0. When Deep publishes a later release and sends its version DOI, put it
 in `\zenodoCodeID`, the release number of the data availability section and
 of `BMB26`, the README table and `CITATION.cff`. There is no separate AI declaration: the use of Claude
 for the Python and Lean computations is stated in the Data availability
