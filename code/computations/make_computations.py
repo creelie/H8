@@ -96,8 +96,8 @@ for line in body.split('\n'):
 if cur.strip(): parts.append(cur)
 out = []
 out.append('# Computations\n')
-out.append('This document accompanies the paper *Algebraic Loci of Weil Classes '
-           'from Abelian Varieties to Diagonal Complete Intersections* by Deep Bhattacharjee, Priyabrata Mandal '
+out.append('This document accompanies the paper *Hodge Conjecture for Very General '
+           'Vandermonde Quadric Intersections* by Deep Bhattacharjee, Priyabrata Mandal '
            'and Ushashi Bhattacharya. The paper cites the programs of this archive '
            'as [BMB26]. Below, each computation is listed under the item number '
            'that the programs, `code/verify_all.py` and the README use, with the '

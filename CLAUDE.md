@@ -617,6 +617,22 @@ hypotheses suffice". No code change (2218 checks, 409 Lean theorems);
 say which computations the paper no longer uses. 412 pages, 759 labels.
 Deep also asked for a full unconditional closure of the conjecture; it was
 declined, since nothing proves it.
+Round 51 retitled the paper "Hodge Conjecture for Very General Vandermonde
+Quadric Intersections". Deep asked for a title of the form "every rational
+Hodge class is algebraic"; that statement alone is the conjecture and was
+declined, and Deep found the first true version ("Every Rational Hodge Class
+Is Algebraic on Very General Diagonal Quadric Intersections of Vandermonde
+Type") too long. The abstract now leads with that result, and the
+introduction defines a Vandermonde quadric intersection and states
+`thm:introvandermonde` (Theorem 1.2: `thm:vgvandermonde`(iii) and
+`cor:twodiagonal`(ii)) after the plan of the parts. Three
+`\enlargethispage` commands (one in the introduction, two at footnotes in
+`tex/sections/10c6_objects.tex`) keep the build free of bad boxes, and
+revision traces were removed from `.zenodo.json`, `lean/README.md` and
+`code/computations/lean.tex`. This is the final PR before the next release;
+when Deep sends its version DOI, record it as described below (and the new
+archive title in `BMB26`). No code change (2218 checks, 409 Lean theorems);
+413 pages, 760 labels.
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 
