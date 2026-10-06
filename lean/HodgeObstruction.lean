@@ -34,13 +34,12 @@ which in every case is finite and integral.
     h^(2,0) = 1 having n = 1 as its only solution; Section 8 verifies this
     together with the Clifford dimensions.
 
-  * The pencil of quaternionic loci at n = 2 turns on two integer
-    certificates: a pair of 2 x 2 minors whose difference is the constant 2
-    (d = 1), and a constant minor -4 (d = 3), which bound the index of the
-    lattice Z[i] x_k in its saturation uniformly in k; and on the quadratic
-    beta(k) being positive with negative discriminant.  Section 16 checks
-    these, together with the two values of k at which beta(k) is a rational
-    square and a rational point of the locus can be written down.
+  * The pencil of quaternionic loci at n = 2 is proved by hand; its
+    arithmetic is the volume int eta^4 = 4! (2d)^4 = 384 d^4, the square
+    C_k^2 = (1 + k^2) I of the matrix of the pencil, the minimum
+    mu_k = (8/24) beta(k) int eta^4 = 32 d^2 (1 + k^2) and the degree bound
+    mu_k int eta^4 / 2 = 6144 d^6 (1 + k^2).  Section 16 checks these
+    polynomial identities.
 
   * The obstruction map of a split object against the Weil family has rank
     n^2 - n(n+1)/2 = n(n-1)/2 when its classes span the Neron-Severi group,
@@ -113,6 +112,26 @@ which in every case is finite and integral.
     Chern classes of a secant character; Section 54 the intersection form on
     the rational Weil plane; Section 55 the secant plane against the lattice
     of line bundles and the resolutions of rank one and two.
+
+  * Sections 56 to 81 carry the exact linear algebra of the remaining
+    computations: the Jacobian ring of a hypersurface and the reach of the
+    arguments on zero-cycles (56), infinitesimal rigidity (57), the size of
+    an object carrying the Weil class (58), the annihilator as tangent
+    space (59), very general Weil tori (60), the Hochschild profile of a
+    polarised character (61), descent (62), the Wirtinger bound (63), the
+    motivic group of a Mumford fourfold (64), K3 surfaces and varieties of
+    K3^[n] type (65), the integral classes of a sextic CM field (66), the
+    transform of the powers of the polarisation (67), the open routes and
+    the two targets (68, 69), the Lefschetz operator of an abelian scheme
+    (70), split resolutions (71), transport along the orbit (72), the
+    quaternionic Weil cycle (73), the divisor route (74), exceptional
+    classes (75), CM fields of degree four and six (76), the two classes on
+    a Mumford fourfold and their Hodge locus (77, 78), the square of a
+    Mumford fourfold (79), the semiregularity map of a sum of line bundles
+    (80) and kernels on X x X for a quartic CM field (81).  Ranks are
+    certified as in Section 51: exact relations bound them above, and a
+    minor that is nonsingular modulo a prime bounds them below; reduction
+    modulo a prime is a ring map on every ring involved.
 
 Most theorems are settled by `decide`, many by its kernel-only form
 `decide +kernel`, and a few by short proofs from the core lemmas on natural
@@ -785,42 +804,49 @@ theorem norm_supply_blocks_small_case :
 
 /-! ## 16.  The pencil of quaternionic loci at `n = 2`
 
-The minors of the matrix with rows `x_k` and `i.x_k` are integer polynomials
-of degree at most two in `k`.  For `d = 1` two of them are
-`P(k) = -2 - 2k - k^2` and `Q(k) = -2k - k^2`, and `Q - P = 2` identically;
-for `d = 3` one minor is the constant `-4`.  A polynomial of degree at most
-two that vanishes at three integers vanishes identically, so the checks below
-over `-200 <= k <= 200` establish the polynomial identities, and hence the
-bounds `N_1 = 2`, `N_3 = 4` on the index for every integer `k`.
+The pencil is `x_k(u, v) = E(phi_k u, v)`, with `phi_k` left multiplication
+by `(2d)^{-1} C_k j` on `O^2` and `C_k = [[1, k], [k, -1]]`, so that
+`phi_k^2 = (1 + k^2)/(4 d^2)`.  The identities below are polynomial in `k`
+and `d` of degree at most six in each variable; a polynomial of degree at
+most six in one variable that vanishes at seven integers vanishes
+identically, so checking them on a grid of at least seven values in each
+variable proves them for all integers `k` and `d`.
 -/
 
-/-- The integers from `-200` to `200`. -/
-def kRange : List Int := (List.range 401).map fun n => ((n : Nat) : Int) - 200
-
-/-- `d = 1`: the two minors differ by the constant `2` at every `k`, so the gcd
-of their values divides `2`. -/
-theorem pencil_index_d1 :
-    (kRange.all fun k => decide ((0 - 2*k - k*k) - (-2 - 2*k - k*k) = 2)) = true := by
+/-- The volume: the polarisation has elementary divisors `2d` four times on
+`O^2`, so `int eta^4 = 4! (2d)^4 = 384 d^4`. -/
+theorem pencil_volume :
+    ((List.range 21).all fun n => let d : Int := n
+      decide (24 * (2 * d) ^ 4 = 384 * d ^ 4)) = true := by
   decide
 
-/-- `d = 3`: the minor `-4` is constant, and the second listed minor is
-`-12 - 24k - 12k^2 = -12 (k+1)^2`; the gcd of the two values divides `4`. -/
-theorem pencil_index_d3 :
-    (kRange.all fun k =>
-      decide (Int.gcd (-12 - 24*k - 12*k*k) (-4) ∣ 4)) = true := by
+/-- The square of the matrix of the pencil: `C_k^2 = (1 + k^2) I`, entry by
+entry, for `|k| <= 10`. -/
+theorem pencil_square :
+    ((List.range 21).all fun m => let k : Int := (m : Int) - 10
+      decide (1 * 1 + k * k = 1 + k ^ 2) && decide (1 * k + k * (-1) = 0)
+        && decide (k * 1 + (-1) * k = 0) && decide (k * k + (-1) * (-1) = 1 + k ^ 2)) = true := by
   decide
 
-/-- `4 beta_1(k) = 2 + 2k + k^2` and `9 beta_3(k) = 1 + 2k^2` are positive on
-the range, and their discriminants are `-4` and `-8`. -/
-theorem pencil_beta_positive :
-    (kRange.all fun k => decide (2 + 2*k + k*k > 0 ∧ 1 + 2*k*k > 0)) = true
-      ∧ (2*2 - 4*1*2 : Int) = -4 ∧ (0*0 - 4*2*1 : Int) = -8 := by
+/-- The minimum: `I(x_k) = (8/24) beta(k) int eta^4` with
+`beta(k) = (1 + k^2)/(4 d^2)` and `int eta^4 = 384 d^4` is `32 d^2 (1 + k^2)`,
+that is `8 (1 + k^2) 384 d^4 = 24 4 d^2 32 d^2 (1 + k^2)`. -/
+theorem pencil_minimum :
+    ((List.range 11).all fun n => (List.range 21).all fun m =>
+      let d : Int := n
+      let k : Int := (m : Int) - 10
+      decide (8 * (1 + k ^ 2) * (384 * d ^ 4) = 24 * (4 * d ^ 2) * (32 * d ^ 2 * (1 + k ^ 2)))) = true := by
   decide
 
-/-- The two members of the pencil with `beta(k)` a rational square: `beta_1(-1)
-= 1/4` and `beta_3(-2) = 1`. -/
-theorem pencil_square_members :
-    (2 + 2*(-1 : Int) + (-1)*(-1) = 1) ∧ (1 + 2*(-2 : Int)*(-2) = 9) := by
+/-- The degree bound: `int eta^4 mu_k / 2 = 6144 d^6 (1 + k^2)`, and
+`6144 = 32^2 6`, so an effective divisor off `Q eta` has degree at least
+`32 sqrt 6 d^3 sqrt(1 + k^2)`. -/
+theorem pencil_degree_bound :
+    (((List.range 11).all fun n => (List.range 21).all fun m =>
+      let d : Int := n
+      let k : Int := (m : Int) - 10
+      decide (384 * d ^ 4 * (32 * d ^ 2 * (1 + k ^ 2)) = 2 * (6144 * d ^ 6 * (1 + k ^ 2))))
+      && decide ((6144 : Int) = 32 ^ 2 * 6)) = true := by
   decide
 
 
@@ -5199,6 +5225,10545 @@ theorem burch_rank_two_parity (d : Nat) : (3 * d + 3) % 12 = 0 ↔ d % 4 = 3 := 
   revert r
   decide
 
+
+/-! ## 56.  The Jacobian ring of a hypersurface, and the reach of the
+arguments on zero-cycles
+
+Item (LXII).  For a smooth hypersurface of degree `d` in
+`P^(n+1)` the Jacobian ring is `C[x_0..x_(n+1)]` modulo the `n + 2` partial
+derivatives, a regular sequence of degree `d - 1`, so its Hilbert series is
+`(1 + s + ... + s^(d-2))^(n+2)`.  By Griffiths' description the primitive
+Hodge number `h^(n-p,p)_0` is its coefficient in degree `(p+1) d - (n+2)`.
+
+* The coefficients of `(1 + s + ... + s^(d-2))^(n+2)`, computed by repeated
+  multiplication, agree with the inclusion-exclusion formula
+  `sum_j (-1)^j C(n+2, j) C(k - j(d-1) + n + 1, n + 1)`, are symmetric about
+  `(n+2)(d-2)` and add up to `(d-1)^(n+2)`, for `n <= 8`, `2 <= d <= 8`.
+* The primitive Hodge numbers of a smooth sextic fourfold are
+  `1, 426, 1751, 426, 1`.
+* The Euler number `n + 1 + (-1)^n sum_p h^(n-p,p)_0` equals
+  `((1-d)^(n+2) - 1)/d + n + 2` and `d` times the coefficient of `h^n` in
+  `(1+h)^(n+2)/(1+dh)`, for `n <= 8`, `2 <= d <= 8`; it is `2610` for the
+  sextic fourfold, with `b_4 = 2606`.
+* `h^(4,0)` of a smooth hypersurface fourfold of degree `3, ..., 7` is
+  `0, 0, 0, 1, 6`, which is `C(d - 1, 5)`, the dimension of
+  `H^0(P^5, O(d - 6))`.
+* The blow-up of `P^6` along a sextic fourfold in a hyperplane has
+  `(h^(6,0), h^(5,1), h^(4,2), h^(3,3)) = (0, 1, 426, 1753)` and total Betti
+  number `2617`.
+* On the exceptional divisor of a blow-up along a fourfold with
+  `H^*(Y) = Q[y]/(y^5)`, `-rho_* j^* j_* rho^* a = a` in every degree.
+* For `n <= 5` only degree four needs an input; on a rational sixfold only
+  degree four on a fourfold centre, and on a uniruled fivefold only degree
+  four on the fourfold `Z'`.
+-/
+
+/-- the binomial coefficient by the product formula: after `i` steps the
+accumulator is `C(n, i)`, so each division is exact. -/
+def jrChoose (n k : Nat) : Nat :=
+  if k > n then 0 else
+  (List.range k).foldl (fun acc i => acc * (n - i) / (i + 1)) 1
+
+/-- the product of two polynomials given by their coefficient lists. -/
+def jrMul (p q : List Int) : List Int :=
+  (List.range (p.length + q.length - 1)).map fun k =>
+    (List.range (k + 1)).foldl (fun s i => s + p.getD i 0 * q.getD (k - i) 0) 0
+
+/-- `(1 + s + ... + s^(d-2))^m`. -/
+def jrHilb (d m : Nat) : List Int :=
+  (List.range m).foldl (fun acc _ => jrMul acc (List.replicate (d - 1) 1)) [1]
+
+/-- the inclusion-exclusion formula for the coefficient in degree `k`. -/
+def jrIncl (n d k : Nat) : Int :=
+  (List.range (n + 3)).foldl (fun s j =>
+    if j * (d - 1) ≤ k then
+      s + (if j % 2 == 0 then 1 else -1) * (jrChoose (n + 2) j : Int)
+            * (jrChoose (k - j * (d - 1) + n + 1) (n + 1) : Int)
+    else s) 0
+
+def jrCheckA (n d : Nat) : Bool :=
+  let h := jrHilb d (n + 2)
+  let top := (n + 2) * (d - 2)
+  h.length == top + 1
+    && (List.range (top + 1)).all (fun k => h.getD k 0 == jrIncl n d k)
+    && (List.range (top + 1)).all (fun k => h.getD k 0 == h.getD (top - k) 0)
+    && h.foldl (· + ·) 0 == ((d - 1 : Nat) : Int) ^ (n + 2)
+
+/-- the primitive Hodge numbers `h^(n-p,p)_0`, `p = 0..n`. -/
+def jrPrim (n d : Nat) : List Int :=
+  let h := jrHilb d (n + 2)
+  (List.range (n + 1)).map fun p =>
+    if (p + 1) * d ≥ n + 2 then h.getD ((p + 1) * d - (n + 2)) 0 else 0
+
+/-- `d` times the coefficient of `h^n` in `(1+h)^(n+2)/(1+dh)`. -/
+def jrTopChern (n d : Nat) : Int :=
+  (d : Int) * (List.range (n + 1)).foldl (fun s i =>
+    s + (jrChoose (n + 2) i : Int) * (-(d : Int)) ^ (n - i)) 0
+
+def jrEuler (n d : Nat) : Int :=
+  (n + 1 : Int) + (if n % 2 == 0 then 1 else -1) * (jrPrim n d).foldl (· + ·) 0
+
+def jrCheckC (n d : Nat) : Bool :=
+  jrEuler n d == ((1 - (d : Int)) ^ (n + 2) - 1) / d + (n + 2 : Int)
+    && ((1 - (d : Int)) ^ (n + 2) - 1) % d == 0
+    && jrEuler n d == jrTopChern n d
+
+/-- **The Jacobian ring and the Euler number**, for `n <= 8`, `2 <= d <= 8`. -/
+theorem jacobian_ring_counts :
+    ((List.range 9).all fun n => (List.range 7).all fun e =>
+      jrCheckA n (e + 2) && jrCheckC n (e + 2)) = true := by
+  decide +kernel
+
+/-- **The sextic fourfold**: primitive Hodge numbers `1, 426, 1751, 426, 1`,
+Euler number `2610`, `b_4 = 2606`; and `h^(4,0) = C(d-1, 5)` for
+`d = 3, ..., 7`, which vanishes exactly for the Fano degrees. -/
+theorem sextic_fourfold_hodge :
+    (jrPrim 4 6 == [1, 426, 1751, 426, 1] && jrEuler 4 6 == 2610
+      && (jrPrim 4 6).foldl (· + ·) 0 + 1 == 2606
+      && ([3, 4, 5, 6, 7].map fun d => (jrPrim 4 d).getD 0 0) == [0, 0, 0, 1, 6]
+      && ([3, 4, 5, 6, 7].all fun d => (jrPrim 4 d).getD 0 0 == (jrChoose (d - 1) 5 : Int))) = true := by
+  decide +kernel
+
+/-- the Hodge numbers `h^(p,q)` of a smooth sextic fourfold `Y`, zero outside
+`0 <= p, q <= 4`. -/
+def jrHy (p q : Nat) : Int :=
+  if p ≤ 4 && q ≤ 4 then
+    (if p == q then 1 else 0) + (if p + q == 4 then (jrPrim 4 6).getD q 0 else 0)
+  else 0
+
+/-- the Hodge numbers of the blow-up of `P^6` along `Y` lying in a hyperplane:
+`h^(p,q) = [p = q] + h^(p-1,q-1)(Y)`. -/
+def jrHx (p q : Nat) : Int :=
+  (if p == q then 1 else 0) + (if p ≥ 1 && q ≥ 1 then jrHy (p - 1) (q - 1) else 0)
+
+def jrSum (k : Nat) (f : Nat → Nat → Int) : Int :=
+  (List.range k).foldl (fun s p => (List.range k).foldl (fun t q => t + f p q) s) 0
+
+/-- **The blow-up of `P^6` along a sextic fourfold** (part (E)):
+`(h^(6,0), h^(5,1), h^(4,2), h^(3,3)) = (0, 1, 426, 1753)`, Hodge symmetry,
+only even cohomology, `h^(p,0) = 0` for `p > 0`, and total Betti number
+`2617 = e(P^6) + e(Y)` with `e(Y) = 2610`. -/
+theorem blowup_sextic_hodge :
+    ([jrHx 6 0, jrHx 5 1, jrHx 4 2, jrHx 3 3] == [0, 1, 426, 1753]
+      && (List.range 7).all (fun p => (List.range 7).all fun q =>
+            jrHx p q == jrHx q p && jrHx p q == jrHx (6 - p) (6 - q)
+              && ((p + q) % 2 == 0 || jrHx p q == 0))
+      && (List.range 6).all (fun p => jrHx (p + 1) 0 == 0)
+      && jrSum 7 jrHx == 2617
+      && jrSum 5 (fun p q => (if (p + q) % 2 == 0 then 1 else -1) * jrHy p q) == 2610
+      && jrSum 7 jrHx == 7 + 2 * 2610 - 2610) = true := by
+  decide +kernel
+
+/-- multiplication in `Z[y]/(y^5)`, coefficient lists of length five. -/
+def jrYMul (a b : List Int) : List Int :=
+  (List.range 5).map fun k =>
+    (List.range (k + 1)).foldl (fun s i => s + a.getD i 0 * b.getD (k - i) 0) 0
+
+/-- multiplication by `xi` on `H^*(E) = H^*(Y)[xi]/(xi^2 + c_1 xi + c_2)`,
+an element `u + v xi` stored as the pair `(u, v)`. -/
+def jrMulXi (c1 c2 : List Int) (el : List Int × List Int) : List Int × List Int :=
+  ((jrYMul el.2 c2).map (- ·), List.zipWith (· - ·) el.1 (jrYMul el.2 c1))
+
+def jrMono (k : Nat) (x : Int) : List Int :=
+  (List.range 5).map fun i => if i == k then x else 0
+
+/-- for `a` of degree `k`: `-rho_* j^* j_* rho^* a = a`, `rho_* rho^* a = 0`,
+with `j^* j_* = -xi`; and `xi^2 = -c_1 xi - c_2`. -/
+def jrRetrieve (c1 c2 : Int) : Bool :=
+  let C1 := jrMono 1 c1
+  let C2 := jrMono 2 c2
+  let zero := List.replicate 5 (0 : Int)
+  (List.range 5).all (fun k => [-3, -1, 2, 5].all fun x =>
+    let a := jrMono k x
+    let jj := jrMulXi C1 C2 (a, zero)
+    let back := (jj.2.map (- ·)).map (- ·)
+    back == a)
+  && (jrMulXi C1 C2 (jrMulXi C1 C2 (jrMono 0 1, zero))
+        == (C2.map (- ·), C1.map (- ·)))
+
+/-- **Retrieval on a `P^1`-bundle** (part (F)): on the exceptional divisor of
+a blow-up along a fourfold with `H^*(Y) = Q[y]/(y^5)` and normal bundle
+`O_E(-1)`, `-rho_* j^* j_* rho^* a = a` in every degree, and `xi^2` is
+`-c_1 xi - c_2`, for `c_1 = s y`, `c_2 = t y^2`, `|s|, |t| <= 6`. -/
+theorem blowup_retrieval :
+    ((List.range 13).all fun s => (List.range 13).all fun t =>
+      jrRetrieve ((s : Int) - 6) ((t : Int) - 6)) = true := by
+  decide +kernel
+
+/-- a Hodge class of degree `2p` on an `n`-fold needs an input unless
+`p in {0, 1, n-1, n}` or hard Lefschetz brings it from a lower degree. -/
+def jrNeeds (n p : Nat) : Bool := 2 ≤ p && 2 * p ≤ n
+
+/-- the summands of `H^(2p)` of a blow-up of a rational sixfold along centres
+of dimension `6 - c` that need an input, as triples `(p, dim C, degree)`. -/
+def jrSixfoldNeeds : List (Nat × Nat × Nat) :=
+  (List.range 4).foldl (fun acc p =>
+    (List.range 5).foldl (fun acc c' =>
+      let c := c' + 2
+      let dimC := 6 - c
+      (List.range (c - 1)).foldl (fun acc a =>
+        if p ≥ 1 + a then
+          let q := p - 1 - a
+          if q ≤ dimC && jrNeeds dimC q then acc ++ [(p, dimC, 2 * q)] else acc
+        else acc) acc) acc) []
+
+/-- the inputs of the decomposition `a = Phi_* j^* a + i_* Psi_* a` on a
+uniruled fivefold, as `(true, k)` for degree `k` on `Z'` and `(false, k)` for
+degree `k` on `D'`. -/
+def jrFivefoldInputs : List (Bool × Nat) :=
+  (List.range 6).foldl (fun acc p =>
+    if jrNeeds 5 p then
+      (if jrNeeds 4 p then acc ++ [(true, 2 * p)] else acc)
+        ++ (if p ≥ 1 && jrNeeds 4 (p - 1) then [(false, 2 * p - 2)] else [])
+    else acc) []
+
+/-- **Degree bookkeeping** (part (G)): for `n <= 5` only degree four needs an
+input; on a rational sixfold the blow-up summands of `H^(2p)`, `p <= 3`,
+need one only for `(p, dim C, degree) = (3, 4, 4)`; and on a uniruled
+fivefold the decomposition needs only degree four on the fourfold `Z'`. -/
+theorem zero_cycle_degrees :
+    ((List.range 6).all (fun n =>
+        ((List.range (n + 1)).filter (fun p => jrNeeds n p))
+          == (if n ≥ 4 then [2] else []))
+      && jrSixfoldNeeds == [(3, 4, 4)]
+      && jrFivefoldInputs == [(true, 4)]
+      ) = true := by
+  decide +kernel
+
+/-! ## 57.  Infinitesimal rigidity of divisor classes
+
+Item (XIX).  On a member of the Weil family write `P = V_+^{1,0}`,
+`P' = V_-^{1,0}`, `Pbar = conj P` and `Pbar' = conj P'`, with the Riemann form
+`E(p_i, pbar_j) = E(p'_i, pbar'_j) = delta_ij`.  A polarised first-order
+deformation commuting with `K` is an `n x n` matrix `V`, acting by
+`p_i -> sum_k V_ki pbar'_k` and `p'_i -> -sum_k V_ik pbar_k`, so the tangent
+space of the Weil family has dimension `n^2`.  A real class of type `(1,1)` is
+four blocks `(a, b, c, e)`, with `a`, `b` anti-hermitian and
+`e = -conj(c)^T`, so `dim H^{1,1}_R = 4 n^2`, and contraction with `V` is
+
+    Phi(V) = (V a + b^T V, antisym(V c), antisym(-V^T e)).
+
+The theorems below check, for `n = 2, 3, 4`:
+
+* the real basis of `H^{1,1}_R` has `4 n^2` members, the map
+  `delta -> Phi_delta` on it has real rank `4 n^2 - 1` (images independent
+  modulo the prime `998244353`), and the polarisation, `a = i I`, `b = -i I`,
+  is killed: so the classes that stay of type `(1,1)` along every direction
+  form the line of the polarisation;
+* for the norm-character class with `b = c = e = 0` and `a = U D_r U^T`,
+  `D_r = diag(i, ..., i, 0, ..., 0)` of rank `r`, for `U = I` and for
+  `U = I + 2 E_10`, the kernel of `Phi` on the tangent space has dimension
+  `n (n - r)`: the images have rank `n r` modulo the prime, and `n (n - r)`
+  explicit matrices `V` are sent to zero exactly and are independent;
+* a class with integral entries chosen without structure has `Phi` of rank
+  `n^2` modulo the prime, hence kernel zero.
+
+The rank over `Q` (resp. `Q(i)`) is at least the rank modulo the prime, as
+reduction is a ring map on `Z` (resp. `Z[i]`).
+-/
+
+/-- a Gaussian integer. -/
+abbrev RgC := Int × Int
+
+def rgMul (u v : RgC) : RgC := (u.1 * v.1 - u.2 * v.2, u.1 * v.2 + u.2 * v.1)
+def rgAdd (u v : RgC) : RgC := (u.1 + v.1, u.2 + v.2)
+def rgNeg (u : RgC) : RgC := (-u.1, -u.2)
+def rgConj (u : RgC) : RgC := (u.1, -u.2)
+
+/-- an `n x n` matrix, as a function of the indices. -/
+abbrev RgMat := Nat → Nat → RgC
+
+def rgMM (n : Nat) (A B : RgMat) : RgMat := fun i j =>
+  (List.range n).foldl (fun s k => rgAdd s (rgMul (A i k) (B k j))) (0, 0)
+
+def rgT (A : RgMat) : RgMat := fun i j => A j i
+
+def rgZero : RgMat := fun _ _ => (0, 0)
+
+def rgUnit (i j : Nat) : RgMat := fun k l => if k == i && l == j then (1, 0) else (0, 0)
+
+/-- `Phi_(a,b,c,e)(V)`, flattened. -/
+def rgPhi (n : Nat) (a b c e V : RgMat) : List RgC :=
+  let M := fun i j => rgAdd (rgMM n V a i j) (rgMM n (rgT b) V i j)
+  let W : RgMat := fun i j => rgNeg (V j i)
+  let Vc := rgMM n V c
+  let We := rgMM n W e
+  ((List.range n).flatMap fun i => (List.range n).map fun j => M i j)
+  ++ ((List.range n).flatMap fun i => ((List.range n).filter (fun j => i < j)).flatMap fun j =>
+        [rgAdd (Vc i j) (rgNeg (Vc j i)), rgAdd (We i j) (rgNeg (We j i))])
+
+/-- the images of the basis `E_ij` (row `i n + j`) of the tangent space. -/
+def rgRows (n : Nat) (a b c e : RgMat) : List (List RgC) :=
+  (List.range n).flatMap fun i => (List.range n).map fun j => rgPhi n a b c e (rgUnit i j)
+
+/-- a dense Gaussian vector modulo the prime, as a sparse vector. -/
+def rgSparse (v : List RgC) : PcSparse :=
+  (v.zipIdx.filterMap fun t => let z := pcMod t.1.1 t.1.2; if z == 0 then none else some (t.2, z))
+
+/-- a dense integer vector modulo the prime. -/
+def rgSparseZ (v : List Int) : PcSparse :=
+  (v.zipIdx.filterMap fun t => let z := pcMod t.1 0; if z == 0 then none else some (t.2, z))
+
+/-- the real basis of `H^{1,1}_R`, in blocks `(a, b, c, e)`. -/
+def rgBasis (n : Nat) : List (RgMat × RgMat × RgMat × RgMat) :=
+  let anti (i j : Nat) (v : RgC) : RgMat := fun k l =>
+    if k == i && l == j then v else if k == j && l == i then rgNeg (rgConj v) else (0, 0)
+  let diag := (List.range n).flatMap fun i =>
+    [(anti i i (0, 1), rgZero, rgZero, rgZero), (rgZero, anti i i (0, 1), rgZero, rgZero)]
+  let off := (List.range n).flatMap fun i => ((List.range n).filter (fun j => i < j)).flatMap fun j =>
+    [(1, 0), (0, 1)].flatMap fun v =>
+      [(anti i j v, rgZero, rgZero, rgZero), (rgZero, anti i j v, rgZero, rgZero)]
+  let ce := (List.range n).flatMap fun i => (List.range n).flatMap fun j =>
+    [((1 : Int), (0 : Int)), (0, 1)].map fun v =>
+      let C := fun k l => if k == i && l == j then v else (0, 0)
+      let E := fun k l => rgNeg (rgConj (C l k))
+      (rgZero, rgZero, C, E)
+  diag ++ off ++ ce
+
+/-- the real row of a class: real and imaginary parts of `Phi(E_ij)` for all
+`i, j`. -/
+def rgRealRow (n : Nat) (cl : RgMat × RgMat × RgMat × RgMat) : List Int :=
+  (rgRows n cl.1 cl.2.1 cl.2.2.1 cl.2.2.2).flatMap fun r => r.flatMap fun z => [z.1, z.2]
+
+def rgAllZero (v : List RgC) : Bool := v.all fun z => z.1 == 0 && z.2 == 0
+
+def rgEye (c : RgC) : RgMat := fun i j => if i == j then c else (0, 0)
+
+def rgRigidOk (n : Nat) : Bool :=
+  let B := rgBasis n
+  let rows := B.map (rgRealRow n)
+  -- the polarisation: the sum of the `a`-diagonal members minus the
+  -- `b`-diagonal members, the first `2n` members alternately
+  let eta := (List.range (2 * n)).foldl (fun acc k =>
+      let r := rows.getD k []
+      if k % 2 == 0 then List.zipWith (· + ·) acc r else List.zipWith (· - ·) acc r)
+    (List.replicate (rows.getD 0 []).length 0)
+  B.length == 4 * n * n
+    && (rgRows n (rgEye (0, 1)) (rgEye (0, -1)) rgZero rgZero).all rgAllZero
+    && eta.all (· == 0)
+    && pcRank (rows.map rgSparseZ) == 4 * n * n - 1
+
+/-- `U D_r U^T` with `U = I + t E_10`. -/
+def rgNormClass (n r : Nat) (t : Int) : RgMat :=
+  let U : RgMat := fun i j => if i == j then (1, 0) else if i == 1 && j == 0 then (t, 0) else (0, 0)
+  let D : RgMat := fun i j => if i == j && i < r then (0, 1) else (0, 0)
+  rgMM n (rgMM n U D) (rgT U)
+
+/-- the kernel: `V = E_ik - [r = 1, k = 1] t E_i0` for `k >= r`, the rows of
+`V` lying in the left kernel `{w U^(-1) : w_k = 0, k < r}` of `a`. -/
+def rgNormKernel (n r : Nat) (t : Int) : List RgMat :=
+  (List.range n).flatMap fun i => ((List.range n).filter (fun k => r ≤ k)).map fun k =>
+    fun p q => if p == i && q == k then (1, 0)
+      else if p == i && q == 0 && r == 1 && k == 1 then (-t, 0) else (0, 0)
+
+def rgFlat (n : Nat) (V : RgMat) : List RgC :=
+  (List.range n).flatMap fun i => (List.range n).map fun j => V i j
+
+def rgNormOk (n r : Nat) (t : Int) : Bool :=
+  let a := rgNormClass n r t
+  let ker := rgNormKernel n r t
+  ker.length == n * (n - r)
+    && ker.all (fun V => rgAllZero (rgPhi n a rgZero rgZero rgZero V))
+    && pcRank (ker.map fun V => rgSparse (rgFlat n V)) == n * (n - r)
+    && pcRank ((rgRows n a rgZero rgZero rgZero).map rgSparse) == n * r
+
+/-- a class with integral entries: `a`, `b` anti-hermitian, `e = -conj(c)^T`. -/
+def rgGeneric : RgMat × RgMat × RgMat × RgMat :=
+  let a : RgMat := fun i j =>
+    if i == j then (0, ((i * 7 + 3) % 5 + 1 : Nat)) else
+    if i < j then (((i + 2 * j) % 9 : Nat) - 4, ((3 * i + j) % 7 : Nat) - 3)
+    else rgNeg (rgConj ((((j + 2 * i) % 9 : Nat) - 4 : Int), (((3 * j + i) % 7 : Nat) - 3 : Int)))
+  let b : RgMat := fun i j => if i == j then (0, ((i * 3 + 1) % 4 + 1 : Nat)) else (0, 0)
+  let c : RgMat := fun i j => ((((5 * i + 3 * j + 1) % 9 : Nat) : Int) - 4, (((2 * i + 7 * j + 4) % 9 : Nat) : Int) - 4)
+  let e : RgMat := fun i j => rgNeg (rgConj (c j i))
+  (a, b, c, e)
+
+def rgGenericOk (n : Nat) : Bool :=
+  let g := rgGeneric
+  pcRank ((rgRows n g.1 g.2.1 g.2.2.1 g.2.2.2).map rgSparse) == n * n
+
+/-- **Only the polarisation stays of type `(1,1)` to first order**, for
+`n = 2, 3, 4`. -/
+theorem rigidity_polarisation :
+    ([2, 3, 4].all rgRigidOk) = true := by
+  decide +kernel
+
+/-- **The kernel attached to a norm-character class of rank `r` has dimension
+`n (n - r)`**, for every `r <= n`, `n = 2, 3, 4`, two shapes each; **and a
+class without structure has kernel zero.** -/
+theorem rigidity_norm_kernels :
+    ([2, 3, 4].all fun n => ((List.range n).all fun r =>
+        rgNormOk n (r + 1) 0 && rgNormOk n (r + 1) 2) && rgGenericOk n) = true := by
+  decide +kernel
+
+/-! ## 58.  The size forced on an object carrying the Weil class
+
+Item (XVIII) and Proposition (The size of an object carrying the Weil class).
+With the generators `p_1..p_n, q_1..q_n, pbar_1..pbar_n, qbar_1..qbar_n`
+(numbered `0..4n-1`), `alpha_+` is the top form on `V_+ = <p, qbar>` and
+`alpha_-` the top form on `V_- = <q, pbar>`, both monomials, and
+`omega_1 = alpha_+ + alpha_-`.  For a perfect complex `E` with
+`ch(E) = r + N omega_1` Riemann-Roch on an abelian variety gives
+`chi(E,E) = int ch(E)^v ch(E)`, with `ch_k^v = (-1)^k ch_k`.  The theorem
+checks, for `n = 1, 2, 3, 4`, in the exterior algebra: `alpha_+^2 = 0`,
+`alpha_-^2 = 0`, `omega_1^2 = 2 alpha_+ alpha_-`, `int omega_1^2 = 2`, and
+that the top coefficient of `(r + (-1)^n N omega_1)(r + N omega_1)` is
+`(-1)^n 2 N^2` for `r` in `{0, 1, 2, 5}` and `N` in `{1, 2, 3, 12}`: the rank
+drops out, and `sum_i dim Ext^i(E,E) >= 2 N^2` in this normalisation.
+-/
+
+def osAlphaPlus (n : Nat) : PcElt :=
+  [(((1 <<< n) - 1) ||| (((1 <<< n) - 1) <<< (3 * n)), 1, 0)]
+
+def osAlphaMinus (n : Nat) : PcElt :=
+  [((((1 <<< n) - 1) <<< n) ||| (((1 <<< n) - 1) <<< (2 * n)), 1, 0)]
+
+def osTop (n : Nat) (v : PcElt) : Int :=
+  ((v.find? fun t => t.1 == (1 <<< (4 * n)) - 1).map fun t => t.2.1).getD 0
+
+def osOk (n : Nat) : Bool :=
+  let ap := osAlphaPlus n
+  let am := osAlphaMinus n
+  let om := pcNormal (ap ++ am)
+  let w := 4 * n
+  let sg : Int := if n % 2 == 0 then 1 else -1
+  (pcMul w ap ap).isEmpty && (pcMul w am am).isEmpty
+    && pcMul w om om == pcScale 2 0 (pcMul w ap am)
+    && osTop n (pcMul w om om) == 2
+    && ([0, 1, 2, 5].all fun r => [1, 2, 3, 12].all fun N =>
+        let ch := pcNormal ((0, (r : Int), 0) :: pcScale N 0 om)
+        let chv := pcNormal ((0, (r : Int), 0) :: pcScale (sg * N) 0 om)
+        osTop n (pcMul w chv ch) == sg * 2 * N * N)
+
+/-- **The Weil class is not isotropic, and `chi(E,E) = (-1)^n N^2 int
+omega_1^2` whatever the rank**, for `n = 1, 2, 3, 4`. -/
+theorem object_size_bound :
+    ([1, 2, 3, 4].all osOk) = true := by
+  decide +kernel
+
+/-! ## 59.  The annihilator is the tangent space, in a second model
+
+Item (XVI), Lemma (The annihilator of the Weil line in `H^{0,2}`),
+Proposition (The first-order Hodge locus of the Weil line) and Theorem (The
+tangent space is the annihilator), rebuilt in a model independent of the
+others.  `V_C` has the basis `e_1..e_2n` of `V_+` and `f_1..f_2n` of `V_-`
+(generators `0..4n-1`), conjugation exchanges `e_j` and `f_j`, and
+`E(e_j, f_k) = i delta_jk`.  A plane `P` in `V_+` (the formula of
+`weil_tangent.py`, with an integer `seed`) determines `P' = P^perp` in `V_-`,
+`Q' = conj P`, `Q = conj P'`, `H^{1,0} = P + P'` and `H^{0,1} = Q + Q'`.
+`alpha_+ = e_1 ... e_2n`, `alpha_- = f_1 ... f_2n`,
+`omega_1 = alpha_+ + alpha_-` and `omega_2 = i (alpha_+ - alpha_-)`.
+
+The basis of `P'`, a basis `S` of the polarisation-preserving deformations
+(coefficient vectors `v` with `v(H^{1,0}_j) = sum_k v_(jm+k) H^{0,1}_k`,
+`m = 2n`), `D` and `D` times the inverse of the matrix with columns
+`H^{1,0} + H^{0,1}`, the deformations killing the Weil line, and the scaled
+inverses of the pairings used for the `E`-dual bases are written by
+`lean/generate/make_tangent.py`.  For six cases (`n = 2, 3, 4` with seed `0`,
+and three further planes at `n = 2, 3`) the kernel checks:
+
+* (a) `E` vanishes on `H^{1,0}` and on `H^{0,1}` and pairs `P` with `Q'` and
+  `Q` with `P'` with rank `n`; `H^{1,0} + H^{0,1}` has rank `4n`;
+  `P' = P^perp` lies in `V_-`; the product of the vectors of `P` and `Q` is a
+  nonzero multiple of `alpha_+`, so `alpha_+` is of type `(n, n)`;
+  conjugation exchanges `alpha_+` and `alpha_-`, so `omega_1`, `omega_2` are
+  real;
+* (b) the `n^2` mixed products `q ^ q'` kill `omega_1` and `omega_2`, and the
+  other products in `H^{0,2}` have images of rank `C(2n,2) - n^2`, so
+  `dim Ann_{H^{0,2}}(omega) = n^2` for both;
+* (c) the vectors of `S` satisfy the symmetry conditions, are independent,
+  and number `n (2n + 1)`, and the conditions have rank `4n^2 - n(2n+1)`;
+  with the conditions for commuting with `K` added the rank is
+  `4n^2 - n^2`;
+* (d) the `n^2` recorded combinations of `S` contract `omega_1` and
+  `omega_2` to zero exactly, commute with `K`, and are independent, and the
+  contractions of the members of `S` have rank `n(2n+1) - n^2`; so the
+  polarised deformations killing the Weil line are exactly those commuting
+  with `K`;
+* (e) for the basis of `P` and a second basis, `M M^(-1) = D'` for the
+  pairing `M` of `P` with `Q'`, so the recorded vectors form `E`-dual bases
+  inside `Q'`, and the `n^2` products `q'_a ^ q_k` have rank `n^2`.  They lie
+  in the span of the `n^2` mixed products by bilinearity, so the map
+  `Hom(P, Q) -> H^{0,2}` is injective, does not depend on the basis of `P`,
+  and has image the annihilator of (b).
+
+Ranks are taken modulo the prime `998244353`, a lower bound for the rank
+over `Q(i)`; every vanishing is exact.
+-/
+
+/-- `E(u, v) = i sum_j (u_j v_(m+j) - u_(m+j) v_j)`, `m = 2n`. -/
+def wtE (n : Nat) (u v : List RgC) : RgC :=
+  let m := 2 * n
+  let s := (List.range m).foldl (fun s j =>
+    rgAdd s (rgAdd (rgMul (u.getD j (0, 0)) (v.getD (m + j) (0, 0)))
+      (rgNeg (rgMul (u.getD (m + j) (0, 0)) (v.getD j (0, 0)))))) (0, 0)
+  rgMul (0, 1) s
+
+/-- conjugation, exchanging `e_j` and `f_j`. -/
+def wtConj (n : Nat) (v : List RgC) : List RgC :=
+  let m := 2 * n
+  (List.range (2 * m)).map fun i => rgConj (v.getD (if i < m then i + m else i - m) (0, 0))
+
+/-- the plane `P` of `weil_tangent.Weil._choose_P`. -/
+def wtP (n seed : Nat) : List (List RgC) :=
+  (List.range n).map fun a => (List.range (4 * n)).map fun i =>
+    if i == a then (1, 0)
+    else if n ≤ i && i < 2 * n then
+      let b := i - n
+      (((1 + (a * 3 + b * 5 + seed) % 7 : Nat) : Int), ((1 + (a * 2 + b * 7 + seed) % 5 : Nat) : Int))
+    else (0, 0)
+
+/-- a vector as a one-form. -/
+def wtForm (v : List RgC) : PcElt :=
+  pcNormal (v.zipIdx.filterMap fun (t : RgC × Nat) =>
+    if t.1.1 == 0 && t.1.2 == 0 then none else some ((1 <<< t.2 : Nat), t.1.1, t.1.2))
+
+/-- sparse rows `(index, re, im)`, as recorded. -/
+abbrev WtSp := List (List (Nat × Int × Int))
+
+/-- a sparse row as a dense vector of length `len`. -/
+def wtDense (len : Nat) (r : List (Nat × Int × Int)) : List RgC :=
+  (List.range len).map fun i => ((r.find? fun t => t.1 == i).map fun t => (t.2.1, t.2.2)).getD (0, 0)
+
+/-- the product of a list of one-forms, in order. -/
+def wtWedgeAll (w : Nat) (vs : List (List RgC)) : PcElt :=
+  vs.foldl (fun acc v => pcMul w acc (wtForm v)) [(0, 1, 0)]
+
+def wtMatMul (A B : List (List RgC)) : List (List RgC) :=
+  A.map fun r => (List.range ((B.getD 0 []).length)).map fun j =>
+    r.zipIdx.foldl (fun s t => rgAdd s (rgMul t.1 ((B.getD t.2 []).getD j (0, 0)))) (0, 0)
+
+def wtIsScalar (A : List (List RgC)) (d : Int) : Bool :=
+  A.zipIdx.all fun r => r.1.zipIdx.all fun t =>
+    t.1 == (if t.2 == r.2 then (d, 0) else (0, 0))
+
+/-- the derivation of the exterior algebra sending generator `j` to the
+one-form `cols_j`: in a monomial `m` the generator `j` is replaced by `l`, and
+moving `l` to its place passes the generators of `m` strictly between `j` and
+`l`. -/
+def wtContract (w : Nat) (cols : List (List RgC)) (form : PcElt) : PcElt :=
+  pcNormal (form.flatMap fun t =>
+    ((List.range w).filter fun j => t.1.testBit j).flatMap fun j =>
+      let rest := t.1 ^^^ (1 <<< j)
+      (cols.getD j []).zipIdx.filterMap fun (c : RgC × Nat) =>
+        let l := c.2
+        if (c.1.1 == 0 && c.1.2 == 0) || rest.testBit l then none
+        else
+          let lo := if l < j then l else j
+          let hi := if l < j then j else l
+          let between := rest &&& (((1 <<< hi) - 1) ^^^ ((1 <<< (lo + 1)) - 1))
+          let re := t.2.1 * c.1.1 - t.2.2 * c.1.2
+          let im := t.2.1 * c.1.2 + t.2.2 * c.1.1
+          if pcParity between then some (rest ||| (1 <<< l), -re, -im)
+          else some (rest ||| (1 <<< l), re, im))
+
+/-- a form as a sparse vector modulo the prime, its monomials shifted by
+`off`. -/
+def wtSparse (off : Nat) (f : PcElt) : PcSparse :=
+  f.filterMap fun t => let z := pcMod t.2.1 t.2.2; if z == 0 then none else some (t.1 + off, z)
+
+def wtLin (vs : List (List RgC)) (c : List (Nat × Int × Int)) (len : Nat) : List RgC :=
+  c.foldl (fun acc t => List.zipWith rgAdd acc ((vs.getD t.1 []).map (rgMul (t.2.1, t.2.2))))
+    (List.replicate len (0, 0))
+
+def wtLinForm (fs : List PcElt) (c : List (Nat × Int × Int)) : PcElt :=
+  pcNormal (c.flatMap fun t => pcScale t.2.1 t.2.2 (fs.getD t.1 []))
+
+def wtCaseOk (n seed : Nat) (Pp' S' : WtSp) (D : Int) (Inv' : WtSp)
+    (ker : WtSp) (du0' du1' : Int × WtSp) : List Bool :=
+  let m := 2 * n
+  let w := 4 * n
+  let Pp := Pp'.map (wtDense w)
+  let S := S'.map (wtDense (m * m))
+  let Inv := Inv'.map (wtDense w)
+  let du0 := (du0'.1, du0'.2.map (wtDense n))
+  let du1 := (du1'.1, du1'.2.map (wtDense n))
+  let P := wtP n seed
+  let Qp := P.map (wtConj n)
+  let Q := Pp.map (wtConj n)
+  let H10 := P ++ Pp
+  let H01 := Q ++ Qp
+  let ap : PcElt := [((1 <<< m) - 1, 1, 0)]
+  let am : PcElt := [(((1 <<< w) - 1) ^^^ ((1 <<< m) - 1), 1, 0)]
+  let om1 := pcNormal (ap ++ am)
+  let om2 := pcNormal (pcScale 0 1 ap ++ pcScale 0 (-1) am)
+  -- (a)
+  let a1 := H10.all (fun u => H10.all fun v => wtE n u v == (0, 0))
+    && H01.all (fun u => H01.all fun v => wtE n u v == (0, 0))
+    && Pp.length == n && Pp.all (fun v => (List.range m).all fun j => v.getD j (0, 0) == (0, 0))
+    && P.all (fun p => Pp.all fun v => wtE n p v == (0, 0))
+    && pcRank (P.map fun p => rgSparse (Qp.map (wtE n p))) == n
+    && pcRank (Q.map fun q => rgSparse (Pp.map (wtE n q))) == n
+    && pcRank ((H10 ++ H01).map rgSparse) == w
+  let top := wtWedgeAll w (P ++ Q)
+  let a2 := top.length == 1 && (top.head?.map (·.1)) == some ((1 <<< m) - 1)
+    && (top.head?.map fun t => t.2.1 != 0 || t.2.2 != 0) == some true
+  -- (b)
+  let pairs := (List.range m).flatMap fun a => ((List.range m).filter (fun b => a < b)).map fun b => (a, b)
+  let mixed := pairs.filter fun ab => ab.1 < n && n ≤ ab.2
+  let other := pairs.filter fun ab => !(ab.1 < n && n ≤ ab.2)
+  let z := fun (ab : Nat × Nat) => pcMul w (wtForm (H01.getD ab.1 [])) (wtForm (H01.getD ab.2 []))
+  let b1 := mixed.length == n * n
+    && mixed.all (fun ab => (pcMul w (z ab) om1).isEmpty && (pcMul w (z ab) om2).isEmpty)
+    && pcRank (other.map fun ab => wtSparse 0 (pcMul w (z ab) om1)) == pairs.length - n * n
+    && pcRank (other.map fun ab => wtSparse 0 (pcMul w (z ab) om2)) == pairs.length - n * n
+  -- (c)
+  let E01 := H01.map fun x => H10.map fun y => wtE n x y
+  let E10 := H10.map fun x => H01.map fun y => wtE n x y
+  let symRows := (List.range m).flatMap fun a => ((List.range m).filter (fun b => a ≤ b)).map fun b =>
+    let colB := E01.map fun r => r.getD b (0, 0)
+    let rowA := E10.getD a []
+    (List.range m).flatMap fun j =>
+      (List.zipWith rgAdd (if j == a then colB else List.replicate m (0, 0))
+        (if j == b then rowA else List.replicate m (0, 0)))
+  let offBlock := fun (q : Nat) => decide (q / m < n) != decide (q % m < n)
+  let eqRows := ((List.range (m * m)).filter offBlock).map fun q =>
+    (List.range (m * m)).map fun q' => if q' == q then ((1 : Int), (0 : Int)) else (0, 0)
+  let dot := fun (r v : List RgC) => (List.zipWith rgMul r v).foldl rgAdd (0, 0)
+  let c1 := S.length == n * (2 * n + 1)
+    && S.all (fun v => symRows.all fun r => dot r v == (0, 0))
+    && pcRank (S.map rgSparse) == n * (2 * n + 1)
+    && pcRank (symRows.map rgSparse) == m * m - n * (2 * n + 1)
+    && pcRank ((symRows ++ eqRows).map rgSparse) == m * m - n * n
+  -- (d)
+  let Mrows := (List.range w).map fun i => (H10 ++ H01).map fun c => c.getD i (0, 0)
+  let InvT := (List.range w).map fun i => Inv.map fun r => r.getD i (0, 0)
+  let defCols := fun (v : List RgC) => InvT.map fun co =>
+    (List.range m).foldl (fun acc k =>
+      let ck := (List.range m).foldl (fun s j => rgAdd s (rgMul (co.getD j (0, 0)) (v.getD (j * m + k) (0, 0)))) (0, 0)
+      if ck == (0, 0) then acc else List.zipWith rgAdd acc ((H01.getD k []).map (rgMul ck)))
+      (List.replicate w (0, 0))
+  let imgs := S.map fun v => let c := defCols v; (wtContract w c om1, wtContract w c om2)
+  let d1 := wtIsScalar (wtMatMul Mrows Inv) D
+    && ker.length == n * n
+    && ker.all (fun c => (wtLinForm (imgs.map (·.1)) c).isEmpty && (wtLinForm (imgs.map (·.2)) c).isEmpty)
+    && ker.all (fun c => let v := wtLin S c (m * m); (List.range (m * m)).all fun q => !offBlock q || v.getD q (0, 0) == (0, 0))
+    && pcRank (ker.map fun c => rgSparse (wtLin S c (m * m))) == n * n
+    && pcRank (imgs.map fun ab => wtSparse 0 ab.1 ++ wtSparse (1 <<< w) ab.2) == n * (2 * n + 1) - n * n
+  -- (e)
+  let P2 := (List.range n).map fun a => if a == 0 then P.getD 0 [] else List.zipWith rgAdd (P.getD a []) (P.getD (a - 1) [])
+  let dualOk := fun (Pb : List (List RgC)) (du : Int × List (List RgC)) =>
+    let M2 := Pb.map fun p => Qp.map (wtE n p)
+    let duals := (List.range n).map fun a => wtLin Qp ((List.range n).map fun b => let x := (du.2.getD b []).getD a (0, 0); (b, x.1, x.2)) w
+    wtIsScalar (wtMatMul M2 du.2) du.1
+      && pcRank (((List.range n).flatMap fun a => (List.range n).map fun k =>
+            pcMul w (wtForm (duals.getD a [])) (wtForm (Q.getD k []))).map (wtSparse 0)) == n * n
+  let e1 := dualOk P du0 && dualOk P2 du1
+  [a1, a2, b1, c1, d1, e1]
+
+def wt2s0Pp : List (List (Nat × Int × Int)) := [
+  [(4, -1, -1), (5, -4, -3), (6, 1, 0)],
+  [(4, -6, -3), (5, -2, -5), (7, 1, 0)]]
+def wt2s0S : List (List (Nat × Int × Int)) := [
+  [(2, -374, 253), (3, 337, 0)],
+  [(2, 1632, -1104), (6, 1685, 0)],
+  [(2, 627, -1564), (7, 1685, 0)],
+  [(8, -480, 165), (9, 229, 0)],
+  [(0, -3600, 0), (1, 1536, 528), (4, -2550, -1725), (5, 835, 1110), (10, 955, 0)],
+  [(0, -2550, 1725), (1, 1341, -362), (4, -4125, 0), (5, 1760, 605), (11, 955, 0)],
+  [(8, 896, -308), (12, 1145, 0)],
+  [(8, 903, -704), (13, 1145, 0)],
+  [(0, 1536, -528), (1, -1344, 0), (4, 1341, 362), (5, -952, -644), (14, 955, 0)],
+  [(0, 835, -1110), (1, -952, 644), (4, 1760, -605), (5, -1540, 0), (15, 955, 0)]]
+def wt2s0D : Int := 955
+def wt2s0Inv : List (List (Nat × Int × Int)) := [
+  [(0, 55, 0), (1, -34, -23), (2, -150, -45), (3, 147, -41)],
+  [(0, -34, 23), (1, 48, 0), (2, 181, -87), (3, -39, 0)],
+  [(4, 150, 45), (5, -181, 87), (6, 75, 0), (7, -32, -11)],
+  [(4, -147, 41), (5, 39, 0), (6, -32, 11), (7, 28, 0)],
+  [(0, 150, -45), (1, -181, -87), (2, 75, 0), (3, -32, 11)],
+  [(0, -147, -41), (1, 39, 0), (2, -32, -11), (3, 28, 0)],
+  [(4, 55, 0), (5, -34, 23), (6, -150, 45), (7, 147, 41)],
+  [(4, -34, -23), (5, 48, 0), (6, 181, 87), (7, -39, 0)]]
+def wt2s0Ker : List (List (Nat × Int × Int)) := [
+  [(4, 1, 0)],
+  [(5, 1, 0)],
+  [(8, 1, 0)],
+  [(9, 1, 0)]]
+def wt2s0Dual0 : Int × List (List (Nat × Int × Int)) := (955, [
+  [(0, 0, -55), (1, 23, 34)],
+  [(0, -23, 34), (1, 0, -48)]])
+def wt2s0Dual1 : Int × List (List (Nat × Int × Int)) := (955, [
+  [(0, -23, -89), (1, 23, 34)],
+  [(0, -23, 82), (1, 0, -48)]])
+
+def wt3s0Pp : List (List (Nat × Int × Int)) := [
+  [(6, -1, -1), (7, -4, -3), (8, -7, -5), (9, 1, 0)],
+  [(6, -6, -3), (7, -2, -5), (8, -5, -2), (10, 1, 0)],
+  [(6, -4, -5), (7, -7, -2), (8, -3, -4), (11, 1, 0)]]
+def wt3s0S : List (List (Nat × Int × Int)) := [
+  [(3, -86121, -2734), (4, 30440, -1367), (5, 31784, 0)],
+  [(3, 17466154, 1197035), (4, -15240005, -281502), (9, -14620640, -731032), (10, 12745384, 0)],
+  [(3, 146550710, 11998985), (4, -127957095, -4062130), (9, -82002720, -4100136), (11, 50981536, 0)],
+  [(3, 1780, 89), (9, 1444, -8), (15, 1604, 0)],
+  [(3, -20503746, -1405215), (4, 27865089, 884606), (9, 17163360, 858168), (16, 12745384, 0)],
+  [(3, -4746434, -388619), (4, 15227173, 685710), (9, 14620640, 731032), (17, 12745384, 0)],
+  [(18, -632086, 8073), (19, 250568, -3449), (20, 262925, 0)],
+  [(0, -452387, 0), (1, 179335, -178), (2, 188146, 2403), (6, -365976, 20332), (7, 145072, -8204), (8, 152316, -6512), (12, -406640, 20332), (13, 161192, -8220), (14, 169228, -6296), (21, 185708, 0)],
+  [(0, -91494, -5083), (1, 36272, 1979), (2, 38025, 2600), (6, -137241, 0), (7, 54405, -54), (8, 57078, 729), (12, -116909, 0), (13, 46345, -46), (14, 48622, 621), (22, 46427, 0)],
+  [(0, -406640, -20332), (1, 161208, 7900), (2, 169012, 10616), (6, -467636, 0), (7, 185380, -184), (8, 194488, 2484), (12, -655707, 0), (13, 259935, -258), (14, 272706, 3483), (23, 185708, 0)],
+  [(18, 35195347759, -77354212), (19, -34376982867, 66039406), (24, -32293763125, 8939450), (25, 31542849325, 0)],
+  [(18, 79163048068, -1032987449), (19, -77322575134, 987563637), (24, -45054828000, 536367000), (26, 31542849325, 0)],
+  [(0, 179335, 178), (1, -461287, 0), (2, 205056, 2225), (6, 145088, -7916), (7, -373176, 20732), (8, 165988, -7416), (12, 161208, -7900), (13, -414640, 20732), (14, 184420, -7216), (27, 185708, 0)],
+  [(0, 36268, 2051), (1, -93294, -5183), (2, 41447, 2754), (6, 54405, 54), (7, -139941, 0), (8, 62208, 675), (12, 46345, 46), (13, -119209, 0), (14, 52992, 575), (28, 46427, 0)],
+  [(0, 161192, 8220), (1, -414640, -20732), (2, 184220, 11216), (6, 185380, 184), (7, -476836, 0), (8, 211968, 2300), (12, 259935, 258), (13, -668607, 0), (14, 297216, 3225), (29, 185708, 0)],
+  [(18, 8568, -102), (24, 6468, -77), (30, 7057, 0)],
+  [(18, -42554974384, 588369912), (19, 69803652142, -891531981), (24, 39047517600, -464851400), (31, 31542849325, 0)],
+  [(18, -3651472734, 90120212), (19, 34367455917, -811964306), (24, 32284823675, -759853250), (32, 31542849325, 0)],
+  [(0, 188146, -2403), (1, 205056, -2225), (2, -416431, 0), (6, 152100, -10400), (7, 165788, -11016), (8, -336888, 18716), (12, 169012, -10616), (13, 184220, -11216), (14, -374320, 18716), (33, 185708, 0)],
+  [(0, 38079, 1628), (1, 41497, 1854), (2, -84222, -4679), (6, 57078, -729), (7, 62208, -675), (8, -126333, 0), (12, 48622, -621), (13, 52992, -575), (14, -107617, 0), (34, 46427, 0)],
+  [(0, 169228, 6296), (1, 184420, 7216), (2, -374320, -18716), (6, 194488, -2484), (7, 211968, -2300), (8, -430468, 0), (12, 272706, -3483), (13, 297216, -3225), (14, -603591, 0), (35, 185708, 0)]]
+def wt3s0D : Int := 185708
+def wt3s0Inv : List (List (Nat × Int × Int)) := [
+  [(0, 5468, 0), (1, -1928, 148), (2, -2016, 64), (3, -15592, 11436), (4, 19740, -2116), (5, 2880, -14192)],
+  [(0, -1928, -148), (1, 5065, 0), (2, -2412, 32), (3, 1460, -1131), (4, -13878, -15445), (5, 19895, 8662)],
+  [(0, -2016, -64), (1, -2412, -32), (2, 4412, 0), (3, 19060, -13000), (4, 4788, 8836), (5, -12096, -3224)],
+  [(6, 15592, -11436), (7, -1460, 1131), (8, -19060, 13000), (9, 5083, 0), (10, -2015, 2), (11, -2114, -27)],
+  [(6, -19740, 2116), (7, 13878, 15445), (8, -4788, -8836), (9, -2015, -2), (10, 5183, 0), (11, -2304, -25)],
+  [(6, -2880, 14192), (7, -19895, -8662), (8, 12096, 3224), (9, -2114, 27), (10, -2304, 25), (11, 4679, 0)],
+  [(0, 15592, 11436), (1, -1460, -1131), (2, -19060, -13000), (3, 5083, 0), (4, -2015, -2), (5, -2114, 27)],
+  [(0, -19740, -2116), (1, 13878, -15445), (2, -4788, 8836), (3, -2015, 2), (4, 5183, 0), (5, -2304, 25)],
+  [(0, -2880, -14192), (1, -19895, 8662), (2, 12096, -3224), (3, -2114, -27), (4, -2304, -25), (5, 4679, 0)],
+  [(6, 5468, 0), (7, -1928, -148), (8, -2016, -64), (9, -15592, -11436), (10, 19740, 2116), (11, 2880, 14192)],
+  [(6, -1928, 148), (7, 5065, 0), (8, -2412, -32), (9, 1460, 1131), (10, -13878, 15445), (11, 19895, -8662)],
+  [(6, -2016, 64), (7, -2412, 32), (8, 4412, 0), (9, 19060, 13000), (10, 4788, -8836), (11, -12096, 3224)]]
+def wt3s0Ker : List (List (Nat × Int × Int)) := [
+  [(7, 1, 0)],
+  [(8, 1, 0)],
+  [(9, 1, 0)],
+  [(12, 1, 0)],
+  [(13, 1, 0)],
+  [(14, 1, 0)],
+  [(18, 1, 0)],
+  [(19, 1, 0)],
+  [(20, 1, 0)]]
+def wt3s0Dual0 : Int × List (List (Nat × Int × Int)) := (185708, [
+  [(0, 0, -5468), (1, -148, 1928), (2, -64, 2016)],
+  [(0, 148, 1928), (1, 0, -5065), (2, -32, 2412)],
+  [(0, 64, 2016), (1, 32, 2412), (2, 0, -4412)]])
+def wt3s0Dual1 : Int × List (List (Nat × Int × Int)) := (185708, [
+  [(0, 84, -5380), (1, -84, -88), (2, -64, 2016)],
+  [(0, 116, 9405), (1, 32, -7477), (2, -32, 2412)],
+  [(0, 32, -4808), (1, 32, 6824), (2, 0, -4412)]])
+
+def wt4s0Pp : List (List (Nat × Int × Int)) := [
+  [(8, -1, -1), (9, -4, -3), (10, -7, -5), (11, -3, -2), (12, 1, 0)],
+  [(8, -6, -3), (9, -2, -5), (10, -5, -2), (11, -1, -4), (13, 1, 0)],
+  [(8, -4, -5), (9, -7, -2), (10, -3, -4), (11, -6, -1), (14, 1, 0)],
+  [(8, -2, -2), (9, -5, -4), (10, -1, -1), (11, -4, -3), (15, 1, 0)]]
+def wt4s0S : List (List (Nat × Int × Int)) := [
+  [(4, 32595483, -7218034), (5, -37106866, 3303754), (6, -9151830, 2188110), (7, 30696418, 0)],
+  [(4, -6936423140852821, 1516499510155553), (5, 2192072982735713, -763849733902409), (6, 2705574998479430, -612022147137940), (12, -458172970023965, -3308997119355), (13, 148845472802145, -16867144503685), (14, 179003859335650, 0)],
+  [(4, 22593211507851, -10624730794888), (5, -6917364409753, 4333331974314), (6, -8796516840615, 4214511967985), (12, 2129702132631, -416734570768), (13, -6928457810362, 145071271468), (15, 7160154373426, 0)],
+  [(4, -1544373120, -144020896), (5, 888418232, 6069544), (12, -166325264, -57845692), (13, 97767085, 24812775), (20, -896639908, -77441324), (21, 515497970, 0)],
+  [(4, 19668476994224410, 1186305264827041), (5, -4752294652127022, 406751739269876), (6, -10346686826119605, -532522548208235), (12, 524019104213524, 118962555923772), (13, -304902762049210, -42060231943600), (20, -8696007486525877, -454669802712551), (22, 7911970582635730, 0)],
+  [(4, -72862537709238239, 2365605732563039), (5, 33785151244235638, -2965483775593274), (6, 12279215772686850, -2719143537176300), (12, -6033495271360632, -1600746123510536), (13, 3522001712606260, 616114558889960), (20, -21974513772044394, -2663577426914472), (23, 15823941165271460, 0)],
+  [(4, 3201, 388), (12, 2994, 162), (20, 2788, 204), (28, 2210, 0)],
+  [(4, 1337055160, 184816416), (5, -373557847, 838916), (12, 142363549, 56708572), (13, 577324930, -2539290), (20, 776512553, 101933309), (29, 515497970, 0)],
+  [(4, 3929145191907701307, -721558960246658371), (5, -1277034545454423756, 385625459911299608), (6, -1395293681378906010, 308977695841417980), (12, 269737075280776050, 15589756504046470), (13, -85867523811786340, 6089507516427920), (20, 154766736781602990, 18759604458376120), (30, 79119705826357300, 0)],
+  [(4, -9106902402707533, 15197905527342058), (5, 3261318780715996, -5169698876840498), (6, 9154559623644825, -4850932553569375), (12, -630177140511284, 1263599199369348), (13, 8190517860636410, -207146642322230), (20, 8552804399057357, 1636095274327841), (31, 7911970582635730, 0)],
+  [(32, 168339182, -34988635), (33, -93965000, -66386586), (34, -154663978, 93277170), (35, 184589722, 0)],
+  [(0, -1736009, 0), (1, 792490, 849332), (2, 1720586, -604310), (3, -1824764, -379270), (8, -1610730, 107382), (9, 787836, 739020), (10, 1559040, -667128), (11, -1716540, -239028), (16, -1503348, 71588), (17, 721304, 702824), (18, 1465072, -594272), (19, -1595848, -253192), (24, -1181202, 143176), (25, 609268, 512536), (26, 1120868, -553084), (27, -1272872, -107564), (36, 614275, 0)],
+  [(0, -1610730, -107382), (1, 682764, 837060), (2, 1633800, -454272), (3, -1669620, -464772), (8, -2666653, 0), (9, 1217330, 1304644), (10, 2642962, -928270), (11, -2802988, -582590), (16, -1807597, -17897), (17, 816414, 892526), (18, 1797768, -611492), (19, -1896102, -413722), (24, -2076052, 71588), (25, 982744, 983016), (26, 2032688, -793632), (27, -2197832, -378312), (37, 614275, 0)],
+  [(0, -1503348, -71588), (1, 651256, 768184), (2, 1514912, -452368), (3, -1564568, -403688), (8, -1807597, 17897), (9, 833926, 876186), (10, 1785308, -646968), (11, -1903922, -376098), (16, -2344507, 0), (17, 1070270, 1147036), (18, 2323678, -816130), (19, -2464372, -512210), (24, -1306481, 89485), (25, 640190, 598338), (26, 1263724, -543480), (27, -1392826, -191370), (38, 614275, 0)],
+  [(0, -1181202, -143176), (1, 469172, 643256), (2, 1220548, -269276), (3, -1210312, -408556), (8, -2076052, -71588), (9, 912696, 1048376), (10, 2082528, -651728), (11, -2166552, -528808), (16, -1306481, -89485), (17, 552630, 680038), (18, 1326024, -366100), (19, -1353726, -379490), (24, -1664421, 0), (25, 759810, 814308), (26, 1649634, -579390), (27, -1749516, -363630), (39, 614275, 0)],
+  [(32, -107753757830558, 1466230839380289), (33, -62445426939077, -569618809580329), (34, 114668273224550, -637200197650590), (40, -180457957957613, 18961886897589), (41, 67826385810568, -20036660553934), (42, 79907044756580, 0)],
+  [(32, 304285266596524, 361351581489558), (33, -142198357138094, -116972731959238), (34, -116637184647100, -172262827586580), (40, -34373928851396, 45965425034108), (41, 3014442455121, -39900268243493), (43, 39953522378290, 0)],
+  [(0, 792490, -849332), (1, -8178361, 0), (2, 3691820, 8974828), (3, 5642975, -14006897), (8, 682764, -837060), (9, -7588170, 505878), (10, 3980544, 8098800), (11, 4369344, -13345140), (16, 651256, -768184), (17, -7082292, 337252), (18, 3567136, 7619776), (19, 4309096, -12362384), (24, 469172, -643256), (25, -5564658, 674504), (26, 3252152, 5802104), (27, 2684342, -9995866), (44, 614275, 0)],
+  [(0, 787836, -739020), (1, -7588170, -505878), (2, 2870256, 8555520), (3, 6102156, -12647040), (8, 1217330, -1304644), (9, -12562637, 0), (10, 5670940, 13786076), (11, 8668075, -21515749), (16, 833926, -876186), (17, -8515613, -84313), (18, 3751536, 9382984), (19, 6020076, -14526326), (24, 912696, -1048376), (25, -9780308, 337252), (26, 4785056, 10580544), (27, 6170696, -16983216), (45, 614275, 0)],
+  [(0, 721304, -702824), (1, -7082292, -337252), (2, 2826944, 7924256), (3, 5464304, -11896984), (8, 816414, -892526), (9, -8515613, 84313), (10, 3936584, 9306864), (11, 5731274, -14642676), (16, 1070270, -1147036), (17, -11045003, 0), (18, 4985860, 12120644), (19, 7620925, -18916531), (24, 552630, -680038), (25, -6154849, 421565), (26, 3241000, 6563952), (27, 3524770, -10832148), (46, 614275, 0)],
+  [(0, 609268, -512536), (1, -5564658, -674504), (2, 1771768, 6411064), (3, 4994758, -9065066), (8, 982744, -983016), (9, -9780308, -337252), (10, 4044864, 10885024), (11, 7325904, -16517816), (16, 640190, -598338), (17, -6154849, -421565), (18, 2315760, 6944552), (19, 4968780, -10250398), (24, 759810, -814308), (25, -7841109, 0), (26, 3539580, 8604732), (27, 5410275, -13429293), (47, 614275, 0)],
+  [(32, -1781435999, -80413858), (33, 1470973609, 610190203), (40, -34900489, 1268375587), (41, 415687574, -1054137292), (48, -996079890, 361463150), (49, 946297540, 0)],
+  [(32, -423451499246512825, -234190045043575583), (33, 166618698255473414, 86561482477165384), (34, 171307137728265002, 100374414560300570), (40, -1219648161297812, -25920660806788478), (41, -6872433912631198, 22131283010253178), (48, -25514319390775994, -6128870332829686), (50, 17467679983788388, 0)],
+  [(32, -1655186595732415381, 309886791009539958), (33, 626274062674265901, -97391693996677183), (34, 673693851797263740, -140024609851546950), (40, -114342213186441581, -47077408932677787), (41, 81646040161698696, 74352742052086942), (48, -101521900363234890, 6152842446256660), (51, 87338399918941940, 0)],
+  [(0, 1720586, 604310), (1, 3691820, -8974828), (2, -14683569, 0), (3, 15716231, 14205165), (8, 1633800, 454272), (9, 2870256, -8555520), (10, -13623930, 908262), (11, 15460740, 12207912), (16, 1514912, 452368), (17, 2826944, -7924256), (18, -12715668, 605508), (19, 14195712, 11653288), (24, 1220548, 269276), (25, 1771768, -6411064), (26, -9990882, 1211016), (27, 11865078, 8369186), (52, 614275, 0)],
+  [(0, 1559040, 667128), (1, 3980544, -8098800), (2, -13623930, -908262), (3, 13703400, 14152188), (8, 2642962, 928270), (9, 5670940, -13786076), (10, -22555173, 0), (11, 24141427, 21820305), (16, 1785308, 646968), (17, 3936584, -9306864), (18, -15289077, -151377), (19, 16217878, 14952968), (24, 2082528, 651728), (25, 4044864, -10885024), (26, -17559732, 605508), (27, 19380448, 16339528), (53, 614275, 0)],
+  [(0, 1465072, 594272), (1, 3567136, -7619776), (2, -12715668, -605508), (3, 13024152, 12949472), (8, 1797768, 611492), (9, 3751536, -9382984), (10, -15289077, 151377), (11, 16510768, 14628922), (16, 2323678, 816130), (17, 4985860, -12120644), (18, -19830387, 0), (19, 21225013, 19184295), (24, 1326024, 366100), (25, 2315760, -6944552), (26, -11050521, 756885), (27, 12559904, 9880370), (54, 614275, 0)],
+  [(0, 1120868, 553084), (1, 3252152, -5802104), (2, -9990882, -1211016), (3, 9521958, 10961554), (8, 2032688, 793632), (9, 4785056, -10580544), (10, -17559732, -605508), (11, 18208888, 17635712), (16, 1263724, 543480), (17, 3241000, -6563952), (18, -11050521, -756885), (19, 11095454, 11500600), (24, 1649634, 579390), (25, 3539580, -8604732), (26, -14078061, 0), (27, 15068139, 13619385), (55, 614275, 0)],
+  [(32, 3795, -230), (40, 2924, 154), (48, 3416, -472), (56, 2186, 0)],
+  [(32, 471681259, 50858227), (33, -157516602, -147095940), (40, 30275384, -336205498), (41, 168759200, 360738092), (48, 270469672, -79478604), (57, 189259508, 0)],
+  [(32, 3744909924587447624, -800219211658215947), (33, -1347868483031801519, 341136288959676047), (34, -1511933723019540740, 314249460823219450), (40, 262652441225767969, 158741653962528713), (41, -70901090718461174, -156268127229590548), (48, 206999199441920490, -12545406026783060), (58, 87338399918941940, 0)],
+  [(32, 1460086624810860501, -1897154451493911383), (33, -479369141844603736, 701195544798428938), (34, -585610726596763510, 801616516963788950), (40, 255491998892014746, -57139097581740228), (41, -158599020838275286, 17644216979166138), (48, 122936988357998330, -45826690167898630), (59, 87338399918941940, 0)],
+  [(0, -1824764, 379270), (1, 5642975, 14006897), (2, 15716231, -14205165), (3, -32953519, 0), (8, -1669620, 464772), (9, 6102156, 12647040), (10, 13703400, -14152188), (11, -30575430, 2038362), (16, -1564568, 403688), (17, 5464304, 11896984), (18, 13024152, -12949472), (19, -28537068, 1358908), (24, -1210312, 408556), (25, 4994758, 9065066), (26, 9521958, -10961554), (27, -22421982, 2717816), (60, 614275, 0)],
+  [(0, -1716540, 239028), (1, 4369344, 13345140), (2, 15460740, -12207912), (3, -30575430, -2038362), (8, -2802988, 582590), (9, 8668075, 21515749), (10, 24141427, -21820305), (11, -50619323, 0), (16, -1903922, 376098), (17, 5731274, 14642676), (18, 16510768, -14628922), (19, -34312427, -339727), (24, -2166552, 528808), (25, 7325904, 16517816), (26, 18208888, -17635712), (27, -39408332, 1358908), (61, 614275, 0)],
+  [(0, -1595848, 253192), (1, 4309096, 12362384), (2, 14195712, -11653288), (3, -28537068, -1358908), (8, -1896102, 413722), (9, 6020076, 14526326), (10, 16217878, -14952968), (11, -34312427, 339727), (16, -2464372, 512210), (17, 7620925, 18916531), (18, 21225013, -19184295), (19, -44504237, 0), (24, -1353726, 379490), (25, 4968780, 10250398), (26, 11095454, -11500600), (27, -24800071, 1698635), (62, 614275, 0)],
+  [(0, -1272872, 107564), (1, 2684342, 9995866), (2, 11865078, -8369186), (3, -22421982, -2717816), (8, -2197832, 378312), (9, 6170696, 16983216), (10, 19380448, -16339528), (11, -39408332, -1358908), (16, -1392826, 191370), (17, 3524770, 10832148), (18, 12559904, -9880370), (19, -24800071, -1698635), (24, -1749516, 363630), (25, 5410275, 13429293), (26, 15068139, -13619385), (27, -31594611, 0), (63, 614275, 0)]]
+def wt4s0D : Int := 614275
+def wt4s0Inv : List (List (Nat × Int × Int)) := [
+  [(0, 19055, 0), (1, -21086, -2738), (2, -5370, 90), (3, 17106, 3788), (4, -51749, 37883), (5, 64056, -10657), (6, 13816, -44897), (7, -3764, 1838)],
+  [(0, -21086, 2738), (1, 243873, 0), (2, -23245, 5415), (3, -271502, 1232), (4, 9462, -6965), (5, -2525, 21126), (6, -39398, 16755), (7, 82527, -79750)],
+  [(0, -5370, -90), (1, -23245, -5415), (2, 13925, 0), (3, 22115, 6105), (4, 61345, -42185), (5, 10105, 10760), (6, -14905, -6110), (7, -28105, 20615)],
+  [(0, 17106, -3788), (1, -271502, -1232), (2, 22115, -6105), (3, 316461, 0), (4, -2723, 2452), (5, -43066, -59599), (6, 87197, 10462), (7, -53948, 60457)],
+  [(8, 51749, -37883), (9, -9462, 6965), (10, -61345, 42185), (11, 2723, -2452), (12, 17897, 0), (13, -8170, -8756), (14, -17738, 6230), (15, 18812, 3910)],
+  [(8, -64056, 10657), (9, 2525, -21126), (10, -10105, -10760), (11, 43066, 59599), (12, -8170, 8756), (13, 84313, 0), (14, -38060, -92524), (15, -58175, 144401)],
+  [(8, -13816, 44897), (9, 39398, -16755), (10, 14905, 6110), (11, -87197, -10462), (12, -17738, -6230), (13, -38060, 92524), (14, 151377, 0), (15, -162023, -146445)],
+  [(8, 3764, -1838), (9, -82527, 79750), (10, 28105, -20615), (11, 53948, -60457), (12, 18812, -3910), (13, -58175, -144401), (14, -162023, 146445), (15, 339727, 0)],
+  [(0, 51749, 37883), (1, -9462, -6965), (2, -61345, -42185), (3, 2723, 2452), (4, 17897, 0), (5, -8170, 8756), (6, -17738, -6230), (7, 18812, -3910)],
+  [(0, -64056, -10657), (1, 2525, 21126), (2, -10105, 10760), (3, 43066, -59599), (4, -8170, -8756), (5, 84313, 0), (6, -38060, 92524), (7, -58175, -144401)],
+  [(0, -13816, -44897), (1, 39398, 16755), (2, 14905, -6110), (3, -87197, 10462), (4, -17738, 6230), (5, -38060, -92524), (6, 151377, 0), (7, -162023, 146445)],
+  [(0, 3764, 1838), (1, -82527, -79750), (2, 28105, 20615), (3, 53948, 60457), (4, 18812, 3910), (5, -58175, 144401), (6, -162023, -146445), (7, 339727, 0)],
+  [(8, 19055, 0), (9, -21086, 2738), (10, -5370, -90), (11, 17106, -3788), (12, -51749, -37883), (13, 64056, 10657), (14, 13816, 44897), (15, -3764, -1838)],
+  [(8, -21086, -2738), (9, 243873, 0), (10, -23245, -5415), (11, -271502, -1232), (12, 9462, 6965), (13, -2525, -21126), (14, -39398, -16755), (15, 82527, 79750)],
+  [(8, -5370, 90), (9, -23245, 5415), (10, 13925, 0), (11, 22115, -6105), (12, 61345, 42185), (13, 10105, -10760), (14, -14905, 6110), (15, -28105, -20615)],
+  [(8, 17106, 3788), (9, -271502, 1232), (10, 22115, 6105), (11, 316461, 0), (12, -2723, -2452), (13, -43066, 59599), (14, 87197, -10462), (15, -53948, -60457)]]
+def wt4s0Ker : List (List (Nat × Int × Int)) := [
+  [(11, 1, 0)],
+  [(12, 1, 0)],
+  [(13, 1, 0)],
+  [(14, 1, 0)],
+  [(17, 1, 0)],
+  [(18, 1, 0)],
+  [(19, 1, 0)],
+  [(20, 1, 0)],
+  [(24, 1, 0)],
+  [(25, 1, 0)],
+  [(26, 1, 0)],
+  [(27, 1, 0)],
+  [(32, 1, 0)],
+  [(33, 1, 0)],
+  [(34, 1, 0)],
+  [(35, 1, 0)]]
+def wt4s0Dual0 : Int × List (List (Nat × Int × Int)) := (614275, [
+  [(0, 0, -19055), (1, 2738, 21086), (2, -90, 5370), (3, -3788, -17106)],
+  [(0, -2738, 21086), (1, 0, -243873), (2, -5415, 23245), (3, -1232, 271502)],
+  [(0, 90, 5370), (1, 5415, 23245), (2, 0, -13925), (3, -6105, -22115)],
+  [(0, 3788, -17106), (1, 1232, 271502), (2, 6105, -22115), (3, 0, -316461)]])
+def wt4s0Dual1 : Int × List (List (Nat × Int × Int)) := (614275, [
+  [(0, 960, -17665), (1, -960, -1390), (2, 3698, 22476), (3, -3788, -17106)],
+  [(0, -6921, 16702), (1, 4183, 4384), (2, -4183, -248257), (3, -1232, 271502)],
+  [(0, 780, -9685), (1, -690, 15055), (2, 6105, 8190), (3, -6105, -22115)],
+  [(0, 8661, 5738), (1, -4873, -22844), (2, 6105, 294346), (3, 0, -316461)]])
+
+def wt2s1Pp : List (List (Nat × Int × Int)) := [
+  [(4, -2, -2), (5, -5, -4), (6, 1, 0)],
+  [(4, -7, -4), (5, -3, -1), (7, 1, 0)]]
+def wt2s1S : List (List (Nat × Int × Int)) := [
+  [(2, -86, -14), (3, 73, 0)],
+  [(2, 1591, 259), (6, 949, 0)],
+  [(2, 900, 301), (7, 949, 0)],
+  [(8, -1558, -494), (9, 925, 0)],
+  [(0, -2812, 0), (1, 1517, -481), (4, -1634, 266), (5, 836, -423), (10, 975, 0)],
+  [(0, -1634, -266), (1, 927, -136), (4, -1976, 0), (5, 1066, -338), (11, 975, 0)],
+  [(8, 41, 13), (12, 37, 0)],
+  [(8, 756, 533), (13, 925, 0)],
+  [(0, 1517, 481), (1, -1850, 0), (4, 927, 136), (5, -1075, 175), (14, 975, 0)],
+  [(0, 836, 423), (1, -1075, -175), (4, 1066, 338), (5, -1300, 0), (15, 975, 0)]]
+def wt2s1D : Int := 1950
+def wt2s1Inv : List (List (Nat × Int × Int)) := [
+  [(0, 52, 0), (1, -43, 7), (2, -83, 103), (3, 242, -144)],
+  [(0, -43, -7), (1, 74, 0), (2, 270, -224), (3, -107, 49)],
+  [(4, 83, -103), (5, -270, 224), (6, 76, 0), (7, -41, 13)],
+  [(4, -242, 144), (5, 107, -49), (6, -41, -13), (7, 50, 0)],
+  [(0, 83, 103), (1, -270, -224), (2, 76, 0), (3, -41, -13)],
+  [(0, -242, -144), (1, 107, 49), (2, -41, 13), (3, 50, 0)],
+  [(4, 52, 0), (5, -43, -7), (6, -83, -103), (7, 242, 144)],
+  [(4, -43, 7), (5, 74, 0), (6, 270, 224), (7, -107, -49)]]
+def wt2s1Ker : List (List (Nat × Int × Int)) := [
+  [(4, 1, 0)],
+  [(5, 1, 0)],
+  [(8, 1, 0)],
+  [(9, 1, 0)]]
+def wt2s1Dual0 : Int × List (List (Nat × Int × Int)) := (1950, [
+  [(0, 0, -52), (1, -7, 43)],
+  [(0, 7, 43), (1, 0, -74)]])
+def wt2s1Dual1 : Int × List (List (Nat × Int × Int)) := (1950, [
+  [(0, 7, -95), (1, -7, 43)],
+  [(0, 7, 117), (1, 0, -74)]])
+
+def wt2s2Pp : List (List (Nat × Int × Int)) := [
+  [(4, -3, -3), (5, -6, -5), (6, 1, 0)],
+  [(4, -1, -5), (5, -4, -2), (7, 1, 0)]]
+def wt2s2S : List (List (Nat × Int × Int)) := [
+  [(2, -1927, -861), (3, 1325, 0)],
+  [(2, 423, 189), (6, 530, 0)],
+  [(2, 884, 987), (7, 1325, 0)],
+  [(8, -611, 47), (9, 680, 0)],
+  [(0, -2115, 0), (1, 2340, 180), (4, -2209, 987), (5, 2528, -904), (10, 1040, 0)],
+  [(0, -2209, -987), (1, 2360, 1280), (4, -3854, 0), (5, 4264, 328), (11, 1040, 0)],
+  [(8, 26, -2), (12, 17, 0)],
+  [(8, 84, -13), (13, 85, 0)],
+  [(0, 117, -9), (1, -180, 0), (4, 118, -64), (5, -188, 84), (14, 52, 0)],
+  [(0, 316, 113), (1, -470, -210), (4, 533, -41), (5, -820, 0), (15, 130, 0)]]
+def wt2s2D : Int := 1040
+def wt2s2Inv : List (List (Nat × Int × Int)) := [
+  [(0, 82, 0), (1, -47, 21), (2, 69, 115), (3, -64, -232)],
+  [(0, -47, -21), (1, 45, 0), (2, 66, -147), (3, 28, 124)],
+  [(4, -69, -115), (5, -66, 147), (6, 47, 0), (7, -52, -4)],
+  [(4, 64, 232), (5, -28, -124), (6, -52, 4), (7, 80, 0)],
+  [(0, -69, 115), (1, -66, -147), (2, 47, 0), (3, -52, 4)],
+  [(0, 64, -232), (1, -28, 124), (2, -52, -4), (3, 80, 0)],
+  [(4, 82, 0), (5, -47, -21), (6, 69, -115), (7, -64, 232)],
+  [(4, -47, 21), (5, 45, 0), (6, 66, 147), (7, 28, -124)]]
+def wt2s2Ker : List (List (Nat × Int × Int)) := [
+  [(4, 1, 0)],
+  [(5, 1, 0)],
+  [(8, 1, 0)],
+  [(9, 1, 0)]]
+def wt2s2Dual0 : Int × List (List (Nat × Int × Int)) := (1040, [
+  [(0, 0, -82), (1, -21, 47)],
+  [(0, 21, 47), (1, 0, -45)]])
+def wt2s2Dual1 : Int × List (List (Nat × Int × Int)) := (1040, [
+  [(0, 21, -129), (1, -21, 47)],
+  [(0, 21, 92), (1, 0, -45)]])
+
+def wt3s1Pp : List (List (Nat × Int × Int)) := [
+  [(6, -2, -2), (7, -5, -4), (8, -1, -1), (9, 1, 0)],
+  [(6, -7, -4), (7, -3, -1), (8, -6, -3), (10, 1, 0)],
+  [(6, -5, -1), (7, -1, -3), (8, -4, -5), (11, 1, 0)]]
+def wt3s1S : List (List (Nat × Int × Int)) := [
+  [(3, -2040402, 719502), (4, 227717, -455271), (5, 1938338, 0)],
+  [(3, 218882521, -2415702447), (4, -1498147313, 3919775016), (9, -7778550394, 2192260278), (10, 13981231994, 0)],
+  [(3, 8005516792, -5639678114), (4, -15977018603, 5633937253), (9, -28637005612, 6210434952), (11, 27962463988, 0)],
+  [(3, 8300, -1800), (9, 4359, -337), (15, 7213, 0)],
+  [(3, -462359234, 3028295388), (4, 16810437475, -5927823725), (9, 9974687348, -2163185208), (16, 13981231994, 0)],
+  [(3, 10376801435, -6398881489), (4, 3625484616, 2113041137), (9, 7987890898, -1226967954), (17, 13981231994, 0)],
+  [(18, -11065, 68603), (19, -30510, -25786), (20, 37468, 0)],
+  [(0, -221300, 0), (1, 65600, -109000), (2, 19000, 117800), (6, -112863, -15491), (7, 41086, -50998), (8, 1444, 61408), (12, -183679, -39834), (13, 74068, -78662), (14, -5434, 101194), (21, 52904, 0)],
+  [(0, -112863, 15491), (1, 25826, -60182), (2, 17936, 58748), (6, -137206, 0), (7, 40672, -67580), (8, 11780, 73036), (12, -108437, 6639), (13, 28874, -55378), (14, 12844, 57152), (22, 52904, 0)],
+  [(0, -183679, 39834), (1, 34828, -102278), (2, 36974, 94354), (6, -108437, -6639), (7, 35414, -51442), (8, 5776, 58292), (12, -196957, 0), (13, 58384, -97010), (14, 16910, 104842), (23, 52904, 0)],
+  [(18, 296328, -1878054), (19, -91980, 849720), (24, -893722, -43529), (25, 402230, 0)],
+  [(18, 6852791, -32376663), (19, -2368850, 14686870), (24, -13881894, 1461252), (26, 6837910, 0)],
+  [(0, 32800, 54500), (1, -129800, 0), (2, 126600, -6600), (6, 12913, 30091), (7, -66198, -9086), (8, 65028, 5496), (12, 17414, 51139), (13, -107734, -23364), (14, 106266, 17310), (27, 26452, 0)],
+  [(0, 20543, 25499), (1, -66198, 9086), (2, 64104, -12228), (6, 20336, 33790), (7, -80476, 0), (8, 78492, -4092), (12, 17707, 25721), (13, -63602, 3894), (14, 61836, -7032), (28, 26452, 0)],
+  [(0, 37034, 39331), (1, -107734, 23364), (2, 103890, -28266), (6, 14437, 27689), (7, -63602, -3894), (8, 62232, 564), (12, 29192, 48505), (13, -115522, 0), (14, 112674, -5874), (29, 26452, 0)],
+  [(18, 494, -52), (24, 459, -202), (30, 365, 0)],
+  [(18, -7986, 2706528), (19, 189800, -1176760), (24, 1266749, -133342), (31, 402230, 0)],
+  [(18, -328416, 5961248), (19, 611448, -2840868), (24, 2941238, -777461), (32, 1367582, 0)],
+  [(0, 9500, -58900), (1, 126600, 6600), (2, -176800, 0), (6, 8968, -29374), (7, 64104, 12228), (8, -90168, -12376), (12, 18487, -47177), (13, 103890, 28266), (14, -146744, -31824), (33, 26452, 0)],
+  [(0, 361, -15352), (1, 32514, -2748), (2, -45084, 6188), (6, 2945, -18259), (7, 39246, 2046), (8, -54808, 0), (12, 1444, -14573), (13, 31116, -282), (14, -43316, 2652), (34, 13226, 0)],
+  [(0, -2717, -50597), (1, 106266, -17310), (2, -146744, 31824), (6, 6422, -28576), (7, 61836, 7032), (8, -86632, -5304), (12, 8455, -52421), (13, 112674, 5874), (14, -157352, 0), (35, 26452, 0)]]
+def wt3s1D : Int := 52904
+def wt3s1Inv : List (List (Nat × Int × Int)) := [
+  [(0, 3108, 0), (1, -526, 508), (2, -2626, -926), (3, 2066, 128), (4, 2152, -8060), (5, 1404, 8404)],
+  [(0, -526, -508), (1, 1687, 0), (2, -541, 637), (3, 6463, -5534), (4, -1988, 2306), (5, -430, -1822)],
+  [(0, -2626, 926), (1, -541, -637), (2, 3550, 0), (3, -5103, 2533), (4, 4362, 4966), (5, -456, -9508)],
+  [(6, -2066, -128), (7, -6463, 5534), (8, 5103, -2533), (9, 2213, 0), (10, -656, 1090), (11, -190, -1178)],
+  [(6, -2152, 8060), (7, 1988, -2306), (8, -4362, -4966), (9, -656, -1090), (10, 2596, 0), (11, -2532, 132)],
+  [(6, -1404, -8404), (7, 430, 1822), (8, 456, 9508), (9, -190, 1178), (10, -2532, -132), (11, 3536, 0)],
+  [(0, -2066, 128), (1, -6463, -5534), (2, 5103, 2533), (3, 2213, 0), (4, -656, -1090), (5, -190, 1178)],
+  [(0, -2152, -8060), (1, 1988, 2306), (2, -4362, 4966), (3, -656, 1090), (4, 2596, 0), (5, -2532, -132)],
+  [(0, -1404, 8404), (1, 430, -1822), (2, 456, -9508), (3, -190, -1178), (4, -2532, 132), (5, 3536, 0)],
+  [(6, 3108, 0), (7, -526, -508), (8, -2626, 926), (9, 2066, -128), (10, 2152, 8060), (11, 1404, -8404)],
+  [(6, -526, 508), (7, 1687, 0), (8, -541, -637), (9, 6463, 5534), (10, -1988, -2306), (11, -430, 1822)],
+  [(6, -2626, -926), (7, -541, 637), (8, 3550, 0), (9, -5103, -2533), (10, 4362, -4966), (11, -456, 9508)]]
+def wt3s1Ker : List (List (Nat × Int × Int)) := [
+  [(7, 1, 0)],
+  [(8, 1, 0)],
+  [(9, 1, 0)],
+  [(12, 1, 0)],
+  [(13, 1, 0)],
+  [(14, 1, 0)],
+  [(18, 1, 0)],
+  [(19, 1, 0)],
+  [(20, 1, 0)]]
+def wt3s1Dual0 : Int × List (List (Nat × Int × Int)) := (52904, [
+  [(0, 0, -3108), (1, -508, 526), (2, 926, 2626)],
+  [(0, 508, 526), (1, 0, -1687), (2, -637, 541)],
+  [(0, -926, 2626), (1, 637, 541), (2, 0, -3550)]])
+def wt3s1Dual1 : Int × List (List (Nat × Int × Int)) := (52904, [
+  [(0, 1434, -1008), (1, -1434, -2100), (2, 926, 2626)],
+  [(0, -129, 2754), (1, 637, -2228), (2, -637, 541)],
+  [(0, -1563, -1465), (1, 637, 4091), (2, 0, -3550)]])
+
+/-- the cases `(n, seed, P', S, D, D M^(-1), kernel, duals)`. -/
+def wtCases : List (Nat × Nat × WtSp × WtSp × Int × WtSp × WtSp × (Int × WtSp) × (Int × WtSp)) := [
+  (2, 0, wt2s0Pp, wt2s0S, wt2s0D, wt2s0Inv, wt2s0Ker, wt2s0Dual0, wt2s0Dual1),
+  (3, 0, wt3s0Pp, wt3s0S, wt3s0D, wt3s0Inv, wt3s0Ker, wt3s0Dual0, wt3s0Dual1),
+  (4, 0, wt4s0Pp, wt4s0S, wt4s0D, wt4s0Inv, wt4s0Ker, wt4s0Dual0, wt4s0Dual1),
+  (2, 1, wt2s1Pp, wt2s1S, wt2s1D, wt2s1Inv, wt2s1Ker, wt2s1Dual0, wt2s1Dual1),
+  (2, 2, wt2s2Pp, wt2s2S, wt2s2D, wt2s2Inv, wt2s2Ker, wt2s2Dual0, wt2s2Dual1),
+  (3, 1, wt3s1Pp, wt3s1S, wt3s1D, wt3s1Inv, wt3s1Ker, wt3s1Dual0, wt3s1Dual1)]
+
+
+def wtCaseCheck (c : Nat × Nat × WtSp × WtSp × Int × WtSp × WtSp × (Int × WtSp) × (Int × WtSp)) : List Bool :=
+  wtCaseOk c.1 c.2.1 c.2.2.1 c.2.2.2.1 c.2.2.2.2.1 c.2.2.2.2.2.1 c.2.2.2.2.2.2.1
+    c.2.2.2.2.2.2.2.1 c.2.2.2.2.2.2.2.2
+
+/-- **The annihilator of the Weil line is the tangent space to the Weil
+family**: parts (a) to (e) at `n = 2`, for three planes. -/
+theorem tangent_is_annihilator_two :
+    ((wtCases.filter fun c => c.1 == 2).all fun c => (wtCaseCheck c).all id) = true := by
+  decide +kernel
+
+/-- **The same at `n = 3`**, for the first plane. -/
+theorem tangent_is_annihilator_three :
+    ((wtCases.filter fun c => c.1 == 3 && c.2.1 == 0).all fun c => (wtCaseCheck c).all id) = true := by
+  decide +kernel
+
+/-- **The same at `n = 3`**, for a second plane. -/
+theorem tangent_is_annihilator_three' :
+    ((wtCases.filter fun c => c.1 == 3 && c.2.1 == 1).all fun c => (wtCaseCheck c).all id) = true := by
+  decide +kernel
+
+/-- **The same at `n = 4`**, parts (a), (b) and (e). -/
+theorem tangent_is_annihilator_four :
+    ((wtCases.filter fun c => c.1 == 4).all fun c =>
+      [0, 1, 2, 5].all fun k => (wtCaseCheck c).getD k false) = true := by
+  decide +kernel
+
+/-- **`n = 4`, part (c)**: the polarised deformations have dimension
+`n (2n + 1) = 36`, the `K`-linear ones `n^2 = 16`. -/
+theorem tangent_deformations_four :
+    ((wtCases.filter fun c => c.1 == 4).all fun c => (wtCaseCheck c).getD 3 false) = true := by
+  decide +kernel
+
+/-- **`n = 4`, part (d)**: the polarised deformations killing the Weil line
+are the `K`-linear ones. -/
+theorem tangent_hodge_locus_four :
+    ((wtCases.filter fun c => c.1 == 4).all fun c => (wtCaseCheck c).getD 4 false) = true := by
+  decide +kernel
+
+/-! ## 60.  The Hodge classes of a very general Weil torus
+
+Item (LI), Lemma (Hodge classes of a very general Weil torus in low degree)
+and Lemma (The Weil plane is all of the middle degree).  `V_K = V_+ + V_-`
+has the `K`-basis `u^+_1..u^+_2n` (generators `0..2n-1`) and
+`u^-_j = sigma(u^+_j)` (generators `2n..4n-1`), `sigma` the Galois
+conjugation.  A member of the `K`-linear family of Weil type is
+`V^{1,0} = X + sigma(Y)`, `X`, `Y` complementary `n`-planes of `V_+`, with
+`V^{0,1} = sigma(V^{1,0})`; a rational class `c` of degree `2k` is of type
+`(k,k)` exactly when `c ^ e_I = 0` for every product `e_I` of `2n - k + 1`
+vectors of a basis of `V^{1,0}`, and of `V^{0,1}`.  These conditions are
+defined over `K`, so the rational classes of type `(k,k)` at the members used
+span a space of dimension at most `C(4n,2k)` minus the rank of the
+conditions over `K`, which is at least their rank modulo the prime
+`q = 754974721` at which `delta = sqrt(-d)` goes to the recorded root `s` of
+`-d`.
+
+Member `0` is the balanced member, `X = <u^+_1..u^+_n>`: there `e_I` is a
+monomial, so each condition says that one coefficient of `c` vanishes, and
+every monomial `mu` of degree `2k` other than those with exactly `k`
+generators in `V^{1,0}` (the set `T`) is killed this way (if `mu` has `p < k`
+generators in `V^{1,0}`, the other `2n - p >= 2n - k + 1` give an `e_I`; if
+`p > k`, the same with `V^{0,1}`).  The further members have `X` and `Y`
+spanned by the rows of an integral `K`-matrix given by a formula.  The
+kernel checks, for `n = 2` with `d = 1, 3` and `n = 3` with `d = 2`:
+
+* (A) `omega_1`, `omega_2` (the span of `alpha_+ = u^+_1 ... u^+_2n` and
+  `alpha_-`) are of type `(n,n)` at every member used;
+* (B) `eta = sum_j s_j u^+_j u^-_j` (`s_j = 1` for `j <= n`, `-1` otherwise)
+  is of type `(1,1)` at the balanced member and at none of the others, which
+  lie off the polarised family;
+* (C) at `n = 2` the recorded conditions of the further members, restricted
+  to `T`, have rank `|T|` for `k < n` and `|T| - 2` for `k = n`: a very
+  general member has no Hodge classes in degree `2k`, `0 < k < n`, and only
+  the Weil plane in degree `2n`;
+* (E) at `n = 2, 3`, the same conclusion from member `1` alone and its orbit
+  under the diagonal torus.  The conditions are polynomial in `X`, `Y` and
+  their conjugates, so they hold on all of `S` exactly when they hold on its
+  complexification `S_C`, in which `X`, `Y` and the conjugates vary
+  independently; `S_C` is stable under the diagonal torus `D` of
+  `GL(V_+) x GL(V_-)`, whose characters on monomials are pairwise distinct.
+  If `c ^ e_I(t g) = 0` for every `t` in `D`, comparing the coefficient of
+  each monomial `tau` gives `c_mu (e_I(g))_nu = 0` whenever `mu`, `nu` are
+  disjoint with `mu + nu = tau`.  So `c_mu = 0` as soon as some product
+  `e_I(g)` has a nonzero coefficient on a monomial `nu` disjoint from `mu`.
+  For each monomial `mu` of degree `2k <= 2n` other than `alpha_+`,
+  `alpha_-` the kernel takes `a` rows of `X` and `b` of `sigma(Y)` with
+  `a + b = 2n - k + 1`, `a`, `b <= n`, and the first `a` generators of `V_+`
+  and `b` of `V_-` outside `mu`, and checks that this Plucker coordinate of
+  member `1` is nonzero modulo `q`;
+* (D) for `kappa = sum c_ij u^+_i u^-_j` with integral `c_ij`,
+  `alpha_+ kappa^n = alpha_- kappa^n = 0`, while with
+  `beta = sum_j u^-_(2j-1) u^-_(2j)` added `alpha_+ (kappa + beta)^n != 0` and
+  `alpha_- (kappa + beta)^n = 0`.
+
+The conditions are written by `lean/generate/make_weil_tori.py`.
+-/
+
+def vtQ : Nat := 754974721
+
+/-- `v - f b` modulo `q`, for sorted sparse `v`, `b`, with fuel. -/
+def lrAxpy (q : Nat) : Nat → Nat → PcSparse → PcSparse → PcSparse
+  | 0, _, v, _ => v
+  | _ + 1, _, v, [] => v
+  | k + 1, f, [], y :: ys =>
+    let z := (q - f * y.2 % q) % q
+    if z == 0 then lrAxpy q k f [] ys else (y.1, z) :: lrAxpy q k f [] ys
+  | k + 1, f, x :: xs, y :: ys =>
+    if x.1 < y.1 then x :: lrAxpy q k f xs (y :: ys)
+    else if y.1 < x.1 then
+      let z := (q - f * y.2 % q) % q
+      if z == 0 then lrAxpy q k f (x :: xs) ys else (y.1, z) :: lrAxpy q k f (x :: xs) ys
+    else
+      let z := (x.2 + q - f * y.2 % q) % q
+      if z == 0 then lrAxpy q k f xs ys else (x.1, z) :: lrAxpy q k f xs ys
+
+def lrPowMod (q : Nat) : Nat → Nat → Nat → Nat → Nat
+  | 0, _, _, acc => acc
+  | f + 1, b, e, acc =>
+    if e == 0 then acc
+    else lrPowMod q f (b * b % q) (e / 2) (if e % 2 == 1 then acc * b % q else acc)
+
+def lrInv (q a : Nat) : Nat := lrPowMod q 40 (a % q) (q - 2) 1
+
+def lrReduce (q : Nat) : Nat → List (Nat × PcSparse) → PcSparse → PcSparse
+  | 0, _, v => v
+  | f + 1, basis, v =>
+    match v with
+    | [] => []
+    | x :: _ =>
+      match basis.find? (fun b => b.1 == x.1) with
+      | none => v
+      | some b => lrReduce q f basis (lrAxpy q (v.length + b.2.length + 1) x.2 v b.2)
+
+/-- the rank modulo `q` of a list of sorted sparse vectors. -/
+def lrRank (q : Nat) (rows : List PcSparse) : Nat :=
+  (rows.foldl (fun basis v =>
+    match lrReduce q (basis.length + 1) basis v with
+    | [] => basis
+    | x :: rest =>
+      let inv := lrInv q x.2
+      (x.1, (x.1, 1) :: rest.map fun t => (t.1, t.2 * inv % q)) :: basis) []).length
+
+/-- an element of the exterior algebra modulo `q`: `(monomial, residue)`. -/
+abbrev LrElt := List (Nat × Nat)
+
+def lrMergeSort : Nat → LrElt → LrElt
+  | 0, xs => xs
+  | f + 1, xs =>
+    if xs.length ≤ 1 then xs
+    else
+      let h := xs.length / 2
+      let rec merge : Nat → LrElt → LrElt → LrElt
+        | 0, a, b => a ++ b
+        | _ + 1, [], b => b
+        | _ + 1, a, [] => a
+        | g + 1, x :: a, y :: b => if x.1 ≤ y.1 then x :: merge g a (y :: b) else y :: merge g (x :: a) b
+      merge (xs.length + 1) (lrMergeSort f (xs.take h)) (lrMergeSort f (xs.drop h))
+
+/-- sort, add equal monomials modulo `q`, drop zeros. -/
+def lrNormal (q : Nat) (v : LrElt) : LrElt :=
+  ((lrMergeSort 40 v).foldr (fun t acc =>
+    match acc with
+    | y :: ys => if y.1 == t.1 then ((t.1, (t.2 + y.2) % q) :: ys) else t :: y :: ys
+    | [] => [t]) []).filter fun t => t.2 % q != 0
+
+def lrMul (q w : Nat) (u v : LrElt) : LrElt :=
+  lrNormal q (u.flatMap fun a => v.filterMap fun b =>
+    if a.1 &&& b.1 != 0 then none
+    else
+      let x := a.2 * b.2 % q
+      some (a.1 ||| b.1, if pcMergeOdd w a.1 b.1 then (q - x) % q else x))
+
+def lrProd (q w : Nat) (vs : List LrElt) : LrElt := vs.foldl (lrMul q w) [(0, 1)]
+
+def lrRes (q : Nat) (a : Int) : Nat := (a % (q : Int)).toNat
+
+/-- the integral `K`-matrix of member `j >= 1`: entry `(a, b)` is
+`a + b delta`; rows `0..n-1` span `X`, rows `n..2n-1` span `Y`. -/
+def vtEntry (j r c : Nat) : Int × Int :=
+  ((((r * (j + 2) + c * c * (j + 1) + r * c * (2 * j + 1) + j) % 7 : Nat) : Int) - 3,
+   (((r * r * (j + 3) + c * (j + 5) + r * c + 2 * j + 1) % 5 : Nat) : Int) - 2)
+
+/-- bases of `V^{1,0}` and `V^{0,1}` of member `j`, modulo `q`, `delta -> s`. -/
+def vtVectors (n j s : Nat) : List LrElt × List LrElt :=
+  let m := 2 * n
+  if j == 0 then
+    (((List.range n).map fun i => [(1 <<< i, 1)]) ++ ((List.range n).map fun i => [(1 <<< (m + n + i), 1)]),
+     ((List.range n).map fun i => [(1 <<< (m + i), 1)]) ++ ((List.range n).map fun i => [(1 <<< (n + i), 1)]))
+  else
+    let vec := fun (r off : Nat) (cj : Bool) =>
+      ((List.range m).map fun c =>
+        let e := vtEntry j r c
+        (1 <<< (off + c), lrRes vtQ (e.1 + (if cj then -e.2 else e.2) * (s : Int)))).filter fun t => t.2 != 0
+    (((List.range n).map fun r => vec r 0 false) ++ ((List.range n).map fun r => vec (n + r) m true),
+     ((List.range n).map fun r => vec r m true) ++ ((List.range n).map fun r => vec (n + r) 0 false))
+
+def vtSubsets : Nat → Nat → List (List Nat)
+  | _, 0 => [[]]
+  | 0, _ + 1 => []
+  | m + 1, k + 1 => (vtSubsets m k).map (· ++ [m]) ++ vtSubsets m (k + 1)
+
+def vtPick (vs : List LrElt) (I : List Nat) : List LrElt := I.map fun i => vs.getD i []
+
+def vtPop (x : Nat) (w : Nat) : Nat := (List.range w).countP fun i => x.testBit i
+
+/-- the balanced member's `V^{1,0}`, as a mask. -/
+def vtHol0 (n : Nat) : Nat := ((1 <<< n) - 1) ||| ((((1 <<< n) - 1) <<< n) <<< (2 * n))
+
+def vtInT (n k mu : Nat) : Bool := vtPop (mu &&& vtHol0 n) (4 * n) == k
+
+/-- the rows of one recorded group, restricted to `T`, as sparse vectors
+keyed by monomials. -/
+def vtRows (n k s : Nat) (g : Nat × Nat × List Nat × List Nat) : List PcSparse :=
+  let w := 4 * n
+  let vs := vtVectors n g.1 s
+  let eI := lrProd vtQ w (vtPick (if g.2.1 == 0 then vs.1 else vs.2) g.2.2.1)
+  g.2.2.2.map fun tau =>
+    lrNormal vtQ (eI.filterMap fun t =>
+      let mu := tau ^^^ t.1
+      if tau &&& t.1 != t.1 || !(vtInT n k mu) then none
+      else some (mu, if pcMergeOdd w mu t.1 then (vtQ - t.2) % vtQ else t.2))
+
+/-- the monomials of degree `d` on `w` generators. -/
+def vtMasks (w d : Nat) : List Nat :=
+  (vtSubsets w d).map fun I => I.foldl (fun a i => a ||| (1 <<< i)) 0
+
+def vtCaseOk (n d k tsize rk : Nat) (groups : List (Nat × Nat × List Nat × List Nat)) : Bool :=
+  let s := if d == 1 then 431114544 else if d == 2 then 250674390 else 606127303
+  let w := 4 * n
+  let masks := vtMasks w (2 * k)
+  s * s % vtQ == vtQ - d
+    && (masks.filter (vtInT n k)).length == tsize
+    && rk == tsize - (if k == n then 2 else 0)
+    -- the balanced member kills every monomial outside `T`
+    && masks.all (fun mu => vtInT n k mu || (let p := vtPop (mu &&& vtHol0 n) w;
+          if p < k then 2 * n - p ≥ 2 * n - k + 1 else 2 * k - p < k))
+    && lrRank vtQ (groups.flatMap (vtRows n k s)) == rk
+
+def vt211Rows : List (Nat × Nat × List Nat × List Nat) := [
+  (1, 0, [0, 1, 2, 3], [63, 119, 123, 183, 187, 243]),
+  (1, 1, [0, 1, 2, 3], [63, 119, 123, 183, 187, 243]),
+  (2, 0, [0, 1, 2, 3], [63, 243]),
+  (2, 1, [0, 1, 2, 3], [63, 243])]
+
+def vt212Rows : List (Nat × Nat × List Nat × List Nat) := [
+  (1, 0, [0, 1, 2], [127, 191, 223, 247, 251]),
+  (1, 0, [0, 1, 3], [127, 191, 247, 251]),
+  (1, 0, [0, 2, 3], [127, 191, 247, 251]),
+  (1, 0, [1, 2, 3], [127, 191, 247]),
+  (1, 1, [0, 1, 2], [127, 191, 247, 251, 253]),
+  (1, 1, [0, 1, 3], [127, 191, 247]),
+  (1, 1, [0, 2, 3], [127, 191, 247, 251]),
+  (1, 1, [1, 2, 3], [247, 251]),
+  (2, 0, [0, 1, 2], [127, 191]),
+  (2, 0, [0, 2, 3], [247]),
+  (2, 1, [0, 1, 2], [247])]
+
+def vt231Rows : List (Nat × Nat × List Nat × List Nat) := [
+  (1, 0, [0, 1, 2, 3], [63, 119, 123, 183, 187, 243]),
+  (1, 1, [0, 1, 2, 3], [63, 119, 123, 183, 187, 243]),
+  (2, 0, [0, 1, 2, 3], [63, 243]),
+  (2, 1, [0, 1, 2, 3], [63, 243])]
+
+def vt232Rows : List (Nat × Nat × List Nat × List Nat) := [
+  (1, 0, [0, 1, 2], [127, 191, 223, 247, 251]),
+  (1, 0, [0, 1, 3], [127, 191, 247, 251]),
+  (1, 0, [0, 2, 3], [127, 191, 247, 251]),
+  (1, 0, [1, 2, 3], [127, 191, 247]),
+  (1, 1, [0, 1, 2], [127, 191, 247, 251, 253]),
+  (1, 1, [0, 1, 3], [127, 191, 247]),
+  (1, 1, [0, 2, 3], [127, 191, 247, 251]),
+  (1, 1, [1, 2, 3], [247, 251]),
+  (2, 0, [0, 1, 2], [127, 191]),
+  (2, 0, [0, 2, 3], [247]),
+  (2, 1, [0, 1, 2], [247])]
+
+/-- the cases `(n, d, k, |T|, rank, rows)`. -/
+def vtCases : List (Nat × Nat × Nat × Nat × Nat × List (Nat × Nat × List Nat × List Nat)) := [
+  (2, 1, 1, 16, 16, vt211Rows),
+  (2, 1, 2, 36, 34, vt212Rows),
+  (2, 3, 1, 16, 16, vt231Rows),
+  (2, 3, 2, 36, 34, vt232Rows)]
+
+
+def vtTypeKK (n k : Nat) (hol anti : List LrElt) (c : LrElt) : Bool :=
+  let w := 4 * n
+  (vtSubsets (2 * n) (2 * n - k + 1)).all fun I =>
+    (lrMul vtQ w c (lrProd vtQ w (vtPick hol I))).isEmpty
+      && (lrMul vtQ w c (lrProd vtQ w (vtPick anti I))).isEmpty
+
+
+def vtRoot (d : Nat) : Nat := if d == 1 then 431114544 else if d == 2 then 250674390 else 606127303
+
+/-- `alpha_+ ^ x` depends only on the image of `x` in `Lambda V_-` (the
+quotient by the ideal of `V_+`, a ring map), and `alpha_- ^ x` only on its
+image in `Lambda V_+`. -/
+def vtTypeW (n : Nat) (hol anti : List LrElt) : Bool :=
+  let m := 2 * n
+  let w := 4 * n
+  let ap : LrElt := [((1 <<< m) - 1, 1)]
+  let am : LrElt := [(((1 <<< w) - 1) ^^^ ((1 <<< m) - 1), 1)]
+  let mi := fun (v : LrElt) => v.filter fun t => t.1 >>> m != 0
+  let pl := fun (v : LrElt) => v.filter fun t => t.1 >>> m == 0
+  (vtSubsets m (n + 1)).all fun I =>
+    (lrMul vtQ w ap (lrProd vtQ w (vtPick (hol.map mi) I))).isEmpty
+      && (lrMul vtQ w ap (lrProd vtQ w (vtPick (anti.map mi) I))).isEmpty
+      && (lrMul vtQ w am (lrProd vtQ w (vtPick (hol.map pl) I))).isEmpty
+      && (lrMul vtQ w am (lrProd vtQ w (vtPick (anti.map pl) I))).isEmpty
+
+def vtEta (n : Nat) : LrElt := lrNormal vtQ ((List.range (2 * n)).map fun j =>
+    ((1 <<< j) ||| (1 <<< (2 * n + j)), if j < n then 1 else vtQ - 1))
+
+/-- (B) off the balanced member: `eta` is not of type `(1,1)` at member `j`. -/
+def vtShapeB (n d j : Nat) : Bool :=
+  let vs := vtVectors n j (vtRoot d); !(vtTypeKK n 1 vs.1 vs.2 (vtEta n))
+
+/-- `X` and `Y` of member `j` are complementary: the product of the `2n`
+rows of its matrix is nonzero. -/
+def vtShapeT (n d j : Nat) : Bool :=
+  let m := 2 * n
+  !(lrProd vtQ (4 * n) ((List.range m).map fun r => ((List.range m).map fun c =>
+          let e := vtEntry j r c
+          (1 <<< c, lrRes vtQ (e.1 + e.2 * ((vtRoot d : Nat) : Int)))).filter fun t => t.2 != 0)).isEmpty
+
+/-- (D) for one `kappa` of `V_+ (x) V_-` and `beta` in `Lambda^2 V_-`. -/
+def vtShapeD (n : Nat) : Bool :=
+  let m := 2 * n
+  let w := 4 * n
+  let ap : LrElt := [((1 <<< m) - 1, 1)]
+  let am : LrElt := [(((1 <<< w) - 1) ^^^ ((1 <<< m) - 1), 1)]
+  let kappa : LrElt := lrNormal vtQ ((List.range m).flatMap fun i => (List.range m).map fun j =>
+    ((1 <<< i) ||| (1 <<< (m + j)), lrRes vtQ ((((3 * i + 5 * j + 1) % 9 : Nat) : Int) - 4)))
+  let beta : LrElt := (List.range n).map fun j => ((1 <<< (m + 2 * j)) ||| (1 <<< (m + 2 * j + 1)), 1)
+  let pw := fun (x : LrElt) => lrProd vtQ w (List.replicate n x)
+  let kb := lrNormal vtQ (kappa ++ beta)
+  (lrMul vtQ w ap (pw kappa)).isEmpty && (lrMul vtQ w am (pw kappa)).isEmpty
+    && !(lrMul vtQ w ap (pw kb)).isEmpty && (lrMul vtQ w am (pw kb)).isEmpty
+
+/-- (A) and (B) at every member used, with the transversality of the members. -/
+def vtMembersOk (n d count : Nat) : Bool :=
+  ((List.range count).all fun j => vtShapeT n d (j + 1))
+    && ((List.range (count + 1)).all fun j => let vs := vtVectors n j (vtRoot d); vtTypeW n vs.1 vs.2)
+    && (let vs := vtVectors n 0 (vtRoot d); vtTypeKK n 1 vs.1 vs.2 (vtEta n))
+    && ((List.range count).all fun j => vtShapeB n d (j + 1))
+
+/-- (E): every monomial of degree `2k <= 2n` other than `alpha_+`, `alpha_-`
+is disjoint from a monomial on which a product of `2n - k + 1` holomorphic
+`1`-forms of member `1` has a nonzero coefficient. -/
+def vtOrbitOk (n d : Nat) : Bool :=
+  let m := 2 * n
+  let w := 4 * n
+  let hol := (vtVectors n 1 (vtRoot d)).1
+  (List.range n).all fun k' =>
+    let k := k' + 1
+    (vtMasks w (2 * k)).all fun mu =>
+      (k == n && (mu == (1 <<< m) - 1 || mu == ((1 <<< w) - 1) ^^^ ((1 <<< m) - 1)))
+        || (let A := (List.range m).filter fun g => !mu.testBit g
+            let B := ((List.range m).map (· + m)).filter fun g => !mu.testBit g
+            let need := 2 * n - k + 1
+            let a := if need - min n A.length ≤ min n B.length then min n A.length
+                     else need - min n B.length
+            let b := need - a
+            let nu := (A.take a ++ B.take b).foldl (fun x g => x ||| (1 <<< g)) 0
+            a ≤ min n A.length && b ≤ min n B.length && a + b == need
+              && !(lrProd vtQ w ((vtPick hol (List.range a ++ (List.range b).map (· + n))).map
+                    fun v => v.filter fun t => t.1 &&& nu != 0)).isEmpty)
+
+def vtCaseCheck (c : Nat × Nat × Nat × Nat × Nat × List (Nat × Nat × List Nat × List Nat)) : Bool :=
+  vtCaseOk c.1 c.2.1 c.2.2.1 c.2.2.2.1 c.2.2.2.2.1 c.2.2.2.2.2
+
+/-- **The Weil classes are of type `(n,n)` on the whole `K`-linear family,
+the polarisation is not, and `alpha_+ kappa^n = 0` for `kappa` in
+`V_+ (x) V_-`**: (A), (B), (D) at `n = 2` (`d = 1, 3`), with three further
+members each. -/
+theorem weil_tori_types_two :
+    (vtMembersOk 2 1 3 && vtMembersOk 2 3 3 && vtShapeD 2) = true := by
+  decide +kernel
+
+/-- **(A) and (B) at `n = 3`** (`d = 2`), with three further members. -/
+theorem weil_tori_types_three : vtMembersOk 3 2 3 = true := by
+  decide +kernel
+
+/-- **(D) at `n = 3`.** -/
+theorem weil_tori_kappa_three : vtShapeD 3 = true := by
+  decide +kernel
+
+/-- **A very general Weil torus of dimension four has no Hodge classes in
+degree two and only the Weil plane in degree four**: (C) for `d = 1, 3`. -/
+theorem weil_tori_hodge_two :
+    (vtCases.all vtCaseCheck) = true := by
+  decide +kernel
+
+/-- **The torus orbit of one member already leaves only the Weil plane**:
+(E) at `n = 2` (`d = 1, 3`) and `n = 3` (`d = 2`). -/
+theorem weil_tori_orbit :
+    (vtOrbitOk 2 1 && vtOrbitOk 2 3 && vtOrbitOk 3 2) = true := by
+  decide +kernel
+
+/-! ## 61.  The Hochschild profile of a polarised character
+
+Item (LIII), Proposition (The Hochschild profile of a polarised character).
+In the model of Section 51, `HT^k` has the basis of products
+`op_(s_1) ... op_(s_k)`, `s_1 < ... < s_k`, of the `4n` operators of `HT^1`,
+and `rho_k` is the rank of `HT^k -> H^*`, `xi |-> xi _| gamma`.  For each
+case and degree `k = 0..4n` the kernel computes every image, and checks
+
+* that the recorded `rho_k` images are independent modulo the prime `p`
+  (`i` sent to a square root of `-1`), so the rank is at least `rho_k`;
+* that each recorded relation among the images holds exactly, that each
+  ends at an index which it alone contains and whose image is nonzero, so
+  the relations and the unit vectors of the basis elements with image zero
+  are independent;
+* that `rho_k` plus the number of zero images plus the number of relations
+  is `binom(4n, k)`, so the rank is exactly `rho_k`.
+
+The cases are the eight shapes of item (LIII) at `n = 2` with `u = 1` and
+`u = 2 + 3i`, three shapes at `n = 3`, and `c_n theta^n` alone at the
+special values `|u| = binom(n,a) n! |c_n|`.  Rational shapes are scaled to
+integers together with `u`.  The relations are written by
+`lean/generate/make_profile.py`.
+-/
+
+/-- the `k`-subsets of `[a, a + m)`, in lexicographic order. -/
+def ppSubsets : Nat → Nat → Nat → List (List Nat)
+  | _, _, 0 => [[]]
+  | _, 0, _ + 1 => []
+  | a, m + 1, k + 1 => (ppSubsets (a + 1) m k).map (a :: ·) ++ ppSubsets (a + 1) m (k + 1)
+
+/-- the image of `op_(s_1) ... op_(s_k)`: the last operator acts first. -/
+def ppImage (n : Nat) (g : PcElt) (S : List Nat) : PcElt :=
+  let ops := pcOps n
+  pcNormal (S.foldr (fun s v => let o := ops.getD s (true, 0); pcOp o.1 o.2 v) g)
+
+def ppRelOk (imgs : List PcElt) (v : List (Nat × Int × Int)) : Bool :=
+  (pcNormal (v.flatMap fun t => pcScale t.2.1 t.2.2 (imgs.getD t.1 []))).isEmpty
+
+/-- one degree: rank `r`, independent rows, relations. -/
+def ppDegreeOk (imgs : List PcElt) (r : Nat) (rows : List Nat) (rels : List (List (Nat × Int × Int))) : Bool :=
+  let last := rels.map fun v => (v.getLast?.map (·.1)).getD 0
+  rows.length == r
+    && pcRank (rows.map fun i => pcSparseOf (imgs.getD i [])) == r
+    && rels.all (ppRelOk imgs)
+    && rels.all (fun v => !v.isEmpty)
+    && (rels.zip last).all (fun vl => (vl.1.dropLast.all fun t => t.1 < vl.2)
+          && !(imgs.getD vl.2 []).isEmpty
+          && rels.all fun w => w == vl.1 || !(w.any fun t => t.1 == vl.2))
+    && r + imgs.countP List.isEmpty + rels.length == imgs.length
+
+/-- the degrees `lo <= k < hi` of one case. -/
+def ppCaseRangeOk (c : Nat × List Int × (Int × Int) × List Nat × List (List Nat)
+    × List (List (List (Nat × Int × Int)))) (lo hi : Nat) : Bool :=
+  let n := c.1
+  let g := pcGamma n c.2.1 c.2.2.1
+  c.2.2.2.1.length == 4 * n + 1 &&
+  ((List.range (4 * n + 1)).filter fun k => lo ≤ k && k < hi).all fun k =>
+    ppDegreeOk ((ppSubsets 0 (4 * n) k).map (ppImage n g)) (c.2.2.2.1.getD k 0)
+      (c.2.2.2.2.1.getD k []) (c.2.2.2.2.2.getD k [])
+
+def ppCaseOk (c : Nat × List Int × (Int × Int) × List Nat × List (List Nat)
+    × List (List (List (Nat × Int × Int)))) : Bool :=
+  ppCaseRangeOk c 0 (4 * c.1 + 1)
+
+def pp0Rows : List (List Nat) := [[0], [0, 1, 2, 3, 4, 5, 6, 7], [0, 5, 6, 11, 12, 13, 14, 15, 18, 19, 22, 27], [4, 5, 20, 35, 36, 37, 40, 46], [14], [], [], [], []]
+def pp0Rel4_0 : List (List (Nat × Int × Int)) := [
+  [(14, -1, 0), (55, 1, 0)]]
+def pp0Rel4 : List (List (Nat × Int × Int)) := pp0Rel4_0
+def pp0Rels : List (List (List (Nat × Int × Int))) := [[], [], [], [], pp0Rel4, [], [], [], []]
+
+def pp1Rows : List (List Nat) := [[0], [0, 1, 2, 3, 4, 5, 6, 7], [0, 5, 6, 11, 12, 13, 14, 15, 18, 19, 22, 27], [4, 5, 20, 35, 36, 37, 40, 46], [14], [], [], [], []]
+def pp1Rel4_0 : List (List (Nat × Int × Int)) := [
+  [(14, 5, -12), (55, 13, 0)]]
+def pp1Rel4 : List (List (Nat × Int × Int)) := pp1Rel4_0
+def pp1Rels : List (List (List (Nat × Int × Int))) := [[], [], [], [], pp1Rel4, [], [], [], []]
+
+def pp2Rows : List (List Nat) := [[0], [0, 1, 2, 3, 4, 5, 6, 7], [0, 1, 2, 5, 6, 7, 8, 11, 12, 13, 14, 15, 18, 19, 22, 27], [0, 1, 4, 5, 6, 21, 36, 37], [0], [], [], [], []]
+def pp2Rel3_0 : List (List (Nat × Int × Int)) := [
+  [(0, 1, 0), (40, 1, 0)],
+  [(1, 1, 0), (46, 1, 0)],
+  [(6, 1, 0), (20, 1, 0)],
+  [(21, 1, 0), (35, 1, 0)]]
+def pp2Rel3 : List (List (Nat × Int × Int)) := pp2Rel3_0
+def pp2Rel4_0 : List (List (Nat × Int × Int)) := [
+  [(0, 1, 0), (14, 1, 0)],
+  [(0, 1, 0), (55, 1, 0)]]
+def pp2Rel4 : List (List (Nat × Int × Int)) := pp2Rel4_0
+def pp2Rels : List (List (List (Nat × Int × Int))) := [[], [], [], pp2Rel3, pp2Rel4, [], [], [], []]
+
+def pp3Rows : List (List Nat) := [[0], [0, 1, 2, 3, 4, 5, 6, 7], [0, 1, 2, 5, 6, 7, 8, 11, 12, 13, 14, 15, 18, 19, 22, 27], [0, 1, 4, 5, 6, 21, 36, 37], [0], [], [], [], []]
+def pp3Rel3_0 : List (List (Nat × Int × Int)) := [
+  [(0, 2, 3), (40, 1, 0)],
+  [(1, 2, 3), (46, 1, 0)],
+  [(6, 2, -3), (20, 1, 0)],
+  [(21, 2, -3), (35, 1, 0)]]
+def pp3Rel3 : List (List (Nat × Int × Int)) := pp3Rel3_0
+def pp3Rel4_0 : List (List (Nat × Int × Int)) := [
+  [(0, 2, -3), (14, 1, 0)],
+  [(0, 2, 3), (55, 1, 0)]]
+def pp3Rel4 : List (List (Nat × Int × Int)) := pp3Rel4_0
+def pp3Rels : List (List (List (Nat × Int × Int))) := [[], [], [], pp3Rel3, pp3Rel4, [], [], [], []]
+
+def pp4Rows : List (List Nat) := [[0], [0, 1, 2, 3, 4, 5, 6, 7], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 18, 19, 22, 27], [0, 1, 2, 3, 4, 5, 8, 23], [2], [], [], [], []]
+def pp4Rel2_0 : List (List (Nat × Int × Int)) := [
+  [(3, 1, 0), (16, 1, 0)],
+  [(4, 1, 0), (20, 1, 0)],
+  [(9, 1, 0), (17, 1, 0)],
+  [(10, 1, 0), (21, 1, 0)]]
+def pp4Rel2 : List (List (Nat × Int × Int)) := pp4Rel2_0
+def pp4Rel3_0 : List (List (Nat × Int × Int)) := [
+  [(2, 1, 0), (10, 1, 0)],
+  [(2, -1, 0), (24, 1, 0)],
+  [(0, 0, -1), (36, 1, 0)],
+  [(2, 0, -1), (40, 1, 0)],
+  [(3, 1, 0), (14, 1, 0)],
+  [(3, -1, 0), (28, 1, 0)],
+  [(1, 0, -1), (37, 1, 0)],
+  [(3, 0, -1), (46, 1, 0)],
+  [(4, 0, 1), (6, 1, 0)],
+  [(8, 1, 0), (11, 1, 0)],
+  [(8, 0, -1), (20, 1, 0)],
+  [(8, -1, 0), (38, 1, 0)],
+  [(5, 0, 1), (21, 1, 0)],
+  [(23, 1, 0), (26, 1, 0)],
+  [(23, 0, -1), (35, 1, 0)],
+  [(23, -1, 0), (39, 1, 0)]]
+def pp4Rel3 : List (List (Nat × Int × Int)) := pp4Rel3_0
+def pp4Rel4_0 : List (List (Nat × Int × Int)) := [
+  [(2, 1, 0), (5, 1, 0)],
+  [(2, 0, -1), (14, 1, 0)],
+  [(2, -1, 0), (18, 1, 0)],
+  [(2, 1, 0), (37, 1, 0)],
+  [(2, 0, -1), (55, 1, 0)]]
+def pp4Rel4 : List (List (Nat × Int × Int)) := pp4Rel4_0
+def pp4Rels : List (List (List (Nat × Int × Int))) := [[], [], pp4Rel2, pp4Rel3, pp4Rel4, [], [], [], []]
+
+def pp5Rows : List (List Nat) := [[0], [0, 1, 2, 3, 4, 5, 6, 7], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 18, 19, 22, 27], [0, 1, 2, 3, 4, 5, 8, 23], [2], [], [], [], []]
+def pp5Rel2_0 : List (List (Nat × Int × Int)) := [
+  [(3, 1, 0), (16, 1, 0)],
+  [(4, 1, 0), (20, 1, 0)],
+  [(9, 1, 0), (17, 1, 0)],
+  [(10, 1, 0), (21, 1, 0)]]
+def pp5Rel2 : List (List (Nat × Int × Int)) := pp5Rel2_0
+def pp5Rel3_0 : List (List (Nat × Int × Int)) := [
+  [(2, 1, 0), (10, 1, 0)],
+  [(2, -1, 0), (24, 1, 0)],
+  [(0, 3, -2), (36, 1, 0)],
+  [(2, 3, -2), (40, 1, 0)],
+  [(3, 1, 0), (14, 1, 0)],
+  [(3, -1, 0), (28, 1, 0)],
+  [(1, 3, -2), (37, 1, 0)],
+  [(3, 3, -2), (46, 1, 0)],
+  [(4, -3, 2), (6, 13, 0)],
+  [(8, 1, 0), (11, 1, 0)],
+  [(8, -3, -2), (20, 1, 0)],
+  [(8, -1, 0), (38, 1, 0)],
+  [(5, -3, 2), (21, 13, 0)],
+  [(23, 1, 0), (26, 1, 0)],
+  [(23, -3, -2), (35, 1, 0)],
+  [(23, -1, 0), (39, 1, 0)]]
+def pp5Rel3 : List (List (Nat × Int × Int)) := pp5Rel3_0
+def pp5Rel4_0 : List (List (Nat × Int × Int)) := [
+  [(2, 1, 0), (5, 1, 0)],
+  [(2, -3, -2), (14, 1, 0)],
+  [(2, -1, 0), (18, 1, 0)],
+  [(2, 1, 0), (37, 1, 0)],
+  [(2, 3, -2), (55, 1, 0)]]
+def pp5Rel4 : List (List (Nat × Int × Int)) := pp5Rel4_0
+def pp5Rels : List (List (List (Nat × Int × Int))) := [[], [], pp5Rel2, pp5Rel3, pp5Rel4, [], [], [], []]
+
+def pp6Rows : List (List Nat) := [[0], [0, 1, 2, 3, 4, 5, 6, 7], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 18, 19, 22, 23, 24, 25, 26, 27], [2, 3, 4, 5, 15, 17, 19, 30], [9], [], [], [], []]
+def pp6Rel2_0 : List (List (Nat × Int × Int)) := [
+  [(3, 1, 0), (16, 1, 0)],
+  [(4, 1, 0), (20, 1, 0)],
+  [(9, 1, 0), (17, 1, 0)],
+  [(10, 1, 0), (21, 1, 0)]]
+def pp6Rel2 : List (List (Nat × Int × Int)) := pp6Rel2_0
+def pp6Rel3_0 : List (List (Nat × Int × Int)) := [
+  [(2, 1, 0), (10, 1, 0)],
+  [(2, -1, 0), (24, 1, 0)],
+  [(17, 1, 0), (31, 1, 0)],
+  [(2, -1, 0), (36, 2, 0)],
+  [(17, 1, 0), (40, 2, 0)],
+  [(17, 1, 0), (45, 1, 0)],
+  [(3, 1, 0), (14, 1, 0)],
+  [(3, -1, 0), (28, 1, 0)],
+  [(19, 1, 0), (33, 1, 0)],
+  [(3, -1, 0), (37, 2, 0)],
+  [(19, 1, 0), (46, 2, 0)],
+  [(19, 1, 0), (51, 1, 0)],
+  [(4, -2, 0), (8, 1, 0)],
+  [(4, 2, 0), (11, 1, 0)],
+  [(15, -1, 0), (20, 2, 0)],
+  [(4, -2, 0), (38, 1, 0)],
+  [(15, -1, 0), (43, 1, 0)],
+  [(15, 1, 0), (47, 1, 0)],
+  [(5, -2, 0), (23, 1, 0)],
+  [(5, 2, 0), (26, 1, 0)],
+  [(30, -1, 0), (35, 2, 0)],
+  [(5, -2, 0), (39, 1, 0)],
+  [(30, -1, 0), (44, 1, 0)],
+  [(30, 1, 0), (48, 1, 0)]]
+def pp6Rel3 : List (List (Nat × Int × Int)) := pp6Rel3_0
+def pp6Rel4_0 : List (List (Nat × Int × Int)) := [
+  [(9, -1, 0), (14, 2, 0)],
+  [(9, -1, 0), (23, 1, 0)],
+  [(9, 1, 0), (27, 1, 0)],
+  [(9, 1, 0), (42, 1, 0)],
+  [(9, -1, 0), (46, 1, 0)],
+  [(9, -1, 0), (55, 2, 0)],
+  [(9, -1, 0), (60, 1, 0)]]
+def pp6Rel4 : List (List (Nat × Int × Int)) := pp6Rel4_0
+def pp6Rels : List (List (List (Nat × Int × Int))) := [[], [], pp6Rel2, pp6Rel3, pp6Rel4, [], [], [], []]
+
+def pp7Rows : List (List Nat) := [[0], [0, 1, 2, 3, 4, 5, 6, 7], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 18, 19, 22, 23, 24, 25, 26, 27], [2, 3, 4, 5, 15, 17, 19, 30], [9], [], [], [], []]
+def pp7Rel2_0 : List (List (Nat × Int × Int)) := [
+  [(3, 1, 0), (16, 1, 0)],
+  [(4, 1, 0), (20, 1, 0)],
+  [(9, 1, 0), (17, 1, 0)],
+  [(10, 1, 0), (21, 1, 0)]]
+def pp7Rel2 : List (List (Nat × Int × Int)) := pp7Rel2_0
+def pp7Rel3_0 : List (List (Nat × Int × Int)) := [
+  [(2, 1, 0), (10, 1, 0)],
+  [(2, -1, 0), (24, 1, 0)],
+  [(17, 1, 0), (31, 1, 0)],
+  [(2, -2, -3), (36, 2, 0)],
+  [(17, 2, 3), (40, 2, 0)],
+  [(17, 1, 0), (45, 1, 0)],
+  [(3, 1, 0), (14, 1, 0)],
+  [(3, -1, 0), (28, 1, 0)],
+  [(19, 1, 0), (33, 1, 0)],
+  [(3, -2, -3), (37, 2, 0)],
+  [(19, 2, 3), (46, 2, 0)],
+  [(19, 1, 0), (51, 1, 0)],
+  [(4, -4, -6), (8, 13, 0)],
+  [(4, 4, 6), (11, 13, 0)],
+  [(15, -2, 3), (20, 2, 0)],
+  [(4, -4, -6), (38, 13, 0)],
+  [(15, -1, 0), (43, 1, 0)],
+  [(15, 1, 0), (47, 1, 0)],
+  [(5, -4, -6), (23, 13, 0)],
+  [(5, 4, 6), (26, 13, 0)],
+  [(30, -2, 3), (35, 2, 0)],
+  [(5, -4, -6), (39, 13, 0)],
+  [(30, -1, 0), (44, 1, 0)],
+  [(30, 1, 0), (48, 1, 0)]]
+def pp7Rel3 : List (List (Nat × Int × Int)) := pp7Rel3_0
+def pp7Rel4_0 : List (List (Nat × Int × Int)) := [
+  [(9, -2, 3), (14, 2, 0)],
+  [(9, -1, 0), (23, 1, 0)],
+  [(9, 1, 0), (27, 1, 0)],
+  [(9, 1, 0), (42, 1, 0)],
+  [(9, -1, 0), (46, 1, 0)],
+  [(9, -2, -3), (55, 2, 0)],
+  [(9, -1, 0), (60, 1, 0)]]
+def pp7Rel4 : List (List (Nat × Int × Int)) := pp7Rel4_0
+def pp7Rels : List (List (List (Nat × Int × Int))) := [[], [], pp7Rel2, pp7Rel3, pp7Rel4, [], [], [], []]
+
+def pp8Rows : List (List Nat) := [[0], [0, 1, 2, 3, 4, 5, 6, 7], [0, 5, 6, 11, 12, 13, 14, 15, 18, 19, 22, 23, 24, 25, 26, 27], [4, 5, 20, 35, 36, 37, 40, 46], [14], [], [], [], []]
+def pp8Rel3_0 : List (List (Nat × Int × Int)) := [
+  [(4, 24, 0), (52, 1, 0)],
+  [(5, 24, 0), (53, 1, 0)],
+  [(36, 24, 0), (54, 1, 0)],
+  [(37, 24, 0), (55, 1, 0)]]
+def pp8Rel3 : List (List (Nat × Int × Int)) := pp8Rel3_0
+def pp8Rel4_0 : List (List (Nat × Int × Int)) := [
+  [(14, -1, 0), (55, 1, 0)],
+  [(14, 24, 0), (69, 1, 0)]]
+def pp8Rel4 : List (List (Nat × Int × Int)) := pp8Rel4_0
+def pp8Rels : List (List (List (Nat × Int × Int))) := [[], [], [], pp8Rel3, pp8Rel4, [], [], [], []]
+
+def pp9Rows : List (List Nat) := [[0], [0, 1, 2, 3, 4, 5, 6, 7], [0, 5, 6, 11, 12, 13, 14, 15, 18, 19, 22, 23, 24, 25, 26, 27], [4, 5, 20, 35, 36, 37, 40, 46], [14], [], [], [], []]
+def pp9Rel3_0 : List (List (Nat × Int × Int)) := [
+  [(4, 48, 72), (52, 13, 0)],
+  [(5, 48, 72), (53, 13, 0)],
+  [(36, 48, -72), (54, 13, 0)],
+  [(37, 48, -72), (55, 13, 0)]]
+def pp9Rel3 : List (List (Nat × Int × Int)) := pp9Rel3_0
+def pp9Rel4_0 : List (List (Nat × Int × Int)) := [
+  [(14, 5, -12), (55, 13, 0)],
+  [(14, 48, 72), (69, 13, 0)]]
+def pp9Rel4 : List (List (Nat × Int × Int)) := pp9Rel4_0
+def pp9Rels : List (List (List (Nat × Int × Int))) := [[], [], [], pp9Rel3, pp9Rel4, [], [], [], []]
+
+def pp10Rows : List (List Nat) := [[0], [0, 1, 2, 3, 4, 5, 6, 7], [0, 1, 2, 5, 6, 7, 8, 11, 12, 13, 14, 15, 18, 19, 22, 27], [0, 1, 4, 5, 6, 21, 36, 37], [0], [], [], [], []]
+def pp10Rel2_0 : List (List (Nat × Int × Int)) := [
+  [(1, 0, -1), (3, 1, 0)],
+  [(1, 0, 1), (16, 1, 0)],
+  [(1, -1, 0), (23, 1, 0)],
+  [(2, 0, -1), (4, 1, 0)],
+  [(2, 0, 1), (20, 1, 0)],
+  [(2, -1, 0), (25, 1, 0)],
+  [(7, 0, -1), (9, 1, 0)],
+  [(7, 0, 1), (17, 1, 0)],
+  [(7, -1, 0), (24, 1, 0)],
+  [(8, 0, -1), (10, 1, 0)],
+  [(8, 0, 1), (21, 1, 0)],
+  [(8, -1, 0), (26, 1, 0)]]
+def pp10Rel2 : List (List (Nat × Int × Int)) := pp10Rel2_0
+def pp10Rel3_0 : List (List (Nat × Int × Int)) := [
+  [(0, 0, -1), (2, 1, 0)],
+  [(0, 0, 1), (10, 1, 0)],
+  [(0, -1, 0), (17, 1, 0)],
+  [(0, 0, -1), (24, 1, 0)],
+  [(0, 1, 0), (31, 1, 0)],
+  [(0, 1, 0), (36, 0, 1), (40, 1, 0)],
+  [(0, 1, 0), (45, 1, 0)],
+  [(0, 0, 1), (54, 1, 0)],
+  [(1, 0, -1), (3, 1, 0)],
+  [(1, 0, 1), (14, 1, 0)],
+  [(1, -1, 0), (19, 1, 0)],
+  [(1, 0, -1), (28, 1, 0)],
+  [(1, 1, 0), (33, 1, 0)],
+  [(1, 1, 0), (37, 0, 1), (46, 1, 0)],
+  [(1, 1, 0), (51, 1, 0)],
+  [(1, 0, 1), (55, 1, 0)],
+  [(6, 0, -1), (8, 1, 0)],
+  [(6, 0, 1), (11, 1, 0)],
+  [(6, 1, 0), (15, 1, 0)],
+  [(4, 0, 1), (6, 1, 0), (20, 1, 0)],
+  [(6, 0, -1), (38, 1, 0)],
+  [(6, 1, 0), (43, 1, 0)],
+  [(6, -1, 0), (47, 1, 0)],
+  [(6, 0, 1), (52, 1, 0)],
+  [(21, 0, -1), (23, 1, 0)],
+  [(21, 0, 1), (26, 1, 0)],
+  [(21, 1, 0), (30, 1, 0)],
+  [(5, 0, 1), (21, 1, 0), (35, 1, 0)],
+  [(21, 0, -1), (39, 1, 0)],
+  [(21, 1, 0), (44, 1, 0)],
+  [(21, -1, 0), (48, 1, 0)],
+  [(21, 0, 1), (53, 1, 0)]]
+def pp10Rel3 : List (List (Nat × Int × Int)) := pp10Rel3_0
+def pp10Rel4_0 : List (List (Nat × Int × Int)) := [
+  [(0, 0, -1), (2, 1, 0)],
+  [(0, 0, 1), (5, 1, 0)],
+  [(0, 1, 0), (9, 1, 0)],
+  [(0, 1, 0), (14, 1, 0)],
+  [(0, 0, -1), (18, 1, 0)],
+  [(0, 1, 0), (23, 1, 0)],
+  [(0, -1, 0), (27, 1, 0)],
+  [(0, 0, 1), (32, 1, 0)],
+  [(0, 0, 1), (37, 1, 0)],
+  [(0, -1, 0), (42, 1, 0)],
+  [(0, 1, 0), (46, 1, 0)],
+  [(0, 0, -1), (51, 1, 0)],
+  [(0, 1, 0), (55, 1, 0)],
+  [(0, 1, 0), (60, 1, 0)],
+  [(0, 0, 1), (64, 1, 0)],
+  [(0, 0, -1), (67, 1, 0)],
+  [(0, -1, 0), (69, 1, 0)]]
+def pp10Rel4 : List (List (Nat × Int × Int)) := pp10Rel4_0
+def pp10Rels : List (List (List (Nat × Int × Int))) := [[], [], pp10Rel2, pp10Rel3, pp10Rel4, [], [], [], []]
+
+def pp11Rows : List (List Nat) := [[0], [0, 1, 2, 3, 4, 5, 6, 7], [0, 1, 2, 5, 6, 7, 8, 11, 12, 13, 14, 15, 18, 19, 22, 27], [0, 1, 4, 5, 6, 21, 36, 37], [0], [], [], [], []]
+def pp11Rel2_0 : List (List (Nat × Int × Int)) := [
+  [(1, 0, -1), (3, 1, 0)],
+  [(1, 0, 1), (16, 1, 0)],
+  [(1, -1, 0), (23, 1, 0)],
+  [(2, 0, -1), (4, 1, 0)],
+  [(2, 0, 1), (20, 1, 0)],
+  [(2, -1, 0), (25, 1, 0)],
+  [(7, 0, -1), (9, 1, 0)],
+  [(7, 0, 1), (17, 1, 0)],
+  [(7, -1, 0), (24, 1, 0)],
+  [(8, 0, -1), (10, 1, 0)],
+  [(8, 0, 1), (21, 1, 0)],
+  [(8, -1, 0), (26, 1, 0)]]
+def pp11Rel2 : List (List (Nat × Int × Int)) := pp11Rel2_0
+def pp11Rel3_0 : List (List (Nat × Int × Int)) := [
+  [(0, 0, -1), (2, 1, 0)],
+  [(0, 0, 1), (10, 1, 0)],
+  [(0, -1, 0), (17, 1, 0)],
+  [(0, 0, -1), (24, 1, 0)],
+  [(0, 1, 0), (31, 1, 0)],
+  [(0, 2, 3), (36, 0, 1), (40, 1, 0)],
+  [(0, 1, 0), (45, 1, 0)],
+  [(0, 0, 1), (54, 1, 0)],
+  [(1, 0, -1), (3, 1, 0)],
+  [(1, 0, 1), (14, 1, 0)],
+  [(1, -1, 0), (19, 1, 0)],
+  [(1, 0, -1), (28, 1, 0)],
+  [(1, 1, 0), (33, 1, 0)],
+  [(1, 2, 3), (37, 0, 1), (46, 1, 0)],
+  [(1, 1, 0), (51, 1, 0)],
+  [(1, 0, 1), (55, 1, 0)],
+  [(6, 0, -1), (8, 1, 0)],
+  [(6, 0, 1), (11, 1, 0)],
+  [(6, 1, 0), (15, 1, 0)],
+  [(4, 0, 1), (6, 2, -3), (20, 1, 0)],
+  [(6, 0, -1), (38, 1, 0)],
+  [(6, 1, 0), (43, 1, 0)],
+  [(6, -1, 0), (47, 1, 0)],
+  [(6, 0, 1), (52, 1, 0)],
+  [(21, 0, -1), (23, 1, 0)],
+  [(21, 0, 1), (26, 1, 0)],
+  [(21, 1, 0), (30, 1, 0)],
+  [(5, 0, 1), (21, 2, -3), (35, 1, 0)],
+  [(21, 0, -1), (39, 1, 0)],
+  [(21, 1, 0), (44, 1, 0)],
+  [(21, -1, 0), (48, 1, 0)],
+  [(21, 0, 1), (53, 1, 0)]]
+def pp11Rel3 : List (List (Nat × Int × Int)) := pp11Rel3_0
+def pp11Rel4_0 : List (List (Nat × Int × Int)) := [
+  [(0, 0, -1), (2, 1, 0)],
+  [(0, 0, 1), (5, 1, 0)],
+  [(0, 1, 0), (9, 1, 0)],
+  [(0, 2, -3), (14, 1, 0)],
+  [(0, 0, -1), (18, 1, 0)],
+  [(0, 1, 0), (23, 1, 0)],
+  [(0, -1, 0), (27, 1, 0)],
+  [(0, 0, 1), (32, 1, 0)],
+  [(0, 0, 1), (37, 1, 0)],
+  [(0, -1, 0), (42, 1, 0)],
+  [(0, 1, 0), (46, 1, 0)],
+  [(0, 0, -1), (51, 1, 0)],
+  [(0, 2, 3), (55, 1, 0)],
+  [(0, 1, 0), (60, 1, 0)],
+  [(0, 0, 1), (64, 1, 0)],
+  [(0, 0, -1), (67, 1, 0)],
+  [(0, -1, 0), (69, 1, 0)]]
+def pp11Rel4 : List (List (Nat × Int × Int)) := pp11Rel4_0
+def pp11Rels : List (List (List (Nat × Int × Int))) := [[], [], pp11Rel2, pp11Rel3, pp11Rel4, [], [], [], []]
+
+def pp12Rows : List (List Nat) := [[0], [0, 1, 2, 3, 4, 5, 6, 7], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 18, 19, 22, 27], [0, 1, 2, 3, 4, 5, 6, 21], [0], [], [], [], []]
+def pp12Rel2_0 : List (List (Nat × Int × Int)) := [
+  [(3, 1, 0), (16, 1, 0)],
+  [(1, 2, 0), (3, 0, 3), (23, 1, 0)],
+  [(4, 1, 0), (20, 1, 0)],
+  [(2, 2, 0), (4, 0, 3), (25, 1, 0)],
+  [(9, 1, 0), (17, 1, 0)],
+  [(7, 2, 0), (9, 0, 3), (24, 1, 0)],
+  [(10, 1, 0), (21, 1, 0)],
+  [(8, 2, 0), (10, 0, 3), (26, 1, 0)]]
+def pp12Rel2 : List (List (Nat × Int × Int)) := pp12Rel2_0
+def pp12Rel3_0 : List (List (Nat × Int × Int)) := [
+  [(2, 1, 0), (10, 1, 0)],
+  [(0, 2, 0), (2, 0, 3), (17, 1, 0)],
+  [(2, -1, 0), (24, 1, 0)],
+  [(0, -2, 0), (2, 0, -3), (31, 1, 0)],
+  [(0, 0, 7), (2, -4, 0), (36, 3, 0)],
+  [(0, 13, 0), (2, 0, 7), (40, 3, 0)],
+  [(0, -2, 0), (2, 0, -3), (45, 1, 0)],
+  [(0, 0, -6), (2, 7, 0), (54, 1, 0)],
+  [(3, 1, 0), (14, 1, 0)],
+  [(1, 2, 0), (3, 0, 3), (19, 1, 0)],
+  [(3, -1, 0), (28, 1, 0)],
+  [(1, -2, 0), (3, 0, -3), (33, 1, 0)],
+  [(1, 0, 7), (3, -4, 0), (37, 3, 0)],
+  [(1, 13, 0), (3, 0, 7), (46, 3, 0)],
+  [(1, -2, 0), (3, 0, -3), (51, 1, 0)],
+  [(1, 0, -6), (3, 7, 0), (55, 1, 0)],
+  [(4, -3, 0), (6, 0, -7), (8, 4, 0)],
+  [(4, 3, 0), (6, 0, 7), (11, 4, 0)],
+  [(4, 0, -9), (6, 13, 0), (15, 4, 0)],
+  [(4, 0, 7), (6, 1, 0), (20, 4, 0)],
+  [(4, -3, 0), (6, 0, -7), (38, 4, 0)],
+  [(4, 0, -9), (6, 13, 0), (43, 4, 0)],
+  [(4, 0, 9), (6, -13, 0), (47, 4, 0)],
+  [(4, 21, 0), (6, 0, 25), (52, 4, 0)],
+  [(5, -3, 0), (21, 0, -7), (23, 4, 0)],
+  [(5, 3, 0), (21, 0, 7), (26, 4, 0)],
+  [(5, 0, -9), (21, 13, 0), (30, 4, 0)],
+  [(5, 0, 7), (21, 1, 0), (35, 4, 0)],
+  [(5, -3, 0), (21, 0, -7), (39, 4, 0)],
+  [(5, 0, -9), (21, 13, 0), (44, 4, 0)],
+  [(5, 0, 9), (21, -13, 0), (48, 4, 0)],
+  [(5, 21, 0), (21, 0, 25), (53, 4, 0)]]
+def pp12Rel3 : List (List (Nat × Int × Int)) := pp12Rel3_0
+def pp12Rel4_0 : List (List (Nat × Int × Int)) := [
+  [(0, 0, -7), (2, 4, 0)],
+  [(0, 0, 7), (5, 4, 0)],
+  [(0, 13, 0), (9, 4, 0)],
+  [(0, 1, 0), (14, 4, 0)],
+  [(0, 0, -7), (18, 4, 0)],
+  [(0, 13, 0), (23, 4, 0)],
+  [(0, -13, 0), (27, 4, 0)],
+  [(0, 0, 25), (32, 4, 0)],
+  [(0, 0, 7), (37, 4, 0)],
+  [(0, -13, 0), (42, 4, 0)],
+  [(0, 13, 0), (46, 4, 0)],
+  [(0, 0, -25), (51, 4, 0)],
+  [(0, 1, 0), (55, 4, 0)],
+  [(0, 13, 0), (60, 4, 0)],
+  [(0, 0, 25), (64, 4, 0)],
+  [(0, 0, -25), (67, 4, 0)],
+  [(0, -49, 0), (69, 4, 0)]]
+def pp12Rel4 : List (List (Nat × Int × Int)) := pp12Rel4_0
+def pp12Rels : List (List (List (Nat × Int × Int))) := [[], [], pp12Rel2, pp12Rel3, pp12Rel4, [], [], [], []]
+
+def pp13Rows : List (List Nat) := [[0], [0, 1, 2, 3, 4, 5, 6, 7], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 18, 19, 22, 27], [0, 1, 2, 3, 4, 5, 6, 21], [0], [], [], [], []]
+def pp13Rel2_0 : List (List (Nat × Int × Int)) := [
+  [(3, 1, 0), (16, 1, 0)],
+  [(1, 2, 0), (3, 0, 3), (23, 1, 0)],
+  [(4, 1, 0), (20, 1, 0)],
+  [(2, 2, 0), (4, 0, 3), (25, 1, 0)],
+  [(9, 1, 0), (17, 1, 0)],
+  [(7, 2, 0), (9, 0, 3), (24, 1, 0)],
+  [(10, 1, 0), (21, 1, 0)],
+  [(8, 2, 0), (10, 0, 3), (26, 1, 0)]]
+def pp13Rel2 : List (List (Nat × Int × Int)) := pp13Rel2_0
+def pp13Rel3_0 : List (List (Nat × Int × Int)) := [
+  [(2, 1, 0), (10, 1, 0)],
+  [(0, 2, 0), (2, 0, 3), (17, 1, 0)],
+  [(2, -1, 0), (24, 1, 0)],
+  [(0, -2, 0), (2, 0, -3), (31, 1, 0)],
+  [(0, -21, 14), (2, -8, -12), (36, 3, 0)],
+  [(0, 26, 39), (2, -21, 14), (40, 3, 0)],
+  [(0, -2, 0), (2, 0, -3), (45, 1, 0)],
+  [(0, 0, -6), (2, 7, 0), (54, 1, 0)],
+  [(3, 1, 0), (14, 1, 0)],
+  [(1, 2, 0), (3, 0, 3), (19, 1, 0)],
+  [(3, -1, 0), (28, 1, 0)],
+  [(1, -2, 0), (3, 0, -3), (33, 1, 0)],
+  [(1, -21, 14), (3, -8, -12), (37, 3, 0)],
+  [(1, 26, 39), (3, -21, 14), (46, 3, 0)],
+  [(1, -2, 0), (3, 0, -3), (51, 1, 0)],
+  [(1, 0, -6), (3, 7, 0), (55, 1, 0)],
+  [(4, -6, -9), (6, 0, -91), (8, 52, 0)],
+  [(4, 6, 9), (6, 0, 91), (11, 52, 0)],
+  [(4, 27, -18), (6, 169, 0), (15, 52, 0)],
+  [(4, 0, 7), (6, 2, -3), (20, 4, 0)],
+  [(4, -6, -9), (6, 0, -91), (38, 52, 0)],
+  [(4, 27, -18), (6, 169, 0), (43, 52, 0)],
+  [(4, -27, 18), (6, -169, 0), (47, 52, 0)],
+  [(4, 42, 63), (6, 0, 325), (52, 52, 0)],
+  [(5, -6, -9), (21, 0, -91), (23, 52, 0)],
+  [(5, 6, 9), (21, 0, 91), (26, 52, 0)],
+  [(5, 27, -18), (21, 169, 0), (30, 52, 0)],
+  [(5, 0, 7), (21, 2, -3), (35, 4, 0)],
+  [(5, -6, -9), (21, 0, -91), (39, 52, 0)],
+  [(5, 27, -18), (21, 169, 0), (44, 52, 0)],
+  [(5, -27, 18), (21, -169, 0), (48, 52, 0)],
+  [(5, 42, 63), (21, 0, 325), (53, 52, 0)]]
+def pp13Rel3 : List (List (Nat × Int × Int)) := pp13Rel3_0
+def pp13Rel4_0 : List (List (Nat × Int × Int)) := [
+  [(0, 0, -7), (2, 4, 0)],
+  [(0, 0, 7), (5, 4, 0)],
+  [(0, 13, 0), (9, 4, 0)],
+  [(0, 2, -3), (14, 4, 0)],
+  [(0, 0, -7), (18, 4, 0)],
+  [(0, 13, 0), (23, 4, 0)],
+  [(0, -13, 0), (27, 4, 0)],
+  [(0, 0, 25), (32, 4, 0)],
+  [(0, 0, 7), (37, 4, 0)],
+  [(0, -13, 0), (42, 4, 0)],
+  [(0, 13, 0), (46, 4, 0)],
+  [(0, 0, -25), (51, 4, 0)],
+  [(0, 2, 3), (55, 4, 0)],
+  [(0, 13, 0), (60, 4, 0)],
+  [(0, 0, 25), (64, 4, 0)],
+  [(0, 0, -25), (67, 4, 0)],
+  [(0, -49, 0), (69, 4, 0)]]
+def pp13Rel4 : List (List (Nat × Int × Int)) := pp13Rel4_0
+def pp13Rels : List (List (List (Nat × Int × Int))) := [[], [], pp13Rel2, pp13Rel3, pp13Rel4, [], [], [], []]
+
+def pp14Rows : List (List Nat) := [[0], [0, 1, 2, 3, 4, 5, 6, 7], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 18, 19, 22, 23, 24, 25, 26, 27], [0, 1, 2, 3, 4, 5, 6, 21], [0], [], [], [], []]
+def pp14Rel2_0 : List (List (Nat × Int × Int)) := [
+  [(3, 1, 0), (16, 1, 0)],
+  [(4, 1, 0), (20, 1, 0)],
+  [(9, 1, 0), (17, 1, 0)],
+  [(10, 1, 0), (21, 1, 0)]]
+def pp14Rel2 : List (List (Nat × Int × Int)) := pp14Rel2_0
+def pp14Rel3_0 : List (List (Nat × Int × Int)) := [
+  [(2, 1, 0), (10, 1, 0)],
+  [(0, -46, 0), (2, 0, 94), (17, 11, 0)],
+  [(2, -1, 0), (24, 1, 0)],
+  [(0, 46, 0), (2, 0, -94), (31, 11, 0)],
+  [(0, 0, -1), (2, -3, 0), (36, 11, 0)],
+  [(0, 4, 0), (2, 0, -1), (40, 11, 0)],
+  [(0, 46, 0), (2, 0, -94), (45, 11, 0)],
+  [(0, 0, 24), (2, -258, 0), (54, 11, 0)],
+  [(3, 1, 0), (14, 1, 0)],
+  [(1, -46, 0), (3, 0, 94), (19, 11, 0)],
+  [(3, -1, 0), (28, 1, 0)],
+  [(1, 46, 0), (3, 0, -94), (33, 11, 0)],
+  [(1, 0, -1), (3, -3, 0), (37, 11, 0)],
+  [(1, 4, 0), (3, 0, -1), (46, 11, 0)],
+  [(1, 46, 0), (3, 0, -94), (51, 11, 0)],
+  [(1, 0, 24), (3, -258, 0), (55, 11, 0)],
+  [(4, -11, 0), (6, 0, 1), (8, 3, 0)],
+  [(4, 11, 0), (6, 0, -1), (11, 3, 0)],
+  [(4, 0, -94), (6, 4, 0), (15, 3, 0)],
+  [(4, 0, -1), (6, 1, 0), (20, 3, 0)],
+  [(4, -11, 0), (6, 0, 1), (38, 3, 0)],
+  [(4, 0, -94), (6, 4, 0), (43, 3, 0)],
+  [(4, 0, 94), (6, -4, 0), (47, 3, 0)],
+  [(4, -86, 0), (6, 0, 10), (52, 1, 0)],
+  [(5, -11, 0), (21, 0, 1), (23, 3, 0)],
+  [(5, 11, 0), (21, 0, -1), (26, 3, 0)],
+  [(5, 0, -94), (21, 4, 0), (30, 3, 0)],
+  [(5, 0, -1), (21, 1, 0), (35, 3, 0)],
+  [(5, -11, 0), (21, 0, 1), (39, 3, 0)],
+  [(5, 0, -94), (21, 4, 0), (44, 3, 0)],
+  [(5, 0, 94), (21, -4, 0), (48, 3, 0)],
+  [(5, -86, 0), (21, 0, 10), (53, 1, 0)]]
+def pp14Rel3 : List (List (Nat × Int × Int)) := pp14Rel3_0
+def pp14Rel4_0 : List (List (Nat × Int × Int)) := [
+  [(0, 0, 1), (2, 3, 0)],
+  [(0, 0, -1), (5, 3, 0)],
+  [(0, 4, 0), (9, 3, 0)],
+  [(0, 1, 0), (14, 3, 0)],
+  [(0, 0, 1), (18, 3, 0)],
+  [(0, 4, 0), (23, 3, 0)],
+  [(0, -4, 0), (27, 3, 0)],
+  [(0, 0, 10), (32, 1, 0)],
+  [(0, 0, -1), (37, 3, 0)],
+  [(0, -4, 0), (42, 3, 0)],
+  [(0, 4, 0), (46, 3, 0)],
+  [(0, 0, -10), (51, 1, 0)],
+  [(0, 1, 0), (55, 3, 0)],
+  [(0, 4, 0), (60, 3, 0)],
+  [(0, 0, 10), (64, 1, 0)],
+  [(0, 0, -10), (67, 1, 0)],
+  [(0, 32, 0), (69, 1, 0)]]
+def pp14Rel4 : List (List (Nat × Int × Int)) := pp14Rel4_0
+def pp14Rels : List (List (List (Nat × Int × Int))) := [[], [], pp14Rel2, pp14Rel3, pp14Rel4, [], [], [], []]
+
+def pp15Rows : List (List Nat) := [[0], [0, 1, 2, 3, 4, 5, 6, 7], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 18, 19, 22, 23, 24, 25, 26, 27], [0, 1, 2, 3, 4, 5, 6, 21], [0], [], [], [], []]
+def pp15Rel2_0 : List (List (Nat × Int × Int)) := [
+  [(3, 1, 0), (16, 1, 0)],
+  [(4, 1, 0), (20, 1, 0)],
+  [(9, 1, 0), (17, 1, 0)],
+  [(10, 1, 0), (21, 1, 0)]]
+def pp15Rel2 : List (List (Nat × Int × Int)) := pp15Rel2_0
+def pp15Rel3_0 : List (List (Nat × Int × Int)) := [
+  [(2, 1, 0), (10, 1, 0)],
+  [(0, -46, 0), (2, 0, 94), (17, 11, 0)],
+  [(2, -1, 0), (24, 1, 0)],
+  [(0, 46, 0), (2, 0, -94), (31, 11, 0)],
+  [(0, 3, -2), (2, -6, -9), (36, 11, 0)],
+  [(0, 8, 12), (2, 3, -2), (40, 11, 0)],
+  [(0, 46, 0), (2, 0, -94), (45, 11, 0)],
+  [(0, 0, 24), (2, -258, 0), (54, 11, 0)],
+  [(3, 1, 0), (14, 1, 0)],
+  [(1, -46, 0), (3, 0, 94), (19, 11, 0)],
+  [(3, -1, 0), (28, 1, 0)],
+  [(1, 46, 0), (3, 0, -94), (33, 11, 0)],
+  [(1, 3, -2), (3, -6, -9), (37, 11, 0)],
+  [(1, 8, 12), (3, 3, -2), (46, 11, 0)],
+  [(1, 46, 0), (3, 0, -94), (51, 11, 0)],
+  [(1, 0, 24), (3, -258, 0), (55, 11, 0)],
+  [(4, -22, -33), (6, 0, 13), (8, 39, 0)],
+  [(4, 22, 33), (6, 0, -13), (11, 39, 0)],
+  [(4, 282, -188), (6, 52, 0), (15, 39, 0)],
+  [(4, 0, -1), (6, 2, -3), (20, 3, 0)],
+  [(4, -22, -33), (6, 0, 13), (38, 39, 0)],
+  [(4, 282, -188), (6, 52, 0), (43, 39, 0)],
+  [(4, -282, 188), (6, -52, 0), (47, 39, 0)],
+  [(4, -172, -258), (6, 0, 130), (52, 13, 0)],
+  [(5, -22, -33), (21, 0, 13), (23, 39, 0)],
+  [(5, 22, 33), (21, 0, -13), (26, 39, 0)],
+  [(5, 282, -188), (21, 52, 0), (30, 39, 0)],
+  [(5, 0, -1), (21, 2, -3), (35, 3, 0)],
+  [(5, -22, -33), (21, 0, 13), (39, 39, 0)],
+  [(5, 282, -188), (21, 52, 0), (44, 39, 0)],
+  [(5, -282, 188), (21, -52, 0), (48, 39, 0)],
+  [(5, -172, -258), (21, 0, 130), (53, 13, 0)]]
+def pp15Rel3 : List (List (Nat × Int × Int)) := pp15Rel3_0
+def pp15Rel4_0 : List (List (Nat × Int × Int)) := [
+  [(0, 0, 1), (2, 3, 0)],
+  [(0, 0, -1), (5, 3, 0)],
+  [(0, 4, 0), (9, 3, 0)],
+  [(0, 2, -3), (14, 3, 0)],
+  [(0, 0, 1), (18, 3, 0)],
+  [(0, 4, 0), (23, 3, 0)],
+  [(0, -4, 0), (27, 3, 0)],
+  [(0, 0, 10), (32, 1, 0)],
+  [(0, 0, -1), (37, 3, 0)],
+  [(0, -4, 0), (42, 3, 0)],
+  [(0, 4, 0), (46, 3, 0)],
+  [(0, 0, -10), (51, 1, 0)],
+  [(0, 2, 3), (55, 3, 0)],
+  [(0, 4, 0), (60, 3, 0)],
+  [(0, 0, 10), (64, 1, 0)],
+  [(0, 0, -10), (67, 1, 0)],
+  [(0, 32, 0), (69, 1, 0)]]
+def pp15Rel4 : List (List (Nat × Int × Int)) := pp15Rel4_0
+def pp15Rels : List (List (List (Nat × Int × Int))) := [[], [], pp15Rel2, pp15Rel3, pp15Rel4, [], [], [], []]
+
+def pp16Rows : List (List Nat) := [[0], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], [0, 1, 8, 9, 10, 11, 18, 19, 20, 27, 28, 29, 30, 31, 32, 33, 34, 38, 39, 40, 41, 45, 46, 47, 51, 52, 56, 63, 64, 65], [0, 7, 8, 9, 16, 17, 18, 52, 53, 54, 61, 62, 63, 97, 98, 99, 133, 134, 135, 136, 137, 138, 139, 143, 144, 145, 149, 150, 154, 164, 165, 166, 170, 171, 175, 185, 186, 190, 200, 219], [6, 7, 8, 42, 43, 44, 78, 79, 80, 164, 198, 199, 200, 284, 368, 369, 370, 371, 375, 376, 380, 390, 391, 395, 405, 425, 426, 430, 440, 460], [33, 34, 35, 119, 203, 413, 666, 667, 671, 681, 701, 736], [83], [], [], [], [], [], []]
+def pp16Rel6_0 : List (List (Nat × Int × Int)) := [
+  [(83, 5, -12), (840, 13, 0)]]
+def pp16Rel6 : List (List (Nat × Int × Int)) := pp16Rel6_0
+def pp16Rels : List (List (List (Nat × Int × Int))) := [[], [], [], [], [], [], pp16Rel6, [], [], [], [], [], []]
+
+def pp17Rows : List (List Nat) := [[0], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 38, 39, 40, 41, 45, 46, 47, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 23, 27, 30, 40, 41, 43, 44, 45, 47, 48, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 67, 68, 72, 75, 85, 86, 89, 90, 93, 96, 97, 98, 99, 100, 101, 103, 104, 108, 111, 121, 122, 126, 133, 134, 135, 136, 137, 138, 139, 143, 144, 145, 149, 150, 154, 164, 165, 166, 170, 171, 175, 185, 186, 190, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219], [3, 4, 5, 6, 7, 8, 12, 13, 20, 30, 31, 34, 35, 38, 41, 42, 43, 44, 48, 49, 56, 66, 67, 71, 78, 79, 80, 145, 147, 148, 150, 151, 154, 156, 157, 160, 163, 168, 169, 176, 186, 187, 191, 198, 199, 200, 265, 268, 271, 277, 349, 375, 376, 380, 391, 395, 430], [21, 22, 26, 33, 34, 35, 100, 103, 106, 112, 184, 394], [64], [], [], [], [], [], []]
+def pp17Rel2_0 : List (List (Nat × Int × Int)) := [
+  [(5, 1, 0), (35, 1, 0)],
+  [(6, 1, 0), (42, 1, 0)],
+  [(7, 1, 0), (48, 1, 0)],
+  [(15, 1, 0), (36, 1, 0)],
+  [(16, 1, 0), (43, 1, 0)],
+  [(17, 1, 0), (49, 1, 0)],
+  [(24, 1, 0), (37, 1, 0)],
+  [(25, 1, 0), (44, 1, 0)],
+  [(26, 1, 0), (50, 1, 0)]]
+def pp17Rel2 : List (List (Nat × Int × Int)) := pp17Rel2_0
+def pp17Rel3_0 : List (List (Nat × Int × Int)) := [
+  [(4, 1, 0), (25, 1, 0)],
+  [(4, -1, 0), (69, 1, 0)],
+  [(43, 1, 0), (87, 1, 0)],
+  [(43, 1, 0), (161, 1, 0)],
+  [(5, 1, 0), (32, 1, 0)],
+  [(5, -1, 0), (76, 1, 0)],
+  [(47, 1, 0), (91, 1, 0)],
+  [(47, 1, 0), (182, 1, 0)],
+  [(6, 1, 0), (38, 1, 0)],
+  [(6, -1, 0), (82, 1, 0)],
+  [(50, 1, 0), (94, 1, 0)],
+  [(50, 1, 0), (197, 1, 0)],
+  [(13, 1, 0), (26, 1, 0)],
+  [(13, -1, 0), (105, 1, 0)],
+  [(44, 1, 0), (123, 1, 0)],
+  [(44, 1, 0), (162, 1, 0)],
+  [(14, 1, 0), (33, 1, 0)],
+  [(14, -1, 0), (112, 1, 0)],
+  [(48, 1, 0), (127, 1, 0)],
+  [(48, 1, 0), (183, 1, 0)],
+  [(15, 1, 0), (39, 1, 0)],
+  [(15, -1, 0), (118, 1, 0)],
+  [(51, 1, 0), (130, 1, 0)],
+  [(51, 1, 0), (198, 1, 0)],
+  [(22, 1, 0), (28, 1, 0)],
+  [(22, -1, 0), (140, 1, 0)],
+  [(40, -1, 0), (155, 1, 0)],
+  [(40, 1, 0), (172, 1, 0)],
+  [(23, 1, 0), (34, 1, 0)],
+  [(23, -1, 0), (146, 1, 0)],
+  [(41, -1, 0), (158, 1, 0)],
+  [(41, 1, 0), (187, 1, 0)],
+  [(30, 1, 0), (35, 1, 0)],
+  [(30, -1, 0), (167, 1, 0)],
+  [(45, -1, 0), (179, 1, 0)],
+  [(45, 1, 0), (191, 1, 0)],
+  [(58, 1, 0), (71, 1, 0)],
+  [(58, -1, 0), (106, 1, 0)],
+  [(89, 1, 0), (124, 1, 0)],
+  [(89, 1, 0), (163, 1, 0)],
+  [(59, 1, 0), (78, 1, 0)],
+  [(59, -1, 0), (113, 1, 0)],
+  [(93, 1, 0), (128, 1, 0)],
+  [(93, 1, 0), (184, 1, 0)],
+  [(60, 1, 0), (84, 1, 0)],
+  [(60, -1, 0), (119, 1, 0)],
+  [(96, 1, 0), (131, 1, 0)],
+  [(96, 1, 0), (199, 1, 0)],
+  [(67, 1, 0), (73, 1, 0)],
+  [(67, -1, 0), (141, 1, 0)],
+  [(85, -1, 0), (156, 1, 0)],
+  [(85, 1, 0), (173, 1, 0)],
+  [(68, 1, 0), (79, 1, 0)],
+  [(68, -1, 0), (147, 1, 0)],
+  [(86, -1, 0), (159, 1, 0)],
+  [(86, 1, 0), (188, 1, 0)],
+  [(75, 1, 0), (80, 1, 0)],
+  [(75, -1, 0), (168, 1, 0)],
+  [(90, -1, 0), (180, 1, 0)],
+  [(90, 1, 0), (192, 1, 0)],
+  [(103, 1, 0), (109, 1, 0)],
+  [(103, -1, 0), (142, 1, 0)],
+  [(121, -1, 0), (157, 1, 0)],
+  [(121, 1, 0), (174, 1, 0)],
+  [(104, 1, 0), (115, 1, 0)],
+  [(104, -1, 0), (148, 1, 0)],
+  [(122, -1, 0), (160, 1, 0)],
+  [(122, 1, 0), (189, 1, 0)],
+  [(111, 1, 0), (116, 1, 0)],
+  [(111, -1, 0), (169, 1, 0)],
+  [(126, -1, 0), (181, 1, 0)],
+  [(126, 1, 0), (193, 1, 0)]]
+def pp17Rel3 : List (List (Nat × Int × Int)) := pp17Rel3_0
+def pp17Rel4_0 : List (List (Nat × Int × Int)) := [
+  [(3, 1, 0), (16, 1, 0)],
+  [(3, -1, 0), (51, 1, 0)],
+  [(34, 1, 0), (69, 1, 0)],
+  [(34, 1, 0), (108, 1, 0)],
+  [(3, 1, 0), (170, 1, 0)],
+  [(34, -1, 0), (188, 1, 0)],
+  [(34, -1, 0), (227, 1, 0)],
+  [(154, 1, 0), (273, 1, 0)],
+  [(34, 1, 0), (310, 1, 0)],
+  [(154, -1, 0), (356, 1, 0)],
+  [(3, 3, -2), (369, 6, 0)],
+  [(34, 3, -2), (376, -6, 0), (390, 6, 0)],
+  [(154, 3, -2), (405, 6, 0)],
+  [(154, 1, 0), (424, 1, 0)],
+  [(4, 1, 0), (23, 1, 0)],
+  [(4, -1, 0), (58, 1, 0)],
+  [(38, 1, 0), (73, 1, 0)],
+  [(38, 1, 0), (129, 1, 0)],
+  [(4, 1, 0), (177, 1, 0)],
+  [(38, -1, 0), (192, 1, 0)],
+  [(38, -1, 0), (248, 1, 0)],
+  [(160, 1, 0), (279, 1, 0)],
+  [(38, 1, 0), (331, 1, 0)],
+  [(160, -1, 0), (362, 1, 0)],
+  [(4, 3, -2), (370, 6, 0)],
+  [(38, 3, -2), (380, -6, 0), (425, 6, 0)],
+  [(160, 3, -2), (440, 6, 0)],
+  [(160, 1, 0), (459, 1, 0)],
+  [(5, 1, 0), (29, 1, 0)],
+  [(5, -1, 0), (64, 1, 0)],
+  [(41, 1, 0), (76, 1, 0)],
+  [(41, 1, 0), (144, 1, 0)],
+  [(5, 1, 0), (183, 1, 0)],
+  [(41, -1, 0), (195, 1, 0)],
+  [(41, -1, 0), (263, 1, 0)],
+  [(163, 1, 0), (282, 1, 0)],
+  [(41, 1, 0), (346, 1, 0)],
+  [(163, -1, 0), (365, 1, 0)],
+  [(5, 3, -2), (371, 6, 0)],
+  [(41, 3, -2), (395, -6, 0), (426, 6, 0)],
+  [(163, 3, -2), (460, 6, 0)],
+  [(163, 1, 0), (479, 1, 0)],
+  [(6, -18, 12), (84, 13, 0)],
+  [(6, 18, -12), (89, 13, 0)],
+  [(43, -18, 12), (78, 18, -12), (99, 13, 0)],
+  [(6, -18, 12), (109, 13, 0)],
+  [(43, 18, -12), (78, -18, 12), (116, 13, 0)],
+  [(43, -18, 12), (78, 18, -12), (130, 13, 0)],
+  [(145, -3, -2), (164, 6, 0)],
+  [(6, 18, -12), (372, 13, 0)],
+  [(43, 18, -12), (78, -18, 12), (384, 13, 0)],
+  [(43, -18, 12), (78, 18, -12), (396, 13, 0)],
+  [(145, 1, 0), (415, 1, 0)],
+  [(43, 18, -12), (78, -18, 12), (427, 13, 0)],
+  [(145, -1, 0), (444, 1, 0)],
+  [(145, 1, 0), (461, 1, 0)],
+  [(7, -18, 12), (204, 13, 0)],
+  [(7, 18, -12), (209, 13, 0)],
+  [(44, -18, 12), (198, 18, -12), (219, 13, 0)],
+  [(7, -18, 12), (229, 13, 0)],
+  [(44, 18, -12), (198, -18, 12), (236, 13, 0)],
+  [(44, -18, 12), (198, 18, -12), (250, 13, 0)],
+  [(265, -3, -2), (284, 6, 0)],
+  [(7, 18, -12), (373, 13, 0)],
+  [(44, 18, -12), (198, -18, 12), (385, 13, 0)],
+  [(44, -18, 12), (198, 18, -12), (397, 13, 0)],
+  [(265, 1, 0), (416, 1, 0)],
+  [(44, 18, -12), (198, -18, 12), (428, 13, 0)],
+  [(265, -1, 0), (445, 1, 0)],
+  [(265, 1, 0), (462, 1, 0)],
+  [(8, -18, 12), (288, 13, 0)],
+  [(8, 18, -12), (293, 13, 0)],
+  [(80, -18, 12), (199, 18, -12), (303, 13, 0)],
+  [(8, -18, 12), (313, 13, 0)],
+  [(80, 18, -12), (199, -18, 12), (320, 13, 0)],
+  [(80, -18, 12), (199, 18, -12), (334, 13, 0)],
+  [(349, -3, -2), (368, 6, 0)],
+  [(8, 18, -12), (374, 13, 0)],
+  [(80, 18, -12), (199, -18, 12), (386, 13, 0)],
+  [(80, -18, 12), (199, 18, -12), (398, 13, 0)],
+  [(349, 1, 0), (417, 1, 0)],
+  [(80, 18, -12), (199, -18, 12), (429, 13, 0)],
+  [(349, -1, 0), (446, 1, 0)],
+  [(349, 1, 0), (463, 1, 0)],
+  [(12, 1, 0), (18, 1, 0)],
+  [(12, -1, 0), (86, 1, 0)],
+  [(30, -1, 0), (101, 1, 0)],
+  [(30, 1, 0), (118, 1, 0)],
+  [(12, 1, 0), (205, 1, 0)],
+  [(30, 1, 0), (220, 1, 0)],
+  [(30, -1, 0), (237, 1, 0)],
+  [(147, 1, 0), (266, 1, 0)],
+  [(30, -1, 0), (387, 1, 0)],
+  [(147, -1, 0), (418, 1, 0)],
+  [(147, 1, 0), (447, 1, 0)],
+  [(13, 1, 0), (24, 1, 0)],
+  [(13, -1, 0), (92, 1, 0)],
+  [(31, -1, 0), (104, 1, 0)],
+  [(31, 1, 0), (133, 1, 0)],
+  [(13, 1, 0), (211, 1, 0)],
+  [(31, 1, 0), (223, 1, 0)],
+  [(31, -1, 0), (252, 1, 0)],
+  [(150, 1, 0), (269, 1, 0)],
+  [(31, -1, 0), (402, 1, 0)],
+  [(150, -1, 0), (421, 1, 0)],
+  [(150, 1, 0), (467, 1, 0)],
+  [(20, 1, 0), (25, 1, 0)],
+  [(20, -1, 0), (113, 1, 0)],
+  [(35, -1, 0), (125, 1, 0)]]
+def pp17Rel4_1 : List (List (Nat × Int × Int)) := [
+  [(35, 1, 0), (137, 1, 0)],
+  [(20, 1, 0), (232, 1, 0)],
+  [(35, 1, 0), (244, 1, 0)],
+  [(35, -1, 0), (256, 1, 0)],
+  [(156, 1, 0), (275, 1, 0)],
+  [(35, -1, 0), (437, 1, 0)],
+  [(156, -1, 0), (456, 1, 0)],
+  [(156, 1, 0), (473, 1, 0)],
+  [(48, 1, 0), (54, 1, 0)],
+  [(48, -1, 0), (87, 1, 0)],
+  [(66, -1, 0), (102, 1, 0)],
+  [(66, 1, 0), (119, 1, 0)],
+  [(48, 1, 0), (289, 1, 0)],
+  [(66, 1, 0), (304, 1, 0)],
+  [(66, -1, 0), (321, 1, 0)],
+  [(148, 1, 0), (350, 1, 0)],
+  [(66, -1, 0), (388, 1, 0)],
+  [(148, -1, 0), (419, 1, 0)],
+  [(148, 1, 0), (448, 1, 0)],
+  [(49, 1, 0), (60, 1, 0)],
+  [(49, -1, 0), (93, 1, 0)],
+  [(67, -1, 0), (105, 1, 0)],
+  [(67, 1, 0), (134, 1, 0)],
+  [(49, 1, 0), (295, 1, 0)],
+  [(67, 1, 0), (307, 1, 0)],
+  [(67, -1, 0), (336, 1, 0)],
+  [(151, 1, 0), (353, 1, 0)],
+  [(67, -1, 0), (403, 1, 0)],
+  [(151, -1, 0), (422, 1, 0)],
+  [(151, 1, 0), (468, 1, 0)],
+  [(56, 1, 0), (61, 1, 0)],
+  [(56, -1, 0), (114, 1, 0)],
+  [(71, -1, 0), (126, 1, 0)],
+  [(71, 1, 0), (138, 1, 0)],
+  [(56, 1, 0), (316, 1, 0)],
+  [(71, 1, 0), (328, 1, 0)],
+  [(71, -1, 0), (340, 1, 0)],
+  [(157, 1, 0), (359, 1, 0)],
+  [(71, -1, 0), (438, 1, 0)],
+  [(157, -1, 0), (457, 1, 0)],
+  [(157, 1, 0), (474, 1, 0)],
+  [(168, 1, 0), (174, 1, 0)],
+  [(168, -1, 0), (207, 1, 0)],
+  [(186, -1, 0), (222, 1, 0)],
+  [(186, 1, 0), (239, 1, 0)],
+  [(168, 1, 0), (290, 1, 0)],
+  [(186, 1, 0), (305, 1, 0)],
+  [(186, -1, 0), (322, 1, 0)],
+  [(268, 1, 0), (351, 1, 0)],
+  [(186, -1, 0), (389, 1, 0)],
+  [(268, -1, 0), (420, 1, 0)],
+  [(268, 1, 0), (449, 1, 0)],
+  [(169, 1, 0), (180, 1, 0)],
+  [(169, -1, 0), (213, 1, 0)],
+  [(187, -1, 0), (225, 1, 0)],
+  [(187, 1, 0), (254, 1, 0)],
+  [(169, 1, 0), (296, 1, 0)],
+  [(187, 1, 0), (308, 1, 0)],
+  [(187, -1, 0), (337, 1, 0)],
+  [(271, 1, 0), (354, 1, 0)],
+  [(187, -1, 0), (404, 1, 0)],
+  [(271, -1, 0), (423, 1, 0)],
+  [(271, 1, 0), (469, 1, 0)],
+  [(176, 1, 0), (181, 1, 0)],
+  [(176, -1, 0), (234, 1, 0)],
+  [(191, -1, 0), (246, 1, 0)],
+  [(191, 1, 0), (258, 1, 0)],
+  [(176, 1, 0), (317, 1, 0)],
+  [(191, 1, 0), (329, 1, 0)],
+  [(191, -1, 0), (341, 1, 0)],
+  [(277, 1, 0), (360, 1, 0)],
+  [(191, -1, 0), (439, 1, 0)],
+  [(277, -1, 0), (458, 1, 0)],
+  [(277, 1, 0), (475, 1, 0)]]
+def pp17Rel4 : List (List (Nat × Int × Int)) := pp17Rel4_0 ++ pp17Rel4_1
+def pp17Rel5_0 : List (List (Nat × Int × Int)) := [
+  [(21, -1, 0), (57, 1, 0)],
+  [(21, 1, 0), (74, 1, 0)],
+  [(21, 1, 0), (140, 1, 0)],
+  [(21, -1, 0), (157, 1, 0)],
+  [(103, 1, 0), (186, 1, 0)],
+  [(21, -1, 0), (224, 1, 0)],
+  [(103, -1, 0), (255, 1, 0)],
+  [(103, 1, 0), (284, 1, 0)],
+  [(21, -1, 0), (349, 1, 0)],
+  [(21, 1, 0), (366, 1, 0)],
+  [(103, -1, 0), (395, 1, 0)],
+  [(21, 1, 0), (433, 1, 0)],
+  [(103, 1, 0), (464, 1, 0)],
+  [(103, -1, 0), (493, 1, 0)],
+  [(21, -1, 0), (558, 1, 0)],
+  [(103, -1, 0), (589, 1, 0)],
+  [(103, 1, 0), (618, 1, 0)],
+  [(21, 3, -2), (666, 6, 0)],
+  [(103, -3, 2), (681, 6, 0)],
+  [(103, -1, 0), (700, 1, 0)],
+  [(22, -1, 0), (60, 1, 0)],
+  [(22, 1, 0), (89, 1, 0)],
+  [(22, 1, 0), (143, 1, 0)],
+  [(22, -1, 0), (172, 1, 0)],
+  [(106, 1, 0), (189, 1, 0)],
+  [(22, -1, 0), (239, 1, 0)],
+  [(106, -1, 0), (258, 1, 0)],
+  [(106, 1, 0), (304, 1, 0)],
+  [(22, -1, 0), (352, 1, 0)],
+  [(22, 1, 0), (381, 1, 0)],
+  [(106, -1, 0), (398, 1, 0)],
+  [(22, 1, 0), (448, 1, 0)],
+  [(106, 1, 0), (467, 1, 0)],
+  [(106, -1, 0), (513, 1, 0)],
+  [(22, -1, 0), (573, 1, 0)],
+  [(106, -1, 0), (592, 1, 0)],
+  [(106, 1, 0), (638, 1, 0)],
+  [(22, 3, -2), (667, 6, 0)],
+  [(106, -3, 2), (701, 6, 0)],
+  [(106, -1, 0), (720, 1, 0)],
+  [(26, -1, 0), (81, 1, 0)],
+  [(26, 1, 0), (93, 1, 0)],
+  [(26, 1, 0), (164, 1, 0)],
+  [(26, -1, 0), (176, 1, 0)],
+  [(112, 1, 0), (195, 1, 0)],
+  [(26, -1, 0), (274, 1, 0)],
+  [(112, -1, 0), (293, 1, 0)],
+  [(112, 1, 0), (310, 1, 0)],
+  [(26, -1, 0), (373, 1, 0)],
+  [(26, 1, 0), (385, 1, 0)],
+  [(112, -1, 0), (404, 1, 0)],
+  [(26, 1, 0), (483, 1, 0)],
+  [(112, 1, 0), (502, 1, 0)],
+  [(112, -1, 0), (519, 1, 0)],
+  [(26, -1, 0), (608, 1, 0)],
+  [(112, -1, 0), (627, 1, 0)],
+  [(112, 1, 0), (644, 1, 0)],
+  [(26, 3, -2), (671, 6, 0)],
+  [(112, -3, 2), (736, 6, 0)],
+  [(112, -1, 0), (755, 1, 0)],
+  [(33, 18, -12), (54, 13, 0)],
+  [(33, -18, 12), (71, 13, 0)],
+  [(33, 18, -12), (85, 13, 0)],
+  [(100, -3, -2), (119, 6, 0)],
+  [(33, -18, 12), (220, 13, 0)],
+  [(33, 18, -12), (232, 13, 0)],
+  [(100, 1, 0), (251, 1, 0)],
+  [(33, -18, 12), (263, 13, 0)],
+  [(100, -1, 0), (280, 1, 0)],
+  [(100, 1, 0), (297, 1, 0)],
+  [(33, 18, -12), (429, 13, 0)],
+  [(33, -18, 12), (441, 13, 0)],
+  [(100, -1, 0), (460, 1, 0)],
+  [(33, 18, -12), (472, 13, 0)],
+  [(100, 1, 0), (489, 1, 0)],
+  [(100, -1, 0), (506, 1, 0)],
+  [(33, 18, -12), (678, 13, 0)],
+  [(100, -1, 0), (697, 1, 0)],
+  [(100, 1, 0), (714, 1, 0)],
+  [(100, -1, 0), (743, 1, 0)],
+  [(34, 18, -12), (138, 13, 0)],
+  [(34, -18, 12), (155, 13, 0)],
+  [(34, 18, -12), (169, 13, 0)],
+  [(184, -3, -2), (203, 6, 0)],
+  [(34, -18, 12), (221, 13, 0)],
+  [(34, 18, -12), (233, 13, 0)],
+  [(184, 1, 0), (252, 1, 0)],
+  [(34, -18, 12), (264, 13, 0)],
+  [(184, -1, 0), (281, 1, 0)],
+  [(184, 1, 0), (298, 1, 0)],
+  [(34, 18, -12), (555, 13, 0)],
+  [(34, -18, 12), (567, 13, 0)],
+  [(184, -1, 0), (586, 1, 0)],
+  [(34, 18, -12), (598, 13, 0)],
+  [(184, 1, 0), (615, 1, 0)],
+  [(184, -1, 0), (632, 1, 0)],
+  [(34, 18, -12), (679, 13, 0)],
+  [(184, -1, 0), (698, 1, 0)],
+  [(184, 1, 0), (715, 1, 0)],
+  [(184, -1, 0), (744, 1, 0)],
+  [(35, 18, -12), (348, 13, 0)],
+  [(35, -18, 12), (365, 13, 0)],
+  [(35, 18, -12), (379, 13, 0)],
+  [(394, -3, -2), (413, 6, 0)],
+  [(35, -18, 12), (431, 13, 0)],
+  [(35, 18, -12), (443, 13, 0)],
+  [(394, 1, 0), (462, 1, 0)],
+  [(35, -18, 12), (474, 13, 0)],
+  [(394, -1, 0), (491, 1, 0)],
+  [(394, 1, 0), (508, 1, 0)],
+  [(35, 18, -12), (556, 13, 0)],
+  [(35, -18, 12), (568, 13, 0)],
+  [(394, -1, 0), (587, 1, 0)],
+  [(35, 18, -12), (599, 13, 0)],
+  [(394, 1, 0), (616, 1, 0)],
+  [(394, -1, 0), (633, 1, 0)],
+  [(35, 18, -12), (680, 13, 0)],
+  [(394, -1, 0), (699, 1, 0)],
+  [(394, 1, 0), (716, 1, 0)],
+  [(394, -1, 0), (745, 1, 0)]]
+def pp17Rel5 : List (List (Nat × Int × Int)) := pp17Rel5_0
+def pp17Rel6_0 : List (List (Nat × Int × Int)) := [
+  [(64, -3, -2), (83, 6, 0)],
+  [(64, 1, 0), (132, 1, 0)],
+  [(64, -1, 0), (161, 1, 0)],
+  [(64, 1, 0), (178, 1, 0)],
+  [(64, -1, 0), (257, 1, 0)],
+  [(64, 1, 0), (286, 1, 0)],
+  [(64, -1, 0), (303, 1, 0)],
+  [(64, -1, 0), (369, 1, 0)],
+  [(64, 1, 0), (386, 1, 0)],
+  [(64, -1, 0), (415, 1, 0)],
+  [(64, 1, 0), (508, 1, 0)],
+  [(64, -1, 0), (537, 1, 0)],
+  [(64, 1, 0), (554, 1, 0)],
+  [(64, 1, 0), (620, 1, 0)],
+  [(64, -1, 0), (637, 1, 0)],
+  [(64, 1, 0), (666, 1, 0)],
+  [(64, -1, 0), (745, 1, 0)],
+  [(64, 1, 0), (762, 1, 0)],
+  [(64, -1, 0), (791, 1, 0)],
+  [(64, 3, -2), (840, 6, 0)],
+  [(64, 1, 0), (859, 1, 0)]]
+def pp17Rel6 : List (List (Nat × Int × Int)) := pp17Rel6_0
+def pp17Rels : List (List (List (Nat × Int × Int))) := [[], [], pp17Rel2, pp17Rel3, pp17Rel4, pp17Rel5, pp17Rel6, [], [], [], [], [], []]
+
+def pp18Rows : List (List Nat) := [[0], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 38, 39, 40, 41, 45, 46, 47, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 23, 27, 30, 40, 41, 43, 44, 45, 47, 48, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 67, 68, 72, 75, 85, 86, 89, 90, 93, 96, 97, 98, 99, 100, 101, 103, 104, 108, 111, 121, 122, 126, 133, 134, 135, 136, 137, 138, 139, 143, 144, 145, 149, 150, 154, 164, 165, 166, 170, 171, 175, 185, 186, 190, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 17, 20, 30, 31, 34, 35, 38, 41, 42, 43, 44, 45, 46, 48, 49, 53, 56, 66, 67, 71, 78, 79, 80, 81, 165, 166, 168, 169, 173, 176, 186, 187, 191, 198, 199, 200, 201, 285, 375, 376, 380, 391, 395, 430], [0, 1, 3, 4, 8, 11, 33, 34, 35, 36, 120, 330], [0], [], [], [], [], [], []]
+def pp18Rel2_0 : List (List (Nat × Int × Int)) := [
+  [(5, 1, 0), (35, 1, 0)],
+  [(6, 1, 0), (42, 1, 0)],
+  [(7, 1, 0), (48, 1, 0)],
+  [(15, 1, 0), (36, 1, 0)],
+  [(16, 1, 0), (43, 1, 0)],
+  [(17, 1, 0), (49, 1, 0)],
+  [(24, 1, 0), (37, 1, 0)],
+  [(25, 1, 0), (44, 1, 0)],
+  [(26, 1, 0), (50, 1, 0)]]
+def pp18Rel2 : List (List (Nat × Int × Int)) := pp18Rel2_0
+def pp18Rel3_0 : List (List (Nat × Int × Int)) := [
+  [(4, 1, 0), (25, 1, 0)],
+  [(4, -1, 0), (69, 1, 0)],
+  [(43, 1, 0), (87, 1, 0)],
+  [(43, 1, 0), (161, 1, 0)],
+  [(5, 1, 0), (32, 1, 0)],
+  [(5, -1, 0), (76, 1, 0)],
+  [(47, 1, 0), (91, 1, 0)],
+  [(47, 1, 0), (182, 1, 0)],
+  [(6, 1, 0), (38, 1, 0)],
+  [(6, -1, 0), (82, 1, 0)],
+  [(50, 1, 0), (94, 1, 0)],
+  [(50, 1, 0), (197, 1, 0)],
+  [(13, 1, 0), (26, 1, 0)],
+  [(13, -1, 0), (105, 1, 0)],
+  [(44, 1, 0), (123, 1, 0)],
+  [(44, 1, 0), (162, 1, 0)],
+  [(14, 1, 0), (33, 1, 0)],
+  [(14, -1, 0), (112, 1, 0)],
+  [(48, 1, 0), (127, 1, 0)],
+  [(48, 1, 0), (183, 1, 0)],
+  [(15, 1, 0), (39, 1, 0)],
+  [(15, -1, 0), (118, 1, 0)],
+  [(51, 1, 0), (130, 1, 0)],
+  [(51, 1, 0), (198, 1, 0)],
+  [(22, 1, 0), (28, 1, 0)],
+  [(22, -1, 0), (140, 1, 0)],
+  [(40, -1, 0), (155, 1, 0)],
+  [(40, 1, 0), (172, 1, 0)],
+  [(23, 1, 0), (34, 1, 0)],
+  [(23, -1, 0), (146, 1, 0)],
+  [(41, -1, 0), (158, 1, 0)],
+  [(41, 1, 0), (187, 1, 0)],
+  [(30, 1, 0), (35, 1, 0)],
+  [(30, -1, 0), (167, 1, 0)],
+  [(45, -1, 0), (179, 1, 0)],
+  [(45, 1, 0), (191, 1, 0)],
+  [(58, 1, 0), (71, 1, 0)],
+  [(58, -1, 0), (106, 1, 0)],
+  [(89, 1, 0), (124, 1, 0)],
+  [(89, 1, 0), (163, 1, 0)],
+  [(59, 1, 0), (78, 1, 0)],
+  [(59, -1, 0), (113, 1, 0)],
+  [(93, 1, 0), (128, 1, 0)],
+  [(93, 1, 0), (184, 1, 0)],
+  [(60, 1, 0), (84, 1, 0)],
+  [(60, -1, 0), (119, 1, 0)],
+  [(96, 1, 0), (131, 1, 0)],
+  [(96, 1, 0), (199, 1, 0)],
+  [(67, 1, 0), (73, 1, 0)],
+  [(67, -1, 0), (141, 1, 0)],
+  [(85, -1, 0), (156, 1, 0)],
+  [(85, 1, 0), (173, 1, 0)],
+  [(68, 1, 0), (79, 1, 0)],
+  [(68, -1, 0), (147, 1, 0)],
+  [(86, -1, 0), (159, 1, 0)],
+  [(86, 1, 0), (188, 1, 0)],
+  [(75, 1, 0), (80, 1, 0)],
+  [(75, -1, 0), (168, 1, 0)],
+  [(90, -1, 0), (180, 1, 0)],
+  [(90, 1, 0), (192, 1, 0)],
+  [(103, 1, 0), (109, 1, 0)],
+  [(103, -1, 0), (142, 1, 0)],
+  [(121, -1, 0), (157, 1, 0)],
+  [(121, 1, 0), (174, 1, 0)],
+  [(104, 1, 0), (115, 1, 0)],
+  [(104, -1, 0), (148, 1, 0)],
+  [(122, -1, 0), (160, 1, 0)],
+  [(122, 1, 0), (189, 1, 0)],
+  [(111, 1, 0), (116, 1, 0)],
+  [(111, -1, 0), (169, 1, 0)],
+  [(126, -1, 0), (181, 1, 0)],
+  [(126, 1, 0), (193, 1, 0)]]
+def pp18Rel3 : List (List (Nat × Int × Int)) := pp18Rel3_0
+def pp18Rel4_0 : List (List (Nat × Int × Int)) := [
+  [(3, 1, 0), (16, 1, 0)],
+  [(3, -1, 0), (51, 1, 0)],
+  [(34, 1, 0), (69, 1, 0)],
+  [(34, 1, 0), (108, 1, 0)],
+  [(0, 0, 11586), (3, -4656, 0), (34, 0, -2241), (154, 1015, 0)],
+  [(3, 1, 0), (170, 1, 0)],
+  [(34, -1, 0), (188, 1, 0)],
+  [(34, -1, 0), (227, 1, 0)],
+  [(0, 0, -11586), (3, 4656, 0), (34, 0, 2241), (273, 1015, 0)],
+  [(34, 1, 0), (310, 1, 0)],
+  [(0, 0, 11586), (3, -4656, 0), (34, 0, -2241), (356, 1015, 0)],
+  [(0, 92, 138), (3, 282, -188), (34, -22, -33), (369, 4060, 0)],
+  [(0, -36, 24), (3, -304, -456), (34, 141, -94), (376, -2030, 0), (390, 2030, 0)],
+  [(0, -1284, -1926), (3, 36, -24), (34, -46, -69), (405, 2030, 0)],
+  [(0, 0, -11586), (3, 4656, 0), (34, 0, 2241), (424, 1015, 0)],
+  [(0, 26424, 0), (3, 0, -128136), (34, -12144, 0), (489, 1015, 0)],
+  [(4, 1, 0), (23, 1, 0)],
+  [(4, -1, 0), (58, 1, 0)],
+  [(38, 1, 0), (73, 1, 0)],
+  [(38, 1, 0), (129, 1, 0)],
+  [(1, 0, 11586), (4, -4656, 0), (38, 0, -2241), (160, 1015, 0)],
+  [(4, 1, 0), (177, 1, 0)],
+  [(38, -1, 0), (192, 1, 0)],
+  [(38, -1, 0), (248, 1, 0)],
+  [(1, 0, -11586), (4, 4656, 0), (38, 0, 2241), (279, 1015, 0)],
+  [(38, 1, 0), (331, 1, 0)],
+  [(1, 0, 11586), (4, -4656, 0), (38, 0, -2241), (362, 1015, 0)],
+  [(1, 92, 138), (4, 282, -188), (38, -22, -33), (370, 4060, 0)],
+  [(1, -36, 24), (4, -304, -456), (38, 141, -94), (380, -2030, 0), (425, 2030, 0)],
+  [(1, -1284, -1926), (4, 36, -24), (38, -46, -69), (440, 2030, 0)],
+  [(1, 0, -11586), (4, 4656, 0), (38, 0, 2241), (459, 1015, 0)],
+  [(1, 26424, 0), (4, 0, -128136), (38, -12144, 0), (493, 1015, 0)],
+  [(5, 1, 0), (29, 1, 0)],
+  [(5, -1, 0), (64, 1, 0)],
+  [(41, 1, 0), (76, 1, 0)],
+  [(41, 1, 0), (144, 1, 0)],
+  [(2, 0, 11586), (5, -4656, 0), (41, 0, -2241), (163, 1015, 0)],
+  [(5, 1, 0), (183, 1, 0)],
+  [(41, -1, 0), (195, 1, 0)],
+  [(41, -1, 0), (263, 1, 0)],
+  [(2, 0, -11586), (5, 4656, 0), (41, 0, 2241), (282, 1015, 0)],
+  [(41, 1, 0), (346, 1, 0)],
+  [(2, 0, 11586), (5, -4656, 0), (41, 0, -2241), (365, 1015, 0)],
+  [(2, 92, 138), (5, 282, -188), (41, -22, -33), (371, 4060, 0)],
+  [(2, -36, 24), (5, -304, -456), (41, 141, -94), (395, -2030, 0), (426, 2030, 0)],
+  [(2, -1284, -1926), (5, 36, -24), (41, -46, -69), (460, 2030, 0)],
+  [(2, 0, -11586), (5, 4656, 0), (41, 0, 2241), (479, 1015, 0)],
+  [(2, 26424, 0), (5, 0, -128136), (41, -12144, 0), (494, 1015, 0)],
+  [(6, -282, 188), (43, 22, 33), (78, -22, -33), (81, 0, 13), (84, 39, 0)],
+  [(6, 282, -188), (43, -22, -33), (78, 22, 33), (81, 0, -13), (89, 39, 0)],
+  [(6, 608, 912), (43, -282, 188), (78, 282, -188), (81, 52, 0), (99, 39, 0)],
+  [(6, -282, 188), (43, 22, 33), (78, -22, -33), (81, 0, 13), (109, 39, 0)],
+  [(6, -608, -912), (43, 282, -188), (78, -282, 188), (81, -52, 0), (116, 39, 0)],
+  [(6, 608, 912), (43, -282, 188), (78, 282, -188), (81, 52, 0), (130, 39, 0)],
+  [(6, 240, -160), (43, 172, 258), (78, -172, -258), (81, 0, 130), (145, 13, 0)],
+  [(6, -4, 0), (43, 0, -1), (78, 0, 1), (81, -2, 3), (164, 3, 0)],
+  [(6, 282, -188), (43, -22, -33), (78, 22, 33), (81, 0, -13), (372, 39, 0)],
+  [(6, -608, -912), (43, 282, -188), (78, -282, 188), (81, -52, 0), (384, 39, 0)],
+  [(6, 608, 912), (43, -282, 188), (78, 282, -188), (81, 52, 0), (396, 39, 0)],
+  [(6, -240, 160), (43, -172, -258), (78, 172, 258), (81, 0, -130), (415, 13, 0)],
+  [(6, -608, -912), (43, 282, -188), (78, -282, 188), (81, -52, 0), (427, 39, 0)],
+  [(6, 240, -160), (43, 172, 258), (78, -172, -258), (81, 0, 130), (444, 13, 0)],
+  [(6, -240, 160), (43, -172, -258), (78, 172, 258), (81, 0, -130), (461, 13, 0)],
+  [(6, -10336, -15504), (43, -264, 176), (78, 264, -176), (81, -416, 0), (480, 13, 0)],
+  [(7, -282, 188), (44, 22, 33), (198, -22, -33), (201, 0, 13), (204, 39, 0)],
+  [(7, 282, -188), (44, -22, -33), (198, 22, 33), (201, 0, -13), (209, 39, 0)]]
+def pp18Rel4_1 : List (List (Nat × Int × Int)) := [
+  [(7, 608, 912), (44, -282, 188), (198, 282, -188), (201, 52, 0), (219, 39, 0)],
+  [(7, -282, 188), (44, 22, 33), (198, -22, -33), (201, 0, 13), (229, 39, 0)],
+  [(7, -608, -912), (44, 282, -188), (198, -282, 188), (201, -52, 0), (236, 39, 0)],
+  [(7, 608, 912), (44, -282, 188), (198, 282, -188), (201, 52, 0), (250, 39, 0)],
+  [(7, 240, -160), (44, 172, 258), (198, -172, -258), (201, 0, 130), (265, 13, 0)],
+  [(7, -4, 0), (44, 0, -1), (198, 0, 1), (201, -2, 3), (284, 3, 0)],
+  [(7, 282, -188), (44, -22, -33), (198, 22, 33), (201, 0, -13), (373, 39, 0)],
+  [(7, -608, -912), (44, 282, -188), (198, -282, 188), (201, -52, 0), (385, 39, 0)],
+  [(7, 608, 912), (44, -282, 188), (198, 282, -188), (201, 52, 0), (397, 39, 0)],
+  [(7, -240, 160), (44, -172, -258), (198, 172, 258), (201, 0, -130), (416, 13, 0)],
+  [(7, -608, -912), (44, 282, -188), (198, -282, 188), (201, -52, 0), (428, 39, 0)],
+  [(7, 240, -160), (44, 172, 258), (198, -172, -258), (201, 0, 130), (445, 13, 0)],
+  [(7, -240, 160), (44, -172, -258), (198, 172, 258), (201, 0, -130), (462, 13, 0)],
+  [(7, -10336, -15504), (44, -264, 176), (198, 264, -176), (201, -416, 0), (481, 13, 0)],
+  [(8, -282, 188), (80, 22, 33), (199, -22, -33), (285, 0, 13), (288, 39, 0)],
+  [(8, 282, -188), (80, -22, -33), (199, 22, 33), (285, 0, -13), (293, 39, 0)],
+  [(8, 608, 912), (80, -282, 188), (199, 282, -188), (285, 52, 0), (303, 39, 0)],
+  [(8, -282, 188), (80, 22, 33), (199, -22, -33), (285, 0, 13), (313, 39, 0)],
+  [(8, -608, -912), (80, 282, -188), (199, -282, 188), (285, -52, 0), (320, 39, 0)],
+  [(8, 608, 912), (80, -282, 188), (199, 282, -188), (285, 52, 0), (334, 39, 0)],
+  [(8, 240, -160), (80, 172, 258), (199, -172, -258), (285, 0, 130), (349, 13, 0)],
+  [(8, -4, 0), (80, 0, -1), (199, 0, 1), (285, -2, 3), (368, 3, 0)],
+  [(8, 282, -188), (80, -22, -33), (199, 22, 33), (285, 0, -13), (374, 39, 0)],
+  [(8, -608, -912), (80, 282, -188), (199, -282, 188), (285, -52, 0), (386, 39, 0)],
+  [(8, 608, 912), (80, -282, 188), (199, 282, -188), (285, 52, 0), (398, 39, 0)],
+  [(8, -240, 160), (80, -172, -258), (199, 172, 258), (285, 0, -130), (417, 13, 0)],
+  [(8, -608, -912), (80, 282, -188), (199, -282, 188), (285, -52, 0), (429, 39, 0)],
+  [(8, 240, -160), (80, 172, 258), (199, -172, -258), (285, 0, 130), (446, 13, 0)],
+  [(8, -240, 160), (80, -172, -258), (199, 172, 258), (285, 0, -130), (463, 13, 0)],
+  [(8, -10336, -15504), (80, -264, 176), (199, 264, -176), (285, -416, 0), (482, 13, 0)],
+  [(12, 1, 0), (18, 1, 0)],
+  [(12, -1, 0), (86, 1, 0)],
+  [(30, -1, 0), (101, 1, 0)],
+  [(30, 1, 0), (118, 1, 0)],
+  [(9, 0, 11586), (12, -4656, 0), (30, 0, 2241), (147, 1015, 0)],
+  [(12, 1, 0), (205, 1, 0)],
+  [(30, 1, 0), (220, 1, 0)],
+  [(30, -1, 0), (237, 1, 0)],
+  [(9, 0, -11586), (12, 4656, 0), (30, 0, -2241), (266, 1015, 0)],
+  [(30, -1, 0), (387, 1, 0)],
+  [(9, 0, 11586), (12, -4656, 0), (30, 0, 2241), (418, 1015, 0)],
+  [(9, 0, -11586), (12, 4656, 0), (30, 0, -2241), (447, 1015, 0)],
+  [(9, -26424, 0), (12, 0, 128136), (30, -12144, 0), (483, 1015, 0)],
+  [(13, 1, 0), (24, 1, 0)],
+  [(13, -1, 0), (92, 1, 0)],
+  [(31, -1, 0), (104, 1, 0)],
+  [(31, 1, 0), (133, 1, 0)],
+  [(10, 0, 11586), (13, -4656, 0), (31, 0, 2241), (150, 1015, 0)],
+  [(13, 1, 0), (211, 1, 0)],
+  [(31, 1, 0), (223, 1, 0)],
+  [(31, -1, 0), (252, 1, 0)],
+  [(10, 0, -11586), (13, 4656, 0), (31, 0, -2241), (269, 1015, 0)],
+  [(31, -1, 0), (402, 1, 0)],
+  [(10, 0, 11586), (13, -4656, 0), (31, 0, 2241), (421, 1015, 0)],
+  [(10, 0, -11586), (13, 4656, 0), (31, 0, -2241), (467, 1015, 0)],
+  [(10, -26424, 0), (13, 0, 128136), (31, -12144, 0), (486, 1015, 0)],
+  [(20, 1, 0), (25, 1, 0)],
+  [(20, -1, 0), (113, 1, 0)],
+  [(35, -1, 0), (125, 1, 0)],
+  [(35, 1, 0), (137, 1, 0)],
+  [(17, 0, 11586), (20, -4656, 0), (35, 0, 2241), (156, 1015, 0)],
+  [(20, 1, 0), (232, 1, 0)],
+  [(35, 1, 0), (244, 1, 0)],
+  [(35, -1, 0), (256, 1, 0)]]
+def pp18Rel4_2 : List (List (Nat × Int × Int)) := [
+  [(17, 0, -11586), (20, 4656, 0), (35, 0, -2241), (275, 1015, 0)],
+  [(35, -1, 0), (437, 1, 0)],
+  [(17, 0, 11586), (20, -4656, 0), (35, 0, 2241), (456, 1015, 0)],
+  [(17, 0, -11586), (20, 4656, 0), (35, 0, -2241), (473, 1015, 0)],
+  [(17, -26424, 0), (20, 0, 128136), (35, -12144, 0), (490, 1015, 0)],
+  [(48, 1, 0), (54, 1, 0)],
+  [(48, -1, 0), (87, 1, 0)],
+  [(66, -1, 0), (102, 1, 0)],
+  [(66, 1, 0), (119, 1, 0)],
+  [(45, 0, 11586), (48, -4656, 0), (66, 0, 2241), (148, 1015, 0)],
+  [(48, 1, 0), (289, 1, 0)],
+  [(66, 1, 0), (304, 1, 0)],
+  [(66, -1, 0), (321, 1, 0)],
+  [(45, 0, -11586), (48, 4656, 0), (66, 0, -2241), (350, 1015, 0)],
+  [(66, -1, 0), (388, 1, 0)],
+  [(45, 0, 11586), (48, -4656, 0), (66, 0, 2241), (419, 1015, 0)],
+  [(45, 0, -11586), (48, 4656, 0), (66, 0, -2241), (448, 1015, 0)],
+  [(45, -26424, 0), (48, 0, 128136), (66, -12144, 0), (484, 1015, 0)],
+  [(49, 1, 0), (60, 1, 0)],
+  [(49, -1, 0), (93, 1, 0)],
+  [(67, -1, 0), (105, 1, 0)],
+  [(67, 1, 0), (134, 1, 0)],
+  [(46, 0, 11586), (49, -4656, 0), (67, 0, 2241), (151, 1015, 0)],
+  [(49, 1, 0), (295, 1, 0)],
+  [(67, 1, 0), (307, 1, 0)],
+  [(67, -1, 0), (336, 1, 0)],
+  [(46, 0, -11586), (49, 4656, 0), (67, 0, -2241), (353, 1015, 0)],
+  [(67, -1, 0), (403, 1, 0)],
+  [(46, 0, 11586), (49, -4656, 0), (67, 0, 2241), (422, 1015, 0)],
+  [(46, 0, -11586), (49, 4656, 0), (67, 0, -2241), (468, 1015, 0)],
+  [(46, -26424, 0), (49, 0, 128136), (67, -12144, 0), (487, 1015, 0)],
+  [(56, 1, 0), (61, 1, 0)],
+  [(56, -1, 0), (114, 1, 0)],
+  [(71, -1, 0), (126, 1, 0)],
+  [(71, 1, 0), (138, 1, 0)],
+  [(53, 0, 11586), (56, -4656, 0), (71, 0, 2241), (157, 1015, 0)],
+  [(56, 1, 0), (316, 1, 0)],
+  [(71, 1, 0), (328, 1, 0)],
+  [(71, -1, 0), (340, 1, 0)],
+  [(53, 0, -11586), (56, 4656, 0), (71, 0, -2241), (359, 1015, 0)],
+  [(71, -1, 0), (438, 1, 0)],
+  [(53, 0, 11586), (56, -4656, 0), (71, 0, 2241), (457, 1015, 0)],
+  [(53, 0, -11586), (56, 4656, 0), (71, 0, -2241), (474, 1015, 0)],
+  [(53, -26424, 0), (56, 0, 128136), (71, -12144, 0), (491, 1015, 0)],
+  [(168, 1, 0), (174, 1, 0)],
+  [(168, -1, 0), (207, 1, 0)],
+  [(186, -1, 0), (222, 1, 0)],
+  [(186, 1, 0), (239, 1, 0)],
+  [(165, 0, 11586), (168, -4656, 0), (186, 0, 2241), (268, 1015, 0)],
+  [(168, 1, 0), (290, 1, 0)],
+  [(186, 1, 0), (305, 1, 0)],
+  [(186, -1, 0), (322, 1, 0)],
+  [(165, 0, -11586), (168, 4656, 0), (186, 0, -2241), (351, 1015, 0)],
+  [(186, -1, 0), (389, 1, 0)],
+  [(165, 0, 11586), (168, -4656, 0), (186, 0, 2241), (420, 1015, 0)],
+  [(165, 0, -11586), (168, 4656, 0), (186, 0, -2241), (449, 1015, 0)],
+  [(165, -26424, 0), (168, 0, 128136), (186, -12144, 0), (485, 1015, 0)],
+  [(169, 1, 0), (180, 1, 0)],
+  [(169, -1, 0), (213, 1, 0)],
+  [(187, -1, 0), (225, 1, 0)],
+  [(187, 1, 0), (254, 1, 0)],
+  [(166, 0, 11586), (169, -4656, 0), (187, 0, 2241), (271, 1015, 0)],
+  [(169, 1, 0), (296, 1, 0)],
+  [(187, 1, 0), (308, 1, 0)],
+  [(187, -1, 0), (337, 1, 0)],
+  [(166, 0, -11586), (169, 4656, 0), (187, 0, -2241), (354, 1015, 0)],
+  [(187, -1, 0), (404, 1, 0)],
+  [(166, 0, 11586), (169, -4656, 0), (187, 0, 2241), (423, 1015, 0)],
+  [(166, 0, -11586), (169, 4656, 0), (187, 0, -2241), (469, 1015, 0)],
+  [(166, -26424, 0), (169, 0, 128136), (187, -12144, 0), (488, 1015, 0)],
+  [(176, 1, 0), (181, 1, 0)],
+  [(176, -1, 0), (234, 1, 0)],
+  [(191, -1, 0), (246, 1, 0)],
+  [(191, 1, 0), (258, 1, 0)],
+  [(173, 0, 11586), (176, -4656, 0), (191, 0, 2241), (277, 1015, 0)],
+  [(176, 1, 0), (317, 1, 0)],
+  [(191, 1, 0), (329, 1, 0)],
+  [(191, -1, 0), (341, 1, 0)],
+  [(173, 0, -11586), (176, 4656, 0), (191, 0, -2241), (360, 1015, 0)],
+  [(191, -1, 0), (439, 1, 0)],
+  [(173, 0, 11586), (176, -4656, 0), (191, 0, 2241), (458, 1015, 0)],
+  [(173, 0, -11586), (176, 4656, 0), (191, 0, -2241), (475, 1015, 0)],
+  [(173, -26424, 0), (176, 0, 128136), (191, -12144, 0), (492, 1015, 0)]]
+def pp18Rel4 : List (List (Nat × Int × Int)) := pp18Rel4_0 ++ pp18Rel4_1 ++ pp18Rel4_2
+def pp18Rel5_0 : List (List (Nat × Int × Int)) := [
+  [(3, 1, 0), (9, 1, 0)],
+  [(0, 46, 0), (3, 0, -94), (21, 11, 0)],
+  [(3, -1, 0), (42, 1, 0)],
+  [(0, 46, 0), (3, 0, -94), (57, 11, 0)],
+  [(0, -46, 0), (3, 0, 94), (74, 11, 0)],
+  [(0, 0, 24), (3, -258, 0), (103, 11, 0)],
+  [(3, 1, 0), (125, 1, 0)],
+  [(0, -46, 0), (3, 0, 94), (140, 11, 0)],
+  [(0, 46, 0), (3, 0, -94), (157, 11, 0)],
+  [(0, 0, -24), (3, 258, 0), (186, 11, 0)],
+  [(0, 46, 0), (3, 0, -94), (224, 11, 0)],
+  [(0, 0, 24), (3, -258, 0), (255, 11, 0)],
+  [(0, 0, -24), (3, 258, 0), (284, 11, 0)],
+  [(0, 24, 0), (3, 0, 24), (320, 1, 0)],
+  [(3, -1, 0), (334, 1, 0)],
+  [(0, 46, 0), (3, 0, -94), (349, 11, 0)],
+  [(0, -46, 0), (3, 0, 94), (366, 11, 0)],
+  [(0, 0, 24), (3, -258, 0), (395, 11, 0)],
+  [(0, -46, 0), (3, 0, 94), (433, 11, 0)],
+  [(0, 0, -24), (3, 258, 0), (464, 11, 0)],
+  [(0, 0, 24), (3, -258, 0), (493, 11, 0)],
+  [(0, -24, 0), (3, 0, -24), (529, 1, 0)],
+  [(0, 46, 0), (3, 0, -94), (558, 11, 0)],
+  [(0, 0, 24), (3, -258, 0), (589, 11, 0)],
+  [(0, 0, -24), (3, 258, 0), (618, 11, 0)],
+  [(0, 24, 0), (3, 0, 24), (654, 1, 0)],
+  [(0, -3, 2), (3, 6, 9), (666, 11, 0)],
+  [(0, 8, 12), (3, 3, -2), (681, 11, 0)],
+  [(0, 0, 24), (3, -258, 0), (700, 11, 0)],
+  [(0, 24, 0), (3, 0, 24), (734, 1, 0)],
+  [(0, -24, 0), (3, 0, -24), (765, 1, 0)],
+  [(0, 0, -5520), (3, -15240, 0), (789, 11, 0)],
+  [(4, 1, 0), (15, 1, 0)],
+  [(1, 46, 0), (4, 0, -94), (22, 11, 0)],
+  [(4, -1, 0), (48, 1, 0)],
+  [(1, 46, 0), (4, 0, -94), (60, 11, 0)],
+  [(1, -46, 0), (4, 0, 94), (89, 11, 0)],
+  [(1, 0, 24), (4, -258, 0), (106, 11, 0)],
+  [(4, 1, 0), (131, 1, 0)],
+  [(1, -46, 0), (4, 0, 94), (143, 11, 0)],
+  [(1, 46, 0), (4, 0, -94), (172, 11, 0)],
+  [(1, 0, -24), (4, 258, 0), (189, 11, 0)],
+  [(1, 46, 0), (4, 0, -94), (239, 11, 0)],
+  [(1, 0, 24), (4, -258, 0), (258, 11, 0)],
+  [(1, 0, -24), (4, 258, 0), (304, 11, 0)],
+  [(1, 24, 0), (4, 0, 24), (323, 1, 0)],
+  [(4, -1, 0), (340, 1, 0)],
+  [(1, 46, 0), (4, 0, -94), (352, 11, 0)],
+  [(1, -46, 0), (4, 0, 94), (381, 11, 0)],
+  [(1, 0, 24), (4, -258, 0), (398, 11, 0)],
+  [(1, -46, 0), (4, 0, 94), (448, 11, 0)],
+  [(1, 0, -24), (4, 258, 0), (467, 11, 0)],
+  [(1, 0, 24), (4, -258, 0), (513, 11, 0)],
+  [(1, -24, 0), (4, 0, -24), (532, 1, 0)],
+  [(1, 46, 0), (4, 0, -94), (573, 11, 0)],
+  [(1, 0, 24), (4, -258, 0), (592, 11, 0)],
+  [(1, 0, -24), (4, 258, 0), (638, 11, 0)],
+  [(1, 24, 0), (4, 0, 24), (657, 1, 0)],
+  [(1, -3, 2), (4, 6, 9), (667, 11, 0)],
+  [(1, 8, 12), (4, 3, -2), (701, 11, 0)],
+  [(1, 0, 24), (4, -258, 0), (720, 11, 0)],
+  [(1, 24, 0), (4, 0, 24), (735, 1, 0)],
+  [(1, -24, 0), (4, 0, -24), (780, 1, 0)],
+  [(1, 0, -5520), (4, -15240, 0), (790, 11, 0)],
+  [(11, 1, 0), (16, 1, 0)],
+  [(8, 46, 0), (11, 0, -94), (26, 11, 0)],
+  [(11, -1, 0), (69, 1, 0)],
+  [(8, 46, 0), (11, 0, -94), (81, 11, 0)],
+  [(8, -46, 0), (11, 0, 94), (93, 11, 0)],
+  [(8, 0, 24), (11, -258, 0), (112, 11, 0)],
+  [(11, 1, 0), (152, 1, 0)],
+  [(8, -46, 0), (11, 0, 94), (164, 11, 0)],
+  [(8, 46, 0), (11, 0, -94), (176, 11, 0)],
+  [(8, 0, -24), (11, 258, 0), (195, 11, 0)],
+  [(8, 46, 0), (11, 0, -94), (274, 11, 0)],
+  [(8, 0, 24), (11, -258, 0), (293, 11, 0)],
+  [(8, 0, -24), (11, 258, 0), (310, 11, 0)],
+  [(8, 24, 0), (11, 0, 24), (327, 1, 0)],
+  [(11, -1, 0), (361, 1, 0)],
+  [(8, 46, 0), (11, 0, -94), (373, 11, 0)],
+  [(8, -46, 0), (11, 0, 94), (385, 11, 0)],
+  [(8, 0, 24), (11, -258, 0), (404, 11, 0)],
+  [(8, -46, 0), (11, 0, 94), (483, 11, 0)],
+  [(8, 0, -24), (11, 258, 0), (502, 11, 0)]]
+def pp18Rel5_1 : List (List (Nat × Int × Int)) := [
+  [(8, 0, 24), (11, -258, 0), (519, 11, 0)],
+  [(8, -24, 0), (11, 0, -24), (536, 1, 0)],
+  [(8, 46, 0), (11, 0, -94), (608, 11, 0)],
+  [(8, 0, 24), (11, -258, 0), (627, 11, 0)],
+  [(8, 0, -24), (11, 258, 0), (644, 11, 0)],
+  [(8, 24, 0), (11, 0, 24), (661, 1, 0)],
+  [(8, -3, 2), (11, 6, 9), (671, 11, 0)],
+  [(8, 8, 12), (11, 3, -2), (736, 11, 0)],
+  [(8, 0, 24), (11, -258, 0), (755, 11, 0)],
+  [(8, 24, 0), (11, 0, 24), (770, 1, 0)],
+  [(8, -24, 0), (11, 0, -24), (784, 1, 0)],
+  [(8, 0, -5520), (11, -15240, 0), (791, 11, 0)],
+  [(33, -22, -33), (36, 0, 13), (39, 39, 0)],
+  [(33, 22, 33), (36, 0, -13), (44, 39, 0)],
+  [(33, 282, -188), (36, 52, 0), (54, 39, 0)],
+  [(33, -22, -33), (36, 0, 13), (64, 39, 0)],
+  [(33, -282, 188), (36, -52, 0), (71, 39, 0)],
+  [(33, 282, -188), (36, 52, 0), (85, 39, 0)],
+  [(33, -172, -258), (36, 0, 130), (100, 13, 0)],
+  [(33, 0, 1), (36, -2, 3), (119, 3, 0)],
+  [(33, 22, 33), (36, 0, -13), (208, 39, 0)],
+  [(33, -282, 188), (36, -52, 0), (220, 39, 0)],
+  [(33, 282, -188), (36, 52, 0), (232, 39, 0)],
+  [(33, 172, 258), (36, 0, -130), (251, 13, 0)],
+  [(33, -282, 188), (36, -52, 0), (263, 39, 0)],
+  [(33, -172, -258), (36, 0, 130), (280, 13, 0)],
+  [(33, 172, 258), (36, 0, -130), (297, 13, 0)],
+  [(33, 264, -176), (36, -416, 0), (316, 13, 0)],
+  [(33, -22, -33), (36, 0, 13), (417, 39, 0)],
+  [(33, 282, -188), (36, 52, 0), (429, 39, 0)],
+  [(33, -282, 188), (36, -52, 0), (441, 39, 0)],
+  [(33, -172, -258), (36, 0, 130), (460, 13, 0)],
+  [(33, 282, -188), (36, 52, 0), (472, 39, 0)],
+  [(33, 172, 258), (36, 0, -130), (489, 13, 0)],
+  [(33, -172, -258), (36, 0, 130), (506, 13, 0)],
+  [(33, -264, 176), (36, 416, 0), (525, 13, 0)],
+  [(33, 282, -188), (36, 52, 0), (678, 39, 0)],
+  [(33, -172, -258), (36, 0, 130), (697, 13, 0)],
+  [(33, 172, 258), (36, 0, -130), (714, 13, 0)],
+  [(33, -264, 176), (36, 416, 0), (731, 13, 0)],
+  [(33, -172, -258), (36, 0, 130), (743, 13, 0)],
+  [(33, 264, -176), (36, -416, 0), (762, 13, 0)],
+  [(33, -264, 176), (36, 416, 0), (774, 13, 0)],
+  [(33, -10160, -15240), (36, 0, -520), (786, 13, 0)],
+  [(34, -22, -33), (120, 0, 13), (123, 39, 0)],
+  [(34, 22, 33), (120, 0, -13), (128, 39, 0)],
+  [(34, 282, -188), (120, 52, 0), (138, 39, 0)],
+  [(34, -22, -33), (120, 0, 13), (148, 39, 0)],
+  [(34, -282, 188), (120, -52, 0), (155, 39, 0)],
+  [(34, 282, -188), (120, 52, 0), (169, 39, 0)],
+  [(34, -172, -258), (120, 0, 130), (184, 13, 0)],
+  [(34, 0, 1), (120, -2, 3), (203, 3, 0)],
+  [(34, 22, 33), (120, 0, -13), (209, 39, 0)],
+  [(34, -282, 188), (120, -52, 0), (221, 39, 0)],
+  [(34, 282, -188), (120, 52, 0), (233, 39, 0)],
+  [(34, 172, 258), (120, 0, -130), (252, 13, 0)],
+  [(34, -282, 188), (120, -52, 0), (264, 39, 0)],
+  [(34, -172, -258), (120, 0, 130), (281, 13, 0)],
+  [(34, 172, 258), (120, 0, -130), (298, 13, 0)],
+  [(34, 264, -176), (120, -416, 0), (317, 13, 0)],
+  [(34, -22, -33), (120, 0, 13), (543, 39, 0)],
+  [(34, 282, -188), (120, 52, 0), (555, 39, 0)],
+  [(34, -282, 188), (120, -52, 0), (567, 39, 0)],
+  [(34, -172, -258), (120, 0, 130), (586, 13, 0)],
+  [(34, 282, -188), (120, 52, 0), (598, 39, 0)],
+  [(34, 172, 258), (120, 0, -130), (615, 13, 0)],
+  [(34, -172, -258), (120, 0, 130), (632, 13, 0)],
+  [(34, -264, 176), (120, 416, 0), (651, 13, 0)],
+  [(34, 282, -188), (120, 52, 0), (679, 39, 0)],
+  [(34, -172, -258), (120, 0, 130), (698, 13, 0)],
+  [(34, 172, 258), (120, 0, -130), (715, 13, 0)],
+  [(34, -264, 176), (120, 416, 0), (732, 13, 0)],
+  [(34, -172, -258), (120, 0, 130), (744, 13, 0)],
+  [(34, 264, -176), (120, -416, 0), (763, 13, 0)],
+  [(34, -264, 176), (120, 416, 0), (775, 13, 0)],
+  [(34, -10160, -15240), (120, 0, -520), (787, 13, 0)],
+  [(35, -22, -33), (330, 0, 13), (333, 39, 0)],
+  [(35, 22, 33), (330, 0, -13), (338, 39, 0)],
+  [(35, 282, -188), (330, 52, 0), (348, 39, 0)],
+  [(35, -22, -33), (330, 0, 13), (358, 39, 0)]]
+def pp18Rel5_2 : List (List (Nat × Int × Int)) := [
+  [(35, -282, 188), (330, -52, 0), (365, 39, 0)],
+  [(35, 282, -188), (330, 52, 0), (379, 39, 0)],
+  [(35, -172, -258), (330, 0, 130), (394, 13, 0)],
+  [(35, 0, 1), (330, -2, 3), (413, 3, 0)],
+  [(35, 22, 33), (330, 0, -13), (419, 39, 0)],
+  [(35, -282, 188), (330, -52, 0), (431, 39, 0)],
+  [(35, 282, -188), (330, 52, 0), (443, 39, 0)],
+  [(35, 172, 258), (330, 0, -130), (462, 13, 0)],
+  [(35, -282, 188), (330, -52, 0), (474, 39, 0)],
+  [(35, -172, -258), (330, 0, 130), (491, 13, 0)],
+  [(35, 172, 258), (330, 0, -130), (508, 13, 0)],
+  [(35, 264, -176), (330, -416, 0), (527, 13, 0)],
+  [(35, -22, -33), (330, 0, 13), (544, 39, 0)],
+  [(35, 282, -188), (330, 52, 0), (556, 39, 0)],
+  [(35, -282, 188), (330, -52, 0), (568, 39, 0)],
+  [(35, -172, -258), (330, 0, 130), (587, 13, 0)],
+  [(35, 282, -188), (330, 52, 0), (599, 39, 0)],
+  [(35, 172, 258), (330, 0, -130), (616, 13, 0)],
+  [(35, -172, -258), (330, 0, 130), (633, 13, 0)],
+  [(35, -264, 176), (330, 416, 0), (652, 13, 0)],
+  [(35, 282, -188), (330, 52, 0), (680, 39, 0)],
+  [(35, -172, -258), (330, 0, 130), (699, 13, 0)],
+  [(35, 172, 258), (330, 0, -130), (716, 13, 0)],
+  [(35, -264, 176), (330, 416, 0), (733, 13, 0)],
+  [(35, -172, -258), (330, 0, 130), (745, 13, 0)],
+  [(35, 264, -176), (330, -416, 0), (764, 13, 0)],
+  [(35, -264, 176), (330, 416, 0), (776, 13, 0)],
+  [(35, -10160, -15240), (330, 0, -520), (788, 13, 0)]]
+def pp18Rel5 : List (List (Nat × Int × Int)) := pp18Rel5_0 ++ pp18Rel5_1 ++ pp18Rel5_2
+def pp18Rel6_0 : List (List (Nat × Int × Int)) := [
+  [(0, 0, 1), (3, 3, 0)],
+  [(0, 0, -1), (8, 3, 0)],
+  [(0, 4, 0), (18, 3, 0)],
+  [(0, 0, 1), (28, 3, 0)],
+  [(0, -4, 0), (35, 3, 0)],
+  [(0, 4, 0), (49, 3, 0)],
+  [(0, 0, 10), (64, 1, 0)],
+  [(0, -2, 3), (83, 3, 0)],
+  [(0, 0, -1), (89, 3, 0)],
+  [(0, -4, 0), (101, 3, 0)],
+  [(0, 4, 0), (113, 3, 0)],
+  [(0, 0, -10), (132, 1, 0)],
+  [(0, -4, 0), (144, 3, 0)],
+  [(0, 0, 10), (161, 1, 0)],
+  [(0, 0, -10), (178, 1, 0)],
+  [(0, -32, 0), (197, 1, 0)],
+  [(0, 0, 1), (214, 3, 0)],
+  [(0, 4, 0), (226, 3, 0)],
+  [(0, -4, 0), (238, 3, 0)],
+  [(0, 0, 10), (257, 1, 0)],
+  [(0, 4, 0), (269, 3, 0)],
+  [(0, 0, -10), (286, 1, 0)],
+  [(0, 0, 10), (303, 1, 0)],
+  [(0, 32, 0), (322, 1, 0)],
+  [(0, 4, 0), (350, 3, 0)],
+  [(0, 0, 10), (369, 1, 0)],
+  [(0, 0, -10), (386, 1, 0)],
+  [(0, 32, 0), (403, 1, 0)],
+  [(0, 0, 10), (415, 1, 0)],
+  [(0, -32, 0), (434, 1, 0)],
+  [(0, 32, 0), (446, 1, 0)],
+  [(0, 0, -40), (458, 1, 0)],
+  [(0, 0, -1), (465, 3, 0)],
+  [(0, -4, 0), (477, 3, 0)],
+  [(0, 4, 0), (489, 3, 0)],
+  [(0, 0, -10), (508, 1, 0)],
+  [(0, -4, 0), (520, 3, 0)],
+  [(0, 0, 10), (537, 1, 0)],
+  [(0, 0, -10), (554, 1, 0)],
+  [(0, -32, 0), (573, 1, 0)],
+  [(0, -4, 0), (601, 3, 0)],
+  [(0, 0, -10), (620, 1, 0)],
+  [(0, 0, 10), (637, 1, 0)],
+  [(0, -32, 0), (654, 1, 0)],
+  [(0, 0, -10), (666, 1, 0)],
+  [(0, 32, 0), (685, 1, 0)],
+  [(0, -32, 0), (697, 1, 0)],
+  [(0, 0, 40), (709, 1, 0)],
+  [(0, 4, 0), (726, 3, 0)],
+  [(0, 0, 10), (745, 1, 0)],
+  [(0, 0, -10), (762, 1, 0)],
+  [(0, 32, 0), (779, 1, 0)],
+  [(0, 0, 10), (791, 1, 0)],
+  [(0, -32, 0), (810, 1, 0)],
+  [(0, 32, 0), (822, 1, 0)],
+  [(0, 0, -40), (834, 1, 0)],
+  [(0, -2, -3), (840, 3, 0)],
+  [(0, 0, -10), (859, 1, 0)],
+  [(0, -32, 0), (874, 1, 0)],
+  [(0, 32, 0), (888, 1, 0)],
+  [(0, 0, 40), (895, 1, 0)],
+  [(0, -32, 0), (905, 1, 0)],
+  [(0, 0, -40), (915, 1, 0)],
+  [(0, 0, 40), (920, 1, 0)],
+  [(0, -1680, 0), (923, 1, 0)]]
+def pp18Rel6 : List (List (Nat × Int × Int)) := pp18Rel6_0
+def pp18Rels : List (List (List (Nat × Int × Int))) := [[], [], pp18Rel2, pp18Rel3, pp18Rel4, pp18Rel5, pp18Rel6, [], [], [], [], [], []]
+
+def pp19Rows : List (List Nat) := [[0], [0, 1, 2, 3, 4, 5, 6, 7], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 18, 19, 22, 23, 24, 25, 26], [2, 3, 4, 5, 15, 17, 19, 30], [9], [], [], [], []]
+def pp19Rel2_0 : List (List (Nat × Int × Int)) := [
+  [(0, -1, 0), (13, 1, 0)],
+  [(22, -1, 0), (27, 1, 0)],
+  [(3, 1, 0), (16, 1, 0)],
+  [(4, 1, 0), (20, 1, 0)],
+  [(9, 1, 0), (17, 1, 0)],
+  [(10, 1, 0), (21, 1, 0)]]
+def pp19Rel2 : List (List (Nat × Int × Int)) := pp19Rel2_0
+def pp19Rel3_0 : List (List (Nat × Int × Int)) := [
+  [(2, 1, 0), (10, 1, 0)],
+  [(2, -1, 0), (24, 1, 0)],
+  [(17, 1, 0), (31, 1, 0)],
+  [(2, -1, 0), (36, 1, 0)],
+  [(17, 1, 0), (40, 1, 0)],
+  [(17, 1, 0), (45, 1, 0)],
+  [(3, 1, 0), (14, 1, 0)],
+  [(3, -1, 0), (28, 1, 0)],
+  [(19, 1, 0), (33, 1, 0)],
+  [(3, -1, 0), (37, 1, 0)],
+  [(19, 1, 0), (46, 1, 0)],
+  [(19, 1, 0), (51, 1, 0)],
+  [(4, -1, 0), (8, 1, 0)],
+  [(4, 1, 0), (11, 1, 0)],
+  [(15, -1, 0), (20, 1, 0)],
+  [(4, -1, 0), (38, 1, 0)],
+  [(15, -1, 0), (43, 1, 0)],
+  [(15, 1, 0), (47, 1, 0)],
+  [(5, -1, 0), (23, 1, 0)],
+  [(5, 1, 0), (26, 1, 0)],
+  [(30, -1, 0), (35, 1, 0)],
+  [(5, -1, 0), (39, 1, 0)],
+  [(30, -1, 0), (44, 1, 0)],
+  [(30, 1, 0), (48, 1, 0)]]
+def pp19Rel3 : List (List (Nat × Int × Int)) := pp19Rel3_0
+def pp19Rel4_0 : List (List (Nat × Int × Int)) := [
+  [(9, -1, 0), (14, 1, 0)],
+  [(9, -1, 0), (23, 1, 0)],
+  [(9, 1, 0), (27, 1, 0)],
+  [(9, 1, 0), (42, 1, 0)],
+  [(9, -1, 0), (46, 1, 0)],
+  [(9, -1, 0), (55, 1, 0)],
+  [(9, -1, 0), (60, 1, 0)]]
+def pp19Rel4 : List (List (Nat × Int × Int)) := pp19Rel4_0
+def pp19Rels : List (List (List (Nat × Int × Int))) := [[], [], pp19Rel2, pp19Rel3, pp19Rel4, [], [], [], []]
+
+def pp20Rows : List (List Nat) := [[0], [0, 1, 2, 3, 4, 5, 6, 7], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 19, 22, 23, 24, 25, 26, 27], [2, 3, 4, 5, 15, 17, 19, 30], [9], [], [], [], []]
+def pp20Rel2_0 : List (List (Nat × Int × Int)) := [
+  [(6, -1, 0), (11, 1, 0), (15, -1, 0), (18, 1, 0)],
+  [(3, 1, 0), (16, 1, 0)],
+  [(4, 1, 0), (20, 1, 0)],
+  [(9, 1, 0), (17, 1, 0)],
+  [(10, 1, 0), (21, 1, 0)]]
+def pp20Rel2 : List (List (Nat × Int × Int)) := pp20Rel2_0
+def pp20Rel3_0 : List (List (Nat × Int × Int)) := [
+  [(2, 1, 0), (10, 1, 0)],
+  [(2, -1, 0), (24, 1, 0)],
+  [(17, 1, 0), (31, 1, 0)],
+  [(2, -2, 0), (36, 1, 0)],
+  [(17, 2, 0), (40, 1, 0)],
+  [(17, 1, 0), (45, 1, 0)],
+  [(3, 1, 0), (14, 1, 0)],
+  [(3, -1, 0), (28, 1, 0)],
+  [(19, 1, 0), (33, 1, 0)],
+  [(3, -2, 0), (37, 1, 0)],
+  [(19, 2, 0), (46, 1, 0)],
+  [(19, 1, 0), (51, 1, 0)],
+  [(4, -1, 0), (8, 2, 0)],
+  [(4, 1, 0), (11, 2, 0)],
+  [(15, -2, 0), (20, 1, 0)],
+  [(4, -1, 0), (38, 2, 0)],
+  [(15, -1, 0), (43, 1, 0)],
+  [(15, 1, 0), (47, 1, 0)],
+  [(5, -1, 0), (23, 2, 0)],
+  [(5, 1, 0), (26, 2, 0)],
+  [(30, -2, 0), (35, 1, 0)],
+  [(5, -1, 0), (39, 2, 0)],
+  [(30, -1, 0), (44, 1, 0)],
+  [(30, 1, 0), (48, 1, 0)]]
+def pp20Rel3 : List (List (Nat × Int × Int)) := pp20Rel3_0
+def pp20Rel4_0 : List (List (Nat × Int × Int)) := [
+  [(9, -2, 0), (14, 1, 0)],
+  [(9, -1, 0), (23, 1, 0)],
+  [(9, 1, 0), (27, 1, 0)],
+  [(9, 1, 0), (42, 1, 0)],
+  [(9, -1, 0), (46, 1, 0)],
+  [(9, -2, 0), (55, 1, 0)],
+  [(9, -1, 0), (60, 1, 0)]]
+def pp20Rel4 : List (List (Nat × Int × Int)) := pp20Rel4_0
+def pp20Rels : List (List (List (Nat × Int × Int))) := [[], [], pp20Rel2, pp20Rel3, pp20Rel4, [], [], [], []]
+
+def pp21Rows : List (List Nat) := [[0], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 38, 39, 40, 41, 45, 46, 47, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 23, 27, 30, 40, 41, 43, 44, 45, 47, 48, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 67, 68, 72, 75, 85, 86, 89, 90, 93, 96, 97, 98, 99, 100, 101, 103, 104, 108, 111, 121, 122, 126, 133, 134, 135, 137, 138, 139, 143, 144, 145, 149, 150, 154, 164, 165, 166, 170, 171, 175, 185, 186, 190, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218], [3, 4, 5, 6, 7, 8, 12, 13, 20, 30, 31, 34, 35, 38, 41, 42, 43, 44, 48, 49, 56, 66, 67, 71, 78, 79, 80, 145, 147, 148, 150, 151, 154, 156, 157, 160, 163, 168, 169, 176, 186, 187, 191, 198, 199, 200, 265, 268, 271, 277, 349, 375, 376, 380, 391, 395, 430], [21, 22, 26, 33, 34, 35, 100, 103, 106, 112, 184, 394], [64], [], [], [], [], [], []]
+def pp21Rel2_0 : List (List (Nat × Int × Int)) := [
+  [(5, 1, 0), (35, 1, 0)],
+  [(6, 1, 0), (42, 1, 0)],
+  [(7, 1, 0), (48, 1, 0)],
+  [(15, 1, 0), (36, 1, 0)],
+  [(16, 1, 0), (43, 1, 0)],
+  [(17, 1, 0), (49, 1, 0)],
+  [(24, 1, 0), (37, 1, 0)],
+  [(25, 1, 0), (44, 1, 0)],
+  [(26, 1, 0), (50, 1, 0)]]
+def pp21Rel2 : List (List (Nat × Int × Int)) := pp21Rel2_0
+def pp21Rel3_0 : List (List (Nat × Int × Int)) := [
+  [(0, 0, -1), (136, 1, 0)],
+  [(200, 0, -1), (219, 1, 0)],
+  [(4, 1, 0), (25, 1, 0)],
+  [(4, -1, 0), (69, 1, 0)],
+  [(43, 1, 0), (87, 1, 0)],
+  [(43, 1, 0), (161, 1, 0)],
+  [(5, 1, 0), (32, 1, 0)],
+  [(5, -1, 0), (76, 1, 0)],
+  [(47, 1, 0), (91, 1, 0)],
+  [(47, 1, 0), (182, 1, 0)],
+  [(6, 1, 0), (38, 1, 0)],
+  [(6, -1, 0), (82, 1, 0)],
+  [(50, 1, 0), (94, 1, 0)],
+  [(50, 1, 0), (197, 1, 0)],
+  [(13, 1, 0), (26, 1, 0)],
+  [(13, -1, 0), (105, 1, 0)],
+  [(44, 1, 0), (123, 1, 0)],
+  [(44, 1, 0), (162, 1, 0)],
+  [(14, 1, 0), (33, 1, 0)],
+  [(14, -1, 0), (112, 1, 0)],
+  [(48, 1, 0), (127, 1, 0)],
+  [(48, 1, 0), (183, 1, 0)],
+  [(15, 1, 0), (39, 1, 0)],
+  [(15, -1, 0), (118, 1, 0)],
+  [(51, 1, 0), (130, 1, 0)],
+  [(51, 1, 0), (198, 1, 0)],
+  [(22, 1, 0), (28, 1, 0)],
+  [(22, -1, 0), (140, 1, 0)],
+  [(40, -1, 0), (155, 1, 0)],
+  [(40, 1, 0), (172, 1, 0)],
+  [(23, 1, 0), (34, 1, 0)],
+  [(23, -1, 0), (146, 1, 0)],
+  [(41, -1, 0), (158, 1, 0)],
+  [(41, 1, 0), (187, 1, 0)],
+  [(30, 1, 0), (35, 1, 0)],
+  [(30, -1, 0), (167, 1, 0)],
+  [(45, -1, 0), (179, 1, 0)],
+  [(45, 1, 0), (191, 1, 0)],
+  [(58, 1, 0), (71, 1, 0)],
+  [(58, -1, 0), (106, 1, 0)],
+  [(89, 1, 0), (124, 1, 0)],
+  [(89, 1, 0), (163, 1, 0)],
+  [(59, 1, 0), (78, 1, 0)],
+  [(59, -1, 0), (113, 1, 0)],
+  [(93, 1, 0), (128, 1, 0)],
+  [(93, 1, 0), (184, 1, 0)],
+  [(60, 1, 0), (84, 1, 0)],
+  [(60, -1, 0), (119, 1, 0)],
+  [(96, 1, 0), (131, 1, 0)],
+  [(96, 1, 0), (199, 1, 0)],
+  [(67, 1, 0), (73, 1, 0)],
+  [(67, -1, 0), (141, 1, 0)],
+  [(85, -1, 0), (156, 1, 0)],
+  [(85, 1, 0), (173, 1, 0)],
+  [(68, 1, 0), (79, 1, 0)],
+  [(68, -1, 0), (147, 1, 0)],
+  [(86, -1, 0), (159, 1, 0)],
+  [(86, 1, 0), (188, 1, 0)],
+  [(75, 1, 0), (80, 1, 0)],
+  [(75, -1, 0), (168, 1, 0)],
+  [(90, -1, 0), (180, 1, 0)],
+  [(90, 1, 0), (192, 1, 0)],
+  [(103, 1, 0), (109, 1, 0)],
+  [(103, -1, 0), (142, 1, 0)],
+  [(121, -1, 0), (157, 1, 0)],
+  [(121, 1, 0), (174, 1, 0)],
+  [(104, 1, 0), (115, 1, 0)],
+  [(104, -1, 0), (148, 1, 0)],
+  [(122, -1, 0), (160, 1, 0)],
+  [(122, 1, 0), (189, 1, 0)],
+  [(111, 1, 0), (116, 1, 0)],
+  [(111, -1, 0), (169, 1, 0)],
+  [(126, -1, 0), (181, 1, 0)],
+  [(126, 1, 0), (193, 1, 0)]]
+def pp21Rel3 : List (List (Nat × Int × Int)) := pp21Rel3_0
+def pp21Rel4_0 : List (List (Nat × Int × Int)) := [
+  [(3, 1, 0), (16, 1, 0)],
+  [(3, -1, 0), (51, 1, 0)],
+  [(34, 1, 0), (69, 1, 0)],
+  [(34, 1, 0), (108, 1, 0)],
+  [(3, 1, 0), (170, 1, 0)],
+  [(34, -1, 0), (188, 1, 0)],
+  [(34, -1, 0), (227, 1, 0)],
+  [(154, 1, 0), (273, 1, 0)],
+  [(34, 1, 0), (310, 1, 0)],
+  [(154, -1, 0), (356, 1, 0)],
+  [(3, 0, -1), (369, 1, 0)],
+  [(34, 0, -1), (376, -1, 0), (390, 1, 0)],
+  [(154, 0, -1), (405, 1, 0)],
+  [(154, 1, 0), (424, 1, 0)],
+  [(4, 1, 0), (23, 1, 0)],
+  [(4, -1, 0), (58, 1, 0)],
+  [(38, 1, 0), (73, 1, 0)],
+  [(38, 1, 0), (129, 1, 0)],
+  [(4, 1, 0), (177, 1, 0)],
+  [(38, -1, 0), (192, 1, 0)],
+  [(38, -1, 0), (248, 1, 0)],
+  [(160, 1, 0), (279, 1, 0)],
+  [(38, 1, 0), (331, 1, 0)],
+  [(160, -1, 0), (362, 1, 0)],
+  [(4, 0, -1), (370, 1, 0)],
+  [(38, 0, -1), (380, -1, 0), (425, 1, 0)],
+  [(160, 0, -1), (440, 1, 0)],
+  [(160, 1, 0), (459, 1, 0)],
+  [(5, 1, 0), (29, 1, 0)],
+  [(5, -1, 0), (64, 1, 0)],
+  [(41, 1, 0), (76, 1, 0)],
+  [(41, 1, 0), (144, 1, 0)],
+  [(5, 1, 0), (183, 1, 0)],
+  [(41, -1, 0), (195, 1, 0)],
+  [(41, -1, 0), (263, 1, 0)],
+  [(163, 1, 0), (282, 1, 0)],
+  [(41, 1, 0), (346, 1, 0)],
+  [(163, -1, 0), (365, 1, 0)],
+  [(5, 0, -1), (371, 1, 0)],
+  [(41, 0, -1), (395, -1, 0), (426, 1, 0)],
+  [(163, 0, -1), (460, 1, 0)],
+  [(163, 1, 0), (479, 1, 0)],
+  [(6, 0, 1), (84, 1, 0)],
+  [(6, 0, -1), (89, 1, 0)],
+  [(43, 0, 1), (78, 0, -1), (99, 1, 0)],
+  [(6, 0, 1), (109, 1, 0)],
+  [(43, 0, -1), (78, 0, 1), (116, 1, 0)],
+  [(43, 0, 1), (78, 0, -1), (130, 1, 0)],
+  [(145, 0, -1), (164, 1, 0)],
+  [(6, 0, -1), (372, 1, 0)],
+  [(43, 0, -1), (78, 0, 1), (384, 1, 0)],
+  [(43, 0, 1), (78, 0, -1), (396, 1, 0)],
+  [(145, 1, 0), (415, 1, 0)],
+  [(43, 0, -1), (78, 0, 1), (427, 1, 0)],
+  [(145, -1, 0), (444, 1, 0)],
+  [(145, 1, 0), (461, 1, 0)],
+  [(7, 0, 1), (204, 1, 0)],
+  [(7, 0, -1), (209, 1, 0)],
+  [(44, 0, 1), (198, 0, -1), (219, 1, 0)],
+  [(7, 0, 1), (229, 1, 0)],
+  [(44, 0, -1), (198, 0, 1), (236, 1, 0)],
+  [(44, 0, 1), (198, 0, -1), (250, 1, 0)],
+  [(265, 0, -1), (284, 1, 0)],
+  [(7, 0, -1), (373, 1, 0)],
+  [(44, 0, -1), (198, 0, 1), (385, 1, 0)],
+  [(44, 0, 1), (198, 0, -1), (397, 1, 0)],
+  [(265, 1, 0), (416, 1, 0)],
+  [(44, 0, -1), (198, 0, 1), (428, 1, 0)],
+  [(265, -1, 0), (445, 1, 0)],
+  [(265, 1, 0), (462, 1, 0)],
+  [(8, 0, 1), (288, 1, 0)],
+  [(8, 0, -1), (293, 1, 0)],
+  [(80, 0, 1), (199, 0, -1), (303, 1, 0)],
+  [(8, 0, 1), (313, 1, 0)],
+  [(80, 0, -1), (199, 0, 1), (320, 1, 0)],
+  [(80, 0, 1), (199, 0, -1), (334, 1, 0)],
+  [(349, 0, -1), (368, 1, 0)],
+  [(8, 0, -1), (374, 1, 0)],
+  [(80, 0, -1), (199, 0, 1), (386, 1, 0)],
+  [(80, 0, 1), (199, 0, -1), (398, 1, 0)],
+  [(349, 1, 0), (417, 1, 0)],
+  [(80, 0, -1), (199, 0, 1), (429, 1, 0)],
+  [(349, -1, 0), (446, 1, 0)],
+  [(349, 1, 0), (463, 1, 0)],
+  [(12, 1, 0), (18, 1, 0)],
+  [(12, -1, 0), (86, 1, 0)],
+  [(30, -1, 0), (101, 1, 0)],
+  [(30, 1, 0), (118, 1, 0)],
+  [(12, 1, 0), (205, 1, 0)],
+  [(30, 1, 0), (220, 1, 0)],
+  [(30, -1, 0), (237, 1, 0)],
+  [(147, 1, 0), (266, 1, 0)],
+  [(30, -1, 0), (387, 1, 0)],
+  [(147, -1, 0), (418, 1, 0)],
+  [(147, 1, 0), (447, 1, 0)],
+  [(13, 1, 0), (24, 1, 0)],
+  [(13, -1, 0), (92, 1, 0)],
+  [(31, -1, 0), (104, 1, 0)],
+  [(31, 1, 0), (133, 1, 0)],
+  [(13, 1, 0), (211, 1, 0)],
+  [(31, 1, 0), (223, 1, 0)],
+  [(31, -1, 0), (252, 1, 0)],
+  [(150, 1, 0), (269, 1, 0)],
+  [(31, -1, 0), (402, 1, 0)],
+  [(150, -1, 0), (421, 1, 0)],
+  [(150, 1, 0), (467, 1, 0)],
+  [(20, 1, 0), (25, 1, 0)],
+  [(20, -1, 0), (113, 1, 0)],
+  [(35, -1, 0), (125, 1, 0)]]
+def pp21Rel4_1 : List (List (Nat × Int × Int)) := [
+  [(35, 1, 0), (137, 1, 0)],
+  [(20, 1, 0), (232, 1, 0)],
+  [(35, 1, 0), (244, 1, 0)],
+  [(35, -1, 0), (256, 1, 0)],
+  [(156, 1, 0), (275, 1, 0)],
+  [(35, -1, 0), (437, 1, 0)],
+  [(156, -1, 0), (456, 1, 0)],
+  [(156, 1, 0), (473, 1, 0)],
+  [(48, 1, 0), (54, 1, 0)],
+  [(48, -1, 0), (87, 1, 0)],
+  [(66, -1, 0), (102, 1, 0)],
+  [(66, 1, 0), (119, 1, 0)],
+  [(48, 1, 0), (289, 1, 0)],
+  [(66, 1, 0), (304, 1, 0)],
+  [(66, -1, 0), (321, 1, 0)],
+  [(148, 1, 0), (350, 1, 0)],
+  [(66, -1, 0), (388, 1, 0)],
+  [(148, -1, 0), (419, 1, 0)],
+  [(148, 1, 0), (448, 1, 0)],
+  [(49, 1, 0), (60, 1, 0)],
+  [(49, -1, 0), (93, 1, 0)],
+  [(67, -1, 0), (105, 1, 0)],
+  [(67, 1, 0), (134, 1, 0)],
+  [(49, 1, 0), (295, 1, 0)],
+  [(67, 1, 0), (307, 1, 0)],
+  [(67, -1, 0), (336, 1, 0)],
+  [(151, 1, 0), (353, 1, 0)],
+  [(67, -1, 0), (403, 1, 0)],
+  [(151, -1, 0), (422, 1, 0)],
+  [(151, 1, 0), (468, 1, 0)],
+  [(56, 1, 0), (61, 1, 0)],
+  [(56, -1, 0), (114, 1, 0)],
+  [(71, -1, 0), (126, 1, 0)],
+  [(71, 1, 0), (138, 1, 0)],
+  [(56, 1, 0), (316, 1, 0)],
+  [(71, 1, 0), (328, 1, 0)],
+  [(71, -1, 0), (340, 1, 0)],
+  [(157, 1, 0), (359, 1, 0)],
+  [(71, -1, 0), (438, 1, 0)],
+  [(157, -1, 0), (457, 1, 0)],
+  [(157, 1, 0), (474, 1, 0)],
+  [(168, 1, 0), (174, 1, 0)],
+  [(168, -1, 0), (207, 1, 0)],
+  [(186, -1, 0), (222, 1, 0)],
+  [(186, 1, 0), (239, 1, 0)],
+  [(168, 1, 0), (290, 1, 0)],
+  [(186, 1, 0), (305, 1, 0)],
+  [(186, -1, 0), (322, 1, 0)],
+  [(268, 1, 0), (351, 1, 0)],
+  [(186, -1, 0), (389, 1, 0)],
+  [(268, -1, 0), (420, 1, 0)],
+  [(268, 1, 0), (449, 1, 0)],
+  [(169, 1, 0), (180, 1, 0)],
+  [(169, -1, 0), (213, 1, 0)],
+  [(187, -1, 0), (225, 1, 0)],
+  [(187, 1, 0), (254, 1, 0)],
+  [(169, 1, 0), (296, 1, 0)],
+  [(187, 1, 0), (308, 1, 0)],
+  [(187, -1, 0), (337, 1, 0)],
+  [(271, 1, 0), (354, 1, 0)],
+  [(187, -1, 0), (404, 1, 0)],
+  [(271, -1, 0), (423, 1, 0)],
+  [(271, 1, 0), (469, 1, 0)],
+  [(176, 1, 0), (181, 1, 0)],
+  [(176, -1, 0), (234, 1, 0)],
+  [(191, -1, 0), (246, 1, 0)],
+  [(191, 1, 0), (258, 1, 0)],
+  [(176, 1, 0), (317, 1, 0)],
+  [(191, 1, 0), (329, 1, 0)],
+  [(191, -1, 0), (341, 1, 0)],
+  [(277, 1, 0), (360, 1, 0)],
+  [(191, -1, 0), (439, 1, 0)],
+  [(277, -1, 0), (458, 1, 0)],
+  [(277, 1, 0), (475, 1, 0)]]
+def pp21Rel4 : List (List (Nat × Int × Int)) := pp21Rel4_0 ++ pp21Rel4_1
+def pp21Rel5_0 : List (List (Nat × Int × Int)) := [
+  [(21, -1, 0), (57, 1, 0)],
+  [(21, 1, 0), (74, 1, 0)],
+  [(21, 1, 0), (140, 1, 0)],
+  [(21, -1, 0), (157, 1, 0)],
+  [(103, 1, 0), (186, 1, 0)],
+  [(21, -1, 0), (224, 1, 0)],
+  [(103, -1, 0), (255, 1, 0)],
+  [(103, 1, 0), (284, 1, 0)],
+  [(21, -1, 0), (349, 1, 0)],
+  [(21, 1, 0), (366, 1, 0)],
+  [(103, -1, 0), (395, 1, 0)],
+  [(21, 1, 0), (433, 1, 0)],
+  [(103, 1, 0), (464, 1, 0)],
+  [(103, -1, 0), (493, 1, 0)],
+  [(21, -1, 0), (558, 1, 0)],
+  [(103, -1, 0), (589, 1, 0)],
+  [(103, 1, 0), (618, 1, 0)],
+  [(21, 0, -1), (666, 1, 0)],
+  [(103, 0, 1), (681, 1, 0)],
+  [(103, -1, 0), (700, 1, 0)],
+  [(22, -1, 0), (60, 1, 0)],
+  [(22, 1, 0), (89, 1, 0)],
+  [(22, 1, 0), (143, 1, 0)],
+  [(22, -1, 0), (172, 1, 0)],
+  [(106, 1, 0), (189, 1, 0)],
+  [(22, -1, 0), (239, 1, 0)],
+  [(106, -1, 0), (258, 1, 0)],
+  [(106, 1, 0), (304, 1, 0)],
+  [(22, -1, 0), (352, 1, 0)],
+  [(22, 1, 0), (381, 1, 0)],
+  [(106, -1, 0), (398, 1, 0)],
+  [(22, 1, 0), (448, 1, 0)],
+  [(106, 1, 0), (467, 1, 0)],
+  [(106, -1, 0), (513, 1, 0)],
+  [(22, -1, 0), (573, 1, 0)],
+  [(106, -1, 0), (592, 1, 0)],
+  [(106, 1, 0), (638, 1, 0)],
+  [(22, 0, -1), (667, 1, 0)],
+  [(106, 0, 1), (701, 1, 0)],
+  [(106, -1, 0), (720, 1, 0)],
+  [(26, -1, 0), (81, 1, 0)],
+  [(26, 1, 0), (93, 1, 0)],
+  [(26, 1, 0), (164, 1, 0)],
+  [(26, -1, 0), (176, 1, 0)],
+  [(112, 1, 0), (195, 1, 0)],
+  [(26, -1, 0), (274, 1, 0)],
+  [(112, -1, 0), (293, 1, 0)],
+  [(112, 1, 0), (310, 1, 0)],
+  [(26, -1, 0), (373, 1, 0)],
+  [(26, 1, 0), (385, 1, 0)],
+  [(112, -1, 0), (404, 1, 0)],
+  [(26, 1, 0), (483, 1, 0)],
+  [(112, 1, 0), (502, 1, 0)],
+  [(112, -1, 0), (519, 1, 0)],
+  [(26, -1, 0), (608, 1, 0)],
+  [(112, -1, 0), (627, 1, 0)],
+  [(112, 1, 0), (644, 1, 0)],
+  [(26, 0, -1), (671, 1, 0)],
+  [(112, 0, 1), (736, 1, 0)],
+  [(112, -1, 0), (755, 1, 0)],
+  [(33, 0, -1), (54, 1, 0)],
+  [(33, 0, 1), (71, 1, 0)],
+  [(33, 0, -1), (85, 1, 0)],
+  [(100, 0, -1), (119, 1, 0)],
+  [(33, 0, 1), (220, 1, 0)],
+  [(33, 0, -1), (232, 1, 0)],
+  [(100, 1, 0), (251, 1, 0)],
+  [(33, 0, 1), (263, 1, 0)],
+  [(100, -1, 0), (280, 1, 0)],
+  [(100, 1, 0), (297, 1, 0)],
+  [(33, 0, -1), (429, 1, 0)],
+  [(33, 0, 1), (441, 1, 0)],
+  [(100, -1, 0), (460, 1, 0)],
+  [(33, 0, -1), (472, 1, 0)],
+  [(100, 1, 0), (489, 1, 0)],
+  [(100, -1, 0), (506, 1, 0)],
+  [(33, 0, -1), (678, 1, 0)],
+  [(100, -1, 0), (697, 1, 0)],
+  [(100, 1, 0), (714, 1, 0)],
+  [(100, -1, 0), (743, 1, 0)],
+  [(34, 0, -1), (138, 1, 0)],
+  [(34, 0, 1), (155, 1, 0)],
+  [(34, 0, -1), (169, 1, 0)],
+  [(184, 0, -1), (203, 1, 0)],
+  [(34, 0, 1), (221, 1, 0)],
+  [(34, 0, -1), (233, 1, 0)],
+  [(184, 1, 0), (252, 1, 0)],
+  [(34, 0, 1), (264, 1, 0)],
+  [(184, -1, 0), (281, 1, 0)],
+  [(184, 1, 0), (298, 1, 0)],
+  [(34, 0, -1), (555, 1, 0)],
+  [(34, 0, 1), (567, 1, 0)],
+  [(184, -1, 0), (586, 1, 0)],
+  [(34, 0, -1), (598, 1, 0)],
+  [(184, 1, 0), (615, 1, 0)],
+  [(184, -1, 0), (632, 1, 0)],
+  [(34, 0, -1), (679, 1, 0)],
+  [(184, -1, 0), (698, 1, 0)],
+  [(184, 1, 0), (715, 1, 0)],
+  [(184, -1, 0), (744, 1, 0)],
+  [(35, 0, -1), (348, 1, 0)],
+  [(35, 0, 1), (365, 1, 0)],
+  [(35, 0, -1), (379, 1, 0)],
+  [(394, 0, -1), (413, 1, 0)],
+  [(35, 0, 1), (431, 1, 0)],
+  [(35, 0, -1), (443, 1, 0)],
+  [(394, 1, 0), (462, 1, 0)],
+  [(35, 0, 1), (474, 1, 0)],
+  [(394, -1, 0), (491, 1, 0)],
+  [(394, 1, 0), (508, 1, 0)],
+  [(35, 0, -1), (556, 1, 0)],
+  [(35, 0, 1), (568, 1, 0)],
+  [(394, -1, 0), (587, 1, 0)],
+  [(35, 0, -1), (599, 1, 0)],
+  [(394, 1, 0), (616, 1, 0)],
+  [(394, -1, 0), (633, 1, 0)],
+  [(35, 0, -1), (680, 1, 0)],
+  [(394, -1, 0), (699, 1, 0)],
+  [(394, 1, 0), (716, 1, 0)],
+  [(394, -1, 0), (745, 1, 0)]]
+def pp21Rel5 : List (List (Nat × Int × Int)) := pp21Rel5_0
+def pp21Rel6_0 : List (List (Nat × Int × Int)) := [
+  [(64, 0, -1), (83, 1, 0)],
+  [(64, 1, 0), (132, 1, 0)],
+  [(64, -1, 0), (161, 1, 0)],
+  [(64, 1, 0), (178, 1, 0)],
+  [(64, -1, 0), (257, 1, 0)],
+  [(64, 1, 0), (286, 1, 0)],
+  [(64, -1, 0), (303, 1, 0)],
+  [(64, -1, 0), (369, 1, 0)],
+  [(64, 1, 0), (386, 1, 0)],
+  [(64, -1, 0), (415, 1, 0)],
+  [(64, 1, 0), (508, 1, 0)],
+  [(64, -1, 0), (537, 1, 0)],
+  [(64, 1, 0), (554, 1, 0)],
+  [(64, 1, 0), (620, 1, 0)],
+  [(64, -1, 0), (637, 1, 0)],
+  [(64, 1, 0), (666, 1, 0)],
+  [(64, -1, 0), (745, 1, 0)],
+  [(64, 1, 0), (762, 1, 0)],
+  [(64, -1, 0), (791, 1, 0)],
+  [(64, 0, -1), (840, 1, 0)],
+  [(64, 1, 0), (859, 1, 0)]]
+def pp21Rel6 : List (List (Nat × Int × Int)) := pp21Rel6_0
+def pp21Rels : List (List (List (Nat × Int × Int))) := [[], [], pp21Rel2, pp21Rel3, pp21Rel4, pp21Rel5, pp21Rel6, [], [], [], [], [], []]
+
+def pp22Rows : List (List Nat) := [[0], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 38, 39, 40, 41, 45, 46, 47, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 23, 27, 30, 40, 41, 43, 44, 45, 47, 48, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 67, 68, 72, 75, 85, 86, 89, 90, 93, 96, 97, 98, 99, 100, 101, 103, 104, 108, 111, 121, 122, 126, 133, 134, 135, 136, 137, 138, 139, 143, 144, 145, 149, 150, 154, 165, 166, 170, 171, 175, 186, 190, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219], [3, 4, 5, 6, 7, 8, 12, 13, 20, 30, 31, 34, 35, 38, 41, 42, 43, 44, 48, 49, 56, 66, 67, 71, 78, 79, 80, 145, 147, 148, 150, 151, 154, 156, 157, 160, 163, 168, 169, 176, 186, 187, 191, 198, 199, 200, 265, 268, 271, 277, 349, 375, 376, 380, 391, 395, 430], [21, 22, 26, 33, 34, 35, 100, 103, 106, 112, 184, 394], [64], [], [], [], [], [], []]
+def pp22Rel2_0 : List (List (Nat × Int × Int)) := [
+  [(5, 1, 0), (35, 1, 0)],
+  [(6, 1, 0), (42, 1, 0)],
+  [(7, 1, 0), (48, 1, 0)],
+  [(15, 1, 0), (36, 1, 0)],
+  [(16, 1, 0), (43, 1, 0)],
+  [(17, 1, 0), (49, 1, 0)],
+  [(24, 1, 0), (37, 1, 0)],
+  [(25, 1, 0), (44, 1, 0)],
+  [(26, 1, 0), (50, 1, 0)]]
+def pp22Rel2 : List (List (Nat × Int × Int)) := pp22Rel2_0
+def pp22Rel3_0 : List (List (Nat × Int × Int)) := [
+  [(9, 0, 1), (17, 0, -1), (61, 0, 1), (139, 1, 0), (144, -1, 0), (164, 1, 0)],
+  [(54, 0, -1), (98, 0, 1), (133, 0, -1), (154, 1, 0), (171, -1, 0), (185, 1, 0)],
+  [(4, 1, 0), (25, 1, 0)],
+  [(4, -1, 0), (69, 1, 0)],
+  [(43, 1, 0), (87, 1, 0)],
+  [(43, 1, 0), (161, 1, 0)],
+  [(5, 1, 0), (32, 1, 0)],
+  [(5, -1, 0), (76, 1, 0)],
+  [(47, 1, 0), (91, 1, 0)],
+  [(47, 1, 0), (182, 1, 0)],
+  [(6, 1, 0), (38, 1, 0)],
+  [(6, -1, 0), (82, 1, 0)],
+  [(50, 1, 0), (94, 1, 0)],
+  [(50, 1, 0), (197, 1, 0)],
+  [(13, 1, 0), (26, 1, 0)],
+  [(13, -1, 0), (105, 1, 0)],
+  [(44, 1, 0), (123, 1, 0)],
+  [(44, 1, 0), (162, 1, 0)],
+  [(14, 1, 0), (33, 1, 0)],
+  [(14, -1, 0), (112, 1, 0)],
+  [(48, 1, 0), (127, 1, 0)],
+  [(48, 1, 0), (183, 1, 0)],
+  [(15, 1, 0), (39, 1, 0)],
+  [(15, -1, 0), (118, 1, 0)],
+  [(51, 1, 0), (130, 1, 0)],
+  [(51, 1, 0), (198, 1, 0)],
+  [(22, 1, 0), (28, 1, 0)],
+  [(22, -1, 0), (140, 1, 0)],
+  [(40, -1, 0), (155, 1, 0)],
+  [(40, 1, 0), (172, 1, 0)],
+  [(23, 1, 0), (34, 1, 0)],
+  [(23, -1, 0), (146, 1, 0)],
+  [(41, -1, 0), (158, 1, 0)],
+  [(41, 1, 0), (187, 1, 0)],
+  [(30, 1, 0), (35, 1, 0)],
+  [(30, -1, 0), (167, 1, 0)],
+  [(45, -1, 0), (179, 1, 0)],
+  [(45, 1, 0), (191, 1, 0)],
+  [(58, 1, 0), (71, 1, 0)],
+  [(58, -1, 0), (106, 1, 0)],
+  [(89, 1, 0), (124, 1, 0)],
+  [(89, 1, 0), (163, 1, 0)],
+  [(59, 1, 0), (78, 1, 0)],
+  [(59, -1, 0), (113, 1, 0)],
+  [(93, 1, 0), (128, 1, 0)],
+  [(93, 1, 0), (184, 1, 0)],
+  [(60, 1, 0), (84, 1, 0)],
+  [(60, -1, 0), (119, 1, 0)],
+  [(96, 1, 0), (131, 1, 0)],
+  [(96, 1, 0), (199, 1, 0)],
+  [(67, 1, 0), (73, 1, 0)],
+  [(67, -1, 0), (141, 1, 0)],
+  [(85, -1, 0), (156, 1, 0)],
+  [(85, 1, 0), (173, 1, 0)],
+  [(68, 1, 0), (79, 1, 0)],
+  [(68, -1, 0), (147, 1, 0)],
+  [(86, -1, 0), (159, 1, 0)],
+  [(86, 1, 0), (188, 1, 0)],
+  [(75, 1, 0), (80, 1, 0)],
+  [(75, -1, 0), (168, 1, 0)],
+  [(90, -1, 0), (180, 1, 0)],
+  [(90, 1, 0), (192, 1, 0)],
+  [(103, 1, 0), (109, 1, 0)],
+  [(103, -1, 0), (142, 1, 0)],
+  [(121, -1, 0), (157, 1, 0)],
+  [(121, 1, 0), (174, 1, 0)],
+  [(104, 1, 0), (115, 1, 0)],
+  [(104, -1, 0), (148, 1, 0)],
+  [(122, -1, 0), (160, 1, 0)],
+  [(122, 1, 0), (189, 1, 0)],
+  [(111, 1, 0), (116, 1, 0)],
+  [(111, -1, 0), (169, 1, 0)],
+  [(126, -1, 0), (181, 1, 0)],
+  [(126, 1, 0), (193, 1, 0)]]
+def pp22Rel3 : List (List (Nat × Int × Int)) := pp22Rel3_0
+def pp22Rel4_0 : List (List (Nat × Int × Int)) := [
+  [(3, 1, 0), (16, 1, 0)],
+  [(3, -1, 0), (51, 1, 0)],
+  [(34, 1, 0), (69, 1, 0)],
+  [(34, 1, 0), (108, 1, 0)],
+  [(3, 1, 0), (170, 1, 0)],
+  [(34, -1, 0), (188, 1, 0)],
+  [(34, -1, 0), (227, 1, 0)],
+  [(154, 1, 0), (273, 1, 0)],
+  [(34, 1, 0), (310, 1, 0)],
+  [(154, -1, 0), (356, 1, 0)],
+  [(3, 0, -3), (369, 1, 0)],
+  [(34, 0, -3), (376, -1, 0), (390, 1, 0)],
+  [(154, 0, -3), (405, 1, 0)],
+  [(154, 1, 0), (424, 1, 0)],
+  [(4, 1, 0), (23, 1, 0)],
+  [(4, -1, 0), (58, 1, 0)],
+  [(38, 1, 0), (73, 1, 0)],
+  [(38, 1, 0), (129, 1, 0)],
+  [(4, 1, 0), (177, 1, 0)],
+  [(38, -1, 0), (192, 1, 0)],
+  [(38, -1, 0), (248, 1, 0)],
+  [(160, 1, 0), (279, 1, 0)],
+  [(38, 1, 0), (331, 1, 0)],
+  [(160, -1, 0), (362, 1, 0)],
+  [(4, 0, -3), (370, 1, 0)],
+  [(38, 0, -3), (380, -1, 0), (425, 1, 0)],
+  [(160, 0, -3), (440, 1, 0)],
+  [(160, 1, 0), (459, 1, 0)],
+  [(5, 1, 0), (29, 1, 0)],
+  [(5, -1, 0), (64, 1, 0)],
+  [(41, 1, 0), (76, 1, 0)],
+  [(41, 1, 0), (144, 1, 0)],
+  [(5, 1, 0), (183, 1, 0)],
+  [(41, -1, 0), (195, 1, 0)],
+  [(41, -1, 0), (263, 1, 0)],
+  [(163, 1, 0), (282, 1, 0)],
+  [(41, 1, 0), (346, 1, 0)],
+  [(163, -1, 0), (365, 1, 0)],
+  [(5, 0, -3), (371, 1, 0)],
+  [(41, 0, -3), (395, -1, 0), (426, 1, 0)],
+  [(163, 0, -3), (460, 1, 0)],
+  [(163, 1, 0), (479, 1, 0)],
+  [(6, 0, 1), (84, 3, 0)],
+  [(6, 0, -1), (89, 3, 0)],
+  [(43, 0, 1), (78, 0, -1), (99, 3, 0)],
+  [(6, 0, 1), (109, 3, 0)],
+  [(43, 0, -1), (78, 0, 1), (116, 3, 0)],
+  [(43, 0, 1), (78, 0, -1), (130, 3, 0)],
+  [(145, 0, -3), (164, 1, 0)],
+  [(6, 0, -1), (372, 3, 0)],
+  [(43, 0, -1), (78, 0, 1), (384, 3, 0)],
+  [(43, 0, 1), (78, 0, -1), (396, 3, 0)],
+  [(145, 1, 0), (415, 1, 0)],
+  [(43, 0, -1), (78, 0, 1), (427, 3, 0)],
+  [(145, -1, 0), (444, 1, 0)],
+  [(145, 1, 0), (461, 1, 0)],
+  [(7, 0, 1), (204, 3, 0)],
+  [(7, 0, -1), (209, 3, 0)],
+  [(44, 0, 1), (198, 0, -1), (219, 3, 0)],
+  [(7, 0, 1), (229, 3, 0)],
+  [(44, 0, -1), (198, 0, 1), (236, 3, 0)],
+  [(44, 0, 1), (198, 0, -1), (250, 3, 0)],
+  [(265, 0, -3), (284, 1, 0)],
+  [(7, 0, -1), (373, 3, 0)],
+  [(44, 0, -1), (198, 0, 1), (385, 3, 0)],
+  [(44, 0, 1), (198, 0, -1), (397, 3, 0)],
+  [(265, 1, 0), (416, 1, 0)],
+  [(44, 0, -1), (198, 0, 1), (428, 3, 0)],
+  [(265, -1, 0), (445, 1, 0)],
+  [(265, 1, 0), (462, 1, 0)],
+  [(8, 0, 1), (288, 3, 0)],
+  [(8, 0, -1), (293, 3, 0)],
+  [(80, 0, 1), (199, 0, -1), (303, 3, 0)],
+  [(8, 0, 1), (313, 3, 0)],
+  [(80, 0, -1), (199, 0, 1), (320, 3, 0)],
+  [(80, 0, 1), (199, 0, -1), (334, 3, 0)],
+  [(349, 0, -3), (368, 1, 0)],
+  [(8, 0, -1), (374, 3, 0)],
+  [(80, 0, -1), (199, 0, 1), (386, 3, 0)],
+  [(80, 0, 1), (199, 0, -1), (398, 3, 0)],
+  [(349, 1, 0), (417, 1, 0)],
+  [(80, 0, -1), (199, 0, 1), (429, 3, 0)],
+  [(349, -1, 0), (446, 1, 0)],
+  [(349, 1, 0), (463, 1, 0)],
+  [(12, 1, 0), (18, 1, 0)],
+  [(12, -1, 0), (86, 1, 0)],
+  [(30, -1, 0), (101, 1, 0)],
+  [(30, 1, 0), (118, 1, 0)],
+  [(12, 1, 0), (205, 1, 0)],
+  [(30, 1, 0), (220, 1, 0)],
+  [(30, -1, 0), (237, 1, 0)],
+  [(147, 1, 0), (266, 1, 0)],
+  [(30, -1, 0), (387, 1, 0)],
+  [(147, -1, 0), (418, 1, 0)],
+  [(147, 1, 0), (447, 1, 0)],
+  [(13, 1, 0), (24, 1, 0)],
+  [(13, -1, 0), (92, 1, 0)],
+  [(31, -1, 0), (104, 1, 0)],
+  [(31, 1, 0), (133, 1, 0)],
+  [(13, 1, 0), (211, 1, 0)],
+  [(31, 1, 0), (223, 1, 0)],
+  [(31, -1, 0), (252, 1, 0)],
+  [(150, 1, 0), (269, 1, 0)],
+  [(31, -1, 0), (402, 1, 0)],
+  [(150, -1, 0), (421, 1, 0)],
+  [(150, 1, 0), (467, 1, 0)],
+  [(20, 1, 0), (25, 1, 0)],
+  [(20, -1, 0), (113, 1, 0)],
+  [(35, -1, 0), (125, 1, 0)]]
+def pp22Rel4_1 : List (List (Nat × Int × Int)) := [
+  [(35, 1, 0), (137, 1, 0)],
+  [(20, 1, 0), (232, 1, 0)],
+  [(35, 1, 0), (244, 1, 0)],
+  [(35, -1, 0), (256, 1, 0)],
+  [(156, 1, 0), (275, 1, 0)],
+  [(35, -1, 0), (437, 1, 0)],
+  [(156, -1, 0), (456, 1, 0)],
+  [(156, 1, 0), (473, 1, 0)],
+  [(48, 1, 0), (54, 1, 0)],
+  [(48, -1, 0), (87, 1, 0)],
+  [(66, -1, 0), (102, 1, 0)],
+  [(66, 1, 0), (119, 1, 0)],
+  [(48, 1, 0), (289, 1, 0)],
+  [(66, 1, 0), (304, 1, 0)],
+  [(66, -1, 0), (321, 1, 0)],
+  [(148, 1, 0), (350, 1, 0)],
+  [(66, -1, 0), (388, 1, 0)],
+  [(148, -1, 0), (419, 1, 0)],
+  [(148, 1, 0), (448, 1, 0)],
+  [(49, 1, 0), (60, 1, 0)],
+  [(49, -1, 0), (93, 1, 0)],
+  [(67, -1, 0), (105, 1, 0)],
+  [(67, 1, 0), (134, 1, 0)],
+  [(49, 1, 0), (295, 1, 0)],
+  [(67, 1, 0), (307, 1, 0)],
+  [(67, -1, 0), (336, 1, 0)],
+  [(151, 1, 0), (353, 1, 0)],
+  [(67, -1, 0), (403, 1, 0)],
+  [(151, -1, 0), (422, 1, 0)],
+  [(151, 1, 0), (468, 1, 0)],
+  [(56, 1, 0), (61, 1, 0)],
+  [(56, -1, 0), (114, 1, 0)],
+  [(71, -1, 0), (126, 1, 0)],
+  [(71, 1, 0), (138, 1, 0)],
+  [(56, 1, 0), (316, 1, 0)],
+  [(71, 1, 0), (328, 1, 0)],
+  [(71, -1, 0), (340, 1, 0)],
+  [(157, 1, 0), (359, 1, 0)],
+  [(71, -1, 0), (438, 1, 0)],
+  [(157, -1, 0), (457, 1, 0)],
+  [(157, 1, 0), (474, 1, 0)],
+  [(168, 1, 0), (174, 1, 0)],
+  [(168, -1, 0), (207, 1, 0)],
+  [(186, -1, 0), (222, 1, 0)],
+  [(186, 1, 0), (239, 1, 0)],
+  [(168, 1, 0), (290, 1, 0)],
+  [(186, 1, 0), (305, 1, 0)],
+  [(186, -1, 0), (322, 1, 0)],
+  [(268, 1, 0), (351, 1, 0)],
+  [(186, -1, 0), (389, 1, 0)],
+  [(268, -1, 0), (420, 1, 0)],
+  [(268, 1, 0), (449, 1, 0)],
+  [(169, 1, 0), (180, 1, 0)],
+  [(169, -1, 0), (213, 1, 0)],
+  [(187, -1, 0), (225, 1, 0)],
+  [(187, 1, 0), (254, 1, 0)],
+  [(169, 1, 0), (296, 1, 0)],
+  [(187, 1, 0), (308, 1, 0)],
+  [(187, -1, 0), (337, 1, 0)],
+  [(271, 1, 0), (354, 1, 0)],
+  [(187, -1, 0), (404, 1, 0)],
+  [(271, -1, 0), (423, 1, 0)],
+  [(271, 1, 0), (469, 1, 0)],
+  [(176, 1, 0), (181, 1, 0)],
+  [(176, -1, 0), (234, 1, 0)],
+  [(191, -1, 0), (246, 1, 0)],
+  [(191, 1, 0), (258, 1, 0)],
+  [(176, 1, 0), (317, 1, 0)],
+  [(191, 1, 0), (329, 1, 0)],
+  [(191, -1, 0), (341, 1, 0)],
+  [(277, 1, 0), (360, 1, 0)],
+  [(191, -1, 0), (439, 1, 0)],
+  [(277, -1, 0), (458, 1, 0)],
+  [(277, 1, 0), (475, 1, 0)]]
+def pp22Rel4 : List (List (Nat × Int × Int)) := pp22Rel4_0 ++ pp22Rel4_1
+def pp22Rel5_0 : List (List (Nat × Int × Int)) := [
+  [(21, -1, 0), (57, 1, 0)],
+  [(21, 1, 0), (74, 1, 0)],
+  [(21, 1, 0), (140, 1, 0)],
+  [(21, -1, 0), (157, 1, 0)],
+  [(103, 1, 0), (186, 1, 0)],
+  [(21, -1, 0), (224, 1, 0)],
+  [(103, -1, 0), (255, 1, 0)],
+  [(103, 1, 0), (284, 1, 0)],
+  [(21, -1, 0), (349, 1, 0)],
+  [(21, 1, 0), (366, 1, 0)],
+  [(103, -1, 0), (395, 1, 0)],
+  [(21, 1, 0), (433, 1, 0)],
+  [(103, 1, 0), (464, 1, 0)],
+  [(103, -1, 0), (493, 1, 0)],
+  [(21, -1, 0), (558, 1, 0)],
+  [(103, -1, 0), (589, 1, 0)],
+  [(103, 1, 0), (618, 1, 0)],
+  [(21, 0, -3), (666, 1, 0)],
+  [(103, 0, 3), (681, 1, 0)],
+  [(103, -1, 0), (700, 1, 0)],
+  [(22, -1, 0), (60, 1, 0)],
+  [(22, 1, 0), (89, 1, 0)],
+  [(22, 1, 0), (143, 1, 0)],
+  [(22, -1, 0), (172, 1, 0)],
+  [(106, 1, 0), (189, 1, 0)],
+  [(22, -1, 0), (239, 1, 0)],
+  [(106, -1, 0), (258, 1, 0)],
+  [(106, 1, 0), (304, 1, 0)],
+  [(22, -1, 0), (352, 1, 0)],
+  [(22, 1, 0), (381, 1, 0)],
+  [(106, -1, 0), (398, 1, 0)],
+  [(22, 1, 0), (448, 1, 0)],
+  [(106, 1, 0), (467, 1, 0)],
+  [(106, -1, 0), (513, 1, 0)],
+  [(22, -1, 0), (573, 1, 0)],
+  [(106, -1, 0), (592, 1, 0)],
+  [(106, 1, 0), (638, 1, 0)],
+  [(22, 0, -3), (667, 1, 0)],
+  [(106, 0, 3), (701, 1, 0)],
+  [(106, -1, 0), (720, 1, 0)],
+  [(26, -1, 0), (81, 1, 0)],
+  [(26, 1, 0), (93, 1, 0)],
+  [(26, 1, 0), (164, 1, 0)],
+  [(26, -1, 0), (176, 1, 0)],
+  [(112, 1, 0), (195, 1, 0)],
+  [(26, -1, 0), (274, 1, 0)],
+  [(112, -1, 0), (293, 1, 0)],
+  [(112, 1, 0), (310, 1, 0)],
+  [(26, -1, 0), (373, 1, 0)],
+  [(26, 1, 0), (385, 1, 0)],
+  [(112, -1, 0), (404, 1, 0)],
+  [(26, 1, 0), (483, 1, 0)],
+  [(112, 1, 0), (502, 1, 0)],
+  [(112, -1, 0), (519, 1, 0)],
+  [(26, -1, 0), (608, 1, 0)],
+  [(112, -1, 0), (627, 1, 0)],
+  [(112, 1, 0), (644, 1, 0)],
+  [(26, 0, -3), (671, 1, 0)],
+  [(112, 0, 3), (736, 1, 0)],
+  [(112, -1, 0), (755, 1, 0)],
+  [(33, 0, -1), (54, 3, 0)],
+  [(33, 0, 1), (71, 3, 0)],
+  [(33, 0, -1), (85, 3, 0)],
+  [(100, 0, -3), (119, 1, 0)],
+  [(33, 0, 1), (220, 3, 0)],
+  [(33, 0, -1), (232, 3, 0)],
+  [(100, 1, 0), (251, 1, 0)],
+  [(33, 0, 1), (263, 3, 0)],
+  [(100, -1, 0), (280, 1, 0)],
+  [(100, 1, 0), (297, 1, 0)],
+  [(33, 0, -1), (429, 3, 0)],
+  [(33, 0, 1), (441, 3, 0)],
+  [(100, -1, 0), (460, 1, 0)],
+  [(33, 0, -1), (472, 3, 0)],
+  [(100, 1, 0), (489, 1, 0)],
+  [(100, -1, 0), (506, 1, 0)],
+  [(33, 0, -1), (678, 3, 0)],
+  [(100, -1, 0), (697, 1, 0)],
+  [(100, 1, 0), (714, 1, 0)],
+  [(100, -1, 0), (743, 1, 0)],
+  [(34, 0, -1), (138, 3, 0)],
+  [(34, 0, 1), (155, 3, 0)],
+  [(34, 0, -1), (169, 3, 0)],
+  [(184, 0, -3), (203, 1, 0)],
+  [(34, 0, 1), (221, 3, 0)],
+  [(34, 0, -1), (233, 3, 0)],
+  [(184, 1, 0), (252, 1, 0)],
+  [(34, 0, 1), (264, 3, 0)],
+  [(184, -1, 0), (281, 1, 0)],
+  [(184, 1, 0), (298, 1, 0)],
+  [(34, 0, -1), (555, 3, 0)],
+  [(34, 0, 1), (567, 3, 0)],
+  [(184, -1, 0), (586, 1, 0)],
+  [(34, 0, -1), (598, 3, 0)],
+  [(184, 1, 0), (615, 1, 0)],
+  [(184, -1, 0), (632, 1, 0)],
+  [(34, 0, -1), (679, 3, 0)],
+  [(184, -1, 0), (698, 1, 0)],
+  [(184, 1, 0), (715, 1, 0)],
+  [(184, -1, 0), (744, 1, 0)],
+  [(35, 0, -1), (348, 3, 0)],
+  [(35, 0, 1), (365, 3, 0)],
+  [(35, 0, -1), (379, 3, 0)],
+  [(394, 0, -3), (413, 1, 0)],
+  [(35, 0, 1), (431, 3, 0)],
+  [(35, 0, -1), (443, 3, 0)],
+  [(394, 1, 0), (462, 1, 0)],
+  [(35, 0, 1), (474, 3, 0)],
+  [(394, -1, 0), (491, 1, 0)],
+  [(394, 1, 0), (508, 1, 0)],
+  [(35, 0, -1), (556, 3, 0)],
+  [(35, 0, 1), (568, 3, 0)],
+  [(394, -1, 0), (587, 1, 0)],
+  [(35, 0, -1), (599, 3, 0)],
+  [(394, 1, 0), (616, 1, 0)],
+  [(394, -1, 0), (633, 1, 0)],
+  [(35, 0, -1), (680, 3, 0)],
+  [(394, -1, 0), (699, 1, 0)],
+  [(394, 1, 0), (716, 1, 0)],
+  [(394, -1, 0), (745, 1, 0)]]
+def pp22Rel5 : List (List (Nat × Int × Int)) := pp22Rel5_0
+def pp22Rel6_0 : List (List (Nat × Int × Int)) := [
+  [(64, 0, -3), (83, 1, 0)],
+  [(64, 1, 0), (132, 1, 0)],
+  [(64, -1, 0), (161, 1, 0)],
+  [(64, 1, 0), (178, 1, 0)],
+  [(64, -1, 0), (257, 1, 0)],
+  [(64, 1, 0), (286, 1, 0)],
+  [(64, -1, 0), (303, 1, 0)],
+  [(64, -1, 0), (369, 1, 0)],
+  [(64, 1, 0), (386, 1, 0)],
+  [(64, -1, 0), (415, 1, 0)],
+  [(64, 1, 0), (508, 1, 0)],
+  [(64, -1, 0), (537, 1, 0)],
+  [(64, 1, 0), (554, 1, 0)],
+  [(64, 1, 0), (620, 1, 0)],
+  [(64, -1, 0), (637, 1, 0)],
+  [(64, 1, 0), (666, 1, 0)],
+  [(64, -1, 0), (745, 1, 0)],
+  [(64, 1, 0), (762, 1, 0)],
+  [(64, -1, 0), (791, 1, 0)],
+  [(64, 0, -3), (840, 1, 0)],
+  [(64, 1, 0), (859, 1, 0)]]
+def pp22Rel6 : List (List (Nat × Int × Int)) := pp22Rel6_0
+def pp22Rels : List (List (List (Nat × Int × Int))) := [[], [], pp22Rel2, pp22Rel3, pp22Rel4, pp22Rel5, pp22Rel6, [], [], [], [], [], []]
+
+/-- cases `(n, c, u, rho_0..rho_4n, rows, relations)`. -/
+def ppTwo : List (Nat × List Int × (Int × Int) × List Nat × List (List Nat) × List (List (List (Nat × Int × Int)))) := [
+  (2, [0, 0, 0, 0, 0], (1, 0), [1, 8, 12, 8, 1, 0, 0, 0, 0], pp0Rows, pp0Rels),
+  (2, [0, 0, 0, 0, 0], (2, 3), [1, 8, 12, 8, 1, 0, 0, 0, 0], pp1Rows, pp1Rels),
+  (2, [1, 0, 0, 0, 0], (1, 0), [1, 8, 16, 8, 1, 0, 0, 0, 0], pp2Rows, pp2Rels),
+  (2, [1, 0, 0, 0, 0], (2, 3), [1, 8, 16, 8, 1, 0, 0, 0, 0], pp3Rows, pp3Rels),
+  (2, [0, 1, 0, 0, 0], (1, 0), [1, 8, 20, 8, 1, 0, 0, 0, 0], pp4Rows, pp4Rels),
+  (2, [0, 1, 0, 0, 0], (2, 3), [1, 8, 20, 8, 1, 0, 0, 0, 0], pp5Rows, pp5Rels),
+  (2, [0, 0, 1, 0, 0], (1, 0), [1, 8, 24, 8, 1, 0, 0, 0, 0], pp6Rows, pp6Rels),
+  (2, [0, 0, 1, 0, 0], (2, 3), [1, 8, 24, 8, 1, 0, 0, 0, 0], pp7Rows, pp7Rels),
+  (2, [0, 0, 0, 0, 1], (1, 0), [1, 8, 16, 8, 1, 0, 0, 0, 0], pp8Rows, pp8Rels),
+  (2, [0, 0, 0, 0, 1], (2, 3), [1, 8, 16, 8, 1, 0, 0, 0, 0], pp9Rows, pp9Rels),
+  (2, [24, 24, 12, 4, 1], (24, 0), [1, 8, 16, 8, 1, 0, 0, 0, 0], pp10Rows, pp10Rels),
+  (2, [24, 24, 12, 4, 1], (48, 72), [1, 8, 16, 8, 1, 0, 0, 0, 0], pp11Rows, pp11Rels),
+  (2, [96, 168, 156, 100, 49], (24, 0), [1, 8, 20, 8, 1, 0, 0, 0, 0], pp12Rows, pp12Rels),
+  (2, [96, 168, 156, 100, 49], (48, 72), [1, 8, 20, 8, 1, 0, 0, 0, 0], pp13Rows, pp13Rels),
+  (2, [3, -1, 2, 5, -4], (1, 0), [1, 8, 24, 8, 1, 0, 0, 0, 0], pp14Rows, pp14Rels),
+  (2, [3, -1, 2, 5, -4], (2, 3), [1, 8, 24, 8, 1, 0, 0, 0, 0], pp15Rows, pp15Rels)]
+
+/-- cases `(n, c, u, rho_0..rho_4n, rows, relations)`. -/
+def ppThreePure : List (Nat × List Int × (Int × Int) × List Nat × List (List Nat) × List (List (List (Nat × Int × Int)))) := [
+  (3, [0, 0, 0, 0, 0, 0, 0], (2, 3), [1, 12, 30, 40, 30, 12, 1, 0, 0, 0, 0, 0, 0], pp16Rows, pp16Rels)]
+
+/-- cases `(n, c, u, rho_0..rho_4n, rows, relations)`. -/
+def ppThreeCn : List (Nat × List Int × (Int × Int) × List Nat × List (List Nat) × List (List (List (Nat × Int × Int)))) := [
+  (3, [0, 0, 0, 1, 0, 0, 0], (2, 3), [1, 12, 57, 112, 57, 12, 1, 0, 0, 0, 0, 0, 0], pp17Rows, pp17Rels)]
+
+/-- cases `(n, c, u, rho_0..rho_4n, rows, relations)`. -/
+def ppThreeGeneric : List (Nat × List Int × (Int × Int) × List Nat × List (List Nat) × List (List (List (Nat × Int × Int)))) := [
+  (3, [3, -1, 2, 5, -4, 1, 7], (2, 3), [1, 12, 57, 112, 57, 12, 1, 0, 0, 0, 0, 0, 0], pp18Rows, pp18Rels)]
+
+/-- cases `(n, c, u, rho_0..rho_4n, rows, relations)`. -/
+def ppSpecialTwo : List (Nat × List Int × (Int × Int) × List Nat × List (List Nat) × List (List (List (Nat × Int × Int)))) := [
+  (2, [0, 0, 1, 0, 0], (2, 0), [1, 8, 22, 8, 1, 0, 0, 0, 0], pp19Rows, pp19Rels),
+  (2, [0, 0, 1, 0, 0], (4, 0), [1, 8, 23, 8, 1, 0, 0, 0, 0], pp20Rows, pp20Rels)]
+
+/-- cases `(n, c, u, rho_0..rho_4n, rows, relations)`. -/
+def ppSpecialThree : List (Nat × List Int × (Int × Int) × List Nat × List (List Nat) × List (List (List (Nat × Int × Int)))) := [
+  (3, [0, 0, 0, 1, 0, 0, 0], (6, 0), [1, 12, 57, 110, 57, 12, 1, 0, 0, 0, 0, 0, 0], pp21Rows, pp21Rels),
+  (3, [0, 0, 0, 1, 0, 0, 0], (18, 0), [1, 12, 57, 110, 57, 12, 1, 0, 0, 0, 0, 0, 0], pp22Rows, pp22Rels)]
+
+
+/-- the profile of every case of a list, with the data checked. -/
+def ppProfiles (cs : List (Nat × List Int × (Int × Int) × List Nat × List (List Nat)
+    × List (List (List (Nat × Int × Int))))) : Option (List (List Nat)) :=
+  if cs.all ppCaseOk then some (cs.map (·.2.2.2.1)) else none
+
+/-- **The Hochschild profile at `n = 2`**: on the eight shapes, each with
+`u = 1` and `u = 2 + 3i`, the ranks are `(1, 8, rho_2, 8, 1)` and zero
+above degree four, with `rho_2 = 12, 16, 20, 24` as the Hankel rank is
+`0, 1, 2, 3`. -/
+theorem hochschild_profile_two :
+    ppProfiles ppTwo = some ([12, 12, 16, 16, 20, 20, 24, 24, 16, 16, 16, 16, 20, 20, 24, 24].map
+      fun r => [1, 8, r, 8, 1, 0, 0, 0, 0]) := by
+  decide +kernel
+
+/-- **The Hochschild profile of the pure character at `n = 3`**. -/
+theorem hochschild_profile_three_pure :
+    ppProfiles ppThreePure = some [[1, 12, 30, 40, 30, 12, 1, 0, 0, 0, 0, 0, 0]] := by
+  decide +kernel
+
+/-- **The Hochschild profile of `c_3 theta^3` at `n = 3`.** -/
+theorem hochschild_profile_three_cn :
+    ppProfiles ppThreeCn = some [[1, 12, 57, 112, 57, 12, 1, 0, 0, 0, 0, 0, 0]] := by
+  decide +kernel
+
+/-- **The Hochschild profile of a general shape at `n = 3`**, in three
+parts by degree: `(1, 12, 57, 112, 57, 12, 1)`, zero above degree six. -/
+theorem hochschild_profile_three_generic_low :
+    (ppThreeGeneric.map (·.2.2.2.1) == [[1, 12, 57, 112, 57, 12, 1, 0, 0, 0, 0, 0, 0]]
+      && ppThreeGeneric.all fun c => ppCaseRangeOk c 0 4) = true := by
+  decide +kernel
+
+/-- **The general shape at `n = 3` in degree four.** -/
+theorem hochschild_profile_three_generic_middle :
+    (ppThreeGeneric.all fun c => ppCaseRangeOk c 4 5) = true := by
+  decide +kernel
+
+/-- **The general shape at `n = 3` in degrees five and above.** -/
+theorem hochschild_profile_three_generic_high :
+    (ppThreeGeneric.all fun c => ppCaseRangeOk c 5 13) = true := by
+  decide +kernel
+
+/-- **The middle degeneracy**: for `c_n theta^n` alone the middle rank
+drops by `d` exactly at `|u| = binom(n,a) n! |c_n|`, and only in degree `n`:
+`rho_2 = 22, 23` at `|u| = 2, 4` for `n = 2` (against `24` at `|u| = 1`),
+and `rho_3 = 110` at `|u| = 6, 18` for `n = 3` (against `112`). -/
+theorem hochschild_profile_special_two :
+    ppProfiles ppSpecialTwo = some [[1, 8, 22, 8, 1, 0, 0, 0, 0], [1, 8, 23, 8, 1, 0, 0, 0, 0]] := by
+  decide +kernel
+
+/-- **The middle degeneracy at `n = 3`**, at `|u| = 6` and `18`. -/
+theorem hochschild_profile_special_three :
+    (ppSpecialThree.map (·.2.2.2.1) == [[1, 12, 57, 110, 57, 12, 1, 0, 0, 0, 0, 0, 0],
+      [1, 12, 57, 110, 57, 12, 1, 0, 0, 0, 0, 0, 0]]
+      && (ppSpecialThree.take 1).all ppCaseOk) = true := by
+  decide +kernel
+
+/-- **The second special value at `n = 3`.** -/
+theorem hochschild_profile_special_three_second :
+    ((ppSpecialThree.drop 1).all ppCaseOk) = true := by
+  decide +kernel
+
+/-! ## 62.  Descent and scalar extension
+
+Item (LIV), Proposition (Descent and scalar extension).  A CM field
+`F = Q[z]/(f)` of degree `2m` is given by its monic minimal polynomial, the
+conjugate of `z`, a totally imaginary `xi` and a totally positive `t` of the
+real subfield.  Cohomology classes of an abelian variety of `(F,n)`-Weil
+type are alternating `Q`-multilinear forms on `H_1 = F^N`, with `Q`-basis
+`z^j e_i` (index `i D + j`), written as elements of the exterior algebra on
+these indices with integral coefficients; the Weil classes are the forms
+`Tr_{F/Q}(a det_F)` and the polarisation of `Y` is `Tr_{F/Q}(xi H_Y)`,
+`H_Y = diag(1, -t)`.
+
+(A) For `X = B x Y` with `B` of `(F,n)`-Weil type and `Y` of `(F,1)`-Weil
+type, `w_k = Tr(z^k det_F)` on `X`, `w'_k` the same on `B`, and
+`P(x) = pr_B*(x . pr_Y^*(eta_Y^(2m-2) y'))`, the kernel checks
+`s P(w_k) = sum_j C_kj w'_j` exactly for the recorded integer matrix `C`
+and `s > 0`, that `det C != 0`, that the forms `w'_j` are independent, and
+that `P` kills every `w_k` when `y'` is replaced by `eta_Y`.  Both sides
+depend on a basis tuple of `B` only through the sum of its exponents
+(`dsPushW`), so the identity is checked at each such sum.  So `dim W_F(B) = 2m` and `P` maps
+`W_F(X)` isomorphically onto `W_F(B)`.  (B) The normalised discriminant of
+`H_B + diag(1,-t)` is `t` times that of `H_B`, with signature `(n+1, n+1)`.
+(C) For `K` in `F`, `j^* Tr_F(z^k det_F) = s^(-1) sum_j C_kj Tr_K(s^j det_K)`
+with `C` of rank `2` and the forms of `K` independent, so
+`j^* W_F(B_F) = W_K(B)`.  The certificates are written by
+`lean/generate/make_descent.py`.
+-/
+
+/-- a CM field: minimal polynomial, `conj z`, `xi`, `t`. -/
+abbrev DsField := List Int × List Int × List Int × List Int
+
+def dsDeg (F : DsField) : Nat := F.1.length - 1
+
+/-- `z v` in the power basis. -/
+def dsMulZ (f : List Int) (v : List Int) : List Int :=
+  let c := v.getLastD 0
+  let sh := 0 :: v.dropLast
+  (List.range v.length).map fun i => sh.getD i 0 - c * f.getD i 0
+
+/-- `z^0, ..., z^(K-1)` in the power basis. -/
+def dsPowers (F : DsField) (K : Nat) : List (List Int) :=
+  let D := dsDeg F
+  (List.range K).foldl (fun acc _ => acc ++ [dsMulZ F.1 (acc.getLastD [])])
+    [(List.range D).map fun i => if i == 0 then 1 else 0] |>.take K
+
+def dsAdd (a b : List Int) : List Int := (a.zip b).map fun p => p.1 + p.2
+
+def dsSmul (c : Int) (a : List Int) : List Int := a.map (c * ·)
+
+def dsMul (F : DsField) (pw : List (List Int)) (a b : List Int) : List Int :=
+  let D := dsDeg F
+  (List.range D).foldl (fun acc i => (List.range D).foldl (fun acc' j =>
+    dsAdd acc' (dsSmul (a.getD i 0 * b.getD j 0) (pw.getD (i + j) []))) acc)
+    (List.replicate D 0)
+
+def dsTr (F : DsField) (pw : List (List Int)) (a : List Int) : Int :=
+  let D := dsDeg F
+  (List.range D).foldl (fun s k => s + a.getD k 0 *
+    (List.range D).foldl (fun s' j => s' + (pw.getD (k + j) []).getD j 0) 0) 0
+
+def dsBasis (D k : Nat) : List Int := (List.range D).map fun i => if i == k then 1 else 0
+
+def dsConj (F : DsField) (pw : List (List Int)) (a : List Int) : List Int :=
+  let D := dsDeg F
+  let cb := (List.range D).foldl (fun acc _ => acc ++ [dsMul F pw (acc.getLastD []) F.2.1])
+    [dsBasis D 0]
+  (List.range D).foldl (fun acc k => dsAdd acc (dsSmul (a.getD k 0) (cb.getD k []))) (List.replicate D 0)
+
+/-- all lists of length `l` with entries below `D`. -/
+def dsTuples (D : Nat) : Nat → List (List Nat)
+  | 0 => [[]]
+  | l + 1 => (dsTuples D l).flatMap fun t => (List.range D).map fun j => j :: t
+
+/-- the traces `Tr(z^e)`, `e < E`: the trace of multiplication by `z^e`. -/
+def dsTraces (F : DsField) (pw : List (List Int)) (E : Nat) : List Int :=
+  let D := dsDeg F
+  (List.range E).map fun e => (List.range D).foldl (fun s j => s + (pw.getD (e + j) []).getD j 0) 0
+
+/-- `Tr(a det_F)` on the coordinates `cs` (increasing), as an element of the
+exterior algebra on the `Q`-indices: on `z^(j_1) e_(c_1), ...` it is
+`Tr(a z^(j_1 + ...))`, and `Tr(a z^s) = sum_k a_k Tr(z^(k+s))`. -/
+def dsWeil (F : DsField) (tz : List Int) (cs : List Nat) (a : List Int) : PcElt :=
+  let D := dsDeg F
+  let trz := (List.range (cs.length * D + 1)).map fun s =>
+    (List.range D).foldl (fun acc k => acc + a.getD k 0 * tz.getD (k + s) 0) 0
+  pcNormal ((dsTuples D cs.length).filterMap fun js =>
+    let mask := (cs.zip js).foldl (fun x p => x ||| (1 <<< (p.1 * D + p.2))) 0
+    let v := trz.getD (js.foldl (· + ·) 0) 0
+    if v == 0 then none else some (mask, v, 0))
+
+/-- `eta_Y = Tr(xi H_Y)`, `H_Y = diag(1, -t)` on the coordinates `cs`. -/
+def dsEta (F : DsField) (pw : List (List Int)) (cs : List Nat) : PcElt :=
+  let D := dsDeg F
+  let h := [dsBasis D 0, dsSmul (-1) F.2.2.2]
+  pcNormal ((cs.zip h).flatMap fun ih => (List.range D).flatMap fun j =>
+    ((List.range D).filter (j < ·)).filterMap fun j2 =>
+      let v := dsTr F pw (dsMul F pw (dsMul F pw F.2.2.1 ih.2)
+                 (dsMul F pw (dsBasis D j) (dsConj F pw (dsBasis D j2))))
+      if v == 0 then none
+      else some ((1 <<< (ih.1 * D + j)) ||| (1 <<< (ih.1 * D + j2)), v, 0))
+
+/-- `P` on a Weil form.  `Tr(a det_F)` takes the value `Tr(a z^sigma)` on a
+`Q`-basis tuple with one vector `z^(j_i) e_i` per coordinate and exponent
+sum `sigma = j_1 + ...`, and vanishes on every other tuple.  So
+`P(Tr(a det_X))` vanishes off such tuples `U` of `B`, and at `U` with
+exponent sum `sigma` it is the sum over the tuples `T` of `Y` of
+`Tr(a z^(sigma + sigma(T))) mf(Y \ T)`, with the sign of moving the
+indices of `T` past those of `Y \ T` (the indices of `B` come first).
+This depends on `U` only through `sigma`.  Here `Y` has the coordinates `0`
+and `1`. -/
+def dsPushW (F : DsField) (tz : List Int) (mf : PcElt) (a : List Int) (sigma : Nat) : Int :=
+  let D := dsDeg F
+  let ym := (1 <<< (2 * D)) - 1
+  (dsTuples D 2).foldl (fun acc T =>
+    let Tm := (1 <<< T.getD 0 0) ||| (1 <<< (D + T.getD 1 0))
+    let comp := ym ^^^ Tm
+    let mv := ((mf.find? (·.1 == comp)).map (·.2.1)).getD 0
+    let tr := (List.range D).foldl (fun s k =>
+      s + a.getD k 0 * tz.getD (k + sigma + T.getD 0 0 + T.getD 1 0) 0) 0
+    acc + (if pcMergeOdd (2 * D) Tm comp then -(tr * mv) else tr * mv)) 0
+
+/-- the determinant, by expansion along the first row, with fuel. -/
+def dsDet : Nat → List (List Int) → Int
+  | 0, _ => 1
+  | f + 1, M =>
+    match M with
+    | [] => 1
+    | r :: rest =>
+      (List.range r.length).foldl (fun s j =>
+        let minor := rest.map fun row => row.eraseIdx j
+        let term := r.getD j 0 * dsDet f minor
+        if j % 2 == 0 then s + term else s - term) 0
+
+/-- (A) for one field and `n`: with `sigma` running over the exponent sums
+`0..2n(D-1)` of the tuples of `B`, `s P(w_k) = sum_j C_kj w'_j` at every
+`sigma`, `det C != 0`, the forms `w'_j` (value `Tr(z^(j+sigma))`) are
+independent on the recorded `sigma`s, and `P` with `eta_Y^(2m-1)` in place
+of `eta_Y^(2m-2) y'` vanishes. -/
+def dsDescentOk (F : DsField) (n s : Nat) (C : List (List Int)) (sigmas : List Nat) : Bool :=
+  let D := dsDeg F
+  let m := D / 2
+  let pw := dsPowers F ((2 * n + 4) * D)
+  let tz := dsTraces F pw ((2 * n + 3) * D)
+  let w := 2 * D
+  let eta := dsEta F pw [0, 1]
+  let mt := (List.range (2 * m - 2)).foldl (fun acc _ => pcMul w eta acc) (dsWeil F tz [0, 1] (dsBasis D 0))
+  let ctrl := (List.range (2 * m - 1)).foldl (fun acc _ => pcMul w eta acc) [(0, 1, 0)]
+  let sig := List.range (2 * n * (D - 1) + 1)
+  dsConj F pw F.2.2.1 == dsSmul (-1) F.2.2.1 && dsConj F pw F.2.2.2 == F.2.2.2
+    && C.length == D && sigmas.length == D && s > 0
+    && sigmas.all (· < 2 * n * (D - 1) + 1)
+    && ((C.zip (List.range D)).all fun ck => sig.all fun x =>
+          (s : Int) * dsPushW F tz mt (dsBasis D ck.2) x
+            == (List.range D).foldl (fun acc j => acc + ck.1.getD j 0 * tz.getD (j + x) 0) 0)
+    && dsDet D C != 0
+    && dsDet D (sigmas.map fun x => (List.range D).map fun j => tz.getD (j + x) 0) != 0
+    && (List.range D).all fun k => sig.all fun x => dsPushW F tz ctrl (dsBasis D k) x == 0
+
+/-- (C) for one extension `K` in `F` and `n`. -/
+def dsScalarOk (F K : DsField) (sF : List Int) (n s : Nat) (C : List (List Int)) (cols : List Nat) : Bool :=
+  let DF := dsDeg F
+  let pwF := dsPowers F (2 * DF)
+  let pwK := dsPowers K 4
+  let tuples := dsTuples 2 (2 * n)
+  let jb := [dsBasis DF 0, sF]
+  let WK := (List.range 2).map fun k => tuples.map fun js =>
+    dsTr K pwK (dsMul K pwK (dsBasis 2 k) (js.foldl (fun p j => dsMul K pwK p (dsBasis 2 j)) (dsBasis 2 0)))
+  let JW := (List.range DF).map fun k => tuples.map fun js =>
+    dsTr F pwF (dsMul F pwF (dsBasis DF k) (js.foldl (fun p j => dsMul F pwF p (jb.getD j [])) (dsBasis DF 0)))
+  dsMul F pwF sF sF == (-(K.1.getD 0 0)) :: List.replicate (DF - 1) 0
+    && K.1.length == 3 && K.1.getD 1 0 == 0 && s > 0 && C.length == DF
+    && ((JW.zip C).all fun rc => rc.1.map (fun x => (s : Int) * x) ==
+          ((List.range tuples.length).map fun i => (rc.2.getD 0 0) * (WK.getD 0 []).getD i 0
+             + (rc.2.getD 1 0) * (WK.getD 1 []).getD i 0))
+    && dsDet 2 (WK.map fun r => cols.map fun c => r.getD c 0) != 0
+    && (List.range DF).any fun a => (List.range DF).any fun b =>
+         a < b && dsDet 2 [C.getD a [], C.getD b []] != 0
+
+/-- (A): `(field, n, s, C, sigmas)`, a field given by its monic minimal
+polynomial (low to high), the conjugate of `z`, `xi` and `t`. -/
+def dsDescent : List ((List Int × List Int × List Int × List Int) × Nat × Nat × List (List Int) × List Nat) := [
+  (([1, 0, 1], [0, -1], [0, 1], [3, 0]), 1, 1, [[4, 0], [0, 4]], [0, 1]),
+  (([1, 0, 1], [0, -1], [0, 1], [3, 0]), 2, 1, [[4, 0], [0, 4]], [0, 1]),
+  (([1, 0, 1], [0, -1], [0, 1], [3, 0]), 3, 1, [[4, 0], [0, 4]], [0, 1]),
+  (([1, 0, 1], [0, -1], [0, 1], [3, 0]), 4, 1, [[4, 0], [0, 4]], [0, 1]),
+  (([1, 0, 1], [0, -1], [0, 1], [3, 0]), 5, 1, [[4, 0], [0, 4]], [0, 1]),
+  (([2, 0, 1], [0, -1], [0, 1], [5, 0]), 1, 1, [[8, 0], [0, 8]], [0, 1]),
+  (([2, 0, 1], [0, -1], [0, 1], [5, 0]), 2, 1, [[8, 0], [0, 8]], [0, 1]),
+  (([2, 0, 1], [0, -1], [0, 1], [5, 0]), 3, 1, [[8, 0], [0, 8]], [0, 1]),
+  (([2, 0, 1], [0, -1], [0, 1], [5, 0]), 4, 1, [[8, 0], [0, 8]], [0, 1]),
+  (([3, 0, 1], [0, -1], [0, 1], [7, 0]), 1, 1, [[12, 0], [0, 12]], [0, 1]),
+  (([3, 0, 1], [0, -1], [0, 1], [7, 0]), 2, 1, [[12, 0], [0, 12]], [0, 1]),
+  (([3, 0, 1], [0, -1], [0, 1], [7, 0]), 3, 1, [[12, 0], [0, 12]], [0, 1]),
+  (([3, 0, 1], [0, -1], [0, 1], [7, 0]), 4, 1, [[12, 0], [0, 12]], [0, 1]),
+  (([5, 0, 1], [0, -1], [0, 1], [2, 0]), 1, 1, [[20, 0], [0, 20]], [0, 1]),
+  (([5, 0, 1], [0, -1], [0, 1], [2, 0]), 2, 1, [[20, 0], [0, 20]], [0, 1]),
+  (([5, 0, 1], [0, -1], [0, 1], [2, 0]), 3, 1, [[20, 0], [0, 20]], [0, 1]),
+  (([1, 1, 1, 1, 1], [-1, -1, -1, -1], [1, 2, 1, 1], [2, 0, -1, -1]), 1, 1, [[-2500, 0, -1250, -1250], [1250, -1250, 1250, 0], [0, 1250, -1250, 1250], [-1250, -1250, 0, -2500]], [0, 1, 2, 3]),
+  (([1, 1, 1, 1, 1], [-1, -1, -1, -1], [1, 2, 1, 1], [2, 0, -1, -1]), 2, 1, [[-2500, 0, -1250, -1250], [1250, -1250, 1250, 0], [0, 1250, -1250, 1250], [-1250, -1250, 0, -2500]], [0, 1, 2, 3]),
+  (([1, 1, 1, 1, 1], [-1, -1, -1, -1], [1, 2, 1, 1], [2, 0, -1, -1]), 3, 1, [[-2500, 0, -1250, -1250], [1250, -1250, 1250, 0], [0, 1250, -1250, 1250], [-1250, -1250, 0, -2500]], [0, 1, 2, 3]),
+  (([1, 0, 0, 0, 1], [0, 0, 0, -1], [0, 0, 1, 0], [3, 1, 0, -1]), 1, 1, [[-1536, 512, 0, -512], [512, -1536, 512, 0], [0, 512, -1536, 512], [-512, 0, 512, -1536]], [0, 1, 2, 3]),
+  (([1, 0, 0, 0, 1], [0, 0, 0, -1], [0, 0, 1, 0], [3, 1, 0, -1]), 2, 1, [[-1536, 512, 0, -512], [512, -1536, 512, 0], [0, 512, -1536, 512], [-512, 0, 512, -1536]], [0, 1, 2, 3]),
+  (([1, 0, 0, 0, 1], [0, 0, 0, -1], [0, 0, 1, 0], [3, 1, 0, -1]), 3, 1, [[-1536, 512, 0, -512], [512, -1536, 512, 0], [0, 512, -1536, 512], [-512, 0, 512, -1536]], [0, 1, 2, 3]),
+  (([1, 1, 1, 1, 1, 1, 1], [-1, -1, -1, -1, -1, -1], [1, 2, 1, 1, 1, 1], [3, 0, 0, 0, 0, 0]), 1, 1, [[21781872, 0, 10890936, 3630312, 3630312, 10890936], [-10890936, 10890936, -10890936, 0, -7260624, -7260624], [7260624, -3630312, 18151560, -3630312, 7260624, 0], [0, 7260624, -3630312, 18151560, -3630312, 7260624], [-7260624, -7260624, 0, -10890936, 10890936, -10890936], [10890936, 3630312, 3630312, 10890936, 0, 21781872]], [0, 1, 2, 3, 4, 5]),
+  (([1, 1, 1, 1, 1, 1, 1], [-1, -1, -1, -1, -1, -1], [1, 2, 1, 1, 1, 1], [3, 0, 0, 0, 0, 0]), 2, 1, [[21781872, 0, 10890936, 3630312, 3630312, 10890936], [-10890936, 10890936, -10890936, 0, -7260624, -7260624], [7260624, -3630312, 18151560, -3630312, 7260624, 0], [0, 7260624, -3630312, 18151560, -3630312, 7260624], [-7260624, -7260624, 0, -10890936, 10890936, -10890936], [10890936, 3630312, 3630312, 10890936, 0, 21781872]], [0, 1, 2, 3, 4, 5])]
+
+/-- (C): `(F, K, image of sqrt(-d) in F, n, s, C, columns)`. -/
+def dsScalar : List ((List Int × List Int × List Int × List Int) × (List Int × List Int × List Int × List Int) × List Int × Nat × Nat × List (List Int) × List Nat) := [
+  (([1, 0, 0, 0, 1], [0, 0, 0, -1], [0, 0, 1, 0], [3, 1, 0, -1]), ([1, 0, 1], [0, -1], [0, 1], [3, 0]), [0, 0, 1, 0], 1, 1, [[2, 0], [0, 0], [0, 2], [0, 0]], [0, 1]),
+  (([1, 0, 0, 0, 1], [0, 0, 0, -1], [0, 0, 1, 0], [3, 1, 0, -1]), ([1, 0, 1], [0, -1], [0, 1], [3, 0]), [0, 0, 1, 0], 2, 1, [[2, 0], [0, 0], [0, 2], [0, 0]], [0, 1]),
+  (([1, 1, 1, 1, 1, 1, 1], [-1, -1, -1, -1, -1, -1], [1, 2, 1, 1, 1, 1], [3, 0, 0, 0, 0, 0]), ([7, 0, 1], [0, -1], [0, 1], [2, 0]), [1, 2, 2, 0, 2, 0], 1, 2, [[6, 0], [-1, 1], [-1, 1], [-1, -1], [-1, 1], [-1, -1]], [0, 1]),
+  (([1, 1, 1, 1, 1, 1, 1], [-1, -1, -1, -1, -1, -1], [1, 2, 1, 1, 1, 1], [3, 0, 0, 0, 0, 0]), ([7, 0, 1], [0, -1], [0, 1], [2, 0]), [1, 2, 2, 0, 2, 0], 2, 2, [[6, 0], [-1, 1], [-1, 1], [-1, -1], [-1, 1], [-1, -1]], [0, 1]),
+  (([1, 0, 0, 1, 0, 0, 1], [0, 0, -1, 0, 0, -1], [1, 0, 0, 2, 0, 0], [3, 0, 0, 0, 0, 0]), ([3, 0, 1], [0, -1], [0, 1], [2, 0]), [1, 0, 0, 2, 0, 0], 1, 2, [[6, 0], [0, 0], [0, 0], [-3, 3], [0, 0], [0, 0]], [0, 1]),
+  (([1, 0, 0, 1, 0, 0, 1], [0, 0, -1, 0, 0, -1], [1, 0, 0, 2, 0, 0], [3, 0, 0, 0, 0, 0]), ([3, 0, 1], [0, -1], [0, 1], [2, 0]), [1, 0, 0, 2, 0, 0], 2, 2, [[6, 0], [0, 0], [0, 0], [-3, 3], [0, 0], [0, 0]], [0, 1])]
+
+
+/-- the normalised discriminant `(-1)^n det H` and the signature of a
+diagonal hermitian form. -/
+def dsDiscSig (h : List Int) (n : Nat) : Int × Nat × Nat :=
+  ((if n % 2 == 0 then 1 else -1) * h.foldl (· * ·) 1, h.countP (· > 0), h.countP (· < 0))
+
+/-- **Descent** over the imaginary quadratic fields: `P` maps `W_F(B x Y)`
+isomorphically onto `W_F(B)` and kills it when the Weil class of `Y` is
+replaced by its polarisation, for `Q(i)` (`n <= 5`), `Q(sqrt(-2))` and
+`Q(sqrt(-3))` (`n <= 4`) and `Q(sqrt(-5))` (`n <= 3`). -/
+theorem descent_weil_quadratic :
+    ((dsDescent.filter fun c => dsDeg c.1 == 2).all fun c =>
+      dsDescentOk c.1 c.2.1 c.2.2.1 c.2.2.2.1 c.2.2.2.2) = true := by
+  decide +kernel
+
+/-- **Descent** over `Q(zeta_5)` and `Q(zeta_8)`, `n <= 3`. -/
+theorem descent_weil_quartic :
+    ((dsDescent.filter fun c => dsDeg c.1 == 4).all fun c =>
+      dsDescentOk c.1 c.2.1 c.2.2.1 c.2.2.2.1 c.2.2.2.2) = true := by
+  decide +kernel
+
+/-- **Descent** over the sextic field `Q(zeta_7)`, `n = 1`. -/
+theorem descent_weil_sextic_one :
+    ((dsDescent.filter fun c => dsDeg c.1 == 6 && c.2.1 == 1).all fun c =>
+      dsDescentOk c.1 c.2.1 c.2.2.1 c.2.2.2.1 c.2.2.2.2) = true := by
+  decide +kernel
+
+/-- **Descent** over `Q(zeta_7)`, `n = 2`. -/
+theorem descent_weil_sextic_two :
+    ((dsDescent.filter fun c => dsDeg c.1 == 6 && c.2.1 == 2).all fun c =>
+      dsDescentOk c.1 c.2.1 c.2.2.1 c.2.2.2.1 c.2.2.2.2) = true := by
+  decide +kernel
+
+/-- **The discriminant of `B x Y`**: with `H_Y = diag(1, -t)` the form
+`H_B + H_Y` has signature `(n+1, n+1)` and normalised discriminant `t`
+times that of `H_B`, for `n = 1..5` and `t = 1, 2, 3, 5, 7`. -/
+theorem descent_discriminant :
+    ((List.range 5).all fun n' => [1, 2, 3, 5, 7].all fun (t : Int) =>
+      let n := n' + 1
+      let hB : List Int := ((List.range n).map fun i => (((i * 7 + 3) % 9 + 1 : Nat) : Int))
+        ++ ((List.range n).map fun i => -(((i * 5 + 2) % 7 + 1 : Nat) : Int))
+      let dB := dsDiscSig hB n
+      let dX := dsDiscSig (hB ++ [1, -t]) (n + 1)
+      dX.1 == dB.1 * t && dX.2 == (n + 1, n + 1)) = true := by
+  decide +kernel
+
+/-- **Scalar extension**: `j^* W_F(B_F) = W_K(B)` for `Q(i)` in `Q(zeta_8)`,
+`Q(sqrt(-7))` in `Q(zeta_7)` and `Q(sqrt(-3))` in `Q(zeta_9)`, `n = 1, 2`. -/
+theorem descent_scalar_extension :
+    (dsScalar.all fun c => dsScalarOk c.1 c.2.1 c.2.2.1 c.2.2.2.1 c.2.2.2.2.1
+      c.2.2.2.2.2.1 c.2.2.2.2.2.2) = true := by
+  decide +kernel
+
+/-! ## 63.  The Wirtinger bound on a Mumford square
+
+Item (LXIII), Example (The Wirtinger bound on a Mumford square).  In the
+split model `V = V_1 (x) V_2 (x) V_3`, `V_i = C^2`, the generator `a` of
+`H^1(X)` (`0 <= a < 8`) is the basis vector indexed by the bits of `a`, and
+`H^1(X x X) = V + V` has the generators `0..15`.  The polarisation is
+`theta = psi = eps (x) eps (x) eps`, `theta_Y = theta (x) 1 + 1 (x) theta`,
+and `wedge^2 V = C theta + U_12 + U_13 + U_23` by the Casimir operators
+`C_t = H_t^2 + 2(E_t F_t + F_t E_t)` of the three factors, acting on the
+exterior algebra as derivations.  The bases of the `U_ij` are written by
+`lean/generate/make_wirtinger.py`; the kernel checks that they are
+eigenvectors with the stated eigenvalues and that with `theta` they span
+`wedge^2 V`.  The projector tensors `pi_ij` lie in `U_ij (x) wedge^2 V` and
+`pi_0 = theta (x) theta / B(theta, theta)`, so the pairings of
+Example (The Wirtinger bound) follow from those checked here.
+-/
+
+def wmEps (a b : Nat) : Int := if a == 0 && b == 1 then 1 else if a == 1 && b == 0 then -1 else 0
+
+/-- `psi(i, j)` on the generators `0..15`. -/
+def wmPsi (i j : Nat) : Int :=
+  if i / 8 != j / 8 then 0
+  else
+    let a := i % 8
+    let b := j % 8
+    wmEps (a / 4 % 2) (b / 4 % 2) * wmEps (a / 2 % 2) (b / 2 % 2) * wmEps (a % 2) (b % 2)
+
+/-- `theta` on the copy starting at generator `s`. -/
+def wmTheta (s : Nat) : PcElt :=
+  pcNormal ((List.range 8).flatMap fun i => ((List.range 8).filter (i < ·)).filterMap fun j =>
+    let v := wmPsi i j
+    if v == 0 then none else some ((1 <<< (i + s)) ||| (1 <<< (j + s)), v, 0))
+
+def wmPow (w : Nat) (x : PcElt) (k : Nat) : PcElt :=
+  (List.range k).foldl (fun acc _ => pcMul w acc x) [(0, 1, 0)]
+
+/-- the derivation induced by `e_i |-> e_(img i)` (or `0`): replacing `e_i`
+by `e_j` in a monomial moves `e_j` past the generators strictly between. -/
+def wmDer (img : Nat → Option Nat) (x : PcElt) : PcElt :=
+  pcNormal (x.flatMap fun t => (List.range 8).filterMap fun i =>
+    if !t.1.testBit i then none
+    else match img i with
+      | none => none
+      | some j =>
+        if t.1.testBit j then none
+        else
+          let lo := min i j
+          let hi := max i j
+          let between := (t.1 >>> (lo + 1)) &&& ((1 <<< (hi - lo - 1)) - 1)
+          let m := (t.1 ^^^ (1 <<< i)) ||| (1 <<< j)
+          if pcParity between then some (m, -t.2.1, -t.2.2) else some (m, t.2.1, t.2.2))
+
+def wmWt (t i : Nat) : Int := if (i >>> (2 - t)) % 2 == 1 then -1 else 1
+
+def wmE (t : Nat) : PcElt → PcElt :=
+  wmDer fun i => if (i >>> (2 - t)) % 2 == 1 then some (i - (1 <<< (2 - t))) else none
+
+def wmF (t : Nat) : PcElt → PcElt :=
+  wmDer fun i => if (i >>> (2 - t)) % 2 == 0 then some (i + (1 <<< (2 - t))) else none
+
+def wmH (t : Nat) (x : PcElt) : PcElt :=
+  pcNormal (x.map fun m =>
+    let s := (List.range 8).foldl (fun acc i => if m.1.testBit i then acc + wmWt t i else acc) 0
+    (m.1, s * m.2.1, s * m.2.2))
+
+def wmCas (t : Nat) (x : PcElt) : PcElt :=
+  pcNormal (wmH t (wmH t x) ++ pcScale 2 0 (wmE t (wmF t x) ++ wmF t (wmE t x)))
+
+def wmVec (v : List (Nat × Int)) : PcElt := pcNormal (v.map fun t => (t.1, t.2, 0))
+
+/-- `u` lies in the summand with Casimir eigenvalues `8 pat_t`. -/
+def wmEigen (pat : List Bool) (u : PcElt) : Bool :=
+  (List.range 3).all fun t => wmCas t u == pcNormal (pcScale (if pat.getD t false then 8 else 0) 0 u)
+
+/-- the pairing `B` on `wedge^2 V` induced by `psi`. -/
+def wmB (x y : PcElt) : Int :=
+  x.foldl (fun s p => y.foldl (fun s' q =>
+    let a := (List.range 8).find? (p.1.testBit ·) |>.getD 0
+    let b := (List.range 8).reverse.find? (p.1.testBit ·) |>.getD 0
+    let c := (List.range 8).find? (q.1.testBit ·) |>.getD 0
+    let d := (List.range 8).reverse.find? (q.1.testBit ·) |>.getD 0
+    s' + p.2.1 * q.2.1 * (wmPsi a c * wmPsi b d - wmPsi a d * wmPsi b c)) s) 0
+
+def wmTop (x : PcElt) (top : Nat) : Int := ((x.find? (·.1 == top)).map (·.2.1)).getD 0
+
+def wmU12 : List (List (Nat × Int)) := [
+  [(3, 1)],
+  [(9, -1), (6, 1)],
+  [(33, -1), (18, 1)],
+  [(12, 1)],
+  [(129, -1), (66, 1), (36, -1), (24, 1)],
+  [(132, -1), (72, 1)],
+  [(48, 1)],
+  [(144, -1), (96, 1)],
+  [(192, 1)]]
+
+def wmU13 : List (List (Nat × Int)) := [
+  [(5, 1)],
+  [(9, 1), (6, 1)],
+  [(10, 1)],
+  [(65, -1), (20, 1)],
+  [(129, -1), (66, -1), (36, 1), (24, 1)],
+  [(130, -1), (40, 1)],
+  [(80, 1)],
+  [(144, 1), (96, 1)],
+  [(160, 1)]]
+
+def wmU23 : List (List (Nat × Int)) := [
+  [(17, 1)],
+  [(33, 1), (18, 1)],
+  [(34, 1)],
+  [(65, 1), (20, 1)],
+  [(68, 1)],
+  [(129, 1), (66, 1), (36, 1), (24, 1)],
+  [(130, 1), (40, 1)],
+  [(132, 1), (72, 1)],
+  [(136, 1)]]
+
+
+/-- **(A)** `psi^2 = -1`, so `psi` is nondegenerate; `theta^4 = 24 vol` on
+`X` and `theta_Y^8 = 8! vol` on `X x X`. -/
+theorem wirtinger_volumes :
+    ((List.range 8).all (fun i => (List.range 8).all fun j =>
+        (List.range 8).foldl (fun s k => s + wmPsi i k * wmPsi k j) 0 == if i == j then -1 else 0)
+      && wmPow 8 (wmTheta 0) 4 == [(255, 24, 0)]
+      && wmPow 16 (pcNormal (wmTheta 0 ++ wmTheta 8)) 8 == [(65535, 40320, 0)]) = true := by
+  decide +kernel
+
+/-- **(B)** the bases of `U_12`, `U_13`, `U_23` have Casimir eigenvalues
+`(8,8,0)`, `(8,0,8)`, `(0,8,8)`; with `theta` they are `28` vectors
+independent modulo `p`, so they span `wedge^2 V`; every one is primitive,
+`u theta^3 = 0`, while `theta theta^3 = 24 vol`, and `B(theta, theta) = 4`. -/
+theorem wirtinger_primitive :
+    let t3 := wmPow 8 (wmTheta 0) 3
+    let us := (wmU12.map wmVec) ++ (wmU13.map wmVec) ++ (wmU23.map wmVec)
+    ((wmU12.all fun u => wmEigen [true, true, false] (wmVec u))
+      && (wmU13.all fun u => wmEigen [true, false, true] (wmVec u))
+      && (wmU23.all fun u => wmEigen [false, true, true] (wmVec u))
+      && wmEigen [false, false, false] (wmTheta 0)
+      && us.length == 27
+      && pcRank ((wmTheta 0 :: us).map pcSparseOf) == 28
+      && us.all (fun u => (pcMul 8 u t3).isEmpty)
+      && pcMul 8 (wmTheta 0) t3 == [(255, 24, 0)]
+      && wmB (wmTheta 0) (wmTheta 0) == 4) = true := by
+  decide +kernel
+
+/-- **(C), (D)** `int (u (x) v) theta_Y^6 = 0` for `u` in the `U_ij` and `v`
+any monomial of `wedge^2 V`, so `int pi_ij theta_Y^6 = 0`;
+`int (theta (x) theta) theta_Y^6 = 11520 = 4 2880`, so
+`int pi_0 theta_Y^6 = 2880` and `L(omega_a) = 4 a_0`; and
+`int theta_Y^2 theta_Y^6 = 8!`, so `L(theta_Y^2) = 56`. -/
+theorem wirtinger_pairings :
+    let t6 := wmPow 16 (pcNormal (wmTheta 0 ++ wmTheta 8)) 6
+    let us := (wmU12.map wmVec) ++ (wmU13.map wmVec) ++ (wmU23.map wmVec)
+    let mons := (List.range 8).flatMap fun a => ((List.range 8).filter (a < ·)).map fun b =>
+      [((1 <<< (a + 8)) ||| (1 <<< (b + 8)), (1 : Int), (0 : Int))]
+    (us.all (fun u => mons.all fun v => wmTop (pcMul 16 (pcMul 16 u v) t6) 65535 == 0)
+      && wmTop (pcMul 16 (pcMul 16 (wmTheta 0) (wmTheta 8)) t6) 65535 == 11520
+      && wmTop (pcMul 16 (wmPow 16 (pcNormal (wmTheta 0 ++ wmTheta 8)) 2) t6) 65535 == 40320) = true := by
+  decide +kernel
+
+/-! ## 64.  The motivic group of a Mumford fourfold
+
+Item (LX), Proposition (The motivic group of a Mumford fourfold) and
+Proposition (The known classes on a Mumford square).  In the split model
+`V = V_1 (x) V_2 (x) V_3`, `V_k = Q^2`, the basis vector of index
+`4 b_1 + 2 b_2 + b_3`, `psi = eps (x) eps (x) eps`, `G = SL(2)^3` acting
+factorwise with Lie algebra `g = sl(2)^3`, and `P_sigma` the permutation of
+the factors.  The kernel checks: (A) `g` and the `27` products
+`x_1 (x) x_2 (x) x_3` lie in `sp(V, psi)`, are `36` independent elements of
+it, and `sp(V, psi)` has dimension at most `36`, so they span it; the
+products span `P = sl(V_1) (x) sl(V_2) (x) sl(V_3)`, stable under `ad g`
+because `sl(2)` is closed under the bracket, and the vectors of `P` killed
+by the three raising operators form a line, so `P` is irreducible; and by weights
+`S^2 V = L(2,2,2) + L(2,0,0) + L(0,2,0) + L(0,0,2)`.  (B) The six `P_sigma`
+lie in `Sp(V, psi)` and carry the `k`-th factor of `g` to the
+`sigma(k)`-th; the commutant of `g` in `End V` is the scalars; `-1` is the
+image of `(-1, 1, 1)`; the subgroups of `S_3` stable under conjugation by
+`A_3` are `1`, `A_3` and `S_3`.  (C) On `V (x) V` the exchanges `s_k` of
+the two copies of `V_k` are commuting involutions; the projectors
+`pi_0, pi_12, pi_13, pi_23` onto their joint eigenspaces with signs
+`(-,-,-)`, `(+,+,-)`, `(+,-,+)`, `(-,+,+)` lie in `wedge^2 V`, of ranks
+`1, 9, 9, 9`, and the cyclic permutation `zeta` of the factors fixes `pi_0`
+and permutes the other three cyclically.  (D) Cayley's hyperdeterminant
+is killed by `g`, fixed by the `P_sigma` and not killed by `sp(V, psi)`; by Weyl's
+alternating sum `dim (S^4 V)^G = 1` and `dim (S^4 V)^Sp = 0`.  (E) The
+non-crossing pairings of `2m` points give `SL(2)`-invariant tensors with
+nonsingular Gram matrix, `1, 2, 5` of them, the dimension
+`binom(2m,m) - binom(2m,m+1)` of the invariants; so their products over
+the three factors, `1, 8, 125` of them, are a basis of `(V^(x)2m)^G`, which
+the permutations of the factors permute, and Burnside's count gives `4, 45`
+orbits of `A_3` and `4, 35` of `S_3`; the `1, 3, 15` pairings of `psi` have
+Gram matrix the entrywise cube of the factor Gram matrix, of rank
+`1, 3, 15`.  (G) `6x^2 - 2y^2 - 2z^2` has no zero modulo `27` with
+`(x, y, z)` not all divisible by `3`, so `<6, -2, -2>` is anisotropic over
+`Q_3`.
+-/
+
+abbrev MmMat := List (List Int)
+
+def mmAt (M : MmMat) (i j : Nat) : Int := (M.getD i []).getD j 0
+
+def mmMul (A B : MmMat) : MmMat :=
+  let n := B.length
+  let m := (B.getD 0 []).length
+  A.map fun r => (List.range m).map fun j => (List.range n).foldl (fun s k => s + r.getD k 0 * mmAt B k j) 0
+
+def mmT (A : MmMat) : MmMat :=
+  (List.range (A.getD 0 []).length).map fun j => A.map fun r => r.getD j 0
+
+def mmAdd (A B : MmMat) : MmMat := (A.zip B).map fun p => (p.1.zip p.2).map fun q => q.1 + q.2
+
+def mmSc (c : Int) (A : MmMat) : MmMat := A.map (·.map (c * ·))
+
+def mmBr (A B : MmMat) : MmMat := mmAdd (mmMul A B) (mmSc (-1) (mmMul B A))
+
+def mmKron (A B : MmMat) : MmMat :=
+  A.flatMap fun ra => B.map fun rb => ra.flatMap fun a => rb.map (a * ·)
+
+def mmK3 (a b c : MmMat) : MmMat := mmKron (mmKron a b) c
+
+def mmZero (M : MmMat) : Bool := M.all (·.all (· == 0))
+
+def mmI2 : MmMat := [[1, 0], [0, 1]]
+def mmE : MmMat := [[0, 1], [0, 0]]
+def mmF : MmMat := [[0, 0], [1, 0]]
+def mmH : MmMat := [[1, 0], [0, -1]]
+def mmEps : MmMat := [[0, 1], [-1, 0]]
+def mmSl2 : List MmMat := [mmE, mmF, mmH]
+def mmPsi : MmMat := mmK3 mmEps mmEps mmEps
+
+/-- the basis of `g`: the `k`-th factor is entries `3k..3k+2`. -/
+def mmG : List MmMat :=
+  (List.range 3).flatMap fun k => mmSl2.map fun X =>
+    mmK3 (if k == 0 then X else mmI2) (if k == 1 then X else mmI2) (if k == 2 then X else mmI2)
+
+def mmP27 : List MmMat := mmSl2.flatMap fun X => mmSl2.flatMap fun Y => mmSl2.map fun Z => mmK3 X Y Z
+
+def mmInSp (X : MmMat) : Bool := mmZero (mmAdd (mmMul (mmT X) mmPsi) (mmMul mmPsi X))
+
+def mmFlat (M : MmMat) : List Int := M.flatMap id
+
+def mmSparse (v : List Int) : PcSparse :=
+  ((v.zip (List.range v.length)).filterMap fun p =>
+    let z := pcMod p.1 0; if z == 0 then none else some (p.2, z))
+
+def mmRank (vs : List (List Int)) : Nat := pcRank (vs.map mmSparse)
+
+/-- coordinates of `M` in `mmP27`: `E` at `(0,1)`, `F` at `(1,0)`, `H` at `(0,0)`. -/
+def mmCoords27 (M : MmMat) : List Int :=
+  let pos : Nat → Nat × Nat := fun x => if x == 0 then (0, 1) else if x == 1 then (1, 0) else (0, 0)
+  (List.range 3).flatMap fun x => (List.range 3).flatMap fun y => (List.range 3).map fun z =>
+    mmAt M (4 * (pos x).1 + 2 * (pos y).1 + (pos z).1) (4 * (pos x).2 + 2 * (pos y).2 + (pos z).2)
+
+def mmComb (cs : List Int) (Ms : List MmMat) : MmMat :=
+  (cs.zip Ms).foldl (fun acc p => mmAdd acc (mmSc p.1 p.2)) (List.replicate 8 (List.replicate 8 0))
+
+/-- the unit matrix `E_ij` of size `8`. -/
+def mmUnit (i j : Nat) : MmMat := (List.range 8).map fun r => (List.range 8).map fun c => if r == i && c == j then 1 else 0
+
+/-- the permutation `P_sigma`: `e_a -> e_b` with `b_(sigma k) = a_k`. -/
+def mmPerm (s : List Nat) : MmMat :=
+  let img := fun (a : Nat) =>
+    let bits := [a / 4 % 2, a / 2 % 2, a % 2]
+    let b := (List.range 3).map fun t => ((List.range 3).find? (fun k => s.getD k 0 == t)).map (bits.getD · 0) |>.getD 0
+    4 * b.getD 0 0 + 2 * b.getD 1 0 + b.getD 2 0
+  (List.range 8).map fun r => (List.range 8).map fun c => if img c == r then 1 else 0
+
+def mmS3 : List (List Nat) := [[0, 1, 2], [0, 2, 1], [1, 0, 2], [1, 2, 0], [2, 0, 1], [2, 1, 0]]
+
+def mmCompose (s t : List Nat) : List Nat := (List.range 3).map fun k => s.getD (t.getD k 0) 0
+
+def mmInverse (s : List Nat) : List Nat :=
+  (List.range 3).map fun k => ((List.range 3).find? (fun j => s.getD j 0 == k)).getD 0
+
+/-- weights of `S^k` of a representation with one-dimensional weight spaces:
+the multiplicity of `mu`, over nondecreasing index sequences. -/
+def mmSymMult (ws : List (List Int)) : Nat → Nat → List Int → Nat
+  | 0, _, mu => if mu.all (· == 0) then 1 else 0
+  | k + 1, start, mu =>
+    ((List.range ws.length).filter (start ≤ ·)).foldl (fun acc i =>
+      acc + mmSymMult ws k i ((mu.zip (ws.getD i [])).map fun p => p.1 - p.2)) 0
+
+/-- Weyl's alternating sum `sum_w sgn(w) mult(w rho - rho)`, the Weyl group
+given as signed permutations `(p, signs)` acting by `o_(p i) = s_i v_i`. -/
+def mmWeyl (ws : List (List Int)) (k : Nat) (rho : List Int) (W : List (List Nat × List Int)) (sgn : List Nat × List Int → Int) : Int :=
+  W.foldl (fun acc w =>
+    let act := (List.range rho.length).map fun o =>
+      ((List.range rho.length).find? (fun i => w.1.getD i 0 == o)).map (fun i => w.2.getD i 1 * rho.getD i 0) |>.getD 0
+    acc + sgn w * (mmSymMult ws k 0 ((act.zip rho).map fun p => p.1 - p.2) : Nat)) 0
+
+def mmPermsN : Nat → List (List Nat)
+  | 0 => [[]]
+  | n + 1 => (mmPermsN n).flatMap fun p => (List.range (n + 1)).map fun i => p.take i ++ [n] ++ p.drop i
+
+def mmSigns : Nat → List (List Int)
+  | 0 => [[]]
+  | n + 1 => (mmSigns n).flatMap fun s => [1 :: s, -1 :: s]
+
+def mmPermSign (p : List Nat) : Int :=
+  (List.range p.length).foldl (fun s i => (List.range p.length).foldl (fun s' j =>
+    if i < j && p.getD i 0 > p.getD j 0 then -s' else s') s) 1
+
+def mmWeylGroup (n : Nat) (perms : Bool) : List (List Nat × List Int) :=
+  (if perms then mmPermsN n else [List.range n]).flatMap fun p => (mmSigns n).map fun s => (p, s)
+
+def mmWeylSign (w : List Nat × List Int) : Int := mmPermSign w.1 * w.2.foldl (· * ·) 1
+
+/-- the weights of `V` for `sl(2)^3` and for the torus of `Sp(V, psi)`. -/
+def mmWtsV : List (List Int) := (List.range 8).map fun a =>
+  [1 - 2 * ((a / 4 % 2 : Nat) : Int), 1 - 2 * ((a / 2 % 2 : Nat) : Int), 1 - 2 * ((a % 2 : Nat) : Int)]
+
+def mmWtsC4 : List (List Int) := (List.range 8).map fun i => (List.range 4).map fun j =>
+  if j == i / 2 then (if i % 2 == 0 then 1 else -1) else 0
+
+/-- the weights of `S^k` of a representation with one-dimensional weight
+spaces, one entry per monomial. -/
+def mmSymWeights (ws : List (List Int)) : Nat → Nat → List (List Int)
+  | 0, _ => [ws.headD [] |>.map fun _ => 0]
+  | k + 1, start => ((List.range ws.length).filter (start ≤ ·)).flatMap fun i =>
+      (mmSymWeights ws k i).map fun v => (v.zip (ws.getD i [])).map fun p => p.1 + p.2
+
+/-- Weyl's alternating sum over a table of weights. -/
+def mmWeylT (table : List (List Int)) (rho : List Int) (W : List (List Nat × List Int)) : Int :=
+  W.foldl (fun acc w =>
+    let act := (List.range rho.length).map fun o =>
+      ((List.range rho.length).find? (fun i => w.1.getD i 0 == o)).map (fun i => w.2.getD i 1 * rho.getD i 0) |>.getD 0
+    let mu := (act.zip rho).map fun p => p.1 - p.2
+    acc + mmWeylSign w * (table.countP (· == mu) : Int)) 0
+
+/-- `mu` is a weight of the irreducible `sl(2)^3`-module of highest weight `hw`. -/
+def mmIrrHas (hw mu : List Int) : Bool :=
+  (List.range 3).all fun t => (mu.getD t 0).natAbs ≤ (hw.getD t 0).natAbs
+    && ((hw.getD t 0) - (mu.getD t 0)) % 2 == 0
+
+def mmGrid : List (List Int) :=
+  (List.range 125).map fun i => [((i / 25 : Nat) : Int) - 2, ((i / 5 % 5 : Nat) : Int) - 2, ((i % 5 : Nat) : Int) - 2]
+
+/-- the orders of the subgroups of `S_3` stable under conjugation by `A_3`. -/
+def mmStableSubgroups : List Nat :=
+  let subs := ((List.range 64).map fun bits =>
+      ((List.range 6).filter fun i => (bits >>> i) % 2 == 1).map (mmS3.getD · [])).filter
+    fun H => !H.isEmpty && H.all fun a => H.all fun b => H.contains (mmCompose a b)
+  let a3 : List (List Nat) := [[0, 1, 2], [1, 2, 0], [2, 0, 1]]
+  (subs.filter fun H => a3.all fun g => H.all fun h => H.contains (mmCompose (mmCompose g h) (mmInverse g))).map (·.length)
+
+/-- polynomials in `8` variables: `(exponents, coefficient)`. -/
+abbrev MmPoly := List (List Nat × Int)
+
+def mmPolyNormal (p : MmPoly) : MmPoly :=
+  let keys := p.map (·.1) |>.foldl (fun acc e => if acc.contains e then acc else acc ++ [e]) []
+  (keys.map fun e => (e, p.foldl (fun s t => if t.1 == e then s + t.2 else s) 0)).filter (·.2 != 0)
+
+def mmMono (idx : List Nat) (c : Int) : MmPoly :=
+  [((List.range 8).map fun r => idx.countP (· == r), c)]
+
+/-- Cayley's hyperdeterminant of the `2 x 2 x 2` tensor `a_(4i+2j+k)`. -/
+def mmHyperdet : MmPoly :=
+  mmPolyNormal (
+    [[0, 0, 7, 7], [1, 1, 6, 6], [2, 2, 5, 5], [4, 4, 3, 3]].flatMap (mmMono · 1)
+    ++ [[0, 1, 6, 7], [0, 2, 5, 7], [0, 4, 3, 7], [1, 2, 5, 6], [1, 4, 3, 6], [2, 4, 3, 5]].flatMap (mmMono · (-2))
+    ++ [[0, 3, 5, 6], [1, 2, 4, 7]].flatMap (mmMono · 4))
+
+/-- `d/dt p(exp(tX) a)` at `t = 0`. -/
+def mmPolyDer (X : MmMat) (p : MmPoly) : MmPoly :=
+  mmPolyNormal (p.flatMap fun t => (List.range 8).flatMap fun r =>
+    if t.1.getD r 0 == 0 then []
+    else (List.range 8).filterMap fun s =>
+      let x := mmAt X r s
+      if x == 0 then none
+      else
+        let e := (List.range 8).map fun i =>
+          t.1.getD i 0 - (if i == r then 1 else 0) + (if i == s then 1 else 0)
+        some (e, t.2 * (t.1.getD r 0 : Int) * x))
+
+/-- `p(P a)` for a permutation matrix `P`. -/
+def mmPolySubst (P : MmMat) (p : MmPoly) : MmPoly :=
+  mmPolyNormal (p.map fun t =>
+    ((List.range 8).map fun c => (List.range 8).foldl (fun s r => if mmAt P r c == 1 then s + t.1.getD r 0 else s) 0, t.2))
+
+def mmSameSet (p q : MmPoly) : Bool := p.length == q.length && p.all (q.contains ·)
+
+/-- the tensor `prod eps(x_i, x_j)` of a pairing of `n` points, on `(Q^2)^(x)n`. -/
+def mmEpsTensor (pairs : List (Nat × Nat)) (n : Nat) : List (Nat × Int) :=
+  (List.range (1 <<< n)).filterMap fun b =>
+    let v := pairs.foldl (fun acc p => acc * mmAt mmEps ((b >>> (n - 1 - p.1)) % 2) ((b >>> (n - 1 - p.2)) % 2)) 1
+    if v == 0 then none else some (b, v)
+
+/-- `X` in `sl(2)` acting on `(Q^2)^(x)n` as a derivation. -/
+def mmSl2Act (X : MmMat) (n : Nat) (t : List (Nat × Int)) : List (Nat × Int) :=
+  let raw := t.flatMap fun bc => (List.range n).flatMap fun pos =>
+    let sh := n - 1 - pos
+    let bit := (bc.1 >>> sh) % 2
+    (List.range 2).filterMap fun r =>
+      let x := mmAt X r bit
+      if x == 0 then none else some ((bc.1 - (bit <<< sh)) ||| (r <<< sh), bc.2 * x)
+  ((List.range (1 <<< n)).map fun b => (b, raw.foldl (fun s q => if q.1 == b then s + q.2 else s) 0)).filter (·.2 != 0)
+
+def mmDot (t u : List (Nat × Int)) : Int := t.foldl (fun s p => s + p.2 * ((u.find? (·.1 == p.1)).map (·.2) |>.getD 0)) 0
+
+/-- the perfect matchings of a list of points, and the non-crossing ones. -/
+def mmMatchings : Nat → List Nat → List (List (Nat × Nat))
+  | 0, _ => [[]]
+  | f + 1, pts =>
+    match pts with
+    | [] => [[]]
+    | a :: rest => (List.range rest.length).flatMap fun i =>
+        (mmMatchings f (rest.eraseIdx i)).map fun m => (a, rest.getD i 0) :: m
+
+def mmNonCrossing (m : List (Nat × Nat)) : Bool :=
+  m.all fun p => m.all fun q => !(p.1 < q.1 && q.1 < p.2 && p.2 < q.2)
+
+def mmDet : Nat → List (List Int) → Int
+  | 0, _ => 1
+  | f + 1, M =>
+    match M with
+    | [] => 1
+    | r :: rest =>
+      (List.range r.length).foldl (fun s j =>
+        let term := r.getD j 0 * mmDet f (rest.map (·.eraseIdx j))
+        if j % 2 == 0 then s + term else s - term) 0
+
+/-- **(A)** `g` and the products lie in `sp(V, psi)` and are `36`
+independent elements; `X |-> X^T psi + psi X` has rank `28` on `End V`, so
+`dim sp(V, psi) <= 36` and they span it. -/
+theorem mumford_motivic_sp :
+    ((mmG ++ mmP27).all mmInSp
+      && mmRank ((mmG ++ mmP27).map mmFlat) == 36
+      && mmRank ((List.range 64).map fun ij => mmFlat (mmAdd (mmMul (mmT (mmUnit (ij / 8) (ij % 8))) mmPsi)
+            (mmMul mmPsi (mmUnit (ij / 8) (ij % 8))))) == 28) = true := by
+  decide +kernel
+
+/-- **(A)** `sl(2)` is closed under the bracket, so `P = sl(V_1) (x) sl(V_2)
+(x) sl(V_3)` is stable under `ad g`, the `k`-th factor acting on the `k`-th
+tensor factor; the vectors of `P` killed by the three raising operators
+form a line, containing `E (x) E (x) E`, so `P` is irreducible; and the
+weights of `S^2 V` are those of `L(2,2,2) + L(2,0,0) + L(0,2,0) + L(0,0,2)`. -/
+theorem mumford_motivic_irreducible :
+    (mmBr mmE mmF == mmH && mmBr mmH mmE == mmSc 2 mmE && mmBr mmH mmF == mmSc (-2) mmF
+      && mmRank ((List.range 27).map fun j => [0, 3, 6].flatMap fun k =>
+            mmCoords27 (mmBr (mmG.getD k []) (mmP27.getD j []))) == 26
+      && [0, 3, 6].all (fun k => mmZero (mmBr (mmG.getD k []) (mmK3 mmE mmE mmE)))
+      && mmGrid.all fun mu => ((mmSymWeights mmWtsV 2 0).countP (· == mu) : Int) ==
+            [[2, 2, 2], [2, 0, 0], [0, 2, 0], [0, 0, 2]].foldl (fun s hw => if mmIrrHas hw mu then s + 1 else s) 0) = true := by
+  decide +kernel
+
+/-- **(B)** the six `P_sigma` lie in `Sp(V, psi)` and carry the `k`-th
+factor of `g` to the `sigma(k)`-th. -/
+theorem mumford_motivic_permutations :
+    (mmS3.all (fun s => mmMul (mmMul (mmT (mmPerm s)) mmPsi) (mmPerm s) == mmPsi)
+      && mmS3.all (fun s => (List.range 3).all fun k => (List.range 3).all fun t =>
+          mmMul (mmMul (mmPerm s) (mmG.getD (3 * k + t) [])) (mmT (mmPerm s)) == mmG.getD (3 * s.getD k 0 + t) [])) = true := by
+  decide +kernel
+
+/-- **(B)** the commutant of `g` in `End V` is the scalars: the three `H_t`
+are diagonal with distinct joint eigenvalues, so a matrix commuting with them
+is diagonal, and the raising operators `E_t` join every basis vector to
+`e_0` (`e_a -> e_(a - 2^(2-t))` when that bit of `a` is set), so a diagonal
+matrix commuting with them is scalar; `-1` is the image of `(-1, 1, 1)`;
+the subgroups of `S_3` stable under conjugation by `A_3` have orders
+`1, 3, 6`. -/
+theorem mumford_motivic_commutant :
+    ((List.range 3).all (fun t => (List.range 8).all fun r => (List.range 8).all fun c =>
+        mmAt (mmG.getD (3 * t + 2) []) r c == (if r == c then (mmWtsV.getD r []).getD t 0 else 0))
+      && (List.range 8).all (fun a => (List.range 8).all fun b => a == b || mmWtsV.getD a [] != mmWtsV.getD b [])
+      && (List.range 8).all (fun a => a == 0 || (List.range 3).any fun t =>
+            (a >>> (2 - t)) % 2 == 1 && mmAt (mmG.getD (3 * t) []) (a - (1 <<< (2 - t))) a == 1)
+      && mmK3 (mmSc (-1) mmI2) mmI2 mmI2 == mmSc (-1) ((List.range 8).map fun r => (List.range 8).map fun c => if r == c then 1 else 0)
+      && mmStableSubgroups == [1, 3, 6]) = true := by
+  decide +kernel
+
+/-- the exchange `s_k` of the two copies of `V_k` on `V (x) V`, on the index
+`8 a + b` of `e_a (x) e_b`. -/
+def mmSwapIdx (k j : Nat) : Nat :=
+  let w := [4, 2, 1].getD k 1
+  let a := j / 8
+  let b := j % 8
+  let ba := a / w % 2
+  let bb := b / w % 2
+  8 * (a - ba * w + bb * w) + (b - bb * w + ba * w)
+
+/-- `s_T = prod_(k in T) s_k` on indices, `T` a subset of `{0, 1, 2}` written
+in binary with bit `2 - k` for `k`. -/
+def mmSigmaT (T j : Nat) : Nat :=
+  (List.range 3).foldl (fun i k => if T / [4, 2, 1].getD k 1 % 2 == 1 then mmSwapIdx k i else i) j
+
+/-- the sign `prod_(k in T) eps_k`. -/
+def mmSignT (s : List Int) (T : Nat) : Int :=
+  (List.range 3).foldl (fun c k => if T / [4, 2, 1].getD k 1 % 2 == 1 then c * s.getD k 1 else c) 1
+
+/-- the signs of `pi_0, pi_12, pi_13, pi_23`. -/
+def mmProjSigns : List (List Int) := [[-1, -1, -1], [1, 1, -1], [1, -1, 1], [-1, 1, 1]]
+
+/-- for `P = prod_k (1 + eps_k s_k) = sum_T eps_T s_T`: `eps_T` changes sign
+with `T -> {0,1,2} \ T`, so `P s_0 s_1 s_2 = -P`; and the trace
+`sum_T eps_T #{j : s_T e_j = e_j}` is `8 r`. -/
+def mmProjOk (s : List Int) (r : Nat) : Bool :=
+  (List.range 8).all (fun T => mmSignT s (7 - T) == - mmSignT s T)
+    && (List.range 64).foldl (fun acc j => (List.range 8).foldl (fun a T =>
+          if mmSigmaT T j == j then a + mmSignT s T else a) acc) 0 == 8 * (r : Int)
+
+/-- **(C) The four projectors on `wedge^2 V`.**  The exchanges `s_k` are
+commuting involutions and `s_T s_0 s_1 s_2 = s_(complement of T)`, so
+`P = prod_k (1 + eps_k s_k)` satisfies `P^2 = 8 P` and `pi = P/8` is a
+projector; for `pi_0, pi_12, pi_13, pi_23`, with signs `(-,-,-)`,
+`(+,+,-)`, `(+,-,+)`, `(-,+,+)`, `P s_0 s_1 s_2 = -P`, so `pi` lies in
+`wedge^2 V`, and its rank is its trace, `1, 9, 9, 9`. -/
+theorem mumford_motivic_projectors :
+    ((List.range 3).all (fun k => (List.range 64).all fun j =>
+        mmSwapIdx k j < 64 && mmSwapIdx k (mmSwapIdx k j) == j
+          && (List.range 3).all fun l => mmSwapIdx k (mmSwapIdx l j) == mmSwapIdx l (mmSwapIdx k j))
+      && (List.range 8).all (fun T => (List.range 64).all fun j => mmSigmaT T (mmSigmaT 7 j) == mmSigmaT (7 - T) j)
+      && (mmProjSigns.zip [1, 9, 9, 9]).all fun p => mmProjOk p.1 p.2) = true := by
+  decide +kernel
+
+/-- the cyclic permutation `zeta` of the factors on the basis of `V`:
+`e_(4 a_0 + 2 a_1 + a_2) -> e_(4 a_2 + 2 a_0 + a_1)`. -/
+def mmZeta8 : List Nat := [0, 4, 1, 5, 2, 6, 3, 7]
+
+/-- the permutation `zeta (x) zeta` of the indices of `V (x) V`. -/
+def mmZetaIdx (j : Nat) : Nat := 8 * mmZeta8.getD (j / 8) 0 + mmZeta8.getD (j % 8) 0
+
+/-- **(C) The cyclic permutation of the factors.**  `zeta` is the matrix
+`mmPerm [1, 2, 0]`, and `(zeta (x) zeta) s_k = s_(k+1) (zeta (x) zeta)`,
+indices modulo `3`; so conjugation by `zeta (x) zeta` sends the projector
+with signs `(eps_0, eps_1, eps_2)` to the one with signs
+`(eps_2, eps_0, eps_1)`: it carries `pi_12` to `pi_23`, `pi_23` to
+`pi_13`, `pi_13` to `pi_12` and fixes `pi_0`.  Hence `zeta` fixes
+`omega_a = sum a_key pi_key` exactly when `a_12 = a_13 = a_23`, and no
+exceptional class is fixed by `zeta`. -/
+theorem mumford_motivic_cycle :
+    ((List.range 8).all (fun c => mmAt (mmPerm [1, 2, 0]) (mmZeta8.getD c 0) c == 1)
+      && (List.range 3).all (fun k => (List.range 64).all fun j =>
+            mmZetaIdx (mmSwapIdx k j) == mmSwapIdx ((k + 1) % 3) (mmZetaIdx j))
+      && (mmProjSigns.map fun s => [s.getD 2 1, s.getD 0 1, s.getD 1 1])
+            == [[-1, -1, -1], [-1, 1, 1], [1, 1, -1], [1, -1, 1]]
+      && (List.range 5).all fun x => (List.range 5).all fun y => (List.range 5).all fun z =>
+          ((z, x, y) == (x, y, z)) == (x == y && y == z)) = true := by
+  decide +kernel
+
+/-- **(D)** Cayley's hyperdeterminant (`12` monomials) is killed by `g`,
+fixed by the six `P_sigma`, and moved by `E (x) E (x) E` in `sp(V, psi)`. -/
+theorem mumford_motivic_hyperdeterminant :
+    (mmHyperdet.length == 12
+      && mmG.all (fun X => (mmPolyDer X mmHyperdet).isEmpty)
+      && mmS3.all (fun s => mmSameSet (mmPolySubst (mmPerm s) mmHyperdet) mmHyperdet)
+      && !(mmPolyDer (mmK3 mmE mmE mmE) mmHyperdet).isEmpty
+      && mmInSp (mmK3 mmE mmE mmE)) = true := by
+  decide +kernel
+
+/-- **(D)** Weyl's alternating sum: `dim (S^4 V)^G = 1` and
+`dim (S^4 V)^Sp = 0`. -/
+theorem mumford_motivic_weyl :
+    (mmWeylT (mmSymWeights mmWtsV 4 0) [1, 1, 1] (mmWeylGroup 3 false) == 1
+      && mmWeylT (mmSymWeights mmWtsC4 4 0) [4, 3, 2, 1] (mmWeylGroup 4 true) == 0) = true := by
+  decide +kernel
+
+/-- **(E)** for `m = 1, 2, 3` the non-crossing pairings of `2m` points give
+`1, 2, 5 = binom(2m,m) - binom(2m,m+1)` tensors killed by `sl(2)`, with
+nonsingular Gram matrix; their products over the three factors number
+`1, 8, 125`; Burnside's counts `(c^3 + 2c)/3` and `(c^3 + 3c^2 + 2c)/6`
+are `4, 45` and `4, 35`; and the Gram matrix of the `1, 3, 15` pairings of
+`psi`, the entrywise cube of the factor Gram matrix, has rank `1, 3, 15`. -/
+theorem mumford_motivic_invariants :
+    ([1, 2, 3].all (fun m =>
+        let n := 2 * m
+        let allm := mmMatchings (m + 1) (List.range n)
+        let nc := allm.filter mmNonCrossing
+        let ts := nc.map (mmEpsTensor · n)
+        let c := choose n m - choose n (m + 1)
+        nc.length == c && ts.all (fun t => mmSl2.all fun X => (mmSl2Act X n t).isEmpty)
+          && mmDet c (ts.map fun t => ts.map (mmDot t)) != 0
+          && (let fac := allm.map (mmEpsTensor · n)
+              mmRank (fac.map fun s => fac.map fun t => (mmDot s t) ^ 3) == allm.length))
+      && [1, 2, 3].map (fun m => (List.range 3).foldl (fun a _ => a * (choose (2 * m) m - choose (2 * m) (m + 1))) 1) == [1, 8, 125]
+      && [2, 5].map (fun c => ((c ^ 3 + 2 * c) / 3, (c ^ 3 + 3 * c ^ 2 + 2 * c) / 6)) == [(4, 4), (45, 35)]
+      && [1, 2, 3].map (fun m => (mmMatchings (m + 1) (List.range (2 * m))).length) == [1, 3, 15]) = true := by
+  decide +kernel
+
+/-- **(G)** `6x^2 - 2y^2 - 2z^2` has no zero modulo `27` at `(x, y, z)` not
+all divisible by `3`: a primitive zero over `Z_3` would reduce to one, so
+`<6, -2, -2>` is anisotropic over `Q_3`. -/
+theorem mumford_three_adic_anisotropic :
+    ((List.range 27).all fun x => (List.range 27).all fun y => (List.range 27).all fun z =>
+      (x % 3 == 0 && y % 3 == 0 && z % 3 == 0)
+        || (6 * (x : Int) * x - 2 * (y : Int) * y - 2 * (z : Int) * z) % 27 != 0) = true := by
+  decide +kernel
+
+/-! ## 65.  Hodge classes on K3 surfaces and varieties of K3^[n] type
+
+Item (LXI), Proposition (Powers of K3 surfaces) and Proposition (Varieties
+of K3^[n] type).  (A) The Betti numbers of `S^[2]` for a K3 surface `S`,
+from `H^*(S^[2]) = Sym^2 H^*(S) + H^*(S)[-2]` (de Cataldo and Migliorini)
+and from Goettsche's product formula, are `(1,0,23,0,276,0,23,0,1)`.
+(B) The Fujiki pairing `G_ij G_kl + G_ik G_jl + G_il G_jk` on `Sym^2 V` has
+determinant `det(G)^(m+1) 2^(m-1) (m+2)` (fraction-free elimination) on
+fifteen integral forms of ranks `2` to `6`; the Beauville-Bogomolov lattice
+`U^3 + E_8(-1)^2 + <-2>` has determinant `2`, so on `Sym^2 H^2` the pairing
+has determinant `2^24 2^22 25 = 2^46 25 != 0`.  (C) With `c_2 = (6/5) q^vee`,
+`int c_2^2 = (36/25)(23^2 + 2 23) = 828`, `Todd_4 = (3 828 - 324)/720 = 3`
+and Riemann-Roch gives `chi(L) = binom(q(L)/2 + 3, 2)`.  (E) The least `n`
+with a partition into `t` distinct part sizes is `t(t+1)/2`, `231` at
+`t = 21`, by listing the partitions of `n <= 20`.  The forms of (B) are
+written by `lean/generate/make_k3.py`.
+-/
+
+/-- the determinant by fraction-free elimination: `p` the previous pivot,
+`s` the sign of the row moves, with fuel. -/
+def bzDet : Nat → List (List Int) → Int → Int → Int
+  | 0, _, p, s => s * p
+  | f + 1, M, p, s =>
+    match M with
+    | [] => s * p
+    | _ =>
+      match (List.range M.length).find? (fun r => (M.getD r []).headD 0 != 0) with
+      | none => 0
+      | some r =>
+        let piv := M.getD r []
+        let a := piv.headD 0
+        let rest := M.eraseIdx r
+        let M' := rest.map fun row =>
+          ((row.tail.zip piv.tail).map fun q => (q.1 * a - row.headD 0 * q.2) / p)
+        bzDet f M' a (if r % 2 == 0 then s else -s)
+
+def bzDeterminant (M : List (List Int)) : Int := bzDet (M.length + 1) M 1 1
+
+/-- the Fujiki pairing on `Sym^2` of a form `G` of rank `m`. -/
+def k3Sym2 (G : List (List Int)) : List (List Int) :=
+  let m := G.length
+  let g := fun (i j : Nat) => (G.getD i []).getD j 0
+  let pairs := (List.range m).flatMap fun i => ((List.range m).filter (i ≤ ·)).map fun j => (i, j)
+  pairs.map fun ij => pairs.map fun kl =>
+    g ij.1 ij.2 * g kl.1 kl.2 + g ij.1 kl.1 * g ij.2 kl.2 + g ij.1 kl.2 * g ij.2 kl.1
+
+/-- the Beauville-Bogomolov lattice `U^3 + E_8(-1)^2 + <-2>`. -/
+def k3BB : List (List Int) :=
+  let e8 := fun (i j : Nat) => (if i == j then (2 : Int) else 0)
+    - (if [(0, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 7), (1, 3)].any (fun p => p == (i, j) || p == (j, i)) then 1 else 0)
+  (List.range 23).map fun i => (List.range 23).map fun j =>
+    if i < 6 && j < 6 then (if i / 2 == j / 2 && i != j then 1 else 0)
+    else if i ≥ 6 && j ≥ 6 && i < 22 && j < 22 && (i - 6) / 8 == (j - 6) / 8 then -e8 ((i - 6) % 8) ((j - 6) % 8)
+    else if i == 22 && j == 22 then -2 else 0
+
+/-- the partitions of `n` with parts at most `k`, with fuel. -/
+def k3Parts : Nat → Nat → Nat → List (List Nat)
+  | 0, _, _ => [[]]
+  | f + 1, n, k =>
+    if n == 0 then [[]]
+    else ((List.range (min n k)).map (· + 1)).flatMap fun p => (k3Parts f (n - p) p).map (p :: ·)
+
+def k3Distinct (l : List Nat) : Nat := (l.foldl (fun acc x => if acc.contains x then acc else x :: acc) []).length
+
+/-- the fifteen forms of item (LXI)(B). -/
+def k3Forms : List (List (List Int)) := [
+  [[10, 4], [4, 6]],
+  [[-2, 3], [3, 2]],
+  [[4, -6], [-6, 0]],
+  [[-4, 1, -5], [1, -2, 5], [-5, 5, 2]],
+  [[2, -4, 2], [-4, -2, 2], [2, 2, 0]],
+  [[-2, -1, 3], [-1, 0, -2], [3, -2, 2]],
+  [[-2, 3, 2, 3], [3, -8, -4, -4], [2, -4, 0, -3], [3, -4, -3, -8]],
+  [[-2, -1, -2, 4], [-1, 2, 1, 0], [-2, 1, -2, -1], [4, 0, -1, 2]],
+  [[6, 3, 0, -2], [3, -2, -4, -2], [0, -4, 0, 0], [-2, -2, 0, -6]],
+  [[2, 1, 1, -2, 3], [1, 6, -1, -1, -1], [1, -1, -6, 4, 4], [-2, -1, 4, 0, 1], [3, -1, 4, 1, 2]],
+  [[-10, 0, 0, -4, -1], [0, 0, 4, -1, -5], [0, 4, 8, -6, 4], [-4, -1, -6, 2, 0], [-1, -5, 4, 0, 2]],
+  [[-4, -3, 3, 2, -1], [-3, -6, 0, -3, -1], [3, 0, 4, -3, -4], [2, -3, -3, -6, 2], [-1, -1, -4, 2, -4]],
+  [[6, 3, 1, -2, -2, -4], [3, 0, -5, -1, 0, 0], [1, -5, 4, 1, -4, -1], [-2, -1, 1, 0, 2, -2], [-2, 0, -4, 2, -2, 0], [-4, 0, -1, -2, 0, -4]],
+  [[6, -4, 1, 3, -1, 1], [-4, -6, -1, 5, -1, 6], [1, -1, -10, -4, 2, -4], [3, 5, -4, -2, 4, -4], [-1, -1, 2, 4, -2, 1], [1, 6, -4, -4, 1, -2]],
+  [[0, -5, -2, 0, -2, 0], [-5, 2, 0, -3, 0, 1], [-2, 0, 4, 3, -1, 3], [0, -3, 3, 8, -5, 4], [-2, 0, -1, -5, -4, -2], [0, 1, 3, 4, -2, 0]]]
+
+
+/-- **(A)** the Betti numbers of `S^[2]`: `Sym^2` of `(1,0,22,0,1)` plus the
+shift by two, and the coefficient of `t^2` in Goettsche's product, are
+`(1,0,23,0,276,0,23,0,1)`, with Euler number `324`. -/
+theorem k3_hilbert_square_betti :
+    (let b : List Nat := [1, 0, 22, 0, 1]
+     let sq := (List.range 9).map fun k => (List.range 5).foldl (fun s i =>
+       if i ≤ k && k - i < 5 then s + b.getD i 0 * b.getD (k - i) 0 else s) 0
+     let spread := (List.range 9).map fun k => if k % 2 == 0 then b.getD (k / 2) 0 else 0
+     let dcm := (List.range 9).map fun k => (sq.getD k 0 + spread.getD k 0) / 2
+       + (if 2 ≤ k && k ≤ 6 then b.getD (k - 2) 0 else 0)
+     -- Goettsche: the coefficient of t^2 in prod_k prod_i (1 - z^(2k-2+i) t^k)^(-b_i);
+     -- from k = 1: Sym^2 of H^*(S) in degrees i + j; from k = 2: H^*(S) shifted by 2
+     let got := (List.range 9).map fun d =>
+       ((List.range 5).flatMap fun i => (List.range 5).filterMap fun j =>
+          if i < j && i + j == d then some (b.getD i 0 * b.getD j 0)
+          else if i == j && 2 * i == d then some (b.getD i 0 * (b.getD i 0 + 1) / 2) else none).foldl (· + ·) 0
+       + (if 2 ≤ d && d - 2 < 5 then b.getD (d - 2) 0 else 0)
+     dcm == [1, 0, 23, 0, 276, 0, 23, 0, 1] && got == dcm
+       && dcm.foldl (· + ·) 0 == 324 && 23 * 24 / 2 == 276) = true := by
+  decide +kernel
+
+/-- **(B)** the Fujiki pairing on `Sym^2 V` has determinant
+`det(G)^(m+1) 2^(m-1) (m+2)` on the fifteen forms; the Beauville-Bogomolov
+lattice has determinant `2`, so its pairing has determinant
+`2^24 2^22 25 = 2^46 25`. -/
+theorem k3_fujiki_determinant :
+    (k3Forms.all (fun G => let m := G.length
+        bzDeterminant (k3Sym2 G) == (bzDeterminant G) ^ (m + 1) * 2 ^ (m - 1) * ((m : Int) + 2))
+      && bzDeterminant k3BB == 2
+      && (2 : Int) ^ 24 * 2 ^ 22 * 25 == 2 ^ 46 * 25) = true := by
+  decide +kernel
+
+/-- **(C)** `int c_2^2 = 828` from `tr(1) = 23` on `H^2`, `Todd_4 = 3`, and
+`chi(L) = q^2/8 + 5q/4 + 3 = binom(q/2 + 3, 2)` as polynomials in `q`. -/
+theorem k3_riemann_roch :
+    (36 * (23 * 23 + 2 * 23) == 828 * 25 && 3 * 828 - 324 == 3 * 720
+      && (List.range 3).all fun q => q * q + 10 * q + 24 == (q + 6) * (q + 4)) = true := by
+  decide +kernel
+
+/-- **(E)** for `n <= 20` the largest number of distinct part sizes of a
+partition of `n` is the largest `t` with `t(t+1)/2 <= n`; so the least `n`
+with `t` distinct sizes is `t(t+1)/2`, which is `231` at `t = 21`. -/
+theorem k3_partition_sizes :
+    ((List.range 21).all (fun n =>
+        ((k3Parts (n + 1) n n).map k3Distinct).foldl max 0
+          == ((List.range 21).filter fun t => t * (t + 1) / 2 ≤ n).foldl max 0)
+      && 21 * 22 / 2 == 231) = true := by
+  decide +kernel
+
+/-! ## 66.  Integral classes of the flat secant space of a sextic CM field
+
+Item (LVII), Proposition (Integral sextic characters).  `F = F_0(sqrt(-q))`
+with `F_0` a totally real cubic field whose ring of integers is `O = Z[a]`,
+and `X` a principally polarised abelian sixfold with real multiplication by
+`O`; `H^1(X, Z)` has the basis `u_(b i)`, `w_(b k)` (`b = 0, 1` the two
+blocks, `i, k = 0, 1, 2`).  For `x` in `O` the rational form
+`Theta(x) = sum_j tau_j(x) theta_j` has the coefficient `[x a^i]_k` on
+`u_(b i) w_(b k)` (the `k`-th coordinate in the power basis), so it needs no
+real embedding.  With `e_i` in `O` and `Delta` in `Z` such that
+`Tr(a^k e_i) = Delta delta_ki`, `theta_j = Delta^(-1) sum_i tau_j(e_i) Theta_i`
+for `Theta_i = Theta(a^i)`, and a class of the flat secant space,
+
+  `v = c_0 B_1 B_2 B_3 + sum_j tau_j(f) theta_j B_k B_l
+       + sum_j tau_j(g) B_j theta_k theta_l + c_3 theta_1 theta_2 theta_3`,
+
+`B_j = 1 - tau_j(q) theta_j^2 / 2`, is a polynomial in the commuting forms
+`Theta_0, Theta_1, Theta_2` whose coefficients are mixed traces
+`MT(y_1, y_2, y_3) = sum over distinct j of prod tau_(j_r)(y_r)
+ = T1 T2 T3 - T12 T3 - T13 T2 - T23 T1 + 2 T123`; so `48 Delta^6 v` is an
+integral combination of the monomials `Theta^alpha`, expanded on the two
+blocks by the binomial rule (the forms are even and commute).
+
+(A) The Mukai pairing `int v^dual w` on the even classes of a complex torus
+of dimension six is symmetric and pairs a monomial only with its complement,
+which is different from it; so `chi(v, v) = 2 sum_(m < m^c) ...` is even.
+(B) Over the 255 supports of the coefficient tensor `w` and every rank
+pattern allowed by the relaxation of item (LVII), `r^3 - 2 r^2 <= 4`, with
+equality only at `(r^2, r^3) = (54, 112)`.  (C) For each of the sixteen
+cubic fields and `q = 1`, `q = k + a`: the kernel computes the coefficient
+matrix `A` of `v` exactly, checks that `A Lb` is integral for the recorded
+basis `Lb` and that an integer matrix `R` satisfies `R (A Lb) = I` (so the
+parameters at which `v` is integral are exactly the span of `Lb`), computes
+`chi` on `Lb` from the Mukai pairing, finds it divisible by `8`, and
+enumerates, by fraction-free Schur complements, the vectors with
+`-chi/8 <= 3`: there are none, so every integral class has `-chi >= 32`.
+For `q = 1` the vectors with `-chi/8 <= 4` are exactly `+-Re exp(i theta)`
+and `+-Im exp(i theta)`.  (D) Those two classes have `N_w = 2`.  The bases
+and the matrices `R` are written by `lean/generate/make_sextic_lattice.py`.
+-/
+
+/-- multiplication in `Z[a]`, `a^3 = -c2 a^2 - c1 a - c0`, `c = [c2, c1, c0]`;
+elements by their coordinates in `1, a, a^2`. -/
+def slMul (c x y : List Int) : List Int :=
+  match c, x, y with
+  | [c2, c1, c0], [x0, x1, x2], [y0, y1, y2] =>
+    let r4 := x2 * y2
+    let r3 := x1 * y2 + x2 * y1 - c2 * r4
+    let r2 := x0 * y2 + x1 * y1 + x2 * y0 - c1 * r4
+    let r1 := x0 * y1 + x1 * y0 - c0 * r4
+    [x0 * y0 - c0 * r3, r1 - c1 * r3, r2 - c2 * r3]
+  | _, _, _ => [0, 0, 0]
+
+/-- the trace, from `Tr a = -c2` and `Tr a^2 = c2^2 - 2 c1`. -/
+def slTr (c x : List Int) : Int :=
+  match c, x with
+  | [c2, c1, _], [x0, x1, x2] => 3 * x0 - c2 * x1 + (c2 * c2 - 2 * c1) * x2
+  | _, _ => 0
+
+def slPow (c : List Int) : Nat → List Int
+  | 0 => [1, 0, 0]
+  | k + 1 => slMul c (slPow c k) [0, 1, 0]
+
+/-- `e_i = b_i adj(f'(a))` and `Delta = Nm f'(a)`, with
+`f(x)/(x - a) = x^2 + (a + c2) x + (a^2 + c2 a + c1)`. -/
+def slDual (c : List Int) : List (List Int) × Int :=
+  let c2 := c.getD 0 0; let c1 := c.getD 1 0
+  let fp := [c1, 2 * c2, 3]
+  let t := slTr c fp
+  let f2 := slMul c fp fp
+  let e2 := (t * t - slTr c f2) / 2
+  let adj := [f2.getD 0 0 - t * fp.getD 0 0 + e2, f2.getD 1 0 - t * fp.getD 1 0,
+    f2.getD 2 0 - t * fp.getD 2 0]
+  ([[c1, c2, 1], [c2, 1, 0], [1, 0, 0]].map (slMul c · adj), (slMul c fp adj).getD 0 0)
+
+/-- `Tr(a^k e_i) = Delta delta_ki` and `Delta != 0`. -/
+def slDualOk (c : List Int) : Bool :=
+  let ed := slDual c
+  ed.2 != 0 && (List.range 3).all fun k => (List.range 3).all fun i =>
+    slTr c (slMul c (slPow c k) (ed.1.getD i [])) == (if i == k then ed.2 else 0)
+
+/-! Polynomials in `Theta_0, Theta_1, Theta_2`: the monomial `Theta^beta` has
+the code `beta_0 + 7 beta_1 + 49 beta_2` (all exponents stay below `7`). -/
+
+def slInsO (k : Nat) (v : List Int) : List (Nat × List Int) → List (Nat × List Int)
+  | [] => [(k, v)]
+  | (k', v') :: r => if k == k' then (k, List.zipWith (· + ·) v' v) :: r else (k', v') :: slInsO k v r
+
+def slInsZ (k : Nat) (v : Int) : List (Nat × Int) → List (Nat × Int)
+  | [] => [(k, v)]
+  | (k', v') :: r => if k == k' then (k, v' + v) :: r else (k', v') :: slInsZ k v r
+
+def slPMul (c : List Int) (P Q : List (Nat × List Int)) : List (Nat × List Int) :=
+  P.foldl (fun acc a => Q.foldl (fun acc b => slInsO (a.1 + b.1) (slMul c a.2 b.2) acc) acc) []
+
+def slPTr (c : List Int) (P : List (Nat × List Int)) : List (Nat × Int) :=
+  P.map fun a => (a.1, slTr c a.2)
+
+def slZMul (P Q : List (Nat × Int)) : List (Nat × Int) :=
+  P.foldl (fun acc a => Q.foldl (fun acc b => slInsZ (a.1 + b.1) (a.2 * b.2) acc) acc) []
+
+def slZAdd (s : Int) (P acc : List (Nat × Int)) : List (Nat × Int) :=
+  P.foldl (fun acc a => slInsZ a.1 (s * a.2) acc) acc
+
+/-- `MT(F, P, P) = T(F) T(P)^2 - 2 T(F P) T(P) - T(P^2) T(F) + 2 T(F P^2)`, the
+mixed trace with two equal arguments, from `P`, `P^2` and the traces;
+`MT(P, P, P)` is the case `F = P`, `t^3 - 3 T(P^2) t + 2 T(P^3)`. -/
+def slMT2 (c : List Int) (F P P2 : List (Nat × List Int)) : List (Nat × Int) :=
+  let tf := slPTr c F; let tp := slPTr c P
+  slZAdd 1 (slZMul (slZMul tf tp) tp) <| slZAdd (-2) (slZMul (slPTr c (slPMul c F P)) tp) <|
+    slZAdd (-1) (slZMul (slPTr c P2) tf) <| slZAdd 2 (slPTr c (slPMul c F P2)) []
+
+/-- the monomials `Theta^beta` with `|beta| <= 2`: code, degree, multinomial
+coefficient and the factors `e_i`. -/
+def slLow : List (Nat × Nat × Int × List Nat) :=
+  [(0, 0, 1, []), (1, 1, 1, [0]), (7, 1, 1, [1]), (49, 1, 1, [2]),
+   (2, 2, 1, [0, 0]), (8, 2, 2, [0, 1]), (50, 2, 2, [0, 2]), (14, 2, 1, [1, 1]),
+   (56, 2, 2, [1, 2]), (98, 2, 1, [2, 2])]
+
+/-- `Delta^2 h(theta_j)` as a polynomial in the `Theta_i`, `h = [h_0, h_1, h_2]`
+with `h_d` in `O`. -/
+def slTheta (c : List Int) (e : List (List Int)) (d : Int) (h : List (List Int)) :
+    List (Nat × List Int) :=
+  slLow.filterMap fun m =>
+    let hd := h.getD m.2.1 [0, 0, 0]
+    if hd.all (· == 0) then none
+    else
+      let y := m.2.2.2.foldl (fun y i => slMul c y (e.getD i [])) hd
+      let s := m.2.2.1 * d ^ (2 - m.2.1)
+      some (m.1, y.map (s * ·))
+
+def slScale (s : Int) (P : List (Nat × Int)) : List (Nat × Int) := P.map fun a => (a.1, s * a.2)
+
+/-- `48 Delta^6 v` for the eight parameters `c_0, f = 1, a, a^2, g = 1, a, a^2,
+c_3`: the roles `(2B, 2B, 2B)/48`, `(f x, 2B, 2B)/8`, `(2 g B, x, x)/4` and
+`(x, x, x)/6`, each a mixed trace divided by the order of its stabiliser. -/
+def slParams (c q : List Int) : List (List (Nat × Int)) :=
+  let ed := slDual c
+  let e := ed.1; let d := ed.2
+  let z : List Int := [0, 0, 0]
+  let psi2 := slTheta c e d [[2, 0, 0], z, q.map (- ·)]
+  let psi22 := slPMul c psi2 psi2
+  let xx := slTheta c e d [z, [1, 0, 0], z]
+  let xx2 := slPMul c xx xx
+  [slMT2 c psi2 psi2 psi22]
+  ++ (List.range 3).map (fun l => slScale 6 (slMT2 c (slTheta c e d [z, slPow c l, z]) psi2 psi22))
+  ++ (List.range 3).map (fun l =>
+      let al := slPow c l
+      slScale 12 (slMT2 c (slTheta c e d [al.map (2 * ·), z, (slMul c al q).map (- ·)]) xx xx2))
+  ++ [slScale 8 (slMT2 c xx xx xx2)]
+
+/-! One block: `u_0, u_1, u_2, w_0, w_1, w_2` are the bits `0` to `5`. -/
+
+def slPop : Nat → Nat → Nat
+  | 0, _ => 0
+  | f + 1, x => x % 2 + slPop f (x / 2)
+
+/-- the sign exponent of `e_a e_b -> e_(a+b)`: pairs `x in a`, `y in b`, `x > y`. -/
+def slSwaps (a b : Nat) : Nat :=
+  (List.range 12).foldl (fun s y => if b / 2 ^ y % 2 == 1 then s + slPop 12 (a / 2 ^ (y + 1)) else s) 0
+
+def slWedge (A B : List (Nat × Int)) : List (Nat × Int) :=
+  A.foldl (fun acc x => B.foldl (fun acc y =>
+    if x.1 &&& y.1 != 0 then acc
+    else slInsZ (x.1 + y.1) (if slSwaps x.1 y.1 % 2 == 1 then -(x.2 * y.2) else x.2 * y.2) acc) acc) []
+
+/-- `Theta_i = sum [a^i a^i']_k u_i' w_k` on one block. -/
+def slBlockTheta (c : List Int) (i : Nat) : List (Nat × Int) :=
+  (List.range 3).flatMap fun ip =>
+    let y := slMul c (slPow c i) (slPow c ip)
+    (List.range 3).filterMap fun k =>
+      let v := y.getD k 0
+      if v == 0 then none else some (2 ^ ip + 8 * 2 ^ k, v)
+
+def slSubsets : Nat → List Nat
+  | 0 => [0]
+  | 1 => [1, 2, 4]
+  | 2 => [3, 5, 6]
+  | _ => [7]
+
+/-- the monomials `u_I w_K`, `|I| = |K| = d`, as bitmasks `I + 8 K`; the
+complement of the `j`-th is the `j`-th from the end in degree `3 - d`. -/
+def slBlockMonos (d : Nat) : List Nat :=
+  (slSubsets d).flatMap fun I => (slSubsets d).map fun K => I + 8 * K
+
+def slMultis (d : Nat) : List Nat :=
+  (List.range (d + 1)).flatMap fun x => (List.range (d + 1 - x)).map fun y => x + 7 * y + 49 * (d - x - y)
+
+def slBeta (b : Nat) : List Nat := [b % 7, b / 7 % 7, b / 49]
+
+def slLook (V : List (Nat × Int)) (k : Nat) : Int := ((V.find? (·.1 == k)).map (·.2)).getD 0
+
+def slFact : Nat → Nat
+  | 0 => 1
+  | k + 1 => (k + 1) * slFact k
+
+/-- the divided powers `Theta^beta / beta!` on one block for `|beta| <= 3`,
+densely on the monomials of degree `2 |beta|`, grouped by `|beta|`. -/
+def slCB (c : List Int) : List (List (List Int)) :=
+  let th := (List.range 3).map (slBlockTheta c)
+  (List.range 4).map fun d => (slMultis d).map fun b =>
+    let bs := slBeta b
+    let P := (List.range 3).foldl (fun P i =>
+      (List.range (bs.getD i 0)).foldl (fun P _ => slWedge P (th.getD i [])) P) [(0, 1)]
+    let f : Int := bs.foldl (fun t x => t * slFact x) 1
+    (slBlockMonos d).map fun m => slLook P m / f
+
+/-- the position of `beta` in `slMultis |beta|`. -/
+def slPos (b : Nat) : Nat :=
+  let x := b % 7; let y := b / 7 % 7; let D := x + y + b / 49
+  x * (D + 1) - x * (x - 1) / 2 + y
+
+/-- `sum_alpha V_alpha Theta^alpha` on the sixteen blocks of monomials
+`(block 0 of degree 2 d1) (block 1 of degree 2 d2)`.  In divided powers
+`Theta^[alpha] = sum_(beta + beta' = alpha) (Theta^(0))^[beta] (Theta^(1))^[beta']`,
+so with `W_alpha = alpha! V_alpha` the block is
+`sum W_(beta + beta') cb_beta (x) cb_beta'`. -/
+def slExpand (cb : List (List (List Int))) (V : List (Nat × Int)) : List (List Int) :=
+  let W := (List.range 7).map fun D => (slMultis D).map fun a =>
+    slLook V a * ((slBeta a).foldl (fun t x => t * slFact x) 1 : Nat)
+  (List.range 4).flatMap fun d1 => (List.range 4).map fun d2 =>
+    let n2 := (slBlockMonos d2).length
+    let n1 := (slBlockMonos d1).length
+    let WD := W.getD (d1 + d2) []
+    let us := (slMultis d1).map fun b =>
+      ((slMultis d2).zip (cb.getD d2 [])).foldl (fun u br =>
+        let s := WD.getD (slPos (b + br.1)) 0
+        if s == 0 then u else List.zipWith (· + ·) u (br.2.map (s * ·))) (List.replicate n2 0)
+    (((cb.getD d1 []).zip us).foldl (fun acc ru =>
+      List.zipWith (· + ·) acc (ru.1.flatMap fun x => ru.2.map (x * ·)))) (List.replicate (n1 * n2) 0)
+
+def slBlockSign (m : Nat) : Int := if slSwaps m (63 - m) % 2 == 1 then -1 else 1
+
+/-- the signs of the Mukai pairing `int m^dual m^c`, block by block. -/
+def slSigns : List (List Int) :=
+  (List.range 4).flatMap fun d1 => (List.range 4).map fun d2 =>
+    (slBlockMonos d1).flatMap fun m1 => (slBlockMonos d2).map fun m2 =>
+      (if (d1 + d2) % 2 == 1 then -1 else 1) * slBlockSign m1 * slBlockSign m2
+
+/-- `chi(x, y) = int x^dual y`: block `i` pairs with block `15 - i`, reversed. -/
+def slPair (x y : List (List Int)) : Int :=
+  ((slSigns.zip x).zip y.reverse).foldl (fun s t =>
+    s + ((t.1.1.zip t.1.2).zip t.2.reverse).foldl (fun u w => u + w.1.1 * w.1.2 * w.2) 0) 0
+
+/-! The enumeration of short vectors. -/
+
+/-- the fraction-free Schur complements `(M_k, d_k)`, `S_k = M_k / d_k` the
+form on the variables `k, ..., n-1` left after minimising over the earlier
+ones (Bareiss), with a flag for the exactness of every division. -/
+def slSchur : Nat → Nat → List (List Int) → Int → List (List (List Int) × Int × Bool)
+  | 0, _, M, d => [(M, d, true)]
+  | f + 1, k, M, d =>
+    let piv := (M.getD k []).getD k 0
+    let raw := (List.range M.length).map fun i => (List.range M.length).map fun j =>
+      if i ≤ k || j ≤ k then 0
+      else piv * (M.getD i []).getD j 0 - (M.getD i []).getD k 0 * (M.getD k []).getD j 0
+    let ex := raw.all fun r => r.all fun v => v % d == 0
+    (M, d, ex) :: slSchur f (k + 1) (raw.map (·.map (· / d))) piv
+
+def slScan (ok : Int → Bool) (step : Int) : Nat → Int → Option (List Int)
+  | 0, _ => none
+  | f + 1, t => if ok t then (slScan ok step f (t + step)).map (t :: ·) else some []
+
+/-- every `x` with `x_k, ..., x_(n-1)` free, the later coordinates as in `x`,
+and `S_k(x) <= bound`; the admissible `x_k` form an interval symmetric about
+the vertex `-b/a` of a convex quadratic, scanned from the nearest integer. -/
+def slEnum (Ms : List (List (List Int) × Int × Bool)) (bound : Int) :
+    Nat → Nat → List Int → Option (List (List Int))
+  | 0, _, _ => none
+  | f + 1, k, x =>
+    let Md := Ms.getD k ([], 1, true)
+    let Mk := Md.1; let dk := Md.2.1
+    let row := Mk.getD k []
+    let a := row.getD k 0
+    let idx := (List.range x.length).filter (k < ·)
+    let b := idx.foldl (fun s j => s + row.getD j 0 * x.getD j 0) 0
+    let c := idx.foldl (fun s i => idx.foldl (fun s j =>
+      s + (Mk.getD i []).getD j 0 * x.getD i 0 * x.getD j 0) s) 0
+    let ok := fun t : Int => a * t * t + 2 * b * t + c ≤ bound * dk
+    let t0 := (a - 2 * b) / (2 * a)
+    match slScan ok 1 1000 t0, slScan ok (-1) 1000 (t0 - 1) with
+    | some up, some dn =>
+      (up ++ dn).foldl (fun acc t => acc.bind fun acc =>
+        let x' := x.set k t
+        if k == 0 then some (if x'.any (· != 0) then acc ++ [x'] else acc)
+        else (slEnum Ms bound f (k - 1) x').map (acc ++ ·)) (some [])
+    | _, _ => none
+
+/-- all nonzero `x` with `x^T G x <= bound`, after checking that the
+divisions are exact and the pivots positive (so `G` is positive definite). -/
+def slShort (G : List (List Int)) (bound : Int) : Option (List (List Int)) :=
+  let n := G.length
+  let Ms := slSchur (n - 1) 0 G 1
+  if Ms.all (·.2.2) && (List.range n).all (fun k => ((Ms.getD k ([], 1, true)).1.getD k []).getD k 0 > 0)
+  then slEnum Ms bound (n + 1) (n - 1) (List.replicate n 0) else none
+
+def slColumns (vs : List (List Int)) : List (List Int) :=
+  vs.foldr (fun v acc => List.zipWith (· :: ·) v acc) (List.replicate ((vs.headD []).length) [])
+
+/-! The `F`-Weil part (item (LVIII)).  By Lemma (The `F`-Weil part of a
+product), at the place `(j, sigma)` it is `tau_j(R) + 2 tau_j(I) / (sigma s_j)`
+with `R`, `I` in `F_0`, so it vanishes iff `R = I = 0`;
+`Nm(q) R = Nm(q) c_0^2 - (Nm(q)/q) f^2 + q (q * f^2) + 2 q g^2 - Tr(q g^2) - c_3^2`
+and `(Nm(q)/q) I = (Nm(q)/q) c_0 f + f * (q g) + c_3 g`, where
+`x * y = (Tr x - x)(Tr y - y) - (Tr(x y) - x y)`, so that
+`tau_j(x * y) = tau_k(x) tau_l(y) + tau_l(x) tau_k(y)`. -/
+
+def slAdj (c x : List Int) : List Int :=
+  let t := slTr c x
+  let x2 := slMul c x x
+  let e2 := (t * t - slTr c x2) / 2
+  [x2.getD 0 0 - t * x.getD 0 0 + e2, x2.getD 1 0 - t * x.getD 1 0, x2.getD 2 0 - t * x.getD 2 0]
+
+def slNorm (c x : List Int) : Int := (slMul c x (slAdj c x)).getD 0 0
+
+def slStar (c x y : List Int) : List Int :=
+  let xy := slMul c x y
+  let tx := [slTr c x - x.getD 0 0, -x.getD 1 0, -x.getD 2 0]
+  let ty := [slTr c y - y.getD 0 0, -y.getD 1 0, -y.getD 2 0]
+  let a := slMul c tx ty
+  [a.getD 0 0 - (slTr c xy - xy.getD 0 0), a.getD 1 0 + xy.getD 1 0, a.getD 2 0 + xy.getD 2 0]
+
+/-- `(Nm(q) R, (Nm(q)/q) I)` at the parameters `p = (c_0, f, g, c_3)`. -/
+def slOmega (c q p : List Int) : List Int × List Int :=
+  let c0 := p.getD 0 0; let f := (p.drop 1).take 3; let g := (p.drop 4).take 3; let c3 := p.getD 7 0
+  let Nq := slNorm c q; let Aq := slAdj c q
+  let f2 := slMul c f f; let qg2 := slMul c q (slMul c g g)
+  let a1 := slMul c Aq f2; let a2 := slMul c q (slStar c q f2)
+  let nr := (List.range 3).map fun i => -a1.getD i 0 + a2.getD i 0 + 2 * qg2.getD i 0
+    + (if i == 0 then Nq * c0 * c0 - slTr c qg2 - c3 * c3 else 0)
+  let b1 := slMul c Aq f; let b2 := slStar c f (slMul c q g)
+  (nr, (List.range 3).map fun i => c0 * b1.getD i 0 + b2.getD i 0 + c3 * g.getD i 0)
+
+def slOmegaZero (c q p : List Int) : Bool :=
+  let o := slOmega c q p
+  o.1.all (· == 0) && o.2.all (· == 0)
+
+/-- the shape data `((c2, c1, c0), q, p, roots, square roots, classes)`. -/
+abbrev SlShape := List Int × List Int × Nat × List Int × List Int × List (List Int)
+
+abbrev SlCase := List Int × List Int × Nat × List (List Int) × List (List (Nat × Int)) × Nat × Nat
+  × Nat × List Int × Option (List Int × List Int) × Bool
+
+/-- the lattice of one case: the coefficient matrix `A` of `v`, the integral
+images `A Lb` of the recorded basis, `R (A Lb) = I` (so the parameters at
+which `v` is integral are exactly the span of `Lb`), and the Euler form on
+`Lb`, computed from the Mukai pairing, is `-8 G` for the recorded `G`. -/
+def slLatticeOk (cs : SlCase) (G : List (List Int)) : Bool :=
+  let c := cs.1; let q := cs.2.1; let den : Int := cs.2.2.1; let Ln := cs.2.2.2.1
+  let R := cs.2.2.2.2.1
+  let d := (slDual c).2
+  let cb := slCB c
+  let cols := (slParams c q).map (slExpand cb)
+  let K := 48 * d ^ 6 * den
+  let imgs := Ln.map fun lb => ((lb.zip cols).foldl (fun acc lc =>
+    List.zipWith (List.zipWith (· + ·)) acc (lc.2.map (·.map (lc.1 * ·))))
+    ((cols.headD []).map (·.map fun _ => 0)))
+  let integral := imgs.all fun v => v.all fun bl => bl.all fun x => x % K == 0
+  let vs := imgs.map (·.map (·.map (· / K)))
+  let T := slColumns (vs.map List.flatten)
+  let unit := fun i : Nat => (List.range 8).map fun j => if i == j then (1 : Int) else 0
+  let leftInv := R.length == 8 && (List.range 8).all fun i =>
+    (R.getD i []).foldl (fun acc mx => List.zipWith (· + ·) acc ((T.getD mx.1 []).map (mx.2 * ·)))
+      (List.replicate 8 0) == unit i
+  let gram := (List.range 8).all fun a => (List.range 8).all fun b =>
+    b < a || slPair (vs.getD a []) (vs.getD b []) == -8 * (G.getD a []).getD b 0
+  slDualOk c && integral && leftInv && gram && G.length == 8
+    && (List.range 8).all fun a => (List.range 8).all fun b => (G.getD a []).getD b 0 == (G.getD b []).getD a 0
+
+/-- the scan of one case on the Gram matrix `G` of `-chi/8`: every vector of
+norm `<= m` is enumerated; the least norm is `mn >= 4`; those of norm below
+`m` have no `F`-Weil part (at `q = 1` because they lie in `Z Re + Z Im`, on
+which it vanishes identically, when this is flagged); exactly
+`cnt` of norm `m` have one, among them the witness, and they are the recorded
+classes when shapes are recorded; the classes of norm at most `4` are the
+recorded pair and its negative when recorded. -/
+def slScanOk (shp : List SlShape) (cs : SlCase) (G : List (List Int)) : Bool :=
+  let c := cs.1; let q := cs.2.1; let den : Int := cs.2.2.1; let Ln := cs.2.2.2.1
+  let mn : Int := cs.2.2.2.2.2.1; let m : Int := cs.2.2.2.2.2.2.1
+  let cnt := cs.2.2.2.2.2.2.2.1; let wit := cs.2.2.2.2.2.2.2.2.1
+  let pair := cs.2.2.2.2.2.2.2.2.2.1; let inplane := cs.2.2.2.2.2.2.2.2.2.2
+  let dot := fun (u v : List Int) => (u.zip v).foldl (fun s w => s + w.1 * w.2) 0
+  let nrm := fun x : List Int => dot x (G.map (dot · x))
+  let par := fun x : List Int => (x.zip Ln).foldl (fun acc xl =>
+    List.zipWith (· + ·) acc (xl.2.map (xl.1 * ·))) (List.replicate 8 0)
+  match slShort G m with
+  | none => false
+  | some L0 =>
+    let L := L0.map fun x => (x, nrm x, par x)
+    let below := L.filter fun x => x.2.1 < m
+    let atm := L.filter fun x => x.2.1 == m && !slOmegaZero c q x.2.2
+    let least := L.foldl (fun s x => min s x.2.1) m
+    let plane := fun p : List Int => p.getD 0 0 % den == 0 && p.getD 1 0 % den == 0
+      && p.getD 2 0 == 0 && p.getD 3 0 == 0 && p.getD 5 0 == 0 && p.getD 6 0 == 0
+      && p.getD 4 0 == -p.getD 0 0 && p.getD 7 0 == -p.getD 1 0
+    let pairOk := match pair with
+      | none => true
+      | some (pr, pi) =>
+        let four := (L.filter fun x => x.2.1 ≤ 4).map (·.2.2)
+        four.length == 4 && [pr, pr.map (- ·), pi, pi.map (- ·)].all four.contains
+    let shapeOk := match shp.find? (fun s => s.1 == c && s.2.1 == q) with
+      | none => true
+      | some s => let cl := s.2.2.2.2.2
+        cl.length == atm.length && (atm.map (·.2.2)).all cl.contains
+    -- at `q = 1` with every class below in the plane `Z Re + Z Im`, the `F`-Weil
+    -- part vanishes on the whole plane: each coordinate of `(Nm(q) R, (Nm(q)/q) I)`
+    -- is a quadratic form in `(s, t)` vanishing at `(1, 0)`, `(0, 1)`, `(1, 1)`
+    let planeZero := [(1, 0), (0, 1), (1, 1)].all fun st : Int × Int =>
+      slOmegaZero c q [st.1, st.2, 0, 0, -st.1, 0, 0, -st.2]
+    least == mn && mn ≥ 4
+      && (if inplane then q == [1, 0, 0] && planeZero && below.all (fun x => plane x.2.2)
+          else below.all (fun x => slOmegaZero c q x.2.2))
+      && atm.length == cnt && (atm.map (·.1)).contains wit && pairOk && shapeOk
+
+/-! The relaxation of (B): sign vectors `eps` in `{+1,-1}^3` are `t < 8` with
+`eps_j = -1` iff bit `j` of `t` is set; a pair `(eps_j, eps_k)` has the code
+`2 [eps_j = -1] + [eps_k = -1]`, so the diagonals are the codes `{0, 3}`
+(mask `9`) and `{1, 2}` (mask `6`). -/
+
+def slBit (t j : Nat) : Nat := t / 2 ^ j % 2
+
+/-- the values `(r^3 - 2 r^2, r^2, r^3)` over the rank patterns allowed for
+the support `mask` (a nonempty subset of the eight sign vectors): a slice of
+rank `2` needs a diagonal in its support, `rho_j = 1` needs equal slices
+along `j` and forces rank at most one on every slice along another index. -/
+def slShapeVals (mask : Nat) : List (Int × Nat × Nat) :=
+  let supp := (List.range 8).filter fun t => mask / 2 ^ t % 2 == 1
+  let N := supp.length
+  let pm := fun (j k : Nat) => supp.foldl (fun m t => m ||| 2 ^ (2 * slBit t j + slBit t k)) 0
+  let A := slPop 4 (pm 0 1) + slPop 4 (pm 0 2) + slPop 4 (pm 1 2)
+  let opts := (List.range 3).map fun j =>
+    let o := (List.range 3).filter (· != j)
+    let o0 := o.getD 0 0; let o1 := o.getD 1 0
+    let sl := fun s : Nat => supp.foldl (fun m t =>
+      if slBit t j == s then m ||| 2 ^ (2 * slBit t o0 + slBit t o1) else m) 0
+    let rs := fun m : Nat => if m == 0 then [0] else if m &&& 9 == 9 || m &&& 6 == 6 then [1, 2] else [1]
+    let mp := sl 0; let mm := sl 1
+    (rs mp).flatMap fun r1 => (rs mm).flatMap fun r2 =>
+      let rhos := if mp == 0 || mm == 0 then [1] else if mp == mm && r1 == r2 then [1, 2] else [2]
+      rhos.map fun rho => (r1, r2, rho)
+  (opts.getD 0 []).flatMap fun x0 => (opts.getD 1 []).flatMap fun x1 => (opts.getD 2 []).filterMap fun x2 =>
+    let cs := [x0, x1, x2]
+    let g := fun j : Nat => cs.getD j (0, 0, 0)
+    if (List.range 3).any (fun j => (List.range 3).any fun k =>
+        k != j && (g j).2.2 == 1 && max (g k).1 (g k).2.1 > 1) then none
+    else
+      let Ms := 2 * cs.foldl (fun s x => s + x.1 + x.2.1) 0
+      let rho := cs.foldl (fun s x => s + x.2.2) 0
+      let r2 := 4 * A + rho
+      let r3 := 8 * N + 2 * Ms
+      some ((r3 : Int) - 2 * r2, r2, r3)
+
+/-- `8 w_eps = sum_a C_|a| prod_(a_j = 1) eps_j / s_j` with `s_j = sqrt(-1) = i`
+(the case `q = 1`), as a Gaussian integer; `C_k` is the coefficient of the
+products of `k` of the `theta_j` (`c_0`, `f`, `g`, `c_3` are rational). -/
+def slW (C : List Int) (eps : Nat) : Int × Int :=
+  (List.range 8).foldl (fun s a =>
+    let k := slPop 3 a
+    let sg : Int := (List.range 3).foldl (fun g j => if slBit a j == 1 && slBit eps j == 1 then -g else g) 1
+    let z : Int × Int := match k % 4 with
+      | 0 => (1, 0)
+      | 1 => (0, -1)
+      | 2 => (-1, 0)
+      | _ => (0, 1)
+    (s.1 + C.getD k 0 * sg * z.1, s.2 + C.getD k 0 * sg * z.2)) (0, 0)
+
+/-! The sixteen fields, the values of `q`, and the subfields. -/
+
+def slDisc (a b c : Int) : Int := a * a * b * b - 4 * b ^ 3 - 4 * a ^ 3 * c - 27 * c * c + 18 * a * b * c
+
+def slSquarefree (n : Int) : Bool :=
+  n > 1 && (List.range 60).all fun d => d < 2 || n % ((d : Int) * d) != 0
+
+/-- the fields `x^3 + a x^2 + b x + c`, `|a| <= 1`, `|b|, |c| <= 7`,
+irreducible (no integral root, `c != 0`) with squarefree positive
+discriminant, one for each discriminant, as `[a, b, c]`. -/
+def slSmallFields : List (List Int) :=
+  let cands := ((List.range 3).flatMap fun (a : Nat) => (List.range 15).flatMap fun (b : Nat) =>
+    (List.range 15).map fun (c : Nat) => [Int.ofNat a - 1, Int.ofNat b - 7, Int.ofNat c - 7]).filter fun v =>
+      let a := v.getD 0 0; let b := v.getD 1 0; let c := v.getD 2 0
+      slSquarefree (slDisc a b c) && c != 0 &&
+      !((List.range 8).any fun r => (r : Int) ≠ 0 && c % r == 0 &&
+        ([(r : Int), -r].any fun x => x ^ 3 + a * x * x + b * x + c == 0))
+  cands.foldl (fun acc v => if acc.any (fun w => slDisc (w.getD 0 0) (w.getD 1 0) (w.getD 2 0)
+      == slDisc (v.getD 0 0) (v.getD 1 0) (v.getD 2 0)) then acc else acc ++ [v]) []
+
+/-- `k + a` is totally positive: `P(x - k)` has strictly alternating
+coefficients (Descartes' rule is exact for a real-rooted polynomial). -/
+def slTotPos (c : List Int) (k : Int) : Bool :=
+  let c2 := c.getD 0 0; let c1 := c.getD 1 0; let c0 := c.getD 2 0
+  c2 - 3 * k < 0 && 3 * k * k - 2 * c2 * k + c1 > 0 && -k ^ 3 + c2 * k * k - c1 * k + c0 < 0
+
+def slSqfreeAux : Nat → Nat → Nat → Nat → Nat
+  | 0, n, _, acc => acc * n
+  | f + 1, n, d, acc =>
+    if n < d * d then acc * n
+    else if n % (d * d) == 0 then slSqfreeAux f (n / (d * d)) d acc
+    else if n % d == 0 then slSqfreeAux f (n / d) (d + 1) (acc * d)
+    else slSqfreeAux f n (d + 1) acc
+
+def slPrime (p : Nat) : Bool := p ≥ 2 && (List.range p).all fun d => d < 2 || p % d != 0
+
+def slPowMod (p : Nat) : Nat → Nat → Nat → Nat
+  | 0, _, _ => 1
+  | f + 1, b, e =>
+    if e == 0 then 1
+    else
+      let h := slPowMod p f (b * b % p) (e / 2)
+      if e % 2 == 1 then h * b % p else h
+
+def slEval (v : List Int) (r : Int) : Int := v.getD 0 0 + v.getD 1 0 * r + v.getD 2 0 * r * r
+
+def slRoot (c : List Int) (p : Nat) (r : Int) : Bool :=
+  (r ^ 3 + c.getD 0 0 * r * r + c.getD 1 0 * r + c.getD 2 0) % p == 0
+
+/-- `D` is the squarefree part of `Nm(q)`; either `y^2 = D q`, or `D q` is not a
+square modulo the prime `p` at the root `r`. -/
+def slImagOk (e : List Int × List Int × Nat × Bool × List Int × Nat × Int) : Bool :=
+  let c := e.1; let q := e.2.1; let D := e.2.2.1; let has := e.2.2.2.1
+  let y := e.2.2.2.2.1; let p := e.2.2.2.2.2.1; let r := e.2.2.2.2.2.2
+  let N := slNorm c q
+  N > 0 && D == slSqfreeAux (N.toNat + 2) N.toNat 2 1 &&
+  if has then slMul c y y == q.map ((D : Int) * ·)
+  else
+    let v := ((D : Int) * slEval q r) % p
+    slPrime p && slRoot c p r && v != 0 && slPowMod p 40 v.toNat ((p - 1) / 2) == p - 1
+
+/-- the shape of a class modulo `p`: `N_w` and `(r^2, r^3) = (4A + rho, 8 N_w + 2 M)`
+from the coefficients `w_eps = sum_a C_a prod_(a_j = 1) eps_j / s_j`, with
+ranks of the slices modulo `p` (lower bounds for the true ranks). -/
+def slShapeOf (_c _q : List Int) (p : Nat) (rts ss : List Int) (pa : List Int) : Nat × Nat × Nat :=
+  let P : Int := p
+  let inv := fun x : Int => (slPowMod p 40 (x % P).toNat (p - 2) : Int)
+  let f := (pa.drop 1).take 3; let g := (pa.drop 4).take 3
+  let C := fun a : Nat =>
+    let k := slPop 3 a
+    if k == 0 then pa.getD 0 0 else if k == 3 then pa.getD 7 0
+    else if k == 1 then slEval f (rts.getD ((List.range 3).find? (fun j => slBit a j == 1) |>.getD 0) 0)
+    else slEval g (rts.getD ((List.range 3).find? (fun j => slBit a j == 0) |>.getD 0) 0)
+  let w := (List.range 8).map fun eps => ((List.range 8).foldl (fun s a =>
+    s + (List.range 3).foldl (fun t j =>
+      if slBit a j == 1 then t * (if slBit eps j == 1 then -1 else 1) * inv (ss.getD j 0) % P else t) (C a % P)) 0) % P
+  let wz := fun e : Nat => w.getD e 0 != 0
+  let at3 := fun (j : Nat) (sj : Nat) (k : Nat) (sk : Nat) (l : Nat) (sl : Nat) =>
+    w.getD (sj * 2 ^ j + sk * 2 ^ k + sl * 2 ^ l) 0
+  let Nw := ((List.range 8).filter wz).length
+  let A := [(0, 1), (0, 2), (1, 2)].foldl (fun s jk =>
+    s + ((List.range 4).filter fun sg => (List.range 8).any fun e =>
+      wz e && slBit e jk.1 == sg / 2 && slBit e jk.2 == sg % 2).length) 0
+  let rk2 := fun (a b c d : Int) => if (a * d - b * c) % P != 0 then 2 else if [a, b, c, d].any (· != 0) then 1 else 0
+  let rho := (List.range 3).foldl (fun s j =>
+    let o := (List.range 3).filter (· != j)
+    let o1 := o.getD 0 0; let o2 := o.getD 1 0
+    let row := fun sg : Nat => (List.range 4).map fun t => at3 j sg o1 (t / 2) o2 (t % 2)
+    let r0 := row 0; let r1 := row 1
+    let full := (List.range 4).any fun x => (List.range 4).any fun y =>
+      x < y && (r0.getD x 0 * r1.getD y 0 - r0.getD y 0 * r1.getD x 0) % P != 0
+    s + (if full then 2 else if (r0 ++ r1).any (· != 0) then 1 else 0)) 0
+  let Ms := (List.range 3).foldl (fun s j => (List.range 3).foldl (fun s jp =>
+    if jp == j then s else
+      let jpp := 3 - j - jp
+      s + (List.range 2).foldl (fun s sgp =>
+        s + rk2 (at3 j 0 jpp 0 jp sgp) (at3 j 0 jpp 1 jp sgp) (at3 j 1 jpp 0 jp sgp) (at3 j 1 jpp 1 jp sgp)) 0) s) 0
+  (Nw, 4 * A + rho, 8 * Nw + 2 * Ms)
+
+def slShapeEntryOk (s : SlShape) : Bool :=
+  let c := s.1; let q := s.2.1; let p := s.2.2.1; let rts := s.2.2.2.1; let ss := s.2.2.2.2.1
+  let cl := s.2.2.2.2.2
+  slPrime p && rts.length == 3 && rts.eraseDups.length == 3 && rts.all (slRoot c p)
+    && (List.range 3).all (fun j => ((ss.getD j 0) ^ 2 + slEval q (rts.getD j 0)) % p == 0
+      && (ss.getD j 0) % p != 0)
+    && cl.all fun pa => slShapeOf c q p rts ss pa == (8, 54, 112)
+
+def sl0_0R : List (List (Nat × Int)) := [[(17, -2), (30, -1), (33, 1), (357, -10), (359, -10), (387, 5)], [(5, 1), (24, -1), (112, 2), (129, 2), (134, 2), (138, 2), (143, 2), (228, 2), (232, -2), (233, 2), (249, -1), (256, 2), (266, -2), (271, -2), (273, -2)], [(17, 2), (30, 1), (357, 14), (359, 14), (387, -7)], [(17, 1), (357, 6), (359, 6), (387, -3)], [(357, 2), (359, 2), (387, -1)], [(5, 1), (112, 4), (129, 4), (134, 4), (138, 4), (143, 4), (228, 4), (232, -4), (233, 4), (249, -1), (256, 4), (266, -4), (271, -4), (273, -4)], [(5, -1), (112, -3), (129, -3), (134, -3), (138, -3), (143, -3), (228, -3), (232, 3), (233, -3), (249, 1), (256, -3), (266, 3), (271, 3), (273, 3), (278, -1)], [(112, -1), (129, -1), (134, -1), (138, -1), (143, -1), (228, -1), (232, 1), (233, -1), (256, -1), (266, 1), (271, 1), (273, 1)]]
+def sl0_1R : List (List (Nat × Int)) := [[(68, -1), (84, 2), (86, -4), (104, 4), (310, 4)], [(121, -1), (275, 1), (280, -1)], [(84, 1), (86, -2), (104, 2), (310, 2), (367, 1)], [(84, 1), (86, -2), (104, 2), (310, 2)], [(86, -1), (104, 1), (310, 1)], [(121, -1), (275, 1), (280, -2)], [(121, 1), (280, 1)], [(121, -1), (235, 1), (262, -1), (274, 1), (280, -1)]]
+def sl0_2R : List (List (Nat × Int)) := [[(46, -1), (59, -1), (60, 1), (61, -1), (66, -1), (68, 1), (87, 1)], [(26, -1), (157, 1), (171, 1)], [(23, -1), (26, 3), (157, -3), (187, 2), (244, -1)], [(23, -2), (26, 4), (157, -4), (187, 3), (244, -2)], [(46, 2), (59, 2), (60, -2), (61, 2), (68, -2), (87, -1)], [(66, -1), (87, 1), (102, 1)], [(46, 1), (59, 1), (60, -1), (61, 1), (68, -1)], [(23, -1), (26, 2), (157, -2), (187, 2), (244, -1)]]
+def sl1_0R : List (List (Nat × Int)) := [[(10, -1), (35, 139), (56, -44), (81, 7), (83, 2), (356, -139)], [(9, -1), (122, 15), (130, 26), (135, -26), (140, -5), (174, -15), (175, 5), (179, 15), (180, -5), (225, -15), (229, 26), (234, 5), (237, 15), (239, -5), (270, -14), (271, 26), (274, -26), (279, 5), (284, 7)], [(35, -52), (56, 17), (81, -3), (83, -1), (356, 52)], [(35, -19), (56, 6), (81, -1), (356, 19)], [(35, -4), (56, 1), (356, 4)], [(122, 3), (130, 16), (135, -16), (140, -1), (174, -3), (175, 1), (179, 3), (180, -1), (225, -3), (229, 16), (234, 1), (237, 3), (239, -1), (270, -2), (271, 16), (274, -16), (279, 1), (284, 5)], [(122, 3), (130, 1), (135, -1), (140, -1), (174, -3), (175, 1), (179, 3), (180, -1), (225, -3), (229, 1), (234, 1), (237, 3), (239, -1), (270, -3), (271, 1), (274, -1), (279, 1)], [(130, -3), (135, 3), (229, -3), (271, -3), (274, 3), (284, -1)]]
+def sl1_1R : List (List (Nat × Int)) := [[(40, -4), (86, 1), (89, -2), (307, -2), (368, -4), (369, 12)], [(136, 1), (139, -1), (266, 1), (275, -1), (284, -1)], [(40, 1), (89, 1), (307, 1), (368, 1), (369, -5)], [(40, -1), (89, -1), (307, -1), (368, -1), (369, 4)], [(40, -1), (368, -1), (369, 2)], [(136, 3), (139, -3), (266, 3), (275, -1)], [(121, -1), (136, 4), (139, -4), (266, 4), (275, -2)], [(136, 1), (139, -1), (266, 1)]]
+def sl1_2R : List (List (Nat × Int)) := [[(30, -3), (34, 3), (38, -3), (42, -14), (49, -3), (86, 42), (89, -21), (104, -1), (107, 3), (201, 21), (301, -42), (348, -14)], [(5, -14), (26, -14), (27, 7), (119, 42), (120, -8), (123, -42), (129, -17), (233, 34), (246, 34), (250, -34), (251, -17), (266, -16)], [(5, 8), (26, 8), (27, -4), (119, -24), (120, 4), (123, 24), (129, 9), (233, -18), (246, -18), (250, 18), (251, 9), (266, 9)], [(30, -1), (34, 1), (38, -1), (42, -6), (49, -1), (86, 18), (89, -9), (107, 1), (201, 9), (301, -18), (348, -6)], [(42, 4), (46, 2), (54, -1), (86, -13), (89, 6), (201, -6), (301, 13), (348, 4)], [(42, -2), (46, -2), (54, 1), (86, 7), (89, -3), (201, 3), (301, -7), (348, -2)], [(5, -4), (26, -4), (27, 2), (119, 12), (120, -2), (123, -12), (129, -5), (233, 10), (246, 10), (250, -10), (251, -5), (266, -4)], [(5, 2), (26, 2), (27, -1), (119, -6), (120, 1), (123, 6), (129, 3), (233, -6), (246, -6), (250, 6), (251, 3), (266, 2)]]
+def sl2_0R : List (List (Nat × Int)) := [[(10, -1), (40, 683), (48, -244), (55, 49), (79, 49), (82, -244), (300, -98), (309, -683), (337, 196), (364, -5)], [(9, -1), (121, -1075), (128, -49), (133, -440), (155, 440), (156, 392), (223, -147), (232, 1075), (256, 392), (283, -5)], [(121, -195), (128, -9), (133, -80), (155, 80), (156, 72), (223, -27), (232, 195), (256, 72), (283, -1)], [(40, -123), (48, 44), (55, -9), (79, -9), (82, 44), (300, 18), (309, 123), (337, -36), (364, 1)], [(40, -14), (48, 5), (55, -1), (79, -1), (82, 5), (300, 2), (309, 14), (337, -4)], [(121, -22), (128, -1), (133, -9), (155, 9), (156, 8), (223, -3), (232, 22), (256, 8)], [(40, 11), (48, -4), (55, 1), (79, 1), (82, -4), (300, -2), (309, -11), (337, 4)], [(121, 19), (128, 1), (133, 8), (155, -8), (156, -8), (223, 3), (232, -19), (256, -8)]]
+def sl2_1R : List (List (Nat × Int)) := [[(43, -3), (75, 1), (78, -1), (79, 3)], [(22, 3), (129, 2), (156, 2), (229, 1)], [(22, -5), (129, -1), (156, -3), (229, -5)], [(40, 8), (43, 1), (48, -12), (49, 8), (67, -2), (75, -1), (79, -1), (310, 2)], [(43, -1), (79, 1)], [(129, -1), (229, 1)], [(22, -2), (129, -1), (156, -1), (229, -1)], [(40, 4), (43, -1), (48, -6), (49, 4), (67, -1), (79, 1), (310, 1)]]
+def sl2_2R : List (List (Nat × Int)) := [[(40, 25), (47, -6), (66, 1), (76, -25), (102, -2)], [(40, -4), (47, 1), (76, 4)], [(40, 11), (47, -3), (66, 1), (76, -11), (102, -1)], [(2, -1), (21, 2), (22, -1), (128, -1), (157, -2)], [(2, -44), (21, 42), (22, -44), (128, -9), (129, -18), (157, -42), (220, -18), (229, 18), (232, 9)], [(2, -15), (21, 14), (22, -15), (128, -3), (129, -6), (157, -14), (220, -6), (229, 6), (232, 3)], [(2, 5), (21, -5), (22, 5), (128, 1), (129, 2), (157, 5), (220, 2), (229, -2), (232, -1)], [(40, 10), (47, -3), (66, 1), (76, -10), (102, -1)]]
+def sl3_0R : List (List (Nat × Int)) := [[(42, -630), (69, 1), (309, -630), (313, 630), (364, -66), (383, 22), (386, 3)], [(123, 630), (150, -1), (232, 630), (256, 630), (283, -66), (391, 3), (392, -22)], [(42, -236), (309, -236), (313, 236), (364, -24), (383, 8), (386, 1)], [(123, -236), (232, -236), (256, -236), (283, 24), (391, -1), (392, 8)], [(42, -29), (309, -29), (313, 29), (364, -3), (383, 1)], [(123, 29), (232, 29), (256, 29), (283, -3), (392, -1)], [(42, -1), (309, -1), (313, 1)], [(123, -1), (232, -1), (256, -1)]]
+def sl3_1R : List (List (Nat × Int)) := [[(2, 11), (3, 17), (21, -9), (22, -32), (120, -8), (133, -32), (220, 17), (256, 11)], [(46, 5), (49, -61), (52, 61), (66, -5), (67, 5), (75, -15), (76, -15), (102, -1), (301, -30), (309, -15), (313, 15)], [(2, -18), (3, -27), (21, 14), (22, 52), (120, 14), (133, 52), (220, -27), (256, -18)], [(46, 1), (49, -12), (52, 12), (66, -1), (67, 1), (75, -3), (76, -3), (301, -6), (309, -3), (313, 3)], [(49, -5), (52, 5), (75, -1), (76, -1), (301, -2), (309, -1), (313, 1)], [(2, -5), (3, -8), (21, 4), (22, 16), (120, 4), (133, 16), (220, -8), (256, -5)], [(49, 1), (52, -1)], [(2, 1), (3, 2), (21, -1), (22, -4), (120, -1), (133, -4), (220, 2), (256, 1)]]
+def sl3_2R : List (List (Nat × Int)) := [[(2, -390), (21, 195), (22, 178), (129, -178), (133, 216), (147, 51), (148, -13), (229, -390), (232, 390)], [(2, -330), (21, 165), (22, 151), (129, -151), (133, 184), (147, 43), (148, -11), (229, -330), (232, 330)], [(49, -6), (52, 6), (66, -1), (309, -2)], [(2, 120), (21, -60), (22, -55), (129, 55), (133, -67), (147, -16), (148, 4), (229, 120), (232, -120)], [(49, -2), (52, 2), (76, -1)], [(49, -3), (52, 3), (309, -1)], [(49, 1), (52, -1)], [(2, 30), (21, -15), (22, -14), (129, 14), (133, -17), (147, -4), (148, 1), (229, 30), (232, -30)]]
+def sl4_0R : List (List (Nat × Int)) := [[(14, -1), (51, -283), (82, 22), (308, -22), (327, 283), (363, 3)], [(2, 22), (5, -1), (21, -22), (132, 283), (155, -22), (235, -22), (250, -283), (286, -3)], [(51, -110), (82, 8), (308, -8), (327, 110), (363, 1)], [(2, 8), (21, -8), (132, 110), (155, -8), (235, -8), (250, -110), (286, -1)], [(51, 15), (82, -1), (308, 1), (327, -15)], [(2, -1), (21, 1), (132, -15), (155, 1), (235, 1), (250, 15)], [(51, -1), (327, 1)], [(132, -1), (250, 1)]]
+def sl4_1R : List (List (Nat × Int)) := [[(2, -5), (21, 5), (120, 4), (129, -10), (133, 10), (220, -10), (232, -10), (256, 5)], [(43, -52), (49, -52), (51, 6), (52, 52), (66, -1), (67, -3), (75, 52), (76, -26), (337, -6)], [(2, -3), (21, 2), (120, 2), (129, -2), (133, 2), (220, -3), (232, -2)], [(43, 12), (49, 12), (51, -1), (52, -12), (75, -12), (76, 6), (337, 1)], [(2, -5), (21, 4), (120, 4), (129, -8), (133, 8), (220, -8), (232, -8), (256, 3)], [(43, 18), (49, 18), (51, -2), (52, -18), (67, 1), (75, -18), (76, 9), (337, 2)], [(43, 2), (49, 2), (52, -2), (75, -2), (76, 1)], [(2, -1), (21, 1), (120, 1), (129, -2), (133, 2), (220, -2), (232, -2), (256, 1)]]
+def sl4_2R : List (List (Nat × Int)) := [[(2, 72), (21, -36), (22, -9), (119, -8), (133, -9), (157, -9), (228, -72), (232, 25), (256, 17)], [(2, -96), (21, 48), (22, 12), (119, 11), (133, 12), (157, 12), (228, 96), (232, -34), (256, -22)], [(2, 128), (21, -64), (22, -16), (119, -15), (133, -16), (157, -16), (228, -128), (232, 45), (256, 30)], [(43, -18), (46, 1), (49, -18), (52, 18), (66, -1), (75, 16), (76, 1), (102, -1), (301, -6)], [(43, -6), (46, -1), (49, -6), (52, 6), (66, 1), (75, 6), (301, -2)], [(43, -12), (49, -12), (52, 12), (75, 10), (76, 1), (301, -4)], [(43, 3), (49, 3), (52, -3), (75, -3), (301, 1)], [(2, -8), (21, 4), (22, 1), (119, 1), (133, 1), (157, 1), (228, 8), (232, -3), (256, -2)]]
+def sl5_0R : List (List (Nat × Int)) := [[(10, -1), (49, 308), (55, 42), (79, 154), (103, -42), (300, 350), (309, -42), (317, 154), (328, -4), (386, -70)], [(121, -1), (128, -47), (129, -22), (130, -46), (156, -47), (184, 47), (211, -47), (223, 24), (226, -22), (229, 67), (232, 47), (235, 47), (244, 23), (250, -4), (390, -1)], [(49, -106), (55, -14), (79, -53), (103, 14), (300, -120), (309, 14), (317, -53), (328, 1), (386, 24)], [(49, 18), (55, 2), (79, 9), (103, -2), (300, 20), (309, -2), (317, 9), (386, -4)], [(121, -1), (128, -13), (129, -5), (130, -12), (156, -13), (184, 13), (211, -13), (223, 7), (226, -5), (229, 16), (232, 13), (235, 13), (244, 6), (250, -1)], [(121, 1), (128, 3), (130, 2), (156, 3), (184, -3), (211, 3), (223, -2), (229, -1), (232, -3), (235, -3), (244, -1)], [(49, 4), (55, 1), (79, 2), (103, -1), (300, 5), (309, -1), (317, 2), (386, -1)], [(121, -1), (128, -5), (129, -1), (130, -4), (156, -5), (184, 5), (211, -5), (223, 3), (226, -1), (229, 4), (232, 5), (235, 5), (244, 2)]]
+def sl5_1R : List (List (Nat × Int)) := [[(128, -1), (220, 1)], [(40, 4), (42, 1), (48, -3), (49, 4), (78, -2)], [(40, -3), (42, -1), (48, 2), (49, -3), (78, 1)], [(40, -1), (49, -1)], [(129, -2), (157, 2), (211, -1), (220, 2), (229, 2), (232, -2)], [(40, 4), (42, 1), (48, -3), (49, 4), (78, -1)], [(128, 1), (129, -1), (157, 1), (211, -1), (229, 1), (232, -1)], [(128, -2), (129, -2), (157, 2), (220, 4), (229, 2), (232, -1)]]
+def sl5_2R : List (List (Nat × Int)) := [[(2, 1), (21, -1), (22, 46), (25, -11), (130, 38), (156, 24), (157, 23), (214, 2), (223, -12), (232, -1)], [(40, -9), (43, -4), (48, 6), (49, -9), (55, 2), (75, 4), (79, 1), (82, 1), (106, -1)], [(40, -9), (43, -4), (48, 7), (49, -9), (55, 2), (75, 4), (79, 2), (82, 1), (106, -2)], [(40, -7), (43, -3), (48, 6), (49, -7), (55, 2), (75, 3), (79, 2), (82, 1), (106, -2)], [(2, -1), (22, -8), (25, 3), (130, -6), (156, -4), (157, -5), (223, 2), (232, 1)], [(22, -23), (25, 5), (130, -19), (156, -12), (157, -11), (214, -1), (223, 6)], [(40, -3), (43, -1), (48, 3), (49, -3), (55, 1), (75, 1), (79, 1), (82, 1), (106, -1)], [(22, 4), (25, -1), (130, 3), (156, 2), (157, 2), (223, -1)]]
+def sl6_0R : List (List (Nat × Int)) := [[(10, -1), (12, -103), (43, -206), (44, 103), (46, -34), (51, 103), (55, -103), (79, -927), (80, 927), (88, -927), (89, 927), (102, 34), (295, -34), (305, -927), (335, 17), (345, 927), (348, 927), (350, 515), (357, -34), (358, -103), (368, -3)], [(1, -1), (3, 1060), (112, -91), (156, 7420), (165, -7420), (187, -91), (223, 7420), (224, -7420), (262, 91), (267, -7420), (269, -5300), (273, -1060), (280, -91), (287, 15)], [(12, -32), (43, -64), (44, 32), (46, -12), (51, 32), (55, -32), (79, -288), (80, 288), (88, -288), (89, 288), (102, 12), (295, -12), (305, -288), (335, 6), (345, 288), (348, 288), (350, 160), (357, -12), (358, -32), (368, -1)], [(3, -70), (112, 6), (156, -490), (165, 490), (187, 6), (223, -490), (224, 490), (262, -6), (267, 490), (269, 350), (273, 70), (280, 6), (287, -1)], [(12, 6), (43, 12), (44, -6), (46, 2), (51, -6), (55, 6), (79, 54), (80, -54), (88, 54), (89, -54), (102, -2), (295, 2), (305, 54), (335, -1), (345, -54), (348, -54), (350, -30), (357, 2), (358, 6)], [(3, -11), (112, 1), (156, -77), (165, 77), (187, 1), (223, -77), (224, 77), (262, -1), (267, 77), (269, 55), (273, 11), (280, 1)], [(12, -1), (43, -2), (44, 1), (51, 1), (55, -1), (79, -9), (80, 9), (88, -9), (89, 9), (305, -9), (345, 9), (348, 9), (350, 5), (358, -1)], [(3, -1), (156, -7), (165, 7), (223, -7), (224, 7), (267, 7), (269, 5), (273, 1)]]
+def sl6_1R : List (List (Nat × Int)) := [[(39, 9), (43, -2), (51, 1), (84, -8), (360, 2), (384, 1)], [(3, -4), (23, 3), (120, 3), (125, 3), (129, -3), (165, 3), (170, 3), (268, -3), (269, 1), (273, 3), (277, -3), (278, 4)], [(39, -5), (43, 2), (51, -1), (84, 3), (360, -2)], [(3, -2), (23, 2), (120, 1), (129, -1), (161, 1), (165, 1), (264, 1), (268, -2), (269, 1), (273, 1), (277, -1), (278, 2)], [(39, -2), (43, 2), (51, -1), (84, -1), (360, -2)], [(3, -3), (23, 2), (120, 3), (125, 4), (129, -3), (161, -1), (165, 3), (170, 4), (264, -1), (268, -2), (269, 1), (273, 3), (277, -3), (278, 3)], [(39, -1), (84, 1)], [(3, 3), (23, -2), (120, -2), (125, -2), (129, 2), (165, -2), (170, -2), (268, 2), (269, -1), (273, -2), (277, 2), (278, -3)]]
+def sl6_2R : List (List (Nat × Int)) := [[(6, -44), (7, -6), (25, -44), (26, 64), (119, 9), (121, -34), (266, 50), (273, 1), (277, 50), (278, -94)], [(42, -9), (55, -9), (56, -2), (57, 9), (66, -1), (87, 9)], [(6, 31), (7, 4), (25, 31), (26, -45), (119, -6), (121, 24), (266, -35), (277, -35), (278, 66)], [(6, -9), (7, -1), (25, -9), (26, 13), (119, 2), (121, -7), (266, 10), (277, 10), (278, -19)], [(42, -4), (55, -4), (56, -1), (57, 4), (87, 4)], [(42, -1), (55, -1), (57, 1), (87, 1)], [(42, -1), (55, -1), (87, 1)], [(6, 5), (25, 5), (26, -7), (119, -1), (121, 4), (266, -5), (277, -5), (278, 10)]]
+def sl7_0R : List (List (Nat × Int)) := [[(17, 13), (32, 13), (42, -301), (47, 13), (69, 1), (79, 1204), (89, -1204), (104, 39), (194, 13), (202, -13), (207, 13), (344, -1204), (350, -602), (357, 39), (387, -2)], [(23, 13), (120, -334), (123, -167), (150, -1), (269, -334), (273, 334), (276, -39), (376, 2), (395, -2), (396, 2)], [(17, -6), (32, -6), (42, 146), (47, -6), (79, -584), (89, 584), (104, -18), (194, -6), (202, 6), (207, -6), (344, 584), (350, 292), (357, -18), (387, 1)], [(23, 6), (120, -140), (123, -70), (269, -140), (273, 140), (276, -18), (376, 1), (395, -1), (396, 1)], [(17, 1), (32, 1), (42, -24), (47, 1), (79, 96), (89, -96), (104, 3), (194, 1), (202, -1), (207, 1), (344, -96), (350, -48), (357, 3)], [(23, -1), (120, 24), (123, 12), (269, 24), (273, -24), (276, 3)], [(42, 1), (79, -4), (89, 4), (344, 4), (350, 2)], [(120, 2), (123, 1), (269, 2), (273, -2)]]
+def sl7_1R : List (List (Nat × Int)) := [[(3, -49), (6, -72), (7, -90), (23, 9), (26, 54), (127, 10), (133, -9), (257, 49), (266, 72), (273, -18), (278, -9)], [(3, -11), (6, -16), (7, -20), (23, 2), (26, 12), (127, 2), (133, -2), (257, 11), (266, 16), (273, -4), (278, -2)], [(43, 1), (51, 3), (52, 7), (59, -7), (67, -3), (68, -1), (84, 2), (86, -3), (87, 1), (88, -1), (359, -2)], [(3, 75), (6, 112), (7, 140), (23, -15), (26, -84), (127, -15), (133, 14), (257, -75), (266, -112), (273, 28), (278, 14)], [(43, -1), (51, -3), (52, -5), (59, 5), (67, 3), (68, 1), (84, -2), (86, 3), (88, 1), (359, 1)], [(43, -1), (51, -3), (52, -2), (59, 2), (67, 3), (68, 1), (84, -2), (86, 3), (88, 1)], [(52, 1), (59, -1)], [(3, 5), (6, 8), (7, 10), (23, -1), (26, -6), (127, -1), (133, 1), (257, -5), (266, -8), (273, 2), (278, 1)]]
+def sl7_2R : List (List (Nat × Int)) := [[(2, 80), (21, -40), (23, 10), (119, -9), (130, 18), (273, 18), (278, 80)], [(2, 48), (21, -24), (23, 6), (119, -6), (130, 11), (273, 11), (275, 1), (278, 48)], [(2, 24), (21, -12), (23, 3), (119, -3), (130, 5), (273, 5), (278, 24)], [(46, -10), (52, 112), (59, -112), (82, -2), (87, -10), (102, 2), (107, 1), (359, -30)], [(46, -3), (52, 34), (59, -34), (82, -1), (87, -3), (102, 1), (359, -9)], [(46, 1), (52, -11), (59, 11), (87, 1), (359, 3)], [(52, 1), (59, -1)], [(2, 8), (21, -4), (23, 1), (119, -1), (130, 2), (273, 2), (278, 8)]]
+def sl8_0R : List (List (Nat × Int)) := [[(42, 326), (309, 326), (313, -326), (363, 2), (364, 42), (383, -14), (385, 1)], [(5, -1), (123, 497), (155, 497), (159, -994), (160, 994), (187, -497), (219, -497), (232, 497), (250, 497), (255, -497), (256, 497), (259, 497), (262, 497), (283, 63), (286, -3), (392, 21)], [(42, 171), (309, 171), (313, -171), (363, 1), (364, 21), (383, -7)], [(123, 171), (155, 171), (159, -342), (160, 342), (187, -171), (219, -171), (232, 171), (250, 171), (255, -171), (256, 171), (259, 171), (262, 171), (283, 21), (286, -1), (392, 7)], [(42, -25), (309, -25), (313, 25), (364, -3), (383, 1)], [(123, 25), (155, 25), (159, -50), (160, 50), (187, -25), (219, -25), (232, 25), (250, 25), (255, -25), (256, 25), (259, 25), (262, 25), (283, 3), (392, 1)], [(42, 1), (309, 1), (313, -1)], [(123, -1), (155, -1), (159, 2), (160, -2), (187, 1), (219, 1), (232, -1), (250, -1), (255, 1), (256, -1), (259, -1), (262, -1)]]
+def sl8_1R : List (List (Nat × Int)) := [[(12, -3), (39, -29), (75, 15), (78, -1), (79, 3), (301, -14)], [(2, 14), (3, 42), (21, 7), (22, -14), (119, -6), (220, 42), (229, 26)], [(12, 1), (39, 10), (75, -5), (79, -1), (301, 5)], [(2, 9), (3, 25), (21, 4), (22, -9), (119, -4), (220, 25), (229, 15)], [(2, 4), (3, 12), (21, 2), (22, -4), (119, -2), (220, 12), (229, 7)], [(39, 2), (75, -1), (301, 1)], [(39, 1), (75, -1)], [(2, 2), (3, 6), (21, 1), (22, -2), (119, -1), (220, 6), (229, 4)]]
+def sl8_2R : List (List (Nat × Int)) := [[(6, 23), (21, 7), (25, -5), (119, -6), (232, -15), (256, 23)], [(6, 6), (21, 1), (25, -1), (119, -1), (232, -3), (256, 6)], [(39, 9), (43, -9), (46, 1), (78, -1), (79, 1), (102, -1), (309, 2)], [(39, -19), (43, 19), (46, -1), (78, 1), (79, -1), (309, -5)], [(6, -3), (21, -2), (25, 1), (119, 1), (232, 3), (256, -3)], [(39, 3), (43, -3), (309, 1)], [(39, 1), (43, -1)], [(6, 5), (21, 1), (25, -1), (119, -1), (232, -3), (256, 5)]]
+def sl9_0R : List (List (Nat × Int)) := [[(12, 27), (51, 27), (69, 1), (327, 27), (328, 81), (336, -27), (364, 2)], [(3, 27), (132, -27), (150, -1), (247, 81), (250, -27), (259, 27), (283, 2)], [(12, -6), (51, -6), (55, 1), (103, -3), (202, 1), (327, -6), (328, -17), (336, 6), (364, 1)], [(2, 2), (3, 6), (21, -2), (128, 1), (132, -6), (156, 2), (223, -1), (235, -2), (247, 17), (250, -6), (259, 6), (283, -1), (373, -1), (392, 1)], [(2, -2), (3, -14), (21, 2), (128, -1), (132, 14), (156, -2), (223, 1), (235, 2), (247, -41), (250, 14), (259, -14), (373, 1), (392, -1)], [(12, -14), (51, -14), (55, 1), (103, -3), (202, 1), (327, -14), (328, -41), (336, 14)], [(12, 1), (51, 1), (327, 1), (328, 3), (336, -1)], [(3, -1), (132, 1), (247, -3), (250, 1), (259, -1)]]
+def sl9_1R : List (List (Nat × Int)) := [[(120, -6), (129, 7), (228, 14), (229, -4)], [(12, 4), (49, -9), (66, -1), (75, 7)], [(120, 2), (129, -2), (228, -4), (229, 1)], [(12, -3), (49, 7), (75, -5)], [(12, -1), (49, 2), (75, -1)], [(12, -1), (49, 3), (75, -2)], [(120, -1), (129, 1), (228, 3), (229, -1)], [(120, -1), (129, 1), (228, 2), (229, -1)]]
+def sl9_2R : List (List (Nat × Int)) := [[(2, 3), (3, -1), (21, -1), (228, -3)], [(2, -8), (3, 3), (21, 2), (228, 8), (246, 1)], [(43, -13), (49, 13), (75, 15), (76, -16), (301, 5)], [(2, -9), (3, 3), (21, 3), (228, 9), (246, 1)], [(43, 3), (49, -2), (66, -1), (75, -3), (76, 3), (301, -1)], [(43, 5), (49, -5), (75, -6), (76, 6), (301, -2)], [(43, 3), (49, -3), (75, -3), (76, 3), (301, -1)], [(2, -7), (3, 3), (21, 2), (228, 7), (246, 1)]]
+def sl10_0R : List (List (Nat × Int)) := [[(10, -1), (12, 8), (49, 56), (52, 56), (79, 8), (299, 80), (309, -16), (317, -24), (328, -3)], [(3, -8), (9, -1), (121, -8), (129, -64), (130, 128), (226, -80), (229, -64), (232, -32), (244, 16), (247, -3), (250, 8)], [(12, -4), (49, -28), (52, -28), (79, -4), (299, -40), (309, 8), (317, 12), (328, 1)], [(40, 1), (327, -1)], [(3, -4), (121, -4), (129, -32), (130, 64), (226, -40), (229, -32), (232, -16), (244, 8), (247, -1), (250, 4)], [(121, 1), (250, -1)], [(12, 1), (40, -1), (49, 7), (52, 7), (79, 1), (299, 10), (309, -2), (317, -3), (327, 1)], [(3, 1), (129, 8), (130, -16), (226, 10), (229, 8), (232, 4), (244, -2)]]
+def sl10_1R : List (List (Nat × Int)) := [[(43, -3), (75, 1), (78, -1), (79, 3)], [(31, 1), (43, -3), (48, -2), (50, -2), (58, 2), (75, 2), (79, 1)], [(2, -369), (21, 123), (25, 200), (129, 240), (155, 40), (156, -93), (214, -1), (220, -2), (232, 369)], [(2, 135), (21, -45), (25, -73), (129, -88), (155, -15), (156, 34), (214, 1), (220, 1), (232, -135)], [(2, 111), (21, -37), (25, -60), (129, -72), (155, -12), (156, 28), (232, -111)], [(43, 1), (79, -1)], [(31, -1), (43, 6), (48, 2), (50, 2), (58, -2), (75, -3), (79, -4)], [(2, 12), (21, -4), (25, -7), (129, -8), (155, -1), (156, 3), (232, -12)]]
+def sl10_2R : List (List (Nat × Int)) := [[(4, -46), (5, 5), (21, -30), (23, 23), (130, 30), (157, 30), (220, -53), (229, 7), (232, -32)], [(4, 49), (5, -5), (21, 30), (23, -24), (130, -30), (157, -30), (220, 55), (229, -6), (232, 35)], [(4, -8), (5, 1), (21, -6), (23, 4), (130, 6), (157, 6), (220, -10), (229, 2), (232, -5)], [(0, 26), (40, 84), (48, -93), (49, 33), (51, 7), (53, 33), (55, -6), (61, -33), (67, 2), (75, -14), (77, 33), (79, -9), (85, -33), (91, 2), (103, 1), (106, 51), (107, -2)], [(0, 19), (40, 60), (48, -68), (49, 22), (51, 5), (53, 22), (55, -3), (61, -22), (67, 1), (75, -10), (77, 22), (79, -8), (85, -22), (91, 1), (106, 38), (107, -1)], [(0, -4), (40, -12), (48, 15), (49, -3), (51, -1), (53, -3), (61, 3), (75, 2), (77, -3), (79, 3), (85, 3), (106, -9)], [(48, 1), (49, 1), (53, 1), (61, -1), (77, 1), (79, 1), (85, -1), (106, -1)], [(4, -10), (5, 1), (21, -6), (23, 5), (130, 6), (157, 6), (220, -11), (229, 1), (232, -7)]]
+def sl11_0R : List (List (Nat × Int)) := [[(12, 14), (51, -96), (93, 1), (202, -14), (327, 96), (330, -1), (364, 14), (383, -7)], [(112, -97), (122, 1), (150, -1), (226, 97), (283, 14), (392, 7)], [(12, 16), (51, -104), (93, 1), (202, -16), (327, 104), (364, 16), (383, -8)], [(112, 104), (122, -1), (226, -104), (283, -16), (392, -8)], [(12, -2), (51, 13), (202, 2), (327, -13), (364, -2), (383, 1)], [(112, -13), (226, 13), (283, 2), (392, 1)], [(51, 1), (327, -1)], [(112, -1), (226, 1)]]
+def sl11_1R : List (List (Nat × Int)) := [[(49, 9), (51, -9), (76, -1), (202, 3)], [(49, -3), (51, 3), (202, -1)], [(2, 3), (21, 1), (120, 7), (157, -29), (229, 29), (232, 3), (392, -3)], [(120, -1), (157, 2), (229, -2)], [(49, -27), (51, 27), (76, 3), (202, -9), (308, 1)], [(2, 1), (120, 2), (157, -9), (229, 9), (232, 1), (392, -1)], [(49, -1), (51, 1)], [(2, -1), (120, -2), (157, 8), (229, -8), (232, -1), (392, 1)]]
+def sl11_2R : List (List (Nat × Int)) := [[(2, -4), (3, 3), (21, 1), (22, -2), (119, 1), (120, 1), (133, -1), (147, -1), (222, 1), (228, 4), (256, 1)], [(39, -3), (43, 4), (66, -1), (75, -1), (301, -1)], [(39, 3), (43, -3), (301, 1)], [(39, 1), (66, -1)], [(39, 1), (43, -1)], [(2, 12), (3, -9), (21, -3), (22, 9), (119, -3), (228, -12), (256, 1)], [(2, -20), (3, 15), (21, 5), (22, -14), (119, 5), (120, 1), (133, -1), (147, -1), (228, 20)], [(2, 4), (3, -3), (21, -1), (22, 3), (119, -1), (228, -4)]]
+def sl12_0R : List (List (Nat × Int)) := [[(0, -1), (42, 109), (51, 11), (300, 11), (304, -11), (310, -218), (336, 11), (337, -11), (340, -11), (364, 1)], [(5, -1), (119, 93), (120, 3), (124, -3), (128, 3), (156, 3), (160, -3), (219, 3), (223, -3), (229, 186), (255, 3), (256, 3), (259, -3), (283, -7)], [(42, 16), (51, 1), (300, 1), (304, -1), (310, -32), (336, 1), (337, -1), (340, -1), (364, 1)], [(119, 16), (120, 1), (124, -1), (128, 1), (156, 1), (160, -1), (219, 1), (223, -1), (229, 32), (255, 1), (256, 1), (259, -1), (283, -1)], [(42, 8), (51, 1), (300, 1), (304, -1), (310, -16), (336, 1), (337, -1), (340, -1)], [(119, 8), (120, 1), (124, -1), (128, 1), (156, 1), (160, -1), (219, 1), (223, -1), (229, 16), (255, 1), (256, 1), (259, -1)], [(42, 1), (310, -2)], [(119, 1), (229, 2)]]
+def sl12_1R : List (List (Nat × Int)) := [[(2, 6), (25, -7), (129, 4), (148, 2), (229, -4), (232, -2), (256, -6)], [(39, -6), (43, 6), (49, 6), (51, -2), (76, 2), (106, -1)], [(2, 24), (25, -28), (129, 17), (148, 7), (229, -17), (232, -8), (256, -24)], [(31, -4), (39, 51), (43, -47), (47, -1), (49, -51), (51, 17), (76, -9), (103, -4), (310, 4)], [(31, 1), (39, -12), (43, 11), (49, 12), (51, -4), (76, 2), (103, 1), (310, -1)], [(39, -3), (43, 3), (49, 3), (51, -1), (76, 1)], [(2, -24), (25, 28), (129, -18), (148, -7), (229, 18), (232, 8), (256, 24)], [(2, -3), (25, 4), (129, -1), (148, -1), (229, 1), (232, 1), (256, 3)]]
+def sl12_2R : List (List (Nat × Int)) := [[(25, -1), (120, 3), (121, 1), (129, -26), (130, -18), (133, 25), (220, -24), (229, 26), (232, -9), (256, 16)], [(25, -4), (120, 8), (121, 4), (129, -72), (130, -50), (133, 68), (220, -64), (229, 72), (232, -25), (256, 44)], [(12, 61), (39, 117), (43, -28), (47, -7), (49, -244), (76, -5), (205, 1)], [(12, -9), (39, -17), (43, 4), (47, 1), (49, 36), (76, 1)], [(12, 1), (39, 3), (43, -1), (49, -4), (76, 1)], [(12, -1), (39, -1), (49, 4), (76, 1)], [(25, -2), (120, 3), (121, 2), (129, -27), (130, -18), (133, 25), (220, -23), (229, 27), (232, -9), (256, 16)], [(25, -1), (120, 1), (121, 1), (129, -9), (130, -6), (133, 8), (220, -7), (229, 9), (232, -3), (256, 5)]]
+def sl13_0R : List (List (Nat × Int)) := [[(10, -1), (42, -46), (310, 46), (337, 3), (364, -3)], [(119, -45), (229, -45), (253, -1), (256, -1), (283, 3)], [(42, -7), (310, 7), (337, -1), (364, -1)], [(119, -7), (229, -7), (256, 1), (283, 1)], [(42, 1), (310, -1), (337, -1)], [(119, -1), (229, -1), (256, -1)], [(42, 1), (310, -1)], [(119, 1), (229, 1)]]
+def sl13_1R : List (List (Nat × Int)) := [[(49, -6), (76, 6), (106, -1), (337, -2)], [(2, 10), (25, -12), (120, 5), (129, -10), (229, 11), (232, -10)], [(2, -2), (25, 2), (120, -1), (129, 2), (229, -2), (232, 2), (256, -1)], [(2, -2), (25, 2), (120, -1), (129, 2), (229, -1), (232, 2), (256, -1)], [(49, 4), (76, -4), (337, 1)], [(49, 1), (76, -1)], [(76, -1)], [(2, -1), (25, 2), (120, -1), (129, 1), (229, -3), (232, 1), (256, 2)]]
+def sl13_2R : List (List (Nat × Int)) := [[(2, 18), (25, -10), (120, 7), (232, -18), (250, -3)], [(49, -15), (74, -1), (76, 3), (310, -3), (337, -1)], [(2, -21), (25, 12), (120, -8), (232, 21), (250, 3)], [(49, 16), (76, -5), (310, 5), (337, -1)], [(49, 1)], [(49, 4), (76, -1), (310, 1)], [(2, 13), (25, -7), (120, 5), (232, -13), (250, -2)], [(2, -9), (25, 5), (120, -3), (232, 9), (250, 1)]]
+def sl14_0R : List (List (Nat × Int)) := [[(109, 1), (324, -45), (356, 45), (359, 315), (368, -45), (369, -3)], [(131, 45), (140, -45), (146, -1), (180, 45), (238, -45), (239, 45), (278, 315), (279, -45), (284, 3), (287, -45)], [(324, 8), (356, -8), (359, -56), (368, 8), (369, 1)], [(131, 8), (140, -8), (180, 8), (238, -8), (239, 8), (278, 56), (279, -8), (284, 1), (287, -8)], [(359, 1)], [(278, -1)], [(324, -1), (356, 1), (359, 7), (368, -1)], [(131, -1), (140, 1), (180, -1), (238, 1), (239, -1), (278, -7), (279, 1), (287, 1)]]
+def sl14_1R : List (List (Nat × Int)) := [[(12, 10), (42, -1), (202, -10), (207, -6), (301, -31), (359, 10), (360, 31)], [(3, -68), (23, 26), (26, -13), (120, -5), (266, 68), (269, -1), (287, 5)], [(3, 16), (23, -6), (26, 3), (120, 1), (266, -16), (287, -1)], [(12, -5), (202, 5), (207, 3), (301, 14), (359, -5), (360, -14)], [(3, 27), (23, -10), (26, 5), (120, 2), (266, -27), (287, -2)], [(12, 2), (202, -2), (207, -1), (301, -6), (359, 2), (360, 6)], [(3, -12), (23, 4), (26, -2), (120, -1), (266, 12), (287, 1)], [(12, -2), (202, 2), (207, 1), (301, 5), (359, -2), (360, -5)]]
+def sl14_2R : List (List (Nat × Int)) := [[(3, 23), (23, 29), (121, 23), (125, -23), (129, 29), (161, 23), (170, -23), (251, -1), (264, 23), (268, -23), (269, 12), (275, -23)], [(3, 4), (23, 5), (121, 4), (125, -4), (129, 5), (161, 4), (170, -4), (264, 4), (268, -4), (269, 2), (275, -4)], [(12, 2), (42, -1), (49, -48), (86, 48), (89, -2), (301, -4), (310, -2), (359, -8), (360, 2)], [(49, 4), (86, -4), (359, 1)], [(12, 1), (49, -21), (86, 21), (89, -1), (301, -2), (310, -1), (359, -3), (360, 1)], [(49, 1), (86, -1)], [(3, 7), (23, 9), (121, 7), (125, -7), (129, 9), (161, 7), (170, -7), (264, 7), (268, -7), (269, 4), (275, -7)], [(3, -2), (23, -3), (121, -2), (125, 2), (129, -3), (161, -2), (170, 2), (264, -2), (268, 2), (269, -1), (275, 2)]]
+def sl15_0R : List (List (Nat × Int)) := [[(101, 1), (359, -110), (368, 22), (369, 2)], [(146, -1), (278, 110), (284, 2), (287, -22)], [(359, 30), (368, -6), (369, -1)], [(278, -30), (284, -1), (287, 6)], [(14, -1), (33, -1), (359, 5), (368, -1)], [(278, -4), (287, 1)], [(359, -5), (368, 1)], [(278, 5), (287, -1)]]
+def sl15_1R : List (List (Nat × Int)) := [[(26, 9), (120, 4), (129, 9), (251, -3), (266, 1), (278, 9)], [(54, -6), (56, -2), (86, 25), (95, 1), (107, -1), (315, 25), (355, -25)], [(86, 6), (95, -1), (315, 6), (355, -6)], [(86, -1), (315, -1), (355, 1)], [(54, -3), (56, -1), (86, 15), (315, 15), (355, -15)], [(26, 10), (120, 5), (129, 10), (251, -4), (278, 10)], [(26, -2), (120, -1), (129, -2), (251, 1), (278, -2)], [(26, 1), (129, 1), (278, 1)]]
+def sl15_2R : List (List (Nat × Int)) := [[(2, 18), (3, -36), (23, 54), (26, -77), (120, -7), (121, 77), (126, 23), (129, -23), (251, 15), (266, 16), (273, 16), (275, -18)], [(30, 1), (83, -1), (86, 5), (95, -1), (301, -1), (309, 1), (313, -1), (337, 1), (351, -1), (359, 1)], [(30, 3), (83, -3), (86, 19), (95, -3), (301, -3), (309, 3), (313, -3), (337, 3), (351, -3), (359, 2)], [(86, 1)], [(30, 2), (83, -3), (86, 9), (95, -2), (301, -2), (309, 2), (313, -2), (337, 2), (351, -2), (359, 1)], [(2, 12), (3, -24), (23, 36), (26, -50), (120, -5), (121, 50), (126, 14), (129, -14), (251, 10), (266, 11), (273, 11), (275, -12)], [(2, -2), (3, 4), (23, -6), (26, 8), (120, 1), (121, -8), (126, -2), (129, 2), (251, -2), (266, -2), (273, -2), (275, 2)], [(2, 2), (3, -4), (23, 6), (26, -9), (120, -1), (121, 9), (126, 3), (129, -3), (251, 2), (266, 2), (273, 2), (275, -2)]]
+
+def slCases0 : List SlCase := [
+  ([1, -2, -1], [1, 0, 0], 1, [[-1, 0, 0, 0, 1, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 1], [5, 0, 0, 0, 2, 0, 0, 0], [-2, 0, 0, 0, -1, 3, 1, 0], [-2, 0, 0, 0, 4, -2, -3, 0], [0, -1, 3, 1, 0, 0, 0, -2], [0, 4, 1, -2, 0, 0, 0, 2], [0, -4, 2, 3, 0, 0, 0, 2]], sl0_0R, 4, 37, 16, [-1, 0, 1, 1, 1, 0, 0, 0], some ([1, 0, 0, 0, -1, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, -1]), true),
+  ([1, -2, -1], [2, 1, 0], 1, [[1, 0, 0, 0, -1, 0, 1, 0], [0, -1, 1, 1, 0, 0, 0, 1], [2, 0, 0, 0, -3, 1, 0, 0], [-2, 0, 0, 0, -1, 3, -1, 0], [5, 0, 0, 0, 2, 0, -2, 0], [0, 6, 1, -1, 0, 0, 0, -2], [0, 4, 3, 0, 0, 0, 0, 2], [0, -3, 3, 2, 0, 0, 0, -2]], sl0_1R, 4, 37, 16, [-1, 0, 1, -1, -1, 0, 0, 0], some ([1, 0, 0, 0, -1, 0, 1, 0], [0, -1, 1, 1, 0, 0, 0, 1]), false),
+  ([1, -2, -1], [3, 1, 0], 1, [[1, 0, 0, 0, -2, 0, 1, 0], [0, -1, -1, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, -7], [0, 3, -2, -2, 0, 0, 0, 3], [1, 0, 0, 0, 4, 1, -1, 0], [0, 0, 0, 0, 3, -3, -1, 0], [-2, 0, 0, 0, -4, 1, 3, 0], [0, 2, 1, 1, 0, 0, 0, 2]], sl0_2R, 24, 24, 2, [-1, 0, 0, 0, 0, 0, 0, 0], none, false),
+  ([0, -3, 1], [1, 0, 0], 1, [[-1, 0, 0, 0, 1, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 1], [7, 0, 0, 0, 2, 0, 0, 0], [2, 0, 0, 0, 1, 3, 0, 0], [2, 0, 0, 0, -5, 0, 3, 0], [0, 1, 3, 0, 0, 0, 0, 2], [0, -5, 0, 3, 0, 0, 0, 2], [0, 7, -3, -3, 0, 0, 0, 2]], sl1_0R, 4, 61, 16, [-1, 0, -1, 1, 1, 0, 0, 0], some ([1, 0, 0, 0, -1, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, -1]), true),
+  ([0, -3, 1], [2, 1, 0], 1, [[-1, 0, 0, 0, -1, 1, 0, 0], [0, 2, -1, -1, 0, 0, 0, 1], [-2, 0, 0, 0, 4, -1, 0, 0], [7, 0, 0, 0, -2, 2, 0, 0], [-2, 0, 0, 0, -2, -4, 3, 0], [0, 7, 1, -2, 0, 0, 0, 2], [0, -8, -2, 1, 0, 0, 0, 2], [0, -5, 4, 4, 0, 0, 0, 2]], sl1_1R, 4, 61, 16, [-1, 0, -1, -1, -1, 0, 0, 0], some ([1, 0, 0, 0, 1, -1, 0, 0], [0, -2, 1, 1, 0, 0, 0, -1]), false),
+  ([0, -3, 1], [3, 1, 0], 1, [[-1, 0, 0, 0, 0, 1, 0, 0], [0, -3, 0, 1, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, -9], [0, 0, 0, 0, -3, 0, 3, 0], [2, 0, 0, 0, 3, 1, 0, 0], [1, 0, 0, 0, -9, 2, 3, 0], [0, -3, 3, 2, 0, 0, 0, 2], [0, -3, 0, 0, 0, 0, 0, -3]], sl1_2R, 32, 32, 2, [-1, 0, 0, 0, 0, 0, 0, 0], none, false),
+  ([-1, -7, -4], [1, 0, 0], 1, [[-1, 0, 0, 0, 1, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 1], [0, -17, -10, 4, 0, 0, 0, 0], [0, 0, 0, 0, -17, -10, 4, 0], [8, 0, 0, 0, -7, -1, 2, 0], [0, -7, -1, 2, 0, 0, 0, 8], [-11, 0, 0, 0, -18, -2, 3, 0], [0, -18, -2, 3, 0, 0, 0, -11]], sl2_0R, 4, 235, 4, [0, 0, -1, 0, 0, 0, 0, 0], some ([1, 0, 0, 0, -1, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, -1]), true),
+  ([-1, -7, -4], [2, 1, 0], 1, [[2, 0, 0, 0, -5, 1, 0, 0], [0, 4, 1, 0, 0, 0, 0, 5], [0, -6, -2, 1, 0, 0, 0, 9], [7, 0, 0, 0, -5, -5, 2, 0], [2, 0, 0, 0, 12, 11, -4, 0], [0, -5, 1, 2, 0, 0, 0, 3], [0, 13, 5, -3, 0, 0, 0, 1], [-6, 0, 0, 0, -14, -5, 3, 0]], sl2_1R, 77, 77, 2, [-1, 0, 0, 0, 0, 0, 0, 0], none, false)]
+
+def slCases1 : List SlCase := [
+  ([-1, -7, -4], [3, 1, 0], 1, [[2, 0, 0, 0, -7, 1, 0, 0], [0, 0, 0, 0, 17, 10, -4, 0], [1, 0, 0, 0, -3, 0, 1, 0], [0, -2, -1, 1, 0, 0, 0, -14], [0, 8, 2, -1, 0, 0, 0, 8], [0, -6, -4, 1, 0, 0, 0, -3], [0, -3, -1, 1, 0, 0, 0, 20], [-5, 0, 0, 0, 5, 6, -2, 0]], sl2_2R, 393, 393, 2, [-1, 0, 0, 0, 0, 0, 0, 0], none, false),
+  ([-1, -7, 4], [1, 0, 0], 1, [[-1, 0, 0, 0, 1, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 1], [-11, 0, 0, 0, -18, -2, 3, 0], [0, -18, -2, 3, 0, 0, 0, -11], [4, 0, 0, 0, 13, -6, -2, 0], [0, -13, 6, 2, 0, 0, 0, -4], [-34, 0, 0, 0, 13, 1, -5, 0], [0, 13, 1, -5, 0, 0, 0, -34]], sl3_0R, 4, 484, 4, [0, 0, -1, 0, 0, 0, 0, 0], some ([1, 0, 0, 0, -1, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, -1]), true),
+  ([-1, -7, 4], [3, 1, 0], 1, [[0, 4, -1, -1, 0, 0, 0, 11], [2, 0, 0, 0, -7, 1, 0, 0], [0, 1, 1, 1, 0, 0, 0, 5], [-6, 0, 0, 0, -8, -5, 3, 0], [3, 0, 0, 0, -6, -3, 3, 0], [0, 1, -3, -1, 0, 0, 0, -24], [3, 0, 0, 0, 11, -9, 1, 0], [0, -24, -2, 3, 0, 0, 0, 16]], sl3_1R, 258, 258, 2, [-1, 0, 0, 0, 0, 0, 0, 0], none, false),
+  ([-1, -7, 4], [4, 1, 0], 1, [[0, -4, 0, 1, 0, 0, 0, 12], [0, -2, -2, 0, 0, 0, 0, -3], [2, 0, 0, 0, -9, 1, 0, 0], [0, -9, 0, 1, 0, 0, 0, 1], [3, 0, 0, 0, -9, -3, 3, 0], [-4, 0, 0, 0, -11, -4, 3, 0], [3, 0, 0, 0, 8, -9, 1, 0], [0, 9, -1, -3, 0, 0, 0, 109]], sl3_2R, 576, 813, 2, [0, -1, 0, 0, 0, 0, 0, 0], none, false),
+  ([-1, -7, 6], [1, 0, 0], 1, [[-1, 0, 0, 0, 1, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 1], [11, 0, 0, 0, 18, 2, -3, 0], [0, -18, -2, 3, 0, 0, 0, -11], [-1, 0, 0, 0, 12, -6, -2, 0], [0, -12, 6, 2, 0, 0, 0, 1], [32, 0, 0, 0, -4, -1, 3, 0], [0, -4, -1, 3, 0, 0, 0, 32]], sl4_0R, 4, 484, 4, [0, 0, -1, 0, 0, 0, 0, 0], some ([1, 0, 0, 0, -1, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, -1]), true),
+  ([-1, -7, 6], [3, 1, 0], 1, [[0, -4, 1, 1, 0, 0, 0, -9], [2, 0, 0, 0, -7, 1, 0, 0], [0, -9, 2, 2, 0, 0, 0, 14], [1, 0, 0, 0, 7, -7, 1, 0], [0, -3, -1, 1, 0, 0, 0, -2], [6, 0, 0, 0, 8, 5, -3, 0], [-3, 0, 0, 0, 11, 0, -3, 0], [0, 29, 2, -3, 0, 0, 0, 0]], sl4_1R, 158, 158, 2, [-1, 0, 0, 0, 0, 0, 0, 0], none, false),
+  ([-1, -7, 6], [4, 1, 0], 1, [[0, 9, 0, -1, 0, 0, 0, -3], [0, -2, -2, 0, 0, 0, 0, -9], [0, -1, 0, 0, 0, 0, 0, 33], [2, 0, 0, 0, -9, 1, 0, 0], [1, 0, 0, 0, 6, -7, 1, 0], [-3, 0, 0, 0, 14, 0, -3, 0], [4, 0, 0, 0, 11, 4, -3, 0], [0, -16, 1, 4, 0, 0, 0, 4]], sl4_2R, 846, 846, 2, [-1, 0, 0, 0, 0, 0, 0, 0], none, false),
+  ([-1, -6, -3], [1, 0, 0], 1, [[-1, 0, 0, 0, 1, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 1], [-1, 0, 0, 0, -15, -9, 4, 0], [6, 0, 0, 0, -2, 1, 1, 0], [0, -15, -9, 4, 0, 0, 0, -1], [0, -3, 1, 1, 0, 0, 0, 7], [16, 0, 0, 0, 13, 3, -2, 0], [0, 13, 3, -2, 0, 0, 0, 16]], sl5_0R, 4, 167, 4, [0, 0, -1, 0, 0, 0, 0, 0], some ([1, 0, 0, 0, -1, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, -1]), true)]
+
+def slCases2 : List SlCase := [
+  ([-1, -6, -3], [2, 1, 0], 1, [[0, -3, -1, 1, 0, 0, 0, 3], [2, 0, 0, 0, -5, 1, 0, 0], [-3, 0, 0, 0, 9, 6, -3, 0], [-2, 0, 0, 0, -11, -10, 4, 0], [0, -4, -2, 1, 0, 0, 0, -11], [-7, 0, 0, 0, -6, 2, 0, 0], [0, 3, 4, 0, 0, 0, 0, -2], [0, 10, 3, -1, 0, 0, 0, -6]], sl5_1R, 36, 91, 2, [0, -1, 0, 0, 0, 0, 0, 0], none, false),
+  ([-1, -6, -3], [3, 1, 0], 1, [[0, -3, -1, 0, 0, 0, 0, -6], [-3, 0, 0, 0, -4, -3, 1, 0], [3, 0, 0, 0, -12, -6, 3, 0], [-1, 0, 0, 0, 5, 7, -3, 0], [0, -2, -1, 1, 0, 0, 0, -12], [0, 0, -2, 0, 0, 0, 0, 9], [-2, 0, 0, 0, -18, -3, 3, 0], [0, -9, -2, 2, 0, 0, 0, 12]], sl5_2R, 246, 246, 2, [-1, 0, 0, 0, 0, 0, 0, 0], none, false),
+  ([-1, -6, -1], [1, 0, 0], 1, [[-1, 0, 0, 0, 1, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 1], [9, 0, 0, 0, 16, 2, -3, 0], [0, -15, -2, 3, 0, 0, 0, -10], [4, 0, 0, 0, -1, -7, 1, 0], [0, -1, -7, 1, 0, 0, 0, 4], [-22, 0, 0, 0, 1, 0, -2, 0], [0, 1, 0, -2, 0, 0, 0, -22]], sl6_0R, 4, 362, 8, [-1, 0, 1, 0, 0, 0, 0, 0], some ([1, 0, 0, 0, -1, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, -1]), true),
+  ([-1, -6, -1], [2, 1, 0], 1, [[2, 0, 0, 0, -5, 1, 0, 0], [0, 10, 3, -1, 0, 0, 0, -2], [3, 0, 0, 0, -5, -10, 4, 0], [0, -6, -1, 2, 0, 0, 0, 3], [11, 0, 0, 0, 0, -4, 1, 0], [0, -1, 2, 1, 0, 0, 0, -11], [8, 0, 0, 0, 2, 13, -4, 0], [0, 0, 4, 1, 0, 0, 0, 8]], sl6_1R, 77, 77, 4, [-1, 0, 0, 0, 0, 0, 0, 0], none, false),
+  ([-1, -6, -1], [3, 1, 0], 1, [[0, 0, -2, 0, 0, 0, 0, 3], [2, 0, 0, 0, -7, 1, 0, 0], [0, -2, -1, 1, 0, 0, 0, -16], [0, 5, 2, 0, 0, 0, 0, 4], [-4, 0, 0, 0, -11, -4, 3, 0], [5, 0, 0, 0, 7, 0, 0, 0], [0, 0, 0, 0, 3, -7, 1, 0], [0, -15, -2, 3, 0, 0, 0, 14]], sl6_2R, 373, 373, 2, [-1, 0, 0, 0, 0, 0, 0, 0], none, false),
+  ([-1, -6, 1], [1, 0, 0], 1, [[-1, 0, 0, 0, 1, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 1], [10, 0, 0, 0, 15, 2, -3, 0], [0, 15, 2, -3, 0, 0, 0, 10], [-1, 0, 0, 0, -2, -7, 1, 0], [0, -2, -7, 1, 0, 0, 0, -1], [29, 0, 0, 0, -3, -1, 3, 0], [0, -3, -1, 3, 0, 0, 0, 29]], sl7_0R, 4, 362, 8, [-1, 0, -1, 0, 0, 0, 0, 0], some ([1, 0, 0, 0, -1, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, -1]), true),
+  ([-1, -6, 1], [3, 1, 0], 1, [[0, -3, -1, 1, 0, 0, 0, 9], [0, -3, 1, 1, 0, 0, 0, 12], [2, 0, 0, 0, -7, 1, 0, 0], [0, -2, 1, 1, 0, 0, 0, -17], [5, 0, 0, 0, 5, -4, 1, 0], [-4, 0, 0, 0, -11, -4, 3, 0], [2, 0, 0, 0, -4, 8, -1, 0], [0, 25, 4, -3, 0, 0, 0, 3]], sl7_1R, 381, 381, 2, [-1, 0, 0, 0, 0, 0, 0, 0], none, false),
+  ([-1, -6, 1], [4, 1, 0], 1, [[0, 7, 0, -1, 0, 0, 0, 5], [0, -1, 0, 0, 0, 0, 0, 30], [0, -3, -2, 0, 0, 0, 0, -15], [2, 0, 0, 0, -9, 1, 0, 0], [-2, 0, 0, 0, -16, -3, 3, 0], [5, 0, 0, 0, 0, -4, 1, 0], [0, 0, 0, 0, 3, 7, -1, 0], [0, 11, 3, -3, 0, 0, 0, -20]], sl7_2R, 885, 885, 2, [-1, 0, 0, 0, 0, 0, 0, 0], none, false)]
+
+def slCases3 : List SlCase := [
+  ([-1, -6, 3], [1, 0, 0], 1, [[-1, 0, 0, 0, 1, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 1], [9, 0, 0, 0, 16, 2, -3, 0], [0, -15, -2, 3, 0, 0, 0, -10], [4, 0, 0, 0, 12, -5, -2, 0], [0, 12, -5, -2, 0, 0, 0, 4], [27, 0, 0, 0, -8, -2, 4, 0], [0, -8, -2, 4, 0, 0, 0, 27]], sl8_0R, 4, 362, 8, [-1, 0, 1, 0, 0, 0, 0, 0], some ([1, 0, 0, 0, -1, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, -1]), true),
+  ([-1, -6, 3], [3, 1, 0], 1, [[2, 0, 0, 0, -7, 1, 0, 0], [0, -2, 1, 1, 0, 0, 0, -15], [5, 0, 0, 0, 0, -1, 1, 0], [0, 0, 2, 0, 0, 0, 0, 9], [0, -11, 0, 2, 0, 0, 0, 12], [-4, 0, 0, 0, -11, -4, 3, 0], [1, 0, 0, 0, 5, -10, 2, 0], [0, -3, -2, -1, 0, 0, 0, -24]], sl8_1R, 375, 375, 2, [-1, 0, 0, 0, 0, 0, 0, 0], none, false),
+  ([-1, -6, 3], [4, 1, 0], 1, [[0, -7, 0, 1, 0, 0, 0, -3], [0, 4, 2, 0, 0, 0, 0, -9], [2, 0, 0, 0, -9, 1, 0, 0], [3, 0, 0, 0, 4, -2, 1, 0], [0, 0, -1, -1, 0, 0, 0, -22], [2, 0, 0, 0, 16, 3, -3, 0], [0, 0, 0, 0, 16, -5, -2, 0], [0, -8, -3, 2, 0, 0, 0, -21]], sl8_2R, 667, 667, 2, [-1, 0, 0, 0, 0, 0, 0, 0], none, false),
+  ([-1, -6, 5], [1, 0, 0], 1, [[-1, 0, 0, 0, 1, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 1], [-10, 0, 0, 0, -15, -2, 3, 0], [0, -15, -2, 3, 0, 0, 0, -10], [0, -10, 5, 2, 0, 0, 0, 0], [0, 0, 0, 0, 10, -5, -2, 0], [25, 0, 0, 0, 0, -1, 2, 0], [0, 0, -1, 2, 0, 0, 0, 25]], sl9_0R, 4, 362, 8, [-1, 0, 1, 0, 0, 0, 0, 0], some ([1, 0, 0, 0, -1, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, -1]), true),
+  ([-1, -6, 5], [3, 1, 0], 1, [[0, 2, -1, -1, 0, 0, 0, 13], [2, 0, 0, 0, -7, 1, 0, 0], [0, 8, 0, -1, 0, 0, 0, 17], [5, 0, 0, 0, -5, 2, 1, 0], [-3, 0, 0, 0, -12, 4, 1, 0], [-4, 0, 0, 0, 4, 6, -3, 0], [0, -2, 3, 1, 0, 0, 0, 2], [0, -13, 0, 3, 0, 0, 0, 8]], sl9_1R, 328, 328, 2, [-1, 0, 0, 0, 0, 0, 0, 0], none, false),
+  ([-1, -6, 5], [4, 1, 0], 1, [[0, 7, 0, -1, 0, 0, 0, 1], [0, 3, -2, -1, 0, 0, 0, 4], [3, 0, 0, 0, -1, 1, 1, 0], [0, 3, 1, -1, 0, 0, 0, 9], [2, 0, 0, 0, -9, 1, 0, 0], [3, 0, 0, 0, 9, -4, -1, 0], [1, 0, 0, 0, -17, -2, 4, 0], [0, -7, 1, 2, 0, 0, 0, 54]], sl9_2R, 481, 481, 2, [-1, 0, 0, 0, 0, 0, 0, 0], none, false),
+  ([-1, -5, -2], [1, 0, 0], 1, [[-1, 0, 0, 0, 1, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 1], [-2, 0, 0, 0, -13, -8, 4, 0], [6, 0, 0, 0, 1, 3, 0, 0], [0, -13, -8, 4, 0, 0, 0, -2], [0, 1, 3, 0, 0, 0, 0, 6], [12, 0, 0, 0, 1, -3, 1, 0], [0, 1, -3, 1, 0, 0, 0, 12]], sl10_0R, 4, 135, 4, [0, 0, -1, 0, 0, 0, 0, 0], some ([1, 0, 0, 0, -1, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, -1]), true),
+  ([-1, -5, -2], [2, 1, 0], 1, [[2, 0, 0, 0, -5, 1, 0, 0], [5, 0, 0, 0, -3, -2, 1, 0], [0, 0, 0, 1, 0, 0, 0, -3], [0, 7, 3, -1, 0, 0, 0, 3], [0, -3, 0, 1, 0, 0, 0, 8], [-2, 0, 0, 0, -10, -9, 4, 0], [1, 0, 0, 0, 9, 7, -4, 0], [0, -1, -2, 1, 0, 0, 0, 9]], sl10_1R, 105, 105, 4, [-1, 0, 0, 0, 0, 0, 0, 0], none, false)]
+
+def slCases4 : List SlCase := [
+  ([-1, -5, -2], [3, 1, 0], 1, [[0, -2, -1, 1, 0, 0, 0, -10], [0, -5, -1, 1, 0, 0, 0, 4], [0, 4, 3, -1, 0, 0, 0, -3], [-1, 0, 0, 0, 0, -2, 0, 0], [3, 0, 0, 0, -1, -3, 1, 0], [1, 0, 0, 0, -15, -6, 4, 0], [2, 0, 0, 0, 8, 9, -4, 0], [0, 0, 0, 1, 0, 0, 0, 17]], sl10_2R, 209, 209, 2, [-1, 0, 0, 0, 0, 0, 0, 0], none, false),
+  ([-1, -4, 3], [1, 0, 0], 1, [[-1, 0, 0, 0, 1, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 1], [-1, 0, 0, 0, -7, 3, 2, 0], [0, -7, 3, 2, 0, 0, 0, -1], [-7, 0, 0, 0, -10, -2, 3, 0], [0, -10, -2, 3, 0, 0, 0, -7], [-7, 0, 0, 0, 5, 3, -3, 0], [0, 6, 3, -3, 0, 0, 0, -8]], sl11_0R, 4, 131, 4, [0, 0, -1, 0, 0, 0, 0, 0], some ([1, 0, 0, 0, -1, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, -1]), true),
+  ([-1, -4, 3], [2, 1, 0], 1, [[5, 0, 0, 0, -3, 2, 0, 0], [2, 0, 0, 0, 5, -5, 1, 0], [0, -6, 1, 2, 0, 0, 0, 5], [0, -7, 1, 2, 0, 0, 0, -2], [2, 0, 0, 0, -5, 1, 0, 0], [0, -10, -3, 1, 0, 0, 0, 2], [6, 0, 0, 0, 2, 5, -3, 0], [0, -13, 0, 4, 0, 0, 0, -6]], sl11_1R, 44, 44, 4, [-1, 0, 0, 0, 0, 0, 0, 0], none, false),
+  ([-1, -4, 3], [3, 1, 0], 1, [[0, 1, 0, 0, 0, 0, 0, 6], [3, 0, 0, 0, -1, 1, 0, 0], [1, 0, 0, 0, 4, 3, -3, 0], [-1, 0, 0, 0, -6, 0, 0, 0], [2, 0, 0, 0, 3, -5, 1, 0], [0, -3, -2, 0, 0, 0, 0, 11], [0, 1, 1, -1, 0, 0, 0, 10], [0, -11, 0, 3, 0, 0, 0, 7]], sl11_2R, 65, 65, 2, [-1, 0, 0, 0, 0, 0, 0, 0], none, false),
+  ([0, -7, -5], [1, 0, 0], 1, [[-1, 0, 0, 0, 1, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, -14, -7, 3, 0], [0, -14, -7, 3, 0, 0, 0, 1], [10, 0, 0, 0, 18, 0, -3, 0], [0, 17, 0, -3, 0, 0, 0, 11], [13, 0, 0, 0, -15, -1, 4, 0], [0, -15, -1, 4, 0, 0, 0, 13]], sl12_0R, 4, 351, 4, [0, 0, -1, 0, 0, 0, 0, 0], some ([1, 0, 0, 0, -1, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, -1]), true),
+  ([0, -7, -5], [3, 1, 0], 1, [[0, 5, 1, -1, 0, 0, 0, -10], [2, 0, 0, 0, -6, 1, 0, 0], [0, -1, 2, 1, 0, 0, 0, -3], [0, 0, 0, 0, -13, -7, 3, 0], [-5, 0, 0, 0, 1, 5, -2, 0], [-4, 0, 0, 0, -16, -2, 3, 0], [0, -1, 2, 0, 0, 0, 0, 15], [0, 13, 2, -1, 0, 0, 0, 6]], sl12_1R, 211, 211, 2, [-1, 0, 0, 0, 0, 0, 0, 0], none, false),
+  ([0, -7, -5], [4, 1, 0], 1, [[0, 3, 2, 0, 0, 0, 0, 0], [0, -8, -1, 1, 0, 0, 0, 0], [2, 0, 0, 0, -8, 1, 0, 0], [0, 0, 0, 0, 13, 7, -3, 0], [1, 0, 0, 0, -5, 0, 2, 0], [-5, 0, 0, 0, -7, -2, 1, 0], [0, 6, 1, -2, 0, 0, 0, 0], [0, -5, -1, 1, 0, 0, 0, 41]], sl12_2R, 533, 533, 2, [-1, 0, 0, 0, 0, 0, 0, 0], none, false),
+  ([0, -7, -3], [1, 0, 0], 1, [[-1, 0, 0, 0, 1, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 1], [10, 0, 0, 0, 18, 0, -3, 0], [0, 17, 0, -3, 0, 0, 0, 11], [-4, 0, 0, 0, -15, -7, 3, 0], [0, 15, 7, -3, 0, 0, 0, 4], [28, 0, 0, 0, -9, -2, 4, 0], [0, -9, -2, 4, 0, 0, 0, 28]], sl13_0R, 4, 442, 8, [-1, 0, 1, 0, 0, 0, 0, 0], some ([1, 0, 0, 0, -1, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, -1]), true)]
+
+def slCases5 : List SlCase := [
+  ([0, -7, -3], [3, 1, 0], 1, [[2, 0, 0, 0, -6, 1, 0, 0], [0, -4, -3, 0, 0, 0, 0, 7], [0, -7, 2, 2, 0, 0, 0, 1], [0, -7, -2, 0, 0, 0, 0, -12], [4, 0, 0, 0, 16, 2, -3, 0], [-7, 0, 0, 0, 7, 1, -2, 0], [3, 0, 0, 0, -14, -10, 5, 0], [0, 0, 0, 1, 0, 0, 0, -22]], sl13_1R, 243, 243, 2, [-1, 0, 0, 0, 0, 0, 0, 0], none, false),
+  ([0, -7, -3], [4, 1, 0], 1, [[0, -8, -1, 1, 0, 0, 0, -4], [2, 0, 0, 0, -8, 1, 0, 0], [0, -1, 1, 0, 0, 0, 0, -24], [-2, 0, 0, 0, -20, -1, 3, 0], [-5, 0, 0, 0, 6, 2, -2, 0], [2, 0, 0, 0, 11, 8, -3, 0], [0, 0, 3, 1, 0, 0, 0, 21], [0, 5, 0, -2, 0, 0, 0, 19]], sl13_2R, 655, 655, 2, [-1, 0, 0, 0, 0, 0, 0, 0], none, false),
+  ([0, -7, -1], [1, 0, 0], 1, [[-1, 0, 0, 0, 1, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 1], [11, 0, 0, 0, 17, 0, -3, 0], [0, 17, 0, -3, 0, 0, 0, 11], [-2, 0, 0, 0, -1, 7, 0, 0], [0, -1, 7, 0, 0, 0, 0, -2], [35, 0, 0, 0, -7, -3, 4, 0], [0, -7, -3, 4, 0, 0, 0, 35]], sl14_0R, 4, 442, 8, [-1, 0, -1, 0, 0, 0, 0, 0], some ([1, 0, 0, 0, -1, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, -1]), true),
+  ([0, -7, -1], [3, 1, 0], 1, [[2, 0, 0, 0, -6, 1, 0, 0], [0, 1, 2, 1, 0, 0, 0, 10], [0, -4, -3, 0, 0, 0, 0, 1], [5, 0, 0, 0, 2, -6, 2, 0], [0, 14, 0, -2, 0, 0, 0, 13], [-6, 0, 0, 0, -10, -3, 3, 0], [0, 17, 1, -2, 0, 0, 0, -24], [-7, 0, 0, 0, 7, -2, -2, 0]], sl14_1R, 229, 229, 2, [-1, 0, 0, 0, 0, 0, 0, 0], none, false),
+  ([0, -7, -1], [4, 1, 0], 1, [[0, -3, 1, 1, 0, 0, 0, 11], [0, 8, 1, -1, 0, 0, 0, 8], [2, 0, 0, 0, -8, 1, 0, 0], [4, 0, 0, 0, 12, 2, -3, 0], [-5, 0, 0, 0, 3, 6, -2, 0], [-5, 0, 0, 0, 6, -1, -2, 0], [0, 2, 2, 1, 0, 0, 0, -37], [0, 1, 4, 0, 0, 0, 0, -24]], sl14_2R, 519, 519, 2, [-1, 0, 0, 0, 0, 0, 0, 0], none, false),
+  ([0, -5, -1], [1, 0, 0], 1, [[-1, 0, 0, 0, 1, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 1], [-7, 0, 0, 0, -13, 0, 3, 0], [0, -12, 0, 3, 0, 0, 0, -8], [2, 0, 0, 0, 1, -5, 0, 0], [0, 1, -5, 0, 0, 0, 0, 2], [-18, 0, 0, 0, 1, -2, -2, 0], [0, 1, -2, -2, 0, 0, 0, -18]], sl15_0R, 4, 226, 8, [-1, 0, -1, 0, 0, 0, 0, 0], some ([1, 0, 0, 0, -1, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, -1]), true),
+  ([0, -5, -1], [3, 1, 0], 1, [[0, -1, 1, 1, 0, 0, 0, 2], [2, 0, 0, 0, -6, 1, 0, 0], [3, 0, 0, 0, 1, 0, 1, 0], [3, 0, 0, 0, 4, -5, 1, 0], [-4, 0, 0, 0, -8, -2, 3, 0], [0, 1, -2, 0, 0, 0, 0, 10], [0, 10, 0, -2, 0, 0, 0, 9], [0, 1, -1, 0, 0, 0, 0, -20]], sl15_1R, 151, 151, 2, [-1, 0, 0, 0, 0, 0, 0, 0], none, false),
+  ([0, -5, -1], [4, 1, 0], 1, [[0, 1, 1, 0, 0, 0, 0, 13], [3, 0, 0, 0, -2, 0, 1, 0], [-2, 0, 0, 0, -12, -1, 3, 0], [0, 0, 0, 0, -3, 5, 0, 0], [2, 0, 0, 0, -8, 1, 0, 0], [0, -4, 2, 1, 0, 0, 0, -8], [0, -8, -1, 1, 0, 0, 0, 4], [0, -4, 0, 2, 0, 0, 0, -3]], sl15_2R, 286, 286, 2, [-1, 0, 0, 0, 0, 0, 0, 0], none, false)]
+
+/-- the 48 cases `((c2, c1, c0), q, den, den * Lb, R, least norm, least norm with
+Omega != 0, number of such vectors at that norm, one of them, the classes of norm
+at most 4 (times den) when recorded, all classes below in Z Re + Z Im)`; norms
+are `-chi/8`. -/
+def slCases : List SlCase := slCases0 ++ slCases1 ++ slCases2 ++ slCases3 ++ slCases4 ++ slCases5
+
+def slGrams0 : List (List (List Int)) := [
+  [[4, 0, 1, 1, 1, 0, 0, 0], [0, 4, 0, 0, 0, -1, 1, 1], [1, 0, 37, -12, -12, 0, 0, 0], [1, 0, -12, 37, -12, 0, 0, 0], [1, 0, -12, -12, 37, 0, 0, 0], [0, -1, 0, 0, 0, 37, 12, 12], [0, 1, 0, 0, 0, 12, 37, -12], [0, 1, 0, 0, 0, 12, -12, 37]],
+  [[4, 0, 1, -1, -1, 0, 0, 0], [0, 4, 0, 0, 0, -1, 1, -1], [1, 0, 37, 12, 12, 0, 0, 0], [-1, 0, 12, 37, -12, 0, 0, 0], [-1, 0, 12, -12, 37, 0, 0, 0], [0, -1, 0, 0, 0, 37, 12, -12], [0, 1, 0, 0, 0, 12, 37, 12], [0, -1, 0, 0, 0, -12, 12, 37]],
+  [[24, 0, 0, 0, -11, -7, -6, 0], [0, 25, -7, 12, 0, 0, 0, -6], [0, -7, 49, -21, 0, 0, 0, -14], [0, 12, -21, 92, 0, 0, 0, 3], [-11, 0, 0, 0, 101, -7, -34, 0], [-7, 0, 0, 0, -7, 98, -35, 0], [-6, 0, 0, 0, -34, -35, 124, 0], [0, -6, -14, 3, 0, 0, 0, 219]],
+  [[4, 0, -1, 1, 1, 0, 0, 0], [0, 4, 0, 0, 0, -1, -1, -1], [-1, 0, 61, 20, 20, 0, 0, 0], [1, 0, 20, 61, -20, 0, 0, 0], [1, 0, 20, -20, 61, 0, 0, 0], [0, -1, 0, 0, 0, 61, -20, -20], [0, -1, 0, 0, 0, -20, 61, -20], [0, -1, 0, 0, 0, -20, -20, 61]],
+  [[4, 0, -1, -1, -1, 0, 0, 0], [0, 4, 0, 0, 0, -1, -1, -1], [-1, 0, 61, -20, -20, 0, 0, 0], [-1, 0, -20, 61, -20, 0, 0, 0], [-1, 0, -20, -20, 61, 0, 0, 0], [0, -1, 0, 0, 0, 61, -20, -20], [0, -1, 0, 0, 0, -20, 61, -20], [0, -1, 0, 0, 0, -20, -20, 61]],
+  [[32, 0, 0, 9, -1, -14, 0, 0], [0, 49, -9, 0, 0, 0, -1, 24], [0, -9, 81, 0, 0, 0, -18, 27], [9, 0, 0, 162, 63, 72, 0, 0], [-1, 0, 0, 63, 200, -35, 0, 0], [-14, 0, 0, 72, -35, 239, 0, 0], [0, -1, -18, 0, 0, 0, 205, 21], [0, 24, 27, 0, 0, 0, 21, 225]],
+  [[4, 0, 0, -1, 0, 0, 0, 0], [0, 4, 1, 0, 0, 0, 0, 0], [0, 1, 235, 0, 0, -8, 0, 11], [-1, 0, 0, 235, -8, 0, 11, 0], [0, 0, 0, -8, 256, 0, 117, 0], [0, 0, -8, 0, 0, 256, 0, 117], [0, 0, 0, 11, 117, 0, 484, 0], [0, 0, 11, 0, 0, 117, 0, 484]],
+  [[77, 0, 0, 5, -3, 0, 0, 6], [0, 99, 27, 0, 0, 37, -39, 0], [0, 27, 109, 0, 0, 45, -53, 0], [5, 0, 0, 131, -5, 0, 0, -44], [-3, 0, 0, -5, 168, 0, 0, -11], [0, 37, 45, 0, 0, 220, -68, 0], [0, -39, -53, 0, 0, -68, 252, 0], [6, 0, 0, -44, -11, 0, 0, 261]]]
+
+def slGrams1 : List (List (List Int)) := [
+  [[393, -122, -114, 0, 0, 0, 0, -116], [-122, 486, 211, 0, 0, 0, 0, 240], [-114, 211, 505, 0, 0, 0, 0, 30], [0, 0, 0, 421, -32, 66, -106, 0], [0, 0, 0, -32, 445, -151, 156, 0], [0, 0, 0, 66, -151, 482, -46, 0], [0, 0, 0, -106, 156, -46, 549, 0], [-116, 240, 30, 0, 0, 0, 0, 669]],
+  [[4, 0, 0, 0, -1, 0, -1, 0], [0, 4, 0, 0, 0, -1, 0, 1], [0, 0, 484, 0, -165, 0, -2, 0], [0, 0, 0, 484, 0, 165, 0, -2], [-1, 0, -165, 0, 811, 0, 241, 0], [0, -1, 0, 165, 0, 811, 0, -241], [-1, 0, -2, 0, 241, 0, 2429, 0], [0, 1, 0, -2, 0, -241, 0, 2429]],
+  [[258, 0, -67, 0, 0, -30, 0, -6], [0, 337, 0, -93, -141, 0, -111, 0], [-67, 0, 782, 0, 0, -279, 0, -218], [0, -93, 0, 1067, 471, 0, -72, 0], [0, -141, 0, 471, 1170, 0, -81, 0], [-30, 0, -279, 0, 0, 1185, 0, -216], [0, -111, 0, -72, -81, 0, 1326, 0], [-6, 0, -218, 0, 0, -216, 0, 2109]],
+  [[576, 36, 0, 144, 0, 0, 0, -72], [36, 813, 0, 39, 0, 0, 0, -153], [0, 0, 973, 0, 36, -339, -66, 0], [144, 39, 0, 1058, 0, 0, 0, 104], [0, 0, 36, 0, 1728, 576, 684, 0], [0, 0, -339, 0, 576, 1974, -3, 0], [0, 0, -66, 0, 684, -3, 3165, 0], [-72, -153, 0, 104, 0, 0, 0, 16658]],
+  [[4, 0, 0, 0, 1, 0, 0, 0], [0, 4, 0, 0, 0, 1, 0, 0], [0, 0, 484, 0, -33, 0, 179, 0], [0, 0, 0, 484, 0, -33, 0, -179], [1, 0, -33, 0, 617, 0, -96, 0], [0, 1, 0, -33, 0, 617, 0, 96], [0, 0, 179, 0, -96, 0, 1638, 0], [0, 0, 0, -179, 0, 96, 0, 1638]],
+  [[158, 0, 21, 0, 72, 0, 0, -37], [0, 323, 0, -35, 0, -9, 58, 0], [21, 0, 502, 0, -55, 0, 0, -240], [0, -35, 0, 562, 0, -176, 232, 0], [72, 0, -55, 0, 913, 0, 0, 333], [0, -9, 0, -176, 0, 977, 340, 0], [0, 58, 0, 232, 0, 340, 1207, 0], [-37, 0, -240, 0, 333, 0, 0, 2423]],
+  [[846, -99, -262, 0, 0, 0, 0, -200], [-99, 925, -315, 0, 0, 0, 0, 388], [-262, -315, 1138, 0, 0, 0, 0, -138], [0, 0, 0, 959, -204, -277, 233, 0], [0, 0, 0, -204, 1609, -24, -589, 0], [0, 0, 0, -277, -24, 1663, 363, 0], [0, 0, 0, 233, -589, 363, 2002, 0], [-200, 388, -138, 0, 0, 0, 0, 5686]],
+  [[4, 0, -1, 2, 0, 0, 0, 0], [0, 4, 0, 0, 1, 2, 0, 0], [-1, 0, 167, -33, 0, 0, -80, 0], [2, 0, -33, 170, 0, 0, 95, 0], [0, 1, 0, 0, 167, -32, 0, -80], [0, 2, 0, 0, -32, 170, 0, 95], [0, 0, -80, 95, 0, 0, 382, 0], [0, 0, 0, 0, -80, 95, 0, 382]]]
+
+def slGrams2 : List (List (List Int)) := [
+  [[36, 0, 0, 0, -9, 0, 0, -9], [0, 91, -9, -2, 0, 36, 0, 0], [0, -9, 108, -27, 0, 45, 0, 0], [0, -2, -27, 151, 0, 18, 0, 0], [-9, 0, 0, 0, 155, 0, -25, 57], [0, 36, 45, 18, 0, 255, 0, 0], [0, 0, 0, 0, -25, 0, 230, 42], [-9, 0, 0, 0, 57, 0, 42, 273]],
+  [[246, 0, 0, 0, -54, -12, 0, -9], [0, 285, -117, 66, 0, 0, 108, 0], [0, -117, 360, -144, 0, 0, 90, 0], [0, 66, -144, 345, 0, 0, 105, 0], [-54, 0, 0, 0, 303, -126, 0, -21], [-12, 0, 0, 0, -126, 381, 0, -108], [0, 108, 90, 105, 0, 0, 732, 0], [-9, 0, 0, 0, -21, -108, 0, 675]],
+  [[4, 0, 2, 0, -1, 0, -1, 0], [0, 4, 0, -2, 0, 1, 0, 1], [2, 0, 362, 0, 142, 0, -85, 0], [0, -2, 0, 362, 0, -143, 0, 84], [-1, 0, 142, 0, 437, 0, 47, 0], [0, 1, 0, -143, 0, 437, 0, 47], [-1, 0, -85, 0, 47, 0, 839, 0], [0, 1, 0, 84, 0, 47, 0, 839]],
+  [[77, 0, -4, 0, 35, 0, 5, 0], [0, 77, 0, 4, 0, 35, 0, -5], [-4, 0, 132, 0, 35, 0, -45, 0], [0, 4, 0, 132, 0, -35, 0, -45], [35, 0, 35, 0, 177, 0, -19, 0], [0, 35, 0, -35, 0, 177, 0, 19], [5, 0, -45, 0, -19, 0, 304, 0], [0, -5, 0, -45, 0, 19, 0, 304]],
+  [[373, 0, 90, -112, 0, 0, 0, -158], [0, 403, 0, 0, -134, -188, -65, 0], [90, 0, 543, 103, 0, 0, 0, 19], [-112, 0, 103, 575, 0, 0, 0, -164], [0, -134, 0, 0, 805, -317, -232, 0], [0, -188, 0, 0, -317, 965, -147, 0], [0, -65, 0, 0, -232, -147, 984, 0], [-158, 0, 19, -164, 0, 0, 0, 1781]],
+  [[4, 0, -2, 0, 1, 0, 0, 0], [0, 4, 0, 2, 0, -1, 0, 0], [-2, 0, 362, 0, -29, 0, 117, 0], [0, 2, 0, 362, 0, -29, 0, 117], [1, 0, -29, 0, 495, 0, -87, 0], [0, -1, 0, -29, 0, 495, 0, -87], [0, 0, 117, 0, -87, 0, 1394, 0], [0, 0, 0, 117, 0, -87, 0, 1394]],
+  [[381, 174, 0, -31, 0, 0, 0, -94], [174, 404, 0, 52, 0, 0, 0, -129], [0, 0, 389, 0, -116, -46, 72, 0], [-31, 52, 0, 568, 0, 0, 0, 18], [0, 0, -116, 0, 792, -297, -152, 0], [0, 0, -46, 0, -297, 851, -80, 0], [0, 0, 72, 0, -152, -80, 1363, 0], [-94, -129, 0, 18, 0, 0, 0, 4094]],
+  [[885, -5, -180, 0, 0, 0, 0, 390], [-5, 950, -370, 0, 0, 0, 0, -460], [-180, -370, 1035, 0, 0, 0, 0, -70], [0, 0, 0, 1035, 270, 435, -440, 0], [0, 0, 0, 270, 1370, -445, -285, 0], [0, 0, 0, 435, -445, 1755, -725, 0], [0, 0, 0, -440, -285, -725, 2105, 0], [390, -460, -70, 0, 0, 0, 0, 4455]]]
+
+def slGrams3 : List (List (List Int)) := [
+  [[4, 0, 2, 0, 1, 0, -1, 0], [0, 4, 0, -2, 0, -1, 0, 1], [2, 0, 362, 0, 162, 0, 23, 0], [0, -2, 0, 362, 0, -161, 0, -24], [1, 0, 162, 0, 569, 0, -42, 0], [0, -1, 0, -161, 0, 569, 0, -42], [-1, 0, 23, 0, -42, 0, 1373, 0], [0, 1, 0, -24, 0, -42, 0, 1373]],
+  [[375, 0, -15, 0, 0, 42, -66, 0], [0, 432, 0, -93, -39, 0, 0, -33], [-15, 0, 555, 0, 0, -189, 72, 0], [0, -93, 0, 573, 204, 0, 0, -144], [0, -39, 0, 204, 687, 0, 0, -222], [42, 0, -189, 0, 0, 897, 243, 0], [-66, 0, 72, 0, 0, 243, 1389, 0], [0, -33, 0, -144, -222, 0, 0, 1593]],
+  [[667, -289, 0, 0, 231, 0, 0, 257], [-289, 1093, 0, 0, -582, 0, 0, -545], [0, 0, 1021, -333, 0, -362, -279, 0], [0, 0, -333, 1103, 0, 473, 47, 0], [231, -582, 0, 0, 1589, 0, 0, -150], [0, 0, -362, 473, 0, 1542, 695, 0], [0, 0, -279, 47, 0, 695, 2474, 0], [257, -545, 0, 0, -150, 0, 0, 3814]],
+  [[4, 0, 2, 0, 0, -1, 0, 0], [0, 4, 0, -2, -1, 0, 0, 0], [2, 0, 362, 0, 0, 9, -165, 0], [0, -2, 0, 362, -9, 0, 0, -165], [0, -1, 0, -9, 393, 0, 0, 25], [-1, 0, 9, 0, 0, 393, -25, 0], [0, 0, -165, 0, 0, -25, 930, 0], [0, 0, 0, -165, 25, 0, 0, 930]],
+  [[328, 0, 147, 0, 0, 0, -83, -147], [0, 361, 0, 50, 82, -98, 0, 0], [147, 0, 589, 0, 0, 0, -68, 83], [0, 50, 0, 620, 115, -280, 0, 0], [0, 82, 0, 115, 656, 197, 0, 0], [0, -98, 0, -280, 197, 851, 0, 0], [-83, 0, -68, 0, 0, 0, 619, -129], [-147, 0, 83, 0, 0, 0, -129, 949]],
+  [[481, 112, 0, 9, 0, 0, 0, -165], [112, 756, 0, -202, 0, 0, 0, -291], [0, 0, 912, 0, -102, 90, 393, 0], [9, -202, 0, 1016, 0, 0, 0, -75], [0, 0, -102, 0, 1007, 205, 352, 0], [0, 0, 90, 0, 205, 1264, -248, 0], [0, 0, 393, 0, 352, -248, 1588, 0], [-165, -291, 0, -75, 0, 0, 0, 3903]],
+  [[4, 0, -1, 0, 0, 0, -1, 0], [0, 4, 0, 0, 1, 0, 0, 1], [-1, 0, 135, -54, 0, 0, 9, 0], [0, 0, -54, 144, 0, 0, 53, 0], [0, 1, 0, 0, 135, -54, 0, 9], [0, 0, 0, 0, -54, 144, 0, 53], [-1, 0, 9, 53, 0, 0, 209, 0], [0, 1, 0, 0, 9, 53, 0, 209]],
+  [[105, 51, 0, 0, 0, 5, 51, 0], [51, 108, 0, 0, 0, -10, 1, 0], [0, 0, 105, 51, 0, 0, 0, 53], [0, 0, 51, 128, 15, 0, 0, 52], [0, 0, 0, 15, 115, 0, 0, 53], [5, -10, 0, 0, 0, 148, -61, 0], [51, 1, 0, 0, 0, -61, 213, 0], [0, 0, 53, 52, 53, 0, 0, 212]]]
+
+def slGrams4 : List (List (List Int)) := [
+  [[209, -12, -3, 0, 0, 0, 0, 4], [-12, 215, -42, 0, 0, 0, 0, 38], [-3, -42, 230, 0, 0, 0, 0, 9], [0, 0, 0, 243, -1, -103, -100, 0], [0, 0, 0, -1, 264, 60, 24, 0], [0, 0, 0, -103, 60, 381, -94, 0], [0, 0, 0, -100, 24, -94, 411, 0], [4, 38, 9, 0, 0, 0, 0, 648]],
+  [[4, 0, 1, 0, 2, 0, -2, 0], [0, 4, 0, -1, 0, -2, 0, -2], [1, 0, 131, 0, 20, 0, 22, 0], [0, -1, 0, 131, 0, 20, 0, 23], [2, 0, 20, 0, 170, 0, -63, 0], [0, -2, 0, 20, 0, 170, 0, -61], [-2, 0, 22, 0, -63, 0, 226, 0], [0, -2, 0, 23, 0, -61, 0, 226]],
+  [[44, -16, 0, 0, 16, 0, 15, 0], [-16, 49, 0, 0, -16, 0, 11, 0], [0, 0, 44, 16, 0, 16, 0, -15], [0, 0, 16, 49, 0, 16, 0, 11], [16, -16, 0, 0, 91, 0, -6, 0], [0, 0, 16, 16, 0, 91, 0, 6], [15, 11, 0, 0, -6, 0, 120, 0], [0, 0, -15, 11, 0, 6, 0, 120]],
+  [[65, 0, 0, 0, 0, 27, -28, 2], [0, 206, 74, -75, 55, 0, 0, 0], [0, 74, 355, 81, -119, 0, 0, 0], [0, -75, 81, 381, -48, 0, 0, 0], [0, 55, -119, -48, 422, 0, 0, 0], [27, 0, 0, 0, 0, 466, 56, 209], [-28, 0, 0, 0, 0, 56, 522, -15], [2, 0, 0, 0, 0, 209, -15, 606]],
+  [[4, 0, -1, 0, 2, 0, -2, 0], [0, 4, 0, 1, 0, 2, 0, 2], [-1, 0, 351, 0, 31, 0, 38, 0], [0, 1, 0, 351, 0, 32, 0, 38], [2, 0, 31, 0, 442, 0, -173, 0], [0, 2, 0, 32, 0, 442, 0, -171], [-2, 0, 38, 0, -173, 0, 626, 0], [0, 2, 0, 38, 0, -171, 0, 626]],
+  [[211, 0, -8, 0, 0, 0, -72, 22], [0, 257, 0, 112, 113, 9, 0, 0], [-8, 0, 375, 0, 0, 0, 148, 100], [0, 112, 0, 631, -134, 3, 0, 0], [0, 113, 0, -134, 637, 256, 0, 0], [0, 9, 0, 3, 256, 637, 0, 0], [-72, 0, 148, 0, 0, 0, 677, -235], [22, 0, 100, 0, 0, 0, -235, 1018]],
+  [[533, -205, 0, 0, 0, 0, -205, -82], [-205, 615, 0, 0, 0, 0, -82, 246], [0, 0, 779, -123, -328, -164, 0, 0], [0, 0, -123, 984, 451, -369, 0, 0], [0, 0, -328, 451, 1189, -492, 0, 0], [0, 0, -164, -369, -492, 1230, 0, 0], [-205, -82, 0, 0, 0, 0, 1312, -451], [-82, 246, 0, 0, 0, 0, -451, 1927]],
+  [[4, 0, 2, 0, 1, 0, 1, 0], [0, 4, 0, 2, 0, 1, 0, -1], [2, 0, 442, 0, -157, 0, 58, 0], [0, 2, 0, 442, 0, 158, 0, 57], [1, 0, -157, 0, 621, 0, 141, 0], [0, 1, 0, 158, 0, 621, 0, -141], [1, 0, 58, 0, 141, 0, 1499, 0], [0, -1, 0, 57, 0, -141, 0, 1499]]]
+
+def slGrams5 : List (List (List Int)) := [
+  [[243, 0, 0, 0, -91, -77, 39, 0], [0, 468, -222, 113, 0, 0, 0, -37], [0, -222, 537, -130, 0, 0, 0, 131], [0, 113, -130, 596, 0, 0, 0, -87], [-91, 0, 0, 0, 743, 94, -323, 0], [-77, 0, 0, 0, 94, 797, -409, 0], [39, 0, 0, 0, -323, -409, 1200, 0], [0, -37, 131, -87, 0, 0, 0, 1078]],
+  [[655, 0, 171, 0, 0, 0, -261, -295], [0, 765, 0, 373, -204, 36, 0, 0], [171, 0, 899, 0, 0, 0, -193, -108], [0, 373, 0, 1450, 36, -520, 0, 0], [0, -204, 0, 36, 1359, -144, 0, 0], [0, 36, 0, -520, -144, 1983, 0, 0], [-261, 0, -193, 0, 0, 0, 2072, -480], [-295, 0, -108, 0, 0, 0, -480, 2326]],
+  [[4, 0, -2, 0, -1, 0, 0, 0], [0, 4, 0, 2, 0, 1, 0, 0], [-2, 0, 442, 0, -94, 0, 125, 0], [0, 2, 0, 442, 0, -94, 0, 125], [-1, 0, -94, 0, 693, 0, -315, 0], [0, 1, 0, -94, 0, 693, 0, -315], [0, 0, 125, 0, -315, 0, 2210, 0], [0, 0, 0, 125, 0, -315, 0, 2210]],
+  [[229, 0, 0, -102, 0, -56, 0, 26], [0, 434, -52, 0, 174, 0, -77, 0], [0, -52, 438, 0, -51, 0, -172, 0], [-102, 0, 0, 603, 0, -48, 0, -233], [0, 174, -51, 0, 657, 0, 274, 0], [-56, 0, 0, -48, 0, 732, 0, -209], [0, -77, -172, 0, 274, 0, 1323, 0], [26, 0, 0, -233, 0, -209, 0, 1484]],
+  [[519, -48, 0, 0, 0, 0, 212, -64], [-48, 751, 0, 0, 0, 0, 1, 343], [0, 0, 751, 292, -210, -85, 0, 0], [0, 0, 292, 1503, -313, -20, 0, 0], [0, 0, -210, -313, 2021, 795, 0, 0], [0, 0, -85, -20, 795, 1980, 0, 0], [212, 1, 0, 0, 0, 0, 2916, 1028], [-64, 343, 0, 0, 0, 0, 1028, 3585]],
+  [[4, 0, -2, 0, 1, 0, 1, 0], [0, 4, 0, -2, 0, -1, 0, -1], [-2, 0, 226, 0, -68, 0, 59, 0], [0, -2, 0, 226, 0, -67, 0, 60], [1, 0, -68, 0, 257, 0, 77, 0], [0, -1, 0, -67, 0, 257, 0, 77], [1, 0, 59, 0, 77, 0, 551, 0], [0, -1, 0, 60, 0, 77, 0, 551]],
+  [[151, 0, 0, 0, 0, 62, -30, -3], [0, 289, -105, -102, -115, 0, 0, 0], [0, -105, 367, 148, -6, 0, 0, 0], [0, -102, 148, 535, -140, 0, 0, 0], [0, -115, -6, -140, 519, 0, 0, 0], [62, 0, 0, 0, 0, 554, 236, 65], [-30, 0, 0, 0, 0, 236, 553, -78], [-3, 0, 0, 0, 0, 65, -78, 557]],
+  [[286, 0, 0, 0, 0, 100, -101, -51], [0, 506, -123, 153, 160, 0, 0, 0], [0, -123, 748, 190, 43, 0, 0, 0], [0, 153, 190, 883, 73, 0, 0, 0], [0, 160, 43, 73, 831, 0, 0, 0], [100, 0, 0, 0, 0, 887, 277, 70], [-101, 0, 0, 0, 0, 277, 943, -54], [-51, 0, 0, 0, 0, 70, -54, 1141]]]
+
+/-- the Gram matrices of `-chi/8` on the recorded bases, certified by
+`slLatticeOk`. -/
+def slGrams : List (List (List Int)) := slGrams0 ++ slGrams1 ++ slGrams2 ++ slGrams3 ++ slGrams4 ++ slGrams5
+
+/-- `((c2, c1, c0), q, D, contains, y, p, r)`: `D` the squarefree part of `Nm(q)`;
+either `y^2 = D q`, or `r` is a root of the minimal polynomial modulo the prime
+`p` at which `D q` is not a square. -/
+def slImag : List (List Int × List Int × Nat × Bool × List Int × Nat × Int) := [
+  ([1, -2, -1], [1, 0, 0], 1, true, [-1, 0, 0], 0, 0),
+  ([1, -2, -1], [2, 1, 0], 1, true, [-1, 1, 1], 0, 0),
+  ([1, -2, -1], [3, 1, 0], 13, false, [0, 0, 0], 29, 7),
+  ([0, -3, 1], [1, 0, 0], 1, true, [-1, 0, 0], 0, 0),
+  ([0, -3, 1], [2, 1, 0], 1, true, [-2, 1, 1], 0, 0),
+  ([0, -3, 1], [3, 1, 0], 17, false, [0, 0, 0], 19, 7),
+  ([-1, -7, -4], [1, 0, 0], 1, true, [-1, 0, 0], 0, 0),
+  ([-1, -7, -4], [2, 1, 0], 2, false, [0, 0, 0], 7, 3),
+  ([-1, -7, -4], [3, 1, 0], 19, false, [0, 0, 0], 11, 1),
+  ([-1, -7, 4], [1, 0, 0], 1, true, [-1, 0, 0], 0, 0),
+  ([-1, -7, 4], [3, 1, 0], 11, false, [0, 0, 0], 3, 1),
+  ([-1, -7, 4], [4, 1, 0], 3, true, [-4, 0, 1], 0, 0),
+  ([-1, -7, 6], [1, 0, 0], 1, true, [-1, 0, 0], 0, 0),
+  ([-1, -7, 6], [3, 1, 0], 1, false, [0, 0, 0], 11, 10),
+  ([-1, -7, 6], [4, 1, 0], 46, false, [0, 0, 0], 11, 10),
+  ([-1, -6, -3], [1, 0, 0], 1, true, [-1, 0, 0], 0, 0),
+  ([-1, -6, -3], [2, 1, 0], 3, true, [-3, -1, 1], 0, 0),
+  ([-1, -6, -3], [3, 1, 0], 21, false, [0, 0, 0], 11, 2),
+  ([-1, -6, -1], [1, 0, 0], 1, true, [-1, 0, 0], 0, 0),
+  ([-1, -6, -1], [2, 1, 0], 1, false, [0, 0, 0], 7, 1),
+  ([-1, -6, -1], [3, 1, 0], 19, false, [0, 0, 0], 3, 2),
+  ([-1, -6, 1], [1, 0, 0], 1, true, [-1, 0, 0], 0, 0),
+  ([-1, -6, 1], [3, 1, 0], 17, false, [0, 0, 0], 5, 1),
+  ([-1, -6, 1], [4, 1, 0], 55, false, [0, 0, 0], 23, 7),
+  ([-1, -6, 3], [1, 0, 0], 1, true, [-1, 0, 0], 0, 0),
+  ([-1, -6, 3], [3, 1, 0], 15, false, [0, 0, 0], 17, 7),
+  ([-1, -6, 3], [4, 1, 0], 53, false, [0, 0, 0], 3, 0),
+  ([-1, -6, 5], [1, 0, 0], 1, true, [-1, 0, 0], 0, 0),
+  ([-1, -6, 5], [3, 1, 0], 13, false, [0, 0, 0], 3, 2),
+  ([-1, -6, 5], [4, 1, 0], 51, false, [0, 0, 0], 5, 3),
+  ([-1, -5, -2], [1, 0, 0], 1, true, [-1, 0, 0], 0, 0),
+  ([-1, -5, -2], [2, 1, 0], 1, false, [0, 0, 0], 7, 1),
+  ([-1, -5, -2], [3, 1, 0], 23, false, [0, 0, 0], 13, 4),
+  ([-1, -4, 3], [1, 0, 0], 1, true, [-1, 0, 0], 0, 0),
+  ([-1, -4, 3], [2, 1, 0], 1, false, [0, 0, 0], 3, 0),
+  ([-1, -4, 3], [3, 1, 0], 21, false, [0, 0, 0], 5, 4),
+  ([0, -7, -5], [1, 0, 0], 1, true, [-1, 0, 0], 0, 0),
+  ([0, -7, -5], [3, 1, 0], 11, false, [0, 0, 0], 5, 0),
+  ([0, -7, -5], [4, 1, 0], 41, false, [0, 0, 0], 11, 1),
+  ([0, -7, -3], [1, 0, 0], 1, true, [-1, 0, 0], 0, 0),
+  ([0, -7, -3], [3, 1, 0], 1, false, [0, 0, 0], 3, 2),
+  ([0, -7, -3], [4, 1, 0], 39, false, [0, 0, 0], 17, 9),
+  ([0, -7, -1], [1, 0, 0], 1, true, [-1, 0, 0], 0, 0),
+  ([0, -7, -1], [3, 1, 0], 7, false, [0, 0, 0], 5, 3),
+  ([0, -7, -1], [4, 1, 0], 37, false, [0, 0, 0], 7, 1),
+  ([0, -5, -1], [1, 0, 0], 1, true, [-1, 0, 0], 0, 0),
+  ([0, -5, -1], [3, 1, 0], 13, false, [0, 0, 0], 3, 2),
+  ([0, -5, -1], [4, 1, 0], 5, false, [0, 0, 0], 11, 3)]
+
+/-- `((c2, c1, c0), q, p, roots, square roots of -tau_j(q), classes)` for the
+shapes of the least classes with Omega != 0. -/
+def slShapeData : List (List Int × List Int × Nat × List Int × List Int × List (List Int)) := [
+  ([1, -2, -1], [1, 0, 0], 1009, [499, 733, 785], [469, 469, 469], [[0, -2, 0, 0, 0, 0, 0, -5], [0, 4, -2, -3, 0, 0, 0, -2], [0, -4, -1, 2, 0, 0, 0, -2], [0, 1, -3, -1, 0, 0, 0, 2], [-2, 0, 0, 0, -4, -1, 2, 0], [2, 0, 0, 0, -4, 2, 3, 0], [2, 0, 0, 0, 1, -3, -1, 0], [-5, 0, 0, 0, -2, 0, 0, 0], [5, 0, 0, 0, 2, 0, 0, 0], [-2, 0, 0, 0, -1, 3, 1, 0], [-2, 0, 0, 0, 4, -2, -3, 0], [2, 0, 0, 0, 4, 1, -2, 0], [0, -1, 3, 1, 0, 0, 0, -2], [0, 4, 1, -2, 0, 0, 0, 2], [0, -4, 2, 3, 0, 0, 0, 2], [0, 2, 0, 0, 0, 0, 0, 5]]),
+  ([1, -2, -1], [3, 1, 0], 1051, [595, 619, 887], [320, 150, 367], [[-1, 0, 0, 0, 2, 0, -1, 0], [1, 0, 0, 0, -2, 0, 1, 0]]),
+  ([0, -3, 1], [1, 0, 0], 1009, [311, 843, 864], [469, 469, 469], [[0, -2, 0, 0, 0, 0, 0, -7], [0, -7, 3, 3, 0, 0, 0, -2], [0, 5, 0, -3, 0, 0, 0, -2], [0, -1, -3, 0, 0, 0, 0, -2], [2, 0, 0, 0, 7, -3, -3, 0], [-2, 0, 0, 0, 5, 0, -3, 0], [-2, 0, 0, 0, -1, -3, 0, 0], [-7, 0, 0, 0, -2, 0, 0, 0], [7, 0, 0, 0, 2, 0, 0, 0], [2, 0, 0, 0, 1, 3, 0, 0], [2, 0, 0, 0, -5, 0, 3, 0], [-2, 0, 0, 0, -7, 3, 3, 0], [0, 1, 3, 0, 0, 0, 0, 2], [0, -5, 0, 3, 0, 0, 0, 2], [0, 7, -3, -3, 0, 0, 0, 2], [0, 2, 0, 0, 0, 0, 0, 7]]),
+  ([0, -3, 1], [3, 1, 0], 1657, [126, 570, 961], [756, 595, 217], [[1, 0, 0, 0, 0, -1, 0, 0], [-1, 0, 0, 0, 0, 1, 0, 0]])]
+
+
+/-- **(C) The sixteen fields.**  `Q(zeta_7)^+`, `Q(zeta_9)^+` and the fourteen fields
+`x^3 + a x^2 + b x + c` with `|a| <= 1`, `|b|, |c| <= 7`, irreducible with
+squarefree discriminant (so that `O = Z[a]`), one for each discriminant;
+they are the fields of the cases, each with `q = 1, k + a, k + 1 + a`, `k`
+least with `k + a` totally positive. -/
+theorem sextic_lattice_fields :
+    (let fs := [[1, -2, -1], [0, -3, 1]] ++ slSmallFields
+     slSmallFields.length == 14 && slDisc 1 (-2) (-1) == 49 && slDisc 0 (-3) 1 == 81 &&
+     slCases.map (fun cs => (cs.1, cs.2.1)) == fs.flatMap fun c =>
+       let k : Int := ((List.range 21).map (fun (i : Nat) => Int.ofNat i - 10)).find? (slTotPos c) |>.getD 0
+       if slTotPos c (k - 1) then [] else [(c, [1, 0, 0]), (c, [k, 1, 0]), (c, [k + 1, 1, 0])]) = true := by
+  decide +kernel
+
+/-- **(A)** the Mukai pairing on the even classes of a complex torus of
+dimension six pairs each monomial `m` with its complement, which differs from
+it, by the same sign in both orders; so `chi(v, v)` is twice an integer. -/
+theorem sextic_lattice_euler_even :
+    ((List.range 4096).all fun m => slPop 12 m % 2 == 1 ||
+      (let mc := 4095 - m
+       let s1 : Int := (if slPop 12 m / 2 % 2 == 1 then -1 else 1) * (if slSwaps m mc % 2 == 1 then -1 else 1)
+       let s2 : Int := (if slPop 12 mc / 2 % 2 == 1 then -1 else 1) * (if slSwaps mc m % 2 == 1 then -1 else 1)
+       s1 == s2 && m != mc)) = true := by
+  decide +kernel
+
+/-- **(B)** over the 255 supports and the rank patterns of the relaxation,
+`r^3 - 2 r^2 <= 4`, with equality only at `(r^2, r^3) = (54, 112)`; so the
+condition `chi <= -(r^3 - 2 r^2 + 22)` is implied by `chi <= -26`. -/
+theorem sextic_lattice_shapes :
+    (let vals := (List.range 255).flatMap fun m => slShapeVals (m + 1)
+     vals.all (fun v => v.1 < 4 || (v.1 == 4 && v.2 == (54, 112))) && vals.any (·.1 == 4)) = true := by
+  decide +kernel
+
+/-- **(D)** at `q = 1` the classes `Re exp(i theta) = (1, 0, -1, 0)` and
+`Im exp(i theta) = (0, 1, 0, -1)` have exactly two nonzero coefficients
+`w_eps`, at `eps = (+,+,+)` and `(-,-,-)`. -/
+theorem sextic_lattice_exp_classes :
+    ([[1, 0, -1, 0], [0, 1, 0, -1]].all fun C =>
+      ((List.range 8).filter fun e => slW C e != (0, 0)) == [0, 7]) = true := by
+  decide +kernel
+
+/-- **(LVIII)(i)** `2 + a = beta^2` with the unit `beta = -1 + a + a^2` (norm
+`-1`) over `Q(zeta_7)^+` and `beta = -2 + a + a^2` (norm `1`) over
+`Q(zeta_9)^+`; the recorded classes of norm `4` at `q = 2 + a` are
+`Re e^(i theta_beta) = v(1, 0, -Nm(beta)/beta, 0)` and
+`Im e^(i theta_beta) = v(0, beta, 0, -Nm(beta))`. -/
+theorem sextic_weil_units :
+    ([([1, -2, -1], [-1, 1, 1], -1), ([0, -3, 1], [-2, 1, 1], 1)].all fun e =>
+      let c := e.1; let b := e.2.1
+      slMul c b b == [2, 1, 0] && slNorm c b == e.2.2 &&
+      (slCases.find? (fun cs => cs.1 == c && cs.2.1 == [2, 1, 0])).any fun cs =>
+        cs.2.2.2.2.2.2.2.2.2.1 == some ([1, 0, 0, 0] ++ (slAdj c b).map (- ·) ++ [0],
+          [0] ++ b ++ [0, 0, 0, -slNorm c b])) = true := by
+  decide +kernel
+
+/-- **(LVIII)(ii)** `F = F_0(sqrt(-q))` contains `Q(sqrt(-D))`, `D` the
+squarefree part of `Nm(q)`, iff `D q` is a square in `F_0`: exactly in twenty
+of the 48 cases, `D = 1` for `q = 1` and for `q = 2 + a` over the two cyclic
+fields, `D = 3` for `q = 2 + a` over the field of discriminant `321` and
+`q = 4 + a` over that of discriminant `1509`; in the other cases `D q` is not
+a square modulo a prime. -/
+theorem sextic_weil_imaginary :
+    (slImag.length == 48 && slImag.all slImagOk &&
+      slImag.map (fun e => (e.1, e.2.1)) == slCases.map (fun cs => (cs.1, cs.2.1)) &&
+      (slImag.filter (·.2.2.2.1)).map (fun e => (e.1, e.2.1, e.2.2.1)) ==
+        (slImag.filterMap fun e => if e.2.1 == [1, 0, 0] then some (e.1, e.2.1, 1)
+          else if (e.1 == [1, -2, -1] || e.1 == [0, -3, 1] || e.1 == [-1, -6, -3]) && e.2.1 == [2, 1, 0]
+          then some (e.1, e.2.1, if e.1 == [-1, -6, -3] then 3 else 1)
+          else if e.1 == [-1, -7, 4] && e.2.1 == [4, 1, 0] then some (e.1, e.2.1, 3) else none) &&
+      (slImag.filter (·.2.2.2.1)).length == 20) = true := by
+  decide +kernel
+
+/-- **(LVIII)(iii), (iv)** the classes of least norm with an `F`-Weil part
+over the cyclic fields all have `N_w = 8` and `(r^2, r^3) = (54, 112)`: at
+`q = 1` sixteen of them, among them `v(-5, 0, -2, 0)` over `Q(zeta_7)^+` and
+`v(-7, 0, -2, 0)` over `Q(zeta_9)^+`; at `q = 3 + a` only `+-v_*`,
+`v_* = v(-1, 0, 2 - a^2, 0)`, with `Nm(q) = 13`, `Nm(q) Omega(v_*) =
+18 - 4a - 6a^2`, over `Q(zeta_7)^+`, and only `+-v(1, 0, -a, 0)`, with
+`Nm(q) = 17` and `Nm(q) Omega = 6a + 6a^2`, over `Q(zeta_9)^+`. -/
+theorem sextic_weil_shape_classes :
+    (slShapeData.length == 4 && slShapeData.all slShapeEntryOk &&
+      (let cl := fun (c q : List Int) => ((slShapeData.find? fun s => s.1 == c && s.2.1 == q).map
+        (·.2.2.2.2.2)).getD []
+       let vs : List Int := [-1, 0, 0, 0, 2, 0, -1, 0]
+       let v9 : List Int := [1, 0, 0, 0, 0, -1, 0, 0]
+       (cl [1, -2, -1] [1, 0, 0]).length == 16 && (cl [1, -2, -1] [1, 0, 0]).contains [-5, 0, 0, 0, -2, 0, 0, 0]
+       && (cl [0, -3, 1] [1, 0, 0]).length == 16 && (cl [0, -3, 1] [1, 0, 0]).contains [-7, 0, 0, 0, -2, 0, 0, 0]
+       && (cl [1, -2, -1] [3, 1, 0]).length == 2 && [vs, vs.map (- ·)].all (cl [1, -2, -1] [3, 1, 0]).contains
+       && (cl [0, -3, 1] [3, 1, 0]).length == 2 && [v9, v9.map (- ·)].all (cl [0, -3, 1] [3, 1, 0]).contains
+       && slNorm [1, -2, -1] [3, 1, 0] == 13 && slOmega [1, -2, -1] [3, 1, 0] vs == ([18, -4, -6], [0, 0, 0])
+       && slNorm [0, -3, 1] [3, 1, 0] == 17 && slOmega [0, -3, 1] [3, 1, 0] v9 == ([0, 6, 6], [0, 0, 0]))) = true := by
+  decide +kernel
+
+/-- **(LVIII)(v)** with the norms `-chi/8` certified case by case below: the
+least `-chi` with an `F`-Weil part is `8 m`, at least `192` in every case and
+`192` only over `Q(zeta_7)^+` at `q = 3 + a` (at `+-v_*`); the largest is
+`7080` (discriminant `985`, `q = 4 + a`); for `q = 1` it lies between `296`
+and `3872`, and below it every integral class lies in `Z Re + Z Im`; over the
+cyclic fields it is `296`, `488` for `q = 1` and for `q = 2 + a`, and the
+lattice minimum at `q = 3 + a` is `192`, `256`; over the fields of
+discriminant `321` (`q = 2 + a`) and `1509` (`q = 4 + a`) the lattice minimum
+is `288`, `4608` and the least value `728`, `6504`. -/
+theorem sextic_weil_least_values :
+    (let ks := slCases.map fun cs => (cs.1, cs.2.1, (cs.2.2.2.2.2.1 : Int), (cs.2.2.2.2.2.2.1 : Int),
+       cs.2.2.2.2.2.2.2.1, cs.2.2.2.2.2.2.2.2.2.2)
+     let mOf := fun (c q : List Int) => ((ks.find? fun k => k.1 == c && k.2.1 == q).map (·.2.2.2.1)).getD 0
+     let mnOf := fun (c q : List Int) => ((ks.find? fun k => k.1 == c && k.2.1 == q).map (·.2.2.1)).getD 0
+     let q1 := (ks.filter (·.2.1 == [1, 0, 0])).map (·.2.2.2.1)
+     ks.length == 48 && ks.all (fun k => k.2.2.2.1 ≥ 24) &&
+     (ks.filter (·.2.2.2.1 == 24)).map (fun k => (k.1, k.2.1, k.2.2.2.2.1)) == [([1, -2, -1], [3, 1, 0], 2)] &&
+     ks.all (fun k => k.2.2.2.1 ≤ 885) && mOf [-1, -6, 1] [4, 1, 0] == 885 &&
+     q1.length == 16 && q1.all (fun m => 37 ≤ m && m ≤ 484) && q1.contains 37 && q1.contains 484 &&
+     (ks.filter (·.2.1 == [1, 0, 0])).all (·.2.2.2.2.2) &&
+     mOf [1, -2, -1] [1, 0, 0] == 37 && mOf [1, -2, -1] [2, 1, 0] == 37 &&
+     mOf [0, -3, 1] [1, 0, 0] == 61 && mOf [0, -3, 1] [2, 1, 0] == 61 &&
+     mnOf [1, -2, -1] [3, 1, 0] == 24 && mnOf [0, -3, 1] [3, 1, 0] == 32 && mOf [0, -3, 1] [3, 1, 0] == 32 &&
+     mnOf [-1, -6, -3] [2, 1, 0] == 36 && mOf [-1, -6, -3] [2, 1, 0] == 91 &&
+     mnOf [-1, -7, 4] [4, 1, 0] == 576 && mOf [-1, -7, 4] [4, 1, 0] == 813) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of Q(zeta_7)^+, q = 1: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_00 : slLatticeOk (slCases.getD 0 default) (slGrams.getD 0 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of Q(zeta_7)^+, q = k + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_01 : slLatticeOk (slCases.getD 1 default) (slGrams.getD 1 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of Q(zeta_7)^+, q = k + 1 + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_02 : slLatticeOk (slCases.getD 2 default) (slGrams.getD 2 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of Q(zeta_9)^+, q = 1: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_03 : slLatticeOk (slCases.getD 3 default) (slGrams.getD 3 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of Q(zeta_9)^+, q = k + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_04 : slLatticeOk (slCases.getD 4 default) (slGrams.getD 4 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of Q(zeta_9)^+, q = k + 1 + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_05 : slLatticeOk (slCases.getD 5 default) (slGrams.getD 5 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 469, q = 1: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_06 : slLatticeOk (slCases.getD 6 default) (slGrams.getD 6 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 469, q = k + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_07 : slLatticeOk (slCases.getD 7 default) (slGrams.getD 7 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 469, q = k + 1 + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_08 : slLatticeOk (slCases.getD 8 default) (slGrams.getD 8 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 1509, q = 1: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_09 : slLatticeOk (slCases.getD 9 default) (slGrams.getD 9 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 1509, q = k + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_10 : slLatticeOk (slCases.getD 10 default) (slGrams.getD 10 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 1509, q = k + 1 + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_11 : slLatticeOk (slCases.getD 11 default) (slGrams.getD 11 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 1229, q = 1: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_12 : slLatticeOk (slCases.getD 12 default) (slGrams.getD 12 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 1229, q = k + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_13 : slLatticeOk (slCases.getD 13 default) (slGrams.getD 13 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 1229, q = k + 1 + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_14 : slLatticeOk (slCases.getD 14 default) (slGrams.getD 14 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 321, q = 1: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_15 : slLatticeOk (slCases.getD 15 default) (slGrams.getD 15 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 321, q = k + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_16 : slLatticeOk (slCases.getD 16 default) (slGrams.getD 16 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 321, q = k + 1 + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_17 : slLatticeOk (slCases.getD 17 default) (slGrams.getD 17 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 761, q = 1: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_18 : slLatticeOk (slCases.getD 18 default) (slGrams.getD 18 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 761, q = k + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_19 : slLatticeOk (slCases.getD 19 default) (slGrams.getD 19 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 761, q = k + 1 + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_20 : slLatticeOk (slCases.getD 20 default) (slGrams.getD 20 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 985, q = 1: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_21 : slLatticeOk (slCases.getD 21 default) (slGrams.getD 21 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 985, q = k + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_22 : slLatticeOk (slCases.getD 22 default) (slGrams.getD 22 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 985, q = k + 1 + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_23 : slLatticeOk (slCases.getD 23 default) (slGrams.getD 23 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 993, q = 1: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_24 : slLatticeOk (slCases.getD 24 default) (slGrams.getD 24 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 993, q = k + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_25 : slLatticeOk (slCases.getD 25 default) (slGrams.getD 25 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 993, q = k + 1 + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_26 : slLatticeOk (slCases.getD 26 default) (slGrams.getD 26 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 785, q = 1: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_27 : slLatticeOk (slCases.getD 27 default) (slGrams.getD 27 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 785, q = k + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_28 : slLatticeOk (slCases.getD 28 default) (slGrams.getD 28 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 785, q = k + 1 + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_29 : slLatticeOk (slCases.getD 29 default) (slGrams.getD 29 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 229, q = 1: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_30 : slLatticeOk (slCases.getD 30 default) (slGrams.getD 30 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 229, q = k + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_31 : slLatticeOk (slCases.getD 31 default) (slGrams.getD 31 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 229, q = k + 1 + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_32 : slLatticeOk (slCases.getD 32 default) (slGrams.getD 32 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 257, q = 1: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_33 : slLatticeOk (slCases.getD 33 default) (slGrams.getD 33 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 257, q = k + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_34 : slLatticeOk (slCases.getD 34 default) (slGrams.getD 34 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 257, q = k + 1 + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_35 : slLatticeOk (slCases.getD 35 default) (slGrams.getD 35 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 697, q = 1: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_36 : slLatticeOk (slCases.getD 36 default) (slGrams.getD 36 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 697, q = k + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_37 : slLatticeOk (slCases.getD 37 default) (slGrams.getD 37 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 697, q = k + 1 + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_38 : slLatticeOk (slCases.getD 38 default) (slGrams.getD 38 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 1129, q = 1: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_39 : slLatticeOk (slCases.getD 39 default) (slGrams.getD 39 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 1129, q = k + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_40 : slLatticeOk (slCases.getD 40 default) (slGrams.getD 40 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 1129, q = k + 1 + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_41 : slLatticeOk (slCases.getD 41 default) (slGrams.getD 41 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 1345, q = 1: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_42 : slLatticeOk (slCases.getD 42 default) (slGrams.getD 42 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 1345, q = k + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_43 : slLatticeOk (slCases.getD 43 default) (slGrams.getD 43 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 1345, q = k + 1 + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_44 : slLatticeOk (slCases.getD 44 default) (slGrams.getD 44 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 473, q = 1: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_45 : slLatticeOk (slCases.getD 45 default) (slGrams.getD 45 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 473, q = k + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_46 : slLatticeOk (slCases.getD 46 default) (slGrams.getD 46 []) = true := by
+  decide +kernel
+
+/-- **(C)** the lattice of the field of discriminant 473, q = k + 1 + a: the integral classes of `S(0,q)` are the
+span of the recorded basis, with the recorded Gram matrix of `-chi/8`. -/
+theorem sextic_lattice_case_47 : slLatticeOk (slCases.getD 47 default) (slGrams.getD 47 []) = true := by
+  decide +kernel
+
+/-- **(C), (LVIII)** the scans over Q(zeta_7)^+ and Q(zeta_9)^+ (cases 0 to 5): no
+integral class has `-chi <= 24`, at `q = 1` those with `-chi = 32` are
+`+-Re`, `+-Im exp(i theta)`, and the least `-chi` with an `F`-Weil part is the
+recorded one. -/
+theorem sextic_weil_scan_0 :
+    ((List.range 6).all fun i => slScanOk slShapeData (slCases.getD (0 + i) default)
+      (slGrams.getD (0 + i) [])) = true := by
+  decide +kernel
+
+/-- **(C), (LVIII)** the scans over the field of discriminant 469 and the field of discriminant 1509 (cases 6 to 11): no
+integral class has `-chi <= 24`, at `q = 1` those with `-chi = 32` are
+`+-Re`, `+-Im exp(i theta)`, and the least `-chi` with an `F`-Weil part is the
+recorded one. -/
+theorem sextic_weil_scan_1 :
+    ((List.range 6).all fun i => slScanOk slShapeData (slCases.getD (6 + i) default)
+      (slGrams.getD (6 + i) [])) = true := by
+  decide +kernel
+
+/-- **(C), (LVIII)** the scans over the field of discriminant 1229 and the field of discriminant 321 (cases 12 to 17): no
+integral class has `-chi <= 24`, at `q = 1` those with `-chi = 32` are
+`+-Re`, `+-Im exp(i theta)`, and the least `-chi` with an `F`-Weil part is the
+recorded one. -/
+theorem sextic_weil_scan_2 :
+    ((List.range 6).all fun i => slScanOk slShapeData (slCases.getD (12 + i) default)
+      (slGrams.getD (12 + i) [])) = true := by
+  decide +kernel
+
+/-- **(C), (LVIII)** the scans over the field of discriminant 761 and the field of discriminant 985 (cases 18 to 23): no
+integral class has `-chi <= 24`, at `q = 1` those with `-chi = 32` are
+`+-Re`, `+-Im exp(i theta)`, and the least `-chi` with an `F`-Weil part is the
+recorded one. -/
+theorem sextic_weil_scan_3 :
+    ((List.range 6).all fun i => slScanOk slShapeData (slCases.getD (18 + i) default)
+      (slGrams.getD (18 + i) [])) = true := by
+  decide +kernel
+
+/-- **(C), (LVIII)** the scans over the field of discriminant 993 and the field of discriminant 785 (cases 24 to 29): no
+integral class has `-chi <= 24`, at `q = 1` those with `-chi = 32` are
+`+-Re`, `+-Im exp(i theta)`, and the least `-chi` with an `F`-Weil part is the
+recorded one. -/
+theorem sextic_weil_scan_4 :
+    ((List.range 6).all fun i => slScanOk slShapeData (slCases.getD (24 + i) default)
+      (slGrams.getD (24 + i) [])) = true := by
+  decide +kernel
+
+/-- **(C), (LVIII)** the scans over the field of discriminant 229 and the field of discriminant 257 (cases 30 to 35): no
+integral class has `-chi <= 24`, at `q = 1` those with `-chi = 32` are
+`+-Re`, `+-Im exp(i theta)`, and the least `-chi` with an `F`-Weil part is the
+recorded one. -/
+theorem sextic_weil_scan_5 :
+    ((List.range 6).all fun i => slScanOk slShapeData (slCases.getD (30 + i) default)
+      (slGrams.getD (30 + i) [])) = true := by
+  decide +kernel
+
+/-- **(C), (LVIII)** the scans over the field of discriminant 697 and the field of discriminant 1129 (cases 36 to 41): no
+integral class has `-chi <= 24`, at `q = 1` those with `-chi = 32` are
+`+-Re`, `+-Im exp(i theta)`, and the least `-chi` with an `F`-Weil part is the
+recorded one. -/
+theorem sextic_weil_scan_6 :
+    ((List.range 6).all fun i => slScanOk slShapeData (slCases.getD (36 + i) default)
+      (slGrams.getD (36 + i) [])) = true := by
+  decide +kernel
+
+/-- **(C), (LVIII)** the scans over the field of discriminant 1345 and the field of discriminant 473 (cases 42 to 47): no
+integral class has `-chi <= 24`, at `q = 1` those with `-chi = 32` are
+`+-Re`, `+-Im exp(i theta)`, and the least `-chi` with an `F`-Weil part is the
+recorded one. -/
+theorem sextic_weil_scan_7 :
+    ((List.range 6).all fun i => slScanOk slShapeData (slCases.getD (42 + i) default)
+      (slGrams.getD (42 + i) [])) = true := by
+  decide +kernel
+
+/-! ## 67.  The transform of the powers of the polarisation, computed
+
+Item (I), Theorem (Transform of the polarisation powers).  In the model of
+Notation (The model), `wedge^*(V + V^vee)` has the generators `e_1..e_2g`
+(bits `0..2g-1`) and `f_1..f_2g` (bits `2g..4g-1`), with
+`ell = sum_i e_i f_i`, `theta = sum_j e_j e_(g+j)` and
+`theta' = sum_j f_j f_(g+j)`, and `Phi_P(x) = p_*(q^* x . e^ell)`, `p_*` the
+coefficient of `f_1 ... f_2g` (moved to the right).  The kernel forms
+`theta'^k` and `theta^(g-k)` by exterior multiplication, multiplies
+`theta'^k` by the terms `prod_(i in S) e_i f_i` of `e^ell` that complete it
+to all of `f_1 ... f_2g` (the other terms have lower degree in the `f` and
+are killed by `p_*`), and finds
+`Phi_P(theta'^k) = (-1)^(g(g+1)/2 + k) k!/(g-k)! theta^(g-k)` for
+`1 <= g <= 4` and `0 <= k <= g`, an identity of classes with all their
+coefficients.  Section 2 checks the sign of each term for `g <= 5`.
+-/
+
+def fmPop : Nat → Nat → Nat
+  | 0, _ => 0
+  | f + 1, x => x % 2 + fmPop f (x / 2)
+
+/-- the sign exponent of `e_a e_b -> e_(a+b)` on `N` generators. -/
+def fmSwaps (N a b : Nat) : Nat :=
+  (List.range N).foldl (fun s y => if b / 2 ^ y % 2 == 1 then s + fmPop N (a / 2 ^ (y + 1)) else s) 0
+
+def fmIns (k : Nat) (v : Int) : List (Nat × Int) → List (Nat × Int)
+  | [] => [(k, v)]
+  | (k', v') :: r => if k == k' then (k, v' + v) :: r else (k', v') :: fmIns k v r
+
+def fmWedge (N : Nat) (A B : List (Nat × Int)) : List (Nat × Int) :=
+  (A.foldl (fun acc x => B.foldl (fun acc y =>
+    if x.1 &&& y.1 != 0 then acc
+    else fmIns (x.1 + y.1) (if fmSwaps N x.1 y.1 % 2 == 1 then -(x.2 * y.2) else x.2 * y.2) acc) acc) []).filter
+    (·.2 != 0)
+
+def fmPower (N : Nat) (x : List (Nat × Int)) : Nat → List (Nat × Int)
+  | 0 => [(0, 1)]
+  | k + 1 => fmWedge N (fmPower N x k) x
+
+def fmFact : Nat → Nat
+  | 0 => 1
+  | k + 1 => (k + 1) * fmFact k
+
+/-- `Phi_P(theta'^k)` and the closed form agree, coefficient by coefficient. -/
+def fmCheck (g k : Nat) : Bool :=
+  let N := 4 * g
+  let theta := (List.range g).map fun j => (2 ^ j + 2 ^ (g + j), (1 : Int))
+  let thetad := (List.range g).map fun j => (2 ^ (2 * g + j) + 2 ^ (3 * g + j), (1 : Int))
+  let duals := 2 ^ (4 * g) - 2 ^ (2 * g)
+  let src := fmPower N thetad k
+  -- the term of `e^ell` completing a monomial `m` of `theta'^k`: `prod e_i f_i`
+  -- over the `i` with `f_i` missing from `m`, in increasing order of `i`
+  let img := src.foldl (fun acc m =>
+    let S := (List.range (2 * g)).filter fun i => m.1 / 2 ^ (2 * g + i) % 2 == 0
+    let t := S.foldl (fun t i => fmWedge N t [(2 ^ i + 2 ^ (2 * g + i), 1)]) [(0, 1)]
+    (fmWedge N [m] t).foldl (fun acc w =>
+      if w.1 &&& duals != duals then acc
+      else
+        let base := w.1 - duals
+        fmIns base (if fmSwaps N base duals % 2 == 1 then -w.2 else w.2) acc) acc) []
+  let sg : Int := if (g * (g + 1) / 2 + k) % 2 == 0 then 1 else -1
+  let tgt := (fmPower N theta (g - k)).map fun w => (w.1, w.2 * sg * fmFact k / fmFact (g - k))
+  let img' := img.filter (·.2 != 0)
+  img'.length == tgt.length && tgt.all (img'.contains ·)
+    && (fmPower N theta (g - k)).all (fun w => (w.2 * fmFact k) % fmFact (g - k) == 0)
+
+/-- **(I)** `Phi_P(theta'^k) = (-1)^(g(g+1)/2 + k) (k!/(g-k)!) theta^(g-k)` in the
+exterior algebra of `V + V^vee`, for `1 <= g <= 4` and `0 <= k <= g`. -/
+theorem fm_powers_computed :
+    ([1, 2, 3, 4].all fun g => (List.range (g + 1)).all fun k => fmCheck g k) = true := by
+  decide +kernel
+
+/-! ## 68.  The open routes to the Mumford target, as a Horn system
+
+Item (XLIX), Corollary (The Mumford target and its equivalent forms) and the
+remark on the routes to it.  The Mumford target is the first case of (F2):
+the Hodge conjecture for `X_t x X_t` at every point `t` of the Mumford curve.
+As in Section 24 the implications into and out of it are carried as data,
+each rule one theorem of the paper.  The statements are numbered
+
+     0  TARGET   the Hodge conjecture for `X_t x X_t`, every `t`
+     1  UNCOUNT  an exceptional class algebraic at uncountably many `t`
+     2  B_WW     the Lefschetz standard conjecture `B(W x_C W)`
+     3  BOUND    bounded Hilbert data at infinitely many points
+     4  MODP     bounded Hilbert data of `l`-adic representatives on a
+                 Zariski dense set of closed points
+     5  EXT119   a perfect complex with `ch = N omega`, `dim Ext^2 = 119`
+     6  KS_U     the Kuga-Satake class of `S_lambda(t)` algebraic for
+                 uncountably many `t`
+     7  HK_U     a symplectic rational map from `X_t x X_t`, uncountably
+                 many `t`
+     8  CM       the Hodge conjecture for `X_c x X_c` at every CM point
+     9  V        the variational Hodge conjecture for algebraic classes
+    10  L        the Lefschetz standard conjecture
+    11  M        every Hodge class is motivated
+    12  F1, 13  F2, 14  F3   the three statements of the corollary on what
+                 remains
+    15  HC       the Hodge conjecture
+
+with `8` proved (Theorem (The Hodge conjecture at the CM points)) and every
+other statement open.  The rules, in the order of the list below, are the
+two directions of `cor:mumfordequiv` for `2` and for `1`, of
+`cor:mumfordbounded` for `3`, of `thm:modpdensity` for `4`, then
+`thm:mumfordnumerical`, `thm:mumfordks`, `prop:hksquare`, `thm:mumfordcm`,
+two rules of `prop:lefvhc`, three of `prop:lefmot`, three of
+`cor:fourremain` and the two directions of `prop:f3ishc`: twenty-two rules
+and eleven labels.  Every statement is named by a rule.  There are sixteen
+statements, so sixteen passes of the one-step operator reach the fixed point
+(each pass that changes the set adds a statement).  The closure operator is
+monotone, so a family of sets that yield a statement has as its minimal
+members the sets found below once every larger candidate is checked to fail;
+that is how the minimal routes are certified without listing all subsets.
+-/
+
+/-- the rules, as pairs of a premise list and a conclusion. -/
+def mrRules : List (List Nat × Nat) :=
+  [([2], 0), ([0], 2), ([1], 0), ([0], 1), ([3], 0), ([0], 3), ([4], 0), ([0], 4),
+   ([5], 0), ([6], 1), ([7], 1), ([9, 8], 0), ([10], 9), ([15], 9),
+   ([15], 10), ([15], 11), ([10, 11], 15),
+   ([12, 13, 14], 15), ([13], 0), ([15], 13), ([14], 15), ([15], 14)]
+
+/-- the open statements other than the target. -/
+def mrCands : List Nat := [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15]
+
+def mrStep (s : List Nat) : List Nat :=
+  mrRules.foldl
+    (fun acc r => if r.1.all (fun p => acc.contains p) then
+        (if acc.contains r.2 then acc else r.2 :: acc) else acc) s
+
+def mrClose (s : List Nat) : Nat → List Nat
+  | 0 => s
+  | k + 1 => mrStep (mrClose s k)
+
+/-- `x` follows from the proved statement `8` together with `t`. -/
+def mrYields (t : List Nat) (x : Nat) : Bool := (mrClose (8 :: t) 16).contains x
+
+/-- **(A), (B) The rule set is closed and the target is not proved.**  Every
+statement `0..15` is named by a rule, and the target is not in the closure
+of the proved statement. -/
+theorem mumford_routes_target_open :
+    ((List.range 16).all (fun s => mrRules.any fun r => r.2 == s || r.1.contains s)
+      && !mrYields [] 0) = true := by
+  decide
+
+/-- **(C) The equivalent forms of the target.**  The open statements that yield
+the target and are yielded by it, over the proved statement, are exactly the
+target, `UNCOUNT`, `B_WW`, `BOUND` and `MODP`. -/
+theorem mumford_routes_equivalent :
+    ((0 :: mrCands).filter (fun s => mrYields [s] 0 && mrYields [0] s)
+      == [0, 1, 2, 3, 4]) = true := by
+  decide
+
+/-- **(D) Twelve routes, each of one statement.**  Exactly twelve of the
+fourteen open statements other than the target yield it alone, and the
+remaining two, `M` and `F1`, do not yield it together; by monotonicity every
+set of open statements that yields the target contains one of the twelve, so
+the minimal such sets are these twelve singletons. -/
+theorem mumford_routes_minimal :
+    (mrCands.filter (fun s => mrYields [s] 0) == [1, 2, 3, 4, 5, 6, 7, 9, 10, 13, 14, 15]
+      && !mrYields [11, 12] 0) = true := by
+  decide
+
+/-- **(E), (F) Stronger routes and the routes through `L` and `V`.**  The
+target yields none of `EXT119`, `KS_U`, `HK_U`, each of which yields the
+target; `L` and `V` each yield the target. -/
+theorem mumford_routes_stronger :
+    ([5, 6, 7].all (fun s => !mrYields [0] s && mrYields [s] 0)
+      && mrYields [10] 0 && mrYields [9] 0) = true := by
+  decide
+
+/-- **(G), (H) The target as an input.**  `HC` and `F2` yield the target, even
+without the proved statement; the target yields none of `HC`, `F1`, `F2`,
+`F3`, `L`, `V`, `M`; `F3` and `HC` yield each other.  The minimal sets of
+open statements that yield `HC` are `{HC}`, `{F3}` and `{L, M}`: these
+yield it, no other single statement does, and the two largest candidate sets
+avoiding `HC`, `F3` and one of `L`, `M` do not; none contains the target. -/
+theorem mumford_routes_conjecture :
+    ((mrClose [15] 16).contains 0 && (mrClose [13] 16).contains 0
+      && [15, 12, 13, 14, 10, 9, 11].all (fun s => !mrYields [0] s)
+      && mrYields [14] 15 && mrYields [15] 14
+      && mrCands.filter (fun s => mrYields [s] 15) == [14, 15]
+      && mrYields [10, 11] 15
+      && !mrYields ((mrCands.filter fun s => s != 14 && s != 15 && s != 10) ++ [0]) 15
+      && !mrYields ((mrCands.filter fun s => s != 14 && s != 15 && s != 11) ++ [0]) 15) = true := by
+  decide
+
+/-! ## 69.  Reduction of the two targets
+
+Item (XLIII), Theorem (The Hodge ring of a Mumford square), Corollary (The
+Mumford target reduced to one Lefschetz conjecture) and Theorem (Two
+branches).  `H^1(X x X) = V + V`, `V = V_1 (x) V_2 (x) V_3`, has sixteen
+generators; generator `i` has weight `(1 - 2 b_2, 1 - 2 b_1, 1 - 2 b_0)`
+for the diagonal torus of `SL_2^3`, `b` the bits of `i mod 8`, and the
+raising operator of factor `t` clears bit `2 - t`.
+
+(A) By Weyl's character formula for `sl_2^3` the multiplicity of the
+irreducible module of highest weight `lambda` in `wedge^i V` is the
+alternating sum of the weight multiplicities at `lambda + 2 eps`,
+`eps in {0,1}^3`, and the invariants of `wedge^k (V + V) =
+sum_(i+j=k) wedge^i V (x) wedge^j V` number `sum_lambda m_i(lambda)
+m_j(lambda)` (every module of `sl_2^3` is self-dual): `1, 0, 3, 0, 8, 0, 16,
+0, 28, 0, 16, 0, 8, 0, 3, 0, 1`.  Integer bases `I2`, `I4` of the invariants
+of degrees two and four are recorded; every monomial of them has weight
+zero and the three raising operators kill them, so they are invariant (a
+vector of weight zero killed by the raising operator of `sl_2` spans a
+trivial module).  They have rank `3` and `8`, the six products of `I2` have
+rank `6`, so two classes of degree four are exceptional, and sixteen
+recorded products `I4 I2` and twenty-eight products of those with `I2` have
+rank `16` and `28`.  So the ring generated in degrees two and four is every
+invariant in degrees up to eight; hard Lefschetz for the invariant class
+`theta`, an isomorphism `theta^(8-k) : Inv^k -> Inv^(16-k)`, gives the
+degrees above eight.  A rank is certified by a minor on recorded monomials
+that is nonzero modulo `p = 1000003`, hence nonzero.
+
+(B) At a CM point the Hodge group is the diagonal torus, and the Hodge
+classes are the monomials of weight zero: `1, 0, 4, 0, 8, 0, 4, 0, 1` on
+`X_c` and `1, 0, 16, 0, 132, 0, 432, 0, 648, ...` on `X_c x X_c`.  The
+divisor classes are the sixteen monomials of degree two; their products are
+monomials, and they give exactly `100` of the `132` in degree four.  A
+monomial of `X_c x X_c` has a multiplicity `mu_w in {0, 1, 2}` at each of
+the eight weights; with `T_+` the four weights with an even number of minus
+signs and `T_-` their negatives, a weight-zero `mu` has
+`mu_w - mu_(-w)` constant on `T_+` (the four weights of `T_+` satisfy one
+linear relation), so it is `t T_+` or `t T_-` plus opposite pairs; the
+kernel checks this on all `3^8` vectors `mu`.  The `32` remaining monomials
+of degree four are the sixteen copy patterns of `T_+` and of `T_-`.  For a
+tetrahedron `T` and diagonal maps `f = (phi, psi) : X_c x X_c -> X_c`,
+`f^*(e_T)` is the sum over the copy patterns `c` of
+`prod_(c_w = 1) phi_w prod_(c_w = 2) psi_w` times a fixed sign times the
+monomial; for `phi = 1` and the sixteen `psi` with entries `1, 2` on `T` the
+matrix of these coefficients is the fourth Kronecker power of
+`[[1, 1], [1, 2]]` and is nonsingular.  So the divisor classes and the
+pull-backs `f^*(t)` generate every Hodge class of `X_c x X_c`.
+
+(C) On an abelian `2n`-fold of Weil type, in the model of Section 50, a
+product of two operators of `HH^1` sends a monomial to zero or, injectively,
+to a monomial; so the classes killed by a family of such products are
+spanned by monomials.  The monomials of type `(p, p)` killed by every
+product `q w`, `q` in `Q` and `w` in `HH^1`, are `alpha_-` alone; by
+`P HH^1`, `alpha_+` alone; by `HH^1 HH^1`, none; for `n = 1, 2, 3`.
+-/
+
+/-- the weight generating polynomial of `wedge^* V`, recorded. -/
+def tgGenRec : List (Nat × Nat) := [(80808, 1), (1090909, 1), (1090907, 1), (2101008, 1), (1090709, 1), (2100810, 1), (2100808, 2), (3110909, 1), (1090707, 1), (2100806, 1), (3110907, 1), (2100608, 1), (3110709, 1), (3110707, 1), (4120808, 1), (1070909, 1), (2081010, 1), (2081008, 2), (3091109, 1), (2080810, 2), (3090911, 1), (3090909, 4), (4101010, 1), (2080808, 4), (3090907, 4), (4101008, 2), (3090709, 4), (4100810, 2), (4100808, 4), (5110909, 1), (1070907, 1), (2081006, 1), (3091107, 1), (2080806, 2), (3090905, 1), (4101006, 1), (3090707, 4), (4100806, 2), (5110907, 1), (2061008, 1), (3071109, 1), (3071107, 1), (4081208, 1), (3070909, 4), (4081010, 2), (4081008, 4), (5091109, 1), (3070907, 4), (4081006, 2), (5091107, 1), (4080808, 8), (5090909, 4), (5090907, 4), (6101008, 1), (1070709, 1), (2080610, 1), (3090711, 1), (2080608, 2), (3090509, 1), (4100610, 1), (4100608, 2), (5110709, 1), (2060810, 1), (3070911, 1), (3070711, 1), (4080812, 1), (4080810, 4), (5090911, 1), (3070709, 4), (4080610, 2), (5090711, 1), (5090709, 4), (6100810, 1), (2060808, 2), (3070707, 4), (4080806, 4), (4080608, 4), (5090707, 4), (6100808, 2), (3050909, 1), (4061010, 1), (4061008, 2), (5071109, 1), (4060810, 2), (5070911, 1), (5070909, 4), (6081010, 1), (4060808, 4), (5070907, 4), (6081008, 2), (5070709, 4), (6080810, 2), (6080808, 4), (7090909, 1), (1070707, 1), (2080606, 1), (3090705, 1), (3090507, 1), (4100606, 1), (5110707, 1), (2060806, 1), (3070905, 1), (3070705, 1), (4080804, 1), (5090905, 1), (4080606, 2), (5090705, 1), (6100806, 1), (3050907, 1), (4061006, 1), (5071107, 1), (4060806, 2), (5070905, 1), (6081006, 1), (5070707, 4), (6080806, 2), (7090907, 1), (2060608, 1), (3070509, 1), (3070507, 1), (4080408, 1), (5090509, 1), (5090507, 1), (6100608, 1), (3050709, 1), (4060610, 1), (5070711, 1), (4060608, 2), (5070509, 1), (6080610, 1), (6080608, 2), (7090709, 1), (3050707, 1), (4060606, 1), (5070705, 1), (5070507, 1), (6080606, 1), (7090707, 1), (4040808, 1), (5050909, 1), (5050907, 1), (6061008, 1), (5050709, 1), (6060810, 1), (6060808, 2), (7070909, 1), (5050707, 1), (6060806, 1), (7070907, 1), (6060608, 1), (7070709, 1), (7070707, 1), (8080808, 1)]
+/-- the multiplicities of the irreducible modules in `wedge^q V`. -/
+def tgIrrRec : List (List Int) := [[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 1, 0, 1, 0, 0, 0], [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+/-- the invariants of degree two. -/
+def tgI2 : List (List (Nat × Int)) := [
+  [(24, 1), (36, -1), (66, -1), (129, 1)],
+  [(384, 1), (576, -1), (1056, -1), (2064, 1), (4104, -1), (8196, 1), (16386, 1), (32769, -1)],
+  [(6144, 1), (9216, -1), (16896, -1), (33024, 1)]]
+/-- the invariants of degree four. -/
+def tgI4 : List (List (Nat × Int)) := [
+  [(60, 1), (90, 1), (102, -1), (153, -1), (165, 1), (195, 1)],
+  [(408, 1), (420, -1), (450, -1), (600, -1), (612, 1), (705, 1), (1080, -1), (1122, -1), (1185, 1), (2100, 1), (2130, 1), (2193, -1), (4140, -1), (4170, -1), (4233, 1), (8220, 1), (8262, 1), (8325, -1), (16410, 1), (16422, -1), (16515, -1), (32793, -1), (32805, 1), (32835, 1)],
+  [(6168, 1), (6180, -1), (6210, -1), (6273, 1), (9240, -1), (9252, 1), (9282, 1), (9345, -1), (16920, -1), (16932, 1), (16962, 1), (17025, -1), (33048, 1), (33060, -1), (33090, -1), (33153, 1)],
+  [(4488, 2), (4680, -1), (4740, -1), (5160, -1), (5250, -1), (6180, 1), (6210, 1), (8520, -1), (8580, -1), (8772, 2), (9240, 1), (9345, 1), (10260, -1), (10305, -1), (16680, -1), (16770, -1), (16920, 1), (17025, 1), (17442, 2), (18450, -1), (18465, -1), (33060, 1), (33090, 1), (33300, -1), (33345, -1), (33810, -1), (33825, -1), (34833, 2)],
+  [(1440, 2), (1632, -1), (1680, -1), (2400, -1), (2448, -1), (2640, 2), (5160, -1), (5250, 1), (6180, 1), (6273, -1), (9240, 1), (9282, -1), (10260, -1), (10305, 1), (16680, 1), (16770, -1), (16932, -1), (17025, 1), (20490, 2), (24582, -1), (24585, -1), (33048, -1), (33090, 1), (33300, 1), (33345, -1), (36870, -1), (36873, -1), (40965, 2)],
+  [(960, 2), (1632, -1), (1680, 1), (2400, 1), (2448, -1), (3120, 2), (4680, -1), (4740, 1), (6210, 1), (6273, -1), (8520, 1), (8580, -1), (9282, -1), (9345, 1), (12300, 2), (16920, 1), (16932, -1), (18450, -1), (18465, 1), (24582, -1), (24585, 1), (33048, -1), (33060, 1), (33810, 1), (33825, -1), (36870, 1), (36873, -1), (49155, 2)],
+  [(6528, 1), (6720, -1), (7200, -1), (9600, -1), (9792, 1), (11280, 1), (13320, -1), (14340, 1), (17280, -1), (17952, -1), (18960, 1), (21000, -1), (22530, 1), (25092, 1), (25602, -1), (33600, 1), (34080, 1), (35088, -1), (37128, 1), (38913, -1), (41220, -1), (41985, 1), (49410, -1), (49665, 1)],
+  [(15360, 1), (23040, 1), (26112, -1), (39168, -1), (42240, 1), (49920, 1)]]
+def tgPivI2 : List Nat := [24, 384, 6144]
+def tgPivI4 : List Nat := [60, 408, 6168, 4488, 1440, 960, 6528, 15360]
+def tgPivProd : List Nat := [60, 408, 6168, 960, 6528, 15360]
+def tgRec6 : List (Nat × Nat × Nat) := [(0, 2, 0), (0, 2, 1), (0, 2, 2), (1, 2, 1), (1, 2, 2), (2, 2, 2), (3, 2, 0), (3, 2, 1), (3, 2, 2), (4, 2, 0), (4, 2, 1), (4, 2, 2), (5, 2, 1), (5, 2, 2), (6, 2, 2), (7, 2, 2)]
+def tgPiv6 : List Nat := [126, 444, 6204, 984, 6552, 15384, 4524, 5064, 13704, 1464, 2016, 7584, 5544, 7104, 15744, 32256]
+def tgRec8 : List (Nat × Nat × Nat) := [(0, 2, 0), (0, 2, 1), (0, 2, 2), (1, 2, 1), (1, 2, 2), (2, 2, 2), (3, 2, 1), (3, 2, 2), (4, 2, 2), (5, 2, 2), (6, 2, 0), (6, 2, 1), (6, 2, 2), (7, 2, 1), (7, 2, 2), (8, 2, 2), (9, 2, 0), (9, 2, 1), (9, 2, 2), (10, 2, 1), (10, 2, 2), (11, 2, 2), (12, 2, 1), (12, 2, 2), (13, 2, 2), (14, 2, 2), (15, 2, 2), (3, 4, 3)]
+def tgPiv8 : List Nat := [255, 510, 6270, 1020, 6588, 15420, 2040, 7128, 15768, 32280, 4590, 5100, 13740, 6120, 14280, 30600, 1530, 5610, 7608, 4080, 8160, 24480, 13260, 22440, 16320, 32640, 65280, 21930]
+
+/-- the weight of generator `j` (taken mod 8) in factor `t`. -/
+def tgW (j t : Nat) : Int := if (j % 8).testBit (2 - t) then -1 else 1
+
+def tgPop (m : Nat) : Nat := (List.range 16).countP (fun i => m.testBit i)
+
+/-- the key of `(size, weight)`, each weight offset by `8`. -/
+def tgKey (q a b c : Nat) : Nat := q * 1000000 + a * 10000 + b * 100 + c
+
+/-- generator `j` has weight `-1` in factor `t`. -/
+def tgNeg (j t : Nat) : Bool := (j % 8).testBit (2 - t)
+
+def tgStep (A : Nat) (neg : Bool) : Nat := if neg then A - 1 else A + 1
+
+/-- the weight generating polynomial `prod_j (1 + y x^(w_j))` of
+`wedge^* V`, as a list of `(key, multiplicity)`. -/
+def tgGen : List (Nat × Nat) :=
+  (List.range 8).foldl (fun P j =>
+    P.foldl (fun acc x =>
+      let k := tgKey (x.1 / 1000000 + 1) (tgStep (x.1 / 10000 % 100) (tgNeg j 0))
+        (tgStep (x.1 / 100 % 100) (tgNeg j 1)) (tgStep (x.1 % 100) (tgNeg j 2))
+      match acc.find? (·.1 == k) with
+      | none => acc ++ [(k, x.2)]
+      | some y => acc.map fun z => if z.1 == k then (k, y.2 + x.2) else z) P)
+    [(tgKey 0 8 8 8, 1)]
+
+/-- the multiplicity of the weight with offset coordinates `(A, B, C)` in
+`wedge^q V`, read from the recorded polynomial. -/
+def tgMult (q A B C : Nat) : Nat := ((tgGenRec.find? (·.1 == tgKey q A B C)).map (·.2)).getD 0
+
+/-- the multiplicity of the irreducible module of highest weight `(a, b, c)`
+in `wedge^q V`. -/
+def tgIrr (q a b c : Nat) : Int :=
+  let m := fun x y z => (tgMult q (a + 8 + x) (b + 8 + y) (c + 8 + z) : Int)
+  m 0 0 0 - m 2 0 0 - m 0 2 0 - m 0 0 2 + m 2 2 0 + m 2 0 2 + m 0 2 2 - m 2 2 2
+
+/-- the dominant weights of the parity of `q` that can occur in `wedge^q V`. -/
+def tgLam (q : Nat) : List (Nat × Nat × Nat) :=
+  let xs : List Nat := if q % 2 == 0 then [0, 2, 4] else [1, 3]
+  xs.foldr (fun a acc => xs.foldr (fun b acc => xs.foldr (fun c acc => (a, b, c) :: acc) acc) acc) []
+
+def tgIrrTab (q : Nat) : List Int := (tgLam q).map fun l => tgIrr q l.1 l.2.1 l.2.2
+
+/-- the invariants of `sl_2^3` in `wedge^k (V + V)`, from the recorded
+multiplicities of the irreducible modules. -/
+def tgInvXX (k : Nat) : Int :=
+  (List.range 9).foldl (fun acc i =>
+    if i ≤ k && k - i ≤ 8 && (k - i) % 2 == i % 2 then
+      acc + ((tgIrrRec.getD i []).zip (tgIrrRec.getD (k - i) [])).foldl (fun a x => a + x.1 * x.2) 0
+    else acc) 0
+
+/-- the raising operator of factor `t` on a monomial, as a derivation. -/
+def tgRaiseMono (t m : Nat) : List (Nat × Int) :=
+  (List.range 16).filterMap fun i =>
+    if m.testBit i && (i % 8).testBit (2 - t) then
+      let r := i - 2 ^ (2 - t)
+      if m.testBit r then none
+      else
+        let between := (List.range 16).countP (fun b => r < b && b < i && m.testBit b)
+        some (m - 2 ^ i + 2 ^ r, if between % 2 == 0 then 1 else -1)
+    else none
+
+def tgRaise (t : Nat) (v : List (Nat × Int)) : List (Nat × Int) :=
+  (v.foldl (fun acc x => (tgRaiseMono t x.1).foldl (fun acc y => fmIns y.1 (y.2 * x.2) acc) acc) []).filter
+    (·.2 != 0)
+
+/-- every monomial of `v` has weight zero and the raising operators kill `v`. -/
+def tgInvariant (v : List (Nat × Int)) : Bool :=
+  v.all (fun x => [0, 1, 2].all fun t =>
+      2 * (List.range 16).countP (fun i => x.1.testBit i && (i % 8).testBit (2 - t)) == tgPop x.1)
+    && [0, 1, 2].all (fun t => tgRaise t v == [])
+
+def tgPowMod (p : Nat) : Nat → Nat → Nat → Nat
+  | 0, _, _ => 1
+  | f + 1, a, e => if e == 0 then 1 else
+      let h := tgPowMod p f (a * a % p) (e / 2)
+      if e % 2 == 1 then a * h % p else h
+
+/-- a square matrix over `Z/p` is nonsingular (Gaussian elimination). -/
+def tgNonsing (p : Nat) : Nat → List (List Nat) → Bool
+  | 0, rows => rows.isEmpty
+  | f + 1, rows =>
+    if rows.isEmpty then true
+    else
+      match rows.find? (fun r => r.headD 0 != 0) with
+      | none => false
+      | some r =>
+        let inv := tgPowMod p 64 (r.headD 0) (p - 2)
+        let rest := (rows.erase r).map fun s =>
+          let c := s.headD 0 * inv % p
+          (s.tail.zip r.tail).map fun x => (x.1 + p - c * x.2 % p) % p
+        tgNonsing p f rest
+
+def tgP : Nat := 1000003
+
+def tgCoef (v : List (Nat × Int)) (m : Nat) : Int := ((v.find? (·.1 == m)).map (·.2)).getD 0
+
+def tgModP (c : Int) : Nat := (c % (tgP : Int)).toNat
+
+/-- the vectors have a nonsingular minor on the columns `cols`. -/
+def tgRankOk (vs : List (List (Nat × Int))) (cols : List Nat) : Bool :=
+  vs.length == cols.length
+    && tgNonsing tgP (cols.length + 1) (vs.map fun v => cols.map fun c => tgModP (tgCoef v c))
+
+/-- the coefficient of the monomial `M` in `u ^ x`. -/
+def tgWedgeCoef (u x : List (Nat × Int)) (M : Nat) : Int :=
+  x.foldl (fun acc y =>
+    if y.1 &&& M == y.1 then
+      let rest := M - y.1
+      let s : Int := if fmSwaps 16 rest y.1 % 2 == 1 then -1 else 1
+      acc + s * y.2 * tgCoef u rest
+    else acc) 0
+
+
+/-- the products `I4_j I2_g` of the recorded recipes, degree six. -/
+def tgD6 : List (List (Nat × Int)) :=
+  tgRec6.map fun r =>
+    if r.2.1 == 2 then fmWedge 16 (tgI4.getD r.1 []) (tgI2.getD r.2.2 [])
+    else fmWedge 16 (tgI2.getD r.1 []) (tgI4.getD r.2.2 [])
+
+/-- the minor of the degree-eight products on the recorded monomials. -/
+def tgRows8 : List (List Nat) :=
+  tgRec8.map fun r => tgPiv8.map fun M =>
+    tgModP (if r.2.1 == 2 then tgWedgeCoef (tgD6.getD r.1 []) (tgI2.getD r.2.2 []) M
+            else tgWedgeCoef (tgI4.getD r.1 []) (tgI4.getD r.2.2 []) M)
+
+/-- **(A) The invariants of the Mumford group on `X x X`.**  In
+`wedge^k (V + V)`, `k = 0..16`, the invariants of `sl_2^3` number
+`1, 0, 3, 0, 8, 0, 16, 0, 28, 0, 16, 0, 8, 0, 3, 0, 1`. -/
+theorem targets_invariant_dims :
+    (tgGen == tgGenRec && (List.range 9).map tgIrrTab == tgIrrRec
+      && (List.range 17).map tgInvXX == [1, 0, 3, 0, 8, 0, 16, 0, 28, 0, 16, 0, 8, 0, 3, 0, 1]) = true := by
+  decide +kernel
+
+/-- **(A) Two exceptional classes, and generation in degrees two and four.**
+The recorded classes of degrees two and four are invariant, of ranks `3` and
+`8`; the six products of two classes of degree two have rank `6`; the
+recorded products in degrees six and eight have ranks `16` and `28`, the
+dimensions of the invariants there. -/
+theorem targets_invariant_ring :
+    ((tgI2 ++ tgI4).all tgInvariant
+      && tgRankOk tgI2 tgPivI2 && tgRankOk tgI4 tgPivI4
+      && tgRankOk ([0, 1, 2].foldr (fun a acc => ([0, 1, 2].filter (a ≤ ·)).foldr
+            (fun b acc => fmWedge 16 (tgI2.getD a []) (tgI2.getD b []) :: acc) acc) []) tgPivProd
+      && tgRankOk tgD6 tgPiv6
+      && tgRows8.length == 28 && tgNonsing tgP 29 tgRows8) = true := by
+  decide +kernel
+
+/-- the Hodge classes of `X_c x X_c` by degree: pairs of subsets of the
+weights, one for each copy, of opposite weights. -/
+def tgHodgeXX : List Nat :=
+  (List.range 17).map fun k => tgGenRec.foldl (fun acc x =>
+    let q := x.1 / 1000000
+    if q ≤ k then
+      acc + x.2 * tgMult (k - q) (16 - x.1 / 10000 % 100) (16 - x.1 / 100 % 100) (16 - x.1 % 100)
+    else acc) 0
+
+/-- the sixteen weight-zero monomials of degree two on `X_c x X_c`. -/
+def tgDiv : List Nat :=
+  (List.range 16).foldr (fun i acc => (List.range 16).foldr (fun j acc =>
+    if i < j && j % 8 == 7 - i % 8 then (2 ^ i + 2 ^ j) :: acc else acc) acc) []
+
+/-- the distinct products of two divisor monomials. -/
+def tgDivProducts : List Nat :=
+  tgDiv.foldl (fun acc a => tgDiv.foldl (fun acc b =>
+    if a &&& b == 0 && !acc.contains (a ||| b) then (a ||| b) :: acc else acc) acc) []
+
+/-- every weight-zero multiplicity vector `mu in {0,1,2}^8` has
+`mu_w - mu_(7-w)` constant on `T_+ = {0, 3, 5, 6}`. -/
+def tgTetraLemma : Bool :=
+  (List.range 6561).all fun n =>
+    let mu := fun w => (n / 3 ^ w % 3 : Int)
+    let wz := [0, 1, 2].all fun t =>
+      (List.range 8).foldl (fun a w => a + mu w * tgW w t) 0 == 0
+    !wz || [3, 5, 6].all (fun w => mu w - mu (7 - w) == mu 0 - mu 7)
+
+/-- the coefficients of `f^*(e_T)` on the sixteen copy patterns, for
+`phi = 1` and `psi` with entries `1 + f_k` on the four weights of `T`. -/
+def tgPullMatrix : List (List Nat) :=
+  (List.range 16).map fun f => (List.range 16).map fun c =>
+    (List.range 4).foldl (fun a k => if c.testBit k then a * (1 + (if f.testBit k then 1 else 0)) else a) 1
+
+/-- **(B) The Hodge classes at a CM point.**  `X_c` has `1, 0, 4, 0, 8, 0, 4,
+0, 1` Hodge classes and `X_c x X_c` has `1, 0, 16, 0, 132, 0, 432, 0, 648,
+0, 432, 0, 132, 0, 16, 0, 1`; the divisor classes are the sixteen monomials
+of degree two, and their products are exactly `100` monomials of degree
+four. -/
+theorem targets_cm_counts :
+    ((List.range 9).map (fun q => tgMult q 8 8 8) = [1, 0, 4, 0, 8, 0, 4, 0, 1]
+      && tgHodgeXX == [1, 0, 16, 0, 132, 0, 432, 0, 648, 0, 432, 0, 132, 0, 16, 0, 1]
+      && tgDiv.length == 16 && tgDivProducts.length == 100) = true := by
+  decide +kernel
+
+/-- **(B) The pull-backs generate.**  The tetrahedron lemma holds on every
+multiplicity vector, so the `132 - 100 = 32` monomials of degree four that
+are not products of divisor monomials are the copy patterns of `T_+` and
+`T_-`, and every weight-zero monomial is a product of divisor monomials and
+copy patterns of tetrahedra; the sixteen pull-backs `f^*(e_T)` have a
+nonsingular coefficient matrix, so they span the copy patterns of `T`. -/
+theorem targets_cm_generation :
+    (tgTetraLemma && tgNonsing tgP 17 tgPullMatrix) = true := by
+  decide +kernel
+
+/-- operator `t` of `HH^1` does not kill the monomial `m` on its own
+generator: a wedge needs the generator absent, a contraction present.  Two
+operators act on different generators, so `q w` does not kill `m` exactly
+when neither does. -/
+def tgOpOk (n t m : Nat) : Bool := if haWedge n t then !m.testBit (haGen n t) else m.testBit (haGen n t)
+
+/-- the monomials of type `(p, p)` killed by every product `q w`, `q` among
+the operators `ops` and `w` any operator of `HH^1`, `q != w`. -/
+def tgKilled (n : Nat) (ops : List Nat) : List Nat :=
+  (List.range (2 ^ (4 * n))).filter fun m =>
+    2 * haPopcount (m % 2 ^ (2 * n)) (2 * n) == haPopcount m (4 * n)
+      && ops.all fun q => (List.range (4 * n)).all fun w =>
+          q == w || !(tgOpOk n q m && tgOpOk n w m)
+
+/-- **(C) Two branches.**  For `n = 1, 2, 3` the classes of type `(p, p)`
+killed by `Q HH^1` are the multiples of `alpha_-`, those killed by `P HH^1`
+the multiples of `alpha_+`, and none is killed by `HH^1 HH^1`. -/
+theorem targets_two_branches :
+    (haGensDistinct 1 && haGensDistinct 2 && haGensDistinct 3 && [1, 2, 3].all fun n =>
+      tgKilled n ((List.range (4 * n)).filter (2 * n ≤ ·)) == [haAlphaMinus n]
+        && tgKilled n ((List.range (4 * n)).filter (· < 2 * n)) == [haAlphaPlus n]
+        && tgKilled n (List.range (4 * n)) == []) = true := by
+  decide +kernel
+
+/-! ## 70.  The Lefschetz operator of an abelian scheme over a curve
+
+Item (XLII), Proposition (The Lefschetz operator of an abelian variety is a
+Pontryagin product) and the algebra of Theorem (Lefschetz standard
+conjecture for an abelian scheme over a curve).  `H^1(A)` has the generators
+`x_i` (bit `2i`) and `y_i` (bit `2i + 1`), `l = sum_i d_i x_i y_i`, the
+orientation `x_1 y_1 ... x_g y_g`, `D = d_1 ... d_g`, and `Lambda` contracts
+the pairs: `Lambda e_m = sum_i d_i^{-1} e_(m - {x_i, y_i})` over the pairs in
+`m`.  The Pontryagin product `x * y = mu_*(p_1^* x . p_2^* y)` is computed
+from its definition: `mu^*` sends each generator `v` to `v(1) + v(2)`, `mu_*`
+is its adjoint for the pairing, and for monomials `e_a * e_b` is zero unless
+`a` and `b` cover all `2g` generators, when it is `+-e_(a /\ b)` with the sign
+of the one term of `e_t . mu^*(e_comp)` that reaches the top class
+(`t = a + b(2)`; the product over `comp` in increasing order picks `v(2)` at
+the generators missing from `b`, and its sign counts the pairs `i < i'`
+with `i` picked in the second copy and `i'` in the first).  Everything is
+scaled to integers: with `gamma' = l^(g-1)`,
+
+  (A) `D [L, Lambda] = D H` on every monomial, `x * gamma' =
+      (g-1)! D Lambda x` on every monomial, and `l * gamma' = g! D`, for ten
+      polarisation types with `g <= 4`; for type `(1, 2)` the bare product
+      `x * l` differs from `Lambda x`, so the factor `D^{-1}` is needed;
+
+  (B) on `W = E x A` (base generators `u, v`, bits `0, 1`, `[W_c] = u v`;
+      fibre generators from bit `2`) the relative product `T` against
+      `gamma'`, computed the same way over `E`, and the operator `C` dual to
+      the pairing of fibre classes against `[W_c]` (`Lambda_C = C / m`), give
+      `[L, Lambda] = H` for `L = l + m [W_c]`, `m = 3`, and
+      `Lambda = T / ((g-1)! D) + C / m`, together with `[l, C] = 0` and
+      `[[W_c], T] = 0`, for four types with `g <= 2`.
+
+Part (C) of the item, the invariants of the Mumford group, is
+`mumford_invariants` of Section 26.
+-/
+
+def lfFull (n : Nat) : Nat := 2 ^ n - 1
+
+def lfPolar (d : List Nat) (off : Nat) : List (Nat × Int) :=
+  (List.range d.length).map fun i => (3 * 2 ^ (2 * i + off), (d.getD i 1 : Int))
+
+def lfScale (c : Int) (v : List (Nat × Int)) : List (Nat × Int) :=
+  (v.map fun x => (x.1, c * x.2)).filter (·.2 != 0)
+
+def lfAdd (v w : List (Nat × Int)) : List (Nat × Int) :=
+  (w.foldl (fun acc x => fmIns x.1 x.2 acc) v).filter (·.2 != 0)
+
+/-- equality of sparse vectors, order and zero entries aside. -/
+def lfEq (v w : List (Nat × Int)) : Bool :=
+  let d := lfAdd v (lfScale (-1) w)
+  d.isEmpty
+
+/-- the relative Pontryagin product on `nb` base generators and `nf` fibre
+generators: a monomial `x` against fibre terms `y`, from the definition. -/
+def lfPont (nb nf : Nat) (x : Nat) (y : List (Nat × Int)) : List (Nat × Int) :=
+  let N := nb + nf
+  let N3 := nb + 2 * nf
+  let xb := x % 2 ^ nb
+  let a := x / 2 ^ nb
+  y.foldl (fun acc term =>
+    let b := term.1
+    if a ||| b != lfFull nf then acc
+    else
+      let u := xb + (a &&& b) * 2 ^ nb
+      let comp := lfFull N ^^^ u
+      let t := x + b * 2 ^ N
+      let r := lfFull N3 ^^^ t
+      let rlow := r / 2 ^ nb % 2 ^ nf
+      let rhigh := r / 2 ^ N
+      let eImg := (List.range nf).foldl (fun s i =>
+        if rhigh.testBit i then s + fmPop nf (rlow / 2 ^ (i + 1)) else s) 0
+      let sgn := fmSwaps N u comp + eImg + fmSwaps N3 t r
+      fmIns u (if sgn % 2 == 1 then -term.2 else term.2) acc) []
+
+/-- `Lambda`, scaled by `D`, on the fibre generators starting at `off`. -/
+def lfLam (d : List Nat) (off : Nat) (x : List (Nat × Int)) : List (Nat × Int) :=
+  let D := d.foldl (· * ·) 1
+  (x.foldl (fun acc t => (List.range d.length).foldl (fun acc i =>
+    let pair := 3 * 2 ^ (2 * i + off)
+    if t.1 &&& pair == pair then fmIns (t.1 - pair) (t.2 * ((D / d.getD i 1 : Nat) : Int)) acc else acc)
+    acc) []).filter (·.2 != 0)
+
+def lfPontV (nb nf : Nat) (x y : List (Nat × Int)) : List (Nat × Int) :=
+  (x.foldl (fun acc t => (lfPont nb nf t.1 y).foldl (fun acc s => fmIns s.1 (t.2 * s.2) acc) acc) []).filter
+    (·.2 != 0)
+
+/-- the checks of (A) on one abelian variety of type `d`. -/
+def lfFibreOk (d : List Nat) : Bool :=
+  let g := d.length
+  let n := 2 * g
+  let D : Int := (d.foldl (· * ·) 1 : Nat)
+  let l := lfPolar d 0
+  let gam := fmPower n l (g - 1)
+  let fact : Int := (fmFact (g - 1) : Nat)
+  (List.range (2 ^ n)).all (fun m =>
+    let x := [(m, (1 : Int))]
+    lfEq (lfAdd (fmWedge n l (lfLam d 0 x)) (lfScale (-1) (lfLam d 0 (fmWedge n l x))))
+         (lfScale (D * ((fmPop n m : Int) - g)) x)
+      && lfEq (lfPont 0 n m gam) (lfScale fact (lfLam d 0 x)))
+    && lfEq (lfPontV 0 n l gam) [(0, (fmFact g : Int) * D)]
+
+/-- the relative product `T` against `gamma'` and the operator `C` on
+`W = E x A`. -/
+def lfC (n : Nat) (x : List (Nat × Int)) : List (Nat × Int) :=
+  let N := n + 2
+  (x.foldl (fun acc t =>
+    if t.1 % 4 != 3 then acc
+    else
+      let f := t.1 - 3
+      let fc := lfFull N ^^^ t.1
+      -- `int x . e_fc` and `int [W_c] . e_f . e_fc`, both `+-1`
+      let p1 := fmSwaps N t.1 fc
+      let p2 := fmSwaps N 3 f + fmSwaps N (3 + f) fc
+      fmIns f (if (p1 + p2) % 2 == 1 then -t.2 else t.2) acc) []).filter (·.2 != 0)
+
+def lfFamilyOk (d : List Nat) : Bool :=
+  let g := d.length
+  let n := 2 * g
+  let N := n + 2
+  let D : Int := (d.foldl (· * ·) 1 : Nat)
+  let fact : Int := (fmFact (g - 1) : Nat)
+  let mm : Int := 3
+  let l := lfPolar d 2
+  let gam := fmPower n (lfPolar d 0) (g - 1)
+  let ptE : List (Nat × Int) := [(3, 1)]
+  let T := fun (x : List (Nat × Int)) => lfPontV 2 n x gam
+  let L := fun (x : List (Nat × Int)) => lfAdd (fmWedge N l x) (lfScale mm (fmWedge N ptE x))
+  -- `(g-1)! D m Lambda = m T + (g-1)! D C`
+  let Lam := fun (x : List (Nat × Int)) => lfAdd (lfScale mm (T x)) (lfScale (fact * D) (lfC n x))
+  (List.range (2 ^ N)).all fun m =>
+    let x := [(m, (1 : Int))]
+    lfEq (lfAdd (L (Lam x)) (lfScale (-1) (Lam (L x))))
+         (lfScale (fact * D * mm * ((fmPop N m : Int) - (g + 1))) x)
+      && lfEq (fmWedge N l (lfC n x)) (lfC n (fmWedge N l x))
+      && lfEq (fmWedge N ptE (T x)) (T (fmWedge N ptE x))
+
+/-- **(A) The Lefschetz operator is a Pontryagin product.**  For the ten
+types `(1)`, `(3)`, `(1,1)`, `(1,2)`, `(2,5)`, `(1,1,1)`, `(1,1,3)`,
+`(1,2,4)`, `(1,1,1,1)`, `(1,1,2,2)`: `[L, Lambda] = H`,
+`D^{-1} (x * gamma) = Lambda x` with `gamma = l^(g-1)/(g-1)!`, and
+`l * gamma = g D`; and for type `(1, 2)` the bare product `x * l` is not
+`Lambda x`. -/
+theorem lefschetz_pontryagin :
+    ([[1], [3], [1, 1], [1, 2], [2, 5], [1, 1, 1], [1, 1, 3], [1, 2, 4], [1, 1, 1, 1],
+        [1, 1, 2, 2]].all lfFibreOk
+      && (List.range 16).any (fun m =>
+          !lfEq (lfScale 2 (lfPont 0 4 m (lfPolar [1, 2] 0))) (lfLam [1, 2] 0 [(m, 1)]))) = true := by
+  decide +kernel
+
+/-- **(B) The operator of the theorem on a product family.**  On `E x A`
+for the types `(1)`, `(2)`, `(1,1)`, `(1,3)`: `[L, Lambda] = H` for
+`L = l + 3 [W_c]` and `Lambda = D^{-1} T + Lambda_C`, and the cross relations
+`[l, Lambda_C] = 0`, `[[W_c], T] = 0`. -/
+theorem lefschetz_family_operator :
+    ([[1], [2], [1, 1], [1, 3]].all lfFamilyOk) = true := by
+  decide +kernel
+
+/-! ## 71.  No split resolution satisfies the weakened criterion
+
+Item (XXXIV), Theorem (No two-term complex of powers of the polarisation
+satisfies the weakened criterion).  (1) On `O(e Theta)` the compensated
+Poisson class acts by `(e^2 + d)/2` times `pi _| theta^2`, and `e^2 + d > 0`.
+(2) On an abelian `n`-fold, `n >= 3`, `H^2(O(m Theta)) = 0` for `m != 0`: a
+positive power has cohomology in degree `0` only and a negative one in
+degree `n` only (the index theorem).  (3) The three split resolutions of
+Table (Split resolutions), at `b = 3`, have no twist of `E_1` equal to a
+twist of `E_0`, `rank E_0 = r + 1`, `rank E_1 = r`, and the secant moment
+identities `sum p^k - sum q^k = (1, b, -d, -d b, d^2)_k`, `k = 0..4`, with
+`p = e + b` over the twists of `E_0` and `q = f + b` over those of `E_1`.
+As a control, no Koszul resolution `O(-(a+c)) -> O(-a) + O(-c)`, twisted by
+`b in [-6, 12]`, is secant for `d < 30`, `1 <= a <= c <= 11`.
+-/
+
+def srMoments (d b : Int) (e0 e1 : List Int) : Bool :=
+  (List.range 5).all fun k =>
+    e0.foldl (fun s e => s + (e + b) ^ k) 0 - e1.foldl (fun s f => s + (f + b) ^ k) 0
+      == [1, b, -d, -d * b, d * d].getD k 0
+
+/-- the degrees in which `O(m Theta)` can have cohomology on an `n`-fold. -/
+def srDegrees (m : Int) (n : Nat) : List Nat :=
+  if m > 0 then [0] else if m < 0 then [n] else List.range (n + 1)
+
+/-- the three split resolutions `(d, r, E_0, E_1)` at `b = 3`. -/
+def srCandidates : List (Int × Nat × List Int × List Int) :=
+  [(23, 4, [-11, -6, 0, 2, 7], [-10, -9, 5, 6]),
+   (23, 5, [-8, -4, -3, -2, 1, 6], [-7, -6, -6, 4, 5]),
+   (15, 6, [-8, -4, -4, -1, -1, 1, 4], [-7, -6, -6, 0, 3, 3])]
+
+/-- **No split resolution satisfies the weakened criterion.**  The scalar
+`(e^2 + d)/2` is positive for `|e| <= 30`, `1 <= d <= 59`; the vanishing
+degrees of `H^*(O(m Theta))` exclude `2` for `3 <= n <= 6`, `|m| <= 40`,
+`m != 0`; the three resolutions are minimal and secant; and no Koszul
+resolution in the box is secant. -/
+theorem split_resolution_data :
+    ((List.range 61).all (fun e => (List.range 59).all fun d =>
+        ((e : Int) - 30) ^ 2 + (d + 1 : Int) > 0)
+      && [3, 4, 5, 6].all (fun n => (List.range 81).all fun m =>
+          m == 40 || !(srDegrees ((m : Int) - 40) n).contains 2)
+      && srCandidates.all (fun c =>
+          c.2.2.1.all (fun e => !c.2.2.2.contains e)
+            && c.2.2.1.length == c.2.1 + 1 && c.2.2.2.length == c.2.1
+            && srMoments c.1 3 c.2.2.1 c.2.2.2)
+      && (List.range 29).all (fun d => (List.range 11).all fun a => (List.range 11).all fun c =>
+          c < a || (List.range 19).all fun t =>
+            !srMoments (d + 1) ((t : Int) - 6) [-(a + 1 : Int), -(c + 1 : Int)] [-(a + c + 2 : Int)]))
+      = true := by
+  decide +kernel
+
+/-! ## 72.  Transport along the orbit
+
+Item (XXXVII), Lemma (Scaling identities of the transport), Lemma (The
+multiplicity of a subtorus) and Theorem (The transported cycle grows).  The
+lattice is `Z^(2G)` with the standard form `E` (`E(e_i, f_i) = 1`, `e_i` the
+coordinate `i`, `f_i` the coordinate `G + i`).  The sample elements are
+`g = 1 + t N_1` and `g = 1 + t N_2 + t N_3` with `N_1 = E_(G,0)`,
+`N_2 = E_(G,1) + E_(G+1,0)`, `N_3 = E_(G,0)` (matrices acting on row vectors
+from the right), `t = a/c` in lowest terms; `phi = c g` is integral.
+
+(A) For `G = 2, 3, 4` and twelve values of `t` with `c` up to `29`:
+`det phi = c^(2G)` and `phi^T E phi = c^2 E`, so `g` is symplectic and
+unimodular; `wedge^k phi = c^k wedge^k g` is then the multilinearity of the
+minors.  (B) For `G = 4`, the sublattices `L_W` spanned by `e_1, e_2, f_1, f_2`
+(stable under the sample) and by `e_1, e_3, f_1, f_3` (not stable), and six
+elements: the multiplicity `m = [phi^(-1)(L) /\ W : L_W]` is the gcd of the
+`4 x 4` minors of the integral matrix `L_W phi` (its determinantal divisor,
+the product of its elementary divisors); `Pf(E | phi(L_W)) = c^4 Pf(E | L_W)`;
+for the stable lattice `m = c^4` and the image degree `Pf / m` is constant;
+for the other some `m < c^4` and the image degree takes more than one
+value.  (C) `c^4 deg(Z) / |G(Z)|` with `deg(Z) = 6` and `|G(Z)| = 1, 2, 4` is
+strictly increasing over `c = 2, 3, 5, ..., 29` and exceeds `10^5` at `29`.
+-/
+
+/-- the integral matrix `phi = c g` for `t = a / c`, `kind` 1 or 2. -/
+def tpPhi (G a c kind : Nat) : List (List Int) :=
+  (List.range (2 * G)).map fun i => (List.range (2 * G)).map fun j =>
+    (if i == j then (c : Int) else 0)
+      + (if kind == 1 then (if i == G && j == 0 then (a : Int) else 0)
+         else (if (i == G && j == 1) || (i == G + 1 && j == 0) || (i == G && j == 0) then (a : Int) else 0))
+
+def tpE (G : Nat) : List (List Int) :=
+  (List.range (2 * G)).map fun i => (List.range (2 * G)).map fun j =>
+    if j == i + G && i < G then 1 else if i == j + G && j < G then -1 else 0
+
+def tpMul (A B : List (List Int)) : List (List Int) :=
+  A.map fun row => (List.range (B.headD []).length).map fun j =>
+    (row.zip B).foldl (fun s x => s + x.1 * x.2.getD j 0) 0
+
+def tpT (A : List (List Int)) : List (List Int) :=
+  (List.range (A.headD []).length).map fun j => A.map fun row => row.getD j 0
+
+/-- the determinant by fraction-free elimination (Bareiss). -/
+def tpDet : Nat → Int → List (List Int) → Int
+  | 0, _, _ => 0
+  | f + 1, prev, rows =>
+    match rows with
+    | [] => prev
+    | _ =>
+      match rows.find? (fun r => r.headD 0 != 0) with
+      | none => 0
+      | some r =>
+        let i := rows.idxOf r
+        let sgn : Int := if i % 2 == 0 then 1 else -1
+        let rest := (rows.eraseIdx i).map fun s =>
+          (s.tail.zip r.tail).map fun x => (r.headD 0 * x.1 - s.headD 0 * x.2) / prev
+        if rest.isEmpty then sgn * r.headD 0 else sgn * tpDet f (r.headD 0) rest
+
+def tpDeterminant (A : List (List Int)) : Int := tpDet (A.length + 1) 1 A
+
+/-- the Pfaffian of a `4 x 4` alternating matrix. -/
+def tpPf4 (A : List (List Int)) : Int :=
+  let a := fun i j => (A.getD i []).getD j 0
+  a 0 1 * a 2 3 - a 0 2 * a 1 3 + a 0 3 * a 1 2
+
+def tpGcd (a b : Nat) : Nat := Nat.gcd a b
+
+/-- the gcd of the `4 x 4` minors of a `4 x 8` matrix. -/
+def tpMinorGcd (M : List (List Int)) : Nat :=
+  let cols := (List.range 256).filter fun s => (List.range 8).countP (fun i => s.testBit i) == 4
+  cols.foldl (fun g s =>
+    let idx := (List.range 8).filter (fun i => s.testBit i)
+    tpGcd g (tpDeterminant (M.map fun row => idx.map fun j => row.getD j 0)).natAbs) 0
+
+def tpSample : List (Nat × Nat) :=
+  [(1, 1), (1, 2), (1, 3), (2, 3), (1, 5), (3, 7), (1, 11), (5, 13), (1, 17), (7, 19), (1, 23), (4, 29)]
+
+def tpScalingOk (G : Nat) : Bool :=
+  tpSample.all fun t => [1, 2].all fun kind =>
+    let phi := tpPhi G t.1 t.2 kind
+    let c : Int := t.2
+    tpDeterminant phi == c ^ (2 * G)
+      && tpMul (tpMul (tpT phi) (tpE G)) phi == (tpE G).map (fun row => row.map (c ^ 2 * ·))
+
+/-- `(c, m, Pf(E | phi(L_W)), Pf(E | L_W))` for a sublattice on the coordinates
+`cols` and the element of kind 2 at `t = a / c`. -/
+def tpSub (cols : List Nat) (t : Nat × Nat) : Int × Int × Int × Int :=
+  let phi := tpPhi 4 t.1 t.2 2
+  let M := cols.map fun i => phi.getD i []
+  let W := cols.map fun i => (List.range 8).map fun j => if j == i then (1 : Int) else 0
+  let gr := fun (B : List (List Int)) => tpMul (tpMul B (tpE 4)) (tpT B)
+  (t.2, tpMinorGcd M, (tpPf4 (gr M)).natAbs, (tpPf4 (gr W)).natAbs)
+
+def tpSampleB : List (Nat × Nat) := [(1, 2), (1, 3), (2, 5), (1, 7), (3, 11), (1, 13)]
+
+/-- the image degrees `Pf / m` of two rows are equal (cross-multiplied). -/
+def tpSameDeg (x y : Int × Int × Int × Int) : Bool := x.2.2.1 * y.2.1 == y.2.2.1 * x.2.1
+
+/-- **(A) The scaling identities.**  For `G = 2, 3, 4` and the twenty-four
+sample elements, `det phi = c^(2G)` and `phi^T E phi = c^2 E`. -/
+theorem transport_scaling :
+    (tpScalingOk 2 && tpScalingOk 3 && tpScalingOk 4) = true := by
+  decide +kernel
+
+/-- **(B), (C) The multiplicity and the growth.**  For the stable and the
+unstable sublattice and six elements, `Pf(E | phi(L_W)) = c^4 Pf(E | L_W)`;
+for the stable one `m = c^4` and the image degree is constant, for the
+unstable one some `m < c^4` and the image degree is not constant; and the
+lower bound `c^4 deg(Z) / |G(Z)|` increases strictly and passes `10^5`. -/
+theorem transport_multiplicity :
+    (let st := tpSampleB.map (tpSub [0, 1, 4, 5])
+     let un := tpSampleB.map (tpSub [0, 2, 4, 6])
+     (st ++ un).all (fun x => x.2.2.1 == x.1 ^ 4 * x.2.2.2)
+       && st.all (fun x => x.2.1 == x.1 ^ 4 && tpSameDeg x (st.headD (0, 1, 0, 0)))
+       && un.any (fun x => x.2.1 < x.1 ^ 4) && un.any (fun x => !tpSameDeg x (un.headD (0, 1, 0, 0)))
+       && [1, 2, 4].all (fun s =>
+            let v := [2, 3, 5, 7, 11, 13, 17, 19, 23, 29].map fun (c : Nat) => c ^ 4 * 6 * 4 / s
+            (v.zip v.tail).all (fun p => p.1 < p.2))
+       && 29 ^ 4 * 6 > 4 * 10 ^ 5) = true := by
+  decide +kernel
+
+/-! ## 73.  The quaternionic Weil cycle
+
+Item (XXIII), Proposition (The quaternionic Weil cycle and the
+polarisation).  `O_b = Z<1, i, j, ij>` with `i^2 = -d`, `j^2 = b`,
+`ij = -ji`; `Lambda_b = O_b^2` on the eight coordinates `4k + r` (slot `k`,
+basis element `r`); `E_b(x, y) = sum_k a_k trd(conj(x_k) i y_k)`,
+`g = E(j ., .)`, `lam = -g(i ., .)/d`, `Z = g^2 - d lam^2`, `Z' = 2 g lam`,
+so `Z + sqrt(-d) Z'` spans the Weil plane.  The kernel works with the
+integral forms `eta = E`, `g`, `d lam`, `d Z = d g^2 - (d lam)^2` and
+`d Z' = 2 g (d lam)`, as sparse lists of bit masks.
+
+  (D1) `int g^2 eta^2 / int eta^4 = -b/3` and `int Z^2 / int eta^4 =
+       4 b^2 / 3` (so `sigma^2 = 1/12`) for `d = 1, 3`, weights `(1, 1)`,
+       `(1, 3)` and fifteen `b` up to `101`;
+  (D2) `E_b = E_0 + b (E_1 - E_0)`, `g_b = b g_1`, `lam_b = b lam_1` with
+       `lam_1` integral (`d` divides `d lam_1`);
+  (D3) `Z_b = b^2 Z_1`, `Z'_b = b^2 Z'_1`;  (D4) `int eta_b^4 = b^2 int eta_1^4`;
+  (D5) replacing `j` by `alpha j`, `alpha = a_0 + a_1 i`, gives the ratios
+       `-N(alpha)/3` and `4 N(alpha)^2/3` (integral `alpha`; a rational
+       `alpha` scales `g` and the ratios homogeneously);
+  (D6) for `d = 1, 2, 3, 7`, weights `(1, 1)`, `(1, 3)`, `(2, 5)` and seven
+       `b`: recorded integral forms `NS` (three 2-forms) and `W` (two
+       4-forms) lie in the rational spans of `eta, g, lam` and of `Z, Z'`
+       and have integral left inverses, so they are the saturations; `W` has
+       Gram matrix `diag(8d, 8d^2)`; the products `NS_a NS_c` that lie in
+       `Q W` form the lattice spanned by the images of the recorded
+       coefficient vectors `K` (these lie in it, have a left inverse, and a
+       minor of size `6 - #K` of the projection `P(v) = Delta v - det(v, W_2)
+       W_1 - det(W_1, v) W_2`, which vanishes exactly on `Q W`, is nonzero, so
+       no larger lattice of coefficients maps into `Q W`); the images are
+       `x W_1 + y W_2`, and as `W` is saturated the index of their span is
+       `|x_1 y_2 - x_2 y_1|`, which is `2 (a_1 a_2)^2` in every case.
+-/
+
+/-- the product in `(-d, b)`: `i^2 = -d`, `j^2 = b`, `k = ij`. -/
+def qdMul (d b : Int) (x y : List Int) : List Int :=
+  let a := fun r => x.getD r 0
+  let c := fun r => y.getD r 0
+  [a 0 * c 0 - d * a 1 * c 1 + b * a 2 * c 2 + d * b * a 3 * c 3,
+   a 0 * c 1 + a 1 * c 0 - b * a 2 * c 3 + b * a 3 * c 2,
+   a 0 * c 2 + a 2 * c 0 - d * a 1 * c 3 + d * a 3 * c 1,
+   a 0 * c 3 + a 3 * c 0 + a 1 * c 2 - a 2 * c 1]
+
+def qdUnit (r : Nat) : List Int := (List.range 4).map fun s => if s == r then 1 else 0
+
+def qdConj (x : List Int) : List Int := [x.getD 0 0, -x.getD 1 0, -x.getD 2 0, -x.getD 3 0]
+
+/-- left multiplication by `q` on `Lambda = O^2`, as an `8 x 8` matrix. -/
+def qdLeft (d b : Int) (q : List Int) : List (List Int) :=
+  (List.range 8).map fun row => (List.range 8).map fun col =>
+    if row / 4 == col / 4 then (qdMul d b q (qdUnit (col % 4))).getD (row % 4) 0 else 0
+
+/-- the polarisation `E_b`. -/
+def qdE (d b a1 a2 : Int) : List (List Int) :=
+  (List.range 8).map fun row => (List.range 8).map fun col =>
+    if row / 4 == col / 4 then
+      (if row / 4 == 0 then a1 else a2)
+        * 2 * (qdMul d b (qdMul d b (qdConj (qdUnit (row % 4))) (qdUnit 1)) (qdUnit (col % 4))).getD 0 0
+    else 0
+
+/-- the 2-form of an alternating `8 x 8` matrix. -/
+def qdForm (M : List (List Int)) : List (Nat × Int) :=
+  (List.range 8).foldr (fun a acc => (List.range 8).foldr (fun c acc =>
+    let v := (M.getD a []).getD c 0
+    if a < c && v != 0 then (2 ^ a + 2 ^ c, v) :: acc else acc) acc) []
+
+/-- `(eta, g, d lam)` at the point `(d, b, a1, a2)` with `j` replaced by
+`alpha j`. -/
+def qdForms (d b a1 a2 : Int) (alpha : List Int) : List (Nat × Int) × List (Nat × Int) × List (Nat × Int) :=
+  let E := qdE d b a1 a2
+  let g := tpMul (tpT (qdLeft d b (qdMul d b alpha (qdUnit 2)))) E
+  let lamD := (tpMul (tpT (qdLeft d b (qdUnit 1))) g).map fun row => row.map (fun x => -x)
+  (qdForm E, qdForm g, qdForm lamD)
+
+def qdInt (x : List (Nat × Int)) : Int := tgCoef x 255
+
+def qdW (x y : List (Nat × Int)) : List (Nat × Int) := fmWedge 8 x y
+
+/-- `d Z` and `d Z'`. -/
+def qdZ (d : Int) (f : List (Nat × Int) × List (Nat × Int) × List (Nat × Int)) :
+    List (Nat × Int) × List (Nat × Int) :=
+  (lfAdd (lfScale d (qdW f.2.1 f.2.1)) (lfScale (-1) (qdW f.2.2 f.2.2)), lfScale 2 (qdW f.2.1 f.2.2))
+
+/-- the ratios of (D1), cross-multiplied, at `alpha` with norm `N`. -/
+def qdRatiosOk (d b a1 a2 : Int) (alpha : List Int) (N : Int) : Bool :=
+  let f := qdForms d b a1 a2 alpha
+  let e2 := qdW f.1 f.1
+  let e4 := qdInt (qdW e2 e2)
+  let z := (qdZ d f).1
+  e4 != 0 && 3 * qdInt (qdW (qdW f.2.1 f.2.1) e2) == -(b * N) * e4
+    && 3 * qdInt (qdW z z) == 4 * b ^ 2 * N ^ 2 * d ^ 2 * e4
+
+def qdBs : List Int := [1, 2, 3, 5, 6, 7, 10, 11, 13, 17, 23, 29, 41, 59, 101]
+
+/-- (D2) to (D4) at one `b`. -/
+def qdScalingOk (d b a1 a2 : Int) : Bool :=
+  let f0 := qdForms d 0 a1 a2 [1, 0, 0, 0]
+  let f1 := qdForms d 1 a1 a2 [1, 0, 0, 0]
+  let fb := qdForms d b a1 a2 [1, 0, 0, 0]
+  let z1 := qdZ d f1
+  let zb := qdZ d fb
+  let e41 := qdInt (qdW (qdW f1.1 f1.1) (qdW f1.1 f1.1))
+  let e4b := qdInt (qdW (qdW fb.1 fb.1) (qdW fb.1 fb.1))
+  lfEq fb.1 (lfAdd f0.1 (lfScale b (lfAdd f1.1 (lfScale (-1) f0.1))))
+    && lfEq fb.2.1 (lfScale b f1.2.1) && lfEq fb.2.2 (lfScale b f1.2.2)
+    && f1.2.2.all (fun x => x.2 % d == 0)
+    && lfEq zb.1 (lfScale (b ^ 2) z1.1) && lfEq zb.2 (lfScale (b ^ 2) z1.2)
+    && e4b == b ^ 2 * e41
+
+structure QdCase where
+  d : Int
+  a1 : Int
+  a2 : Int
+  b : Int
+  ns : List (List (Nat × Int))
+  nsCert : List (Int × Int × Int × Int)
+  rns : List (List (Nat × Int))
+  w : List (List (Nat × Int))
+  wCert : List (Int × Int × Int)
+  rw : List (List (Nat × Int))
+  k : List (List Int)
+  xy : List (Int × Int)
+  rk : List (List (Nat × Int))
+  t : Nat × Nat
+  rows : List Nat
+  cols : List Nat
+  idx : Int
+deriving Inhabited
+
+def qdDot (x y : List (Nat × Int)) : Int := x.foldl (fun s e => s + e.2 * tgCoef y e.1) 0
+
+/-- the rows of `R` invert the vectors `vs`: `vs_i . R_j = delta_ij`. -/
+def qdInverts (vs R : List (List (Nat × Int))) : Bool :=
+  vs.length == R.length
+    && (List.range vs.length).all fun i => (List.range R.length).all fun j =>
+        qdDot (vs.getD i []) (R.getD j []) == if i == j then 1 else 0
+
+def qdComb (c : List Int) (vs : List (List (Nat × Int))) : List (Nat × Int) :=
+  ((c.zip vs).foldl (fun acc x => lfAdd acc (lfScale x.1 x.2)) []).filter (·.2 != 0)
+
+/-- the checks of (D6) on one case. -/
+def qdCaseOk (C : QdCase) : Bool :=
+  let f := qdForms C.d C.b C.a1 C.a2 [1, 0, 0, 0]
+  let z := qdZ C.d f
+  let w1 := C.w.getD 0 []
+  let w2 := C.w.getD 1 []
+  let pairs : List (Nat × Nat) := [(0, 0), (0, 1), (0, 2), (1, 1), (1, 2), (2, 2)]
+  let prods := pairs.map fun p => qdW (C.ns.getD p.1 []) (C.ns.getD p.2 [])
+  let at_ := fun (v : List (Nat × Int)) (m : Nat) => tgCoef v m
+  let Delta := at_ w1 C.t.1 * at_ w2 C.t.2 - at_ w1 C.t.2 * at_ w2 C.t.1
+  let P := fun (v : List (Nat × Int)) (m : Nat) =>
+    Delta * at_ v m - (at_ v C.t.1 * at_ w2 C.t.2 - at_ v C.t.2 * at_ w2 C.t.1) * at_ w1 m
+      - (at_ w1 C.t.1 * at_ v C.t.2 - at_ w1 C.t.2 * at_ v C.t.1) * at_ w2 m
+  let x1 := (C.xy.getD 0 (0, 0)).1
+  let y1 := (C.xy.getD 0 (0, 0)).2
+  let x2 := (C.xy.getD 1 (0, 0)).1
+  let y2 := (C.xy.getD 1 (0, 0)).2
+  C.ns.length == 3 && C.w.length == 2 && C.k.length == 2
+    && (C.ns.zip C.nsCert).all (fun p =>
+        lfEq (lfScale p.2.1 p.1) (lfAdd (lfScale p.2.2.1 f.1)
+          (lfAdd (lfScale p.2.2.2.1 f.2.1) (lfScale p.2.2.2.2 f.2.2))))
+    && qdInverts C.ns C.rns
+    && (C.w.zip C.wCert).all (fun p =>
+        lfEq (lfScale p.2.1 p.1) (lfAdd (lfScale p.2.2.1 z.1) (lfScale p.2.2.2 z.2)))
+    && qdInverts C.w C.rw
+    && qdInt (qdW w1 w1) == 8 * C.d && qdInt (qdW w1 w2) == 0 && qdInt (qdW w2 w2) == 8 * C.d ^ 2
+    && (C.k.zip C.xy).all (fun p =>
+        lfEq (qdComb p.1 prods) (lfAdd (lfScale p.2.1 w1) (lfScale p.2.2 w2)))
+    && qdInverts (C.k.map fun c => ((List.range 6).map fun j => (j, c.getD j 0)).filter (·.2 != 0)) C.rk
+    && Delta != 0 && C.rows.length + C.k.length == 6 && C.cols.length == C.rows.length
+    && tpDeterminant (C.rows.map fun m => C.cols.map fun j => P (prods.getD j []) m) != 0
+    && (x1 * y2 - x2 * y1).natAbs == C.idx && C.idx == 2 * (C.a1 * C.a2) ^ 2
+
+/-- (D6): `(d, weights, b, NS, certificates, R_NS, W, certificates, R_W,
+K, images, R_K, (t1, t2), minor rows, minor columns, index)`. -/
+def qdCases : List QdCase := [
+  ⟨1, 1, 1, 1, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, -1), (10, 1), (80, -1), (160, 1)], [(3, -1), (12, 1), (48, -1), (192, 1)]], [(2, 0, 1, 0), (2, 0, 0, 1), (2, 1, 0, 0)], [[(9, 1)], [(5, -1)], [(3, -1)]], [[(149, -1), (101, -1), (89, -1), (169, 1), (86, -1), (166, 1), (154, 1), (106, 1)], [(85, 1), (165, -1), (153, -1), (105, -1), (150, -1), (102, -1), (90, -1), (170, 1)]], [(8, 0, 1), (8, -1, 0)], [[(149, -1)], [(85, 1)]], [[-1, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(0, -1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨1, 1, 1, 2, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, -1), (10, 1), (80, -1), (160, 1)], [(3, 1), (12, -2), (48, 1), (192, -2)]], [(4, 0, 1, 0), (4, 0, 0, 1), (2, -1, 0, 0)], [[(9, 1)], [(5, -1)], [(3, 1)]], [[(149, -1), (101, -1), (89, -1), (169, 1), (86, -1), (166, 1), (154, 1), (106, 1)], [(85, 1), (165, -1), (153, -1), (105, -1), (150, -1), (102, -1), (90, -1), (170, 1)]], [(32, 0, 1), (32, -1, 0)], [[(149, -1)], [(85, 1)]], [[-1, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(0, -1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨1, 1, 1, 3, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, -1), (10, 1), (80, -1), (160, 1)], [(3, 1), (12, -3), (48, 1), (192, -3)]], [(6, 0, 1, 0), (6, 0, 0, 1), (2, -1, 0, 0)], [[(9, 1)], [(5, -1)], [(3, 1)]], [[(149, -1), (101, -1), (89, -1), (169, 1), (86, -1), (166, 1), (154, 1), (106, 1)], [(85, 1), (165, -1), (153, -1), (105, -1), (150, -1), (102, -1), (90, -1), (170, 1)]], [(72, 0, 1), (72, -1, 0)], [[(149, -1)], [(85, 1)]], [[-1, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(0, -1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨1, 1, 1, 5, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, -1), (10, 1), (80, -1), (160, 1)], [(3, 1), (12, -5), (48, 1), (192, -5)]], [(10, 0, 1, 0), (10, 0, 0, 1), (2, -1, 0, 0)], [[(9, 1)], [(5, -1)], [(3, 1)]], [[(149, -1), (101, -1), (89, -1), (169, 1), (86, -1), (166, 1), (154, 1), (106, 1)], [(85, 1), (165, -1), (153, -1), (105, -1), (150, -1), (102, -1), (90, -1), (170, 1)]], [(200, 0, 1), (200, -1, 0)], [[(149, -1)], [(85, 1)]], [[-1, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(0, -1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨1, 1, 1, 7, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, -1), (10, 1), (80, -1), (160, 1)], [(3, 1), (12, -7), (48, 1), (192, -7)]], [(14, 0, 1, 0), (14, 0, 0, 1), (2, -1, 0, 0)], [[(9, 1)], [(5, -1)], [(3, 1)]], [[(149, -1), (101, -1), (89, -1), (169, 1), (86, -1), (166, 1), (154, 1), (106, 1)], [(85, 1), (165, -1), (153, -1), (105, -1), (150, -1), (102, -1), (90, -1), (170, 1)]], [(392, 0, 1), (392, -1, 0)], [[(149, -1)], [(85, 1)]], [[-1, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(0, -1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨1, 1, 1, 11, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, -1), (10, 1), (80, -1), (160, 1)], [(3, 1), (12, -11), (48, 1), (192, -11)]], [(22, 0, 1, 0), (22, 0, 0, 1), (2, -1, 0, 0)], [[(9, 1)], [(5, -1)], [(3, 1)]], [[(149, -1), (101, -1), (89, -1), (169, 1), (86, -1), (166, 1), (154, 1), (106, 1)], [(85, 1), (165, -1), (153, -1), (105, -1), (150, -1), (102, -1), (90, -1), (170, 1)]], [(968, 0, 1), (968, -1, 0)], [[(149, -1)], [(85, 1)]], [[-1, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(0, -1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨1, 1, 1, 13, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, -1), (10, 1), (80, -1), (160, 1)], [(3, 1), (12, -13), (48, 1), (192, -13)]], [(26, 0, 1, 0), (26, 0, 0, 1), (2, -1, 0, 0)], [[(9, 1)], [(5, -1)], [(3, 1)]], [[(149, -1), (101, -1), (89, -1), (169, 1), (86, -1), (166, 1), (154, 1), (106, 1)], [(85, 1), (165, -1), (153, -1), (105, -1), (150, -1), (102, -1), (90, -1), (170, 1)]], [(1352, 0, 1), (1352, -1, 0)], [[(149, -1)], [(85, 1)]], [[-1, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(0, -1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨1, 1, 3, 1, [[(3, -1), (12, 1), (48, -3), (192, 3)], [(5, -1), (10, 1), (80, -3), (160, 3)], [(9, 1), (6, 1), (144, 3), (96, 3)]], [(2, 1, 0, 0), (2, 0, 0, 1), (2, 0, 1, 0)], [[(3, -1)], [(5, -1)], [(9, 1)]], [[(149, -1), (101, -1), (89, -1), (169, 1), (86, -1), (166, 1), (154, 1), (106, 1)], [(85, 1), (165, -1), (153, -1), (105, -1), (150, -1), (102, -1), (90, -1), (170, 1)]], [(24, 0, 1), (24, -1, 0)], [[(149, -1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, -1, 0, 1]], [(3, 0), (0, -6)], [[(4, 1)], [(3, -1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 18⟩,
+  ⟨1, 1, 3, 2, [[(9, 1), (6, 1), (144, 3), (96, 3)], [(5, -1), (10, 1), (80, -3), (160, 3)], [(3, 1), (12, -2), (48, 3), (192, -6)]], [(4, 0, 1, 0), (4, 0, 0, 1), (2, -1, 0, 0)], [[(9, 1)], [(5, -1)], [(3, 1)]], [[(149, -1), (101, -1), (89, -1), (169, 1), (86, -1), (166, 1), (154, 1), (106, 1)], [(85, 1), (165, -1), (153, -1), (105, -1), (150, -1), (102, -1), (90, -1), (170, 1)]], [(96, 0, 1), (96, -1, 0)], [[(149, -1)], [(85, 1)]], [[-1, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 6), (3, 0)], [[(0, -1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 18⟩,
+  ⟨1, 1, 3, 3, [[(9, 1), (6, 1), (144, 3), (96, 3)], [(5, -1), (10, 1), (80, -3), (160, 3)], [(3, 1), (12, -3), (48, 3), (192, -9)]], [(6, 0, 1, 0), (6, 0, 0, 1), (2, -1, 0, 0)], [[(9, 1)], [(5, -1)], [(3, 1)]], [[(149, -1), (101, -1), (89, -1), (169, 1), (86, -1), (166, 1), (154, 1), (106, 1)], [(85, 1), (165, -1), (153, -1), (105, -1), (150, -1), (102, -1), (90, -1), (170, 1)]], [(216, 0, 1), (216, -1, 0)], [[(149, -1)], [(85, 1)]], [[-1, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 6), (3, 0)], [[(0, -1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 18⟩,
+  ⟨1, 1, 3, 5, [[(9, 1), (6, 1), (144, 3), (96, 3)], [(5, -1), (10, 1), (80, -3), (160, 3)], [(3, 1), (12, -5), (48, 3), (192, -15)]], [(10, 0, 1, 0), (10, 0, 0, 1), (2, -1, 0, 0)], [[(9, 1)], [(5, -1)], [(3, 1)]], [[(149, -1), (101, -1), (89, -1), (169, 1), (86, -1), (166, 1), (154, 1), (106, 1)], [(85, 1), (165, -1), (153, -1), (105, -1), (150, -1), (102, -1), (90, -1), (170, 1)]], [(600, 0, 1), (600, -1, 0)], [[(149, -1)], [(85, 1)]], [[-1, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 6), (3, 0)], [[(0, -1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 18⟩,
+  ⟨1, 1, 3, 7, [[(9, 1), (6, 1), (144, 3), (96, 3)], [(5, -1), (10, 1), (80, -3), (160, 3)], [(3, 1), (12, -7), (48, 3), (192, -21)]], [(14, 0, 1, 0), (14, 0, 0, 1), (2, -1, 0, 0)], [[(9, 1)], [(5, -1)], [(3, 1)]], [[(149, -1), (101, -1), (89, -1), (169, 1), (86, -1), (166, 1), (154, 1), (106, 1)], [(85, 1), (165, -1), (153, -1), (105, -1), (150, -1), (102, -1), (90, -1), (170, 1)]], [(1176, 0, 1), (1176, -1, 0)], [[(149, -1)], [(85, 1)]], [[-1, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 6), (3, 0)], [[(0, -1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 18⟩,
+  ⟨1, 1, 3, 11, [[(9, 1), (6, 1), (144, 3), (96, 3)], [(5, -1), (10, 1), (80, -3), (160, 3)], [(3, 1), (12, -11), (48, 3), (192, -33)]], [(22, 0, 1, 0), (22, 0, 0, 1), (2, -1, 0, 0)], [[(9, 1)], [(5, -1)], [(3, 1)]], [[(149, -1), (101, -1), (89, -1), (169, 1), (86, -1), (166, 1), (154, 1), (106, 1)], [(85, 1), (165, -1), (153, -1), (105, -1), (150, -1), (102, -1), (90, -1), (170, 1)]], [(2904, 0, 1), (2904, -1, 0)], [[(149, -1)], [(85, 1)]], [[-1, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 6), (3, 0)], [[(0, -1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 18⟩,
+  ⟨1, 1, 3, 13, [[(9, 1), (6, 1), (144, 3), (96, 3)], [(5, -1), (10, 1), (80, -3), (160, 3)], [(3, 1), (12, -13), (48, 3), (192, -39)]], [(26, 0, 1, 0), (26, 0, 0, 1), (2, -1, 0, 0)], [[(9, 1)], [(5, -1)], [(3, 1)]], [[(149, -1), (101, -1), (89, -1), (169, 1), (86, -1), (166, 1), (154, 1), (106, 1)], [(85, 1), (165, -1), (153, -1), (105, -1), (150, -1), (102, -1), (90, -1), (170, 1)]], [(4056, 0, 1), (4056, -1, 0)], [[(149, -1)], [(85, 1)]], [[-1, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 6), (3, 0)], [[(0, -1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 18⟩,
+  ⟨1, 2, 5, 1, [[(3, 2), (12, -2), (48, 5), (192, -5)], [(5, 2), (10, -2), (80, 5), (160, -5)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(2, -1, 0, 0), (2, 0, 0, -1), (2, 0, -1, 0)], [[(12, 2), (48, 1)], [(10, 2), (80, 1)], [(6, 2), (144, -1)]], [[(149, -1), (101, -1), (89, -1), (169, 1), (86, -1), (166, 1), (154, 1), (106, 1)], [(85, 1), (165, -1), (153, -1), (105, -1), (150, -1), (102, -1), (90, -1), (170, 1)]], [(80, 0, 1), (80, -1, 0)], [[(149, -1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, -1, 0, 1]], [(10, 0), (0, -20)], [[(4, 1)], [(3, -1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨1, 2, 5, 2, [[(3, -2), (12, 4), (48, -5), (192, 10)], [(5, 2), (10, -2), (80, 5), (160, -5)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(2, 1, 0, 0), (4, 0, 0, -1), (4, 0, -1, 0)], [[(3, 2), (48, -1)], [(10, 2), (80, 1)], [(6, 2), (144, -1)]], [[(149, -1), (101, -1), (89, -1), (169, 1), (86, -1), (166, 1), (154, 1), (106, 1)], [(85, 1), (165, -1), (153, -1), (105, -1), (150, -1), (102, -1), (90, -1), (170, 1)]], [(320, 0, 1), (320, -1, 0)], [[(149, -1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, -1, 0, 1]], [(10, 0), (0, -20)], [[(4, 1)], [(3, -1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨1, 2, 5, 3, [[(3, -2), (12, 6), (48, -5), (192, 15)], [(5, 2), (10, -2), (80, 5), (160, -5)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(2, 1, 0, 0), (6, 0, 0, -1), (6, 0, -1, 0)], [[(3, 2), (48, -1)], [(10, 2), (80, 1)], [(6, 2), (144, -1)]], [[(149, -1), (101, -1), (89, -1), (169, 1), (86, -1), (166, 1), (154, 1), (106, 1)], [(85, 1), (165, -1), (153, -1), (105, -1), (150, -1), (102, -1), (90, -1), (170, 1)]], [(720, 0, 1), (720, -1, 0)], [[(149, -1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, -1, 0, 1]], [(10, 0), (0, -20)], [[(4, 1)], [(3, -1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨1, 2, 5, 5, [[(3, -2), (12, 10), (48, -5), (192, 25)], [(5, 2), (10, -2), (80, 5), (160, -5)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(2, 1, 0, 0), (10, 0, 0, -1), (10, 0, -1, 0)], [[(3, 2), (48, -1)], [(10, 2), (80, 1)], [(6, 2), (144, -1)]], [[(149, -1), (101, -1), (89, -1), (169, 1), (86, -1), (166, 1), (154, 1), (106, 1)], [(85, 1), (165, -1), (153, -1), (105, -1), (150, -1), (102, -1), (90, -1), (170, 1)]], [(2000, 0, 1), (2000, -1, 0)], [[(149, -1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, -1, 0, 1]], [(10, 0), (0, -20)], [[(4, 1)], [(3, -1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨1, 2, 5, 7, [[(3, -2), (12, 14), (48, -5), (192, 35)], [(5, 2), (10, -2), (80, 5), (160, -5)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(2, 1, 0, 0), (14, 0, 0, -1), (14, 0, -1, 0)], [[(3, 2), (48, -1)], [(10, 2), (80, 1)], [(6, 2), (144, -1)]], [[(149, -1), (101, -1), (89, -1), (169, 1), (86, -1), (166, 1), (154, 1), (106, 1)], [(85, 1), (165, -1), (153, -1), (105, -1), (150, -1), (102, -1), (90, -1), (170, 1)]], [(3920, 0, 1), (3920, -1, 0)], [[(149, -1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, -1, 0, 1]], [(10, 0), (0, -20)], [[(4, 1)], [(3, -1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨1, 2, 5, 11, [[(3, -2), (12, 22), (48, -5), (192, 55)], [(5, 2), (10, -2), (80, 5), (160, -5)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(2, 1, 0, 0), (22, 0, 0, -1), (22, 0, -1, 0)], [[(3, 2), (48, -1)], [(10, 2), (80, 1)], [(6, 2), (144, -1)]], [[(149, -1), (101, -1), (89, -1), (169, 1), (86, -1), (166, 1), (154, 1), (106, 1)], [(85, 1), (165, -1), (153, -1), (105, -1), (150, -1), (102, -1), (90, -1), (170, 1)]], [(9680, 0, 1), (9680, -1, 0)], [[(149, -1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, -1, 0, 1]], [(10, 0), (0, -20)], [[(4, 1)], [(3, -1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨1, 2, 5, 13, [[(3, -2), (12, 26), (48, -5), (192, 65)], [(5, 2), (10, -2), (80, 5), (160, -5)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(2, 1, 0, 0), (26, 0, 0, -1), (26, 0, -1, 0)], [[(3, 2), (48, -1)], [(10, 2), (80, 1)], [(6, 2), (144, -1)]], [[(149, -1), (101, -1), (89, -1), (169, 1), (86, -1), (166, 1), (154, 1), (106, 1)], [(85, 1), (165, -1), (153, -1), (105, -1), (150, -1), (102, -1), (90, -1), (170, 1)]], [(13520, 0, 1), (13520, -1, 0)], [[(149, -1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, -1, 0, 1]], [(10, 0), (0, -20)], [[(4, 1)], [(3, -1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨2, 1, 1, 1, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, 1), (10, -2), (80, 1), (160, -2)], [(3, -1), (12, 1), (48, -1), (192, 1)]], [(4, 0, 1, 0), (4, 0, 0, -1), (4, 1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, -1)]], [[(149, 1), (101, 1), (89, 1), (169, -2), (86, 1), (166, -2), (154, -2), (106, -2)], [(85, 1), (165, -2), (153, -2), (105, -2), (150, -2), (102, -2), (90, -2), (170, 4)]], [(32, 0, -1), (32, -1, 0)], [[(149, 1)], [(85, 1)]], [[-2, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨2, 1, 1, 2, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, 1), (10, -2), (80, 1), (160, -2)], [(3, 1), (12, -2), (48, 1), (192, -2)]], [(8, 0, 1, 0), (8, 0, 0, -1), (4, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -2), (86, 1), (166, -2), (154, -2), (106, -2)], [(85, 1), (165, -2), (153, -2), (105, -2), (150, -2), (102, -2), (90, -2), (170, 4)]], [(128, 0, -1), (128, -1, 0)], [[(149, 1)], [(85, 1)]], [[-2, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨2, 1, 1, 3, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, 1), (10, -2), (80, 1), (160, -2)], [(3, 1), (12, -3), (48, 1), (192, -3)]], [(12, 0, 1, 0), (12, 0, 0, -1), (4, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -2), (86, 1), (166, -2), (154, -2), (106, -2)], [(85, 1), (165, -2), (153, -2), (105, -2), (150, -2), (102, -2), (90, -2), (170, 4)]], [(288, 0, -1), (288, -1, 0)], [[(149, 1)], [(85, 1)]], [[-2, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨2, 1, 1, 5, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, 1), (10, -2), (80, 1), (160, -2)], [(3, 1), (12, -5), (48, 1), (192, -5)]], [(20, 0, 1, 0), (20, 0, 0, -1), (4, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -2), (86, 1), (166, -2), (154, -2), (106, -2)], [(85, 1), (165, -2), (153, -2), (105, -2), (150, -2), (102, -2), (90, -2), (170, 4)]], [(800, 0, -1), (800, -1, 0)], [[(149, 1)], [(85, 1)]], [[-2, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨2, 1, 1, 7, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, 1), (10, -2), (80, 1), (160, -2)], [(3, 1), (12, -7), (48, 1), (192, -7)]], [(28, 0, 1, 0), (28, 0, 0, -1), (4, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -2), (86, 1), (166, -2), (154, -2), (106, -2)], [(85, 1), (165, -2), (153, -2), (105, -2), (150, -2), (102, -2), (90, -2), (170, 4)]], [(1568, 0, -1), (1568, -1, 0)], [[(149, 1)], [(85, 1)]], [[-2, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨2, 1, 1, 11, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, 1), (10, -2), (80, 1), (160, -2)], [(3, 1), (12, -11), (48, 1), (192, -11)]], [(44, 0, 1, 0), (44, 0, 0, -1), (4, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -2), (86, 1), (166, -2), (154, -2), (106, -2)], [(85, 1), (165, -2), (153, -2), (105, -2), (150, -2), (102, -2), (90, -2), (170, 4)]], [(3872, 0, -1), (3872, -1, 0)], [[(149, 1)], [(85, 1)]], [[-2, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨2, 1, 1, 13, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, 1), (10, -2), (80, 1), (160, -2)], [(3, 1), (12, -13), (48, 1), (192, -13)]], [(52, 0, 1, 0), (52, 0, 0, -1), (4, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -2), (86, 1), (166, -2), (154, -2), (106, -2)], [(85, 1), (165, -2), (153, -2), (105, -2), (150, -2), (102, -2), (90, -2), (170, 4)]], [(5408, 0, -1), (5408, -1, 0)], [[(149, 1)], [(85, 1)]], [[-2, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨2, 1, 3, 1, [[(3, -1), (12, 1), (48, -3), (192, 3)], [(5, 1), (10, -2), (80, 3), (160, -6)], [(9, 1), (6, 1), (144, 3), (96, 3)]], [(4, 1, 0, 0), (4, 0, 0, -1), (4, 0, 1, 0)], [[(3, -1)], [(5, 1)], [(9, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -2), (86, 1), (166, -2), (154, -2), (106, -2)], [(85, 1), (165, -2), (153, -2), (105, -2), (150, -2), (102, -2), (90, -2), (170, 4)]], [(96, 0, -1), (96, -1, 0)], [[(149, 1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, -2]], [(3, 0), (0, 6)], [[(4, 1)], [(3, 1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 18⟩,
+  ⟨2, 1, 3, 2, [[(9, 1), (6, 1), (144, 3), (96, 3)], [(5, 1), (10, -2), (80, 3), (160, -6)], [(3, 1), (12, -2), (48, 3), (192, -6)]], [(8, 0, 1, 0), (8, 0, 0, -1), (4, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -2), (86, 1), (166, -2), (154, -2), (106, -2)], [(85, 1), (165, -2), (153, -2), (105, -2), (150, -2), (102, -2), (90, -2), (170, 4)]], [(384, 0, -1), (384, -1, 0)], [[(149, 1)], [(85, 1)]], [[-2, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 6), (3, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 18⟩,
+  ⟨2, 1, 3, 3, [[(9, 1), (6, 1), (144, 3), (96, 3)], [(5, 1), (10, -2), (80, 3), (160, -6)], [(3, 1), (12, -3), (48, 3), (192, -9)]], [(12, 0, 1, 0), (12, 0, 0, -1), (4, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -2), (86, 1), (166, -2), (154, -2), (106, -2)], [(85, 1), (165, -2), (153, -2), (105, -2), (150, -2), (102, -2), (90, -2), (170, 4)]], [(864, 0, -1), (864, -1, 0)], [[(149, 1)], [(85, 1)]], [[-2, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 6), (3, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 18⟩,
+  ⟨2, 1, 3, 5, [[(9, 1), (6, 1), (144, 3), (96, 3)], [(5, 1), (10, -2), (80, 3), (160, -6)], [(3, 1), (12, -5), (48, 3), (192, -15)]], [(20, 0, 1, 0), (20, 0, 0, -1), (4, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -2), (86, 1), (166, -2), (154, -2), (106, -2)], [(85, 1), (165, -2), (153, -2), (105, -2), (150, -2), (102, -2), (90, -2), (170, 4)]], [(2400, 0, -1), (2400, -1, 0)], [[(149, 1)], [(85, 1)]], [[-2, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 6), (3, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 18⟩,
+  ⟨2, 1, 3, 7, [[(9, 1), (6, 1), (144, 3), (96, 3)], [(5, 1), (10, -2), (80, 3), (160, -6)], [(3, 1), (12, -7), (48, 3), (192, -21)]], [(28, 0, 1, 0), (28, 0, 0, -1), (4, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -2), (86, 1), (166, -2), (154, -2), (106, -2)], [(85, 1), (165, -2), (153, -2), (105, -2), (150, -2), (102, -2), (90, -2), (170, 4)]], [(4704, 0, -1), (4704, -1, 0)], [[(149, 1)], [(85, 1)]], [[-2, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 6), (3, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 18⟩,
+  ⟨2, 1, 3, 11, [[(9, 1), (6, 1), (144, 3), (96, 3)], [(5, 1), (10, -2), (80, 3), (160, -6)], [(3, 1), (12, -11), (48, 3), (192, -33)]], [(44, 0, 1, 0), (44, 0, 0, -1), (4, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -2), (86, 1), (166, -2), (154, -2), (106, -2)], [(85, 1), (165, -2), (153, -2), (105, -2), (150, -2), (102, -2), (90, -2), (170, 4)]], [(11616, 0, -1), (11616, -1, 0)], [[(149, 1)], [(85, 1)]], [[-2, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 6), (3, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 18⟩,
+  ⟨2, 1, 3, 13, [[(9, 1), (6, 1), (144, 3), (96, 3)], [(5, 1), (10, -2), (80, 3), (160, -6)], [(3, 1), (12, -13), (48, 3), (192, -39)]], [(52, 0, 1, 0), (52, 0, 0, -1), (4, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -2), (86, 1), (166, -2), (154, -2), (106, -2)], [(85, 1), (165, -2), (153, -2), (105, -2), (150, -2), (102, -2), (90, -2), (170, 4)]], [(16224, 0, -1), (16224, -1, 0)], [[(149, 1)], [(85, 1)]], [[-2, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 6), (3, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 18⟩,
+  ⟨2, 2, 5, 1, [[(3, 2), (12, -2), (48, 5), (192, -5)], [(5, -2), (10, 4), (80, -5), (160, 10)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(4, -1, 0, 0), (4, 0, 0, 1), (4, 0, -1, 0)], [[(12, 2), (48, 1)], [(5, 2), (80, -1)], [(6, 2), (144, -1)]], [[(149, 1), (101, 1), (89, 1), (169, -2), (86, 1), (166, -2), (154, -2), (106, -2)], [(85, 1), (165, -2), (153, -2), (105, -2), (150, -2), (102, -2), (90, -2), (170, 4)]], [(320, 0, -1), (320, -1, 0)], [[(149, 1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, -2]], [(10, 0), (0, 20)], [[(4, 1)], [(3, 1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨2, 2, 5, 2, [[(3, -2), (12, 4), (48, -5), (192, 10)], [(5, -2), (10, 4), (80, -5), (160, 10)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(4, 1, 0, 0), (8, 0, 0, 1), (8, 0, -1, 0)], [[(3, 2), (48, -1)], [(5, 2), (80, -1)], [(6, 2), (144, -1)]], [[(149, 1), (101, 1), (89, 1), (169, -2), (86, 1), (166, -2), (154, -2), (106, -2)], [(85, 1), (165, -2), (153, -2), (105, -2), (150, -2), (102, -2), (90, -2), (170, 4)]], [(1280, 0, -1), (1280, -1, 0)], [[(149, 1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, -2]], [(10, 0), (0, 20)], [[(4, 1)], [(3, 1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨2, 2, 5, 3, [[(3, -2), (12, 6), (48, -5), (192, 15)], [(5, -2), (10, 4), (80, -5), (160, 10)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(4, 1, 0, 0), (12, 0, 0, 1), (12, 0, -1, 0)], [[(3, 2), (48, -1)], [(5, 2), (80, -1)], [(6, 2), (144, -1)]], [[(149, 1), (101, 1), (89, 1), (169, -2), (86, 1), (166, -2), (154, -2), (106, -2)], [(85, 1), (165, -2), (153, -2), (105, -2), (150, -2), (102, -2), (90, -2), (170, 4)]], [(2880, 0, -1), (2880, -1, 0)], [[(149, 1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, -2]], [(10, 0), (0, 20)], [[(4, 1)], [(3, 1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨2, 2, 5, 5, [[(3, -2), (12, 10), (48, -5), (192, 25)], [(5, -2), (10, 4), (80, -5), (160, 10)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(4, 1, 0, 0), (20, 0, 0, 1), (20, 0, -1, 0)], [[(3, 2), (48, -1)], [(5, 2), (80, -1)], [(6, 2), (144, -1)]], [[(149, 1), (101, 1), (89, 1), (169, -2), (86, 1), (166, -2), (154, -2), (106, -2)], [(85, 1), (165, -2), (153, -2), (105, -2), (150, -2), (102, -2), (90, -2), (170, 4)]], [(8000, 0, -1), (8000, -1, 0)], [[(149, 1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, -2]], [(10, 0), (0, 20)], [[(4, 1)], [(3, 1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨2, 2, 5, 7, [[(3, -2), (12, 14), (48, -5), (192, 35)], [(5, -2), (10, 4), (80, -5), (160, 10)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(4, 1, 0, 0), (28, 0, 0, 1), (28, 0, -1, 0)], [[(3, 2), (48, -1)], [(5, 2), (80, -1)], [(6, 2), (144, -1)]], [[(149, 1), (101, 1), (89, 1), (169, -2), (86, 1), (166, -2), (154, -2), (106, -2)], [(85, 1), (165, -2), (153, -2), (105, -2), (150, -2), (102, -2), (90, -2), (170, 4)]], [(15680, 0, -1), (15680, -1, 0)], [[(149, 1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, -2]], [(10, 0), (0, 20)], [[(4, 1)], [(3, 1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨2, 2, 5, 11, [[(3, -2), (12, 22), (48, -5), (192, 55)], [(5, -2), (10, 4), (80, -5), (160, 10)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(4, 1, 0, 0), (44, 0, 0, 1), (44, 0, -1, 0)], [[(3, 2), (48, -1)], [(5, 2), (80, -1)], [(6, 2), (144, -1)]], [[(149, 1), (101, 1), (89, 1), (169, -2), (86, 1), (166, -2), (154, -2), (106, -2)], [(85, 1), (165, -2), (153, -2), (105, -2), (150, -2), (102, -2), (90, -2), (170, 4)]], [(38720, 0, -1), (38720, -1, 0)], [[(149, 1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, -2]], [(10, 0), (0, 20)], [[(4, 1)], [(3, 1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨2, 2, 5, 13, [[(3, -2), (12, 26), (48, -5), (192, 65)], [(5, -2), (10, 4), (80, -5), (160, 10)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(4, 1, 0, 0), (52, 0, 0, 1), (52, 0, -1, 0)], [[(3, 2), (48, -1)], [(5, 2), (80, -1)], [(6, 2), (144, -1)]], [[(149, 1), (101, 1), (89, 1), (169, -2), (86, 1), (166, -2), (154, -2), (106, -2)], [(85, 1), (165, -2), (153, -2), (105, -2), (150, -2), (102, -2), (90, -2), (170, 4)]], [(54080, 0, -1), (54080, -1, 0)], [[(149, 1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, -2]], [(10, 0), (0, 20)], [[(4, 1)], [(3, 1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨3, 1, 1, 1, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, 1), (10, -3), (80, 1), (160, -3)], [(3, -1), (12, 1), (48, -1), (192, 1)]], [(6, 0, 1, 0), (6, 0, 0, -1), (6, 1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, -1)]], [[(149, 1), (101, 1), (89, 1), (169, -3), (86, 1), (166, -3), (154, -3), (106, -3)], [(85, 1), (165, -3), (153, -3), (105, -3), (150, -3), (102, -3), (90, -3), (170, 9)]], [(72, 0, -1), (72, -1, 0)], [[(149, 1)], [(85, 1)]], [[-3, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨3, 1, 1, 2, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, 1), (10, -3), (80, 1), (160, -3)], [(3, 1), (12, -2), (48, 1), (192, -2)]], [(12, 0, 1, 0), (12, 0, 0, -1), (6, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -3), (86, 1), (166, -3), (154, -3), (106, -3)], [(85, 1), (165, -3), (153, -3), (105, -3), (150, -3), (102, -3), (90, -3), (170, 9)]], [(288, 0, -1), (288, -1, 0)], [[(149, 1)], [(85, 1)]], [[-3, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨3, 1, 1, 3, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, 1), (10, -3), (80, 1), (160, -3)], [(3, 1), (12, -3), (48, 1), (192, -3)]], [(18, 0, 1, 0), (18, 0, 0, -1), (6, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -3), (86, 1), (166, -3), (154, -3), (106, -3)], [(85, 1), (165, -3), (153, -3), (105, -3), (150, -3), (102, -3), (90, -3), (170, 9)]], [(648, 0, -1), (648, -1, 0)], [[(149, 1)], [(85, 1)]], [[-3, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨3, 1, 1, 5, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, 1), (10, -3), (80, 1), (160, -3)], [(3, 1), (12, -5), (48, 1), (192, -5)]], [(30, 0, 1, 0), (30, 0, 0, -1), (6, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -3), (86, 1), (166, -3), (154, -3), (106, -3)], [(85, 1), (165, -3), (153, -3), (105, -3), (150, -3), (102, -3), (90, -3), (170, 9)]], [(1800, 0, -1), (1800, -1, 0)], [[(149, 1)], [(85, 1)]], [[-3, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨3, 1, 1, 7, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, 1), (10, -3), (80, 1), (160, -3)], [(3, 1), (12, -7), (48, 1), (192, -7)]], [(42, 0, 1, 0), (42, 0, 0, -1), (6, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -3), (86, 1), (166, -3), (154, -3), (106, -3)], [(85, 1), (165, -3), (153, -3), (105, -3), (150, -3), (102, -3), (90, -3), (170, 9)]], [(3528, 0, -1), (3528, -1, 0)], [[(149, 1)], [(85, 1)]], [[-3, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨3, 1, 1, 11, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, 1), (10, -3), (80, 1), (160, -3)], [(3, 1), (12, -11), (48, 1), (192, -11)]], [(66, 0, 1, 0), (66, 0, 0, -1), (6, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -3), (86, 1), (166, -3), (154, -3), (106, -3)], [(85, 1), (165, -3), (153, -3), (105, -3), (150, -3), (102, -3), (90, -3), (170, 9)]], [(8712, 0, -1), (8712, -1, 0)], [[(149, 1)], [(85, 1)]], [[-3, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨3, 1, 1, 13, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, 1), (10, -3), (80, 1), (160, -3)], [(3, 1), (12, -13), (48, 1), (192, -13)]], [(78, 0, 1, 0), (78, 0, 0, -1), (6, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -3), (86, 1), (166, -3), (154, -3), (106, -3)], [(85, 1), (165, -3), (153, -3), (105, -3), (150, -3), (102, -3), (90, -3), (170, 9)]], [(12168, 0, -1), (12168, -1, 0)], [[(149, 1)], [(85, 1)]], [[-3, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨3, 1, 3, 1, [[(3, -1), (12, 1), (48, -3), (192, 3)], [(5, 1), (10, -3), (80, 3), (160, -9)], [(9, 1), (6, 1), (144, 3), (96, 3)]], [(6, 1, 0, 0), (6, 0, 0, -1), (6, 0, 1, 0)], [[(3, -1)], [(5, 1)], [(9, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -3), (86, 1), (166, -3), (154, -3), (106, -3)], [(85, 1), (165, -3), (153, -3), (105, -3), (150, -3), (102, -3), (90, -3), (170, 9)]], [(216, 0, -1), (216, -1, 0)], [[(149, 1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, -3]], [(3, 0), (0, 6)], [[(4, 1)], [(3, 1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 18⟩,
+  ⟨3, 1, 3, 2, [[(9, 1), (6, 1), (144, 3), (96, 3)], [(5, 1), (10, -3), (80, 3), (160, -9)], [(3, 1), (12, -2), (48, 3), (192, -6)]], [(12, 0, 1, 0), (12, 0, 0, -1), (6, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -3), (86, 1), (166, -3), (154, -3), (106, -3)], [(85, 1), (165, -3), (153, -3), (105, -3), (150, -3), (102, -3), (90, -3), (170, 9)]], [(864, 0, -1), (864, -1, 0)], [[(149, 1)], [(85, 1)]], [[-3, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 6), (3, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 18⟩,
+  ⟨3, 1, 3, 3, [[(9, 1), (6, 1), (144, 3), (96, 3)], [(5, 1), (10, -3), (80, 3), (160, -9)], [(3, 1), (12, -3), (48, 3), (192, -9)]], [(18, 0, 1, 0), (18, 0, 0, -1), (6, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -3), (86, 1), (166, -3), (154, -3), (106, -3)], [(85, 1), (165, -3), (153, -3), (105, -3), (150, -3), (102, -3), (90, -3), (170, 9)]], [(1944, 0, -1), (1944, -1, 0)], [[(149, 1)], [(85, 1)]], [[-3, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 6), (3, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 18⟩,
+  ⟨3, 1, 3, 5, [[(9, 1), (6, 1), (144, 3), (96, 3)], [(5, 1), (10, -3), (80, 3), (160, -9)], [(3, 1), (12, -5), (48, 3), (192, -15)]], [(30, 0, 1, 0), (30, 0, 0, -1), (6, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -3), (86, 1), (166, -3), (154, -3), (106, -3)], [(85, 1), (165, -3), (153, -3), (105, -3), (150, -3), (102, -3), (90, -3), (170, 9)]], [(5400, 0, -1), (5400, -1, 0)], [[(149, 1)], [(85, 1)]], [[-3, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 6), (3, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 18⟩,
+  ⟨3, 1, 3, 7, [[(9, 1), (6, 1), (144, 3), (96, 3)], [(5, 1), (10, -3), (80, 3), (160, -9)], [(3, 1), (12, -7), (48, 3), (192, -21)]], [(42, 0, 1, 0), (42, 0, 0, -1), (6, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -3), (86, 1), (166, -3), (154, -3), (106, -3)], [(85, 1), (165, -3), (153, -3), (105, -3), (150, -3), (102, -3), (90, -3), (170, 9)]], [(10584, 0, -1), (10584, -1, 0)], [[(149, 1)], [(85, 1)]], [[-3, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 6), (3, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 18⟩,
+  ⟨3, 1, 3, 11, [[(9, 1), (6, 1), (144, 3), (96, 3)], [(5, 1), (10, -3), (80, 3), (160, -9)], [(3, 1), (12, -11), (48, 3), (192, -33)]], [(66, 0, 1, 0), (66, 0, 0, -1), (6, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -3), (86, 1), (166, -3), (154, -3), (106, -3)], [(85, 1), (165, -3), (153, -3), (105, -3), (150, -3), (102, -3), (90, -3), (170, 9)]], [(26136, 0, -1), (26136, -1, 0)], [[(149, 1)], [(85, 1)]], [[-3, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 6), (3, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 18⟩,
+  ⟨3, 1, 3, 13, [[(9, 1), (6, 1), (144, 3), (96, 3)], [(5, 1), (10, -3), (80, 3), (160, -9)], [(3, 1), (12, -13), (48, 3), (192, -39)]], [(78, 0, 1, 0), (78, 0, 0, -1), (6, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -3), (86, 1), (166, -3), (154, -3), (106, -3)], [(85, 1), (165, -3), (153, -3), (105, -3), (150, -3), (102, -3), (90, -3), (170, 9)]], [(36504, 0, -1), (36504, -1, 0)], [[(149, 1)], [(85, 1)]], [[-3, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 6), (3, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 18⟩,
+  ⟨3, 2, 5, 1, [[(3, 2), (12, -2), (48, 5), (192, -5)], [(5, -2), (10, 6), (80, -5), (160, 15)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(6, -1, 0, 0), (6, 0, 0, 1), (6, 0, -1, 0)], [[(12, 2), (48, 1)], [(5, 2), (80, -1)], [(6, 2), (144, -1)]], [[(149, 1), (101, 1), (89, 1), (169, -3), (86, 1), (166, -3), (154, -3), (106, -3)], [(85, 1), (165, -3), (153, -3), (105, -3), (150, -3), (102, -3), (90, -3), (170, 9)]], [(720, 0, -1), (720, -1, 0)], [[(149, 1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, -3]], [(10, 0), (0, 20)], [[(4, 1)], [(3, 1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨3, 2, 5, 2, [[(3, -2), (12, 4), (48, -5), (192, 10)], [(5, -2), (10, 6), (80, -5), (160, 15)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(6, 1, 0, 0), (12, 0, 0, 1), (12, 0, -1, 0)], [[(3, 2), (48, -1)], [(5, 2), (80, -1)], [(6, 2), (144, -1)]], [[(149, 1), (101, 1), (89, 1), (169, -3), (86, 1), (166, -3), (154, -3), (106, -3)], [(85, 1), (165, -3), (153, -3), (105, -3), (150, -3), (102, -3), (90, -3), (170, 9)]], [(2880, 0, -1), (2880, -1, 0)], [[(149, 1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, -3]], [(10, 0), (0, 20)], [[(4, 1)], [(3, 1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨3, 2, 5, 3, [[(3, -2), (12, 6), (48, -5), (192, 15)], [(5, -2), (10, 6), (80, -5), (160, 15)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(6, 1, 0, 0), (18, 0, 0, 1), (18, 0, -1, 0)], [[(3, 2), (48, -1)], [(5, 2), (80, -1)], [(6, 2), (144, -1)]], [[(149, 1), (101, 1), (89, 1), (169, -3), (86, 1), (166, -3), (154, -3), (106, -3)], [(85, 1), (165, -3), (153, -3), (105, -3), (150, -3), (102, -3), (90, -3), (170, 9)]], [(6480, 0, -1), (6480, -1, 0)], [[(149, 1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, -3]], [(10, 0), (0, 20)], [[(4, 1)], [(3, 1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨3, 2, 5, 5, [[(3, -2), (12, 10), (48, -5), (192, 25)], [(5, -2), (10, 6), (80, -5), (160, 15)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(6, 1, 0, 0), (30, 0, 0, 1), (30, 0, -1, 0)], [[(3, 2), (48, -1)], [(5, 2), (80, -1)], [(6, 2), (144, -1)]], [[(149, 1), (101, 1), (89, 1), (169, -3), (86, 1), (166, -3), (154, -3), (106, -3)], [(85, 1), (165, -3), (153, -3), (105, -3), (150, -3), (102, -3), (90, -3), (170, 9)]], [(18000, 0, -1), (18000, -1, 0)], [[(149, 1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, -3]], [(10, 0), (0, 20)], [[(4, 1)], [(3, 1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨3, 2, 5, 7, [[(3, -2), (12, 14), (48, -5), (192, 35)], [(5, -2), (10, 6), (80, -5), (160, 15)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(6, 1, 0, 0), (42, 0, 0, 1), (42, 0, -1, 0)], [[(3, 2), (48, -1)], [(5, 2), (80, -1)], [(6, 2), (144, -1)]], [[(149, 1), (101, 1), (89, 1), (169, -3), (86, 1), (166, -3), (154, -3), (106, -3)], [(85, 1), (165, -3), (153, -3), (105, -3), (150, -3), (102, -3), (90, -3), (170, 9)]], [(35280, 0, -1), (35280, -1, 0)], [[(149, 1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, -3]], [(10, 0), (0, 20)], [[(4, 1)], [(3, 1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨3, 2, 5, 11, [[(3, -2), (12, 22), (48, -5), (192, 55)], [(5, -2), (10, 6), (80, -5), (160, 15)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(6, 1, 0, 0), (66, 0, 0, 1), (66, 0, -1, 0)], [[(3, 2), (48, -1)], [(5, 2), (80, -1)], [(6, 2), (144, -1)]], [[(149, 1), (101, 1), (89, 1), (169, -3), (86, 1), (166, -3), (154, -3), (106, -3)], [(85, 1), (165, -3), (153, -3), (105, -3), (150, -3), (102, -3), (90, -3), (170, 9)]], [(87120, 0, -1), (87120, -1, 0)], [[(149, 1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, -3]], [(10, 0), (0, 20)], [[(4, 1)], [(3, 1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨3, 2, 5, 13, [[(3, -2), (12, 26), (48, -5), (192, 65)], [(5, -2), (10, 6), (80, -5), (160, 15)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(6, 1, 0, 0), (78, 0, 0, 1), (78, 0, -1, 0)], [[(3, 2), (48, -1)], [(5, 2), (80, -1)], [(6, 2), (144, -1)]], [[(149, 1), (101, 1), (89, 1), (169, -3), (86, 1), (166, -3), (154, -3), (106, -3)], [(85, 1), (165, -3), (153, -3), (105, -3), (150, -3), (102, -3), (90, -3), (170, 9)]], [(121680, 0, -1), (121680, -1, 0)], [[(149, 1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, -3]], [(10, 0), (0, 20)], [[(4, 1)], [(3, 1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨7, 1, 1, 1, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, 1), (10, -7), (80, 1), (160, -7)], [(3, -1), (12, 1), (48, -1), (192, 1)]], [(14, 0, 1, 0), (14, 0, 0, -1), (14, 1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, -1)]], [[(149, 1), (101, 1), (89, 1), (169, -7), (86, 1), (166, -7), (154, -7), (106, -7)], [(85, 1), (165, -7), (153, -7), (105, -7), (150, -7), (102, -7), (90, -7), (170, 49)]], [(392, 0, -1), (392, -1, 0)], [[(149, 1)], [(85, 1)]], [[-7, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨7, 1, 1, 2, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, 1), (10, -7), (80, 1), (160, -7)], [(3, 1), (12, -2), (48, 1), (192, -2)]], [(28, 0, 1, 0), (28, 0, 0, -1), (14, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -7), (86, 1), (166, -7), (154, -7), (106, -7)], [(85, 1), (165, -7), (153, -7), (105, -7), (150, -7), (102, -7), (90, -7), (170, 49)]], [(1568, 0, -1), (1568, -1, 0)], [[(149, 1)], [(85, 1)]], [[-7, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨7, 1, 1, 3, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, 1), (10, -7), (80, 1), (160, -7)], [(3, 1), (12, -3), (48, 1), (192, -3)]], [(42, 0, 1, 0), (42, 0, 0, -1), (14, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -7), (86, 1), (166, -7), (154, -7), (106, -7)], [(85, 1), (165, -7), (153, -7), (105, -7), (150, -7), (102, -7), (90, -7), (170, 49)]], [(3528, 0, -1), (3528, -1, 0)], [[(149, 1)], [(85, 1)]], [[-7, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨7, 1, 1, 5, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, 1), (10, -7), (80, 1), (160, -7)], [(3, 1), (12, -5), (48, 1), (192, -5)]], [(70, 0, 1, 0), (70, 0, 0, -1), (14, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -7), (86, 1), (166, -7), (154, -7), (106, -7)], [(85, 1), (165, -7), (153, -7), (105, -7), (150, -7), (102, -7), (90, -7), (170, 49)]], [(9800, 0, -1), (9800, -1, 0)], [[(149, 1)], [(85, 1)]], [[-7, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨7, 1, 1, 7, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, 1), (10, -7), (80, 1), (160, -7)], [(3, 1), (12, -7), (48, 1), (192, -7)]], [(98, 0, 1, 0), (98, 0, 0, -1), (14, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -7), (86, 1), (166, -7), (154, -7), (106, -7)], [(85, 1), (165, -7), (153, -7), (105, -7), (150, -7), (102, -7), (90, -7), (170, 49)]], [(19208, 0, -1), (19208, -1, 0)], [[(149, 1)], [(85, 1)]], [[-7, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨7, 1, 1, 11, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, 1), (10, -7), (80, 1), (160, -7)], [(3, 1), (12, -11), (48, 1), (192, -11)]], [(154, 0, 1, 0), (154, 0, 0, -1), (14, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -7), (86, 1), (166, -7), (154, -7), (106, -7)], [(85, 1), (165, -7), (153, -7), (105, -7), (150, -7), (102, -7), (90, -7), (170, 49)]], [(47432, 0, -1), (47432, -1, 0)], [[(149, 1)], [(85, 1)]], [[-7, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨7, 1, 1, 13, [[(9, 1), (6, 1), (144, 1), (96, 1)], [(5, 1), (10, -7), (80, 1), (160, -7)], [(3, 1), (12, -13), (48, 1), (192, -13)]], [(182, 0, 1, 0), (182, 0, 0, -1), (14, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -7), (86, 1), (166, -7), (154, -7), (106, -7)], [(85, 1), (165, -7), (153, -7), (105, -7), (150, -7), (102, -7), (90, -7), (170, 49)]], [(66248, 0, -1), (66248, -1, 0)], [[(149, 1)], [(85, 1)]], [[-7, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 2), (1, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 2⟩,
+  ⟨7, 1, 3, 1, [[(3, -1), (12, 1), (48, -3), (192, 3)], [(5, 1), (10, -7), (80, 3), (160, -21)], [(9, 1), (6, 1), (144, 3), (96, 3)]], [(14, 1, 0, 0), (14, 0, 0, -1), (14, 0, 1, 0)], [[(3, -1)], [(5, 1)], [(9, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -7), (86, 1), (166, -7), (154, -7), (106, -7)], [(85, 1), (165, -7), (153, -7), (105, -7), (150, -7), (102, -7), (90, -7), (170, 49)]], [(1176, 0, -1), (1176, -1, 0)], [[(149, 1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, -7]], [(3, 0), (0, 6)], [[(4, 1)], [(3, 1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 18⟩,
+  ⟨7, 1, 3, 2, [[(9, 1), (6, 1), (144, 3), (96, 3)], [(5, 1), (10, -7), (80, 3), (160, -21)], [(3, 1), (12, -2), (48, 3), (192, -6)]], [(28, 0, 1, 0), (28, 0, 0, -1), (14, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -7), (86, 1), (166, -7), (154, -7), (106, -7)], [(85, 1), (165, -7), (153, -7), (105, -7), (150, -7), (102, -7), (90, -7), (170, 49)]], [(4704, 0, -1), (4704, -1, 0)], [[(149, 1)], [(85, 1)]], [[-7, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 6), (3, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 18⟩,
+  ⟨7, 1, 3, 3, [[(9, 1), (6, 1), (144, 3), (96, 3)], [(5, 1), (10, -7), (80, 3), (160, -21)], [(3, 1), (12, -3), (48, 3), (192, -9)]], [(42, 0, 1, 0), (42, 0, 0, -1), (14, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -7), (86, 1), (166, -7), (154, -7), (106, -7)], [(85, 1), (165, -7), (153, -7), (105, -7), (150, -7), (102, -7), (90, -7), (170, 49)]], [(10584, 0, -1), (10584, -1, 0)], [[(149, 1)], [(85, 1)]], [[-7, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 6), (3, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 18⟩,
+  ⟨7, 1, 3, 5, [[(9, 1), (6, 1), (144, 3), (96, 3)], [(5, 1), (10, -7), (80, 3), (160, -21)], [(3, 1), (12, -5), (48, 3), (192, -15)]], [(70, 0, 1, 0), (70, 0, 0, -1), (14, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -7), (86, 1), (166, -7), (154, -7), (106, -7)], [(85, 1), (165, -7), (153, -7), (105, -7), (150, -7), (102, -7), (90, -7), (170, 49)]], [(29400, 0, -1), (29400, -1, 0)], [[(149, 1)], [(85, 1)]], [[-7, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 6), (3, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 18⟩,
+  ⟨7, 1, 3, 7, [[(9, 1), (6, 1), (144, 3), (96, 3)], [(5, 1), (10, -7), (80, 3), (160, -21)], [(3, 1), (12, -7), (48, 3), (192, -21)]], [(98, 0, 1, 0), (98, 0, 0, -1), (14, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -7), (86, 1), (166, -7), (154, -7), (106, -7)], [(85, 1), (165, -7), (153, -7), (105, -7), (150, -7), (102, -7), (90, -7), (170, 49)]], [(57624, 0, -1), (57624, -1, 0)], [[(149, 1)], [(85, 1)]], [[-7, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 6), (3, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 18⟩,
+  ⟨7, 1, 3, 11, [[(9, 1), (6, 1), (144, 3), (96, 3)], [(5, 1), (10, -7), (80, 3), (160, -21)], [(3, 1), (12, -11), (48, 3), (192, -33)]], [(154, 0, 1, 0), (154, 0, 0, -1), (14, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -7), (86, 1), (166, -7), (154, -7), (106, -7)], [(85, 1), (165, -7), (153, -7), (105, -7), (150, -7), (102, -7), (90, -7), (170, 49)]], [(142296, 0, -1), (142296, -1, 0)], [[(149, 1)], [(85, 1)]], [[-7, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 6), (3, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 18⟩,
+  ⟨7, 1, 3, 13, [[(9, 1), (6, 1), (144, 3), (96, 3)], [(5, 1), (10, -7), (80, 3), (160, -21)], [(3, 1), (12, -13), (48, 3), (192, -39)]], [(182, 0, 1, 0), (182, 0, 0, -1), (14, -1, 0, 0)], [[(9, 1)], [(5, 1)], [(3, 1)]], [[(149, 1), (101, 1), (89, 1), (169, -7), (86, 1), (166, -7), (154, -7), (106, -7)], [(85, 1), (165, -7), (153, -7), (105, -7), (150, -7), (102, -7), (90, -7), (170, 49)]], [(198744, 0, -1), (198744, -1, 0)], [[(149, 1)], [(85, 1)]], [[-7, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 0]], [(0, 6), (3, 0)], [[(3, 1)], [(1, 1)]], (85, 149), [15, 147, 83, 51], [0, 2, 4, 5], 18⟩,
+  ⟨7, 2, 5, 1, [[(3, 2), (12, -2), (48, 5), (192, -5)], [(5, -2), (10, 14), (80, -5), (160, 35)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(14, -1, 0, 0), (14, 0, 0, 1), (14, 0, -1, 0)], [[(12, 2), (48, 1)], [(5, 2), (80, -1)], [(6, 2), (144, -1)]], [[(149, 1), (101, 1), (89, 1), (169, -7), (86, 1), (166, -7), (154, -7), (106, -7)], [(85, 1), (165, -7), (153, -7), (105, -7), (150, -7), (102, -7), (90, -7), (170, 49)]], [(3920, 0, -1), (3920, -1, 0)], [[(149, 1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, -7]], [(10, 0), (0, 20)], [[(4, 1)], [(3, 1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨7, 2, 5, 2, [[(3, -2), (12, 4), (48, -5), (192, 10)], [(5, -2), (10, 14), (80, -5), (160, 35)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(14, 1, 0, 0), (28, 0, 0, 1), (28, 0, -1, 0)], [[(3, 2), (48, -1)], [(5, 2), (80, -1)], [(6, 2), (144, -1)]], [[(149, 1), (101, 1), (89, 1), (169, -7), (86, 1), (166, -7), (154, -7), (106, -7)], [(85, 1), (165, -7), (153, -7), (105, -7), (150, -7), (102, -7), (90, -7), (170, 49)]], [(15680, 0, -1), (15680, -1, 0)], [[(149, 1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, -7]], [(10, 0), (0, 20)], [[(4, 1)], [(3, 1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨7, 2, 5, 3, [[(3, -2), (12, 6), (48, -5), (192, 15)], [(5, -2), (10, 14), (80, -5), (160, 35)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(14, 1, 0, 0), (42, 0, 0, 1), (42, 0, -1, 0)], [[(3, 2), (48, -1)], [(5, 2), (80, -1)], [(6, 2), (144, -1)]], [[(149, 1), (101, 1), (89, 1), (169, -7), (86, 1), (166, -7), (154, -7), (106, -7)], [(85, 1), (165, -7), (153, -7), (105, -7), (150, -7), (102, -7), (90, -7), (170, 49)]], [(35280, 0, -1), (35280, -1, 0)], [[(149, 1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, -7]], [(10, 0), (0, 20)], [[(4, 1)], [(3, 1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨7, 2, 5, 5, [[(3, -2), (12, 10), (48, -5), (192, 25)], [(5, -2), (10, 14), (80, -5), (160, 35)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(14, 1, 0, 0), (70, 0, 0, 1), (70, 0, -1, 0)], [[(3, 2), (48, -1)], [(5, 2), (80, -1)], [(6, 2), (144, -1)]], [[(149, 1), (101, 1), (89, 1), (169, -7), (86, 1), (166, -7), (154, -7), (106, -7)], [(85, 1), (165, -7), (153, -7), (105, -7), (150, -7), (102, -7), (90, -7), (170, 49)]], [(98000, 0, -1), (98000, -1, 0)], [[(149, 1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, -7]], [(10, 0), (0, 20)], [[(4, 1)], [(3, 1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨7, 2, 5, 7, [[(3, -2), (12, 14), (48, -5), (192, 35)], [(5, -2), (10, 14), (80, -5), (160, 35)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(14, 1, 0, 0), (98, 0, 0, 1), (98, 0, -1, 0)], [[(3, 2), (48, -1)], [(5, 2), (80, -1)], [(6, 2), (144, -1)]], [[(149, 1), (101, 1), (89, 1), (169, -7), (86, 1), (166, -7), (154, -7), (106, -7)], [(85, 1), (165, -7), (153, -7), (105, -7), (150, -7), (102, -7), (90, -7), (170, 49)]], [(192080, 0, -1), (192080, -1, 0)], [[(149, 1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, -7]], [(10, 0), (0, 20)], [[(4, 1)], [(3, 1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨7, 2, 5, 11, [[(3, -2), (12, 22), (48, -5), (192, 55)], [(5, -2), (10, 14), (80, -5), (160, 35)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(14, 1, 0, 0), (154, 0, 0, 1), (154, 0, -1, 0)], [[(3, 2), (48, -1)], [(5, 2), (80, -1)], [(6, 2), (144, -1)]], [[(149, 1), (101, 1), (89, 1), (169, -7), (86, 1), (166, -7), (154, -7), (106, -7)], [(85, 1), (165, -7), (153, -7), (105, -7), (150, -7), (102, -7), (90, -7), (170, 49)]], [(474320, 0, -1), (474320, -1, 0)], [[(149, 1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, -7]], [(10, 0), (0, 20)], [[(4, 1)], [(3, 1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩,
+  ⟨7, 2, 5, 13, [[(3, -2), (12, 26), (48, -5), (192, 65)], [(5, -2), (10, 14), (80, -5), (160, 35)], [(9, -2), (6, -2), (144, -5), (96, -5)]], [(14, 1, 0, 0), (182, 0, 0, 1), (182, 0, -1, 0)], [[(3, 2), (48, -1)], [(5, 2), (80, -1)], [(6, 2), (144, -1)]], [[(149, 1), (101, 1), (89, 1), (169, -7), (86, 1), (166, -7), (154, -7), (106, -7)], [(85, 1), (165, -7), (153, -7), (105, -7), (150, -7), (102, -7), (90, -7), (170, 49)]], [(662480, 0, -1), (662480, -1, 0)], [[(149, 1)], [(85, 1)]], [[0, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, -7]], [(10, 0), (0, 20)], [[(4, 1)], [(3, 1)]], (85, 149), [15, 83, 147, 51], [0, 1, 2, 3], 200⟩]
+
+
+/-- **(D1) The scale-free numbers.**  For `d = 1, 3`, weights `(1, 1)` and
+`(1, 3)` and the fifteen values of `b`: `int g^2 eta^2 = -(b/3) int eta^4`
+and `int Z^2 = (4 b^2/3) int eta^4`, with `int eta^4 != 0`. -/
+theorem quaternionic_ratios :
+    ([1, 3].all fun d => [(1, 1), (1, 3)].all fun w => qdBs.all fun b =>
+      qdRatiosOk d b w.1 w.2 [1, 0, 0, 0] 1) = true := by
+  decide +kernel
+
+/-- **(D2) to (D4) The growth sits in the polarisation.**  For the same
+cases, `E_b = E_u + b E_v`, `g_b = b g_1`, `lam_b = b lam_1` with `lam_1`
+integral, `Z_b = b^2 Z_1`, `Z'_b = b^2 Z'_1` and `int eta_b^4 = b^2 int
+eta_1^4`. -/
+theorem quaternionic_scaling :
+    ([1, 3].all fun d => [(1, 1), (1, 3)].all fun w => qdBs.all fun b =>
+      qdScalingOk d b w.1 w.2) = true := by
+  decide +kernel
+
+/-- **(D5) `b` is a presentation.**  Replacing `j` by `alpha j` multiplies the
+ratios by `N(alpha)` and `N(alpha)^2`, for `alpha = 1 + i, 2 + i, 1, 3 + 2i`
+and `d = 1, 3`. -/
+theorem quaternionic_presentation :
+    ([1, 3].all fun d => [(1, 1), (2, 1), (1, 0), (3, 2)].all fun a =>
+      qdRatiosOk d 1 1 1 [a.1, a.2, 0, 0] (a.1 ^ 2 + d * a.2 ^ 2)) = true := by
+  decide +kernel
+
+/-- **(D6) The integral Weil lattice, part 1 of four.**  The cases with
+`d = 1`: `W` has Gram matrix `diag(8d, 8d^2)` and the divisor
+products meet it in a sublattice of index `2 (a_1 a_2)^2`. -/
+theorem quaternionic_weil_lattice_0 :
+    ((List.range 21).all fun i => qdCaseOk (qdCases.getD (21 * 0 + i) default)) = true := by
+  decide +kernel
+
+/-- **(D6) The integral Weil lattice, part 2 of four.**  The cases with
+`d = 2`: `W` has Gram matrix `diag(8d, 8d^2)` and the divisor
+products meet it in a sublattice of index `2 (a_1 a_2)^2`. -/
+theorem quaternionic_weil_lattice_1 :
+    ((List.range 21).all fun i => qdCaseOk (qdCases.getD (21 * 1 + i) default)) = true := by
+  decide +kernel
+
+/-- **(D6) The integral Weil lattice, part 3 of four.**  The cases with
+`d = 3`: `W` has Gram matrix `diag(8d, 8d^2)` and the divisor
+products meet it in a sublattice of index `2 (a_1 a_2)^2`. -/
+theorem quaternionic_weil_lattice_2 :
+    ((List.range 21).all fun i => qdCaseOk (qdCases.getD (21 * 2 + i) default)) = true := by
+  decide +kernel
+
+/-- **(D6) The integral Weil lattice, part 4 of four.**  The cases with
+`d = 7`: `W` has Gram matrix `diag(8d, 8d^2)` and the divisor
+products meet it in a sublattice of index `2 (a_1 a_2)^2`. -/
+theorem quaternionic_weil_lattice_3 :
+    ((List.range 21).all fun i => qdCaseOk (qdCases.getD (21 * 3 + i) default)) = true := by
+  decide +kernel
+
+/-! ## 74.  The divisor route on a fixed lattice
+
+Item (XXIV), Proposition (The divisor route at `n = 2`).  `Lambda = O^2`
+with `i^2 = -d`, `j^2 = 1`, and the polarisation `E` of Section 73 at
+`b = 1`, weights `(1, 1)`; a class `x in H^2(Lambda)` is an alternating
+`8 x 8` matrix, or its 28 coordinates `x_ab`, `a < b`; `R` is the lattice
+of `K`-bilinear classes (`L_i^T x = x L_i`), `phi_x = E^{-1} x`,
+`t(x) = int x eta^3 / int eta^4` and `I(x) = 2 t(x)^2 int eta^4 -
+int x^2 eta^2`.  With `E S = s I` recorded, for `d = 1, 3`:
+
+  (R1) the recorded basis of `R` satisfies the conditions, has a left
+       inverse (so it spans a saturated lattice), and a minor of size `16`
+       of the conditions is nonzero, so `R` has rank `12`; `t = 0` on it;
+  (R2) `-int x y eta^2 / int eta^4 = tr(phi_x phi_y)/24` on all `78`
+       pairs of basis vectors;  (R3) `P^T G P` is diagonal with eight
+       positive and four negative entries, `det P != 0`, so `I` has
+       signature `(8, 4)` on `R`;
+  (R4) for the pencil `x_k = x + k y`, `x_k(u, v) = E(phi_k u, v)` with
+       `phi_k` left multiplication by `(2d)^{-1} C_k j`,
+       `C_k = [[1, k], [k, -1]]`: `phi_x^2`, `phi_y^2` and
+       `phi_x phi_y + phi_y phi_x` are the scalars `beta_0 = beta_2 =
+       (2d)^{-2}` and `beta_1 = 0`, at eight `k` `x_k` is primitive and
+       `phi_(x_k)^2 = (1 + k^2)/(4 d^2)`, and `I(x_k) = beta(k) int eta^4 / 3`
+       with `int eta^4 = 384 d^4`;
+  (R5) for `k = 0..10` the recorded `N_k` spans the saturation of
+       `Q eta + Q x_k + Q i.x_k`, which is `Z eta/(2d) + Z x_k + Z i.x_k`,
+       `I` is positive definite on it, and the minimum of `I` off `Q eta`,
+       found by enumerating the box `|c_j| <= sqrt(B cof_jj / det)` that
+       contains every vector of value at most `B`, is
+       `mu_k = 32 d^2 (1 + k^2)`;
+  (R6) the `2 x 2` minors of the rows `x_k`, `i.x_k` are polynomials of
+       degree at most two in `k`; the resultants of recorded pairs have gcd
+       `1`, and a resultant lies in the ideal of the pair, so the minors are
+       coprime and `Z x_k + Z i.x_k` is saturated at every integer `k`; also
+       checked directly for `|k| <= 200`;
+  (R7) the centraliser `u` of `i` in `sp(V, E)` has dimension `16`
+       (sixteen independent solutions, and a minor of size `48` of the
+       `128 x 64` linear conditions); for `k = 0..4` the centraliser `c` of
+       `i` and `phi_(x_k)` has dimension `10` (ten independent solutions in
+       `u`, and a minor of size `6` of the map `X -> [X, phi]` on `u`), and
+       its invariants in `wedge^2 V^*` have dimension `3` (three independent
+       solutions, and a minor of size `25` of their conditions);
+  (R8) at `k = 0`, where `beta(0) = (2d)^{-2}` is a rational square, the
+       recorded `J0` satisfies `J0^2 = -1`, `J0^T E J0 = E` and commutes
+       with `i` and `phi`, so `J0 in c`; the brackets `[X, J0]` over the
+       basis of `c` span `6` dimensions (four independent relations and a
+       minor of size `6`) and with their brackets span all of `c` (a minor
+       of size `10`).
+-/
+
+def drK2 : List (Nat × Nat) :=
+  (List.range 8).foldr (fun a acc => (List.range 8).foldr (fun b acc =>
+    if a < b then (a, b) :: acc else acc) acc) []
+
+/-- the alternating matrix of 28 coordinates; `(a, b)`, `a < b`, is the
+coordinate `8 a - a (a + 1) / 2 + b - a - 1`. -/
+def drMat (v : List Int) : List (List Int) :=
+  (List.range 8).map fun a => (List.range 8).map fun b =>
+    if a < b then v.getD (8 * a - a * (a + 1) / 2 + b - a - 1) 0
+    else if b < a then -v.getD (8 * b - b * (b + 1) / 2 + a - b - 1) 0 else 0
+
+def drVec (X : List (List Int)) : List Int := drK2.map fun p => (X.getD p.1 []).getD p.2 0
+
+def drForm (v : List Int) : List (Nat × Int) :=
+  ((drK2.zip v).filter (·.2 != 0)).map fun p => (2 ^ p.1.1 + 2 ^ p.1.2, p.2)
+
+def drEntry (X : List (List Int)) (a b : Nat) : Int := (X.getD a []).getD b 0
+
+def drScalarOf (X : List (List Int)) : Option Int :=
+  let s := drEntry X 0 0
+  if (List.range 8).all (fun a => (List.range 8).all fun b => drEntry X a b == if a == b then s else 0)
+  then some s else none
+
+/-- the product of `8 x 8` matrices, through the columns of `B`. -/
+def drMul (A B : List (List Int)) : List (List Int) :=
+  let Bt := tpT B
+  A.map fun row => Bt.map fun col => (row.zip col).foldl (fun s x => s + x.1 * x.2) 0
+
+def drSub (A B : List (List Int)) : List (List Int) := (A.zip B).map fun p => (p.1.zip p.2).map fun q => q.1 - q.2
+def drAddM (A B : List (List Int)) : List (List Int) := (A.zip B).map fun p => (p.1.zip p.2).map fun q => q.1 + q.2
+def drSmul (c : Int) (A : List (List Int)) : List (List Int) := A.map fun r => r.map (c * ·)
+def drZero (A : List (List Int)) : Bool := A.all fun r => r.all (· == 0)
+def drIdent : List (List Int) := (List.range 8).map fun a => (List.range 8).map fun b => if a == b then 1 else 0
+def drBr (A B : List (List Int)) : List (List Int) := drSub (drMul A B) (drMul B A)
+def drTr (A : List (List Int)) : Int := (List.range 8).foldl (fun s a => s + drEntry A a a) 0
+
+/-- `Z/p`-nonsingularity of the minor of `M` on `rows`, `cols`. -/
+def drMinorOk (M : List (List Int)) (rows cols : List Nat) : Bool :=
+  rows.length == cols.length
+    && tgNonsing tgP (rows.length + 1) (rows.map fun r => cols.map fun c => tgModP ((M.getD r []).getD c 0))
+
+def drDot (v : List Int) (w : List (Nat × Int)) : Int := w.foldl (fun s e => s + e.2 * v.getD e.1 0) 0
+
+def drInverts (vs : List (List Int)) (R : List (List (Nat × Int))) : Bool :=
+  vs.length == R.length
+    && (List.range vs.length).all fun i => (List.range R.length).all fun j =>
+        drDot (vs.getD i []) (R.getD j []) == if i == j then 1 else 0
+
+/-- the K-bilinear conditions `(L_i^T X - X L_i)_rc` on the 28 coordinates:
+row `8 r + c`. -/
+def drConditions (Li : List (List Int)) : List (List Int) :=
+  (List.range 64).map fun rc => drK2.map fun ab =>
+    let r := rc / 8
+    let c := rc % 8
+    (if c == ab.2 then drEntry Li ab.1 r else 0) - (if c == ab.1 then drEntry Li ab.2 r else 0)
+      - (if r == ab.1 then drEntry Li ab.2 c else 0) + (if r == ab.2 then drEntry Li ab.1 c else 0)
+
+/-- the linear conditions on `X` (unknown `8 a + b`): `X^T A + A X = 0` for a
+pair `(A, true)`, `X A - A X = 0` for `(A, false)`; rows `64 t + 8 r + c`. -/
+def drCondRows (As : List (List (List Int) × Bool)) : List (List Int) :=
+  As.foldr (fun A acc =>
+    (List.range 64).foldr (fun rc acc =>
+      let r := rc / 8
+      let c := rc % 8
+      ((List.range 64).map fun ab =>
+        let a := ab / 8
+        let b := ab % 8
+        if A.2 then (if b == r then drEntry A.1 a c else 0) + (if b == c then drEntry A.1 r a else 0)
+        else (if a == r then drEntry A.1 b c else 0) - (if b == c then drEntry A.1 r a else 0)) :: acc) acc) []
+
+/-- the conditions on an invariant 2-form `Y`: `(X^T Y + Y X)_pq = 0`,
+`p < q`, on the 28 coordinates of `Y`. -/
+def drInvRows (Xs : List (List (List Int))) : List (List Int) :=
+  Xs.foldr (fun X acc => drK2.foldr (fun pq acc =>
+    (drK2.map fun ab =>
+      (if pq.2 == ab.2 then drEntry X ab.1 pq.1 else 0) - (if pq.2 == ab.1 then drEntry X ab.2 pq.1 else 0)
+        + (if pq.1 == ab.1 then drEntry X ab.2 pq.2 else 0) - (if pq.1 == ab.2 then drEntry X ab.1 pq.2 else 0))
+      :: acc) acc) []
+
+def drFlat (X : List (List Int)) : List Int := X.foldr (· ++ ·) []
+
+structure DrUnitary where
+  us : List (List (List Int))
+  urow : List Nat
+  ucol : List Nat
+  arow : List Nat
+  acol : List Nat
+deriving Inhabited
+
+structure DrCent where
+  xs : List (List (List Int))
+  brow : List Nat
+  bcol : List Nat
+  irow : List Nat
+  icol : List Nat
+  ys : List (List Int)
+  yrow : List Nat
+  ycol : List Nat
+  jrow : List Nat
+  jcol : List Nat
+deriving Inhabited
+
+structure DrSiegel where
+  kq : Int
+  sj : Int
+  j0 : List (List Int)
+  rel : List (List Int)
+  prow : List Nat
+  pcol : List Nat
+  rrow : List Nat
+  rcol : List Nat
+  grow : List Nat
+  gcol : List Nat
+deriving Inhabited
+
+/-- the transpose of a list of vectors: row `t` holds the `t`-th entries. -/
+def drCols (vs : List (List Int)) : List (List Int) :=
+  (List.range (vs.headD []).length).map fun t => vs.map (·.getD t 0)
+
+/-- `X` lies in `sp(V, E)` and commutes with every matrix of `As`. -/
+def drIn (E : List (List Int)) (As : List (List (List Int))) (X : List (List Int)) : Bool :=
+  drZero (drAddM (drMul (tpT X) E) (drMul E X)) && As.all fun A => drZero (drBr X A)
+
+/-- the centraliser `u` of `i` in `sp(V, E)` has dimension `16`: sixteen
+independent elements, and a minor of size `48` of its `128 x 64` conditions. -/
+def drUnitaryOk (E Li : List (List Int)) (U : DrUnitary) : Bool :=
+  U.us.length == 16 && U.us.all (drIn E [Li])
+    && U.urow.length == 16 && drMinorOk (drCols (U.us.map drFlat)) U.urow U.ucol
+    && U.arow.length == 48 && drMinorOk (drCondRows [(E, true), (Li, false)]) U.arow U.acol
+
+/-- the centraliser certificate at `phi = S x / s`, given `u` of dimension
+`16`: ten independent elements of `u` commuting with `phi`, and a minor of
+size `6` of the map `X -> [X, phi]` on `u`, so the centraliser has dimension
+`10`; three independent invariant 2-forms, and a minor of size `25` of their
+conditions. -/
+def drCentOk (E Li phiS : List (List Int)) (U : DrUnitary) (C : DrCent) : Bool :=
+  C.xs.length == 10 && C.ys.length == 3
+    && C.xs.all (drIn E [Li, phiS])
+    && C.irow.length == 10 && drMinorOk (drCols (C.xs.map drFlat)) C.irow C.icol
+    && C.brow.length == 6 && drMinorOk (drCols (U.us.map fun X => drFlat (drBr X phiS))) C.brow C.bcol
+    && C.ys.all (fun y => let Y := drMat y
+        C.xs.all fun X => drZero (drAddM (drMul (tpT X) Y) (drMul Y X)))
+    && C.jrow.length == 3 && drMinorOk (drCols C.ys) C.jrow C.jcol
+    && C.yrow.length == 25 && drMinorOk (drInvRows C.xs) C.yrow C.ycol
+
+/-- the resultant of two polynomials of degree at most two (low to high),
+with their actual degrees; the gcd when both are constants. -/
+def drRes (P Q : List Int) : Int :=
+  let strip := fun (A : List Int) => (A.reverse.dropWhile (· == 0)).reverse
+  let P' := strip P
+  let Q' := strip Q
+  let m := P'.length - 1
+  let n := Q'.length - 1
+  if m == 0 && n == 0 then (Int.gcd (P'.headD 0) (Q'.headD 0) : Int)
+  else
+    let row := fun (A : List Int) (r : Nat) => (List.range (m + n)).map fun c =>
+      if r ≤ c && c - r < A.length then A.reverse.getD (c - r) 0 else 0
+    tpDeterminant ((List.range n).map (row P') ++ (List.range m).map (row Q'))
+
+def drPolys (x y ix iy : List Int) : List (List Int) :=
+  (List.range 28).foldr (fun a acc => (List.range 28).foldr (fun b acc =>
+    if a < b then
+      let c0 := x.getD a 0 * ix.getD b 0 - x.getD b 0 * ix.getD a 0
+      let c1 := x.getD a 0 * iy.getD b 0 + y.getD a 0 * ix.getD b 0 - x.getD b 0 * iy.getD a 0
+        - y.getD b 0 * ix.getD a 0
+      let c2 := y.getD a 0 * iy.getD b 0 - y.getD b 0 * iy.getD a 0
+      if c0 == 0 && c1 == 0 && c2 == 0 then acc else [c0, c1, c2] :: acc
+    else acc) acc) []
+
+/-- the integer square root of `n < 200^2` (checked by the caller). -/
+def drIsqrt (n : Nat) : Nat :=
+  (List.range 200).foldl (fun r t => if t * t ≤ n then t else r) 0
+
+/-- the pencils `(x, y)` of (R4) for `d = 1, 3`. -/
+def drPencil : List (List Int × List Int) := [
+  ([0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, 0, 0],
+   [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
+  ([0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, 0, 0],
+   [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0])]
+/-- per field: `(d, s, S, R, R^-1, minor of the conditions, P, resultant
+pairs, N_d)`. -/
+def drBase : List (Nat × Nat × List (List Int) × List (List Int) × List (List (Nat × Int))
+    × (List Nat × List Nat) × List (List Int) × List (Nat × Nat) × Nat) := [
+  (1, 2, [[0, 1, 0, 0, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -1], [0, 0, 0, 0, 0, 0, 1, 0]], [[0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0], [0, -1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], [[(11, 1)], [(10, 1)], [(18, 1)], [(19, 1)], [(20, 1)], [(21, 1)], [(12, 1)], [(9, 1)], [(7, 1)], [(24, 1)], [(23, -1)], [(8, 1)]], ([0, 2, 3, 4, 5, 6, 7, 18, 20, 21, 22, 23, 36, 38, 39, 54], [0, 2, 1, 4, 3, 6, 5, 13, 15, 14, 17, 16, 22, 24, 23, 27]), [[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]], [(0, 1)], 1),
+  (3, 6, [[0, 1, 0, 0, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -1], [0, 0, 0, 0, 0, 0, 1, 0]], [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, -3, 0, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, -3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, -3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, -3, 0], [0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, -3, 0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0, -3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], [[(16, 1)], [(3, 1)], [(18, 1)], [(9, 1)], [(20, 1)], [(11, 1)], [(5, 1)], [(23, 1)], [(7, 1)], [(24, 1)], [(14, 1)], [(1, 1)]], ([0, 2, 3, 4, 5, 6, 7, 18, 20, 21, 22, 23, 36, 38, 39, 54], [0, 2, 1, 4, 3, 6, 5, 13, 15, 14, 17, 16, 22, 24, 23, 27]), [[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]], [(0, 1)], 1)]
+/-- (R5): per field and `k = 0..10`: `(N_k, certificates, left inverse, mu_k)`. -/
+def drMin : List (List (List (List Int) × List (Int × Int × Int × Int) × List (List (Nat × Int)) × Int)) := [
+  [([[0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [(1, 0, -1, 0), (1, 0, 0, 1), (2, 1, 0, 0)], [[(2, -1)], [(1, 1)], [(0, -1)]], 32),
+   ([[0, 0, -1, 0, 0, 0, -1, -1, 0, 0, 0, -1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 1, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 1, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [(1, 0, -1, 0), (1, 0, 0, 1), (2, 1, 0, 0)], [[(2, -1)], [(1, 1)], [(0, -1)]], 64),
+   ([[0, 0, -1, 0, 0, 0, -2, -1, 0, 0, 0, -2, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 1, 0, 0, 0, 2, 0, 0, -1, 0, 0, 0, -2, 0, -2, 0, 0, 0, 0, 2, 0, 0, 0, -1, 0, 0, 1, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [(1, 0, -1, 0), (1, 0, 0, 1), (2, 1, 0, 0)], [[(2, -1)], [(1, 1)], [(0, -1)]], 160),
+   ([[0, 0, -1, 0, 0, 0, -3, -1, 0, 0, 0, -3, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 1, 0, 0, 0, 3, 0, 0, -1, 0, 0, 0, -3, 0, -3, 0, 0, 0, 0, 3, 0, 0, 0, -1, 0, 0, 1, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [(1, 0, -1, 0), (1, 0, 0, 1), (2, 1, 0, 0)], [[(2, -1)], [(1, 1)], [(0, -1)]], 320),
+   ([[0, 0, -1, 0, 0, 0, -4, -1, 0, 0, 0, -4, 0, 0, 0, 4, 0, 0, 4, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 1, 0, 0, 0, 4, 0, 0, -1, 0, 0, 0, -4, 0, -4, 0, 0, 0, 0, 4, 0, 0, 0, -1, 0, 0, 1, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [(1, 0, -1, 0), (1, 0, 0, 1), (2, 1, 0, 0)], [[(2, -1)], [(1, 1)], [(0, -1)]], 544),
+   ([[0, 0, -1, 0, 0, 0, -5, -1, 0, 0, 0, -5, 0, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 1, 0, 0, 0, 5, 0, 0, -1, 0, 0, 0, -5, 0, -5, 0, 0, 0, 0, 5, 0, 0, 0, -1, 0, 0, 1, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [(1, 0, -1, 0), (1, 0, 0, 1), (2, 1, 0, 0)], [[(2, -1)], [(1, 1)], [(0, -1)]], 832),
+   ([[0, 0, -1, 0, 0, 0, -6, -1, 0, 0, 0, -6, 0, 0, 0, 6, 0, 0, 6, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 1, 0, 0, 0, 6, 0, 0, -1, 0, 0, 0, -6, 0, -6, 0, 0, 0, 0, 6, 0, 0, 0, -1, 0, 0, 1, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [(1, 0, -1, 0), (1, 0, 0, 1), (2, 1, 0, 0)], [[(2, -1)], [(1, 1)], [(0, -1)]], 1184),
+   ([[0, 0, -1, 0, 0, 0, -7, -1, 0, 0, 0, -7, 0, 0, 0, 7, 0, 0, 7, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 1, 0, 0, 0, 7, 0, 0, -1, 0, 0, 0, -7, 0, -7, 0, 0, 0, 0, 7, 0, 0, 0, -1, 0, 0, 1, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [(1, 0, -1, 0), (1, 0, 0, 1), (2, 1, 0, 0)], [[(2, -1)], [(1, 1)], [(0, -1)]], 1600),
+   ([[0, 0, -1, 0, 0, 0, -8, -1, 0, 0, 0, -8, 0, 0, 0, 8, 0, 0, 8, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 1, 0, 0, 0, 8, 0, 0, -1, 0, 0, 0, -8, 0, -8, 0, 0, 0, 0, 8, 0, 0, 0, -1, 0, 0, 1, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [(1, 0, -1, 0), (1, 0, 0, 1), (2, 1, 0, 0)], [[(2, -1)], [(1, 1)], [(0, -1)]], 2080),
+   ([[0, 0, -1, 0, 0, 0, -9, -1, 0, 0, 0, -9, 0, 0, 0, 9, 0, 0, 9, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 1, 0, 0, 0, 9, 0, 0, -1, 0, 0, 0, -9, 0, -9, 0, 0, 0, 0, 9, 0, 0, 0, -1, 0, 0, 1, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [(1, 0, -1, 0), (1, 0, 0, 1), (2, 1, 0, 0)], [[(2, -1)], [(1, 1)], [(0, -1)]], 2624),
+   ([[0, 0, -1, 0, 0, 0, -10, -1, 0, 0, 0, -10, 0, 0, 0, 10, 0, 0, 10, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 1, 0, 0, 0, 10, 0, 0, -1, 0, 0, 0, -10, 0, -10, 0, 0, 0, 0, 10, 0, 0, 0, -1, 0, 0, 1, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [(1, 0, -1, 0), (1, 0, 0, 1), (2, 1, 0, 0)], [[(2, -1)], [(1, 1)], [(0, -1)]], 3232)],
+  [([[0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, -3, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [(1, 0, -1, 0), (1, 0, 0, -1), (6, 1, 0, 0)], [[(2, -1)], [(1, -1)], [(0, -1)]], 288),
+   ([[0, 0, -1, 0, 0, 0, -1, -1, 0, 0, 0, -1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, -1, 0, 0, 0, -1, 0, 0, 3, 0, 0, 0, 3, 0, 1, 0, 0, 0, 0, -3, 0, 0, 0, 1, 0, 0, -3, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [(1, 0, -1, 0), (1, 0, 0, -1), (6, 1, 0, 0)], [[(2, -1)], [(1, -1)], [(0, -1)]], 576),
+   ([[0, 0, -1, 0, 0, 0, -2, -1, 0, 0, 0, -2, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, -1, 0, 0, 0, -2, 0, 0, 3, 0, 0, 0, 6, 0, 2, 0, 0, 0, 0, -6, 0, 0, 0, 1, 0, 0, -3, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [(1, 0, -1, 0), (1, 0, 0, -1), (6, 1, 0, 0)], [[(2, -1)], [(1, -1)], [(0, -1)]], 1440),
+   ([[0, 0, -1, 0, 0, 0, -3, -1, 0, 0, 0, -3, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, -1, 0, 0, 0, -3, 0, 0, 3, 0, 0, 0, 9, 0, 3, 0, 0, 0, 0, -9, 0, 0, 0, 1, 0, 0, -3, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [(1, 0, -1, 0), (1, 0, 0, -1), (6, 1, 0, 0)], [[(2, -1)], [(1, -1)], [(0, -1)]], 2880),
+   ([[0, 0, -1, 0, 0, 0, -4, -1, 0, 0, 0, -4, 0, 0, 0, 4, 0, 0, 4, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, -1, 0, 0, 0, -4, 0, 0, 3, 0, 0, 0, 12, 0, 4, 0, 0, 0, 0, -12, 0, 0, 0, 1, 0, 0, -3, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [(1, 0, -1, 0), (1, 0, 0, -1), (6, 1, 0, 0)], [[(2, -1)], [(1, -1)], [(0, -1)]], 4896),
+   ([[0, 0, -1, 0, 0, 0, -5, -1, 0, 0, 0, -5, 0, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, -1, 0, 0, 0, -5, 0, 0, 3, 0, 0, 0, 15, 0, 5, 0, 0, 0, 0, -15, 0, 0, 0, 1, 0, 0, -3, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [(1, 0, -1, 0), (1, 0, 0, -1), (6, 1, 0, 0)], [[(2, -1)], [(1, -1)], [(0, -1)]], 7488),
+   ([[0, 0, -1, 0, 0, 0, -6, -1, 0, 0, 0, -6, 0, 0, 0, 6, 0, 0, 6, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, -1, 0, 0, 0, -6, 0, 0, 3, 0, 0, 0, 18, 0, 6, 0, 0, 0, 0, -18, 0, 0, 0, 1, 0, 0, -3, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [(1, 0, -1, 0), (1, 0, 0, -1), (6, 1, 0, 0)], [[(2, -1)], [(1, -1)], [(0, -1)]], 10656),
+   ([[0, 0, -1, 0, 0, 0, -7, -1, 0, 0, 0, -7, 0, 0, 0, 7, 0, 0, 7, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, -1, 0, 0, 0, -7, 0, 0, 3, 0, 0, 0, 21, 0, 7, 0, 0, 0, 0, -21, 0, 0, 0, 1, 0, 0, -3, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [(1, 0, -1, 0), (1, 0, 0, -1), (6, 1, 0, 0)], [[(2, -1)], [(1, -1)], [(0, -1)]], 14400),
+   ([[0, 0, -1, 0, 0, 0, -8, -1, 0, 0, 0, -8, 0, 0, 0, 8, 0, 0, 8, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, -1, 0, 0, 0, -8, 0, 0, 3, 0, 0, 0, 24, 0, 8, 0, 0, 0, 0, -24, 0, 0, 0, 1, 0, 0, -3, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [(1, 0, -1, 0), (1, 0, 0, -1), (6, 1, 0, 0)], [[(2, -1)], [(1, -1)], [(0, -1)]], 18720),
+   ([[0, 0, -1, 0, 0, 0, -9, -1, 0, 0, 0, -9, 0, 0, 0, 9, 0, 0, 9, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, -1, 0, 0, 0, -9, 0, 0, 3, 0, 0, 0, 27, 0, 9, 0, 0, 0, 0, -27, 0, 0, 0, 1, 0, 0, -3, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [(1, 0, -1, 0), (1, 0, 0, -1), (6, 1, 0, 0)], [[(2, -1)], [(1, -1)], [(0, -1)]], 23616),
+   ([[0, 0, -1, 0, 0, 0, -10, -1, 0, 0, 0, -10, 0, 0, 0, 10, 0, 0, 10, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, -1, 0, 0, 0, -10, 0, 0, 3, 0, 0, 0, 30, 0, 10, 0, 0, 0, 0, -30, 0, 0, 0, 1, 0, 0, -3, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [(1, 0, -1, 0), (1, 0, 0, -1), (6, 1, 0, 0)], [[(2, -1)], [(1, -1)], [(0, -1)]], 29088)]]
+def drU0 : DrUnitary := ⟨[[[0, -1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 1, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -1], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, 0, 0, -1], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -1], [0, 0, 0, 0, 0, 0, 1, 0]]], [1, 2, 3, 4, 5, 6, 7, 19, 20, 21, 22, 23, 37, 38, 39, 55], [0, 2, 1, 5, 4, 10, 9, 3, 7, 6, 12, 11, 8, 14, 13, 15], [1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 19, 20, 21, 22, 23, 28, 29, 30, 31, 37, 38, 39, 46, 47, 55, 64, 65, 66, 67, 68, 69, 70, 71, 82, 83, 84, 85, 86, 87, 100, 101, 102, 103, 118, 119], [0, 10, 11, 12, 13, 14, 15, 2, 3, 4, 5, 6, 7, 18, 28, 29, 30, 31, 20, 21, 22, 23, 36, 46, 47, 38, 39, 54, 1, 9, 17, 16, 33, 32, 49, 48, 19, 27, 35, 34, 51, 50, 37, 45, 53, 52, 55, 63]⟩
+def drCent0_0 : DrCent := ⟨[[[0, 0, 0, 1, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 1, 0, 0, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, 0, 0, -1, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -1], [0, 0, 0, 0, 0, 0, 1, 0], [0, -1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, 0, 0, -1], [-1, 0, 0, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -1], [0, 0, 0, 0, 0, 0, 1, 0]]], [3, 4, 5, 6, 7, 39], [0, 7, 6, 5, 4, 8], [1, 2, 3, 4, 5, 6, 7, 37, 38, 39], [2, 1, 0, 6, 5, 4, 3, 9, 8, 7], [[0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [0, 1, 3, 4, 5, 6, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21, 28, 87, 88, 89, 93, 94, 98], [1, 0, 18, 19, 20, 21, 14, 15, 16, 17, 9, 10, 11, 12, 3, 4, 5, 6, 2, 7, 8, 13, 23, 24, 22], [0, 1, 2], [2, 1, 0]⟩
+def drCent0_1 : DrCent := ⟨[[[0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 1, 0, 0], [-1, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 1, 0, 0, 0], [0, 1, 0, 0, 0, 1, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, -1, 0, 0, 0, -1, 0, 0], [1, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 2, 0, 0, 0, 0], [0, 0, -2, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, -1, 0, 0], [1, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 1, 0, 0, 0, 1], [0, 0, -1, 0, 0, 0, -1, 0], [0, -1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0]], [[0, 2, 0, 0, 0, 1, 0, 0], [-2, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, -2, 0, 0, 0, -1], [0, 0, 2, 0, 0, 0, 1, 0], [0, 1, 0, 0, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, 0, 0, -1], [-1, 0, 0, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0]], [[0, 0, 0, 1, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0]], [[0, 0, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -1], [0, 0, 0, 0, 0, 0, 1, 0]]], [2, 3, 4, 5, 7, 21], [5, 0, 2, 1, 3, 4], [1, 2, 3, 4, 5, 6, 7, 19, 20, 21], [2, 1, 0, 6, 5, 4, 3, 9, 8, 7], [[0, 0, -1, 0, 0, 0, -1, -1, 0, 0, 0, -1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 1, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 1, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 17, 20, 21, 28, 84, 85, 87, 88, 89, 94], [1, 0, 3, 2, 8, 20, 21, 10, 4, 14, 7, 16, 17, 9, 11, 12, 5, 6, 15, 23, 13, 18, 19, 22, 24], [0, 1, 2], [2, 1, 0]⟩
+def drCent0_2 : DrCent := ⟨[[[0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 2, 0, 0], [-1, 0, 0, 0, -2, 0, 0, 0], [0, 0, 0, -2, 0, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 2, 0, 0, 0], [0, 1, 0, 0, 0, 2, 0, 0], [0, 0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, -1, 0, 0, 0, -2, 0, 0], [1, 0, 0, 0, 2, 0, 0, 0], [0, 0, 0, 5, 0, 0, 0, 0], [0, 0, -5, 0, 0, 0, 0, 0], [0, -2, 0, 0, 0, -4, 0, 0], [2, 0, 0, 0, 4, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 1, 0, 0, 0, 2], [0, 0, -1, 0, 0, 0, -2, 0], [0, -1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, -2, 0, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 2, 0], [0, 0, 0, 1, 0, 0, 0, 2], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0, 0]], [[0, 1, 0, 0, 0, 1, 0, 0], [-1, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, -1], [0, 0, 1, 0, 0, 0, 1, 0], [0, 1, 0, 0, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, 0, 0, -1], [-1, 0, 0, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0]], [[0, 0, 0, 1, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0]], [[0, 3, 0, 0, 0, -2, 0, 0], [-3, 0, 0, 0, 2, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, -2, 0, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -4], [0, 0, 0, 0, 0, 0, 4, 0]]], [2, 3, 4, 5, 7, 21], [5, 0, 2, 1, 3, 4], [1, 2, 3, 4, 5, 6, 7, 19, 20, 21], [2, 1, 0, 6, 5, 4, 3, 9, 8, 7], [[0, 0, -1, 0, 0, 0, -2, -1, 0, 0, 0, -2, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 1, 0, 0, 0, 2, 0, 0, -1, 0, 0, 0, -2, 0, -2, 0, 0, 0, 0, 2, 0, 0, 0, -1, 0, 0, 1, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 17, 20, 21, 28, 84, 85, 87, 88, 89, 94], [1, 0, 3, 2, 8, 20, 21, 10, 4, 14, 7, 16, 17, 9, 11, 12, 5, 6, 15, 23, 13, 18, 19, 22, 24], [0, 1, 2], [2, 1, 0]⟩
+def drCent0_3 : DrCent := ⟨[[[0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 3, 0, 0], [-1, 0, 0, 0, -3, 0, 0, 0], [0, 0, 0, -3, 0, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 3, 0, 0, 0], [0, 1, 0, 0, 0, 3, 0, 0], [0, 0, 3, 0, 0, 0, 0, 0], [0, 0, 0, 3, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, -1, 0, 0, 0, -3, 0, 0], [1, 0, 0, 0, 3, 0, 0, 0], [0, 0, 0, 10, 0, 0, 0, 0], [0, 0, -10, 0, 0, 0, 0, 0], [0, -3, 0, 0, 0, -9, 0, 0], [3, 0, 0, 0, 9, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 1, 0, 0, 0, 3], [0, 0, -1, 0, 0, 0, -3, 0], [0, -1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, -3, 0, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 3, 0], [0, 0, 0, 1, 0, 0, 0, 3], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0, 0]], [[0, 2, 0, 0, 0, 3, 0, 0], [-2, 0, 0, 0, -3, 0, 0, 0], [0, 0, 0, -2, 0, 0, 0, -3], [0, 0, 2, 0, 0, 0, 3, 0], [0, 3, 0, 0, 0, 0, 0, 0], [-3, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -3, 0, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, 0, 0, -1], [-1, 0, 0, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0]], [[0, 0, 0, 1, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0]], [[0, 8, 0, 0, 0, -3, 0, 0], [-8, 0, 0, 0, 3, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, -3, 0, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -9], [0, 0, 0, 0, 0, 0, 9, 0]]], [2, 3, 4, 5, 7, 21], [5, 0, 2, 1, 3, 4], [1, 2, 3, 4, 5, 6, 7, 19, 20, 21], [2, 1, 0, 6, 5, 4, 3, 9, 8, 7], [[0, 0, -1, 0, 0, 0, -3, -1, 0, 0, 0, -3, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 1, 0, 0, 0, 3, 0, 0, -1, 0, 0, 0, -3, 0, -3, 0, 0, 0, 0, 3, 0, 0, 0, -1, 0, 0, 1, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 17, 20, 21, 28, 84, 85, 87, 88, 89, 94], [1, 0, 3, 2, 8, 20, 21, 10, 4, 14, 7, 16, 17, 9, 11, 12, 5, 6, 15, 23, 13, 18, 19, 22, 24], [0, 1, 2], [2, 1, 0]⟩
+def drCent0_4 : DrCent := ⟨[[[0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 4, 0, 0], [-1, 0, 0, 0, -4, 0, 0, 0], [0, 0, 0, -4, 0, 0, 0, 0], [0, 0, 4, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 4, 0, 0, 0], [0, 1, 0, 0, 0, 4, 0, 0], [0, 0, 4, 0, 0, 0, 0, 0], [0, 0, 0, 4, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, -1, 0, 0, 0, -4, 0, 0], [1, 0, 0, 0, 4, 0, 0, 0], [0, 0, 0, 17, 0, 0, 0, 0], [0, 0, -17, 0, 0, 0, 0, 0], [0, -4, 0, 0, 0, -16, 0, 0], [4, 0, 0, 0, 16, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 1, 0, 0, 0, 4], [0, 0, -1, 0, 0, 0, -4, 0], [0, -1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, -4, 0, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 4, 0], [0, 0, 0, 1, 0, 0, 0, 4], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0, 0]], [[0, 1, 0, 0, 0, 2, 0, 0], [-1, 0, 0, 0, -2, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, -2], [0, 0, 1, 0, 0, 0, 2, 0], [0, 2, 0, 0, 0, 0, 0, 0], [-2, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -2, 0, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, 0, 0, -1], [-1, 0, 0, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0]], [[0, 0, 0, 1, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0]], [[0, 15, 0, 0, 0, -4, 0, 0], [-15, 0, 0, 0, 4, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, -4, 0, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -16], [0, 0, 0, 0, 0, 0, 16, 0]]], [2, 3, 4, 5, 7, 21], [5, 0, 2, 1, 3, 4], [1, 2, 3, 4, 5, 6, 7, 19, 20, 21], [2, 1, 0, 6, 5, 4, 3, 9, 8, 7], [[0, 0, -1, 0, 0, 0, -4, -1, 0, 0, 0, -4, 0, 0, 0, 4, 0, 0, 4, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 1, 0, 0, 0, 4, 0, 0, -1, 0, 0, 0, -4, 0, -4, 0, 0, 0, 0, 4, 0, 0, 0, -1, 0, 0, 1, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 17, 20, 21, 28, 84, 85, 87, 88, 89, 94], [1, 0, 3, 2, 8, 20, 21, 10, 4, 14, 7, 16, 17, 9, 11, 12, 5, 6, 15, 23, 13, 18, 19, 22, 24], [0, 1, 2], [2, 1, 0]⟩
+def drCentQ0 : DrCent := ⟨[[[0, 0, 0, 1, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 1, 0, 0, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, 0, 0, -1, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -1], [0, 0, 0, 0, 0, 0, 1, 0], [0, -1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, 0, 0, -1], [-1, 0, 0, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -1], [0, 0, 0, 0, 0, 0, 1, 0]]], [3, 4, 5, 6, 7, 39], [0, 7, 6, 5, 4, 8], [1, 2, 3, 4, 5, 6, 7, 37, 38, 39], [2, 1, 0, 6, 5, 4, 3, 9, 8, 7], [[0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [0, 1, 3, 4, 5, 6, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21, 28, 87, 88, 89, 93, 94, 98], [1, 0, 18, 19, 20, 21, 14, 15, 16, 17, 9, 10, 11, 12, 3, 4, 5, 6, 2, 7, 8, 13, 23, 24, 22], [0, 1, 2], [2, 1, 0]⟩
+def drSiegel0 : DrSiegel := ⟨0, 8, [[0, 17, 0, -15, 0, 0, 0, 0], [-17, 0, 15, 0, 0, 0, 0, 0], [0, 15, 0, -17, 0, 0, 0, 0], [-15, 0, 17, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 17, 0, 15], [0, 0, 0, 0, -17, 0, -15, 0], [0, 0, 0, 0, 0, -15, 0, -17], [0, 0, 0, 0, 15, 0, 17, 0]], [[-15, 0, 17, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -15, 0, 17, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 15, 0, 17]], [1, 2, 5, 6, 37, 38], [1, 0, 4, 3, 8, 7], [0, 3, 6, 7], [0, 1, 2, 3], [1, 2, 3, 4, 5, 6, 7, 37, 38, 39], [1, 0, 11, 13, 4, 3, 14, 8, 7, 44]⟩
+def drU1 : DrUnitary := ⟨[[[0, -3, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 3, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, -3, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -3, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, -3, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, -3, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 3, 0, 0], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, -3, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, -3, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 3], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, -3, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -3], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -3, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, 0, 0, -1], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 3], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, -3, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -3], [0, 0, 0, 0, 0, 0, 1, 0]]], [1, 2, 3, 4, 5, 6, 7, 19, 20, 21, 22, 23, 37, 38, 39, 55], [0, 2, 1, 5, 4, 10, 9, 3, 7, 6, 12, 11, 8, 14, 13, 15], [1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 19, 20, 21, 22, 23, 28, 29, 30, 31, 37, 38, 39, 46, 47, 55, 64, 65, 66, 67, 68, 69, 70, 71, 82, 83, 84, 85, 86, 87, 100, 101, 102, 103, 118, 119], [0, 10, 11, 12, 13, 14, 15, 2, 3, 4, 5, 6, 7, 18, 28, 29, 30, 31, 20, 21, 22, 23, 36, 46, 47, 38, 39, 54, 1, 9, 17, 16, 33, 32, 49, 48, 19, 27, 35, 34, 51, 50, 37, 45, 53, 52, 55, 63]⟩
+def drCent1_0 : DrCent := ⟨[[[0, 0, 0, 3, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, -3, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 3, 0, 0, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -3, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 3], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, 3, 0, 0], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, -3, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, -3, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, 0, 0, -1, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, -3, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -3], [0, 0, 0, 0, 0, 0, 1, 0], [0, -3, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -3, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, 0, 0, -1], [-1, 0, 0, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 3], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, -3, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 3, 0, 0], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -3], [0, 0, 0, 0, 0, 0, 1, 0]]], [3, 4, 5, 6, 7, 39], [0, 7, 6, 5, 4, 8], [1, 2, 3, 4, 5, 6, 7, 37, 38, 39], [2, 1, 0, 6, 5, 4, 3, 9, 8, 7], [[0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0, -3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 3, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [0, 1, 3, 4, 5, 6, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21, 28, 87, 88, 89, 93, 94, 98], [1, 0, 18, 19, 20, 21, 14, 15, 16, 17, 9, 10, 11, 12, 3, 4, 5, 6, 2, 7, 8, 13, 23, 24, 22], [0, 1, 2], [2, 1, 0]⟩
+def drCent1_1 : DrCent := ⟨[[[0, 0, 0, -3, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 3, 0, 0, 0, 3, 0, 0], [-1, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, -3, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 1, 0, 0, 0], [0, 1, 0, 0, 0, 1, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, -3, 0, 0, 0, -3, 0, 0], [1, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 6, 0, 0, 0, 0], [0, 0, -2, 0, 0, 0, 0, 0], [0, -3, 0, 0, 0, -3, 0, 0], [1, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 3, 0, 0, 0, 3], [0, 0, -1, 0, 0, 0, -1, 0], [0, -3, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, -3, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0]], [[0, 6, 0, 0, 0, 3, 0, 0], [-2, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, -6, 0, 0, 0, -3], [0, 0, 2, 0, 0, 0, 1, 0], [0, 3, 0, 0, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -3, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, 0, 0, -1], [-1, 0, 0, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0]], [[0, 0, 0, 3, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, -3, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 3], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, -3, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0]], [[0, 0, 0, 0, 0, -3, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 3, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, -3, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -3], [0, 0, 0, 0, 0, 0, 1, 0]]], [2, 3, 4, 5, 7, 21], [5, 0, 2, 1, 3, 4], [1, 2, 3, 4, 5, 6, 7, 19, 20, 21], [2, 1, 0, 6, 5, 4, 3, 9, 8, 7], [[0, 0, -1, 0, 0, 0, -1, -1, 0, 0, 0, -1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 1, 0, 0, 0, 1, 0, 0, -3, 0, 0, 0, -3, 0, -1, 0, 0, 0, 0, 3, 0, 0, 0, -1, 0, 0, 3, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 17, 20, 21, 28, 84, 85, 87, 88, 89, 94], [1, 0, 3, 2, 8, 20, 21, 10, 4, 14, 7, 16, 17, 9, 11, 12, 5, 6, 15, 23, 13, 18, 19, 22, 24], [0, 1, 2], [2, 1, 0]⟩
+def drCent1_2 : DrCent := ⟨[[[0, 0, 0, -3, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 3, 0, 0, 0, 6, 0, 0], [-1, 0, 0, 0, -2, 0, 0, 0], [0, 0, 0, -6, 0, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 2, 0, 0, 0], [0, 1, 0, 0, 0, 2, 0, 0], [0, 0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, -3, 0, 0, 0, -6, 0, 0], [1, 0, 0, 0, 2, 0, 0, 0], [0, 0, 0, 15, 0, 0, 0, 0], [0, 0, -5, 0, 0, 0, 0, 0], [0, -6, 0, 0, 0, -12, 0, 0], [2, 0, 0, 0, 4, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 3, 0, 0, 0, 6], [0, 0, -1, 0, 0, 0, -2, 0], [0, -3, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, -6, 0, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 2, 0], [0, 0, 0, 1, 0, 0, 0, 2], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0, 0]], [[0, 3, 0, 0, 0, 3, 0, 0], [-1, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, -3, 0, 0, 0, -3], [0, 0, 1, 0, 0, 0, 1, 0], [0, 3, 0, 0, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -3, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, 0, 0, -1], [-1, 0, 0, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0]], [[0, 0, 0, 3, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, -3, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 3], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, -3, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0]], [[0, 9, 0, 0, 0, -6, 0, 0], [-3, 0, 0, 0, 2, 0, 0, 0], [0, 0, 0, 3, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, -6, 0, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -12], [0, 0, 0, 0, 0, 0, 4, 0]]], [2, 3, 4, 5, 7, 21], [5, 0, 2, 1, 3, 4], [1, 2, 3, 4, 5, 6, 7, 19, 20, 21], [2, 1, 0, 6, 5, 4, 3, 9, 8, 7], [[0, 0, -1, 0, 0, 0, -2, -1, 0, 0, 0, -2, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 1, 0, 0, 0, 2, 0, 0, -3, 0, 0, 0, -6, 0, -2, 0, 0, 0, 0, 6, 0, 0, 0, -1, 0, 0, 3, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 17, 20, 21, 28, 84, 85, 87, 88, 89, 94], [1, 0, 3, 2, 8, 20, 21, 10, 4, 14, 7, 16, 17, 9, 11, 12, 5, 6, 15, 23, 13, 18, 19, 22, 24], [0, 1, 2], [2, 1, 0]⟩
+def drCent1_3 : DrCent := ⟨[[[0, 0, 0, -3, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 3, 0, 0, 0, 9, 0, 0], [-1, 0, 0, 0, -3, 0, 0, 0], [0, 0, 0, -9, 0, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 3, 0, 0, 0], [0, 1, 0, 0, 0, 3, 0, 0], [0, 0, 3, 0, 0, 0, 0, 0], [0, 0, 0, 3, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, -3, 0, 0, 0, -9, 0, 0], [1, 0, 0, 0, 3, 0, 0, 0], [0, 0, 0, 30, 0, 0, 0, 0], [0, 0, -10, 0, 0, 0, 0, 0], [0, -9, 0, 0, 0, -27, 0, 0], [3, 0, 0, 0, 9, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 3, 0, 0, 0, 9], [0, 0, -1, 0, 0, 0, -3, 0], [0, -3, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, -9, 0, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 3, 0], [0, 0, 0, 1, 0, 0, 0, 3], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0, 0]], [[0, 6, 0, 0, 0, 9, 0, 0], [-2, 0, 0, 0, -3, 0, 0, 0], [0, 0, 0, -6, 0, 0, 0, -9], [0, 0, 2, 0, 0, 0, 3, 0], [0, 9, 0, 0, 0, 0, 0, 0], [-3, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -9, 0, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, 0, 0, -1], [-1, 0, 0, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0]], [[0, 0, 0, 3, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, -3, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 3], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, -3, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0]], [[0, 24, 0, 0, 0, -9, 0, 0], [-8, 0, 0, 0, 3, 0, 0, 0], [0, 0, 0, 3, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, -9, 0, 0, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -27], [0, 0, 0, 0, 0, 0, 9, 0]]], [2, 3, 4, 5, 7, 21], [5, 0, 2, 1, 3, 4], [1, 2, 3, 4, 5, 6, 7, 19, 20, 21], [2, 1, 0, 6, 5, 4, 3, 9, 8, 7], [[0, 0, -1, 0, 0, 0, -3, -1, 0, 0, 0, -3, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 1, 0, 0, 0, 3, 0, 0, -3, 0, 0, 0, -9, 0, -3, 0, 0, 0, 0, 9, 0, 0, 0, -1, 0, 0, 3, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 17, 20, 21, 28, 84, 85, 87, 88, 89, 94], [1, 0, 3, 2, 8, 20, 21, 10, 4, 14, 7, 16, 17, 9, 11, 12, 5, 6, 15, 23, 13, 18, 19, 22, 24], [0, 1, 2], [2, 1, 0]⟩
+def drCent1_4 : DrCent := ⟨[[[0, 0, 0, -3, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 3, 0, 0, 0, 12, 0, 0], [-1, 0, 0, 0, -4, 0, 0, 0], [0, 0, 0, -12, 0, 0, 0, 0], [0, 0, 4, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 4, 0, 0, 0], [0, 1, 0, 0, 0, 4, 0, 0], [0, 0, 4, 0, 0, 0, 0, 0], [0, 0, 0, 4, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, -3, 0, 0, 0, -12, 0, 0], [1, 0, 0, 0, 4, 0, 0, 0], [0, 0, 0, 51, 0, 0, 0, 0], [0, 0, -17, 0, 0, 0, 0, 0], [0, -12, 0, 0, 0, -48, 0, 0], [4, 0, 0, 0, 16, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 3, 0, 0, 0, 12], [0, 0, -1, 0, 0, 0, -4, 0], [0, -3, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, -12, 0, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 4, 0], [0, 0, 0, 1, 0, 0, 0, 4], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0, 0]], [[0, 3, 0, 0, 0, 6, 0, 0], [-1, 0, 0, 0, -2, 0, 0, 0], [0, 0, 0, -3, 0, 0, 0, -6], [0, 0, 1, 0, 0, 0, 2, 0], [0, 6, 0, 0, 0, 0, 0, 0], [-2, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -6, 0, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, 0, 0, -1], [-1, 0, 0, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0]], [[0, 0, 0, 3, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, -3, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 3], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, -3, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0]], [[0, 45, 0, 0, 0, -12, 0, 0], [-15, 0, 0, 0, 4, 0, 0, 0], [0, 0, 0, 3, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, -12, 0, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -48], [0, 0, 0, 0, 0, 0, 16, 0]]], [2, 3, 4, 5, 7, 21], [5, 0, 2, 1, 3, 4], [1, 2, 3, 4, 5, 6, 7, 19, 20, 21], [2, 1, 0, 6, 5, 4, 3, 9, 8, 7], [[0, 0, -1, 0, 0, 0, -4, -1, 0, 0, 0, -4, 0, 0, 0, 4, 0, 0, 4, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 1, 0, 0, 0, 4, 0, 0, -3, 0, 0, 0, -12, 0, -4, 0, 0, 0, 0, 12, 0, 0, 0, -1, 0, 0, 3, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 17, 20, 21, 28, 84, 85, 87, 88, 89, 94], [1, 0, 3, 2, 8, 20, 21, 10, 4, 14, 7, 16, 17, 9, 11, 12, 5, 6, 15, 23, 13, 18, 19, 22, 24], [0, 1, 2], [2, 1, 0]⟩
+def drCentQ1 : DrCent := ⟨[[[0, 0, 0, 3, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, -3, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 3, 0, 0, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -3, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 3], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, 3, 0, 0], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, -3, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, -3, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, 0, 0, -1, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, -3, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -3], [0, 0, 0, 0, 0, 0, 1, 0], [0, -3, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -3, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, 0, 0, -1], [-1, 0, 0, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 3], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, -3, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 3, 0, 0], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -3], [0, 0, 0, 0, 0, 0, 1, 0]]], [3, 4, 5, 6, 7, 39], [0, 7, 6, 5, 4, 8], [1, 2, 3, 4, 5, 6, 7, 37, 38, 39], [2, 1, 0, 6, 5, 4, 3, 9, 8, 7], [[0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0, -3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 3, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]], [0, 1, 3, 4, 5, 6, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21, 28, 87, 88, 89, 93, 94, 98], [1, 0, 18, 19, 20, 21, 14, 15, 16, 17, 9, 10, 11, 12, 3, 4, 5, 6, 2, 7, 8, 13, 23, 24, 22], [0, 1, 2], [2, 1, 0]⟩
+def drSiegel1 : DrSiegel := ⟨0, 24, [[0, 147, 0, -141, 0, 0, 0, 0], [-49, 0, 47, 0, 0, 0, 0, 0], [0, 141, 0, -147, 0, 0, 0, 0], [-47, 0, 49, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 147, 0, 141], [0, 0, 0, 0, -49, 0, -47, 0], [0, 0, 0, 0, 0, -141, 0, -147], [0, 0, 0, 0, 47, 0, 49, 0]], [[-47, 0, 49, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -47, 0, 49, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 47, 0, 49]], [1, 2, 5, 6, 37, 38], [1, 0, 4, 3, 8, 7], [0, 3, 6, 7], [0, 1, 2, 3], [1, 2, 3, 4, 5, 6, 7, 37, 38, 39], [1, 0, 11, 13, 4, 3, 14, 8, 7, 44]⟩
+
+
+def drAxpy (x y : List Int) (k : Int) : List Int := (x.zip y).map fun p => p.1 + k * p.2
+
+def drLin (c : List Int) (vs : List (List Int)) : List Int :=
+  (c.zip vs).foldl (fun acc p => (acc.zip p.2).map fun q => q.1 + p.1 * q.2) ((vs.headD []).map fun _ => 0)
+
+def drLinM (c : List Int) (Ms : List (List (List Int))) : List (List Int) :=
+  (c.zip Ms).foldl (fun acc p => drAddM acc (drSmul p.1 p.2)) (drSmul 0 drIdent)
+
+def drIv (v w : List Int) : Int := (v.zip w).foldl (fun s p => s + p.1 * p.2) 0
+
+/-- the scalars `beta_0`, `beta_1`, `beta_2` of `(S X_k)^2 = beta_0 + beta_1 k
++ beta_2 k^2`, read off `(S X)^2`, `(S X)(S Y) + (S Y)(S X)` and `(S Y)^2`. -/
+def drBetas (S : List (List Int)) (x y : List Int) : Option (Int × Int × Int) :=
+  let px := tpMul S (drMat x)
+  let py := tpMul S (drMat y)
+  match drScalarOf (tpMul px px), drScalarOf (drAddM (tpMul px py) (tpMul py px)),
+      drScalarOf (tpMul py py) with
+  | some a, some b, some c => some (a, b, c)
+  | _, _, _ => none
+
+/-- (R1). -/
+def drRankOk (fi : Nat) : Bool :=
+  let b := drBase.getD fi default
+  let d : Int := b.1
+  let s : Int := b.2.1
+  let S := b.2.2.1
+  let R := b.2.2.2.1
+  let cr := b.2.2.2.2.2.1
+  let E := qdE d 1 1 1
+  let C := drConditions (qdLeft d 1 (qdUnit 1))
+  let eta := qdForm E
+  let e3 := qdW eta (qdW eta eta)
+  tpMul E S == drSmul s drIdent && s > 0 && qdInt (qdW eta e3) > 0
+    && R.length == 12 && R.all (fun v => C.all fun row => drIv row v == 0)
+    && drInverts R b.2.2.2.2.1
+    && cr.1.length == 16 && drMinorOk C cr.1 cr.2
+    && R.all (fun v => qdInt (qdW (drForm v) e3) == 0)
+
+/-- (R2), (R3): `24 s^2 G_ab = tr(S X_a S X_b) int eta^4` with
+`G_ab = -int x_a x_b eta^2`, and `P^T G P` diagonal of signature `(8, 4)`. -/
+def drTraceOk (fi : Nat) : Bool :=
+  let b := drBase.getD fi default
+  let d : Int := b.1
+  let s : Int := b.2.1
+  let S := b.2.2.1
+  let R := b.2.2.2.1
+  let P := b.2.2.2.2.2.2.1
+  let eta := qdForm (qdE d 1 1 1)
+  let e2 := qdW eta eta
+  let e4 := qdInt (qdW e2 e2)
+  let half := R.map fun u => qdW (drForm u) e2
+  let G := half.map fun w => R.map fun v => -(qdInt (qdW (drForm v) w))
+  let phis := R.map fun v => tpMul S (drMat v)
+  let D := tpMul (tpMul (tpT P) G) P
+  (List.range 12).all (fun i => (List.range 12).all fun j =>
+      24 * s ^ 2 * drEntry G i j == drTr (tpMul (phis.getD i []) (phis.getD j [])) * e4
+        && (i == j || drEntry D i j == 0))
+    && (List.range 12).countP (fun i => drEntry D i i > 0) == 8
+    && (List.range 12).countP (fun i => drEntry D i i < 0) == 4
+    && tpDeterminant P != 0
+
+/-- the gcd of the entries of a vector. -/
+def drGcd (v : List Int) : Nat := v.foldl (fun g a => Nat.gcd g a.natAbs) 0
+
+/-- the determinant of a `3 x 3` integer matrix. -/
+def drDet3 (M : List (List Int)) : Int :=
+  let h := fun i j => drEntry M i j
+  h 0 0 * (h 1 1 * h 2 2 - h 1 2 * h 2 1) - h 0 1 * (h 1 0 * h 2 2 - h 1 2 * h 2 0)
+    + h 0 2 * (h 1 0 * h 2 1 - h 1 1 * h 2 0)
+
+/-- (R4). -/
+def drPencilOk (fi : Nat) : Bool :=
+  let b := drBase.getD fi default
+  let d : Int := b.1
+  let s : Int := b.2.1
+  let S := b.2.2.1
+  let xy := drPencil.getD fi default
+  let x := xy.1
+  let y := xy.2
+  let C := drConditions (qdLeft d 1 (qdUnit 1))
+  let eta := qdForm (qdE d 1 1 1)
+  let e2 := qdW eta eta
+  let e3 := qdW eta e2
+  let e4 := qdInt (qdW e2 e2)
+  match drBetas S x y with
+  | none => false
+  | some (b0, b1, b2) =>
+    b2 > 0 && b1 == 0 && b0 == b2 && 4 * d * d * b0 == s * s && e4 == 384 * d ^ 4
+      && [-7, -1, 0, 1, 2, 5, 13, 40].all (fun (k : Int) => drGcd (drAxpy x y k) == 1)
+      && [x, y].all (fun v => C.all (fun row => drIv row v == 0) && qdInt (qdW (drForm v) e3) == 0)
+      && [-7, -1, 0, 1, 2, 5, 13, 40].all (fun (k : Int) =>
+          let pk := tpMul S (drMat (drAxpy x y k))
+          drScalarOf (tpMul pk pk) == some (b0 + b1 * k + b2 * k * k))
+      && (let wx := qdW (drForm x) e2
+          let wy := qdW (drForm y) e2
+          3 * s ^ 2 * qdInt (qdW (drForm x) wx) == -(b0 * e4)
+            && 6 * s ^ 2 * qdInt (qdW (drForm y) wx) == -(b1 * e4)
+            && 3 * s ^ 2 * qdInt (qdW (drForm y) wy) == -(b2 * e4))
+
+/-- some of the minors at `k` have a nonzero gcd dividing `N`, so the gcd of
+all of them is nonzero and divides `N`. -/
+def drSomeGcd (N : Nat) (k : Int) : List (List Int) → Nat → Bool
+  | [], _ => false
+  | p :: ps, g =>
+    let g' := Nat.gcd g (p.getD 0 0 + p.getD 1 0 * k + p.getD 2 0 * k * k).natAbs
+    if g' != 0 && N % g' == 0 then true else drSomeGcd N k ps g'
+
+/-- (R6): the gcd of the recorded resultants is `N_d`, and at every
+`|k| <= 200` the gcd of the minors is nonzero and divides `N_d`. -/
+def drIndexOk (fi : Nat) : Bool :=
+  let b := drBase.getD fi default
+  let d : Int := b.1
+  let pairs := b.2.2.2.2.2.2.2.1
+  let N : Nat := b.2.2.2.2.2.2.2.2
+  let xy := drPencil.getD fi default
+  let Li := qdLeft d 1 (qdUnit 1)
+  let polys := drPolys xy.1 xy.2 (drVec (tpMul (tpT Li) (drMat xy.1))) (drVec (tpMul (tpT Li) (drMat xy.2)))
+  let g := pairs.foldl (fun g p => Nat.gcd g (drRes (polys.getD p.1 []) (polys.getD p.2 [])).natAbs) 0
+  !pairs.isEmpty && g == N
+    && (List.range 401).all (fun t => drSomeGcd N ((t : Int) - 200) polys 0)
+
+/-- the value of a quadratic form on `c`. -/
+def drVal (H : List (List Int)) (c : List Int) : Int :=
+  (List.range c.length).foldl (fun s a => (List.range c.length).foldl (fun s b =>
+    s + c.getD a 0 * c.getD b 0 * drEntry H a b) s) 0
+
+/-- the minimum of a positive definite ternary form `H` off the line of `ce`
+is `B`: every point of the box of (R5) has value at least `B` or lies on the
+line, and one point off the line has value `B`. -/
+def drMinimumOk (H : List (List Int)) (ce : List Int) (B : Int) : Bool :=
+  let h := fun i j => drEntry H i j
+  let det := h 0 0 * (h 1 1 * h 2 2 - h 1 2 * h 2 1) - h 0 1 * (h 1 0 * h 2 2 - h 1 2 * h 2 0)
+    + h 0 2 * (h 1 0 * h 2 1 - h 1 1 * h 2 0)
+  let cof := [h 1 1 * h 2 2 - h 1 2 * h 2 1, h 0 0 * h 2 2 - h 0 2 * h 2 0, h 0 0 * h 1 1 - h 0 1 * h 1 0]
+  let lim := cof.map fun c => (B * c / det).toNat
+  let box := lim.map drIsqrt
+  let pts : List (List Int) := (List.range (2 * box.getD 0 0 + 1)).foldr (fun (a : Nat) acc =>
+    (List.range (2 * box.getD 1 0 + 1)).foldr (fun (b : Nat) acc =>
+      (List.range (2 * box.getD 2 0 + 1)).foldr (fun (c : Nat) acc =>
+        [(a : Int) - box.getD 0 0, (b : Int) - box.getD 1 0, (c : Int) - box.getD 2 0] :: acc) acc) acc) []
+  let onLine := fun (c : List Int) => (List.range 3).all fun i => (List.range 3).all fun j =>
+    c.getD i 0 * ce.getD j 0 == c.getD j 0 * ce.getD i 0
+  h 0 0 > 0 && h 0 0 * h 1 1 - h 0 1 * h 1 0 > 0 && det > 0 && B > 0
+    && (lim.zip box).all (fun p => (p.2 + 1) * (p.2 + 1) > p.1)
+    && pts.all (fun c => onLine c || drVal H c ≥ B)
+    && pts.any (fun c => !onLine c && drVal H c == B)
+
+/-- (R5) at the `k` in `ks`: `N_k` is the saturation of
+`Q eta + Q x_k + Q i.x_k`, it equals `Z eta/(2d) + Z x_k + Z i.x_k` (the three
+classes have integral coordinates in the basis `N_k` with determinant `+-1`),
+and the minimum of `I` on it off `Q eta` is `mu_k = 32 d^2 (1 + k^2)`. -/
+def drMinOk (fi : Nat) (ks : List Nat) : Bool :=
+  let b := drBase.getD fi default
+  let d : Int := b.1
+  let xy := drPencil.getD fi default
+  let E := qdE d 1 1 1
+  let Li := qdLeft d 1 (qdUnit 1)
+  let eta := qdForm E
+  let e2 := qdW eta eta
+  let e3 := qdW eta e2
+  let e4 := qdInt (qdW e2 e2)
+  let etav := drVec E
+  let mins := drMin.getD fi []
+  mins.length == 11 && etav.all (fun a => a % (2 * d) == 0) && ks.all fun kn =>
+    let m := mins.getD kn default
+    let k : Int := kn
+    let Nk := m.1
+    let mu := m.2.2.2
+    let xk := drAxpy xy.1 xy.2 k
+    let ik := drVec (tpMul (tpT Li) (drMat xk))
+    let ce := m.2.2.1.map (drDot etav)
+    let f := Nk.map drForm
+    let t := f.map fun u => qdInt (qdW u e3)
+    let half := f.map fun u => qdW u e2
+    let H := (List.range 3).map fun i => (List.range 3).map fun j =>
+      2 * t.getD i 0 * t.getD j 0 - e4 * qdInt (qdW (f.getD j []) (half.getD i []))
+    let w := [etav.map (· / (2 * d)), xk, ik]
+    let c := w.map fun v => m.2.2.1.map (drDot v)
+    Nk.length == 3
+      && (Nk.zip m.2.1).all (fun p =>
+          p.1.map (p.2.1 * ·) == drLin [p.2.2.1, p.2.2.2.1, p.2.2.2.2] [etav, xk, ik])
+      && drInverts Nk m.2.2.1 && drLin ce Nk == etav
+      && drMinimumOk H ce (mu * e4)
+      && (w.zip c).all (fun p => drLin p.2 Nk == p.1) && drDet3 c * drDet3 c == 1
+      && mu == 32 * d * d * (1 + k * k)
+
+/-- (R7): `u` has dimension `16`. -/
+def drUnitaryAt (fi : Nat) (U : DrUnitary) : Bool :=
+  let d : Int := (drBase.getD fi default).1
+  drUnitaryOk (qdE d 1 1 1) (qdLeft d 1 (qdUnit 1)) U
+
+/-- (R7) at `k` with the certificate `C`. -/
+def drCentAt (fi : Nat) (U : DrUnitary) (k : Int) (C : DrCent) : Bool :=
+  let b := drBase.getD fi default
+  let d : Int := b.1
+  let xy := drPencil.getD fi default
+  drCentOk (qdE d 1 1 1) (qdLeft d 1 (qdUnit 1)) (tpMul b.2.2.1 (drMat (drAxpy xy.1 xy.2 k))) U C
+
+/-- (R8) with the centraliser certificate `Q` at `k = J.kq`. -/
+def drSiegelOk (fi : Nat) (U : DrUnitary) (Q : DrCent) (J : DrSiegel) : Bool :=
+  let b := drBase.getD fi default
+  let d : Int := b.1
+  let xy := drPencil.getD fi default
+  let E := qdE d 1 1 1
+  let Li := qdLeft d 1 (qdUnit 1)
+  let phiS := tpMul b.2.2.1 (drMat (drAxpy xy.1 xy.2 J.kq))
+  let p := Q.xs.map fun X => drBr X J.j0
+  -- the columns of `p ++ [p_a, p_b]` (index `10 + 10 a + b`) on which the
+  -- recorded minor of size `10` sits
+  let sel := J.gcol.map fun g =>
+    if g < 10 then p.getD g [] else drBr (p.getD ((g - 10) / 10) []) (p.getD ((g - 10) % 10) [])
+  drCentOk E Li phiS U Q && J.sj > 0
+    && tpMul J.j0 J.j0 == drSmul (-(J.sj ^ 2)) drIdent
+    && tpMul (tpMul (tpT J.j0) E) J.j0 == drSmul (J.sj ^ 2) E
+    && drZero (drBr J.j0 Li) && drZero (drBr J.j0 phiS)
+    && J.rel.length == 4 && J.rel.all (fun r => drZero (drLinM r p))
+    && drMinorOk (drCols J.rel) J.rrow J.rcol && J.rrow.length == 4
+    && drMinorOk (drCols (p.map drFlat)) J.prow J.pcol && J.prow.length == 6
+    && J.gcol.all (· < 110) && J.grow.length == 10
+    && drMinorOk (drCols (sel.map drFlat)) J.grow (List.range 10)
+
+/-- **(R1) The lattice of K-bilinear classes.**  For `d = 1, 3`, `E S = s I`
+with `s > 0` and `int eta^4 > 0`; the twelve recorded classes satisfy the
+conditions `L_i^T x = x L_i` and have a left inverse, a minor of size `16` of
+the conditions is nonzero, so they form a basis of `R`, of rank `12`; and
+`int x eta^3 = 0` on `R`. -/
+theorem divisor_route_rank : (drRankOk 0 && drRankOk 1) = true := by
+  decide +kernel
+
+/-- **(R2), (R3) The trace form and the signature.**  On all `144` pairs of
+basis vectors `-int x y eta^2 / int eta^4 = tr(phi_x phi_y)/24`, and
+`P^T G P` is diagonal with eight positive and four negative entries,
+`det P != 0`, so the Hodge norm has signature `(8, 4)` on `R`. -/
+theorem divisor_route_trace : (drTraceOk 0 && drTraceOk 1) = true := by
+  decide +kernel
+
+/-- **(R4) The pencil.**  `int eta^4 = 384 d^4`; `phi_x^2 = phi_y^2 =
+(2d)^{-2}` and `phi_x phi_y + phi_y phi_x = 0`, so
+`phi_(x + k y)^2 = (1 + k^2)/(4 d^2)`, checked at eight `k`, where `x_k` is
+also primitive; `x, y in R` with `t = 0`; and `I(x_k) = beta(k) int eta^4 / 3`
+as an identity of quadratic polynomials in `k`. -/
+theorem divisor_route_pencil : (drPencilOk 0 && drPencilOk 1) = true := by
+  decide +kernel
+
+/-- **(R6) Saturation of `Z x_k + Z i.x_k`.**  The gcd of the recorded
+resultants of the `2 x 2` minors of the rows `x_k`, `i.x_k` is `1`, so the
+minors are coprime at every integer `k`; at every `|k| <= 200` their gcd is
+`1` directly. -/
+theorem divisor_route_index : (drIndexOk 0 && drIndexOk 1) = true := by
+  decide +kernel
+
+/-- **(R5) The minimum on `N_k`, `d = 1`.**  For `k = 0..10`, `N_k` is the
+saturation of `Q eta + Q x_k + Q i.x_k`, equal to
+`Z eta/(2d) + Z x_k + Z i.x_k`, `I` is positive definite on it, and its
+minimum off `Q eta` is `mu_k = 32 d^2 (1 + k^2)`. -/
+theorem divisor_route_minimum_one : drMinOk 0 (List.range 11) = true := by
+  decide +kernel
+
+/-- **(R5) The minimum on `N_k`, `d = 3`.** -/
+theorem divisor_route_minimum_three : drMinOk 1 (List.range 11) = true := by
+  decide +kernel
+
+/-- **(R7) The centraliser of `i`, `d = 1`.**  The centraliser `u` of `i` in
+`sp(V, E)` has dimension `16`. -/
+theorem divisor_route_unitary_one : drUnitaryAt 0 drU0 = true := by
+  decide +kernel
+
+/-- **(R7) The centraliser of `i`, `d = 3`.** -/
+theorem divisor_route_unitary_three : drUnitaryAt 1 drU1 = true := by
+  decide +kernel
+
+/-- **(R7) The centraliser of `i` and `phi`, `d = 1`, `k = 0`.**  The
+centraliser of `i` and `phi_(x_k)` in `sp(V, E)` has dimension `10` and three
+invariants in `wedge^2 V^*`; likewise for `k = 1..4` and for `d = 3` below. -/
+theorem divisor_route_centraliser_one_0 : drCentAt 0 drU0 0 drCent0_0 = true := by
+  decide +kernel
+
+/-- **(R7) The centraliser of `i` and `phi`, `d = 1`, `k = 1`.** -/
+theorem divisor_route_centraliser_one_1 : drCentAt 0 drU0 1 drCent0_1 = true := by
+  decide +kernel
+
+/-- **(R7) The centraliser of `i` and `phi`, `d = 1`, `k = 2`.** -/
+theorem divisor_route_centraliser_one_2 : drCentAt 0 drU0 2 drCent0_2 = true := by
+  decide +kernel
+
+/-- **(R7) The centraliser of `i` and `phi`, `d = 1`, `k = 3`.** -/
+theorem divisor_route_centraliser_one_3 : drCentAt 0 drU0 3 drCent0_3 = true := by
+  decide +kernel
+
+/-- **(R7) The centraliser of `i` and `phi`, `d = 1`, `k = 4`.** -/
+theorem divisor_route_centraliser_one_4 : drCentAt 0 drU0 4 drCent0_4 = true := by
+  decide +kernel
+
+/-- **(R7) The centraliser of `i` and `phi`, `d = 3`, `k = 0`.** -/
+theorem divisor_route_centraliser_three_0 : drCentAt 1 drU1 0 drCent1_0 = true := by
+  decide +kernel
+
+/-- **(R7) The centraliser of `i` and `phi`, `d = 3`, `k = 1`.** -/
+theorem divisor_route_centraliser_three_1 : drCentAt 1 drU1 1 drCent1_1 = true := by
+  decide +kernel
+
+/-- **(R7) The centraliser of `i` and `phi`, `d = 3`, `k = 2`.** -/
+theorem divisor_route_centraliser_three_2 : drCentAt 1 drU1 2 drCent1_2 = true := by
+  decide +kernel
+
+/-- **(R7) The centraliser of `i` and `phi`, `d = 3`, `k = 3`.** -/
+theorem divisor_route_centraliser_three_3 : drCentAt 1 drU1 3 drCent1_3 = true := by
+  decide +kernel
+
+/-- **(R7) The centraliser of `i` and `phi`, `d = 3`, `k = 4`.** -/
+theorem divisor_route_centraliser_three_4 : drCentAt 1 drU1 4 drCent1_4 = true := by
+  decide +kernel
+
+/-- **(R8) The Siegel locus generates the centraliser, `d = 1`.**  At `k = 0`
+the recorded `J0` is a rational complex structure in the centraliser `c`,
+`[c, J0]` has dimension `6`, and together with its brackets it spans `c`. -/
+theorem divisor_route_siegel_one : drSiegelOk 0 drU0 drCentQ0 drSiegel0 = true := by
+  decide +kernel
+
+/-- **(R8) The Siegel locus generates the centraliser, `d = 3`.**  The same at
+`k = 0`. -/
+theorem divisor_route_siegel_three : drSiegelOk 1 drU1 drCentQ1 drSiegel1 = true := by
+  decide +kernel
+
+
+/-! ## 75.  Exceptional classes and the annihilator of the Weil class
+
+Item (XXXV), Proposition (Exceptional classes of a Mumford square),
+Proposition (The quintic threefold is not of abelian type) and Theorem (The
+annihilator of the Weil class).
+
+(A) In the notation of Section 69, `tgIrrRec` (certified there) records the
+multiplicities of the irreducible modules of `sl_2^3` in `wedge^q V`.  It
+gives one invariant in `wedge^2 V` and one in `wedge^4 V`; `dim
+Hom(wedge^a V, wedge^(4-a) V) = 1, 1, 4, 1, 1` for `a = 0..4`, eight
+invariants in `wedge^4 (V + V)`; and three in `wedge^2 (V + V)`, the Neron-Severi
+rank of `X x X`.  For `Sp_8`, by Weyl's character formula the trivial module
+occurs in a module with weight multiplicities `c` exactly
+`sum_(w in W(C_4)) sgn(w) c(rho - w rho)` times, `rho = (4, 3, 2, 1)`; the
+weight multiplicities of `wedge^4 V` and `wedge^4 (V + V)` are the
+coefficients of `y^4 x^mu` in `prod_i ((1 + y x_i)(1 + y / x_i))^e`, `e = 1, 2`.
+The formula gives `1` and `6`.  With the six independent products of the
+divisor classes (Section 69), `B^2(X x X)` has dimension `8` and `D^2(X x X)`
+dimension `6`: two exceptional classes.
+
+(B) The Jacobian ring `C[x_0, ..., x_4]/(x_i^4)` of the Fermat quintic has
+dimensions `1, 101, 101, 1` in degrees `0, 5, 10, 15`, the Hodge numbers of
+`H^3` (Griffiths).  In the model with one vector of each weight `3, 2, 1, 0`
+and the form `J` pairing `3` with `0` and `2` with `1`, the map
+`X = e_3 (x) J(., e_3)` is symplectic, nonzero and of adjoint weight `3`;
+differences of weights in `{0, 1}` lie in `{-1, 0, 1}`, and of weights in
+`{0, ..., 3}` they fill `{-3, ..., 3}`.
+
+(C) For `n = 2, 3`, on `4 n` generators (`V_+^(1,0)`, `V_-^(1,0)`,
+`V_+^(0,1)`, `V_-^(0,1)`, `n` each), `omega = alpha_+ + alpha_-`.  Of the
+`2 binom(2n, 2) + 4 n^2` operators of `HT^2` (wedge with `e_i e_j`, `i < j`
+of type `(0,1)`; `e_j ^ iota_i`, `i` of type `(1,0)`, `j` of type `(0,1)`;
+`iota_i iota_j`, `i < j` of type `(1,0)`), the `4 n^2` mixed `z`, `K`-linear
+`v` and mixed `pi` send `omega` to zero, and every other one sends it to
+`+-` a monomial, distinct monomials for distinct operators; so those act
+injectively and the annihilator of `omega` has dimension `4 n^2`.  The ideal
+of the mixed block `e_i e_j`, `i < n <= j`, in the exterior algebra on `2 n`
+generators is spanned by the monomials `g e_m`, so by the monomials that
+contain a mixed pair; the quotient has dimension `1` in degree `0` and
+`2 binom(n, k)` in degree `k >= 1`, `2^(n+1) - 1` in all.  Finally, over
+`F_3` in dimension `2` and `3`, two nonzero vectors `a`, `b` with `a ^ b = 0`
+are proportional; so if subspaces `I_1`, `I_2` span a space of dimension at
+least two and all mixed wedges vanish, one of them is zero (nonzero
+`a in I_1`, `b in I_2` would put `I_1 + I_2` in `F_3 a`).
+-/
+
+/-- `dim Hom(wedge^a V, wedge^b V)` for `sl_2^3`, from `tgIrrRec`. -/
+def exHom (a b : Nat) : Int :=
+  ((tgIrrRec.getD a []).zip (tgIrrRec.getD b [])).foldl (fun s x => s + x.1 * x.2) 0
+
+/-- the coefficient of `y^k x^m` in `((1 + y x)(1 + y / x))^e`. -/
+def exCoef (e k : Nat) (m : Int) : Nat :=
+  (List.range (k + 1)).foldl (fun s (j : Nat) =>
+    let up : Int := j
+    let down : Int := k - j
+    if up - down == m then s + choose e j * choose e (k - j) else s) 0
+
+/-- the multiplicity of the weight `mu` in `wedge^4 (V^e)`, `V` the standard
+module of `Sp_8`, over the splittings `k_0 + k_1 + k_2 + k_3 = 4` of the
+degree among the four coordinates. -/
+def exSpMult (e : Nat) (mu : List Int) : Nat :=
+  (List.range 5).foldl (fun s k0 => (List.range (5 - k0)).foldl (fun s k1 =>
+    (List.range (5 - k0 - k1)).foldl (fun s k2 =>
+      s + exCoef e k0 (mu.getD 0 0) * exCoef e k1 (mu.getD 1 0) * exCoef e k2 (mu.getD 2 0)
+        * exCoef e (4 - k0 - k1 - k2) (mu.getD 3 0)) s) s) 0
+
+/-- the permutations of `0..3`. -/
+def exPerms : List (List Nat) :=
+  (List.range 256).filterMap fun t =>
+    let p := [t % 4, t / 4 % 4, t / 16 % 4, t / 64 % 4]
+    if (List.range 4).all (fun i => p.contains i) then some p else none
+
+def exInversions (p : List Nat) : Nat :=
+  (List.range 4).foldl (fun s i => (List.range 4).foldl (fun s j =>
+    if i < j && p.getD j 0 < p.getD i 0 then s + 1 else s) s) 0
+
+def exRho : List Int := [4, 3, 2, 1]
+
+/-- Weyl's formula for the multiplicity of the trivial module in
+`wedge^4 (V^e)`.  A weight `mu` with `sum |mu_i| > 4` has multiplicity zero
+(`|m| <= k` in `exCoef`), so those terms are skipped. -/
+def exTrivial (e : Nat) : Int :=
+  exPerms.foldl (fun s p => (List.range 16).foldl (fun s g =>
+    let sg := fun (i : Nat) => if g.testBit i then (-1 : Int) else 1
+    let mu := (List.range 4).map fun i => exRho.getD i 0 - sg i * exRho.getD (p.getD i 0) 0
+    let sign : Int := (if exInversions p % 2 == 0 then 1 else -1) * ((List.range 4).foldl (fun t i => t * sg i) 1)
+    if (mu.map Int.natAbs).foldl (fun (a b : Nat) => a + b) 0 ≤ 4 then s + sign * exSpMult e mu else s) s) 0
+
+/-- the dimension of the Jacobian ring of the Fermat quintic in degree `k`. -/
+def exQuintic (k : Nat) : Nat :=
+  (List.range 1024).countP fun t => (List.range 5).foldl (fun s i => s + t / 4 ^ i % 4) 0 == k
+
+def exJ : List (List Int) := [[0, 0, 0, 1], [0, 0, 1, 0], [0, -1, 0, 0], [-1, 0, 0, 0]]
+
+/-- `X(v) = J(v, e_3) e_3`, `e_3` the vector of weight `3` (index `0`). -/
+def exX : List (List Int) :=
+  (List.range 4).map fun a => (List.range 4).map fun v => if a == 0 then (exJ.getD v []).getD 0 0 else 0
+
+def exMu : List Int := [3, 2, 1, 0]
+
+/-- wedge with `e_b` on the left (`true`) or contract with its dual, with the
+sign `(-1)` to the number of generators below `b`. -/
+def exOp (wedge : Bool) (b : Nat) (v : List (Nat × Int)) : List (Nat × Int) :=
+  v.filterMap fun t =>
+    if wedge == t.1.testBit b then none
+    else some (t.1 ^^^ (1 <<< b), if (List.range b).countP (fun i => t.1.testBit i) % 2 == 1 then -t.2 else t.2)
+
+def exNorm (v : List (Nat × Int)) : List (Nat × Int) :=
+  (v.foldl (fun acc x => fmIns x.1 x.2 acc) []).filter (·.2 != 0)
+
+/-- the operators of `HT^2` on `4 n` generators: `(0, i, j)` wedge with
+`e_i e_j`, `(1, i, j)` `e_j ^ iota_i`, `(2, i, j)` `iota_i iota_j`. -/
+def exHT2 (n : Nat) : List (Nat × Nat × Nat) :=
+  (List.range (4 * n)).foldr (fun i acc => (List.range (4 * n)).foldr (fun j acc =>
+      if 2 * n ≤ i && i < j then (0, i, j) :: acc else acc) acc) []
+  ++ (List.range (2 * n)).foldr (fun i acc => (List.range (2 * n)).foldr (fun j acc =>
+      (1, i, 2 * n + j) :: acc) acc) []
+  ++ (List.range (2 * n)).foldr (fun i acc => (List.range (2 * n)).foldr (fun j acc =>
+      if i < j then (2, i, j) :: acc else acc) acc) []
+
+def exApply (o : Nat × Nat × Nat) (w : List (Nat × Int)) : List (Nat × Int) :=
+  exNorm (if o.1 == 0 then exOp true o.2.1 (exOp true o.2.2 w)
+    else if o.1 == 1 then exOp true o.2.2 (exOp false o.2.1 w)
+    else exOp false o.2.1 (exOp false o.2.2 w))
+
+/-- the predicted annihilator: mixed `z`, `K`-linear `v`, mixed `pi`. -/
+def exPred (n : Nat) (o : Nat × Nat × Nat) : Bool :=
+  if o.1 == 0 then (o.2.1 < 3 * n) != (o.2.2 < 3 * n)
+  else if o.1 == 1 then (o.2.1 < n) == (o.2.2 < 3 * n)
+  else (o.2.1 < n) != (o.2.2 < n)
+
+def exOmega (n : Nat) : List (Nat × Int) :=
+  [((2 ^ n - 1) ||| ((2 ^ n - 1) <<< (2 * n)), 1), (((2 ^ n - 1) <<< n) ||| ((2 ^ n - 1) <<< (3 * n)), 1)]
+
+def exAnnOk (n : Nat) : Bool :=
+  let ops := exHT2 n
+  let others := (ops.filter fun o => !exPred n o).map fun o => exApply o (exOmega n)
+  ops.length == 2 * choose (2 * n) 2 + 4 * n * n
+    && (ops.filter (exPred n)).length == 4 * n * n
+    && (ops.filter (exPred n)).all (fun o => exApply o (exOmega n) == [])
+    && others.all (fun v => v.length == 1)
+    && (List.range others.length).all (fun a => (List.range others.length).all fun b =>
+        a == b || ((others.getD a []).headD (0, 0)).1 != ((others.getD b []).headD (0, 0)).1)
+
+/-- the quotient of the exterior algebra on `2 n` generators by the ideal of
+the mixed block, by degree. -/
+def exQuotient (n : Nat) : List Nat :=
+  let gens := (List.range n).foldr (fun i acc => (List.range n).foldr (fun j acc =>
+    (2 ^ i + 2 ^ (n + j)) :: acc) acc) []
+  let ideal := (List.range (2 ^ (2 * n))).filter fun M => gens.any fun g => g &&& M == g
+  (List.range (2 * n + 1)).map fun k =>
+    choose (2 * n) k - ideal.countP (fun M => (List.range (2 * n)).countP (fun i => M.testBit i) == k)
+
+/-- over `F_3^c`, nonzero `a`, `b` with all `2 x 2` minors zero are
+proportional. -/
+def exF3 (c : Nat) : Bool :=
+  let vs := (List.range (3 ^ c)).map fun t => (List.range c).map fun i => t / 3 ^ i % 3
+  let nz := vs.filter fun v => v.any (· != 0)
+  nz.all fun a => nz.all fun b =>
+    !((List.range c).all fun i => (List.range c).all fun j => (a.getD i 0 * b.getD j 0 + 3 * 3 - a.getD j 0 * b.getD i 0) % 3 == 0)
+      || [1, 2].any fun t => (List.range c).all fun i => (t * a.getD i 0) % 3 == b.getD i 0
+
+/-- **(A) The Mumford square.**  One `sl_2^3`-invariant in `wedge^2 V` and in
+`wedge^4 V`; `dim Hom(wedge^a V, wedge^(4-a) V) = 1, 1, 4, 1, 1`, eight
+invariants in `wedge^4 (V + V)`, three in `wedge^2 (V + V)`; Weyl's formula
+gives one `Sp_8`-invariant in `wedge^4 V` and six in `wedge^4 (V + V)`, so
+two of the eight are exceptional. -/
+theorem exceptional_mumford_square :
+    ((tgIrrRec.getD 2 []).headD 0 == 1 && (tgIrrRec.getD 4 []).headD 0 == 1
+      && (List.range 5).map (fun a => exHom a (4 - a)) == [1, 1, 4, 1, 1]
+      && exHom 0 2 + exHom 1 1 + exHom 2 0 == 3
+      && exPerms.length == 24 && exTrivial 1 == 1 && exTrivial 2 == 6
+      && 8 - exTrivial 2 == 2) = true := by
+  decide +kernel
+
+/-- **(B) The quintic threefold.**  Hodge numbers `1, 101, 101, 1`; the map
+`(0,3) -> (3,0)` lies in `sp` and has adjoint weight `3`; weight one gives
+adjoint weights in `{-1, 0, 1}`, weight three with `h^(3,0) = 1` gives
+`-3, ..., 3`. -/
+theorem exceptional_quintic :
+    ([0, 5, 10, 15].map exQuintic == [1, 101, 101, 1]
+      && tpMul (tpT exX) exJ == (tpMul exJ exX).map (fun r => r.map (- ·))
+      && (List.range 4).all (fun i => (List.range 4).all fun j =>
+          (exMu.getD i 0 - exMu.getD j 0) * (exX.getD i []).getD j 0 == 3 * (exX.getD i []).getD j 0)
+      && exX.any (fun r => r.any (· != 0))
+      && ([0, 1].foldr (fun (p : Int) acc => [0, 1].foldr (fun q acc => (p - q) :: acc) acc) []).all
+          (fun x => -1 ≤ x && x ≤ 1)
+      && [-3, -2, -1, 0, 1, 2, 3].all (fun (x : Int) =>
+          [0, 1, 2, 3].any fun (p : Int) => [0, 1, 2, 3].any fun q => p - q == x)) = true := by
+  decide +kernel
+
+/-- **(C) The annihilator of the Weil class.**  For `n = 2, 3` the annihilator
+of `omega` in `HT^2` is spanned by the `4 n^2` mixed `z`, `K`-linear `v` and
+mixed `pi`, and the other operators act injectively; the quotient by the
+ideal of the mixed block has dimensions `1, 2 binom(n, 1), ..., 2 binom(n, 2n)`,
+`2^(n+1) - 1` in all; and over `F_3^2`, `F_3^3` vectors with vanishing wedge
+are proportional. -/
+theorem exceptional_annihilator :
+    (exAnnOk 2 && exAnnOk 3
+      && [2, 3].all (fun n => exQuotient n == 1 :: (List.range (2 * n)).map (fun k => 2 * choose n (k + 1))
+          && (exQuotient n).foldl (· + ·) 0 == 2 ^ (n + 1) - 1)
+      && exF3 2 && exF3 3) = true := by
+  decide +kernel
+
+
+/-! ## 76.  Weil classes of CM fields of degree four and six
+
+Item (XXXVI), Theorem (A base point in every family, for every CM field),
+Proposition (Weil classes of a composite field) and the closed forms of the
+base point.  `F = Q(zeta_r) = Q[x]/(Phi_r)` for `r = 5, 7, 8, 9`, elements as
+integer vectors in the power basis `omega_j = zeta^j`, `sigma_k : zeta ->
+zeta^k` for `k` prime to `r`, complex conjugation `sigma_(r-1)`.  The
+recorded `eta_j = D omega*_j` give the trace-dual basis.  On `V = F^(2n)`
+with `H = diag(1, ..., 1, -1, ..., -1)` and `xi = zeta - zeta^(-1)`, the
+polarisation is `E(a e_i, b e_i') = delta_ii' h_i Tr(xi a conj(b))`, and
+`u_(i, sigma)` is the vector of `V (x) F` with coordinates `sigma(omega*_j)`
+on `omega_j e_i`; `V^(1,0)` is spanned by the `u_(i, sigma)`, `sigma` in the
+CM type `Phi` for `i < n` and in its conjugate for `i >= n`.
+
+For each of the six cases `(r, n)` of item (XXXVI)(C) the kernel checks:
+(C1) `Phi` and its conjugate partition the embeddings, `|Phi| = d / 2`;
+(C2) `xi + conj(xi) = 0`; (C3) `Tr(omega_j eta_l) = D delta_jl`;
+(C4) `sum_k sigma(omega_k) tau(eta_k) = D delta_(sigma tau)` for all pairs of
+embeddings, so the matrix `(sigma(omega*_j))` is invertible, the
+`u_(i, sigma)` form a basis of `V (x) F`, and `omega_j e_i = sum_sigma
+sigma(omega_j) u_(i, sigma)`; (C5) `zeta u_(i, sigma) = sigma(zeta)
+u_(i, sigma)`; (C6) `E(u_(i, sigma), u_(i, tau)) = 0` unless `tau =
+conj(sigma)`, and `E` is alternating on the `u`; (C7) for `f = 1, zeta` the
+balanced class `delta_i(f) = sum_k (omega_k f e_i) ^ (omega*_k e_i')` has the
+coefficients of `sum_sigma sigma(f) u_(i, sigma) ^ u_(i', sigma)`.
+
+From these the statements of item (XXXVI) follow by bookkeeping in the basis
+`u`: `V^(1,0)` has dimension `d n` and is isotropic (C4, C6, and `Phi` meets
+its conjugate in nothing); `V_sigma` meets it in the `n` vectors
+`u_(i, sigma)` with `sigma in Phi_i`, so `alpha_sigma = wedge_i u_(i, sigma)`
+is nonzero of type `(n, n)`; (C4) turns the balanced product of the
+`delta_i` into `w(f) = +- sum_sigma sigma(f) alpha_sigma`; the Galois group
+permutes the `u` by `tau(u_(i, sigma)) = u_(i, tau sigma)`, so `w(f)` is
+rational, and the `w(omega_j)` span `W_F`, of dimension `d`, because the
+`alpha_sigma` are distinct monomials and `(sigma(omega_j))` is invertible.
+
+(A) For `r = 5`, `n = 2`, a rational 2-form is a Galois-invariant
+combination of the `u_P = u_a ^ u_b`; one of type `(1,1)` is supported on
+the Galois orbits of pairs `P` that are of type `(1,1)` throughout, and the
+invariant combinations on an orbit form a space of dimension its length
+(coefficients in `F`, or in the imaginary part of `F` when complex
+conjugation swaps the two vectors).  So `dim NS` is the number of pairs all
+of whose translates are of type `(1,1)`, which is `32`.  The plain product
+`delta_1(1) delta_2(1)` carries the monomials
+`u_(0,sigma) u_(2,sigma) u_(1,tau) u_(3,tau)`, `sigma != tau`, so it is not in
+`W_F`.
+
+(B) For `r = 8`, `n = 1`, `K = Q(i)`, `i = zeta^2`: `i^2 = -1`;
+`alpha_K^+ = alpha_1 alpha_5`, `alpha_K^- = alpha_3 alpha_7` as products of
+the vectors `u`, and the recorded `c_ab` satisfy, on every product
+`alpha_sigma alpha_tau`, `sigma < tau`,
+`s w_K(f) = sum_(a <= b) c_ab w(omega_a) w(omega_b)` for `f = 1, i`, so
+`W_K` lies in the span of the products of pairs of `W_F`.
+-/
+
+/-- multiplication by `x` in `Z[x]/(x^d + p_(d-1) x^(d-1) + ... + p_0)`. -/
+def cfX (p a : List Int) : List Int :=
+  let top := a.getD (p.length - 1) 0
+  ((0 :: a.take (p.length - 1)).zip p).map fun q => q.1 - top * q.2
+
+def cfAdd (a b : List Int) : List Int := (a.zip b).map fun q => q.1 + q.2
+def cfSmul (c : Int) (a : List Int) : List Int := a.map (c * ·)
+def cfZero (d : Nat) : List Int := (List.range d).map fun _ => 0
+def cfConst (d : Nat) (c : Int) : List Int := (List.range d).map fun i => if i == 0 then c else 0
+
+def cfMul (p a b : List Int) : List Int :=
+  (b.foldl (fun acc bi => (cfAdd acc.1 (cfSmul bi acc.2), cfX p acc.2)) (cfZero p.length, a)).1
+
+def cfPow (p a : List Int) : Nat → List Int
+  | 0 => cfConst p.length 1
+  | k + 1 => cfMul p (cfPow p a k) a
+
+def cfZeta (d : Nat) : List Int := (List.range d).map fun i => if i == 1 then 1 else 0
+
+/-- the powers `1, x, ..., x^m`. -/
+def cfPowers (p x : List Int) (m : Nat) : List (List Int) :=
+  (List.range m).foldl (fun acc _ => acc ++ [cfMul p (acc.getLastD (cfConst p.length 1)) x])
+    [cfConst p.length 1]
+
+/-- `sum_i a_i c_i`: the image of `a` under the map with columns `c`. -/
+def cfApply (d : Nat) (cols : List (List Int)) (a : List Int) : List Int :=
+  (a.zip cols).foldl (fun s q => cfAdd s (cfSmul q.1 q.2)) (cfZero d)
+
+def cfUnits (r : Nat) : List Nat := (List.range r).filter fun k => k > 0 && Nat.gcd k r == 1
+
+def cfSum (d : Nat) (vs : List (List Int)) : List Int := vs.foldl cfAdd (cfZero d)
+
+/-- (C1) to (C7) on one case.  `sigma_k` is the map with columns
+`(zeta^k)^i`; `Tr(a) = sum_i a_i Tr(zeta^i)`, `Tr(zeta^i) = sum_j (zeta^(i+j))_j`. -/
+def cfCaseOk (r : Nat) (p : List Int) (D : Nat) (eta : List (List Int)) (phi : List Nat) : Bool :=
+  let d := p.length
+  let z := cfZeta d
+  let us := cfUnits r
+  let zp := cfPowers p z (2 * r)
+  let auts := us.map fun k => cfPowers p (zp.getD k []) (d - 1)
+  let cjCols := cfPowers p (zp.getD (r - 1) []) (d - 1)
+  let trv := (List.range d).map fun i => (List.range d).foldl (fun s j => s + (zp.getD (i + j) []).getD j 0) 0
+  let tr := fun (a : List Int) => (a.zip trv).foldl (fun s q => s + q.1 * q.2) 0
+  let omega := (List.range d).map fun j => zp.getD j []
+  let xi := cfAdd z (cfSmul (-1) (zp.getD (r - 1) []))
+  let phibar := phi.map (r - ·)
+  let sEta := auts.map fun cols => eta.map (cfApply d cols)
+  let xiw := omega.map (cfMul p xi)
+  let cw := omega.map (cfApply d cjCols)
+  let T := xiw.map fun a => cw.map fun b => tr (cfMul p a b)
+  let inner := sEta.map fun eb => T.map fun row => cfSum d ((row.zip eb).map fun q => cfSmul q.1 q.2)
+  let EuT := sEta.map fun ea => inner.map fun ib => cfSum d ((ea.zip ib).map fun q => cfMul p q.1 q.2)
+  let Eu := fun (a b : Nat) => (EuT.getD a []).getD b []
+  let zw := omega.map (cfMul p z)
+  let PE := sEta.map fun e => e.map fun ej => e.map fun el => cfMul p ej el
+  let Dz := cfConst d D
+  phi.length * 2 == d && us.length == d && us.all (fun k => (phi.contains k) != (phibar.contains k))
+    && cfAdd xi (cfApply d cjCols xi) == cfZero d
+    && (List.range d).all (fun j => (List.range d).all fun l =>
+        tr (cfMul p (omega.getD j []) (eta.getD l [])) == if j == l then (D : Int) else 0)
+    && (List.range d).all (fun a => (List.range d).all fun b =>
+        cfSum d (((auts.getD a []).zip (sEta.getD b [])).map fun q => cfMul p q.1 q.2)
+          == if a == b then Dz else cfZero d)
+    && (List.range d).all (fun a =>
+        let v := sEta.getD a []
+        let sz := (auts.getD a []).getD 1 []
+        (List.range d).all fun l =>
+          cfSum d ((zw.zip v).map fun q => cfSmul (q.1.getD l 0) q.2) == cfMul p sz (v.getD l []))
+    && (List.range d).all (fun a => (List.range d).all fun b =>
+        (Eu a b == cfZero d) == (us.getD b 0 != r - us.getD a 0) && Eu a b == cfSmul (-1) (Eu b a))
+    && [cfConst d 1, z].all (fun f =>
+        let wf := omega.map fun o => cfMul p o f
+        let sf := auts.map fun cols => cfApply d cols f
+        (List.range d).all fun j => (List.range d).all fun l =>
+          cfConst d ((D : Int) * ((wf.zip eta).foldl (fun s q => s + q.1.getD j 0 * q.2.getD l 0) 0))
+            == cfSum d ((sf.zip PE).map fun q => cfMul p q.1 ((q.2.getD j []).getD l [])))
+
+/-- the cases of (C): `(r, Phi_r below x^d, D, eta = D omega*, CM type, n)`. -/
+def cfCases : List (Nat × List Int × Nat × List (List Int) × List Nat × Nat) := [
+  (5, [1, 1, 1, 1], 5, [[1, -1, 0, 0], [-1, -2, -1, -1], [0, -1, 0, 1], [0, -1, 1, 0]], [1, 2], 2),
+  (5, [1, 1, 1, 1], 5, [[1, -1, 0, 0], [-1, -2, -1, -1], [0, -1, 0, 1], [0, -1, 1, 0]], [1, 2], 3),
+  (8, [1, 0, 0, 0], 4, [[1, 0, 0, 0], [0, 0, 0, -1], [0, 0, -1, 0], [0, -1, 0, 0]], [1, 3], 2),
+  (7, [1, 1, 1, 1, 1, 1], 7, [[1, -1, 0, 0, 0, 0], [-1, -2, -1, -1, -1, -1], [0, -1, 0, 0, 0, 1], [0, -1, 0, 0, 1, 0], [0, -1, 0, 1, 0, 0], [0, -1, 1, 0, 0, 0]], [1, 2, 3], 2),
+  (7, [1, 1, 1, 1, 1, 1], 7, [[1, -1, 0, 0, 0, 0], [-1, -2, -1, -1, -1, -1], [0, -1, 0, 0, 0, 1], [0, -1, 0, 0, 1, 0], [0, -1, 0, 1, 0, 0], [0, -1, 1, 0, 0, 0]], [1, 2, 3], 1),
+  (9, [1, 0, 0, 1, 0, 0], 9, [[1, 0, 0, -1, 0, 0], [0, 0, -2, 0, 0, -1], [0, -2, 0, 0, -1, 0], [-1, 0, 0, -2, 0, 0], [0, 0, -1, 0, 0, 1], [0, -1, 0, 0, 1, 0]], [1, 2, 4], 2)]
+/-- (B): `(s, c_ab)` for `f = 1` and `f = i`, `(a, b)` in the order
+`(0,0), (0,1), ..., (3,3)`. -/
+def cfWeilK : List (Nat × List Int) := [(2, [0, 0, 0, 0, 0, 0, 1, 0, 0, 0]), (2, [0, 0, 1, 0, 0, 0, 0, 0, 0, 0])]
+
+
+def cfCaseAt (i : Nat) : Bool :=
+  let c := cfCases.getD i default
+  cfCaseOk c.1 c.2.1 c.2.2.1 c.2.2.2.1 c.2.2.2.2.1
+
+/-- (A): the pairs of basis vectors `u_(i, sigma)` (`i < 2 n`, `sigma` the
+`a`-th embedding) all of whose Galois translates are of type `(1,1)`. -/
+def cfNSCount (r n : Nat) (phi : List Nat) : Nat :=
+  let us := cfUnits r
+  let hol := fun (i k : Nat) => if i < n then phi.contains k else phi.contains (r - k)
+  let bs := (List.range (2 * n)).foldr (fun i acc => us.foldr (fun k acc => (i, k) :: acc) acc) []
+  (List.range bs.length).foldl (fun s a => (List.range bs.length).foldl (fun s b =>
+    let x := bs.getD a (0, 0)
+    let y := bs.getD b (0, 0)
+    if a < b && us.all (fun g => hol x.1 (g * x.2 % r) != hol y.1 (g * y.2 % r)) then s + 1 else s) s) 0
+
+/-- (B): the recorded combinations of products of pairs of `W_F` give `s w_K(f)`
+on every product `alpha_sigma alpha_tau`, `sigma < tau`. -/
+def cfCompositeOk : Bool :=
+  let p : List Int := [1, 0, 0, 0]
+  let us := cfUnits 8
+  let omega := (List.range 4).map fun j => cfPow p (cfZeta 4) j
+  let ab := (List.range 4).foldr (fun a acc => (List.range 4).foldr (fun b acc =>
+    if a ≤ b then (a, b) :: acc else acc) acc) []
+  let ie := cfPow p (cfZeta 4) 2
+  cfMul p ie ie == cfConst 4 (-1) && ab.length == 10
+    && ([cfConst 4 1, ie].zip cfWeilK).all fun fc =>
+      us.all fun s => us.all fun t =>
+        !(s < t) ||
+          (let target := if s == 1 && t == 5 then cfApply 4 (cfPowers p (cfPow p (cfZeta 4) 1) 3) fc.1
+              else if s == 3 && t == 7 then cfApply 4 (cfPowers p (cfPow p (cfZeta 4) 3) 3) fc.1 else cfZero 4
+           cfSmul fc.2.1 target
+             == (ab.zip fc.2.2).foldl (fun acc x =>
+                  cfAdd acc (cfSmul x.2 (cfAdd
+                    (cfMul p (cfApply 4 (cfPowers p (cfPow p (cfZeta 4) s) 3) (omega.getD x.1.1 [])) (cfApply 4 (cfPowers p (cfPow p (cfZeta 4) t) 3) (omega.getD x.1.2 [])))
+                    (cfMul p (cfApply 4 (cfPowers p (cfPow p (cfZeta 4) t) 3) (omega.getD x.1.1 [])) (cfApply 4 (cfPowers p (cfPow p (cfZeta 4) s) 3) (omega.getD x.1.2 []))))))
+                (cfZero 4))
+
+/-- **(C) The base point, quartic fields.**  For `Q(zeta_5)` with `n = 2, 3`
+and `Q(zeta_8)` with `n = 2`: the CM type and its conjugate partition the
+embeddings, `xi` is totally imaginary, the trace-dual basis is dual and dual
+across the embeddings, the `u_(i, sigma)` are eigenvectors, `E` pairs
+`u_(i, sigma)` only with `u_(i, conj sigma)` and is alternating, and the
+balanced classes have the closed form. -/
+theorem cm_fields_quartic : (cfCaseAt 0 && cfCaseAt 1 && cfCaseAt 2) = true := by
+  decide +kernel
+
+/-- **(C) The base point, `Q(zeta_7)`, `n = 2`.**  The same for `Q(zeta_7)`
+with `n = 2`. -/
+theorem cm_fields_sextic_seven_two : cfCaseAt 3 = true := by
+  decide +kernel
+
+/-- **(C) The base point, `Q(zeta_7)`, `n = 1`.** -/
+theorem cm_fields_sextic_seven_one : cfCaseAt 4 = true := by
+  decide +kernel
+
+/-- **(C) The base point, `Q(zeta_9)`.**  The same for `Q(zeta_9)`, `n = 2`. -/
+theorem cm_fields_sextic_nine : cfCaseAt 5 = true := by
+  decide +kernel
+
+/-- **(A) The Neron-Severi rank at the base point.**  For `Q(zeta_5)`,
+`n = 2`, exactly `32` pairs of basis vectors have all their Galois
+translates of type `(1,1)`, so `NS` has dimension `32`. -/
+theorem cm_fields_neron_severi : cfNSCount 5 2 [1, 2] = 32 := by
+  decide +kernel
+
+/-- **(B) The composite field.**  In `Q(zeta_8)`, `i = zeta^2` has `i^2 = -1`,
+and `2 w_K(1) = w(omega_1) w(omega_3)`, `2 w_K(i) = w(1) w(omega_2)` on every
+product `alpha_sigma alpha_tau`, so `W_K` lies in the span of the products
+of pairs of `W_F`. -/
+theorem cm_fields_composite : cfCompositeOk = true := by
+  decide +kernel
+
+
+/-! ## 77.  The two classes on a Mumford fourfold as a real multiplication
+
+Item (XLI), Proposition (The two classes are a real multiplication), Lemma
+(The product map) and the Kuga-Satake map in the proof of Theorem (One K3
+surface for the two classes).  `V = Q^8` with basis index `v = 4a + 2b + c`;
+the generators `e_i, f_i, h_i` of the factor `i` of `sl_2^3` act on the bit
+`2 - i` of the index; `psi = eps (x) eps (x) eps`, so `psi(e_u, e_(7-u)) =
+(-1)^|u|` and `psi` vanishes on all other pairs.  An element of `wedge^2 V` is
+an antisymmetric `8 x 8` matrix `A`, on which `X` acts by `A -> XA - (XA)^T`;
+the Casimir operator of the factor `i` is `C_i = e_i f_i + f_i e_i + h_i^2 / 2`,
+which acts by `l (l + 2) / 2` on the irreducible module of highest weight `l`.
+
+(A) By `tgIrrRec` (Section 69), `wedge^2 V` is the sum of four pairwise
+non-isomorphic irreducible modules, of highest weights `(0,0,0), (0,2,2),
+(2,0,2), (2,2,0)` and dimensions `1, 9, 9, 9`; so `End_G(wedge^2 V)` has
+dimension `4` (Schur) and is spanned by the four isotypic projectors.  The
+four modules are the joint eigenspaces of `2 (C_1, C_2, C_3)`, with eigenvalues
+`(0,0,0), (0,8,8), (8,0,8), (8,8,0)`: the line `L` of `theta`, `U_23`, `U_13`
+and `U_12`, `U_ij = Sym^2 V_i (x) Sym^2 V_j`.
+
+(C) For `t` a generator of `T_i` and `s` one of `T_j`, `mu(t, s) = t^T psi s -
+(t^T psi s)^T` is carried to `wedge^2 V` by `M -> psi M psi^T`, that is
+`Y[a][b] = (-1)^(|a| + |b|) M[7-a][7-b]`.  The kernel checks `2 C_k Y = 8 Y`
+for `k in {i, j}` and `2 C_k Y = 0` otherwise when `i != j`, and `2 C_k Y = 0`
+with `Y` a multiple of `theta` when `i = j`; so `mu(T_i (x) T_j)` lies in
+`U_ij` and `mu(T_i (x) T_i)` in `L`.  For `i < j` the nine vectors of the block
+have a nonsingular minor, so `mu` carries `T_i (x) T_j` onto `U_ij`; the
+twenty-seven vectors of the three blocks and `theta` form a basis of
+`wedge^2 V`, so the image of `mu` is all of `H^2(X)`.
+
+(B) `e_u ^ e_v` has type `(p, 2 - p)`, `p` the number of `u, v` with `c = 0`
+(`V_3^(1,0)` is `c = 0`): six pairs have `p = 2`.  Every vector `mu(t, s)` is
+homogeneous; the bases of `U_12, U_13, U_23` have `(0, 9, 0), (3, 3, 3),
+(3, 3, 3)` vectors with `p = 2, 1, 0`, and `theta` has `p = 1`.  On `T`,
+`[h_3, e_3] = 2 e_3`, `[h_3, f_3] = -2 f_3`, and `h_3` commutes with the other
+seven generators, so `T(-1)` has Hodge numbers `(1, 7, 1)`.
+
+(D) `B(x, y)`, the coefficient of `x ^ y ^ theta ^ theta` in `wedge^8 V`, has
+nondegenerate Gram matrix `G`.  With `q_l = l_i tr(x y)` on `T_i` (matrix
+`l_i [[0,1,0],[1,0,0],[0,0,2]]` in the basis `e, f, h`) and `kappa = e_i` on
+`T_i`, `mu_kappa mu_kappa^dagger = Mu_kappa (q_l (x) q_l)^(-1) Mu_kappa^T G`.
+For `e = l = 1`, `(q_1 (x) q_1)^(-1)` sends the coordinate `(a, b)` to
+`w_a w_b` times the coordinate `(a*, b*)`, `e* = f`, `f* = e`, `h* = h`,
+`w = (1, 1, 1/2)`.  For each of the nine basis vectors `v` of `U_ij`, `i < j`,
+the kernel checks that the pairings `y_cd = B(mu(c, d), v)` vanish unless
+`{c, d}` meets `T_i` and `T_j`, and that `4 mu mu^dagger v = -64 v`; for
+`theta`, that `y_cd` vanishes off the diagonal blocks and each diagonal block
+`T_k (x) T_k` contributes `288 theta`.  So `mu mu^dagger` acts on the three
+`U_ij` by one scalar `nu = -16` (it scales with `theta^2`: `nu = -1` for
+`theta / 4`, the normalisation of the code) and on `theta` by `216`.  For
+general `e, l`: `Mu_kappa` is `e_i e_j Mu` on `T_i (x) T_j`, and `(q_l (x)
+q_l)^(-1)` is `1 / (l_i l_j)` times `(q_1 (x) q_1)^(-1)` there and preserves the
+block; so `mu_kappa mu_kappa^dagger = sum g_i g_j E^(ij)`, `g = e^2 / l`, with
+`E^(ij)` the contribution of the block, and by the vanishing of the `y_cd` it
+acts on `U_ij` by `nu g_i g_j` and on `theta` by `72 (g_1^2 + g_2^2 + g_3^2)`.
+On `U` it is `nu diag(g_1 g_2, g_1 g_3, g_2 g_3)`; the three values are
+distinct when `g_1, g_2, g_3` are distinct and nonzero, and then `1, E, E^2`
+span the three projectors (Vandermonde); when the `g_i` coincide `E` is a
+scalar.  Finally `tr_V(t_a t_b) = 4 [[0,1,0],[1,0,0],[0,0,2]]_ab` within a
+factor and `0` across factors, so `kappa^dagger kappa = q_l^(-1) (e_i e_j
+tr_V(t_a t_b)) = 4 e_i^2 / l_i` on `T_i`.
+
+(E) The Clifford algebra `C(T, q_l)`, `l = (1, 2, 5)`, on the orthogonal
+basis `g_(3i), g_(3i+1), g_(3i+2) = h_i, e_i + f_i, e_i - f_i`, with squares
+`2 l_i, 2 l_i, -2 l_i`; monomials are bitmasks and `a b = (-1)^s (prod_(k in a
+cap b) g_k^2) (a xor b)`, `s` the number of pairs `j in a`, `k in b`, `j > k`.
+The kernel checks: (E1) each recorded lift `ell = Z / s` of `x = e_i, f_i, h_i`
+satisfies `[ell, g_c] = [x, g_c]` for the three `g_c` of `T_i` (the bracket
+of `sl_2`, through the matrices `[[1,0],[0,-1]], [[0,1],[1,0]],
+[[0,1],[-1,0]]` of `h, e + f, e - f`) and `[ell, g_c] = 0` for the six others,
+and `[ell(e_i), ell(f_i)] = ell(h_i)`; (E2) the thirty-two recorded `w_k` are
+even, in normal form, satisfy `ell(e_i) w = 0` and `ell(h_i) w = w`, and have a
+nonsingular minor of size `32`; (E3) `h_i w_k v_0 = N_i[l][k] w_l` for the
+recorded `N_i`, `v_0 = g_0`, `h_i = g_(3i)`; (E4) `N_i^2 = s_i` with `s_i != 0`
+and `s_i / l_i` constant, and `N_i N_j + N_j N_i = 0` for `i != j`.
+
+By (E1), left multiplication by the lifts is an action of `sl_2^3` on
+`C^+(T)`, which is completely reducible; thirty-two independent vectors of
+highest weight `(1, 1, 1)` generate `V^32`, of dimension `256 = dim C^+(T)`,
+so `C^+(T) = V (x) W` with `dim W = 32`.  By (E1) again, `Psi : T (x) C^+ ->
+C^+`, `v (x) x -> v x v_0`, is equivariant, and `Hom_g(T_i (x) V, V) =
+Hom_g(T_i, End V)` is one-dimensional, so `Psi(v) = v (x) N_i` on `V (x) W` for
+`v in T_i`, with `N_i` determined by `Psi(h_i) w_k = h_i w_k v_0` since `h_i`
+fixes the highest weight vector: that is (E3).  If `sum a_i N_i = 0` then
+`sum a_i^2 s_i = 0` by (E4), and the `s_i` have one sign, so the `N_i` are
+linearly independent.
+-/
+
+/-- the invariant vector `theta` of `wedge^2 V`, spanning the image of the
+projector onto the trivial summand. -/
+def mrTheta : List Int := [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+/-- for the blocks `(i, j) = (0, 1), (0, 2), (1, 2)`, nine coordinates on
+which the nine vectors `mu(t, s)` have a nonsingular minor. -/
+def mrBlockCols : List (List Nat) := [[0, 2, 4, 6, 13, 17, 22, 24, 27], [1, 2, 5, 6, 8, 12, 23, 24, 26], [3, 4, 5, 6, 10, 12, 16, 17, 21]]
+/-- the spin lifts `(s, Z)`, lift `= Z / s`, in the order `(i, e), (i, f),
+(i, h)`, `i = 0, 1, 2`. -/
+def mrLifts : List (Nat × List (Nat × Int)) := [(4, [(3, 1), (5, 1)]), (4, [(3, -1), (5, 1)]), (2, [(6, -1)]), (8, [(24, 1), (40, 1)]), (8, [(24, -1), (40, 1)]), (4, [(48, -1)]), (20, [(192, 1), (320, 1)]), (20, [(192, -1), (320, 1)]), (10, [(384, -1)])]
+/-- the vectors of highest weight `(1, 1, 1)` in `C^+(T)`, and a minor. -/
+def mrHW : List (List (Nat × Int)) := [[(147, 1), (149, 1), (163, 1), (165, 1), (275, 1), (277, 1), (291, 1), (293, 1)], [(144, -2), (150, 1), (160, -2), (166, 1), (272, -2), (278, 1), (288, -2), (294, 1)], [(154, 1), (156, 1), (170, 1), (172, 1), (282, 1), (284, 1), (298, 1), (300, 1)], [(153, -2), (159, 1), (169, -2), (175, 1), (281, -2), (287, 1), (297, -2), (303, 1)], [(130, -4), (132, -4), (178, 1), (180, 1), (258, -4), (260, -4), (306, 1), (308, 1)], [(129, 8), (135, -4), (177, -2), (183, 1), (257, 8), (263, -4), (305, -2), (311, 1)], [(139, -4), (141, -4), (187, 1), (189, 1), (267, -4), (269, -4), (315, 1), (317, 1)], [(136, 8), (142, -4), (184, -2), (190, 1), (264, 8), (270, -4), (312, -2), (318, 1)], [(210, 1), (212, 1), (226, 1), (228, 1), (338, 1), (340, 1), (354, 1), (356, 1)], [(209, -2), (215, 1), (225, -2), (231, 1), (337, -2), (343, 1), (353, -2), (359, 1)], [(219, 1), (221, 1), (235, 1), (237, 1), (347, 1), (349, 1), (363, 1), (365, 1)], [(216, -2), (222, 1), (232, -2), (238, 1), (344, -2), (350, 1), (360, -2), (366, 1)], [(195, -4), (197, -4), (243, 1), (245, 1), (323, -4), (325, -4), (371, 1), (373, 1)], [(192, 8), (198, -4), (240, -2), (246, 1), (320, 8), (326, -4), (368, -2), (374, 1)], [(202, -4), (204, -4), (250, 1), (252, 1), (330, -4), (332, -4), (378, 1), (380, 1)], [(201, 8), (207, -4), (249, -2), (255, 1), (329, 8), (335, -4), (377, -2), (383, 1)], [(18, -10), (20, -10), (34, -10), (36, -10), (402, 1), (404, 1), (418, 1), (420, 1)], [(17, 20), (23, -10), (33, 20), (39, -10), (401, -2), (407, 1), (417, -2), (423, 1)], [(27, -10), (29, -10), (43, -10), (45, -10), (411, 1), (413, 1), (427, 1), (429, 1)], [(24, 20), (30, -10), (40, 20), (46, -10), (408, -2), (414, 1), (424, -2), (430, 1)], [(3, 40), (5, 40), (51, -10), (53, -10), (387, -4), (389, -4), (435, 1), (437, 1)], [(0, -80), (6, 40), (48, 20), (54, -10), (384, 8), (390, -4), (432, -2), (438, 1)], [(10, 40), (12, 40), (58, -10), (60, -10), (394, -4), (396, -4), (442, 1), (444, 1)], [(9, -80), (15, 40), (57, 20), (63, -10), (393, 8), (399, -4), (441, -2), (447, 1)], [(83, -10), (85, -10), (99, -10), (101, -10), (467, 1), (469, 1), (483, 1), (485, 1)], [(80, 20), (86, -10), (96, 20), (102, -10), (464, -2), (470, 1), (480, -2), (486, 1)], [(90, -10), (92, -10), (106, -10), (108, -10), (474, 1), (476, 1), (490, 1), (492, 1)], [(89, 20), (95, -10), (105, 20), (111, -10), (473, -2), (479, 1), (489, -2), (495, 1)], [(66, 40), (68, 40), (114, -10), (116, -10), (450, -4), (452, -4), (498, 1), (500, 1)], [(65, -80), (71, 40), (113, 20), (119, -10), (449, 8), (455, -4), (497, -2), (503, 1)], [(75, 40), (77, 40), (123, -10), (125, -10), (459, -4), (461, -4), (507, 1), (509, 1)], [(72, -80), (78, 40), (120, 20), (126, -10), (456, 8), (462, -4), (504, -2), (510, 1)]]
+def mrHWMinor : List Nat × List Nat := ([0, 3, 9, 10, 17, 18, 24, 27, 65, 66, 72, 75, 80, 83, 89, 90, 129, 130, 136, 139, 144, 147, 153, 154, 192, 195, 201, 202, 209, 210, 216, 219], [21, 20, 23, 22, 17, 16, 19, 18, 29, 28, 31, 30, 25, 24, 27, 26, 5, 4, 7, 6, 1, 0, 3, 2, 13, 12, 15, 14, 9, 8, 11, 10])
+/-- `N_1, N_2, N_3`, each with one nonzero entry in every column: column `k`
+is `(l, c)` with `N_i w_k = c w_l`. -/
+def mrN : List (List (Nat × Int)) := [[(0, -2), (1, 2), (2, 2), (3, -2), (4, 2), (5, -2), (6, -2), (7, 2), (8, 2), (9, -2), (10, -2), (11, 2), (12, -2), (13, 2), (14, 2), (15, -2), (16, 2), (17, -2), (18, -2), (19, 2), (20, -2), (21, 2), (22, 2), (23, -2), (24, -2), (25, 2), (26, 2), (27, -2), (28, 2), (29, -2), (30, -2), (31, 2)], [(2, 2), (3, -1), (0, 4), (1, -8), (6, 1), (7, -2), (4, 8), (5, -4), (10, 1), (11, -2), (8, 8), (9, -4), (14, 2), (15, -1), (12, 4), (13, -8), (18, 1), (19, -2), (16, 8), (17, -4), (22, 2), (23, -1), (20, 4), (21, -8), (26, 2), (27, -1), (24, 4), (25, -8), (30, 1), (31, -2), (28, 8), (29, -4)], [(8, -2), (9, 1), (10, 1), (11, -2), (12, 1), (13, -2), (14, -2), (15, 1), (0, -10), (1, 20), (2, 20), (3, -10), (4, 20), (5, -10), (6, -10), (7, 20), (24, -1), (25, 2), (26, 2), (27, -1), (28, 2), (29, -1), (30, -1), (31, 2), (16, -20), (17, 10), (18, 10), (19, -20), (20, 10), (21, -20), (22, -20), (23, 10)]]
+
+abbrev MrMat := List (List Int)
+
+def mrZeroRow : List Int := List.replicate 8 0
+
+/-- `X A` for the generator `X = e_i, f_i, h_i` (`k = 0, 1, 2`) of the factor
+`i`, which acts on the bit `2 - i` of the index. -/
+def mrL (i k : Nat) (A : MrMat) : MrMat :=
+  let m := 1 <<< (2 - i)
+  (List.range 8).map fun r =>
+    if k == 0 then (if r &&& m == 0 then A.getD (r + m) mrZeroRow else mrZeroRow)
+    else if k == 1 then (if r &&& m == 0 then mrZeroRow else A.getD (r - m) mrZeroRow)
+    else if r &&& m == 0 then A.getD r mrZeroRow else (A.getD r mrZeroRow).map (- ·)
+
+def mrT (A : MrMat) : MrMat := (List.range 8).map fun j => A.map fun r => r.getD j 0
+def mrSub (A B : MrMat) : MrMat := (A.zip B).map fun p => (p.1.zip p.2).map fun q => q.1 - q.2
+def mrAddM (A B : MrMat) : MrMat := (A.zip B).map fun p => (p.1.zip p.2).map fun q => q.1 + q.2
+def mrSc (c : Int) (A : MrMat) : MrMat := A.map (·.map (c * ·))
+def mrI : MrMat := (List.range 8).map fun r => (List.range 8).map fun c => if r == c then 1 else 0
+def mrGen (i k : Nat) : MrMat := mrL i k mrI
+
+/-- the action on `wedge^2 V`. -/
+def mrAct (i k : Nat) (A : MrMat) : MrMat := let B := mrL i k A; mrSub B (mrT B)
+
+/-- `2 C_i`. -/
+def mrCas2 (i : Nat) (A : MrMat) : MrMat :=
+  mrAddM (mrSc 2 (mrAddM (mrAct i 0 (mrAct i 1 A)) (mrAct i 1 (mrAct i 0 A)))) (mrAct i 2 (mrAct i 2 A))
+
+def mrPairs : List (Nat × Nat) :=
+  (List.range 8).flatMap fun a => ((List.range 8).filter (a < ·)).map fun b => (a, b)
+
+def mrVec (Y : MrMat) : List Int := mrPairs.map fun p => (Y.getD p.1 []).getD p.2 0
+
+def mrSign (u : Nat) : Int := if pcParity u then -1 else 1
+
+/-- `mu(t, s)` for `t = X_(i,k)`, `s = X_(j,l)`, carried to `wedge^2 V`; the
+transpose of the generator `k` is the generator `[1, 0, 2][k]`. -/
+def mrMu (i k j l : Nat) : MrMat :=
+  let s := mrGen j l
+  let ps : MrMat := (List.range 8).map fun u => (s.getD (7 - u) mrZeroRow).map (mrSign u * ·)
+  let A := mrL i ([1, 0, 2].getD k 0) ps
+  let M := mrSub A (mrT A)
+  (List.range 8).map fun a => (List.range 8).map fun b =>
+    mrSign a * mrSign b * (M.getD (7 - a) []).getD (7 - b) 0
+
+/-- the nine matrices `mu(t, s)` of the block `(i, j)`. -/
+def mrBlock (i j : Nat) : List MrMat :=
+  (List.range 3).flatMap fun k => (List.range 3).map fun l => mrMu i k j l
+
+/-- the vectors of the block are joint eigenvectors of the `2 C_k` with the
+eigenvalues of `U_ij` (`i != j`) or of `L` (`i = j`); on the diagonal they are
+multiples of `theta`, and one of them is nonzero. -/
+def mrEigenOk (i j : Nat) : Bool :=
+  let Ys := mrBlock i j
+  Ys.all (fun Y => (List.range 3).all fun c =>
+    mrCas2 c Y == mrSc (if i != j && (c == i || c == j) then 8 else 0) Y)
+  && (i != j || (Ys.all (fun Y => let v := mrVec Y
+        (List.range 28).all fun k => v.getD k 0 * mrTheta.getD 6 0 == mrTheta.getD k 0 * v.getD 6 0)
+      && Ys.any (fun Y => (mrVec Y).any (· != 0))))
+
+/-- a square minor on the columns `cols` is nonsingular modulo `tgP`. -/
+def mrMinorOk (vs : List (List Int)) (cols : List Nat) : Bool :=
+  vs.length == cols.length
+    && tgNonsing tgP (cols.length + 1) (vs.map fun v => cols.map fun c => tgModP (v.getD c 0))
+
+/-- the type `p` of `e_a ^ e_b`. -/
+def mrType (a b : Nat) : Nat := (if a % 2 == 0 then 1 else 0) + (if b % 2 == 0 then 1 else 0)
+
+/-- the common type of the nonzero coordinates of `v`, if there is one. -/
+def mrHomog (v : List Int) : Option Nat :=
+  match (mrPairs.zip v).filterMap (fun q => if q.2 != 0 then some (mrType q.1.1 q.1.2) else none) with
+  | [] => none
+  | t :: rest => if rest.all (· == t) then some t else none
+
+/-- the numbers of vectors of types `p = 2, 1, 0`. -/
+def mrHodge (vs : List (List Int)) : List Nat := [2, 1, 0].map fun p => vs.countP fun v => mrHomog v == some p
+
+/-- the sign of `x ^ y` for monomials (bitmasks) of the exterior algebra of `V`. -/
+def mrWSign (x y : Nat) : Int :=
+  if (List.range 8).foldl (fun s b => if y.testBit b && pcParity (x >>> (b + 1)) then !s else s) false
+  then -1 else 1
+
+def mrMask (k : Nat) : Nat := let p := mrPairs.getD k (0, 0); (1 <<< p.1) ||| (1 <<< p.2)
+
+/-- `theta ^ theta`, as terms `(mask, coefficient)`. -/
+def mrTT : List (Nat × Int) :=
+  let th := (List.range 28).filterMap fun k =>
+    if mrTheta.getD k 0 != 0 then some (mrMask k, mrTheta.getD k 0) else none
+  th.flatMap fun x => th.filterMap fun y =>
+    if x.1 &&& y.1 == 0 then some (x.1 ||| y.1, mrWSign x.1 y.1 * x.2 * y.2) else none
+
+def mrTTCoef (S : Nat) : Int := mrTT.foldl (fun s t => if t.1 == S then s + t.2 else s) 0
+
+/-- the Gram matrix of `B`: the entry `(p, q)` is the coefficient of
+`e_q ^ e_p ^ theta^2` in `wedge^8 V`. -/
+def mrGram : List (List Int) :=
+  (List.range 28).map fun p => (List.range 28).map fun q =>
+    let P := mrMask p
+    let Q := mrMask q
+    if P &&& Q != 0 then 0 else
+      let S := 255 - P - Q
+      mrTTCoef S * mrWSign P S * mrWSign Q (P ||| S)
+
+def mrDot (u v : List Int) : Int := (u.zip v).foldl (fun s q => s + q.1 * q.2) 0
+
+def mrW2 (k : Nat) : Int := if k == 2 then 1 else 2
+
+def mrStar (a : Nat) : Nat := 3 * (a / 3) + [1, 0, 2].getD (a % 3) 0
+
+/-- `(4 E' v, y)`, `y_cd = B(mu(c, d), v)` and `E'` the part of `mu mu^dagger`
+(`e = l = 1`) from the blocks `(a / 3, b / 3)` that `keep` selects; `G` is the
+Gram matrix as sparse rows and `mus` the eighty-one vectors `mu(a, b)`. -/
+def mrE4 (G : List (List (Nat × Int))) (mus : List (List Int)) (keep : Nat → Nat → Bool)
+    (v : List Int) : List Int × List Int :=
+  let Gv := G.map fun row => row.foldl (fun s q => s + q.2 * v.getD q.1 0) 0
+  let y := mus.map fun m => mrDot m Gv
+  let out := (List.range 81).foldl (fun acc t =>
+    let a := t / 9
+    let b := t % 9
+    if keep (a / 3) (b / 3) then
+      let c := mrW2 (a % 3) * mrW2 (b % 3) * y.getD (9 * mrStar a + mrStar b) 0
+      if c == 0 then acc else (acc.zip (mus.getD t [])).map fun q => q.1 + c * q.2
+    else acc) (List.replicate 28 0)
+  (out, y)
+
+/-- on the nine vectors of `U_ij` (`i < j`), the pairings vanish off the blocks
+`(i, j), (j, i)` and `4 mu mu^dagger = -64`. -/
+def mrAdjointOk (G : List (List (Nat × Int))) (mus : List (List Int)) (i j : Nat) : Bool :=
+  (mrBlock i j).all fun Y =>
+    let v := mrVec Y
+    let r := mrE4 G mus (fun _ _ => true) v
+    r.1 == v.map (-64 * ·)
+      && (List.range 81).all fun t =>
+        let a := t / 27
+        let b := t % 9 / 3
+        (a == i && b == j) || (a == j && b == i) || r.2.getD t 0 == 0
+
+def mrTr (A : MrMat) : Int := (List.range 8).foldl (fun s r => s + (A.getD r []).getD r 0) 0
+
+def mrQ (k : Nat) : Int := [2, 2, -2, 4, 4, -4, 10, 10, -10].getD k 0
+
+/-- the sign of the product of two Clifford monomials. -/
+def clOdd (a b : Nat) : Bool :=
+  (List.range 9).foldl (fun s k => if b.testBit k && pcParity (a >>> (k + 1)) then !s else s) false
+
+def clQ (m : Nat) : Int := (List.range 9).foldl (fun s k => if m.testBit k then s * mrQ k else s) 1
+
+/-- insert a term into a list sorted by monomial, merging and dropping zeros. -/
+def clIns (t : Nat × Int) : List (Nat × Int) → List (Nat × Int)
+  | [] => if t.2 == 0 then [] else [t]
+  | u :: us =>
+    if t.1 < u.1 then (if t.2 == 0 then u :: us else t :: u :: us)
+    else if t.1 == u.1 then (if t.2 + u.2 == 0 then us else (u.1, t.2 + u.2) :: us)
+    else u :: clIns t us
+
+def clN (x : List (Nat × Int)) : List (Nat × Int) := x.foldl (fun acc t => clIns t acc) []
+
+def clMul (x y : List (Nat × Int)) : List (Nat × Int) :=
+  clN (x.flatMap fun p => y.map fun q =>
+    (p.1 ^^^ q.1, (if clOdd p.1 q.1 then -1 else 1) * clQ (p.1 &&& q.1) * p.2 * q.2))
+
+def clSc (c : Int) (x : List (Nat × Int)) : List (Nat × Int) := clN (x.map fun t => (t.1, c * t.2))
+
+def clSub (x y : List (Nat × Int)) : List (Nat × Int) := clN (x ++ y.map fun t => (t.1, -t.2))
+
+def mrLift (i k : Nat) : Nat × List (Nat × Int) := mrLifts.getD (3 * i + k) (1, [])
+
+/-- the matrices of `e, f, h` and of `h, e + f, e - f` in `sl_2`. -/
+def mrX2 (k : Nat) : List (List Int) := [[[0, 1], [0, 0]], [[0, 0], [1, 0]], [[1, 0], [0, -1]]].getD k []
+def mrG2 (c : Nat) : List (List Int) := [[[1, 0], [0, -1]], [[0, 1], [1, 0]], [[0, 1], [-1, 0]]].getD c []
+
+def mr2Mul (A B : List (List Int)) : List (List Int) :=
+  (List.range 2).map fun r => (List.range 2).map fun c =>
+    (A.getD r []).getD 0 0 * (B.getD 0 []).getD c 0 + (A.getD r []).getD 1 0 * (B.getD 1 []).getD c 0
+
+/-- (E1). -/
+def mrLiftOk : Bool :=
+  (List.range 3).all (fun i => (List.range 3).all fun k =>
+    let L := mrLift i k
+    let s : Int := L.1
+    (List.range 9).all fun c =>
+      let g : List (Nat × Int) := [(1 <<< c, 1)]
+      let br := clSub (clMul L.2 g) (clMul g L.2)
+      if c / 3 == i then
+        let X := mrX2 k
+        let Gc := mrG2 (c % 3)
+        let P := mr2Mul X Gc
+        let Q := mr2Mul Gc X
+        let z := fun (r t : Nat) => (P.getD r []).getD t 0 - (Q.getD r []).getD t 0
+        let b := 3 * i
+        clSc 2 br == clN [(1 <<< b, s * (2 * z 0 0)), (1 <<< (b + 1), s * (z 0 1 + z 1 0)),
+          (1 <<< (b + 2), s * (z 0 1 - z 1 0))]
+      else br == [])
+  && (List.range 3).all fun i =>
+    let E := mrLift i 0
+    let F := mrLift i 1
+    let H := mrLift i 2
+    clSc (H.1 : Int) (clSub (clMul E.2 F.2) (clMul F.2 E.2)) == clSc ((E.1 * F.1 : Nat) : Int) H.2
+
+/-- (E2). -/
+def mrHWOk : Bool :=
+  mrHW.length == 32
+  && mrHW.all (fun w => w.all (fun t => !pcParity t.1) && clN w == w
+      && (List.range 3).all fun i =>
+        clMul (mrLift i 0).2 w == [] && clMul (mrLift i 2).2 w == clSc ((mrLift i 2).1 : Int) w)
+  && tgNonsing tgP 33 (mrHWMinor.1.map fun m => mrHWMinor.2.map fun c => tgModP (tgCoef (mrHW.getD c []) m))
+
+def mrNAt (i k : Nat) : Nat × Int := (mrN.getD i []).getD k (0, 0)
+
+/-- (E3). -/
+def mrNOk : Bool :=
+  (List.range 3).all fun i => (mrN.getD i []).length == 32 && (List.range 32).all fun k =>
+    let lc := mrNAt i k
+    lc.1 < 32 && clMul (clMul [(1 <<< (3 * i), 1)] (mrHW.getD k [])) [(1, 1)] == clSc lc.2 (mrHW.getD lc.1 [])
+
+/-- the scalar `N_i^2`, read off the first column. -/
+def mrNSq (i : Nat) : Int := (mrNAt i (mrNAt i 0).1).2 * (mrNAt i 0).2
+
+/-- (E4). -/
+def mrNAlgOk : Bool :=
+  (List.range 3).all (fun i => mrNSq i != 0 && (List.range 32).all fun k =>
+      let p := mrNAt i k
+      let q := mrNAt i p.1
+      q.1 == k && q.2 * p.2 == mrNSq i)
+  && (List.range 3).all (fun i => (List.range 3).all fun j => i == j || (List.range 32).all fun k =>
+      let a := mrNAt j k
+      let b := mrNAt i a.1
+      let c := mrNAt i k
+      let d := mrNAt j c.1
+      b.1 == d.1 && b.2 * a.2 + d.2 * c.2 == 0)
+  && (List.range 3).all fun i => mrNSq i * [1, 2, 5].getD 0 0 == mrNSq 0 * [1, 2, 5].getD i 0
+
+
+/-- **(A), (C) The isotypic decomposition.**  `wedge^2 V` has four irreducible
+summands of multiplicity one, so its commutant has dimension four; the vectors
+`mu(t, s)` of the blocks `(0, 1), (1, 0), (0, 2)` are joint eigenvectors of the
+Casimir operators with the eigenvalues of `U_ij`. -/
+theorem mumford_rm_isotypic :
+    ((tgIrrRec.getD 2 []).length == 27
+      && [0, 4, 10, 12].all (fun t => (tgIrrRec.getD 2 []).getD t 0 == 1)
+      && (tgIrrRec.getD 2 []).foldl (fun (a b : Int) => a + b) 0 == 4
+      && [0, 4, 10, 12].map (fun t => (tgLam 2).getD t (9, 9, 9)) == [(0, 0, 0), (0, 2, 2), (2, 0, 2), (2, 2, 0)]
+      && [(0, 0, 0), (0, 2, 2), (2, 0, 2), (2, 2, 0)].map
+          (fun (l : Nat × Nat × Nat) => (l.1 + 1) * (l.2.1 + 1) * (l.2.2 + 1)) == [1, 9, 9, 9]
+      && exHom 2 2 == 4
+      && [(0, 1), (1, 0), (0, 2)].all (fun (p : Nat × Nat) => mrEigenOk p.1 p.2)) = true := by
+  decide +kernel
+
+/-- **(C) The isotypic decomposition, the other mixed blocks.**  The same for
+the blocks `(2, 0), (1, 2), (2, 1)`. -/
+theorem mumford_rm_isotypic_mixed :
+    ([(2, 0), (1, 2), (2, 1)].all fun (p : Nat × Nat) => mrEigenOk p.1 p.2) = true := by
+  decide +kernel
+
+/-- **(C) The isotypic decomposition, diagonal blocks.**  `mu(T_k (x) T_k)` lies
+in the line of `theta` and is not zero. -/
+theorem mumford_rm_isotypic_diagonal :
+    ([0, 1, 2].all fun k => mrEigenOk k k) = true := by
+  decide +kernel
+
+/-- **(B), (C) The image of `mu` and the Hodge numbers.**  Each block `(i, j)`,
+`i < j`, has rank nine; the twenty-seven vectors with `theta` form a basis of
+`wedge^2 V`; `h^(2,0) = 6`; the Hodge numbers of `U_12, U_13, U_23` are
+`(0,9,0), (3,3,3), (3,3,3)`, `theta` is of type `(1,1)`, and `T(-1)` has Hodge
+numbers `(1,7,1)`. -/
+theorem mumford_rm_image :
+    (let blocks := [(0, 1), (0, 2), (1, 2)].map fun (p : Nat × Nat) => (mrBlock p.1 p.2).map mrVec
+     (List.range 3).all (fun t => mrMinorOk (blocks.getD t []) (mrBlockCols.getD t []))
+      && mrMinorOk (blocks.flatten ++ [mrTheta]) (List.range 28)
+      && mrPairs.countP (fun p => mrType p.1 p.2 == 2) == 6
+      && blocks.map mrHodge == [[0, 9, 0], [3, 3, 3], [3, 3, 3]]
+      && mrHomog mrTheta == some 1
+      && (List.range 9).all (fun a =>
+          let X := mrGen (a / 3) (a % 3)
+          mrSub (mrL 2 2 X) (mrT (mrL 2 2 (mrT X)))
+            == mrSc (if a == 6 then 2 else if a == 7 then -2 else 0) X)) = true := by
+  decide +kernel
+
+/-- **(D) The Lefschetz pairing and the trace form.**  The Gram matrix of
+`int x y theta^2` on `H^2(X)` is nonsingular, and `tr_V(t_a t_b) = 4 g_ab`
+within a factor, `0` across factors. -/
+theorem mumford_rm_pairing :
+    (mrMinorOk mrGram (List.range 28)
+      && (List.range 9).all fun a => (List.range 9).all fun b =>
+        mrTr (mrL (a / 3) (a % 3) (mrGen (b / 3) (b % 3)))
+          == if a / 3 == b / 3 then 4 * ([[0, 1, 0], [1, 0, 0], [0, 0, 2]].getD (a % 3) []).getD (b % 3) 0
+             else 0) = true := by
+  decide +kernel
+
+/-- **(D) The adjoint on `U_12` and `U_13`.**  On the nine basis vectors of
+`U_ij` the pairings `B(mu(c, d), v)` vanish off the blocks `(i, j), (j, i)`,
+and `4 mu mu^dagger = -64`. -/
+theorem mumford_rm_adjoint_one :
+    (let G := mrGram.map fun row => ((List.range 28).zip row).filter (·.2 != 0)
+     let mus := (List.range 81).map fun t => mrVec (mrMu (t / 27) (t / 9 % 3) (t % 9 / 3) (t % 3))
+     mrAdjointOk G mus 0 1 && mrAdjointOk G mus 0 2) = true := by
+  decide +kernel
+
+/-- **(D) The adjoint on `U_23` and on `theta`.**  The same on `U_23`; for
+`theta` the pairings vanish off the diagonal blocks and each diagonal block
+contributes `288 theta` to `4 mu mu^dagger theta`. -/
+theorem mumford_rm_adjoint_two :
+    (let G := mrGram.map fun row => ((List.range 28).zip row).filter (·.2 != 0)
+     let mus := (List.range 81).map fun t => mrVec (mrMu (t / 27) (t / 9 % 3) (t % 9 / 3) (t % 3))
+     mrAdjointOk G mus 1 2
+      && ((mrE4 G mus (fun _ _ => true) mrTheta).2.zip (List.range 81)).all
+          (fun q => q.2 / 27 == q.2 % 9 / 3 || q.1 == 0)
+      && [0, 1, 2].all fun k =>
+          (mrE4 G mus (fun i j => i == k && j == k) mrTheta).1 == mrTheta.map (288 * ·)) = true := by
+  decide +kernel
+
+/-- **(E) The spin lifts and the vectors of highest weight.**  (E1) and (E2):
+the lifts act on `T` through the bracket of `sl_2` and satisfy `[e, f] = h`;
+thirty-two independent even vectors of highest weight `(1, 1, 1)`. -/
+theorem mumford_rm_spin :
+    (mrLiftOk && mrHWOk && 8 * 32 == 2 ^ 8) = true := by
+  decide +kernel
+
+/-- **(E) The Kuga-Satake map.**  (E3) and (E4): `h_i w_k v_0 = N_i w_k`, the
+`N_i` anticommute pairwise and square to the nonzero scalars `4, 8, 20`,
+proportional to `l = (1, 2, 5)`. -/
+theorem mumford_rm_kuga_satake :
+    (mrNOk && mrNAlgOk && [0, 1, 2].map mrNSq == [4, 8, 20]) = true := by
+  decide +kernel
+
+
+/-! ## 78.  The Hodge locus of an exceptional class, and twistor lines
+
+Item (XLVII), Proposition (The Hodge locus among all complex tori, and
+twistor lines).
+The model is that of Section 77 over `C`: the basis vector `j = 4a + 2b + c`
+of `V` has weight `(1 - 2a, 1 - 2b, 1 - 2c)`, `psi = S (x) S (x) S` with
+`S = [[0, -1], [1, 0]]` (the matrix of `eps` up to sign), and the real form
+with a compact factor at the first two places is cut out by
+`x -> M conj(x)`, `M = S (x) S (x) 1`.  The complex structures are
+`J_3 = 1 (x) 1 (x) j_3`, `j_3 = S` (a member of the Mumford family), and
+`J_1 = j_1 (x) 1 (x) 1`, `J_2 = 1 (x) j_1 (x) 1`, `j_1 = diag(i, -i)` (points of
+twistor spheres).
+
+(A) `M conj(M) = 1`; the eight recorded Gaussian integer vectors satisfy
+`M conj(x) = x` and are independent over `R` (a nonsingular minor on eight of
+their sixteen real coordinates), so they are a basis of `V_R`; `psi` is real
+and alternating on it.
+
+(B) Each `J` satisfies `J M = M conj(J)` (it preserves `V_R`) and `J^2 = -1`;
+`G_J = psi(x, J y)` on `V_R` is real and symmetric, and the recorded `P` has
+`P^T G_J P` diagonal with nonzero determinant, with `(0, 8)` positive and
+negative entries for `J_3` (a polarisation up to sign) and `(4, 4)` for `J_1`
+and `J_2`.  The quaternion `k = S (x) 1 (x) 1` preserves `V_R` and `psi`,
+anticommutes with `J_1` and carries `G_(J_1)` to `-G_(J_1)`.  So for every
+real symmetric `2 x 2` matrix `T`, `1 (x) k` is a congruence from `T (x) G` to
+`-(T (x) G)`, and `T (x) G` is indefinite when `T != 0` (`G` is
+nondegenerate).  The classes of degree two on `V + V` invariant under the
+group are `psi (x) T`: none polarises the square at `J_1`.
+
+(C) The tensors `pi` of the four isotypic pieces of `wedge^2 V`: with the
+bases `u_k` of Section 77 and the form `B(e_a ^ e_b, e_c ^ e_d) =
+psi(a, c) psi(b, d) - psi(a, d) psi(b, c)`, which pairs `(a, b)` only with
+`(7 - b, 7 - a)`, the kernel checks `Gamma (D Gamma^(-1)) = D` for the
+recorded `D Gamma^(-1)`, and forms `D pi = sum (D Gamma^(-1))_kl u_k (x) u_l`
+in `wedge^2 V (x) wedge^2 V`, the `(2, 2)` Kunneth part of `wedge^4 (V + V)`,
+and `D omega = sum a_key D pi_key` for `a = (3, 5, -7, 11)`.  Every monomial of
+every `pi` has two vectors of weight `+1` in the first factor and two in the
+third: at `J_1`, whose `(1, 0)`-part is spanned by the vectors of first weight
+`+1`, and at `J_3` (after a change of basis of the third factor in `SL_2(C)`
+diagonalising `j_3`, which fixes `psi` and the invariant tensors `pi`), the
+`pi` have type `(2, 2)`.  `omega` is killed by the nine generators acting as
+derivations on both copies.  For the factors `0` and `2` the sixty-four
+operators `e_i ^ iota_j`, `i` of weight `-1` and `j` of weight `+1` in that
+factor (a basis of `H^(0,1) (x) T` of the square), applied to `D omega`, have
+a nonsingular minor of size `63`; the derivation of the lowering operator of
+the factor on both copies is `sum_j e_(j') ^ iota_j`, `j'` the vector `j` with
+the weight lowered, and kills `omega`.  So the annihilator of `omega_a` in
+`H^1(T)` is the line of that derivation.
+
+(D) The exchange `(a, b, c) -> (c, b, a)` of the first and third factors
+carries `pi_12` to `pi_23` and fixes `pi_0` and `pi_13`, so the computation at
+`J_1` is the one at `J_3` for the class with `a_12` and `a_23` exchanged.
+-/
+
+/-- the basis of `V_R`, as eight columns of Gaussian integers `(re, im)`. -/
+def twVR : List (List (Int × Int)) := [[(1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (1, 0), (0, 0)], [(0, 1), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, -1), (0, 0)], [(0, 0), (1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (1, 0)], [(0, 0), (0, 1), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, -1)], [(0, 0), (0, 0), (1, 0), (0, 0), (-1, 0), (0, 0), (0, 0), (0, 0)], [(0, 0), (0, 0), (0, 1), (0, 0), (0, 1), (0, 0), (0, 0), (0, 0)], [(0, 0), (0, 0), (0, 0), (1, 0), (0, 0), (-1, 0), (0, 0), (0, 0)], [(0, 0), (0, 0), (0, 0), (0, 1), (0, 0), (0, 1), (0, 0), (0, 0)]]
+/-- eight real coordinates (`0..7` real parts, `8..15` imaginary parts) on
+which the columns of `twVR` are independent. -/
+def twVRRows : List Nat := [0, 1, 2, 3, 8, 9, 10, 11]
+/-- for `J_3, J_1, J_2`: `P` with `P^T G P` diagonal, `G = psi(x, J y)` on `V_R`. -/
+def twCong : List (List (List Int)) := [[[1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 1]], [[1, -1, 1, -1, 0, 0, 0, 0], [0, 2, -2, 0, 0, 0, 0, 0], [0, 0, 1, -1, 0, 0, 0, 0], [1, 1, -1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 1, -1, 1, -1], [0, 0, 0, 0, 0, 2, -2, 0], [0, 0, 0, 0, 0, 0, 1, -1], [0, 0, 0, 0, 1, 1, -1, 1]], [[1, -1, 1, -1, 0, 0, 0, 0], [0, 2, -2, 0, 0, 0, 0, 0], [0, 0, 1, -1, 0, 0, 0, 0], [1, 1, -1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 1, -1, 1, -1], [0, 0, 0, 0, 0, 2, -2, 0], [0, 0, 0, 0, 0, 0, 1, -1], [0, 0, 0, 0, 1, 1, -1, 1]]]
+/-- the common denominator `D` and `D Gamma^(-1)` for the pieces `0, 12, 13, 23`. -/
+def twGinv : Nat × List (List (List Int)) := (16, [[[4]], [[0, 0, 0, 0, 4, 0, 0, 0, 0], [0, 0, 0, 4, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 2, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0], [0, 0, 0, 0, 0, 0, 2, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1]], [[0, 0, 0, 0, 4, 0, 0, 0, 0], [0, 0, 0, 4, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 2, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0], [0, 0, 0, 0, 0, 0, 2, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1]], [[0, 0, 0, 0, 4, 0, 0, 0, 0], [0, 0, 0, 4, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 2, 0, 0, 0], [0, 4, 0, 0, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0], [0, 0, 0, 0, 0, 0, 2, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1]]])
+/-- for the factors `0` and `2`: the monomials and the columns of a minor of
+size `63` of the vectors `e_i ^ iota_j (D omega)`. -/
+def twAnnMinor : List (List Nat × List Nat) := [([368, 432, 464, 480, 624, 688, 720, 736, 1136, 1200, 1232, 1248, 2160, 2224, 2256, 2272, 4448, 4496, 4512, 4544, 4704, 4752, 4768, 4800, 5216, 5264, 5280, 5312, 6240, 6288, 6304, 6336, 8544, 8608, 8640, 8896, 9376, 9408, 10432, 12608, 12672, 12864, 12928, 13376, 13440, 14400, 14464, 16736, 16800, 16832, 17088, 20864, 21120, 21632, 22656, 33120, 33184, 33216, 33472, 37248, 37504, 38016, 39040], [7, 6, 5, 13, 15, 14, 4, 12, 23, 22, 21, 20, 31, 30, 29, 28, 39, 3, 11, 19, 38, 2, 10, 18, 37, 1, 9, 17, 27, 0, 8, 16, 47, 46, 36, 26, 44, 25, 24, 35, 34, 43, 42, 33, 32, 41, 40, 55, 45, 53, 52, 51, 50, 49, 48, 54, 62, 61, 60, 59, 58, 57, 56]), ([298, 394, 418, 424, 556, 568, 616, 652, 664, 688, 706, 712, 736, 808, 898, 904, 928, 1192, 1576, 1666, 1672, 1696, 2224, 2272, 2344, 2440, 2464, 2608, 2656, 2752, 2848, 2944, 3232, 3616, 3712, 4738, 4744, 4768, 6274, 6280, 6304, 6688, 6784, 8488, 8584, 8608, 8896, 9088, 9376, 9856, 10432, 10624, 11392, 12928, 14464, 33064, 33160, 33184, 33472, 33664, 34432, 37504, 39040], [7, 6, 5, 13, 15, 23, 22, 14, 31, 21, 4, 12, 20, 39, 3, 11, 19, 30, 38, 2, 10, 18, 29, 28, 47, 46, 27, 37, 36, 26, 35, 34, 44, 43, 42, 1, 9, 17, 0, 8, 16, 33, 32, 55, 45, 53, 25, 51, 52, 41, 24, 50, 40, 49, 48, 54, 62, 61, 60, 59, 58, 57, 56])]
+
+abbrev TwC := Int × Int
+abbrev TwMat := List (List TwC)
+
+def twMulC (u v : TwC) : TwC := (u.1 * v.1 - u.2 * v.2, u.1 * v.2 + u.2 * v.1)
+def twAddC (u v : TwC) : TwC := (u.1 + v.1, u.2 + v.2)
+
+def twTr (A : TwMat) : TwMat := (List.range (A.headD []).length).map fun j => A.map fun r => r.getD j (0, 0)
+
+def twMM (A B : TwMat) : TwMat :=
+  let Bt := twTr B
+  A.map fun r => Bt.map fun c => (r.zip c).foldl (fun s q => twAddC s (twMulC q.1 q.2)) (0, 0)
+
+def twAddM (A B : TwMat) : TwMat := (A.zip B).map fun p => (p.1.zip p.2).map fun q => twAddC q.1 q.2
+def twConj (A : TwMat) : TwMat := A.map (·.map fun z => (z.1, -z.2))
+def twNeg (A : TwMat) : TwMat := A.map (·.map fun z => (-z.1, -z.2))
+def twReal (A : List (List Int)) : TwMat := A.map (·.map fun x => (x, 0))
+def twKron (A B : TwMat) : TwMat := A.flatMap fun ra => B.map fun rb => ra.flatMap fun a => rb.map (twMulC a ·)
+def twK3 (a b c : TwMat) : TwMat := twKron (twKron a b) c
+
+def twS : TwMat := twReal [[0, -1], [1, 0]]
+def twE2 : TwMat := twReal [[1, 0], [0, 1]]
+def twJ1 : TwMat := [[(0, 1), (0, 0)], [(0, 0), (0, -1)]]
+def twPsi : TwMat := twK3 twS twS twS
+def twM : TwMat := twK3 twS twS twE2
+def twI8 : TwMat := twReal mrI
+def twJs : List TwMat := [twK3 twE2 twE2 twS, twK3 twJ1 twE2 twE2, twK3 twE2 twJ1 twE2]
+
+def twIsReal (A : TwMat) : Bool := A.all (·.all (·.2 == 0))
+def twRe (A : TwMat) : List (List Int) := A.map (·.map (·.1))
+
+/-- `P^T G P` is diagonal with nonzero determinant, with `pos` positive and
+`neg` negative entries. -/
+def twSigOk (G P : List (List Int)) (pos neg : Nat) : Bool :=
+  let D := twRe (twMM (twTr (twReal P)) (twMM (twReal G) (twReal P)))
+  let d := (List.range 8).map fun i => (D.getD i []).getD i 0
+  (List.range 8).all (fun i => (List.range 8).all fun j => i == j || (D.getD i []).getD j 0 == 0)
+    && d.countP (· > 0) == pos && d.countP (· < 0) == neg
+    && mrMinorOk P (List.range 8)
+
+/-- (A) and (B) for the three complex structures. -/
+def twRealOk : Bool :=
+  let VRt := twVR
+  let VR := twTr VRt
+  let P := twMM (twMM VRt twPsi) VR
+  twMM twM (twConj twM) == twI8
+    && twMM twM (twConj VR) == VR
+    && mrMinorOk (twVRRows.map fun r => VRt.map fun col =>
+        if r < 8 then (col.getD r (0, 0)).1 else (col.getD (r - 8) (0, 0)).2) (List.range 8)
+    && twIsReal P && twRe P == twRe (twNeg (twTr P))
+    && ((twJs.zip twCong).zip [(0, 8), (4, 4), (4, 4)]).all fun q =>
+      let J := q.1.1
+      let G := twMM (twMM (twMM VRt twPsi) J) VR
+      twMM J twM == twMM twM (twConj J) && twMM J J == twNeg twI8
+        && twIsReal G && twRe G == twRe (twTr G) && twSigOk (twRe G) q.1.2 q.2.1 q.2.2
+
+/-- (B) the quaternion `k`. -/
+def twQuatOk : Bool :=
+  let VRt := twVR
+  let VR := twTr VRt
+  let k := twK3 twS twE2 twE2
+  let J := twK3 twJ1 twE2 twE2
+  let G := twMM (twMM (twMM VRt twPsi) J) VR
+  let Gk := twMM (twMM (twMM (twMM (twMM VRt (twTr k)) twPsi) J) k) VR
+  twMM k twM == twMM twM (twConj k) && twMM (twMM (twTr k) twPsi) k == twPsi
+    && twAddM (twMM k J) (twMM J k) == twReal ((List.range 8).map fun _ => List.replicate 8 0)
+    && twIsReal Gk && Gk == twNeg G
+
+/-- the index of the pair `(a, b)`, `a < b`. -/
+def twPairIdx (a b : Nat) : Nat := 8 * a - a * (a + 1) / 2 + b - a - 1
+
+/-- `B u`: the pair `(a, b)` meets only `(7 - b, 7 - a)`, with
+`B = -psi(a, 7 - a) psi(b, 7 - b)`. -/
+def twB (u : List Int) : List Int :=
+  mrPairs.map fun p => -(mrSign p.1 * mrSign p.2) * u.getD (twPairIdx (7 - p.2) (7 - p.1)) 0
+
+/-- the bases of the pieces `0, 12, 13, 23`. -/
+def twBases : List (List (List Int)) :=
+  [[mrTheta]] ++ [(0, 1), (0, 2), (1, 2)].map fun (p : Nat × Nat) => (mrBlock p.1 p.2).map mrVec
+
+/-- `D pi` as a `28 x 28` matrix: the entry `(p, q)` is the coefficient of
+`e_p (x) e_q`. -/
+def twPi (U : List (List Int)) (Gi : List (List Int)) : List (List Int) :=
+  let W := Gi.map fun row => (row.zip U).foldl (fun acc q => (acc.zip q.2).map fun z => z.1 + q.1 * z.2) (List.replicate 28 0)
+  (List.range 28).map fun p => (List.range 28).map fun q =>
+    (U.zip W).foldl (fun s z => s + z.1.getD p 0 * z.2.getD q 0) 0
+
+def twWeightPlus (t j : Nat) : Bool := !((j % 8).testBit (2 - t))
+
+def twUnvec (v : List Int) : MrMat :=
+  (List.range 8).map fun a => (List.range 8).map fun b =>
+    if a < b then v.getD (twPairIdx a b) 0 else if b < a then -v.getD (twPairIdx b a) 0 else 0
+
+/-- `D omega`, from the pieces. -/
+def twOmega (pis : List (List (List Int))) : List (List Int) :=
+  (List.range 28).map fun p => (List.range 28).map fun q =>
+    ((pis.zip [3, 5, -7, 11]).foldl (fun s z => s + z.2 * (z.1.getD p []).getD q 0) 0)
+
+/-- `omega` is killed by the generator `(t, k)` acting on both copies. -/
+def twInvariant (O : List (List Int)) (t k : Nat) : Bool :=
+  let cols := (List.range 28).map fun q => mrVec (mrAct t k (twUnvec (O.map (·.getD q 0))))
+  let rows := O.map fun r => mrVec (mrAct t k (twUnvec r))
+  (List.range 28).all fun p => (List.range 28).all fun q =>
+    (cols.getD q []).getD p 0 + (rows.getD p []).getD q 0 == 0
+
+/-- the exchange of the first and third factors on a basis vector, and on a
+pair as `(index, sign)`. -/
+def twSwap (j : Nat) : Nat := (j % 2) * 4 + (j / 2 % 2) * 2 + j / 4
+def twSwapPair (k : Nat) : Nat × Int :=
+  let p := mrPairs.getD k (0, 0)
+  let x := twSwap p.1
+  let y := twSwap p.2
+  if x < y then (twPairIdx x y, 1) else (twPairIdx y x, -1)
+
+def twSwapped (C : List (List Int)) : List (List Int) :=
+  (List.range 28).map fun p => (List.range 28).map fun q =>
+    let a := twSwapPair p
+    let b := twSwapPair q
+    a.2 * b.2 * (C.getD a.1 []).getD b.1 0
+
+/-- the tensors `D pi` of the four pieces. -/
+def twPis : List (List (List Int)) := (twBases.zip twGinv.2).map fun z => twPi z.1 z.2
+
+/-- (C) `Gamma (D Gamma^(-1)) = D` on the four pieces. -/
+def twGramOk : Bool :=
+  (twBases.zip twGinv.2).all fun z =>
+    let U := z.1
+    let Gi := z.2
+    let BU := U.map twB
+    (List.range U.length).all fun k => (List.range U.length).all fun l =>
+      (List.range U.length).foldl (fun s m => s + mrDot (U.getD k []) (BU.getD m []) * (Gi.getD m []).getD l 0) 0
+        == if k == l then (twGinv.1 : Int) else 0
+
+/-- (C) the types, and (D) the exchange of the first and third factors. -/
+def twTypeSwapOk : Bool :=
+  let pis := twPis
+  pis.all (fun C => (List.range 28).all fun p => (List.range 28).all fun q =>
+      (C.getD p []).getD q 0 == 0 || [0, 2].all fun t =>
+        let pp := mrPairs.getD p (0, 0)
+        let qq := mrPairs.getD q (0, 0)
+        [pp.1, pp.2, qq.1, qq.2].countP (twWeightPlus t ·) == 2)
+    && twSwapped (pis.getD 1 []) == pis.getD 3 [] && twSwapped (pis.getD 3 []) == pis.getD 1 []
+    && twSwapped (pis.getD 2 []) == pis.getD 2 [] && twSwapped (pis.getD 0 []) == pis.getD 0 []
+
+/-- (C) `omega` is killed by the generators `gs` (`g = 3 t + k`). -/
+def twInvOk (gs : List Nat) : Bool :=
+  let O := twOmega twPis
+  gs.all fun g => twInvariant O (g / 3) (g % 3)
+
+/-- the bits of a mask below `8`, as a pair index when there are two. -/
+def twMaskPair (m : Nat) : Option Nat :=
+  match (List.range 8).filter (m.testBit ·) with
+  | [a, b] => some (twPairIdx a b)
+  | _ => none
+
+/-- the coefficient of the monomial `m` in `D omega`. -/
+def twOmegaAt (O : List (List Int)) (m : Nat) : Int :=
+  match twMaskPair (m % 256), twMaskPair (m / 256) with
+  | some p, some q => (O.getD p []).getD q 0
+  | _, _ => 0
+
+/-- the coefficient of `m` in `e_i ^ iota_j (D omega)`. -/
+def twOpAt (O : List (List Int)) (i j m : Nat) : Int :=
+  if m.testBit i && !m.testBit j then
+    let m2 := m - (1 <<< i)
+    let m1 := m2 + (1 <<< j)
+    let odd := pcBelowOdd m1 j != pcBelowOdd m2 i
+    (if odd then -1 else 1) * twOmegaAt O m1
+  else 0
+
+/-- (C) the operators of `H^(0,1) (x) T` of the square, for the factor `t`,
+applied to `D omega`, have a nonsingular minor of size `63`. -/
+def twAnnOk (t : Nat) (mn : List Nat × List Nat) : Bool :=
+  let O := twOmega twPis
+  let hol := (List.range 16).filter (twWeightPlus t ·)
+  let anti := (List.range 16).filter fun j => !twWeightPlus t j
+  let ops := anti.flatMap fun i => hol.map fun j => (i, j)
+  ops.length == 64 && mn.1.length == 63
+    && tgNonsing tgP 64 (mn.1.map fun m => mn.2.map fun c =>
+        let op := ops.getD c (0, 0)
+        tgModP (twOpAt O op.1 op.2 m))
+
+
+/-- **(A), (B) The real structure and the three complex structures.**  `V_R`
+has the recorded basis, `psi` is real and alternating on it, and `psi(x, J y)`
+has signature `(0, 8)` at `J_3` and `(4, 4)` at `J_1` and `J_2`. -/
+theorem twistor_real_structure : twRealOk = true := by
+  decide +kernel
+
+/-- **(B) No invariant class polarises the square at `J_1`.**  The quaternion
+`k = S (x) 1 (x) 1` preserves `V_R` and `psi`, anticommutes with `J_1` and
+carries `psi(x, J_1 y)` to its negative. -/
+theorem twistor_quaternion : twQuatOk = true := by
+  decide +kernel
+
+/-- **(C) The tensors `pi`.**  They are the identity tensors of the four
+pieces for `B`. -/
+theorem twistor_pieces : twGramOk = true := by
+  decide +kernel
+
+/-- **(C), (D) Types and the exchange of factors.**  The `pi` are of type
+`(2, 2)` at `J_1` and `J_3`; the exchange of the first and third factors swaps
+`pi_12` and `pi_23` and fixes `pi_0` and `pi_13`. -/
+theorem twistor_exchange : twTypeSwapOk = true := by
+  decide +kernel
+
+/-- **(C) `omega` is invariant**, under the generators of the first factor and
+`e_2`. -/
+theorem twistor_invariant_one : twInvOk [0, 1, 2, 3] = true := by
+  decide +kernel
+
+/-- **(C) `omega` is invariant**, under the other five generators. -/
+theorem twistor_invariant_two : twInvOk [4, 5, 6, 7, 8] = true := by
+  decide +kernel
+
+/-- **(C) The annihilator at `J_1`.**  The sixty-four operators applied to
+`omega` have rank `63`, so the annihilator is the line of the lowering
+derivation of the first factor. -/
+theorem twistor_annihilator_first : twAnnOk 0 (twAnnMinor.getD 0 ([], [])) = true := by
+  decide +kernel
+
+/-- **(C) The annihilator at `J_3`.**  The same for the third factor, as in
+the rigidity of the Mumford square. -/
+theorem twistor_annihilator_third : twAnnOk 2 (twAnnMinor.getD 1 ([], [])) = true := by
+  decide +kernel
+
+
+/-! ## 79.  The square of a Mumford fourfold as a holomorphic symplectic variety
+
+Item (XLVIII), Proposition (The square as a holomorphic symplectic
+variety).  The model is that of Sections 77
+and 78; `H^1(X x X) = V + V` (generators `0..7` and `8..15`), `V^(1,0)` is
+spanned by the vectors of third weight `+1`, and `Psi = psi^(-1)` is the
+bivector dual to `psi`, `Psi[i][7 - i] = (-1)^(|i| + 1)`.  For `x` in `T`,
+`iota(x) = x Psi`, an element of `V (x) V`, the mixed summand of `H^2(X x X) =
+wedge^2(V + V)`: `iota(x)[r][q] = (-1)^|q| x[r][7 - q]`.
+
+(A) `iota(x)` is symmetric for the nine generators, and `y . iota(x) =
+iota([y, x])` (`y` acting on `V (x) V` by `B -> y B + B y^T`) for all
+eighty-one pairs of generators.
+
+(B) The weights of `wedge^2(V + V)`, one for each of the `120` pairs of the
+sixteen basis vectors, give by the formula of Section 69 (the multiplicity
+of the irreducible module of highest weight `l` is the alternating sum of the
+weight multiplicities at `l + 2 s`, `s` in `{0, 1}^3`) the multiplicities
+`3` of `(0,0,0)`, `3` of each of `(2,2,0), (2,0,2), (0,2,2)`, `1` of `(2,2,2)`
+and `1` of each of `(2,0,0), (0,2,0), (0,0,2)`, and none of any other
+dominant weight; the isotypic pieces have dimensions `3, 27, 27, 27, 27, 3, 3,
+3`.  The `(2,0)`-part of a piece is its subspace of third weight `2`, of
+dimension `m (l_1 + 1) (l_2 + 1)` when `l_3 = 2` and `0` otherwise:
+`0, 0, 9, 9, 9, 0, 0, 1`, adding up to `binom(8, 2) = 28`.  The Galois group
+permutes the three factors; on the four orbits of types the `(2,0)`-parts add
+up to `0, 18, 9, 1`, so only the orbit of `T` has `h^(2,0) = 1`.  The three
+vectors `iota(T_t)` are independent eigenvectors of the Casimir operators with
+the eigenvalues of `(2,0,0), (0,2,0), (0,0,2)`, so they span those pieces.
+
+(C) `sigma_0 = iota(E_3)` has its nonzero rows and columns at vectors of
+third weight `+1`, and its `4 x 4` block there is invertible: a holomorphic
+symplectic form on `X x X`.
+
+(D) With `iota_2(x y) = iota(x) ^ iota(y)` in the `(2, 2)` Kunneth part, and
+`D pi` the tensors of Section 78 (`D = 16`), `iota_2(C_1) = 3 pi_0 - pi_12 -
+pi_13 + 3 pi_23` and cyclically, `C_t = E_t F_t + F_t E_t + H_t^2 / 2`.  By
+linearity `iota_2(s_1 C_1 + s_2 C_2 + s_3 C_3) = omega_a` with `a_0 =
+3 (s_1 + s_2 + s_3)` and `a_ij = 4 s_k - (s_1 + s_2 + s_3)`, `{i, j, k} =
+{1, 2, 3}`.
+
+(E) For `x = x_1 + x_2 + x_3`, `x_t = [[a_t, b_t], [c_t, -a_t]]` on the factor
+`t`, `x_t^2 = N_t` with `N_t = a_t^2 + b_t c_t = -det(x_t)`.  The matrix of `x`
+is `[[a_1 + Y, b_1], [c_1, -a_1 + Y]]` with `Y = x_2 + x_3` on `V_2 (x) V_3`,
+whose blocks commute, so `det x = det(Y^2 - N_1) = det((N_2 + N_3 - N_1) +
+2 x_2 (x) x_3)`; the same step on `x_2` gives `det((N_2 + N_3 - N_1)^2 -
+4 N_2 x_3^2) = ((N_2 + N_3 - N_1)^2 - 4 N_2 N_3)^2 = Delta(N)^2`, `Delta =
+N_1^2 + N_2^2 + N_3^2 - 2 N_1 N_2 - 2 N_1 N_3 - 2 N_2 N_3`.  The kernel checks
+`x_t^2 = N_t` and `(N_2 + N_3 - N_1)^2 - 4 N_2 N_3 = Delta` on grids of three
+values in each variable (both sides have degree at most two in each), and
+`det x = Delta(N)^2` at sample points.
+
+(F) `iota(x)^8 / 8!` is the Pfaffian of `[[0, B], [-B^T, 0]]`, `B = x Psi`,
+which is `(-1)^28 det B = det(x) det(Psi)` times the volume form, and
+`det Psi = 1`.  With (E), the octic form `int iota(x)^8` on `T` is `8!
+Delta(N)^2`.
+
+(G) The Gram matrix of `Delta` has determinant `-4`: `Delta` is a
+nondegenerate ternary form, hence irreducible, and `Delta(N)^2` is not a
+constant multiple of the fourth power of a linear form.
+-/
+
+/-- `iota(x)`, `x` an `8 x 8` matrix. -/
+def hkIota (x : List (List Int)) : List (List Int) :=
+  (List.range 8).map fun r => (List.range 8).map fun q => mrSign q * (x.getD r []).getD (7 - q) 0
+
+/-- `y B + B y^T` for the generator `y = (t, k)`. -/
+def hkActVV (t k : Nat) (B : List (List Int)) : List (List Int) :=
+  mrAddM (mrL t k B) (mrT (mrL t k (mrT B)))
+
+def hkBr (s l t k : Nat) : List (List Int) := mrSub (mrL s l (mrGen t k)) (mrL t k (mrGen s l))
+
+/-- (A) and (C). -/
+def hkIotaOk : Bool :=
+  (List.range 9).all (fun g =>
+    let B := hkIota (mrGen (g / 3) (g % 3))
+    B == mrT B && (List.range 9).all fun h =>
+      hkActVV (h / 3) (h % 3) B == hkIota (hkBr (h / 3) (h % 3) (g / 3) (g % 3)))
+  && (let B := hkIota (mrGen 2 0)
+      let rows := (List.range 8).filter fun r => (B.getD r []).any (· != 0)
+      let cols := (List.range 8).filter fun q => B.any fun row => row.getD q 0 != 0
+      rows.length == 4 && cols.length == 4
+        && (rows ++ cols).all (twWeightPlus 2 ·)
+        && tpDeterminant (rows.map fun r => cols.map fun q => (B.getD r []).getD q 0) != 0)
+
+/-- the weight of the basis vector `j` of `V + V`. -/
+def hkWt (j : Nat) : List Int := [0, 1, 2].map fun t => if twWeightPlus t j then 1 else -1
+
+/-- the weights of `wedge^2(V + V)`. -/
+def hkWeights : List (List Int) :=
+  (List.range 16).flatMap fun i => ((List.range 16).filter (i < ·)).map fun j =>
+    (List.zip (hkWt i) (hkWt j)).map fun q => q.1 + q.2
+
+/-- the multiplicity of the irreducible module of highest weight `l`. -/
+def hkIrr (ws : List (List Int)) (l : List Int) : Int :=
+  (List.range 8).foldl (fun s m =>
+    let mu := [0, 1, 2].map fun t => l.getD t 0 + (if m.testBit t then 2 else 0)
+    let c : Int := ws.countP (· == mu)
+    if (List.range 3).countP (m.testBit ·) % 2 == 1 then s - c else s + c) 0
+
+def hkTypes : List (List Int) :=
+  [[0, 0, 0], [2, 2, 0], [2, 0, 2], [0, 2, 2], [2, 2, 2], [2, 0, 0], [0, 2, 0], [0, 0, 2]]
+
+/-- (B). -/
+def hkIsotypicOk : Bool :=
+  let ws := hkWeights
+  let ms := hkTypes.map (hkIrr ws)
+  let dim := fun (l : List Int) => (l.getD 0 0 + 1) * (l.getD 1 0 + 1) * (l.getD 2 0 + 1)
+  let d20 := (hkTypes.zip ms).map fun q => if q.1.getD 2 0 == 2 then q.2 * (q.1.getD 0 0 + 1) * (q.1.getD 1 0 + 1) else 0
+  ws.length == 120 && ms == [3, 3, 3, 3, 1, 1, 1, 1]
+    && ([0, 2, 4].flatMap fun a => [0, 2, 4].flatMap fun b => [0, 2, 4].map fun c => [a, b, c]).all
+        (fun l => hkTypes.contains l || hkIrr ws l == 0)
+    && (hkTypes.zip ms).map (fun q => q.2 * dim q.1) == [3, 27, 27, 27, 27, 3, 3, 3]
+    && d20 == [0, 0, 9, 9, 9, 0, 0, 1] && d20.foldl (fun (a b : Int) => a + b) 0 == 28
+    && [d20.getD 0 0, d20.getD 1 0 + d20.getD 2 0 + d20.getD 3 0, d20.getD 4 0,
+        d20.getD 5 0 + d20.getD 6 0 + d20.getD 7 0] == [0, 18, 9, 1]
+    && (List.range 3).all fun t =>
+      let Bs := (List.range 3).map fun k => hkIota (mrGen t k)
+      Bs.all (fun B => (List.range 3).all fun s =>
+        let c2 := mrAddM (mrSc 2 (mrAddM (hkActVV s 0 (hkActVV s 1 B)) (hkActVV s 1 (hkActVV s 0 B))))
+          (hkActVV s 2 (hkActVV s 2 B))
+        c2 == mrSc (if s == t then 8 else 0) B)
+      && (let flat := Bs.map fun B => B.flatten
+          mrMinorOk flat (flat.map fun v => ((List.range 64).find? (fun i => v.getD i 0 != 0)).getD 0))
+
+/-- `iota(x) ^ iota(y)` in `wedge^2 V (x) wedge^2 V`, as a `28 x 28` matrix. -/
+def hkWedge (B C : List (List Int)) : List (List Int) :=
+  mrPairs.map fun p => mrPairs.map fun q =>
+    let a := p.1
+    let b := p.2
+    let c := q.1
+    let d := q.2
+    let x := fun (r s : Nat) => (B.getD r []).getD s 0
+    let y := fun (r s : Nat) => (C.getD r []).getD s 0
+    0 - (x a c * y b d - x a d * y b c - x b c * y a d + x b d * y a c)
+
+/-- (D): `2 D iota_2(C_t) = 2 sum c_key D pi_key`. -/
+def hkProductsOk : Bool :=
+  let pis := twPis
+  let D : Int := twGinv.1
+  (List.range 3).all fun t =>
+    let fE := hkIota (mrGen t 0)
+    let fF := hkIota (mrGen t 1)
+    let fH := hkIota (mrGen t 2)
+    let Q2 := mrAddM (mrSc 2 (mrAddM (hkWedge fE fF) (hkWedge fF fE))) (hkWedge fH fH)
+    let cs : List Int := [[3, -1, -1, 3], [3, -1, 3, -1], [3, 3, -1, -1]].getD t []
+    mrSc D Q2 == (pis.zip cs).foldl (fun acc q => mrAddM acc (mrSc (2 * q.2) q.1))
+      ((List.range 28).map fun _ => List.replicate 28 0)
+
+/-- `x = sum_t (a_t H_t + b_t E_t + c_t F_t)`. -/
+def hkX (v : List (Int × Int × Int)) : List (List Int) :=
+  (List.range 3).foldl (fun acc t =>
+    let c := v.getD t (0, 0, 0)
+    mrAddM acc (mrAddM (mrSc c.1 (mrGen t 2)) (mrAddM (mrSc c.2.1 (mrGen t 0)) (mrSc c.2.2 (mrGen t 1)))))
+    ((List.range 8).map fun _ => List.replicate 8 0)
+
+def hkDelta (n1 n2 n3 : Int) : Int := n1 ^ 2 + n2 ^ 2 + n3 ^ 2 - 2 * n1 * n2 - 2 * n1 * n3 - 2 * n2 * n3
+
+def hkGrid : List Int := [0, 1, 2]
+
+/-- (E), (F), (G). -/
+def hkDetOk : Bool :=
+  hkGrid.all (fun a => hkGrid.all fun b => hkGrid.all fun c =>
+      let x : List (List Int) := [[a, b], [c, -a]]
+      mr2Mul x x == [[a * a + b * c, 0], [0, a * a + b * c]])
+  && hkGrid.all (fun n1 => hkGrid.all fun n2 => hkGrid.all fun n3 =>
+      (n2 + n3 - n1) ^ 2 - 4 * n2 * n3 == hkDelta n1 n2 n3)
+  && [[(1, 2, 3), (2, -1, 1), (0, 3, -2)], [(3, 1, 1), (-1, 2, 4), (2, 2, -3)],
+      [(1, 0, 0), (0, 1, 1), (1, 1, 1)], [(2, 1, -1), (1, 1, 1), (0, 0, 5)]].all (fun v =>
+      let N := fun (t : Nat) => let c := v.getD t (0, 0, 0); c.1 * c.1 + c.2.1 * c.2.2
+      tpDeterminant (hkX v) == hkDelta (N 0) (N 1) (N 2) ^ 2)
+  && tpDeterminant ((List.range 8).map fun r => (List.range 8).map fun q =>
+      if q == 7 - r then -mrSign r else 0) == 1
+  && tpDeterminant [[1, -1, -1], [-1, 1, -1], [-1, -1, 1]] == -4
+
+/-- **(A), (C) The map `iota` and the symplectic form.**  `iota(x)` is
+symmetric and equivariant; `iota(E_3)` pairs the `(1,0)`-vectors of the two
+copies through an invertible `4 x 4` block. -/
+theorem hk_iota : hkIotaOk = true := by
+  decide +kernel
+
+/-- **(B) The isotypic pieces of `H^2(X x X)`.**  Multiplicities, dimensions,
+`(2,0)`-parts, and the pieces of `T`. -/
+theorem hk_isotypic : hkIsotypicOk = true := by
+  decide +kernel
+
+/-- **(D) The exceptional classes as products.**  `iota_2(C_1) = 3 pi_0 -
+pi_12 - pi_13 + 3 pi_23` and cyclically. -/
+theorem hk_products : hkProductsOk = true := by
+  decide +kernel
+
+/-- **(E), (F), (G) The octic form.**  `x_t^2 = N_t`, the identity behind
+`det x = Delta(N)^2`, the determinant at sample points, `det Psi = 1`, and the
+Gram determinant `-4` of `Delta`. -/
+theorem hk_octic : hkDetOk = true := by
+  decide +kernel
+
+
+/-! ## 80.  The semiregularity map of a sum of line bundles
+
+Item (XIII), Lemma (A basis in degree four), Lemma (`theta^+ theta^-` is never
+proportional to `eta^2`), Remark (Signed sums of line bundles), Lemma (Equal
+norms force the Prouhet-Tarry-Escott condition) and Proposition (An explicit
+object at `n = 3`).  The split member is `A_0 = X x Xhat` with `X = E_i^n`;
+bit `i - 1` is the generator `x_i` of `H^1(X)` and bit `2n + i - 1` is
+`xi_i`, `i = 1, ..., 2n`, and
+`beta = sum_j x_j x_(n+j)`, `betahat = sum_j xi_j xi_(n+j)`,
+`ell = sum_i x_i xi_i`, `eta = d beta + betahat`, `gamma = d beta - betahat`,
+with `theta^+ theta^- = gamma^2 + d ell^2`.
+
+(A) For `n = 2, 3, 4` the six products `beta^2, beta betahat, beta ell,
+betahat^2, betahat ell, ell^2` have a nonsingular `6 x 6` minor.
+
+(B) For the six pairs `(n, d) = (2,1), (2,2), (2,3), (3,2), (3,5), (4,1)` the
+classes `eta^2` and `gamma^2 + d ell^2` have a nonzero `2 x 2` minor, so
+neither is a multiple of the other.
+
+(C) A block `{x_j, x_(n+j), xi_j, xi_(n+j)}` in the Hodge basis
+`P1 = x + i x'`, `Q1 = x - i x'`, `P2 = xi + i xi'`, `Q2 = xi - i xi'` of the
+model (bits `1, 2, 4, 8`): with `X = 2x = P1 + Q1`, `X' = 2x' = -i P1 + i Q1`
+and likewise `Xi, Xi'`, one has `X X' = 2 (i P1 Q1)`, `Xi Xi' = 2 (i P2 Q2)`,
+`X Xi + X' Xi' = 2 (P1 Q2 - P2 Q1)` and `X +- i X' = 2 P1, 2 Q1`.  So
+`2 beta_j = 2B = i P1 Q1`, `2 betahat_j = 2Bhat = i P2 Q2`,
+`2 ell_j = 2L = P1 Q2 - P2 Q1`, and for `lambda = a beta + b betahat + c ell`
+the hermitian form of `lambda` is the sum over the blocks of
+`[[a, -i c], [i c, b]] / 2`, of determinant `(ab - c^2) / 4`.
+
+(D) The products of `2B, 2Bhat, 2L` among themselves and with `Q1, Q2` and
+`Q1 Q2`: `(2L)^2 = -2 (2B)(2Bhat)`, `(2B)(2L) = (2Bhat)(2L) = (2B)^2 =
+(2Bhat)^2 = 0`, `(2B) Q1 = 0`, `(2Bhat) Q1 = -i R2`, `(2L) Q1 = -R1`,
+`(2B) Q2 = i R1`, `(2Bhat) Q2 = 0`, `(2L) Q2 = -R2` with `R1 = P1 Q1 Q2`,
+`R2 = P2 Q1 Q2`, and each of `2B, 2Bhat, 2L` kills `Q1 Q2`; the monomials of
+`1, B, Bhat, L, V = B Bhat`, of `Q1 Q2` and of `Q1, Q2, R1, R2` are pairwise
+distinct.  By bilinearity, for `lambda = aB + bBhat + cL`, the class
+`e^lambda` has coordinates `v = (1, a, b, c, ab - c^2)` on `(1, B, Bhat, L, V)`,
+`e^lambda Q1 Q2 = Q1 Q2`, `2 e^lambda Q1 = (2, 0, -c, -i b)` and
+`2 e^lambda Q2 = (0, 2, i a, -c)` on `(Q1, Q2, R1, R2)`.
+
+`H^*(A_0)` is the tensor product of the exterior algebras of the `n` blocks,
+`lambda` is the sum of its block parts, which commute, so `e^lambda` is the
+product of the block exponentials, and `H^(0,2)` has the basis `Q Q'` of
+products of two of the antiholomorphic generators.  So the columns of the map
+`Phi` of Lemma (The semiregularity map of a split object)(iii) are
+`Q1 Q2 (x) v^(n-1)` (one component for each block, `s` columns) and
+`(2 e^lambda Q_a) (x) (2 e^lambda Q_b) (x) v^(n-2)` (one component for each
+pair of blocks, `4s` columns), up to the order of the factors.  By (D) the
+components lie in independent subspaces, and the components of one kind have
+the same matrix, so `rank Phi = n r_1 + C(n, 2) r_2` with `r_1` the rank of
+`semSame` and `r_2` that of `semCross`.  The ranks are found modulo the prime
+`1000033`, with `i` sent to `649529`; a nonsingular minor there is nonsingular
+over `Q(i)`.
+
+(E) `n = 2`.  For the prefixes of `beta, betahat, ell, beta + betahat + ell`:
+`(r_1, r_2) = (s, 4s)` for `s <= 3`, so `Phi` is injective; at `s = 4`,
+`(r_1, r_2) = (4, 14)`, the upper bound from two independent kernel vectors
+over `Z[i]`, so `rank Phi = 22`.  For every four classes `rank Phi <= 22`:
+for each class the four columns `o_a (x) o_b` of the pair component have their
+antisymmetric parts on the line of `o_1 ^ o_2`, so `r_2 <= dim Sym^2 C^4 + 4
+= 14`, and `r_1 <= 4`.  So the rank of `Phi` for a general choice of four
+classes is `22 < 24`.
+
+(F) `n = 3`.  For ten classes `r_1 = 10`, `r_2 = 40`, so `Phi` is injective
+(rank `150`), hence also for a general choice of up to ten classes.
+
+(G) The explicit object, `n = 3`, `d = 3`: `sum_i m_i lambda_i^k = 0` for
+`k = 0, 1, 2, 4, 5, 6`, and with `W = gamma^3 - 9 gamma ell^2`, of content
+`6`, `6 sum_i m_i lambda_i^3 = -72 W`, that is `ch_3 = 12 omega_1` for the
+generator `omega_1 = -W / 6` of code/semiregularity.py; every difference has
+`(Delta a)(Delta b) - (Delta c)^2 < 0`, so by (C) each block of its hermitian
+form has one negative eigenvalue and the index is `3`; the elements
+`2u = ((a - 3b)/6, c/3)` of `Z[sqrt(-3)]` have norm `4`, `e = (a + 3b)/6 = 0`,
+and their signed power sums vanish in degrees `0, 1, 2` and not in degree
+`3` (the Prouhet-Tarry-Escott pair); and `(r_1, r_2) = (5, 20)`, the upper
+bounds from the kernel vector `(m_i)` and four independent kernel vectors over
+`Z[i]`, so `rank Phi = 3 * 5 + 3 * 20 = 75` of `90`.
+
+The exhaustive search of the remark over the box `|a|, |b|, |c| <= 3` (the
+888 and 30 tuples of four terms) is not repeated here.
+-/
+
+/-- for `n = 2, 3, 4`, six monomials of degree four on which the six
+products of `beta, betahat, ell` have a nonsingular minor. -/
+def semMonoKeys : List (List Nat) := [[15, 27, 51, 85, 114, 240], [27, 83, 195, 585, 706, 1728], [51, 291, 771, 4369, 4866, 13056]]
+/-- for the six pairs `(n, d)`, two monomials on which `eta^2` and
+`gamma^2 + d ell^2` have a nonzero `2 x 2` determinant. -/
+def semTensorKeys : List (Nat × Nat × Nat × Nat) := [(2, 1, 15, 51), (2, 2, 15, 51), (2, 3, 15, 51), (3, 2, 27, 195), (3, 5, 27, 195), (4, 1, 51, 771)]
+/-- the four classes at `n = 2`, as `(a, b, c)` for `a beta + b betahat + c ell`. -/
+def semTwo : List (Int × Int × Int) := [(1, 0, 0), (0, 1, 0), (0, 0, 1), (1, 1, 1)]
+/-- the ten classes at `n = 3`. -/
+def semThree : List (Int × Int × Int) := [(0, 0, 1), (0, 0, -1), (0, 1, 0), (0, -1, 0), (1, 0, 0), (-1, 0, 0), (0, 0, 2), (0, 0, -2), (0, 1, 1), (0, 1, -1)]
+/-- the explicit object: the six classes with their multiplicities. -/
+def semObject : List ((Int × Int × Int) × Int) := [((3, -1, 3), 1), ((-6, 2, 0), 1), ((3, -1, -3), 1), ((-3, 1, -3), -1), ((6, -2, 0), -1), ((-3, 1, 3), -1)]
+/-- for the prefixes of length `1, 2, 3, 4` of `semTwo`: minors (coordinates,
+columns) of the component of one block and of the component of the pair. -/
+def semMinorsTwo : List ((List Nat × List Nat) × (List Nat × List Nat)) := [(([0], [0]), ([0, 1, 4, 5], [0, 1, 2, 3])), (([0, 1], [0, 1]), ([0, 1, 2, 3, 4, 5, 6, 7], [0, 1, 2, 3, 4, 5, 6, 7])), (([0, 1, 2], [0, 1, 2]), ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])), (([0, 1, 2, 3], [0, 1, 2, 3]), ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]))]
+/-- two kernel vectors over `Z[i]` of the component of the pair, four classes. -/
+def semKerTwo : List (List (Int × Int)) := [[(0, 1), (-1, 0), (-1, 0), (0, -2), (0, -1), (-1, 0), (-1, 0), (0, 2), (0, -3), (1, 0), (1, 0), (0, 0), (0, 3), (1, 0), (1, 0), (0, 0)], [(1, 0), (0, 0), (0, 0), (-1, 0), (-1, 0), (0, 0), (0, 0), (1, 0), (-1, 0), (0, 0), (0, 0), (-1, 0), (1, 0), (0, 0), (0, 0), (1, 0)]]
+def semKerTwoRows : List Nat := [0, 1]
+/-- four kernel vectors over `Z[i]` of the component of a pair, explicit object. -/
+def semKerObject : List (List (Int × Int)) := [[(-9, 0), (0, -3), (0, -3), (1, 0), (-9, 0), (0, 3), (0, 3), (1, 0), (0, 0), (0, 0), (0, 0), (4, 0), (3, 0), (0, -3), (0, -3), (-3, 0), (3, 0), (0, 3), (0, 3), (-3, 0), (12, 0), (0, 0), (0, 0), (0, 0)], [(0, -3), (-3, 0), (1, 0), (0, -1), (0, 3), (-3, 0), (1, 0), (0, 1), (0, 0), (0, 0), (4, 0), (0, 0), (0, -3), (1, 0), (-3, 0), (0, -1), (0, 3), (1, 0), (-3, 0), (0, 1), (0, 0), (4, 0), (0, 0), (0, 0)], [(0, -3), (1, 0), (-3, 0), (0, -1), (0, 3), (1, 0), (-3, 0), (0, 1), (0, 0), (4, 0), (0, 0), (0, 0), (0, -3), (-3, 0), (1, 0), (0, -1), (0, 3), (-3, 0), (1, 0), (0, 1), (0, 0), (0, 0), (4, 0), (0, 0)], [(3, 0), (0, -3), (0, -3), (-3, 0), (3, 0), (0, 3), (0, 3), (-3, 0), (12, 0), (0, 0), (0, 0), (0, 0), (-9, 0), (0, -3), (0, -3), (1, 0), (-9, 0), (0, 3), (0, 3), (1, 0), (0, 0), (0, 0), (0, 0), (4, 0)]]
+def semKerObjectRows : List Nat := [0, 1, 2, 3]
+/-- the minors of the two components for `semThree` and for the object. -/
+def semMinorsThree : (List Nat × List Nat) × (List Nat × List Nat) := (([0, 1, 2, 3, 4, 6, 12, 13, 14, 19], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]), ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 14, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 31, 32, 34, 37, 39, 41, 47, 49, 54, 57, 59, 67, 69, 77, 79], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39]))
+def semMinorsObject : (List Nat × List Nat) × (List Nat × List Nat) := (([0, 1, 3, 6, 8], [0, 1, 2, 3, 4]), ([0, 1, 3, 5, 6, 8, 11, 13, 20, 21, 23, 25, 26, 28, 31, 33, 41, 43, 51, 53], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]))
+
+def semBeta (n : Nat) : List (Nat × Int) :=
+  (List.range n).map fun j => (2 ^ j + 2 ^ (n + j), 1)
+
+def semBetaHat (n : Nat) : List (Nat × Int) :=
+  (List.range n).map fun j => (2 ^ (2 * n + j) + 2 ^ (3 * n + j), 1)
+
+def semEll (n : Nat) : List (Nat × Int) :=
+  (List.range (2 * n)).map fun i => (2 ^ i + 2 ^ (2 * n + i), 1)
+
+def semAdd (u v : List (Nat × Int)) : List (Nat × Int) :=
+  (v.foldl (fun acc x => fmIns x.1 x.2 acc) u).filter (·.2 != 0)
+
+def semScale (c : Int) (u : List (Nat × Int)) : List (Nat × Int) :=
+  (u.map fun x => (x.1, c * x.2)).filter (·.2 != 0)
+
+/-- `a beta + b betahat + c ell` on the split member of dimension `2n`. -/
+def semClass (n : Nat) (t : Int × Int × Int) : List (Nat × Int) :=
+  semAdd (semAdd (semScale t.1 (semBeta n)) (semScale t.2.1 (semBetaHat n))) (semScale t.2.2 (semEll n))
+
+/-- the six products of `beta, betahat, ell`, in the order
+`beta^2, beta betahat, beta ell, betahat^2, betahat ell, ell^2`. -/
+def semMonomials (n : Nat) : List (List (Nat × Int)) :=
+  let g := [semBeta n, semBetaHat n, semEll n]
+  [(0, 0), (0, 1), (0, 2), (1, 1), (1, 2), (2, 2)].map fun (p : Nat × Nat) =>
+    fmWedge (4 * n) (g.getD p.1 []) (g.getD p.2 [])
+
+def semMonoOk (n : Nat) (keys : List Nat) : Bool :=
+  keys.length == 6
+    && tgNonsing tgP 7 ((semMonomials n).map fun m => keys.map fun k => tgModP (tgCoef m k))
+
+/-- `eta^2` and `gamma^2 + d ell^2` have a nonzero minor on the monomials `t, s`. -/
+def semTensorOk (q : Nat × Nat × Nat × Nat) : Bool :=
+  let n := q.1
+  let d : Int := q.2.1
+  let N := 4 * n
+  let eta := semAdd (semScale d (semBeta n)) (semBetaHat n)
+  let gamma := semAdd (semScale d (semBeta n)) (semScale (-1) (semBetaHat n))
+  let a := fmWedge N eta eta
+  let b := semAdd (fmWedge N gamma gamma) (semScale d (fmWedge N (semEll n) (semEll n)))
+  tgCoef a q.2.2.1 * tgCoef b q.2.2.2 - tgCoef a q.2.2.2 * tgCoef b q.2.2.1 != 0
+
+/-! The exterior algebra of one block over `Z[i]`. -/
+
+abbrev SemG := Int × Int
+
+def semGMul (x y : SemG) : SemG := (x.1 * y.1 - x.2 * y.2, x.1 * y.2 + x.2 * y.1)
+
+def semGAddC (x y : SemG) : SemG := (x.1 + y.1, x.2 + y.2)
+
+def semGIns (k : Nat) (v : SemG) : List (Nat × SemG) → List (Nat × SemG)
+  | [] => [(k, v)]
+  | (k', v') :: r => if k == k' then (k, semGAddC v' v) :: r else (k', v') :: semGIns k v r
+
+def semGNorm (u : List (Nat × SemG)) : List (Nat × SemG) := u.filter fun x => x.2 != (0, 0)
+
+def semGW (A B : List (Nat × SemG)) : List (Nat × SemG) :=
+  semGNorm (A.foldl (fun acc x => B.foldl (fun acc y =>
+    if x.1 &&& y.1 != 0 then acc
+    else
+      let c := semGMul x.2 y.2
+      semGIns (x.1 + y.1) (if fmSwaps 4 x.1 y.1 % 2 == 1 then (-c.1, -c.2) else c) acc) acc) [])
+
+def semGAdd (u v : List (Nat × SemG)) : List (Nat × SemG) :=
+  semGNorm (v.foldl (fun acc x => semGIns x.1 x.2 acc) u)
+
+def semGSc (c : SemG) (u : List (Nat × SemG)) : List (Nat × SemG) :=
+  semGNorm (u.map fun x => (x.1, semGMul c x.2))
+
+def semGEq (u v : List (Nat × SemG)) : Bool := (semGAdd u (semGSc (-1, 0) v)).isEmpty
+
+def semP1 : List (Nat × SemG) := [(1, (1, 0))]
+def semQ1 : List (Nat × SemG) := [(2, (1, 0))]
+def semP2 : List (Nat × SemG) := [(4, (1, 0))]
+def semQ2 : List (Nat × SemG) := [(8, (1, 0))]
+
+/-- `2B = i P1 Q1`, `2Bhat = i P2 Q2`, `2L = P1 Q2 - P2 Q1`. -/
+def sem2B : List (Nat × SemG) := semGSc (0, 1) (semGW semP1 semQ1)
+def sem2Bh : List (Nat × SemG) := semGSc (0, 1) (semGW semP2 semQ2)
+def sem2L : List (Nat × SemG) := semGAdd (semGW semP1 semQ2) (semGSc (-1, 0) (semGW semP2 semQ1))
+def semR1 : List (Nat × SemG) := semGW (semGW semP1 semQ1) semQ2
+def semR2 : List (Nat × SemG) := semGW (semGW semP2 semQ1) semQ2
+
+/-- (C) the block in the Hodge basis. -/
+def semBlockBasisOk : Bool :=
+  let X := semGAdd semP1 semQ1
+  let X' := semGAdd (semGSc (0, -1) semP1) (semGSc (0, 1) semQ1)
+  let Xi := semGAdd semP2 semQ2
+  let Xi' := semGAdd (semGSc (0, -1) semP2) (semGSc (0, 1) semQ2)
+  semGEq (semGW X X') (semGSc (2, 0) sem2B)
+    && semGEq (semGW Xi Xi') (semGSc (2, 0) sem2Bh)
+    && semGEq (semGAdd (semGW X Xi) (semGW X' Xi')) (semGSc (2, 0) sem2L)
+    && semGEq (semGAdd X (semGSc (0, 1) X')) (semGSc (2, 0) semP1)
+    && semGEq (semGAdd X (semGSc (0, -1) X')) (semGSc (2, 0) semQ1)
+    && semGEq (semGAdd Xi (semGSc (0, 1) Xi')) (semGSc (2, 0) semP2)
+    && semGEq (semGAdd Xi (semGSc (0, -1) Xi')) (semGSc (2, 0) semQ2)
+
+/-- (D) the multiplication table. -/
+def semBlockTableOk : Bool :=
+  let V4 := semGW sem2B sem2Bh
+  let Q12 := semGW semQ1 semQ2
+  semGEq (semGW sem2L sem2L) (semGSc (-2, 0) V4)
+    && [semGW sem2B sem2L, semGW sem2Bh sem2L, semGW sem2B sem2B, semGW sem2Bh sem2Bh,
+        semGW sem2B semQ1, semGW sem2Bh semQ2,
+        semGW sem2B Q12, semGW sem2Bh Q12, semGW sem2L Q12].all (·.isEmpty)
+    && semGEq (semGW sem2Bh semQ1) (semGSc (0, -1) semR2)
+    && semGEq (semGW sem2L semQ1) (semGSc (-1, 0) semR1)
+    && semGEq (semGW sem2B semQ2) (semGSc (0, 1) semR1)
+    && semGEq (semGW sem2L semQ2) (semGSc (-1, 0) semR2)
+    && (let ks := ([[(0, ((1 : Int), (0 : Int)))], sem2B, sem2Bh, sem2L, V4, Q12, semQ1, semQ2, semR1, semR2].map
+            fun u => u.map (·.1)).flatten
+        ks.length == 11 && ks.eraseDups.length == 11)
+
+/-! The components of `Phi`. -/
+
+/-- `v = (1, a, b, c, ab - c^2)`, the coordinates of `e^lambda` on a block. -/
+def semV (t : Int × Int × Int) : List SemG :=
+  [(1, 0), (t.1, 0), (t.2.1, 0), (t.2.2, 0), (t.1 * t.2.1 - t.2.2 * t.2.2, 0)]
+
+/-- `2 e^lambda Q1` and `2 e^lambda Q2` on `(Q1, Q2, R1, R2)`. -/
+def semO (t : Int × Int × Int) : List (List SemG) :=
+  [[(2, 0), (0, 0), (-t.2.2, 0), (0, -t.2.1)], [(0, 0), (2, 0), (0, t.1), (-t.2.2, 0)]]
+
+def semKron (x y : List SemG) : List SemG := x.flatMap fun p => y.map (semGMul p ·)
+
+def semVPow (t : Int × Int × Int) : Nat → List SemG
+  | 0 => [(1, 0)]
+  | k + 1 => semKron (semVPow t k) (semV t)
+
+/-- the component of one block: `v^(n-1)` for each class. -/
+def semSame (n : Nat) (ts : List (Int × Int × Int)) : List (List SemG) :=
+  ts.map fun t => semVPow t (n - 1)
+
+/-- the component of a pair of blocks: `o_a (x) o_b (x) v^(n-2)` for each class. -/
+def semCross (n : Nat) (ts : List (Int × Int × Int)) : List (List SemG) :=
+  ts.flatMap fun t =>
+    let o := semO t
+    let w := semVPow t (n - 2)
+    [(0, 0), (0, 1), (1, 0), (1, 1)].map fun (p : Nat × Nat) =>
+      semKron (semKron (o.getD p.1 []) (o.getD p.2 [])) w
+
+def semPrime : Nat := 1000033
+
+def semModG (x : SemG) : Nat := ((x.1 + 649529 * x.2) % (semPrime : Int)).toNat
+
+/-- the vectors `cols` have a nonsingular minor on the coordinates `rc.1` and the
+vectors `rc.2`, modulo `1000033` with `i = 649529`. -/
+def semMinorOk (cols : List (List SemG)) (rc : List Nat × List Nat) : Bool :=
+  rc.1.length == rc.2.length
+    && tgNonsing semPrime (rc.1.length + 1)
+        (rc.2.map fun c => rc.1.map fun r => semModG ((cols.getD c []).getD r (0, 0)))
+
+/-- `sum_j k_j cols_j = 0` over `Z[i]`. -/
+def semKerOk (cols : List (List SemG)) (k : List SemG) : Bool :=
+  k.length == cols.length
+    && (List.range ((cols.headD []).length)).all fun r =>
+      (cols.zip k).foldl (fun s q => semGAddC s (semGMul q.2 (q.1.getD r (0, 0)))) (0, 0) == (0, 0)
+
+/-! The explicit object. -/
+
+def semPowers (N : Nat) (x : List (Nat × Int)) : Nat → List (List (Nat × Int))
+  | 0 => [[(0, 1)]]
+  | k + 1 => let p := semPowers N x k; p ++ [fmWedge N (p.getLastD []) x]
+
+def semMulK (x y : Int × Int) : Int × Int := (x.1 * y.1 - 3 * x.2 * y.2, x.1 * y.2 + x.2 * y.1)
+
+def semPowK (x : Int × Int) : Nat → Int × Int
+  | 0 => (1, 0)
+  | k + 1 => semMulK (semPowK x k) x
+
+/-- `sum_i m_i lambda_i^k = 0` for `k != 3` and `6 sum_i m_i lambda_i^3 = -72 W`. -/
+def semObjectChernOk : Bool :=
+  let N := 12
+  let pows := semObject.map fun q => ((semPowers N (semClass 3 q.1) 6), q.2)
+  let S := fun (k : Nat) => pows.foldl (fun acc q => semAdd acc (semScale q.2 (q.1.getD k []))) []
+  let gamma := semAdd (semScale 3 (semBeta 3)) (semScale (-1) (semBetaHat 3))
+  let ell := semEll 3
+  let W := semAdd (fmWedge N (fmWedge N gamma gamma) gamma) (semScale (-9) (fmWedge N gamma (fmWedge N ell ell)))
+  [0, 1, 2, 4, 5, 6].all (fun k => (S k).isEmpty)
+    && (semAdd (semScale 6 (S 3)) (semScale 72 W)).isEmpty
+    && (W.map (·.2.natAbs)).foldl Nat.gcd 0 == 6
+
+/-- the index and the Prouhet-Tarry-Escott pair. -/
+def semObjectPteOk : Bool :=
+  let ts := semObject.map (·.1)
+  (ts.all fun t => ts.all fun t' => t == t' ||
+      (t'.1 - t.1) * (t'.2.1 - t.2.1) - (t'.2.2 - t.2.2) * (t'.2.2 - t.2.2) < 0)
+    && ts.eraseDups.length == 6
+    && (ts.all fun t => t.1 + 3 * t.2.1 == 0 && (t.1 - 3 * t.2.1) % 6 == 0 && t.2.2 % 3 == 0)
+    && (let us := semObject.map fun q => (((q.1.1 - 3 * q.1.2.1) / 6, q.1.2.2 / 3), q.2)
+        us.all (fun q => q.1.1 * q.1.1 + 3 * q.1.2 * q.1.2 == 4)
+          && [0, 1, 2].all (fun k => us.foldl (fun s q =>
+                (s.1 + q.2 * (semPowK q.1 k).1, s.2 + q.2 * (semPowK q.1 k).2)) (0, 0) == (0, 0))
+          && us.foldl (fun s q => (s.1 + q.2 * (semPowK q.1 3).1, s.2 + q.2 * (semPowK q.1 3).2)) (0, 0) != (0, 0))
+
+/-- **(A), (B) The divisor subring in degree four.**  The six products of
+`beta, betahat, ell` are independent for `n = 2, 3, 4`, and for the six pairs
+`(n, d)` the classes `eta^2` and `theta^+ theta^- = gamma^2 + d ell^2` are
+independent. -/
+theorem semireg_monomials :
+    (([2, 3, 4].zip semMonoKeys).all (fun q => semMonoOk q.1 q.2)
+      && semTensorKeys.map (fun q => (q.1, q.2.1)) == [(2, 1), (2, 2), (2, 3), (3, 2), (3, 5), (4, 1)]
+      && semTensorKeys.all semTensorOk) = true := by
+  decide +kernel
+
+/-- **(C), (D) One block.**  The Hodge basis of a block, the classes
+`2B = 2 beta_j`, `2Bhat = 2 betahat_j`, `2L = 2 ell_j` in it, and their
+products with each other and with `Q1, Q2, Q1 Q2`. -/
+theorem semireg_block :
+    (semBlockBasisOk && semBlockTableOk) = true := by
+  decide +kernel
+
+/-- **(E) `n = 2`.**  For the prefixes of length `s = 1, 2, 3` the two
+components have ranks `s` and `4s`, so `Phi` is injective; for the four
+classes they have ranks `4` and `14`, the second bounded above by two
+independent kernel vectors, so `rank Phi = 2 * 4 + 14 = 22 < 24`. -/
+theorem semireg_rank_two :
+    ((List.range 4).all (fun s =>
+        let ts := semTwo.take (s + 1)
+        let m := semMinorsTwo.getD s (([], []), ([], []))
+        semMinorOk (semSame 2 ts) m.1 && semMinorOk (semCross 2 ts) m.2
+          && m.1.1.length == (if s < 3 then s + 1 else 4)
+          && m.2.1.length == (if s < 3 then 4 * (s + 1) else 14))
+      && semKerTwo.all (semKerOk (semCross 2 semTwo))
+      && semMinorOk semKerTwo (semKerTwoRows, [0, 1])
+      && 2 * 4 + 14 == 22 && 2 * 4 + (10 + 4) == 22) = true := by
+  decide +kernel
+
+/-- **(F) `n = 3`.**  For the ten classes the components have ranks `10` and
+`40`, so `Phi` is injective: `3 * 10 + 3 * 40 = 150 = 15 * 10`. -/
+theorem semireg_rank_three :
+    (semThree.length == 10 && semThree.eraseDups.length == 10
+      && semMinorOk (semSame 3 semThree) semMinorsThree.1 && semMinorsThree.1.1.length == 10
+      && semMinorOk (semCross 3 semThree) semMinorsThree.2 && semMinorsThree.2.1.length == 40
+      && 3 * 10 + 3 * 40 == 15 * 10) = true := by
+  decide +kernel
+
+/-- **(G) The explicit object: Chern character, index, and the
+Prouhet-Tarry-Escott pair.**  `ch_k = 0` for `k != 3`, `ch_3 = 12 omega_1`,
+every difference has index `3`, and the six classes come from a
+Prouhet-Tarry-Escott pair of degree two on the norm circle `4` of
+`Z[sqrt(-3)]`. -/
+theorem semireg_object_chern :
+    (semObjectChernOk && semObjectPteOk) = true := by
+  decide +kernel
+
+/-- **(G) The explicit object: the rank of `Phi`.**  The components have ranks
+`5` and `20`, bounded above by the kernel vector `(m_i)` and by four
+independent kernel vectors over `Z[i]`, so `rank Phi = 75` of `90`. -/
+theorem semireg_object_rank :
+    (let ts := semObject.map (·.1)
+     let ms := semObject.map fun q => ((q.2, 0) : SemG)
+     semMinorOk (semSame 3 ts) semMinorsObject.1 && semMinorsObject.1.1.length == 5
+      && semKerOk (semSame 3 ts) ms
+      && semMinorOk (semCross 3 ts) semMinorsObject.2 && semMinorsObject.2.1.length == 20
+      && semKerObject.length == 4 && semKerObject.all (semKerOk (semCross 3 ts))
+      && semMinorOk semKerObject (semKerObjectRows, [0, 1, 2, 3])
+      && 3 * (6 - 1) + 3 * (24 - 4) == 75 && 15 * 6 == 90) = true := by
+  decide +kernel
+
+
+/-! ## 81.  Kernels on `X x X` for a quartic CM field
+
+Item (LIX), parts (A), (E), (F) at one place, (G) and (H): Remark (A kernel that
+is not an external product), Proposition (Graphs and pure spinors give no Weil
+class), Remark (Negative Ext groups) and Remark (Prym varieties of cyclic
+covers).  Parts (B), (C) and (D) work with the tensor product over both places
+in explicit number fields and stay with the exact computation of item (LIX).
+`F = F_0(sqrt(-q))` with `F_0` real quadratic, `X` a
+principally polarised abelian fourfold with real multiplication by `O_(F_0)`,
+`A = X x Xhat`.  Over `R` the cohomology of `X x X` and of `A`, the Orlov
+correspondence and the group `G_F(R) = SU_1 x SU_2` are tensor products over
+the two real places, and everything here is one place, with `d = tau_j(q)`
+written `p / q`; classes are scaled by powers of `q` to be integral.
+
+The model.  `X_j` has the generators `x_0, ..., x_3` (bits `0..3`),
+`theta = x_0 x_2 + x_1 x_3` and `int x_0 x_1 x_2 x_3 = -1`, so
+`pt = theta^2 / 2`.  On `X_j x X_j` the first factor is `a_i` (bits `0..3`), the
+second `b_i` (bits `4..7`); a class `Z` is the correspondence
+`y |-> int_a y(a) Z(a, b)`, and the class with a given correspondence `C` is
+`sum_(y, m) C[m][y] e_y^dual (x) e_m` with `e_y^dual = -sign(y, y^c) e_(y^c)`.
+On `A_j` the generators are `x_i` and `xi_i` (bits `4..7`),
+`thetahat = xi_0 xi_2 + xi_1 xi_3`, `ell = sum_i x_i xi_i`,
+`eta = d theta + thetahat`, `gamma = d theta - thetahat`,
+`Omega = gamma^2 - d ell^2`, `Lambda = gamma ell`, and the Orlov transform is
+`ch Phi(Z)(x, xi) = int_y Z(x + y, y) exp(sum_i y_i xi_i)` (bits `8..11` for
+`y`); only the term of the exponential carrying the missing `y_i` survives.
+`sqrt(-q)` acts on `H^1(A_j)` by `M*`, `x_0 -> -xi_2`, `x_2 -> xi_0`,
+`x_1 -> -xi_3`, `x_3 -> xi_1`, `xi_0 -> -d x_2`, `xi_2 -> d x_0`,
+`xi_1 -> -d x_3`, `xi_3 -> d x_1`, and `su_j(d)` is the Lie algebra of the
+`X` with `[X, M*] = 0`, `X . eta = 0` and `tr(M* X) = 0`.  The complex structure
+of `X x Xhat` makes `x_0 + i x_2`, `x_1 + i x_3`, `xi_0 + i xi_2`,
+`xi_1 + i xi_3` of type `(1, 0)`.  `T(d)` is the correspondence
+`y_0 -> -(d^2/2) theta^2 y_0`, `y_2 -> (d/2) y_2`, `y_3 -> (3d/2) y_3`,
+`y_4 -> 3d y_4`, and `P` is `y -> int y`.
+-/
+
+def qkW (A B : List (Nat × Int)) : List (Nat × Int) := fmWedge 12 A B
+
+def qkGen (i : Nat) (c : Int) : List (Nat × Int) := [(2 ^ i, c)]
+
+def qkSum (us : List (List (Nat × Int))) : List (Nat × Int) := us.foldl semAdd []
+
+def qkSub (u v : List (Nat × Int)) : List (Nat × Int) := semAdd u (semScale (-1) v)
+
+def qkEq (u v : List (Nat × Int)) : Bool := (qkSub u v).isEmpty
+
+def qkShift (s : Nat) (u : List (Nat × Int)) : List (Nat × Int) := u.map fun x => (x.1 * 2 ^ s, x.2)
+
+def qkPop (m : Nat) : Nat := fmPop 12 m
+
+def qkTheta : List (Nat × Int) := semAdd (qkW (qkGen 0 1) (qkGen 2 1)) (qkW (qkGen 1 1) (qkGen 3 1))
+def qkThetaHat : List (Nat × Int) := qkShift 4 qkTheta
+def qkEll : List (Nat × Int) := qkSum ((List.range 4).map fun i => qkW (qkGen i 1) (qkGen (4 + i) 1))
+
+/-- `q eta`, `q gamma`, `q^2 Omega`, `q Lambda` at `d = p / q`. -/
+def qkEta (p q : Int) : List (Nat × Int) := semAdd (semScale p qkTheta) (semScale q qkThetaHat)
+def qkGamma (p q : Int) : List (Nat × Int) := semAdd (semScale p qkTheta) (semScale (-q) qkThetaHat)
+def qkOmega (p q : Int) : List (Nat × Int) :=
+  semAdd (qkW (qkGamma p q) (qkGamma p q)) (semScale (-(p * q)) (qkW qkEll qkEll))
+def qkLambda (p q : Int) : List (Nat × Int) := qkW (qkGamma p q) qkEll
+
+/-- the seven invariant classes `1, eta, eta^2, Omega, Lambda, eta^3, eta^4`, scaled. -/
+def qkInv (p q : Int) : List (List (Nat × Int)) :=
+  let e := qkEta p q
+  let e2 := qkW e e
+  [[(0, 1)], e, e2, qkOmega p q, qkLambda p q, qkW e e2, qkW e2 e2]
+
+/-- the sign of `e_a e_b = +- e_(a + b)`. -/
+def qkSign (a b : Nat) : Int := if fmSwaps 12 a b % 2 == 1 then -1 else 1
+
+/-- the correspondence of a class on `X_j x X_j`: the image of the monomial `y`. -/
+def qkCorr (Z : List (Nat × Int)) (y : Nat) : List (Nat × Int) :=
+  (qkW [(y, 1)] Z).filterMap fun x => if x.1 % 16 == 15 then some (x.1 / 16, -x.2) else none
+
+/-- the class with the correspondence `C`. -/
+def qkClass (C : Nat → List (Nat × Int)) : List (Nat × Int) :=
+  qkSum ((List.range 16).map fun y => (C y).map fun x => ((15 - y) + 16 * x.1, -(qkSign y (15 - y)) * x.2))
+
+/-- the Orlov transform of a class on `X_j x X_j`. -/
+def qkEy (R : Nat) : List (Nat × Int) :=
+  (List.range 4).foldl (fun acc r => if R / 2 ^ r % 2 == 1 then qkW acc [(2 ^ (4 + r) + 2 ^ (8 + r), -1)] else acc) [(0, 1)]
+
+def qkSubst (m : Nat) : List (Nat × Int) :=
+  (List.range 8).foldl (fun acc j =>
+    if m / 2 ^ j % 2 == 1 then
+      qkW acc (if j < 4 then [(2 ^ j, 1), (2 ^ (8 + j), 1)] else [(2 ^ (4 + j), 1)])
+    else acc) [(0, 1)]
+
+def qkOrlov (Z : List (Nat × Int)) : List (Nat × Int) :=
+  (Z.foldl (fun acc z =>
+    (qkSubst z.1).foldl (fun acc t =>
+      let R := 15 - t.1 / 256 % 16
+      if t.1 / 16 % 16 &&& R != 0 then acc
+      else (qkW [(t.1, z.2 * t.2)] (qkEy R)).foldl (fun acc u => fmIns (u.1 % 256) (-u.2) acc) acc) acc) []).filter
+    (·.2 != 0)
+
+/-- `pt = theta^2 / 2` on one factor, and the diagonal. -/
+def qkPt : List (Nat × Int) := [(15, -1)]
+
+def qkDiag : List (Nat × Int) :=
+  semScale (-1) ((List.range 4).foldl (fun acc i => qkW acc [(2 ^ (4 + i), 1), (2 ^ i, -1)]) [(0, 1)])
+
+/-- the class of the graph of `x |-> (b x, a x)`, `- prod_i (b b_i - a a_i)`. -/
+def qkGraphGeom (b a : Int) : List (Nat × Int) :=
+  semScale (-1) ((List.range 4).foldl (fun acc i => qkW acc ([(2 ^ (4 + i), b), (2 ^ i, -a)].filter (·.2 != 0))) [(0, 1)])
+
+def qkPow (x : Int) : Nat → Int
+  | 0 => 1
+  | k + 1 => x * qkPow x k
+
+/-- the correspondence of `(b, a)_*(c)`: `y_k -> b^k a^(4 - k - m) (y_k c_m)`. -/
+def qkGraphCorr (b a : Int) (c : List (Nat × Int)) (y : Nat) : List (Nat × Int) :=
+  ((qkW [(y, 1)] c).map fun x =>
+    (x.1, qkPow b (qkPop y) * (if qkPop x.1 ≤ 4 then qkPow a (4 - qkPop x.1) else 0) * x.2)).filter (·.2 != 0)
+
+def qkGraph (b a : Int) (c : List (Nat × Int)) : List (Nat × Int) := qkClass (qkGraphCorr b a c)
+
+/-- `4 q^2 T(p / q)` and `P`. -/
+def qkT4 (p q : Int) : List (Nat × Int) :=
+  qkClass fun y =>
+    let k := qkPop y
+    if k == 0 then semScale (-2 * p * p) (qkW qkTheta qkTheta)
+    else if k == 2 then [(y, 2 * p * q)]
+    else if k == 3 then [(y, 6 * p * q)]
+    else if k == 4 then [(y, 12 * p * q)]
+    else []
+
+def qkP : List (Nat × Int) := qkClass fun y => if y == 15 then [(0, -1)] else []
+
+/-- the even derivation extending `g_j -> sum_i X[i][j] g_i`. -/
+def qkDer (X : List (List Int)) (u : List (Nat × Int)) : List (Nat × Int) :=
+  (u.foldl (fun acc x =>
+    (List.range 8).foldl (fun acc j =>
+      if x.1 / 2 ^ j % 2 == 0 then acc
+      else (List.range 8).foldl (fun acc i =>
+        let c := (X.getD i []).getD j 0
+        if c == 0 || (i != j && x.1 / 2 ^ i % 2 == 1) then acc
+        else
+          let m' := x.1 - 2 ^ j
+          let s := qkPop (x.1 % 2 ^ j) + qkPop (m' % 2 ^ i)
+          fmIns (m' + 2 ^ i) (if s % 2 == 1 then -(c * x.2) else c * x.2) acc) acc) acc) []).filter
+    (·.2 != 0)
+
+/-- `q M*` at `d = p / q`, as a matrix (`[i][j]` the coefficient of `g_i` in the image of `g_j`). -/
+def qkM (p q : Int) : List (List Int) :=
+  (List.range 8).map fun i => (List.range 8).map fun j =>
+    if (i, j) == (6, 0) || (i, j) == (7, 1) then -q
+    else if (i, j) == (4, 2) || (i, j) == (5, 3) then q
+    else if (i, j) == (2, 4) || (i, j) == (3, 5) then -p
+    else if (i, j) == (0, 6) || (i, j) == (1, 7) then p
+    else 0
+
+/-- the complex structure: `x_0 -> -x_2`, `x_2 -> x_0`, ... -/
+def qkJ : List (List Int) :=
+  (List.range 8).map fun i => (List.range 8).map fun j =>
+    if j % 4 < 2 && i == j + 2 then -1 else if j % 4 ≥ 2 && i + 2 == j then 1 else 0
+
+def qkMatMul (A B : List (List Int)) : List (List Int) :=
+  A.map fun r => (List.range 8).map fun j => (List.range 8).foldl (fun s k => s + r.getD k 0 * (B.getD k []).getD j 0) 0
+
+def qkMatSub (A B : List (List Int)) : List (List Int) := (A.zip B).map fun r => (r.1.zip r.2).map fun x => x.1 - x.2
+
+def qkIsZeroM (A : List (List Int)) : Bool := A.all (·.all (· == 0))
+
+/-- `X` lies in `su_j(d)`: it commutes with `M*`, kills `eta` and `tr(M* X) = 0`. -/
+def qkSuOk (p q : Int) (X : List (List Int)) : Bool :=
+  let M := qkM p q
+  qkIsZeroM (qkMatSub (qkMatMul X M) (qkMatMul M X)) && (qkDer X (qkEta p q)).isEmpty
+    && (List.range 8).foldl (fun s i => s + ((qkMatMul M X).getD i []).getD i 0) 0 == 0
+
+/-- the rows of the linear conditions defining `su_j(d)`, on the 64 entries `X[i][j]`
+(index `8 i + j`): the commutator, the derivation of `eta`, the trace. -/
+def qkSuRows (p q : Int) : List (List Int) :=
+  let M := qkM p q
+  let comm := (List.range 64).map fun ij =>
+    (List.range 64).map fun ab =>
+      (if ab / 8 == ij / 8 then (M.getD (ab % 8) []).getD (ij % 8) 0 else 0)
+        - (if ab % 8 == ij % 8 then (M.getD (ij / 8) []).getD (ab / 8) 0 else 0)
+  let ders := (List.range 64).map fun ab =>
+    qkDer ((List.range 8).map fun i => (List.range 8).map fun j => if 8 * i + j == ab then 1 else 0) (qkEta p q)
+  let mons := ((List.range 256).filter fun m => qkPop m == 2)
+  let drows := mons.map fun m => ders.map fun v => tgCoef v m
+  let tr := (List.range 64).map fun ab => (M.getD (ab % 8) []).getD (ab / 8) 0
+  comm ++ drows ++ [tr]
+
+def qkModZ (x : Int) : Nat := (x % (tgP : Int)).toNat
+
+/-- the rows `rs` and columns `cs` of `rows` form a nonsingular minor modulo `1000003`. -/
+def qkMinorOk (rows : List (List Int)) (rs cs : List Nat) : Bool :=
+  rs.length == cs.length
+    && tgNonsing tgP (rs.length + 1) (rs.map fun r => cs.map fun c => qkModZ ((rows.getD r []).getD c 0))
+
+def qkFlat (B : List (List (List Int))) (u : List (Nat × Int)) : Bool := B.all fun X => (qkDer X u).isEmpty
+
+/-- the coordinates of a list of classes on the monomials `ms`. -/
+def qkMat (vs : List (List (Nat × Int))) (ms : List Nat) : List (List Int) :=
+  vs.map fun v => ms.map fun m => tgCoef v m
+
+/-- `384 e^(t ell)` for `t = +-1/2`. -/
+def qkExpHalfEll (sgn : Int) : List (Nat × Int) :=
+  let l := semScale sgn qkEll
+  let l2 := qkW l l
+  let l3 := qkW l2 l
+  qkSum [[(0, 384)], semScale 192 l, semScale 48 l2, semScale 8 l3, qkW l2 l2]
+
+-- d = 1/1
+def qkSu_1_1 : List (List (List Int)) := [[[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -1], [0, 0, 0, 0, 0, 0, 1, 0], [0, -1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, -1], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, -1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, -1], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0]], [[0, 0, 0, -1, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1]]]
+def qkSuMinor_1_1 : (List Nat × List Nat) × List Nat := (([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 77, 79, 80, 86, 92], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 39, 41, 42, 43, 44, 45, 48, 50, 51, 53, 59]), [0, 1, 2, 3, 5, 6, 7, 8, 9, 11, 14, 16, 17, 23, 25])
+def qkInvIndep_1_1 : List Nat := [0, 2, 9]
+-- d = 2/1
+def qkSu_2_1 : List (List (List Int)) := [[[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -2], [0, 0, 0, 0, 0, 0, 2, 0], [0, -1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, -2], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 2, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, -1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, -2, 0], [0, 0, 0, 0, 0, 2, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 2, 0], [0, 0, 0, 0, 0, 0, 0, -2], [0, 0, 0, 0, -2, 0, 0, 0], [0, 0, 0, 0, 0, 2, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, -2, 0, 0], [0, 0, 0, 0, 2, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0]], [[0, 0, 0, -1, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1]]]
+def qkSuMinor_2_1 : (List Nat × List Nat) × List Nat := (([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 77, 79, 80, 86, 92], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 39, 41, 42, 43, 44, 45, 48, 50, 51, 53, 59]), [0, 1, 2, 3, 5, 6, 7, 8, 9, 11, 14, 16, 17, 23, 25])
+def qkInvIndep_2_1 : List Nat := [0, 2, 9]
+-- d = 3/1
+def qkSu_3_1 : List (List (List Int)) := [[[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -3], [0, 0, 0, 0, 0, 0, 3, 0], [0, -1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, -3], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 3, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, -1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, -3, 0], [0, 0, 0, 0, 0, 3, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 3, 0], [0, 0, 0, 0, 0, 0, 0, -3], [0, 0, 0, 0, -3, 0, 0, 0], [0, 0, 0, 0, 0, 3, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, -3, 0, 0], [0, 0, 0, 0, 3, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0]], [[0, 0, 0, -1, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1]]]
+def qkSuMinor_3_1 : (List Nat × List Nat) × List Nat := (([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 77, 79, 80, 86, 92], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 39, 41, 42, 43, 44, 45, 48, 50, 51, 53, 59]), [0, 1, 2, 3, 5, 6, 7, 8, 9, 11, 14, 16, 17, 23, 25])
+def qkInvIndep_3_1 : List Nat := [0, 2, 9]
+-- d = 5/2
+def qkSu_5_2 : List (List (List Int)) := [[[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -5], [0, 0, 0, 0, 0, 0, 5, 0], [0, -2, 0, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, -5], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 5, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, -2, 0, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, -1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, -5, 0], [0, 0, 0, 0, 0, 5, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 5, 0], [0, 0, 0, 0, 0, 0, 0, -5], [0, 0, 0, 0, -5, 0, 0, 0], [0, 0, 0, 0, 0, 5, 0, 0], [0, 0, 2, 0, 0, 0, 0, 0], [0, 0, 0, -2, 0, 0, 0, 0], [-2, 0, 0, 0, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, -5, 0, 0], [0, 0, 0, 0, 5, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -2, 0, 0, 0, 0], [0, 0, 2, 0, 0, 0, 0, 0]], [[0, 0, 0, -1, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1]]]
+def qkSuMinor_5_2 : (List Nat × List Nat) × List Nat := (([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 77, 79, 80, 86, 92], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 39, 41, 42, 43, 44, 45, 48, 50, 51, 53, 59]), [0, 1, 2, 3, 5, 6, 7, 8, 9, 11, 14, 16, 17, 23, 25])
+def qkInvIndep_5_2 : List Nat := [0, 2, 9]
+-- d = 2/5
+def qkSu_2_5 : List (List (List Int)) := [[[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -2], [0, 0, 0, 0, 0, 0, 2, 0], [0, -5, 0, 0, 0, 0, 0, 0], [5, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, -2], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 2, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, -5, 0, 0, 0, 0, 0], [0, 5, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, -1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, -1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, -2, 0], [0, 0, 0, 0, 0, 2, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -5, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [5, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 2, 0], [0, 0, 0, 0, 0, 0, 0, -2], [0, 0, 0, 0, -2, 0, 0, 0], [0, 0, 0, 0, 0, 2, 0, 0], [0, 0, 5, 0, 0, 0, 0, 0], [0, 0, 0, -5, 0, 0, 0, 0], [-5, 0, 0, 0, 0, 0, 0, 0], [0, 5, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, -2, 0, 0], [0, 0, 0, 0, 2, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -5, 0, 0, 0, 0], [0, 0, 5, 0, 0, 0, 0, 0]], [[0, 0, 0, -1, 0, 0, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0]], [[0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1]]]
+def qkSuMinor_2_5 : (List Nat × List Nat) × List Nat := (([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 77, 79, 80, 86, 92], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 39, 41, 42, 43, 44, 45, 48, 50, 51, 53, 59]), [0, 1, 2, 3, 5, 6, 7, 8, 9, 11, 14, 16, 17, 23, 25])
+def qkInvIndep_2_5 : List Nat := [0, 2, 9]
+def qkInvMinors_1_1 : List (List Nat × List Nat) := [([2, 4, 10, 12, 35, 37, 66, 68], [0, 1, 2, 3, 4, 5, 6, 7]), ([2, 5, 6, 7, 8, 9, 12, 14, 23, 25, 30, 33, 36, 37, 40, 42, 61, 64, 65, 89, 93, 117, 125, 143, 150, 158, 229], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27]), ([3, 4, 5, 6, 7, 8, 9, 12, 15, 16, 17, 18, 19, 28, 37, 40, 41, 42, 43, 44, 47, 49, 59, 61, 62, 64, 65, 68, 71, 73, 74, 75, 84, 96, 99, 103, 121, 127, 130, 131, 177, 183, 186, 187, 226, 231, 235, 239, 240, 243, 293, 313, 451, 453, 456, 465], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55]), ([1, 2, 3, 4, 8, 9, 10, 11, 12, 13, 14, 21, 24, 33, 38, 39, 40, 41, 42, 43, 44, 47, 50, 51, 52, 53, 54, 63, 71, 73, 74, 78, 80, 81, 83, 84, 91, 94, 103, 110, 114, 120, 123, 124, 143, 144, 150, 151, 153, 154, 213, 220, 221, 224, 283, 287, 290, 292, 293, 314, 356, 362, 367, 372, 563, 570, 573], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 61, 62, 63, 64, 65, 66, 68]), ([0, 2, 3, 4, 5, 10, 17, 20, 22, 23, 24, 25, 29, 30, 31, 32, 33, 34, 35, 42, 45, 54, 56, 58, 60, 61, 66, 73, 76, 80, 81, 85, 87, 88, 90, 91, 116, 117, 132, 147, 172, 173, 188, 203, 225, 227, 228, 233, 240, 244, 293, 298, 448, 450, 458, 465], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55]), ([0, 6, 7, 9, 10, 11, 12, 17, 24, 27, 28, 34, 35, 39, 40, 55, 56, 62, 68, 84, 90, 112, 117, 142, 144, 160, 224], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27]), ([1, 7, 9, 15, 32, 38, 65, 71], [0, 1, 2, 3, 4, 5, 6, 7])]
+def qkCommMinor_1_1 : List Nat × List Nat := ([0, 6, 8, 14, 16, 17, 19, 21, 22, 23, 24, 30, 32, 33, 34, 35, 36, 37, 38, 39, 40, 46, 56, 62, 72, 78, 80, 81, 83, 85, 86, 87, 88, 94, 96, 97, 102, 103, 104, 110, 144, 145, 150, 151, 209, 215, 273, 279, 280, 281, 286, 287, 297, 303, 321, 327, 346, 348, 529, 535, 536, 542], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 58, 59, 60, 61, 62])
+def qkInvMinors_3_1 : List (List Nat × List Nat) := [([2, 4, 10, 12, 35, 37, 66, 68], [0, 1, 2, 3, 4, 5, 6, 7]), ([2, 5, 6, 7, 8, 9, 12, 14, 23, 25, 30, 33, 36, 37, 40, 42, 61, 64, 65, 89, 93, 117, 125, 143, 150, 158, 229], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27]), ([3, 4, 5, 6, 7, 8, 9, 12, 15, 16, 17, 18, 19, 28, 37, 40, 41, 42, 43, 44, 47, 49, 59, 61, 62, 64, 65, 68, 71, 73, 74, 75, 84, 96, 99, 103, 121, 127, 130, 131, 177, 183, 186, 187, 226, 231, 235, 239, 240, 243, 293, 313, 451, 453, 456, 465], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55]), ([1, 2, 3, 4, 8, 9, 10, 11, 12, 13, 14, 21, 24, 33, 38, 39, 40, 41, 42, 43, 44, 47, 50, 51, 52, 53, 54, 63, 71, 73, 74, 78, 80, 81, 83, 84, 91, 94, 103, 110, 114, 120, 123, 124, 143, 144, 150, 151, 153, 154, 213, 220, 221, 224, 283, 287, 290, 292, 293, 314, 356, 362, 367, 372, 563, 570, 573], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 61, 62, 63, 64, 65, 66, 68]), ([0, 2, 3, 4, 5, 10, 17, 20, 22, 23, 24, 25, 29, 30, 31, 32, 33, 34, 35, 42, 45, 54, 56, 58, 60, 61, 66, 73, 76, 80, 81, 85, 87, 88, 90, 91, 116, 117, 132, 147, 172, 173, 188, 203, 225, 227, 228, 233, 240, 244, 293, 298, 448, 450, 458, 465], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55]), ([0, 6, 7, 9, 10, 11, 12, 17, 24, 27, 28, 34, 35, 39, 40, 55, 56, 62, 68, 84, 90, 112, 117, 142, 144, 160, 224], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27]), ([1, 7, 9, 15, 32, 38, 65, 71], [0, 1, 2, 3, 4, 5, 6, 7])]
+def qkCommMinor_3_1 : List Nat × List Nat := ([0, 6, 8, 14, 16, 17, 19, 21, 22, 23, 24, 30, 32, 33, 34, 35, 36, 37, 38, 39, 40, 46, 56, 62, 72, 78, 80, 81, 83, 85, 86, 87, 88, 94, 96, 97, 102, 103, 104, 110, 144, 145, 150, 151, 209, 215, 273, 279, 280, 281, 286, 287, 297, 303, 321, 327, 346, 348, 529, 535, 536, 542], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 58, 59, 60, 61, 62])
+def qkInvMinors_2_5 : List (List Nat × List Nat) := [([2, 4, 10, 12, 35, 37, 66, 68], [0, 1, 2, 3, 4, 5, 6, 7]), ([2, 5, 6, 7, 8, 9, 12, 14, 23, 25, 30, 33, 36, 37, 40, 42, 61, 64, 65, 89, 93, 117, 125, 143, 150, 158, 229], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27]), ([3, 4, 5, 6, 7, 8, 9, 12, 15, 16, 17, 18, 19, 28, 37, 40, 41, 42, 43, 44, 47, 49, 59, 61, 62, 64, 65, 68, 71, 73, 74, 75, 84, 96, 99, 103, 121, 127, 130, 131, 177, 183, 186, 187, 226, 231, 235, 239, 240, 243, 293, 313, 451, 453, 456, 465], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55]), ([1, 2, 3, 4, 8, 9, 10, 11, 12, 13, 14, 21, 24, 33, 38, 39, 40, 41, 42, 43, 44, 47, 50, 51, 52, 53, 54, 63, 71, 73, 74, 78, 80, 81, 83, 84, 91, 94, 103, 110, 114, 120, 123, 124, 143, 144, 150, 151, 153, 154, 213, 220, 221, 224, 283, 287, 290, 292, 293, 314, 356, 362, 367, 372, 563, 570, 573], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 61, 62, 63, 64, 65, 66, 68]), ([0, 2, 3, 4, 5, 10, 17, 20, 22, 23, 24, 25, 29, 30, 31, 32, 33, 34, 35, 42, 45, 54, 56, 58, 60, 61, 66, 73, 76, 80, 81, 85, 87, 88, 90, 91, 116, 117, 132, 147, 172, 173, 188, 203, 225, 227, 228, 233, 240, 244, 293, 298, 448, 450, 458, 465], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55]), ([0, 6, 7, 9, 10, 11, 12, 17, 24, 27, 28, 34, 35, 39, 40, 55, 56, 62, 68, 84, 90, 112, 117, 142, 144, 160, 224], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27]), ([1, 7, 9, 15, 32, 38, 65, 71], [0, 1, 2, 3, 4, 5, 6, 7])]
+def qkCommMinor_2_5 : List Nat × List Nat := ([0, 6, 8, 14, 16, 17, 19, 21, 22, 23, 24, 30, 32, 33, 34, 35, 36, 37, 38, 39, 40, 46, 56, 62, 72, 78, 80, 81, 83, 85, 86, 87, 88, 94, 96, 97, 102, 103, 104, 110, 144, 145, 150, 151, 209, 215, 273, 279, 280, 281, 286, 287, 297, 303, 321, 327, 346, 348, 529, 535, 536, 542], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 58, 59, 60, 61, 62])
+def qkContr_1 : (List Nat × List Nat) × (List Nat × List Nat) × (List Nat × List Nat) := (([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 19, 22, 23, 24, 25, 26, 27], [3, 17, 18, 23, 27, 33, 34, 39, 43, 48, 51, 53, 54, 58, 63, 113, 114, 119, 123, 177, 183, 187, 243]), ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 19, 22, 23, 24, 25, 26, 27], [3, 17, 18, 23, 27, 33, 34, 39, 43, 48, 51, 53, 54, 58, 63, 83, 113, 114, 119, 123, 177, 183, 187, 243]), ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 19, 22, 23, 24, 25, 26, 27], [3, 17, 18, 23, 27, 33, 34, 39, 43, 48, 51, 53, 54, 58, 63, 113, 114, 119, 123, 177, 183, 187, 243, 309]))
+def qkContrKerW_1 : List (List (Int × Int)) := [[(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (-1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)], [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (-1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)], [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (1, 0), (0, 0), (0, 0), (-1, 0), (0, 0), (0, 0), (-1, 0), (0, 0), (0, 0), (1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)], [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (-1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)], [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (-1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)]]
+def qkContrKerG_1 : List (List (Int × Int)) := [[(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (-1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)], [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (1, 0), (0, 0), (0, 0), (-1, 0), (0, 0), (0, 0), (-1, 0), (0, 0), (0, 0), (1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)], [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (-1, 0), (0, 0), (0, 0), (-1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (1, 0), (0, 0), (0, 0), (1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)], [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (-1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)]]
+def qkContrKerRows_1 : List Nat × List Nat := ([6, 7, 9, 10, 11], [6, 7, 9, 11])
+def qkContr_3 : (List Nat × List Nat) × (List Nat × List Nat) × (List Nat × List Nat) := (([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 19, 22, 23, 24, 25, 26, 27], [3, 17, 18, 23, 27, 33, 34, 39, 43, 48, 51, 53, 54, 58, 63, 113, 114, 119, 123, 177, 183, 187, 243]), ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 19, 22, 23, 24, 25, 26, 27], [3, 17, 18, 23, 27, 33, 34, 39, 43, 48, 51, 53, 54, 58, 63, 83, 113, 114, 119, 123, 177, 183, 187, 243]), ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 19, 22, 23, 24, 25, 26, 27], [3, 17, 18, 23, 27, 33, 34, 39, 43, 48, 51, 53, 54, 58, 63, 113, 114, 119, 123, 177, 183, 187, 243, 309]))
+def qkContrKerW_3 : List (List (Int × Int)) := [[(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (-1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)], [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (-1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)], [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (3, 0), (0, 0), (0, 0), (-3, 0), (0, 0), (0, 0), (-1, 0), (0, 0), (0, 0), (1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)], [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (-1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)], [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (-1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)]]
+def qkContrKerG_3 : List (List (Int × Int)) := [[(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (-1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)], [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (3, 0), (0, 0), (0, 0), (-3, 0), (0, 0), (0, 0), (-1, 0), (0, 0), (0, 0), (1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)], [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (-1, 0), (0, 0), (0, 0), (-1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (1, 0), (0, 0), (0, 0), (1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)], [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (-1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)]]
+def qkContrKerRows_3 : List Nat × List Nat := ([6, 7, 9, 10, 11], [6, 7, 9, 11])
+def qkLData : List (List (Nat × Int)) := [[(240, -1)], [(243, -1)], [(245, -1)], [(249, -1)], [(246, -1)], [(250, -1)], [(252, -1)], [(255, -1)], [(15, -1)], [(63, -1)], [(95, -1)], [(159, -1)], [(111, -1)], [(175, -1)], [(207, -1)], [(255, -1)], [(15, -1), (30, -1), (45, 1), (60, -1), (75, -1), (90, 1), (105, -1), (120, -1), (135, 1), (150, -1), (165, 1), (180, 1), (195, -1), (210, -1), (225, 1), (240, -1)], [(63, -1), (123, -1), (183, 1), (243, -1)], [(95, -1), (125, -1), (215, 1), (245, -1)], [(159, -1), (189, -1), (219, 1), (249, -1)], [(111, -1), (126, -1), (231, 1), (246, -1)], [(175, -1), (190, -1), (235, 1), (250, -1)], [(207, -1), (222, -1), (237, 1), (252, -1)], [(255, -1)], [(15, -1), (30, 1), (45, -1), (60, -1), (75, 1), (90, 1), (105, -1), (120, 1), (135, -1), (150, -1), (165, 1), (180, -1), (195, -1), (210, 1), (225, -1), (240, -1)], [(63, -1), (123, 1), (183, -1), (243, -1)], [(95, -1), (125, 1), (215, -1), (245, -1)], [(159, -1), (189, 1), (219, -1), (249, -1)], [(111, -1), (126, 1), (231, -1), (246, -1)], [(175, -1), (190, 1), (235, -1), (250, -1)], [(207, -1), (222, 1), (237, -1), (252, -1)], [(255, -1)], [(15, -1), (30, -2), (45, 2), (60, -4), (75, -2), (90, 4), (105, -4), (120, -8), (135, 2), (150, -4), (165, 4), (180, 8), (195, -4), (210, -8), (225, 8), (240, -16)], [(63, -1), (123, -2), (183, 2), (243, -4)], [(95, -1), (125, -2), (215, 2), (245, -4)], [(159, -1), (189, -2), (219, 2), (249, -4)], [(111, -1), (126, -2), (231, 2), (246, -4)], [(175, -1), (190, -2), (235, 2), (250, -4)], [(207, -1), (222, -2), (237, 2), (252, -4)], [(255, -1)], [(15, -16), (30, -8), (45, 8), (60, -4), (75, -8), (90, 4), (105, -4), (120, -2), (135, 8), (150, -4), (165, 4), (180, 2), (195, -4), (210, -2), (225, 2), (240, -1)], [(63, -4), (123, -2), (183, 2), (243, -1)], [(95, -4), (125, -2), (215, 2), (245, -1)], [(159, -4), (189, -2), (219, 2), (249, -1)], [(111, -4), (126, -2), (231, 2), (246, -1)], [(175, -4), (190, -2), (235, 2), (250, -1)], [(207, -4), (222, -2), (237, 2), (252, -1)], [(255, -1)], [(15, -1), (30, -3), (45, 3), (60, -9), (75, -3), (90, 9), (105, -9), (120, -27), (135, 3), (150, -9), (165, 9), (180, 27), (195, -9), (210, -27), (225, 27), (240, -81)], [(63, -1), (123, -3), (183, 3), (243, -9)], [(95, -1), (125, -3), (215, 3), (245, -9)], [(159, -1), (189, -3), (219, 3), (249, -9)], [(111, -1), (126, -3), (231, 3), (246, -9)], [(175, -1), (190, -3), (235, 3), (250, -9)], [(207, -1), (222, -3), (237, 3), (252, -9)], [(255, -1)]]
+def qkPLData : List (List (Nat × Int)) := [[(0, 1)], [(3, 1)], [(5, 1)], [(9, 1)], [(6, 1)], [(10, 1)], [(12, 1)], [(15, 1)], [(0, 1), (17, -1), (34, -1), (51, -1), (68, -1), (85, -1), (102, -1), (119, 1), (136, -1), (153, -1), (170, -1), (187, 1), (204, -1), (221, 1), (238, 1), (255, 1)], [(3, 1), (71, -1), (139, -1), (207, -1)], [(5, 1), (39, 1), (141, -1), (175, 1)], [(9, 1), (43, 1), (77, 1), (111, -1)], [(6, 1), (23, -1), (142, -1), (159, -1)], [(10, 1), (27, -1), (78, 1), (95, 1)], [(12, 1), (29, -1), (46, -1), (63, -1)], [(15, 1)], [(255, 1)], [(207, -1)], [(175, 1)], [(111, -1)], [(159, -1)], [(95, 1)], [(63, -1)], [(15, 1)], [(0, 16), (17, -8), (34, -8), (51, -4), (68, -8), (85, -4), (102, -4), (119, 2), (136, -8), (153, -4), (170, -4), (187, 2), (204, -4), (221, 2), (238, 2), (255, 1)], [(3, 4), (71, -2), (139, -2), (207, -1)], [(5, 4), (39, 2), (141, -2), (175, 1)], [(9, 4), (43, 2), (77, 2), (111, -1)], [(6, 4), (23, -2), (142, -2), (159, -1)], [(10, 4), (27, -2), (78, 2), (95, 1)], [(12, 4), (29, -2), (46, -2), (63, -1)], [(15, 1)], [(0, 1), (17, 1), (34, 1), (51, -1), (68, 1), (85, -1), (102, -1), (119, -1), (136, 1), (153, -1), (170, -1), (187, -1), (204, -1), (221, -1), (238, -1), (255, 1)], [(3, 1), (71, 1), (139, 1), (207, -1)], [(5, 1), (39, -1), (141, 1), (175, 1)], [(9, 1), (43, -1), (77, -1), (111, -1)], [(6, 1), (23, 1), (142, 1), (159, -1)], [(10, 1), (27, 1), (78, -1), (95, 1)], [(12, 1), (29, 1), (46, 1), (63, -1)], [(15, 1)], [(0, 1), (17, -2), (34, -2), (51, -4), (68, -2), (85, -4), (102, -4), (119, 8), (136, -2), (153, -4), (170, -4), (187, 8), (204, -4), (221, 8), (238, 8), (255, 16)], [(3, 1), (71, -2), (139, -2), (207, -4)], [(5, 1), (39, 2), (141, -2), (175, 4)], [(9, 1), (43, 2), (77, 2), (111, -4)], [(6, 1), (23, -2), (142, -2), (159, -4)], [(10, 1), (27, -2), (78, 2), (95, 4)], [(12, 1), (29, -2), (46, -2), (63, -4)], [(15, 1)], [(0, 16), (17, 8), (34, 8), (51, -4), (68, 8), (85, -4), (102, -4), (119, -2), (136, 8), (153, -4), (170, -4), (187, -2), (204, -4), (221, -2), (238, -2), (255, 1)], [(3, 4), (71, 2), (139, 2), (207, -1)], [(5, 4), (39, -2), (141, 2), (175, 1)], [(9, 4), (43, -2), (77, -2), (111, -1)], [(6, 4), (23, 2), (142, 2), (159, -1)], [(10, 4), (27, 2), (78, -2), (95, 1)], [(12, 4), (29, 2), (46, 2), (63, -1)], [(15, 1)]]
+def qkLRows : List (Nat × List Int) := [(15, [0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -16, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0]), (30, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -8, 0, 0, 0, 0, 0, 0, 0, -3, 0, 0, 0, 0, 0, 0, 0]), (45, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0]), (60, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -9, 0, 0, 0, 0, 0, 0, 0]), (63, [0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0]), (75, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -8, 0, 0, 0, 0, 0, 0, 0, -3, 0, 0, 0, 0, 0, 0, 0]), (90, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0]), (95, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0]), (105, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -9, 0, 0, 0, 0, 0, 0, 0]), (111, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0]), (120, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -8, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -27, 0, 0, 0, 0, 0, 0, 0]), (123, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -3, 0, 0, 0, 0, 0, 0]), (125, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -3, 0, 0, 0, 0, 0]), (126, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -3, 0, 0, 0]), (135, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0]), (150, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -9, 0, 0, 0, 0, 0, 0, 0]), (159, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0]), (165, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0]), (175, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0]), (180, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 27, 0, 0, 0, 0, 0, 0, 0]), (183, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0]), (189, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -3, 0, 0, 0, 0]), (190, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -3, 0, 0]), (195, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -9, 0, 0, 0, 0, 0, 0, 0]), (207, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -1, 0]), (210, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -8, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -27, 0, 0, 0, 0, 0, 0, 0]), (215, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0]), (219, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0]), (222, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -3, 0]), (225, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 27, 0, 0, 0, 0, 0, 0, 0]), (231, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0]), (235, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0]), (237, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 3, 0]), (240, [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -16, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -81, 0, 0, 0, 0, 0, 0, 0]), (243, [0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -9, 0, 0, 0, 0, 0, 0]), (245, [0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -9, 0, 0, 0, 0, 0]), (246, [0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -9, 0, 0, 0]), (249, [0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -9, 0, 0, 0, 0]), (250, [0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -9, 0, 0]), (252, [0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -9, 0]), (255, [0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1])]
+def qkPLRows : List (Nat × List Int) := [(0, [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0]), (3, [0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0]), (5, [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0]), (6, [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0]), (9, [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0]), (10, [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0]), (12, [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 4, 0]), (15, [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1]), (17, [0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -8, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0]), (23, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0]), (27, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0]), (29, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 2, 0]), (34, [0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -8, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0]), (39, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0]), (43, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0]), (46, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 2, 0]), (51, [0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0]), (63, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -1, 0]), (68, [0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -8, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0]), (71, [0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0]), (77, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0]), (78, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0]), (85, [0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0]), (95, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]), (102, [0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0]), (111, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0]), (119, [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0]), (136, [0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -8, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0]), (139, [0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0]), (141, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0]), (142, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0]), (153, [0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0]), (159, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0]), (170, [0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0]), (175, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]), (187, [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0]), (204, [0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0]), (207, [0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0]), (221, [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0]), (238, [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0]), (255, [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0])]
+def qkGraphKer : List (List Int) := [[0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, -2, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, -2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [-9, 0, 0, 0, 0, 0, 0, 0, -9, 0, 0, 0, 0, 0, 0, 0, -9, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], [-24, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, -6, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], [0, 0, -6, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, -6, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, -6, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, -6, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, -6, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]]
+def qkGraphMinors : List Nat × (List Nat × List Nat) := ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31, 39, 47], ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 24, 32], [15, 30, 60, 63, 95, 111, 120, 123, 125, 126, 159, 175, 189, 190, 207, 222, 240, 243, 245, 246, 249, 250, 252, 255]))
+def qkGraphInter : List (List Nat × List Nat) := [([0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 24, 25, 26, 27, 28, 29, 31, 39], [0, 3, 5, 6, 9, 10, 12, 15, 17, 23, 27, 29, 39, 43, 51, 63, 71, 80, 85, 95, 111, 114, 119, 159, 175, 207, 240, 245, 255]), ([0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 24, 25, 26, 27, 28, 29, 31, 39], [0, 3, 5, 6, 9, 10, 12, 15, 17, 23, 27, 29, 39, 43, 51, 63, 71, 80, 85, 95, 111, 114, 119, 159, 175, 207, 240, 245, 255]), ([0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 24, 25, 26, 27, 28, 29, 31, 39], [0, 3, 5, 6, 9, 10, 12, 15, 17, 23, 27, 29, 39, 43, 51, 63, 71, 80, 85, 95, 111, 114, 119, 159, 175, 207, 240, 245, 255])]
+def qkTwists : List ((Int × Int) × (Int × Int × Int) × (Int × Int)) := [((3, 1), (0, 0, -3), (0, 1)), ((3, 1), (6, 3, 2), (1, 2)), ((3, 1), (-12, 6, -3), (1, 1)), ((2, 5), (2, -6, 3), (-1, 5))]
+def qkTwistData : List ((List Nat × List Nat) × List Int) := [(([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 24, 25, 26, 27, 28, 29, 31], [0, 3, 5, 6, 9, 10, 12, 15, 17, 23, 27, 29, 39, 43, 51, 63, 71, 80, 85, 95, 111, 114, 119, 159, 175, 207, 240, 245, 255]), [-1119744, 0, 0, 0, 0, 0, 0, 0, -186624, 0, 0, 0, 0, 0, 0, 0, 279936, 0, 0, 0, 0, 0, 0, 0, 46656, 0, 0, 0, 0, 0, 0, 0, -186624, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]), (([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 24, 25, 26, 27, 28, 29, 31], [0, 3, 5, 6, 9, 10, 12, 15, 17, 23, 27, 29, 39, 43, 51, 63, 71, 80, 85, 95, 111, 114, 119, 159, 175, 207, 240, 245, 255]), [-3538944, 0, -3981312, 0, 0, -3981312, 0, 2985984, 884736, 0, -1990656, 0, 0, -1990656, 0, 0, -589824, 0, 1327104, 0, 0, 1327104, 0, 0, -589824, 0, 0, 0, 0, 0, 0, 0, 147456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]), (([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 24, 25, 26, 27, 28, 29, 31], [0, 3, 5, 6, 9, 10, 12, 15, 17, 23, 27, 29, 39, 43, 51, 63, 71, 80, 85, 95, 111, 114, 119, 159, 175, 207, 240, 245, 255]), [-1119744, 0, -5598720, 0, 0, -5598720, 0, 18662400, -186624, 0, 1866240, 0, 0, 1866240, 0, 0, 279936, 0, -2799360, 0, 0, -2799360, 0, 0, 46656, 0, 0, 0, 0, 0, 0, 0, -186624, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]), (([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 24, 25, 26, 27, 28, 29, 39], [0, 3, 5, 6, 9, 10, 12, 15, 17, 23, 27, 29, 39, 43, 51, 63, 71, 80, 85, 95, 111, 114, 119, 159, 175, 207, 240, 245, 255]), [0, 0, 171072000, 0, 0, 171072000, 0, 250905600, 0, 0, 171072000, 0, 0, 171072000, 0, 0, 0, 0, -85536000, 0, 0, -85536000, 0, 0, -29160000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1])]
+def qkSpinData : List ((List Nat × List Nat) × List (List Int) × List Nat) := [(([8, 9, 10, 11, 12, 13, 14, 15], [127, 191, 223, 239, 247, 251, 253, 254]), [[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0]], [0, 1, 2, 3, 4, 5, 6, 7]), (([8, 9, 10, 11, 12, 13, 14, 15], [127, 191, 223, 239, 247, 251, 253, 254]), [[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0]], [0, 1, 2, 3, 4, 5, 6, 7]), (([0, 1, 2, 3, 4, 5, 6, 7], [1, 2, 4, 8, 16, 32, 64, 128]), [[0, 0, -1, 0, -1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, -1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, -1, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, -1, 0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]], [0, 1, 2, 3, 4, 5, 6, 7]), (([0, 1, 2, 3, 4, 5, 6, 7], [1, 2, 4, 8, 16, 32, 64, 128]), [[0, 0, -2, 0, -3, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -2, 0, -3, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, -3, 0, 0, 0, 2, 0, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0, -3, 0, 0, 0, 2, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0], [0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0], [0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]], [0, 1, 2, 3, 4, 5, 6, 7]), (([0, 1, 2, 3, 4, 5, 6, 7], [1, 2, 4, 8, 16, 32, 64, 128]), [[0, 0, -1, 0, 1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0], [0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]], [0, 1, 2, 3, 4, 5, 6, 7]), (([0, 1, 2, 3, 4, 5, 6, 7], [1, 2, 4, 8, 16, 32, 64, 128]), [[0, 0, -1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]], [0, 1, 2, 3, 12, 13, 14, 15]), (([0, 1, 2, 3, 4, 5, 6, 7], [1, 2, 4, 8, 16, 32, 64, 128]), [[0, 0, 1, 0, -2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, -2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, -2, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, -2, 0, 0, 0, 1, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]], [0, 1, 2, 3, 4, 5, 6, 7]), (([0, 1, 2, 3, 4, 5, 6, 7], [1, 2, 4, 8, 16, 32, 64, 128]), [[0, 0, 2, 0, -5, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 2, 0, -5, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0], [-2, 0, 0, 0, 0, 0, -5, 0, 0, 0, 2, 0, 0, 0, 0, 0], [0, -2, 0, 0, 0, 0, 0, -5, 0, 0, 0, 2, 0, 0, 0, 0], [5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0], [0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0], [0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0], [0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]], [0, 1, 2, 3, 4, 5, 6, 7]), (([0, 1, 2, 3, 4, 5, 6, 7], [1, 2, 4, 8, 16, 32, 64, 128]), [[0, 0, -1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]], [0, 1, 2, 3, 12, 13, 14, 15]), (([0, 1, 2, 3, 4, 5, 6, 7], [1, 2, 4, 8, 16, 32, 64, 128]), [[0, 0, -2, 0, -1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -2, 0, -1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, -1, 0, 0, 0, 2, 0, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0, -1, 0, 0, 0, 2, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0], [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]], [0, 1, 2, 3, 4, 5, 6, 7]), (([0, 1, 2, 3, 4, 5, 6, 7], [1, 2, 4, 8, 16, 32, 64, 128]), [[0, 0, -1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]], [0, 1, 2, 3, 4, 5, 6, 7]), (([0, 1, 2, 3, 4, 5, 6, 7], [1, 2, 4, 8, 16, 32, 64, 128]), [[0, 0, -2, 0, 1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -2, 0, 1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0], [0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0], [0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0], [0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]], [0, 1, 2, 3, 4, 5, 6, 7]), (([0, 1, 2, 3, 4, 5, 6, 7], [1, 2, 4, 8, 16, 32, 64, 128]), [[0, 0, -1, 0, 3, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 0, 3, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 3, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 3, 0, 0, 0, 1, 0, 0, 0, 0], [-3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], [0, -3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, -3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, -3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]], [0, 1, 2, 3, 4, 5, 6, 7]), (([0, 1, 2, 3, 4, 5, 6, 7], [1, 2, 4, 8, 16, 32, 64, 128]), [[0, 0, -2, 0, 5, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -2, 0, 5, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 5, 0, 0, 0, 2, 0, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0, 5, 0, 0, 0, 2, 0, 0, 0, 0], [-5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0], [0, -5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0], [0, 0, -5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0], [0, 0, 0, -5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]], [0, 1, 2, 3, 4, 5, 6, 7])]
+def qkNonPure : List (List Nat × List Nat) := [([4, 8, 9, 10, 11, 12, 13, 14, 15], [7, 11, 13, 14, 19, 21, 25, 31, 35]), ([4, 8, 9, 10, 11, 12, 13, 14, 15], [7, 11, 13, 14, 19, 25, 26, 31, 35])]
+def qkWeilSpin : (List Nat × List Nat) × List (List (Int × Int)) × List Nat := (([0, 1, 2, 3, 8, 9, 10, 11], [7, 11, 13, 14, 31, 47, 79, 143]), [[(0, 0), (0, 0), (0, 1), (0, 0), (1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)], [(0, 0), (0, 0), (0, 0), (0, 1), (0, 0), (1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)], [(0, -1), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)], [(0, 0), (0, -1), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (1, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)], [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 1), (0, 0), (1, 0), (0, 0), (0, 0), (0, 0)], [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 1), (0, 0), (1, 0), (0, 0), (0, 0)], [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, -1), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (1, 0), (0, 0)], [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, -1), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (1, 0)]], [0, 1, 2, 3, 8, 9, 10, 11])
+
+/-! The checks of item (LIX). -/
+
+def qkFlatten (X : List (List Int)) : List Int := X.foldr (· ++ ·) []
+
+def qkDot (r v : List Int) : Int := (r.zip v).foldl (fun s x => s + x.1 * x.2) 0
+
+def qkMons (k : Nat) : List Nat := (List.range 256).filter fun m => qkPop m == k
+
+def qkDense (u : List (Nat × Int)) : List Int := (List.range 256).map (tgCoef u)
+
+/-- `sum_i k_i v_i = 0` for dense integer vectors. -/
+def qkKerOk (vs : List (List Int)) (k : List Int) : Bool :=
+  k.length == vs.length
+    && ((k.zip vs).foldl (fun acc x => (acc.zip x.2).map fun y => y.1 + x.1 * y.2)
+        (List.replicate ((vs.headD []).length) 0)).all (· == 0)
+
+/-- `sum_i k_i v_i = 0` for dense Gaussian vectors. -/
+def qkGKerOk (vs : List (List SemG)) (k : List SemG) : Bool :=
+  k.length == vs.length
+    && ((k.zip vs).foldl (fun acc x => (acc.zip x.2).map fun y => semGAddC y.1 (semGMul x.1 y.2))
+        (List.replicate ((vs.headD []).length) (0, 0))).all (· == (0, 0))
+
+/-- the fifteen matrices lie in `su_j(d)` and are independent, and the conditions
+defining `su_j(d)` have rank `49 = 64 - 15`, so they span it. -/
+def qkSuSpanOk (p q : Int) (B : List (List (List Int))) (mn : (List Nat × List Nat) × List Nat) : Bool :=
+  let rows := qkSuRows p q
+  B.length == 15 && B.all (qkSuOk p q) && B.all (fun X => rows.all fun r => qkDot r (qkFlatten X) == 0)
+    && mn.1.1.length == 49 && qkMinorOk rows mn.1.1 mn.1.2
+    && qkMinorOk (B.map qkFlatten) (List.range 15) mn.2
+
+/-- the stacked derivations of degree `k` have rank `C(8, k) - c`: rows `t C(8, k) + s`
+(the coefficient of the `s`-th monomial in the image under the `t`-th matrix), columns
+the source monomials. -/
+def qkInvRankOk (B : List (List (List Int))) (k c : Nat) (rc : List Nat × List Nat) : Bool :=
+  let ms := qkMons k
+  let n := ms.length
+  let imgs := B.map fun X => ms.map fun m => qkDer X [(m, 1)]
+  rc.1.length + c == n && rc.2.length == rc.1.length
+    && tgNonsing tgP (rc.1.length + 1) (rc.1.map fun r =>
+      let im := imgs.getD (r / n) []
+      let tgt := ms.getD (r % n) 0
+      rc.2.map fun j => qkModZ (tgCoef (im.getD j []) tgt))
+
+/-- the commutators `[Y, X_t]` have rank `62` on the entries `Y[a][b]`. -/
+def qkCommOk (B : List (List (List Int))) (rc : List Nat × List Nat) : Bool :=
+  rc.1.length == 62 && rc.2.length == 62
+    && tgNonsing tgP 63 (rc.1.map fun r =>
+      let X := B.getD (r / 64) []
+      let i := r % 64 / 8
+      let j := r % 8
+      rc.2.map fun ab =>
+        qkModZ ((if ab / 8 == i then (X.getD (ab % 8) []).getD j 0 else 0)
+          - (if ab % 8 == j then (X.getD i []).getD (ab / 8) 0 else 0)))
+
+/-- the seven classes `1, eta, eta^2, Omega, Lambda, eta^3, eta^4` are flat, nonzero, of
+degrees `0, 2, 4, 4, 4, 6, 8`, and `eta^2, Omega, Lambda` are independent. -/
+def qkInvClassesOk (p q : Int) (B : List (List (List Int))) (cs : List Nat) : Bool :=
+  let I := qkInv p q
+  I.all (qkFlat B)
+    && ([0, 2, 4, 4, 4, 6, 8].zip I).all (fun x => !x.2.isEmpty && x.2.all fun t => qkPop t.1 == x.1)
+    && qkMinorOk (qkMat [I.getD 2 [], I.getD 3 [], I.getD 4 []] (qkMons 4)) [0, 1, 2] cs
+
+/-! Gaussian classes, for the contraction maps and the Weil spinor. -/
+
+def qkGW (A B : List (Nat × SemG)) : List (Nat × SemG) :=
+  semGNorm (A.foldl (fun acc x => B.foldl (fun acc y =>
+    if x.1 &&& y.1 != 0 then acc
+    else
+      let c := semGMul x.2 y.2
+      semGIns (x.1 + y.1) (if fmSwaps 12 x.1 y.1 % 2 == 1 then (-c.1, -c.2) else c) acc) acc) [])
+
+def qkToG (u : List (Nat × Int)) : List (Nat × SemG) := u.map fun x => (x.1, (x.2, 0))
+
+/-- the contraction with the dual of the `j`-th generator. -/
+def qkGIota (j : Nat) (u : List (Nat × SemG)) : List (Nat × SemG) :=
+  semGNorm (u.foldl (fun acc x =>
+    if x.1 / 2 ^ j % 2 == 1 then
+      semGIns (x.1 - 2 ^ j) (if qkPop (x.1 % 2 ^ j) % 2 == 1 then (-x.2.1, -x.2.2) else x.2) acc
+    else acc) [])
+
+def qkIota (j : Nat) (u : List (Nat × Int)) : List (Nat × Int) :=
+  (u.foldl (fun acc x =>
+    if x.1 / 2 ^ j % 2 == 1 then fmIns (x.1 - 2 ^ j) (if qkPop (x.1 % 2 ^ j) % 2 == 1 then -x.2 else x.2) acc
+    else acc) []).filter (·.2 != 0)
+
+def qkPairsC : List (Nat × Nat) := [(0, 2), (1, 3), (4, 6), (5, 7)]
+
+/-- `Q_a = g_r - i g_s` and the contraction `D_b = iota_r - i iota_s`. -/
+def qkQS (a : Nat) : List (Nat × SemG) :=
+  let rs := qkPairsC.getD a (0, 0)
+  [(2 ^ rs.1, (1, 0)), (2 ^ rs.2, (0, -1))]
+
+def qkGD (b : Nat) (u : List (Nat × SemG)) : List (Nat × SemG) :=
+  let rs := qkPairsC.getD b (0, 0)
+  semGAdd (qkGIota rs.1 u) (semGSc (0, -1) (qkGIota rs.2 u))
+
+def qkLt : List (Nat × Nat) := [(0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3)]
+
+/-- the images of the 28 elements of `H^0(wedge^2 T) + H^1(T) + H^2(O)`: first the six
+`Q_a Q_b`, then the sixteen `Q_a D_b`, then the six `D_a D_b`. -/
+def qkHT2 (w : List (Nat × SemG)) : List (List (Nat × SemG)) :=
+  qkLt.map (fun ab => qkGW (qkGW (qkQS ab.1) (qkQS ab.2)) w)
+    ++ (List.range 16).map (fun t => qkGW (qkQS (t / 4)) (qkGD (t % 4) w))
+    ++ qkLt.map (fun ab => qkGD ab.1 (qkGD ab.2 w))
+
+def qkGDense (u : List (Nat × SemG)) : List SemG :=
+  (List.range 256).map fun m => ((u.find? (·.1 == m)).map (·.2)).getD (0, 0)
+
+/-- the contraction map of `w = (q eta)^2 + q^2 Omega` has rank `23`, and its kernel has
+the basis `kw` (five vectors), supported on the sixteen `Q_a D_b`; the four vectors `kg`
+also lie in it. -/
+def qkContrWOk (p q : Int) (mn : List Nat × List Nat) (kw kg : List (List SemG)) (kr : List Nat) : Bool :=
+  let e := qkEta p q
+  let dw := (qkHT2 (qkToG (semAdd (qkW e e) (qkOmega p q)))).map qkGDense
+  mn.1.length == 23 && semMinorOk dw (mn.2, mn.1)
+    && kw.length == 5 && (kw ++ kg).all (qkGKerOk dw)
+    && kw.all (fun k => ((List.range 6) ++ (List.range 6).map (· + 22)).all fun i => k.getD i (0, 0) == (0, 0))
+    && semMinorOk kw (kr, List.range 5)
+
+/-- the contraction map of `g = 3 q^2 Omega + (q eta)^2` has rank `24`, its kernel has the
+basis `kg` (four vectors, supported on the `Q_a D_b`), and the two maps together have rank
+`24`. -/
+def qkContrGOk (p q : Int) (mn : (List Nat × List Nat) × (List Nat × List Nat)) (kg : List (List SemG))
+    (kr : List Nat) : Bool :=
+  let e := qkEta p q
+  let dw := (qkHT2 (qkToG (semAdd (qkW e e) (qkOmega p q)))).map qkGDense
+  let dg := (qkHT2 (qkToG (semAdd (semScale 3 (qkOmega p q)) (qkW e e)))).map qkGDense
+  mn.1.1.length == 24 && mn.2.1.length == 24 && semMinorOk dg (mn.1.2, mn.1.1)
+    && semMinorOk ((dw.zip dg).map fun x => x.1 ++ x.2) (mn.2.2, mn.2.1)
+    && kg.length == 4 && kg.all (qkGKerOk dg)
+    && kg.all (fun k => ((List.range 6) ++ (List.range 6).map (· + 22)).all fun i => k.getD i (0, 0) == (0, 0))
+    && semMinorOk kg (kr, List.range 4)
+
+/-! Graphs and their transforms. -/
+
+def qkEvenX : List (List (Nat × Int)) :=
+  [[(0, 1)]] ++ ((List.range 4).flatMap fun i => ((List.range 4).filter (i < ·)).map fun j => [(2 ^ i + 2 ^ j, 1)])
+    ++ [[(15, 1)]]
+
+def qkPairs : List (Int × Int) := [(1, 0), (0, 1), (1, 1), (1, -1), (2, 1), (1, 2), (3, 1)]
+
+/-- the classes `(b, a)_*(c)` for the pairs `t` (eight each), against the data. -/
+def qkGraphDataOk (ts : List Nat) : Bool :=
+  ts.all fun t =>
+    let ba := qkPairs.getD t (0, 0)
+    (List.range 8).all fun c =>
+      let z := qkLData.getD (8 * t + c) []
+      qkEq (qkGraph ba.1 ba.2 (qkEvenX.getD c [])) z && qkEq (qkOrlov z) (qkPLData.getD (8 * t + c) [])
+
+/-- the rows `R` hold the coefficients of the classes `vs`: the class `i` is read off from
+the `i`-th entries, and the monomials missing from `R` carry no class. -/
+def qkRowsOk (R : List (Nat × List Int)) (vs : List (List (Nat × Int))) : Bool :=
+  R.all (fun x => x.2.length == vs.length) && (List.range vs.length).all fun i =>
+    (R.filterMap fun x => let c := x.2.getD i 0; if c != 0 then some (x.1, c) else none) == vs.getD i []
+
+/-- `sum_i k_i v_i = 0`, read on the rows of coefficients. -/
+def qkKerRowsOk (R : List (Nat × List Int)) (k : List Int) : Bool := R.all fun x => qkDot x.2 k == 0
+
+/-- `sum_(i < 56) k_i v_i + k_56 e = 0`, read on the rows, every monomial of `e` being a row. -/
+def qkKerRowsExtraOk (R : List (Nat × List Int)) (e : List (Nat × Int)) (k : List Int) : Bool :=
+  k.length == 57 && R.all (fun x => qkDot x.2 k + k.getLastD 0 * tgCoef e x.1 == 0)
+    && e.all (fun t => R.any (·.1 == t.1))
+
+/-- the rows `rs` and the monomials `cs` of the classes `vs` form a nonsingular minor modulo
+`1000003`. -/
+def qkMinorSparseOk (vs : List (List (Nat × Int))) (rs cs : List Nat) : Bool :=
+  rs.length == cs.length
+    && tgNonsing tgP (rs.length + 1) (rs.map fun r => cs.map fun c => qkModZ (tgCoef (vs.getD r []) c))
+
+def qkCombo (k : List Int) (vs : List (List (Nat × Int))) : List (Nat × Int) :=
+  qkSum ((k.zip vs).map fun x => semScale x.1 x.2)
+
+/-- `24 s^4 e^(G / s)`. -/
+def qkExpScaled (G : List (Nat × Int)) (s : Int) : List (Nat × Int) :=
+  let G2 := qkW G G
+  let G3 := qkW G2 G
+  qkSum [[(0, 24 * s ^ 4)], semScale (24 * s ^ 3) G, semScale (12 * s ^ 2) G2, semScale (4 * s) G3, qkW G2 G2]
+
+/-- the spinor test: the images of `g_i` and of `iota_i` acting on `u`. -/
+def qkSpinImgs (u : List (Nat × Int)) : List (List Int) :=
+  ((List.range 8).map fun i => qkDense (qkW (qkGen i 1) u)) ++ (List.range 8).map fun i => qkDense (qkIota i u)
+
+/-- `u` is a pure spinor: the annihilator in `V + V^*` has the basis `ker` (eight
+vectors), and the images have rank `8`. -/
+def qkPureOk (u : List (Nat × Int)) (mn : List Nat × List Nat) (ker : List (List Int)) (r : List Nat) : Bool :=
+  let im := qkSpinImgs u
+  mn.1.length == 8 && qkMinorOk im mn.1 mn.2 && ker.length == 8 && ker.all (qkKerOk im)
+    && qkMinorOk ker (List.range 8) r
+
+def qkSpin : List (Int × Int × Int) := [(1, 1, 0), (2, 1, 1), (1, -1, 2), (3, 2, -1), (1, 0, 1), (0, 1, 1), (2, 3, 1)]
+
+/-! The theorems. -/
+
+/-- **(A) The model at one place.**  `Phi(X x 0) = 1`, `Phi(Delta) = pt`,
+`Phi(antidiagonal) = 16 e^(-ell/2)`; the graph formula gives the class of the graph
+for six maps; `P` is `[X x X]`, `U_0 = pr_2^* pt`; `Phi(P)` is minus the class of
+`X x 0` in `A_j` and is not flat for `d = 1, 3`. -/
+theorem qk_model :
+    (qkEq (qkGraph 1 0 [(0, 1)]) (qkShift 4 qkPt) && qkEq (qkOrlov (qkGraph 1 0 [(0, 1)])) [(0, 1)]
+      && qkEq (qkGraph 1 1 [(0, 1)]) qkDiag && qkEq (qkOrlov qkDiag) [(255, 1)]
+      && qkEq (semScale 24 (qkOrlov (qkGraph 1 (-1) [(0, 1)]))) (qkExpHalfEll (-1))
+      && [(1, 1), (2, 1), (1, -1), (3, 2), (1, 0), (0, 1)].all
+          (fun (p : Int × Int) => qkEq (qkGraph p.1 p.2 [(0, 1)]) (qkGraphGeom p.1 p.2))
+      && qkEq qkP [(0, 1)] && qkEq (qkOrlov qkP) [(240, -1)]
+      && !qkFlat qkSu_1_1 (qkOrlov qkP) && !qkFlat qkSu_3_1 (qkOrlov qkP)) = true := by
+  decide +kernel
+
+/-- **(A) The mixed kernel in closed form.**  `ch Phi(T(d) - P) = -(1/4)(eta^2 + gamma^2 - d ell^2)`, scaled by
+`4 q^2`, at `d = 1, 2, 3, 5/2`; both sides are homogeneous of degree two in `(p, q)`,
+so the identity holds for every `d`. -/
+theorem qk_closed_form :
+    ([(1, 1), (2, 1), (3, 1), (5, 2)].all fun (d : Int × Int) =>
+      qkEq (qkOrlov (qkSub (qkT4 d.1 d.2) (semScale (4 * d.2 * d.2) qkP)))
+        (semScale (-1) (semAdd (qkW (qkEta d.1 d.2) (qkEta d.1 d.2)) (qkOmega d.1 d.2)))) = true := by
+  decide +kernel
+
+/-- **(A), (F) The Lie algebra at `d = 1`.**  Fifteen integral matrices in `su_j(d)`,
+independent, and the conditions defining `su_j(d)` have rank `49 = 64 - 15`, so they form
+a basis. -/
+theorem qk_su_one : (qkSuSpanOk 1 1 qkSu_1_1 qkSuMinor_1_1) = true := by
+  decide +kernel
+
+/-- **(A), (F) The Lie algebra at `d = 2`.**  Fifteen integral matrices in `su_j(d)`,
+independent, and the conditions defining `su_j(d)` have rank `49 = 64 - 15`, so they form
+a basis. -/
+theorem qk_su_two : (qkSuSpanOk 2 1 qkSu_2_1 qkSuMinor_2_1) = true := by
+  decide +kernel
+
+/-- **(A), (F) The Lie algebra at `d = 3`.**  Fifteen integral matrices in `su_j(d)`,
+independent, and the conditions defining `su_j(d)` have rank `49 = 64 - 15`, so they form
+a basis. -/
+theorem qk_su_three : (qkSuSpanOk 3 1 qkSu_3_1 qkSuMinor_3_1) = true := by
+  decide +kernel
+
+/-- **(A), (F) The Lie algebra at `d = 5/2`.**  Fifteen integral matrices in `su_j(d)`,
+independent, and the conditions defining `su_j(d)` have rank `49 = 64 - 15`, so they form
+a basis. -/
+theorem qk_su_five_halves : (qkSuSpanOk 5 2 qkSu_5_2 qkSuMinor_5_2) = true := by
+  decide +kernel
+
+/-- **(A), (F) The Lie algebra at `d = 2/5`.**  Fifteen integral matrices in `su_j(d)`,
+independent, and the conditions defining `su_j(d)` have rank `49 = 64 - 15`, so they form
+a basis. -/
+theorem qk_su_two_fifths : (qkSuSpanOk 2 5 qkSu_2_5 qkSuMinor_2_5) = true := by
+  decide +kernel
+
+/-- **(A) Flatness, degree and Weil part.**  For `d = 1, 2, 3, 5/2` the seven invariant classes and
+`w = (q eta)^2 + q^2 Omega = -4 q^2 ch Phi(T(d) - P)` are flat; `w` has pure degree
+four and Weil part `Omega != 0`; its twists by `e^(+-ell/2)` are not flat;
+`int (q eta)^4 : int (q^2 Omega)^2 = 3 : 4`. -/
+theorem qk_flat :
+    ([((1, 1), qkSu_1_1, qkInvIndep_1_1), ((2, 1), qkSu_2_1, qkInvIndep_2_1),
+      ((3, 1), qkSu_3_1, qkInvIndep_3_1), ((5, 2), qkSu_5_2, qkInvIndep_5_2)].all fun
+        (x : (Int × Int) × List (List (List Int)) × List Nat) =>
+      let p := x.1.1
+      let q := x.1.2
+      let e := qkEta p q
+      let w := semAdd (qkW e e) (qkOmega p q)
+      qkInvClassesOk p q x.2.1 x.2.2 && qkFlat x.2.1 w && w.all (fun t => qkPop t.1 == 4)
+        && !(qkOmega p q).isEmpty
+        && !qkFlat x.2.1 (qkW w (qkExpHalfEll 1)) && !qkFlat x.2.1 (qkW w (qkExpHalfEll (-1)))
+        && 4 * tgCoef (qkW (qkW e e) (qkW e e)) 255 == 3 * tgCoef (qkW (qkOmega p q) (qkOmega p q)) 255
+        && tgCoef (qkW (qkW e e) (qkW e e)) 255 == 24 * p * p * q * q) = true := by
+  decide +kernel
+
+/-- **(A) Eigenvalues and Hodge type.**  The derivation of `q M*` sends `q^2 Omega` to `8 p q (q Lambda)` and
+`q Lambda` to `-2 q^2 Omega`, so `sqrt(-q)` has the eigenvalues `+-4 s`, `s^2 = -d`, on
+`(gamma -+ s ell)^2 = Omega -+ 2 s Lambda` (here for `d = 1, 2, 3, 4, 5/2, 2/5`);
+`(q M*)^2 = -p q`; at `X x Xhat`, `w` is killed by the derivation of the complex
+structure (`d = 1, 3`), and `M*` commutes with the complex structure. -/
+theorem qk_eigen_hodge :
+    ([(1, 1), (2, 1), (3, 1), (4, 1), (5, 2), (2, 5)].all fun (d : Int × Int) =>
+      qkEq (qkDer (qkM d.1 d.2) (qkOmega d.1 d.2)) (semScale (8 * d.1 * d.2) (qkLambda d.1 d.2))
+        && qkEq (qkDer (qkM d.1 d.2) (qkLambda d.1 d.2)) (semScale (-2) (qkOmega d.1 d.2))
+        && qkMatMul (qkM d.1 d.2) (qkM d.1 d.2)
+          == (List.range 8).map (fun i => (List.range 8).map fun j => if i == j then -(d.1 * d.2) else 0)
+        && qkIsZeroM (qkMatSub (qkMatMul (qkM d.1 d.2) qkJ) (qkMatMul qkJ (qkM d.1 d.2))))
+      && [(1, 1), (3, 1)].all (fun (d : Int × Int) =>
+        (qkDer qkJ (semAdd (qkW (qkEta d.1 d.2) (qkEta d.1 d.2)) (qkOmega d.1 d.2))).isEmpty) = true := by
+  decide +kernel
+
+/-- **(F) Invariants at `d = 1`, degrees one to three.**  The invariants of `su_j(d)` have dimensions
+`0, 1, 0, 3, 0, 1, 0` in degrees `1, ..., 7`, the commutant is spanned by `1` and `M*`
+(rank `62` of the commutator conditions). -/
+theorem qk_invariants_one_low :
+    ([1, 2, 3].all fun k => qkInvRankOk qkSu_1_1 k ([0, 1, 0, 3, 0, 1, 0].getD (k - 1) 0) (qkInvMinors_1_1.getD (k - 1) ([], []))) = true := by
+  decide +kernel
+
+/-- **(F) Invariants at `d = 1`, degree four.** -/
+theorem qk_invariants_one_middle :
+    (qkInvRankOk qkSu_1_1 4 3 (qkInvMinors_1_1.getD 3 ([], []))) = true := by
+  decide +kernel
+
+/-- **(F) Invariants at `d = 1`, degrees five to seven.** -/
+theorem qk_invariants_one_high :
+    ([5, 6, 7].all fun k => qkInvRankOk qkSu_1_1 k ([0, 1, 0, 3, 0, 1, 0].getD (k - 1) 0) (qkInvMinors_1_1.getD (k - 1) ([], []))) = true := by
+  decide +kernel
+
+/-- **(F) The commutant at `d = 1`.** -/
+theorem qk_commutant_one : (qkCommOk qkSu_1_1 qkCommMinor_1_1) = true := by
+  decide +kernel
+
+/-- **(F) Invariants at `d = 3`, degrees one to three.** -/
+theorem qk_invariants_three_low :
+    ([1, 2, 3].all fun k => qkInvRankOk qkSu_3_1 k ([0, 1, 0, 3, 0, 1, 0].getD (k - 1) 0)
+      (qkInvMinors_3_1.getD (k - 1) ([], []))) = true := by
+  decide +kernel
+
+/-- **(F) Invariants at `d = 3`, degree four.** -/
+theorem qk_invariants_three_middle :
+    (qkInvRankOk qkSu_3_1 4 3 (qkInvMinors_3_1.getD 3 ([], []))) = true := by
+  decide +kernel
+
+/-- **(F) Invariants at `d = 3`, degrees five to seven.** -/
+theorem qk_invariants_three_high :
+    ([5, 6, 7].all fun k => qkInvRankOk qkSu_3_1 k ([0, 1, 0, 3, 0, 1, 0].getD (k - 1) 0)
+      (qkInvMinors_3_1.getD (k - 1) ([], []))) = true := by
+  decide +kernel
+
+/-- **(F) The commutant at `d = 3`.**  The seven invariant classes are flat, and the
+commutator conditions have rank `62`. -/
+theorem qk_commutant_three : (qkCommOk qkSu_3_1 qkCommMinor_3_1 && qkInvClassesOk 3 1 qkSu_3_1 qkInvIndep_3_1) = true := by
+  decide +kernel
+
+/-- **(F) Invariants at `d = 2/5`, degrees one to three.** -/
+theorem qk_invariants_two_fifths_low :
+    ([1, 2, 3].all fun k => qkInvRankOk qkSu_2_5 k ([0, 1, 0, 3, 0, 1, 0].getD (k - 1) 0)
+      (qkInvMinors_2_5.getD (k - 1) ([], []))) = true := by
+  decide +kernel
+
+/-- **(F) Invariants at `d = 2/5`, degree four.** -/
+theorem qk_invariants_two_fifths_middle :
+    (qkInvRankOk qkSu_2_5 4 3 (qkInvMinors_2_5.getD 3 ([], []))) = true := by
+  decide +kernel
+
+/-- **(F) Invariants at `d = 2/5`, degrees five to seven.** -/
+theorem qk_invariants_two_fifths_high :
+    ([5, 6, 7].all fun k => qkInvRankOk qkSu_2_5 k ([0, 1, 0, 3, 0, 1, 0].getD (k - 1) 0)
+      (qkInvMinors_2_5.getD (k - 1) ([], []))) = true := by
+  decide +kernel
+
+/-- **(F) The commutant at `d = 2/5`.**  The seven invariant classes are flat, and the
+commutator conditions have rank `62`. -/
+theorem qk_commutant_two_fifths : (qkCommOk qkSu_2_5 qkCommMinor_2_5 && qkInvClassesOk 2 5 qkSu_2_5 qkInvIndep_2_5) = true := by
+  decide +kernel
+
+/-- **(A) Contraction at `d = 1`.**  The contraction map of `w` on the 28 elements of
+`H^0(wedge^2 T) + H^1(T) + H^2(O)` has rank `23`, with kernel spanned by five vectors of
+`H^1(T)`; for the general invariant class `3 Omega + eta^2` the rank is `24` and the kernel
+has dimension `4`. -/
+theorem qk_contraction_one :
+    (qkContrWOk 1 1 qkContr_1.1 qkContrKerW_1 qkContrKerG_1 qkContrKerRows_1.1) = true := by
+  decide +kernel
+
+/-- **(A) Contraction at `d = 1`, the general class.** -/
+theorem qk_contraction_one_general :
+    (qkContrGOk 1 1 qkContr_1.2 qkContrKerG_1 qkContrKerRows_1.2) = true := by
+  decide +kernel
+
+/-- **(A) Contraction at `d = 3`.**  As at `d = 1`. -/
+theorem qk_contraction_three :
+    (qkContrWOk 3 1 qkContr_3.1 qkContrKerW_3 qkContrKerG_3 qkContrKerRows_3.1) = true := by
+  decide +kernel
+
+/-- **(A) Contraction at `d = 3`, the general class.** -/
+theorem qk_contraction_three_general :
+    (qkContrGOk 3 1 qkContr_3.2 qkContrKerG_3 qkContrKerRows_3.2) = true := by
+  decide +kernel
+
+/-- **(E) The graph classes, first two maps.**  The classes `(b, a)_*(c)`, `c` of even
+degree, for `(b, a) = (1, 0), (0, 1)`, and their transforms. -/
+theorem qk_graph_classes_one : (qkLData.length == 56 && qkPLData.length == 56 && qkGraphDataOk [0, 1]) = true := by
+  decide +kernel
+
+/-- **(E) The graph classes, maps three and four.**  `(b, a) = (1, 1), (1, -1)`. -/
+theorem qk_graph_classes_two : (qkGraphDataOk [2, 3]) = true := by
+  decide +kernel
+
+/-- **(E) The graph classes, maps five and six.**  `(b, a) = (2, 1), (1, 2)`. -/
+theorem qk_graph_classes_three : (qkGraphDataOk [4, 5]) = true := by
+  decide +kernel
+
+/-- **(E) The graph classes, the seventh map.**  `(b, a) = (3, 1)`. -/
+theorem qk_graph_classes_four : (qkGraphDataOk [6]) = true := by
+  decide +kernel
+
+/-- **(E) The span of the graphs.**  The 56 classes `(b, a)_*(c)` span a space `L_j` of dimension `24` (a minor of size `24`, and `32`
+independent relations, which also hold among the transforms); `Phi_j(L_j)` contains `1`
+and `pt`. -/
+theorem qk_graphs :
+    (qkRowsOk qkLRows qkLData && qkRowsOk qkPLRows qkPLData && qkGraphKer.length == 32
+      && qkGraphKer.all (fun k => k.length == 56 && qkKerRowsOk qkLRows k && qkKerRowsOk qkPLRows k)
+      && qkMinorOk qkGraphKer (List.range 32) qkGraphMinors.1
+      && qkMinorSparseOk qkLData qkGraphMinors.2.1 qkGraphMinors.2.2
+      && qkEq (qkPLData.getD 0 []) [(0, 1)] && qkEq (qkPLData.getD 16 []) [(255, 1)]) = true := by
+  decide +kernel
+
+/-- **(E) The graphs meet the invariants in `span(1, pt)`.**  For `d = 1, 3, 2/5` the seven
+invariant classes and the 56 transforms have rank `29 = 7 + 24 - 2`. -/
+theorem qk_graph_invariants :
+    ([(1, 1), (3, 1), (2, 5)].zip qkGraphInter |>.all fun (x : (Int × Int) × (List Nat × List Nat)) =>
+      x.2.1.length == 29 && qkMinorSparseOk (qkInv x.1.1 x.1.2 ++ qkPLData) x.2.1 x.2.2) = true := by
+  decide +kernel
+
+/-- **(E) Twists of the graphs.**  For four `B = f theta + g thetahat + h ell` the classes
+`e^(-B) I`, `I` invariant, and the 56 transforms have rank `29`, and `e^(-B) e^(g eta)` lies
+in `Phi_j(L_j)`; since `e^(-B) pt = pt`, `e^B Phi_j(L_j)` meets the invariants exactly in
+`e^(g eta) span(1, pt)`. -/
+theorem qk_graph_twists :
+    (qkTwists.length == 4 && (qkTwists.zip qkTwistData).all fun
+      (x : ((Int × Int) × (Int × Int × Int) × (Int × Int)) × ((List Nat × List Nat) × List Int)) =>
+        let p := x.1.1.1
+        let q := x.1.1.2
+        let b := x.1.2.1
+        let em := qkExpScaled (qkSum [semScale (-b.1) qkTheta, semScale (-b.2.1) qkThetaHat, semScale (-b.2.2) qkEll]) 6
+        let eg := qkExpScaled (semScale x.1.2.2.1 (qkEta p q)) x.1.2.2.2
+        x.2.1.1.length == 29
+          && qkMinorSparseOk ((qkInv p q).map (qkW em) ++ qkPLData) x.2.1.1 x.2.1.2
+          && x.2.2.getLastD 0 != 0 && qkKerRowsExtraOk qkPLRows (qkW em eg) x.2.2) = true := by
+  decide +kernel
+
+/-- the two transforms of the graph `t` (before and after `e^(ell/2)`) are pure spinors. -/
+def qkSpinOk (t : Nat) : Bool :=
+  let x := qkSpin.getD t (0, 0, 0)
+  let v := qkOrlov (qkGraph x.1 x.2.1 (semAdd [(0, 1), (15, -(x.2.2 * x.2.2))] (semScale x.2.2 qkTheta)))
+  let d0 := qkSpinData.getD (2 * t) (([], []), [], [])
+  let d1 := qkSpinData.getD (2 * t + 1) (([], []), [], [])
+  qkSpinData.length == 14 && qkPureOk v d0.1 d0.2.1 d0.2.2 && qkPureOk (qkW v (qkExpHalfEll 1)) d1.1 d1.2.1 d1.2.2
+
+/-- **(F) Pure spinors, the first graph.**  The transform of the line bundle `L^c` on the
+graph of `(b, a)`, and its twist by `e^(ell/2)`, are pure spinors: the annihilator in
+`V + V^*` has dimension `8`.  Here `(b, a) = (1, 1)` and `c = 0`. -/
+theorem qk_pure_spinors_one : (qkSpinOk 0) = true := by
+  decide +kernel
+
+/-- **(F) Pure spinors, graph 2.**  The same for `(b, a) = (2, 1)` and `c = 1`. -/
+theorem qk_pure_spinors_two : (qkSpinOk 1) = true := by
+  decide +kernel
+
+/-- **(F) Pure spinors, graph 3.**  The same for `(b, a) = (1, -1)` and `c = 2`. -/
+theorem qk_pure_spinors_three : (qkSpinOk 2) = true := by
+  decide +kernel
+
+/-- **(F) Pure spinors, graph 4.**  The same for `(b, a) = (3, 2)` and `c = -1`. -/
+theorem qk_pure_spinors_four : (qkSpinOk 3) = true := by
+  decide +kernel
+
+/-- **(F) Pure spinors, graph 5.**  The same for `(b, a) = (1, 0)` and `c = 1`. -/
+theorem qk_pure_spinors_five : (qkSpinOk 4) = true := by
+  decide +kernel
+
+/-- **(F) Pure spinors, graph 6.**  The same for `(b, a) = (0, 1)` and `c = 1`. -/
+theorem qk_pure_spinors_six : (qkSpinOk 5) = true := by
+  decide +kernel
+
+/-- **(F) Pure spinors, graph 7.**  The same for `(b, a) = (2, 3)` and `c = 1`. -/
+theorem qk_pure_spinors_seven : (qkSpinOk 6) = true := by
+  decide +kernel
+
+
+/-- **(F) Classes that are not pure.**  At `d = 1` the flat classes `w` and `Omega` have
+images of rank at least `9` under `V + V^*`, so their annihilators have dimension at most
+`7`; `(gamma - i ell)^2` is pure over `C`, with annihilator spanned by eight vectors. -/
+theorem qk_not_pure :
+    (let e := qkEta 1 1
+     let us := [semAdd (qkW e e) (qkOmega 1 1), qkOmega 1 1]
+     (us.zip qkNonPure).all (fun x => x.2.1.length == 9 && qkMinorOk (qkSpinImgs x.1) x.2.1 x.2.2)
+      && (let y := (qkToG (qkGamma 1 1)) ++ (qkEll.map fun t => (t.1, ((0 : Int), -t.2)))
+          let y2 := qkGW y y
+          let im := ((List.range 8).map fun i => qkGDense (qkGW [(2 ^ i, (1, 0))] y2))
+            ++ (List.range 8).map fun i => qkGDense (qkGIota i y2)
+          qkWeilSpin.1.1.length == 8 && semMinorOk im (qkWeilSpin.1.2, qkWeilSpin.1.1)
+            && qkWeilSpin.2.1.length == 8 && qkWeilSpin.2.1.all (qkGKerOk im)
+            && semMinorOk qkWeilSpin.2.1 (qkWeilSpin.2.2, List.range 8))) = true := by
+  decide +kernel
+
+/-! (G) and (H). -/
+
+def qkSqfree (D : Nat) : Bool := (List.range (D + 1)).all fun k => k < 2 || D % (k * k) != 0
+
+/-- the pairs `(D, m)`, `D` squarefree at most `12`, `m` in `{1, 2, 3}`, meeting (a)
+`4 m = 16` modulo `d cap Z` (`D` or `2D`), (b) `m = 0, 1 mod 4`, (c) `m` even when
+`D = 2 mod 4`. -/
+def qkSurvivors : List (Nat × Nat) :=
+  ((List.range 13).filter fun D => 2 ≤ D && qkSqfree D).flatMap fun D =>
+    let md := if D % 4 == 1 then D else 2 * D
+    ([1, 2, 3].filter fun m => (16 - 4 * m) % md == 0 && (m % 4 == 0 || m % 4 == 1)
+      && !(D % 4 == 2 && m % 2 == 1)).map (D, ·)
+
+/-- **(G) Parity and the congruences.**  On the degree-four part of the exterior algebra on
+eight generators, `int e_m e_m'` is symmetric in `m, m'` and nonzero only for `m' = 255 - m`,
+so the pairing has zero diagonal and `int x^2` is even for every integral class `x` of
+degree four; among the squarefree `D <= 12` only `D = 3`, `m = 1` meets (a) to (c). -/
+theorem qk_parity_congruences :
+    ((qkMons 4).all (fun m => (qkMons 4).all fun m' =>
+      tgCoef (qkW [(m, 1)] [(m', 1)]) 255 == tgCoef (qkW [(m', 1)] [(m, 1)]) 255
+        && (tgCoef (qkW [(m, 1)] [(m', 1)]) 255 != 0) == (m + m' == 255))
+      && qkSurvivors == [(3, 1)]) = true := by
+  decide +kernel
+
+/-- **(G) A residue.**  A positive number at most `12` is not divisible by a number above
+`12`. -/
+theorem qk_mod_small (a N : Nat) (ha : a ≤ 12) (h0 : 0 < a) (hN : 12 < N) : a % N ≠ 0 := by
+  rw [Nat.mod_eq_of_lt (Nat.lt_of_le_of_lt ha hN)]
+  exact Nat.ne_of_gt h0
+
+/-- **(G) No squarefree `D > 12` survives.**  For `m` in `{1, 2, 3}` the number
+`16 - 4 m` is `12`, `8` or `4`, and neither `D` nor `2 D` divides it once `D > 12`. -/
+theorem qk_congruences_large (D : Nat) (hD : 12 < D) :
+    12 % D ≠ 0 ∧ 8 % D ≠ 0 ∧ 4 % D ≠ 0 ∧ 12 % (2 * D) ≠ 0 ∧ 8 % (2 * D) ≠ 0 ∧ 4 % (2 * D) ≠ 0 :=
+  have h2 : 12 < 2 * D := Nat.lt_of_lt_of_le hD (Nat.le_mul_of_pos_left D (by decide))
+  ⟨qk_mod_small 12 D (by decide) (by decide) hD, qk_mod_small 8 D (by decide) (by decide) hD,
+   qk_mod_small 4 D (by decide) (by decide) hD, qk_mod_small 12 _ (by decide) (by decide) h2,
+   qk_mod_small 8 _ (by decide) (by decide) h2, qk_mod_small 4 _ (by decide) (by decide) h2⟩
+
+/-- **(G) The bounds on `nu`.**  `nu = (chi - r^2 + 14) / 2` with `r^2 = 18, 12, 20`:
+`nu >= 2` for `(1, 4)` and `chi >= 8`, `nu >= 2` for `(2, 2)` and `chi >= 2`, `nu >= 1` for
+`(2, 4)` and `chi >= 8`, and `nu = -1` for `(2, 4)` and `chi = 4`. -/
+theorem qk_nu_bounds (chi : Nat) :
+    (8 ≤ chi → 2 ≤ (chi + 14 - 18) / 2) ∧ (2 ≤ chi → 2 ≤ (chi + 14 - 12) / 2)
+      ∧ (8 ≤ chi → 1 ≤ (chi + 14 - 20) / 2) ∧ ((4 : Int) + 14 - 20) / 2 = -1 :=
+  ⟨fun h => (Nat.le_div_iff_mul_le (by decide)).mpr (Nat.le_sub_of_add_le (Nat.add_le_add_right h 14)),
+   fun h => (Nat.le_div_iff_mul_le (by decide)).mpr (Nat.le_sub_of_add_le (Nat.add_le_add_right h 14)),
+   fun h => (Nat.le_div_iff_mul_le (by decide)).mpr (Nat.le_sub_of_add_le (Nat.add_le_add_right h 14)),
+   by decide⟩
+
+def qkPhi (N : Nat) : Nat := ((List.range N).filter fun k => Nat.gcd (k + 1) N == 1).length
+
+def qkHyperbolic (n : Nat) : List (List Int) :=
+  (List.range (2 * n)).map fun i => (List.range (2 * n)).map fun j => if i + n == j || j + n == i then 1 else 0
+
+/-- **(H) The Prym bookkeeping.**  `phi(N) = 4` exactly for `N = 5, 8, 10, 12` among
+`3 <= N < 200`, and a hyperbolic hermitian form of rank `2n`, `n <= 5`, has determinant
+`(-1)^n`. -/
+theorem qk_prym :
+    (((List.range 200).filter fun N => 3 ≤ N && qkPhi N == 4) == [5, 8, 10, 12]
+      && [1, 2, 3, 4, 5].all fun n => tpDeterminant (qkHyperbolic n) == (-1) ^ n) = true := by
+  decide +kernel
+
+/-- **(H) The Prym loci never fill `D_F`.**  `3 h < k h^2` for `k, h >= 2`; with
+`k = phi(N) / 2` and `h = g - 1` this is `3 g - 3 < (phi(N) / 2) (g - 1)^2` whenever
+`phi(N) >= 4` and `g >= 3`. -/
+theorem qk_prym_bound (k h : Nat) (hk : 2 ≤ k) (hh : 2 ≤ h) : 3 * h < k * (h * h) :=
+  have hpos : 0 < h := Nat.lt_of_lt_of_le (by decide) hh
+  have a : 3 * h < 4 * h := (Nat.succ_mul 3 h).symm ▸ Nat.lt_add_of_pos_right hpos
+  have b : 4 * h ≤ 2 * (h * h) :=
+    (Nat.mul_assoc 2 2 h) ▸ Nat.mul_le_mul_left 2 (Nat.mul_le_mul_right h hh)
+  Nat.lt_of_lt_of_le a (Nat.le_trans b (Nat.mul_le_mul_right _ hk))
+
 end HodgeObstruction
 
 /-! ## The axioms each theorem depends on
@@ -5252,10 +15817,10 @@ propositional extensionality enters through `decide`, and in no case
 #print axioms HodgeObstruction.level_matrix_nonsingular
 #print axioms HodgeObstruction.gauss_norm_counts
 #print axioms HodgeObstruction.norm_supply_blocks_small_case
-#print axioms HodgeObstruction.pencil_index_d1
-#print axioms HodgeObstruction.pencil_index_d3
-#print axioms HodgeObstruction.pencil_beta_positive
-#print axioms HodgeObstruction.pencil_square_members
+#print axioms HodgeObstruction.pencil_volume
+#print axioms HodgeObstruction.pencil_square
+#print axioms HodgeObstruction.pencil_minimum
+#print axioms HodgeObstruction.pencil_degree_bound
 #print axioms HodgeObstruction.split_obstruction_rank
 #print axioms HodgeObstruction.split_obstruction_count
 #print axioms HodgeObstruction.evaluation_not_surjective
@@ -5377,3 +15942,243 @@ propositional extensionality enters through `decide`, and in no case
 #print axioms HodgeObstruction.burch_rank_one_c4
 #print axioms HodgeObstruction.burch_rank_two_c4
 #print axioms HodgeObstruction.burch_rank_two_parity
+#print axioms HodgeObstruction.jacobian_ring_counts
+#print axioms HodgeObstruction.sextic_fourfold_hodge
+#print axioms HodgeObstruction.blowup_sextic_hodge
+#print axioms HodgeObstruction.blowup_retrieval
+#print axioms HodgeObstruction.zero_cycle_degrees
+#print axioms HodgeObstruction.rigidity_polarisation
+#print axioms HodgeObstruction.rigidity_norm_kernels
+#print axioms HodgeObstruction.object_size_bound
+#print axioms HodgeObstruction.tangent_is_annihilator_two
+#print axioms HodgeObstruction.tangent_is_annihilator_three
+#print axioms HodgeObstruction.tangent_is_annihilator_three'
+#print axioms HodgeObstruction.tangent_is_annihilator_four
+#print axioms HodgeObstruction.tangent_deformations_four
+#print axioms HodgeObstruction.tangent_hodge_locus_four
+#print axioms HodgeObstruction.weil_tori_types_two
+#print axioms HodgeObstruction.weil_tori_types_three
+#print axioms HodgeObstruction.weil_tori_kappa_three
+#print axioms HodgeObstruction.weil_tori_hodge_two
+#print axioms HodgeObstruction.weil_tori_orbit
+#print axioms HodgeObstruction.hochschild_profile_two
+#print axioms HodgeObstruction.hochschild_profile_three_pure
+#print axioms HodgeObstruction.hochschild_profile_three_cn
+#print axioms HodgeObstruction.hochschild_profile_three_generic_low
+#print axioms HodgeObstruction.hochschild_profile_three_generic_middle
+#print axioms HodgeObstruction.hochschild_profile_three_generic_high
+#print axioms HodgeObstruction.hochschild_profile_special_two
+#print axioms HodgeObstruction.hochschild_profile_special_three
+#print axioms HodgeObstruction.hochschild_profile_special_three_second
+#print axioms HodgeObstruction.descent_weil_quadratic
+#print axioms HodgeObstruction.descent_weil_quartic
+#print axioms HodgeObstruction.descent_weil_sextic_one
+#print axioms HodgeObstruction.descent_weil_sextic_two
+#print axioms HodgeObstruction.descent_discriminant
+#print axioms HodgeObstruction.descent_scalar_extension
+#print axioms HodgeObstruction.wirtinger_volumes
+#print axioms HodgeObstruction.wirtinger_primitive
+#print axioms HodgeObstruction.wirtinger_pairings
+#print axioms HodgeObstruction.mumford_motivic_sp
+#print axioms HodgeObstruction.mumford_motivic_irreducible
+#print axioms HodgeObstruction.mumford_motivic_permutations
+#print axioms HodgeObstruction.mumford_motivic_commutant
+#print axioms HodgeObstruction.mumford_motivic_projectors
+#print axioms HodgeObstruction.mumford_motivic_cycle
+#print axioms HodgeObstruction.mumford_motivic_hyperdeterminant
+#print axioms HodgeObstruction.mumford_motivic_weyl
+#print axioms HodgeObstruction.mumford_motivic_invariants
+#print axioms HodgeObstruction.mumford_three_adic_anisotropic
+#print axioms HodgeObstruction.k3_hilbert_square_betti
+#print axioms HodgeObstruction.k3_fujiki_determinant
+#print axioms HodgeObstruction.k3_riemann_roch
+#print axioms HodgeObstruction.k3_partition_sizes
+#print axioms HodgeObstruction.sextic_lattice_fields
+#print axioms HodgeObstruction.sextic_lattice_euler_even
+#print axioms HodgeObstruction.sextic_lattice_shapes
+#print axioms HodgeObstruction.sextic_lattice_exp_classes
+#print axioms HodgeObstruction.sextic_weil_units
+#print axioms HodgeObstruction.sextic_weil_imaginary
+#print axioms HodgeObstruction.sextic_weil_shape_classes
+#print axioms HodgeObstruction.sextic_weil_least_values
+#print axioms HodgeObstruction.sextic_lattice_case_00
+#print axioms HodgeObstruction.sextic_lattice_case_01
+#print axioms HodgeObstruction.sextic_lattice_case_02
+#print axioms HodgeObstruction.sextic_lattice_case_03
+#print axioms HodgeObstruction.sextic_lattice_case_04
+#print axioms HodgeObstruction.sextic_lattice_case_05
+#print axioms HodgeObstruction.sextic_lattice_case_06
+#print axioms HodgeObstruction.sextic_lattice_case_07
+#print axioms HodgeObstruction.sextic_lattice_case_08
+#print axioms HodgeObstruction.sextic_lattice_case_09
+#print axioms HodgeObstruction.sextic_lattice_case_10
+#print axioms HodgeObstruction.sextic_lattice_case_11
+#print axioms HodgeObstruction.sextic_lattice_case_12
+#print axioms HodgeObstruction.sextic_lattice_case_13
+#print axioms HodgeObstruction.sextic_lattice_case_14
+#print axioms HodgeObstruction.sextic_lattice_case_15
+#print axioms HodgeObstruction.sextic_lattice_case_16
+#print axioms HodgeObstruction.sextic_lattice_case_17
+#print axioms HodgeObstruction.sextic_lattice_case_18
+#print axioms HodgeObstruction.sextic_lattice_case_19
+#print axioms HodgeObstruction.sextic_lattice_case_20
+#print axioms HodgeObstruction.sextic_lattice_case_21
+#print axioms HodgeObstruction.sextic_lattice_case_22
+#print axioms HodgeObstruction.sextic_lattice_case_23
+#print axioms HodgeObstruction.sextic_lattice_case_24
+#print axioms HodgeObstruction.sextic_lattice_case_25
+#print axioms HodgeObstruction.sextic_lattice_case_26
+#print axioms HodgeObstruction.sextic_lattice_case_27
+#print axioms HodgeObstruction.sextic_lattice_case_28
+#print axioms HodgeObstruction.sextic_lattice_case_29
+#print axioms HodgeObstruction.sextic_lattice_case_30
+#print axioms HodgeObstruction.sextic_lattice_case_31
+#print axioms HodgeObstruction.sextic_lattice_case_32
+#print axioms HodgeObstruction.sextic_lattice_case_33
+#print axioms HodgeObstruction.sextic_lattice_case_34
+#print axioms HodgeObstruction.sextic_lattice_case_35
+#print axioms HodgeObstruction.sextic_lattice_case_36
+#print axioms HodgeObstruction.sextic_lattice_case_37
+#print axioms HodgeObstruction.sextic_lattice_case_38
+#print axioms HodgeObstruction.sextic_lattice_case_39
+#print axioms HodgeObstruction.sextic_lattice_case_40
+#print axioms HodgeObstruction.sextic_lattice_case_41
+#print axioms HodgeObstruction.sextic_lattice_case_42
+#print axioms HodgeObstruction.sextic_lattice_case_43
+#print axioms HodgeObstruction.sextic_lattice_case_44
+#print axioms HodgeObstruction.sextic_lattice_case_45
+#print axioms HodgeObstruction.sextic_lattice_case_46
+#print axioms HodgeObstruction.sextic_lattice_case_47
+#print axioms HodgeObstruction.sextic_weil_scan_0
+#print axioms HodgeObstruction.sextic_weil_scan_1
+#print axioms HodgeObstruction.sextic_weil_scan_2
+#print axioms HodgeObstruction.sextic_weil_scan_3
+#print axioms HodgeObstruction.sextic_weil_scan_4
+#print axioms HodgeObstruction.sextic_weil_scan_5
+#print axioms HodgeObstruction.sextic_weil_scan_6
+#print axioms HodgeObstruction.sextic_weil_scan_7
+#print axioms HodgeObstruction.fm_powers_computed
+#print axioms HodgeObstruction.mumford_routes_target_open
+#print axioms HodgeObstruction.mumford_routes_equivalent
+#print axioms HodgeObstruction.mumford_routes_minimal
+#print axioms HodgeObstruction.mumford_routes_stronger
+#print axioms HodgeObstruction.mumford_routes_conjecture
+#print axioms HodgeObstruction.targets_invariant_dims
+#print axioms HodgeObstruction.targets_invariant_ring
+#print axioms HodgeObstruction.targets_cm_counts
+#print axioms HodgeObstruction.targets_cm_generation
+#print axioms HodgeObstruction.targets_two_branches
+#print axioms HodgeObstruction.lefschetz_pontryagin
+#print axioms HodgeObstruction.lefschetz_family_operator
+#print axioms HodgeObstruction.split_resolution_data
+#print axioms HodgeObstruction.transport_scaling
+#print axioms HodgeObstruction.transport_multiplicity
+#print axioms HodgeObstruction.quaternionic_ratios
+#print axioms HodgeObstruction.quaternionic_scaling
+#print axioms HodgeObstruction.quaternionic_presentation
+#print axioms HodgeObstruction.quaternionic_weil_lattice_0
+#print axioms HodgeObstruction.quaternionic_weil_lattice_1
+#print axioms HodgeObstruction.quaternionic_weil_lattice_2
+#print axioms HodgeObstruction.quaternionic_weil_lattice_3
+#print axioms HodgeObstruction.divisor_route_rank
+#print axioms HodgeObstruction.divisor_route_trace
+#print axioms HodgeObstruction.divisor_route_pencil
+#print axioms HodgeObstruction.divisor_route_index
+#print axioms HodgeObstruction.divisor_route_minimum_one
+#print axioms HodgeObstruction.divisor_route_minimum_three
+#print axioms HodgeObstruction.divisor_route_unitary_one
+#print axioms HodgeObstruction.divisor_route_unitary_three
+#print axioms HodgeObstruction.divisor_route_centraliser_one_0
+#print axioms HodgeObstruction.divisor_route_centraliser_one_1
+#print axioms HodgeObstruction.divisor_route_centraliser_one_2
+#print axioms HodgeObstruction.divisor_route_centraliser_one_3
+#print axioms HodgeObstruction.divisor_route_centraliser_one_4
+#print axioms HodgeObstruction.divisor_route_centraliser_three_0
+#print axioms HodgeObstruction.divisor_route_centraliser_three_1
+#print axioms HodgeObstruction.divisor_route_centraliser_three_2
+#print axioms HodgeObstruction.divisor_route_centraliser_three_3
+#print axioms HodgeObstruction.divisor_route_centraliser_three_4
+#print axioms HodgeObstruction.divisor_route_siegel_one
+#print axioms HodgeObstruction.divisor_route_siegel_three
+#print axioms HodgeObstruction.exceptional_mumford_square
+#print axioms HodgeObstruction.exceptional_quintic
+#print axioms HodgeObstruction.exceptional_annihilator
+#print axioms HodgeObstruction.cm_fields_quartic
+#print axioms HodgeObstruction.cm_fields_sextic_seven_two
+#print axioms HodgeObstruction.cm_fields_sextic_seven_one
+#print axioms HodgeObstruction.cm_fields_sextic_nine
+#print axioms HodgeObstruction.cm_fields_neron_severi
+#print axioms HodgeObstruction.cm_fields_composite
+#print axioms HodgeObstruction.mumford_rm_isotypic
+#print axioms HodgeObstruction.mumford_rm_isotypic_mixed
+#print axioms HodgeObstruction.mumford_rm_isotypic_diagonal
+#print axioms HodgeObstruction.mumford_rm_image
+#print axioms HodgeObstruction.mumford_rm_pairing
+#print axioms HodgeObstruction.mumford_rm_adjoint_one
+#print axioms HodgeObstruction.mumford_rm_adjoint_two
+#print axioms HodgeObstruction.mumford_rm_spin
+#print axioms HodgeObstruction.mumford_rm_kuga_satake
+#print axioms HodgeObstruction.twistor_real_structure
+#print axioms HodgeObstruction.twistor_quaternion
+#print axioms HodgeObstruction.twistor_pieces
+#print axioms HodgeObstruction.twistor_exchange
+#print axioms HodgeObstruction.twistor_invariant_one
+#print axioms HodgeObstruction.twistor_invariant_two
+#print axioms HodgeObstruction.twistor_annihilator_first
+#print axioms HodgeObstruction.twistor_annihilator_third
+#print axioms HodgeObstruction.hk_iota
+#print axioms HodgeObstruction.hk_isotypic
+#print axioms HodgeObstruction.hk_products
+#print axioms HodgeObstruction.hk_octic
+#print axioms HodgeObstruction.semireg_monomials
+#print axioms HodgeObstruction.semireg_block
+#print axioms HodgeObstruction.semireg_rank_two
+#print axioms HodgeObstruction.semireg_rank_three
+#print axioms HodgeObstruction.semireg_object_chern
+#print axioms HodgeObstruction.semireg_object_rank
+#print axioms HodgeObstruction.qk_model
+#print axioms HodgeObstruction.qk_closed_form
+#print axioms HodgeObstruction.qk_su_one
+#print axioms HodgeObstruction.qk_su_two
+#print axioms HodgeObstruction.qk_su_three
+#print axioms HodgeObstruction.qk_su_five_halves
+#print axioms HodgeObstruction.qk_su_two_fifths
+#print axioms HodgeObstruction.qk_flat
+#print axioms HodgeObstruction.qk_eigen_hodge
+#print axioms HodgeObstruction.qk_invariants_one_low
+#print axioms HodgeObstruction.qk_invariants_one_middle
+#print axioms HodgeObstruction.qk_invariants_one_high
+#print axioms HodgeObstruction.qk_commutant_one
+#print axioms HodgeObstruction.qk_invariants_three_low
+#print axioms HodgeObstruction.qk_invariants_three_middle
+#print axioms HodgeObstruction.qk_invariants_three_high
+#print axioms HodgeObstruction.qk_commutant_three
+#print axioms HodgeObstruction.qk_invariants_two_fifths_low
+#print axioms HodgeObstruction.qk_invariants_two_fifths_middle
+#print axioms HodgeObstruction.qk_invariants_two_fifths_high
+#print axioms HodgeObstruction.qk_commutant_two_fifths
+#print axioms HodgeObstruction.qk_contraction_one
+#print axioms HodgeObstruction.qk_contraction_one_general
+#print axioms HodgeObstruction.qk_contraction_three
+#print axioms HodgeObstruction.qk_contraction_three_general
+#print axioms HodgeObstruction.qk_graph_classes_one
+#print axioms HodgeObstruction.qk_graph_classes_two
+#print axioms HodgeObstruction.qk_graph_classes_three
+#print axioms HodgeObstruction.qk_graph_classes_four
+#print axioms HodgeObstruction.qk_graphs
+#print axioms HodgeObstruction.qk_graph_invariants
+#print axioms HodgeObstruction.qk_graph_twists
+#print axioms HodgeObstruction.qk_pure_spinors_one
+#print axioms HodgeObstruction.qk_pure_spinors_two
+#print axioms HodgeObstruction.qk_pure_spinors_three
+#print axioms HodgeObstruction.qk_pure_spinors_four
+#print axioms HodgeObstruction.qk_pure_spinors_five
+#print axioms HodgeObstruction.qk_pure_spinors_six
+#print axioms HodgeObstruction.qk_pure_spinors_seven
+#print axioms HodgeObstruction.qk_not_pure
+#print axioms HodgeObstruction.qk_parity_congruences
+#print axioms HodgeObstruction.qk_mod_small
+#print axioms HodgeObstruction.qk_congruences_large
+#print axioms HodgeObstruction.qk_nu_bounds
+#print axioms HodgeObstruction.qk_prym
+#print axioms HodgeObstruction.qk_prym_bound

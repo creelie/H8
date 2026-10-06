@@ -22,16 +22,16 @@ A Lean 4 toolchain and nothing else. No Mathlib, no dependencies.
     lean HodgeObstruction.lean
 
 `lake build` builds the package declared in `lakefile.toml`; the second line
-prints the axiom report. Each takes about seventeen minutes and about 6.5 GB of memory. Silence from the elaborator means the kernel
+prints the axiom report. Each takes about one hundred minutes and about 7 GB of memory. Silence from the elaborator means the kernel
 accepted every theorem; the block at the foot of the file then prints one line
 per theorem. Every line must read `does not depend on any axioms`, or
 `depends on axioms: [propext]` where propositional extensionality enters
 through `decide` or the core lemmas on natural numbers, and none may mention `sorryAx`. The GitHub workflow in
 `.github/workflows/lean.yml` enforces all three, and fails the build if the
-number of theorems is not one hundred and sixty-nine or if any of them reaches for a further
+number of theorems is not four hundred and nine or if any of them reaches for a further
 axiom.
 
-## The one hundred and sixty-nine theorems
+## The four hundred and nine theorems
 
 | theorem | statement |
 | --- | --- |
@@ -78,10 +78,10 @@ axiom.
 | `level_matrix_nonsingular` | with at most `n` distinct norms the matrix `(N_j^r)` is nonsingular, so every level sum vanishes |
 | `gauss_norm_counts` | the number of Gaussian integers of norm `1, 2, 3, 4, 5, 9, 45` |
 | `norm_supply_blocks_small_case` | at the nodes `1,2,3,4` the forced `|M_3| = 4` while `Z[i]` has no element of norm `3` |
-| `pencil_index_d1` | at `d = 1` two minors of the pencil differ by the constant `2` for all `|k| <= 200`, so the index of `Z[i] x_k` divides `N_1 = 2` |
-| `pencil_index_d3` | at `d = 3` the constant minor `-4` and a second minor have gcd dividing `4`, so `N_3 = 4` |
-| `pencil_beta_positive` | `4 beta_1(k) = 2 + 2k + k^2` and `9 beta_3(k) = 1 + 2k^2` are positive on the range, discriminants `-4` and `-8` |
-| `pencil_square_members` | `beta_1(-1) = 1/4` and `beta_3(-2) = 1`, the two members with a rational point of the locus |
+| `pencil_volume` | `int eta^4 = 4! (2d)^4 = 384 d^4` on `O^2`, as a polynomial identity in `d` |
+| `pencil_square` | `C_k^2 = (1 + k^2) I` for the matrix of the pencil, so `phi_k^2 = (1 + k^2)/(4 d^2)` |
+| `pencil_minimum` | `(8/24) beta(k) int eta^4 = 32 d^2 (1 + k^2)`, the minimum `mu_k` |
+| `pencil_degree_bound` | `mu_k int eta^4 / 2 = 6144 d^6 (1 + k^2)` and `6144 = 32^2 6`, the degree bound |
 | `split_obstruction_rank` | `n^2 - n(n+1)/2 = n(n-1)/2` and `n(n-1) = 2 (n(n-1)/2)` for `n <= 30`: the rank of the obstruction map of a split object and the even side of the semiregularity kernel |
 | `split_obstruction_count` | the bookkeeping of the explicit object at `n = 3`: kernel `15 = 9 + 6`, tangent copy `9`, obstruction image `3`, direct sum `12`, complement `3` |
 | `evaluation_not_surjective` | `s C(2n,2) > 2 C(2n,2) + 4n^2` for `5 <= s <= 40` and `2 <= n <= 30`, so the evaluation map of a sum of five or more line bundles is not surjective; at `n = 3`, `s = 6` the dimensions are `66` and `90` |
@@ -204,6 +204,70 @@ axiom.
 | `burch_rank_one_c4` | rank one: `c_1(E) = -b/3` is forced and then `72 c_4(G) = -(b^2 + d)(b^2 + 9d) < 0` |
 | `burch_rank_two_c4` | rank two: `24 c_4(G) = gamma_2 (b^2 - 3d + 4ab + 6m)`, and `chi(E) = a^4 - 2 a^2 m + m^2/2` is an integer exactly when `m` is even |
 | `burch_rank_two_parity` | for every `d`: `12` divides `3d + 3` exactly when `d = 3 (mod 4)`, so at `b = 3` rank two data need `d = 3 (mod 4)` |
+| `jacobian_ring_counts` | the coefficients of $(1+s+\dots+s^{d-2})^{n+2}$ agree with inclusion and exclusion, are symmetric and add up to $(d-1)^{n+2}$, and the Euler number of a hypersurface agrees with its two closed forms, for $n\le8$, $2\le d\le8$, Proposition 20.44 |
+| `sextic_fourfold_hodge` | the sextic fourfold has primitive Hodge numbers $1,426,1751,426,1$, Euler number $2610$ and $b_{4}=2606$; $h^{4,0}=\binom{d-1}{5}$ for $3\le d\le7$, zero exactly in the Fano degrees, Remark 20.45 |
+| `blowup_sextic_hodge` | $\mathrm{Bl}_{Y}\mathbb{P}^{6}$, for a sextic fourfold $Y$ in a hyperplane, has $(h^{6,0},h^{5,1},h^{4,2},h^{3,3})=(0,1,426,1753)$, Hodge symmetry, only even cohomology, $h^{p,0}=0$ for $p>0$ and total Betti number $2617=e(\mathbb{P}^{6})+e(Y)$, Remark 20.45 |
+| `blowup_retrieval` | on a $\mathbb{P}^{1}$-bundle over a base with $H^{*}(Y)=\mathbb{Q}[y]/(y^{5})$, $-\rho_{*}j^{*}j_{*}\rho^{*}a=a$ in every degree and $\xi^{2}=-c_{1}\xi-c_{2}$, for $c_{1}=sy$, $c_{2}=ty^{2}$, $|s|,|t|\le6$, Proposition 20.44 |
+| `zero_cycle_degrees` | a class of degree $2p$ on an $n$-fold needs an input only for $2\le p\le n/2$; on a blow-up of a rational sixfold only in degree four on a fourfold centre, and on a uniruled fivefold only in degree four on a fourfold, Proposition 20.44, Remark 20.45 |
+| `rigidity_polarisation` | for $n=2,3,4$ the contraction map on $H^{1,1}_{\mathbb{R}}$, of dimension $4n^{2}$, has rank $4n^{2}-1$ and kills the polarisation, Proposition 9.15 |
+| `rigidity_norm_kernels` | a norm-character class of rank $r$ has kernel of dimension $n(n-r)$ on the tangent space, for every $r\le n$, $n=2,3,4$, two shapes each, and a class without structure has kernel zero, Proposition 9.15 |
+| `object_size_bound` | $\alpha_{\pm}^{2}=0$, $\int\omega_{1}^{2}=2$, and $\chi(E,E)=(-1)^{n}2N^{2}$ for $\operatorname{ch}(E)=r+N\omega_{1}$ whatever $r$, for $n\le4$, Proposition 9.11 |
+| `tangent_is_annihilator_two`, `tangent_is_annihilator_three`, `tangent_is_annihilator_three'`, `tangent_is_annihilator_four` | in a second model, for $n=2,3,4$ and several planes: the Weil classes are real of type $(n,n)$, their annihilator in $H^{0,2}$ has dimension $n^{2}$, and $\operatorname{Hom}(P,Q)\to H^{0,2}$ is injective onto it, Lemma 9.6, Theorem 9.17 |
+| `tangent_deformations_four`, `tangent_hodge_locus_four` | at $n=4$ the polarised first-order deformations have dimension $36$, the $K$-linear ones $16$, and those killing the Weil line are exactly the $K$-linear ones, Proposition 9.14 |
+| `weil_tori_types_two`, `weil_tori_types_three`, `weil_tori_kappa_three` | the Weil classes are of type $(n,n)$ on the whole $K$-linear family, the polarisation only at the balanced member, and $\alpha_{+}\kappa^{n}=0$ for $\kappa$ in $V_{+}\otimes V_{-}$, at $n=2$ ($d=1,3$) and $n=3$ ($d=2$), Setup 17.1 |
+| `weil_tori_hodge_two`, `weil_tori_orbit` | a very general Weil torus of dimension four (and six, through the torus orbit of one member) has no Hodge classes in degree $2k$, $0<k<n$, and only the Weil plane in degree $2n$, Lemma 17.2, Lemma 17.3 |
+| `hochschild_profile_two` | the Hochschild profile at $n=2$ on the eight shapes, each with $u=1$ and $u=2+3i$: $(1,8,\rho_{2},8,1)$ with $\rho_{2}=12,16,20,24$ as the Hankel rank is $0,1,2,3$, Proposition 17.10 |
+| `hochschild_profile_three_pure`, `hochschild_profile_three_cn`, `hochschild_profile_three_generic_low`, `hochschild_profile_three_generic_middle`, `hochschild_profile_three_generic_high` | the profiles at $n=3$ of the pure character, of $c_{3}\theta^{3}$ and of a general shape, $(1,12,57,112,57,12,1)$ for the last, each rank exact by independent images and exact relations, Proposition 17.10 |
+| `hochschild_profile_special_two`, `hochschild_profile_special_three`, `hochschild_profile_special_three_second` | for $c_{n}\theta^{n}$ alone the middle rank drops exactly at $|u|=\binom{n}{a}n!\,|c_{n}|$ and only in degree $n$: $\rho_{2}=22,23$ at $n=2$, $\rho_{3}=110$ at $n=3$, Proposition 17.10 |
+| `descent_weil_quadratic`, `descent_weil_quartic`, `descent_weil_sextic_one`, `descent_weil_sextic_two` | the map $P$ carries $W_{F}(B\times Y)$ isomorphically onto $W_{F}(B)$ and kills it when the Weil class of $Y$ is replaced by its polarisation, for four imaginary quadratic fields, $\mathbb{Q}(\zeta_{5})$, $\mathbb{Q}(\zeta_{8})$ and $\mathbb{Q}(\zeta_{7})$, Proposition 20.13 |
+| `descent_discriminant` | $H_{B}+\operatorname{diag}(1,-t)$ has signature $(n+1,n+1)$ and $t$ times the discriminant of $H_{B}$, for $n\le5$ and five values of $t$, Proposition 20.13 |
+| `descent_scalar_extension` | $j^{*}W_{F}(B_{F})=W_{K}(B)$ for $\mathbb{Q}(i)\subset\mathbb{Q}(\zeta_{8})$, $\mathbb{Q}(\sqrt{-7})\subset\mathbb{Q}(\zeta_{7})$ and $\mathbb{Q}(\sqrt{-3})\subset\mathbb{Q}(\zeta_{9})$, $n=1,2$, Proposition 20.13 |
+| `wirtinger_volumes`, `wirtinger_primitive`, `wirtinger_pairings` | on a Mumford square, $\theta^{4}=24\,\mathrm{vol}$, $\theta_{Y}^{8}=8!\,\mathrm{vol}$, the decomposition $\wedge^{2}V=\mathbb{C}\theta+U_{12}+U_{13}+U_{23}$ into primitive pieces, and the pairings $\int\pi_{0}\theta_{Y}^{6}=2880$, $\int\pi_{ij}\theta_{Y}^{6}=0$, $L(\theta_{Y}^{2})=56$, Example 20.78 |
+| `mumford_motivic_sp`, `mumford_motivic_irreducible` | $\mathfrak{g}=\mathfrak{sl}_{2}^{3}$ and the $27$ products span $\mathfrak{sp}(V,\psi)$, of dimension $36$; $P$ is irreducible, and $S^{2}V$ is the sum of four irreducible summands, Proposition 21.47 |
+| `mumford_motivic_permutations`, `mumford_motivic_commutant` | the six permutations of the factors lie in $\operatorname{Sp}(V,\psi)$ and permute the factors of $\mathfrak{g}$; the commutant of $\mathfrak{g}$ is the scalars; the subgroups of $S_{3}$ stable under $A_{3}$ are $1$, $A_{3}$, $S_{3}$, Proposition 21.47 |
+| `mumford_motivic_projectors`, `mumford_motivic_cycle` | in the model of item (LX) the projectors $\pi_{0},\pi_{12},\pi_{13},\pi_{23}$ are idempotents of traces $1,9,9,9$, hence of these ranks, and $\zeta$ fixes $\pi_{0}$ and carries $\pi_{12}$ to $\pi_{23}$, $\pi_{23}$ to $\pi_{13}$, $\pi_{13}$ to $\pi_{12}$, Setup 21.18 |
+| `mumford_motivic_hyperdeterminant`, `mumford_motivic_weyl` | Cayley's hyperdeterminant is invariant under $G$ and the permutations but not under $\operatorname{Sp}(V,\psi)$; $\dim(S^{4}V)^{G}=1$ and $\dim(S^{4}V)^{\operatorname{Sp}}=0$, Proposition 21.47 |
+| `mumford_motivic_invariants` | the non-crossing pairings give bases of the invariants, $1,8,125$ products over the factors, with $4,45$ orbits of $A_{3}$ and $4,35$ of $S_{3}$, and the pairings of $\psi$ have Gram matrices of ranks $1,3,15$, Proposition 21.48 |
+| `mumford_three_adic_anisotropic` | $\langle6,-2,-2\rangle$ has no primitive zero modulo $27$, so it is anisotropic over $\mathbb{Q}_{3}$, Remark 21.5 |
+| `k3_hilbert_square_betti`, `k3_fujiki_determinant`, `k3_riemann_roch`, `k3_partition_sizes` | the Betti numbers $(1,0,23,0,276,0,23,0,1)$ of $S^{[2]}$; the determinant of the Fujiki pairing on $\mathrm{Sym}^{2}H^{2}$, $2^{46}\cdot25$; $\int c_{2}^{2}=828$ and $\chi(L)=\binom{q(L)/2+3}{2}$; and the least $n$ with $t$ distinct part sizes, $t(t+1)/2$, Proposition 20.39, Proposition 20.40 |
+| `sextic_lattice_fields`, `sextic_lattice_euler_even`, `sextic_lattice_shapes`, `sextic_lattice_exp_classes` | the sixteen cubic fields of the cases; $\chi(v,v)$ is even; $r^{3}-2r^{2}\le4$ on every support and rank pattern, with equality only at $(54,112)$; and the two classes $\operatorname{Re}e^{i\theta}$, $\operatorname{Im}e^{i\theta}$, Proposition 19.50 |
+| `sextic_lattice_case_00`, `sextic_lattice_case_01`, `sextic_lattice_case_02`, `sextic_lattice_case_03`, `sextic_lattice_case_04`, `sextic_lattice_case_05`, `sextic_lattice_case_06`, `sextic_lattice_case_07`, `sextic_lattice_case_08`, `sextic_lattice_case_09`, `sextic_lattice_case_10`, `sextic_lattice_case_11`, `sextic_lattice_case_12`, `sextic_lattice_case_13`, `sextic_lattice_case_14`, `sextic_lattice_case_15`, `sextic_lattice_case_16`, `sextic_lattice_case_17`, `sextic_lattice_case_18`, `sextic_lattice_case_19`, `sextic_lattice_case_20`, `sextic_lattice_case_21`, `sextic_lattice_case_22`, `sextic_lattice_case_23`, `sextic_lattice_case_24`, `sextic_lattice_case_25`, `sextic_lattice_case_26`, `sextic_lattice_case_27`, `sextic_lattice_case_28`, `sextic_lattice_case_29`, `sextic_lattice_case_30`, `sextic_lattice_case_31`, `sextic_lattice_case_32`, `sextic_lattice_case_33`, `sextic_lattice_case_34`, `sextic_lattice_case_35`, `sextic_lattice_case_36`, `sextic_lattice_case_37`, `sextic_lattice_case_38`, `sextic_lattice_case_39`, `sextic_lattice_case_40`, `sextic_lattice_case_41`, `sextic_lattice_case_42`, `sextic_lattice_case_43`, `sextic_lattice_case_44`, `sextic_lattice_case_45`, `sextic_lattice_case_46`, `sextic_lattice_case_47` | for each of the $48$ pairs of a field and $q$: the integral classes of $S(0,q)$ are the span of the recorded basis, with the recorded Gram matrix of $-\chi/8$, Proposition 19.50 |
+| `sextic_weil_units`, `sextic_weil_imaginary`, `sextic_weil_shape_classes`, `sextic_weil_least_values` | the units with $2+a=\beta^{2}$; the twenty cases in which $F$ contains an imaginary quadratic field; the classes of least norm with an $F$-Weil part; and the least values of $-\chi$, $192$ only over $\mathbb{Q}(\zeta_{7})^{+}$ at $q=3+a$, Lemma 19.51, Proposition 19.52 |
+| `sextic_weil_scan_0`, `sextic_weil_scan_1`, `sextic_weil_scan_2`, `sextic_weil_scan_3`, `sextic_weil_scan_4`, `sextic_weil_scan_5`, `sextic_weil_scan_6`, `sextic_weil_scan_7` | the scans of the lattices by fraction-free Schur complements: no integral class with $-\chi\le24$, and the least $-\chi$ with an $F$-Weil part as recorded, Proposition 19.50, Proposition 19.52 |
+| `fm_powers_computed` | $\Phi_{\mathcal{P}}(\theta^{\prime k})=(-1)^{g(g+1)/2+k}\frac{k!}{(g-k)!}\theta^{g-k}$, computed in the exterior algebra of $V\oplus V^{\vee}$ for $g\le4$, Theorem 6.5 |
+| `mumford_routes_target_open`, `mumford_routes_equivalent`, `mumford_routes_minimal`, `mumford_routes_stronger`, `mumford_routes_conjecture` | the Horn system of the routes to the Mumford target: it is closed and the target is not proved; its equivalent forms; the twelve minimal routes; the stronger routes; and the minimal sets $\{\mathrm{HC}\}$, $\{F_{3}\}$, $\{L,M\}$ yielding the Hodge conjecture, Corollary 21.45, Proposition 20.33 |
+| `targets_invariant_dims`, `targets_invariant_ring` | the invariants of $\mathfrak{sl}_{2}^{3}$ on $X\times X$ have dimensions $1,0,3,0,8,0,16,0,28,\dots$, and are generated in degrees two and four with two exceptional classes, Theorem 20.29 |
+| `targets_cm_counts`, `targets_cm_generation`, `targets_two_branches` | at a CM point the Hodge classes number $1,0,16,0,132,\dots$ on $X_{c}\times X_{c}$ and are generated by divisor classes and pull-backs; the two branches of classes killed by $Q\,HH^{1}$ and $P\,HH^{1}$, Theorem 20.29, Corollary 20.30 |
+| `lefschetz_pontryagin`, `lefschetz_family_operator` | the Lefschetz operator is a Pontryagin product on ten types of polarisation, and $[L,\Lambda]=H$ for the operator of the theorem on four product families, Proposition 20.20, Theorem 20.21 |
+| `split_resolution_data` | the scalar $(e^{2}+d)/2$ is positive, the vanishing degrees of $H^{*}(\mathcal{O}(m\Theta))$ exclude $2$, the three resolutions are minimal and secant, and no Koszul resolution in the box is secant, Theorem 18.92, Theorem 18.83 |
+| `transport_scaling`, `transport_multiplicity` | $\det\phi=c^{2G}$ and $\phi^{T}E\phi=c^{2}E$ on the samples; the multiplicity is $c^{4}$ on the stable sublattice and smaller on the unstable one, and the lower bound increases strictly, Lemma 16.13, Lemma 16.14 |
+| `quaternionic_ratios`, `quaternionic_scaling`, `quaternionic_presentation` | the scale-free ratios of the quaternionic Weil cycle, the growth of its data in $b$ alone, and the change of presentation by $\alpha$, Proposition 16.20 |
+| `quaternionic_weil_lattice_0`, `quaternionic_weil_lattice_1`, `quaternionic_weil_lattice_2`, `quaternionic_weil_lattice_3` | for $d=1,2,3,7$ the integral Weil lattice has Gram matrix $\operatorname{diag}(8d,8d^{2})$ and the divisor products meet it in a sublattice of index $2(a_{1}a_{2})^{2}$, Proposition 16.20 |
+| `divisor_route_rank`, `divisor_route_trace`, `divisor_route_pencil`, `divisor_route_index` | the lattice of $K$-bilinear classes has rank $12$ and signature $(8,4)$; the pencil $\phi_{k}^{2}=(1+k^{2})/(4d^{2})$ with $x_{k}$ primitive; and $\mathbb{Z} x_{k}+\mathbb{Z} x_{k}(i\cdot,\cdot)$ saturated for every $k$, Proposition 16.25 |
+| `divisor_route_minimum_one`, `divisor_route_minimum_three` | $N_{k}=\mathbb{Z}\tfrac{1}{2d}\eta\oplus\mathbb{Z} x_{k}\oplus\mathbb{Z} x_{k}(i\cdot,\cdot)$ and the minimum $\mu_{k}=32d^{2}(1+k^{2})$ of $I$ on it off $\mathbb{Q}\eta$, for $d=1,3$ and $k\le10$, Proposition 16.25 |
+| `divisor_route_unitary_one`, `divisor_route_unitary_three`, `divisor_route_centraliser_one_0`, `divisor_route_centraliser_one_1`, `divisor_route_centraliser_one_2`, `divisor_route_centraliser_one_3`, `divisor_route_centraliser_one_4`, `divisor_route_centraliser_three_0`, `divisor_route_centraliser_three_1`, `divisor_route_centraliser_three_2`, `divisor_route_centraliser_three_3`, `divisor_route_centraliser_three_4` | the centraliser of $i$ in $\mathfrak{sp}(V,E)$ has dimension $16$, and that of $i$ and $\phi_{x_{k}}$ dimension $10$ with three invariants in $\wedge^{2}V^{*}$, for $d=1,3$ and $k\le4$, Proposition 16.25 |
+| `divisor_route_siegel_one`, `divisor_route_siegel_three` | a rational complex structure on the Siegel locus and its brackets span the centraliser, $d=1,3$, Proposition 16.25 |
+| `exceptional_mumford_square`, `exceptional_quintic`, `exceptional_annihilator` | two of the eight invariants of $\wedge^{4}(V\oplus V)$ on a Mumford square are exceptional; the adjoint weights of the quintic threefold; and the annihilator of the Weil class in $HT^{2}$ for $n=2,3$, Proposition 20.73, Proposition 20.74, Theorem 16.31 |
+| `cm_fields_quartic`, `cm_fields_sextic_seven_two`, `cm_fields_sextic_seven_one`, `cm_fields_sextic_nine` | the base point for $\mathbb{Q}(\zeta_{5})$, $\mathbb{Q}(\zeta_{8})$, $\mathbb{Q}(\zeta_{7})$ and $\mathbb{Q}(\zeta_{9})$: CM type, trace-dual bases, eigenvectors, the alternating form and the closed form of the balanced classes, Theorem 19.5 |
+| `cm_fields_neron_severi`, `cm_fields_composite` | $\mathrm{NS}$ has dimension $32$ at the base point for $\mathbb{Q}(\zeta_{5})$, $n=2$; and $W_{K}$ lies in the span of the products of pairs of $W_{F}$ for $\mathbb{Q}(i)\subset\mathbb{Q}(\zeta_{8})$, Proposition 19.10 |
+| `mumford_rm_isotypic`, `mumford_rm_isotypic_mixed`, `mumford_rm_isotypic_diagonal`, `mumford_rm_image` | $\wedge^{2}V$ has four summands of multiplicity one, the image of $\mu$ fills each, $h^{2,0}=6$, and the Hodge numbers of the pieces, Lemma 21.3, Proposition 21.2 |
+| `mumford_rm_pairing`, `mumford_rm_adjoint_one`, `mumford_rm_adjoint_two` | the Lefschetz pairing and the trace form agree up to scale, and $4\mu\mu^{\dagger}$ acts by scalars on the pieces, Proposition 21.2 |
+| `mumford_rm_spin`, `mumford_rm_kuga_satake` | the spin lifts, thirty-two vectors of highest weight $(1,1,1)$, and the Kuga–Satake map, with $N_{i}$ anticommuting and squaring to $4,8,20$, Proposition 11.7, Theorem 21.4 |
+| `twistor_real_structure`, `twistor_quaternion`, `twistor_pieces`, `twistor_exchange` | the real structure and the three complex structures of a Mumford square, the quaternion that rules out a polarisation at $J_{1}$, and the types and exchange of the tensors $\pi$, Proposition 21.24 |
+| `twistor_invariant_one`, `twistor_invariant_two`, `twistor_annihilator_first`, `twistor_annihilator_third` | $\omega$ is invariant, and its annihilator at $J_{1}$ and $J_{3}$ is one line, Proposition 21.24 |
+| `hk_iota`, `hk_isotypic`, `hk_products`, `hk_octic` | the map $\iota$ and the symplectic form, the isotypic pieces of $H^{2}(X\times X)$, the exceptional classes as products, and the octic form, Proposition 21.25 |
+| `semireg_monomials`, `semireg_block` | the six products of $\beta,\widehat\beta,\ell$ are independent and $\eta^{2}$, $\theta^{+}\theta^{-}$ are independent; the multiplication table of one block in its Hodge basis, Lemma 18.3, Lemma 18.1 |
+| `semireg_rank_two`, `semireg_rank_three` | the semiregularity map of a sum of line bundles is injective for up to three classes at $n=2$ and ten at $n=3$, and has rank $22<24$ for four classes at $n=2$, Lemma 18.4, Theorem 18.5 |
+| `semireg_object_chern`, `semireg_object_rank` | the explicit object: its Chern character, index and Prouhet–Tarry–Escott pair, and the rank $75$ of its semiregularity map, Lemma 18.11, Proposition 18.14 |
+| `qk_model`, `qk_closed_form` | the one-place model: the transforms of $X\times0$, the diagonal, the antidiagonal and six graphs, and $\operatorname{ch}\Phi_{j}(T_{j}-P_{j})=-\frac14(\eta_{j}^{2}+\gamma_{j}^{2}-d\ell_{j}^{2})$ as a polynomial identity in $d$, Remark 19.41 |
+| `qk_su_one`, `qk_su_two`, `qk_su_three`, `qk_su_five_halves`, `qk_su_two_fifths` | integral bases of $\mathfrak{su}_{j}(d)$ for $d=1,2,3,\frac52,\frac25$, Remark 19.41, Proposition 19.40 |
+| `qk_flat`, `qk_eigen_hodge` | the class $\operatorname{ch}\Phi_{j}(T_{j}-P_{j})$ is flat, of pure degree four, with nonzero Weil part and of Hodge type, its twists by $e^{\pm\ell/2}$ are not flat, $\int\eta_{j}^{4}:\int\Omega_{j}^{2}=3:4$, and $\sqrt{-q}$ has eigenvalues $\pm4s_{j}$ on $(\gamma_{j}\mp s_{j}\ell_{j})^{2}$, Remark 19.41 |
+| `qk_contraction_one`, `qk_contraction_one_general`, `qk_contraction_three`, `qk_contraction_three_general` | its contraction map has rank $23$ with a $5$-dimensional kernel in $H^{1}(T)$, against $24$ and $4$ for a general invariant class, at $d=1,3$, Remark 19.41 |
+| `qk_invariants_one_low`, `qk_invariants_one_middle`, `qk_invariants_one_high`, `qk_commutant_one`, `qk_invariants_three_low`, `qk_invariants_three_middle`, `qk_invariants_three_high`, `qk_commutant_three`, `qk_invariants_two_fifths_low`, `qk_invariants_two_fifths_middle`, `qk_invariants_two_fifths_high`, `qk_commutant_two_fifths` | for $d=1,3,\frac25$ the invariants of $\mathfrak{su}_{j}(d)$ have dimensions $1,1,3,1,1$ in degrees $0,2,4,6,8$ and none in odd degree, and the commutant is spanned by $1$ and $\sqrt{-q}$, Proposition 19.40 |
+| `qk_graph_classes_one`, `qk_graph_classes_two`, `qk_graph_classes_three`, `qk_graph_classes_four`, `qk_graphs`, `qk_graph_invariants`, `qk_graph_twists` | the classes $(b,a)_{*}(c)$ on seven graphs span a space $L_{j}$ of dimension $24$, and $\Phi_{j}(L_{j})$ meets the invariants exactly in $\mathrm{span}(1,\mathrm{pt}_{j})$, and $e^{B}\Phi_{j}(L_{j})$ exactly in $e^{g\eta_{j}}\mathrm{span}(1,\mathrm{pt}_{j})$ for four $B$, Proposition 19.40 |
+| `qk_pure_spinors_one`, `qk_pure_spinors_two`, `qk_pure_spinors_three`, `qk_pure_spinors_four`, `qk_pure_spinors_five`, `qk_pure_spinors_six`, `qk_pure_spinors_seven`, `qk_not_pure` | the transforms of line bundles on seven graphs are pure spinors, also after the twist by $e^{\ell/2}$; at $d=1$ the flat classes $\operatorname{ch}\Phi_{j}(T_{j}-P_{j})$ and $\Omega_{j}$ are not pure, and $(\gamma_{j}-i\ell_{j})^{2}$ is pure over $\mathbb{C}$, Proposition 19.40 |
+| `qk_parity_congruences`, `qk_mod_small`, `qk_congruences_large`, `qk_nu_bounds` | $\int x^{2}$ is even for integral classes of degree four on a torus of dimension four; the conditions (a) to (c) leave only $D=3$, $m=1$ among all squarefree $D$; and the bounds on $\nu$, Remark 19.39 |
+| `qk_prym`, `qk_prym_bound` | $\varphi(N)=4$ exactly for $N=5,8,10,12$ below $200$, a hyperbolic hermitian form of rank $2n$ has determinant $(-1)^{n}$, and $3g-3<\frac12\varphi(N)(g-1)^{2}$ for all $\varphi(N)\ge4$, $g\ge3$, Remark 19.24 |
 
 
 ## What is not in the certificate
@@ -218,17 +282,27 @@ have no Lean counterpart, or only a partial one.
   arithmetic, part (H) of item (LXXII); and the sign-pattern search of item
   (XXII), of up to `4.29 * 10^14` patterns. The parts of items (LXXII) and
   (LXXIII) that run in double precision certify nothing on their own.
-* Exact linear algebra in exterior algebras over `Q` or `Q(i)` that has not
-  yet been carried into Lean, either at all or beyond the counts checked by
-  an earlier section: items (I), (XIII), (XVI), (XVIII), (XIX), (XXIII),
-  (XXIV), (XXXIV) to (XXXVII), (XLI) to (XLIII), (XLVII) to (XLIX), (LI),
-  (LIII), (LIV) and (LVII) to (LXIII). These are within reach of the
-  certificate method of Section 51 (exact kernel vectors and independence
-  modulo a prime), at the cost of larger data.
+* Parts of items whose exact linear algebra is otherwise in Sections 56 to
+  81: the exhaustive searches of item (XIII); the other five shapes at
+  `n = 3` and the longer run at `n = 4, 5` of item (LIII); parts (A) to (C)
+  of item (LVIII), identities in the exterior algebra on twenty-four
+  generators; parts (B) to (D) of item (LIX), which work over both places of
+  explicit number fields; part (F) of item (LX), the invariance of classes of
+  `X x X` and `X x X x B` under `sl(V)`; and parts (D) and (F) to (H) of item
+  (LXI), identities at random rational points, invariants of orthogonal
+  groups, spans in CM fields of degree up to ten, and the cohomology of
+  generalised Kummer varieties sector by sector.
 
-`generate/make_section51.py` writes the certificates of Section 51 from the
-model of `code/p2prime.py`; run from the repository root, it prints the data
-block of that section.
+The data blocks of the certificates are written by the scripts in
+`generate/`, each from the model of the corresponding program in `code/`:
+`make_section51.py` for Section 51, and for Sections 56 to 81
+`make_tangent.py`, `make_weil_tori.py`, `make_profile.py`, `make_descent.py`,
+`make_wirtinger.py`, `make_k3.py`, `make_sextic_lattice.py`,
+`make_targets.py`, `make_quaternionic.py`, `make_divisor_route.py`,
+`make_cm_fields.py`, `make_mumford_rm.py`, `make_twistor_locus.py`,
+`make_semiregularity.py` and `make_quartic_kernels.py` (with the shared
+helpers of `emit.py`). Run from the repository root, each prints the data
+block of its section.
 
 ## Two statements that look true and are not
 
@@ -256,7 +330,7 @@ algebra computations that Lean does not carry, and prints
 ## Transcript
 
 `axioms.txt` is the unedited output of `lean HodgeObstruction.lean` under
-Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): one hundred and sixty-nine lines, one per
-theorem, one hundred and fourteen reading `does not depend on any axioms` and fifty-five reading
+Lean 4.34.0 (x86_64 Linux, commit 293d5d0c): four hundred and nine lines, one per
+theorem, one hundred and twenty-eight reading `does not depend on any axioms` and two hundred and eighty-one reading
 `depends on axioms: [propext]`, exit status 0, no `sorryAx`. `lake build`
 completes with the same report.

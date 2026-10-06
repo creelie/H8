@@ -117,8 +117,7 @@ $\Ext^{2}(L,L)=H^{2}(\cO_{A})=H^{0,2}(A)$, and $\sigma_{L}$ is multiplication
 by $e^{c_{1}(L)}$. For a direct sum, $\Ext^{2}$ is the sum of the
 $\Ext^{2}(\cE_{i},\cE_{j})$, and $\sigma$ acts on each diagonal block
 $H^{2}(\cO_{A})\cdot\id_{\cE_{i}}$ by multiplication by the Chern character of
-that summand. Both formulae follow at once from the definition by the trace,
-and they are the ones used in the computations of \cite{BMB26}.
+that summand. Both formulae follow at once from the definition by the trace.
 
 \begin{lemma}[The annihilator of the Weil line in $H^{0,2}$]
 \label{lem:annihilator}
@@ -172,9 +171,7 @@ $b\neq0$ we get $z_{++}=0$, so the kernel is the middle summand.
 The reality of $\omega$ is needed: for the non-real element
 $\omega=\alpha_{+}$ of $\HW(A)\otimes\CC$ the same computation gives the
 kernel $V_{+}^{0,1}\otimes V_{-}^{0,1}\oplus\bigwedge^{2}V_{+}^{0,1}$, of
-dimension $n^{2}+\binom{n}{2}$. For the rational generators of
-\Cref{thm:explicitgens} the value $n^{2}$ has also been checked directly in
-the exterior algebra for $n=2,3,4$ \cite{BMB26}. \Cref{fig:fibres} draws the mixed block that forms the kernel.
+dimension $n^{2}+\binom{n}{2}$. \Cref{fig:fibres} draws the mixed block that forms the kernel.
 
 \begin{theorem}[The rank-zero obstruction]
 \label{thm:rankzero}
@@ -256,13 +253,16 @@ here, for all $i$ and $j$, are differences of the kind in the hypothesis,
 with $\varepsilon'=-\varepsilon$. A nondegenerate line bundle has cohomology only in
 the degree equal to its index, so the index hypothesis gives the required
 $\Ext^{2}$ vanishing. The sheaf $\cE_{1}$ has rank $m\ne0$, and the Chern
-character hypothesis is that of \Cref{thm:rankzero}. The decomposition of the
-kernel at $n=3$ into an odd part of dimension $9$ and an even part of
-dimension $6$ is a computation in \cite{BMB26}.
+character hypothesis is that of \Cref{thm:rankzero}.
 Since $e^{\lambda}$ and $e^{-\lambda}$ combine into $\cosh\lambda$ and
 $\sinh\lambda$, which occupy disjoint degrees, the map splits by parity, and
 the odd part is the annihilator of \Cref{lem:annihilator} tensored with the
-sign vector.
+sign vector. At $n=3$ the dimensions are read off from the proof of
+\Cref{prop:explicitobject}, where the signs are absorbed in the same way:
+the kernel consists of the vectors $(u_{i}^{-k}z)_{i}$ with $z$ in the mixed
+block $V_{+}^{0,1}\otimes V_{-}^{0,1}$ for $k=3$, which change sign under
+$u_{i}\mapsto-u_{i}$, and with $z$ in $\bigwedge^{2}V_{+}^{0,1}$ or
+$\bigwedge^{2}V_{-}^{0,1}$ for $k=2$ or $k=4$, which do not.
 \end{proof}
 
 \begin{remark}[Uniformity over the configurations]
@@ -370,8 +370,7 @@ Write $\omega=\alpha_{+}+\alpha_{-}$ with $\alpha_{\pm}\in\bigwedge^{2n}V_{\pm}$
 both nonzero by the proof of \Cref{lem:annihilator}. Each $\alpha_{\pm}$ is a
 top form on its own eigenspace and squares to zero, so
 $\omega^{2}=2\alpha_{+}\alpha_{-}$, which is a nonzero multiple of the
-fundamental class. The formula for $\chi(E,E)$ has also been checked in the
-exterior algebra for $n\le4$ \cite{BMB26}.
+fundamental class.
 \end{proof}
 
 \begin{remark}[The constant]\label{rem:sizeconstant}
@@ -616,11 +615,6 @@ $\ker\Phi_{\delta}=0$. Since $\Phi_{\delta}$ depends linearly on $\delta$, the
 classes with $\ker\Phi_{\delta}\ne0$ are cut out by the vanishing of the
 maximal minors of $\Phi_{\delta}$ and form a proper real algebraic subset of
 the real classes of type $(1,1)$, which gives (iii).
-
-All three statements, together with the value $n^{2}$ for the dimension of
-the tangent space, have also been checked in exact arithmetic over $\QQ(i)$
-for $n=2,3,4$ \cite{BMB26}; at $n=4$ the kernels in
-(ii) are $12$, $8$, $4$, $0$ for ranks $1$ to $4$.
 \end{proof}
 
 \begin{remark}[The divisorial supply]\label{rem:rigiditywhy}

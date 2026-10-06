@@ -538,6 +538,56 @@ scripts, and the finite arithmetic was formalised by him in Lean 4", with the
 Claude Code sentence kept. Deep also named Julia, C and PARI; the archive
 contains none of them, so they are not listed (add them only if such code is
 added to the archive).
+Round 48 carried the exact linear algebra of the remaining items into Lean,
+Sections 56 to 81 (240 theorems): items (I), (XIII), (XVI), (XVIII), (XIX),
+(XXIII), (XXIV), (XXXIV) to (XXXVII), (XLI) to (XLIII), (XLVII) to (XLIX),
+(LI), (LIII), (LIV) and (LVII) to (LXIII), with rank certificates (exact
+kernel vectors, and minors nonsingular modulo 998244353 or 1000033 with
+i = 649529, 754974721 with sqrt(-d) sent to a recorded root, or 1000003).
+The data blocks are written by `lean/generate/make_*.py` (with `emit.py`);
+each reproduces its block of the Lean file verbatim. Parts still outside
+Lean are listed in `lean/README.md` and `code/computations/lean.tex`: the
+exhaustive searches of (XIII), five shapes at n = 3 and the n = 4, 5 run of
+(LIII), (LVIII)(A) to (C), (LIX)(B) to (D), (LX)(F), (LXI)(D), (F) to (H),
+besides the Macaulay2 items, the ball arithmetic of (LXXII)(H) and the
+search of (XXII). Kernel cost: `decide +kernel` is slow on Int arithmetic
+and on densifying long sparse lists, so heavy checks use data constants,
+transposed rows, sparse minors, or an argument at the level of indices
+(`mumford_motivic_projectors` checks that the exchanges are commuting
+involutions and takes ranks as traces of idempotents); keep each theorem
+under about 6.5 GB. The abstract gained the very general Vandermonde clause
+(quadrics in every dimension, cubics and quartics up to dimension seven),
+and two "Clearly" were replaced by reasons. No Python change (2218
+checks); 409 Lean theorems (127 axiom-free, 282 on `propext`); 411 pages,
+763 labels.
+Round 49 answered Deep's asks for a fully analytical, hand-written paper and
+for an attempt on (F2) and (F3'). Proofs that rested on code alone now have
+hand proofs wherever one exists: among them the rank 45 of ev_E in
+`prop:evaluation`, the least eigenvalue -192 in `thm:efourthreelevels`, the
+exceptional ratio of `rem:p2primeexceptional` (the Cayley form, so(4,3),
+citing [HL82] and [Bry87]), `prop:p2primelocus`(iv), ch(O_S) in
+`tex/sections/10c8_supports.tex`, the Weil orbit counts 70, 490, 6125 and
+the lattice degrees of `cor:delsarteall`, the pencil `prop:pencil` (Lean
+Section 16 now checks its polynomial identities, `code/divisor_route.py`
+rewritten), and in the Mumford sections `prop:mumfordwhere`(i) by the skew
+Cauchy formula, `lem:mumfordmu`, Steps 2 and 3 of `thm:mumfordpowers` with
+`rem:mumforddet`, `thm:mumfordcm` for every power by weight multisets,
+`rem:mumfordunitary`, `prop:notwistor`(iii), `prop:hksquare`(i), (ii) (now
+with a nonzero rational factor rho in (ii)), `thm:lefschetzclosure`(ii),
+(iv), `prop:mumforddivisor` and `prop:mumfordmotivic`. Cross-checks that only
+confirmed a hand proof were deleted; the computations that remain are stated
+precisely and cited to [BMB26], and the introduction says so.
+`thm:pterange`(ii) no longer claims n + 2 norms at n = 7, 8. New:
+`lem:pfaffian` (10c3), `prop:jacobiancontinuation` (10c5: line bundles on
+C^(g-1) pushed to the Jacobian do not continue the two certificates for
+g >= 4), `prop:f3primeample` (11b: ample complete intersections inherit (F3')
+and the Hodge conjecture outside the middle degree, and in the middle degree
+for a very general member when the vanishing cohomology is not of type
+(r/2, r/2)); references [ACGH85], [Mac62], [Bry87]. `verify.ps1` was
+rewritten for Windows (Python suite, then the Lean file; logs in
+`verify_python.log` and `lean/axioms.txt`; the expected count is read from
+the file), and Deep ran the Python suite on his Windows machine. 2218 checks,
+409 Lean theorems (128 axiom-free, 281 on `propext`), 416 pages, 766 labels.
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 
@@ -564,7 +614,7 @@ section.
 - `cd code && python3 verify_all.py` ends with `N checks passed, 0 failed`;
   keep the count in `README.md`, `lean/README.md`, `.zenodo.json`,
   `.github/workflows/lean.yml` and `tex/declarations.tex` in step.
-- `cd lean && lean HodgeObstruction.lean`: 169 theorems, each axiom-free or
+- `cd lean && lean HodgeObstruction.lean`: 409 theorems, each axiom-free or
   depending on `propext` only; the number, in words, is also in
   `README.md`, `lean/README.md`, `code/computations/lean.tex`, `.zenodo.json`
   and `tex/declarations.tex`, and in figures in the workflow.

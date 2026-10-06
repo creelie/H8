@@ -1,6 +1,6 @@
 %% fig_pencil.tex -- the pencil of quaternionic loci inside D_{2,2}.  Left: a
 %% stack of Siegel threefolds S_k, one for each k, drawn as plates inside the
-%% four-dimensional family, with the two members carrying a rational point
+%% four-dimensional family, with the member carrying a rational point
 %% marked.  Right: the invariant mu_k / beta(k) is constant along the pencil
 %% while the degree bound grows linearly in k.
 \documentclass[tikz,border=9pt]{standalone}
@@ -49,7 +49,7 @@
 \node[anchor=north west,font=\footnotesize,text=PSlate] at ([xshift=1mm,yshift=-1mm]Fam)
   {$\mathcal{D}_{2,2}$, \ $\dim 4$};
 
-% plates S_k at heights 0.35 + 0.9 k, k = 0..4, with k = -2 (rational) drawn separately below
+% plates S_k at heights 0.35 + 0.9 (k - 1), k = 1..4, with k = 0 (rational) drawn separately below
 \plate{0.35}{0.25}{0.35}{4.3}{1.9}{0.18}{sk}
 \plate{0.35}{0.25}{1.25}{4.3}{1.9}{0.18}{sk}
 \plate{0.35}{0.25}{2.15}{4.3}{1.9}{0.18}{sk}
@@ -60,15 +60,15 @@
   \coordinate (L2) at (0.35,0.25,2.24);
   \coordinate (L3) at (0.35,0.25,3.14);
 \end{scope}
-\node[anchor=east,font=\footnotesize,text=PTeal] at ([xshift=-6mm]L0) {$S_{0}$, \ $\beta=\tfrac19$};
-\node[anchor=east,font=\footnotesize,text=PTeal] at ([xshift=-6mm]L1) {$S_{1}$, \ $\beta=\tfrac13$};
-\node[anchor=east,font=\footnotesize,text=PTeal] at ([xshift=-6mm]L2) {$S_{2}$, \ $\beta=1$};
-\node[anchor=east,font=\footnotesize,text=PTeal] at ([xshift=-6mm]L3) {$S_{3}$, \ $\beta=\tfrac{19}{9}$};
+\node[anchor=east,font=\footnotesize,text=PTeal] at ([xshift=-6mm]L0) {$S_{1}$, \ $\beta=\tfrac{1}{18}$};
+\node[anchor=east,font=\footnotesize,text=PTeal] at ([xshift=-6mm]L1) {$S_{2}$, \ $\beta=\tfrac{5}{36}$};
+\node[anchor=east,font=\footnotesize,text=PTeal] at ([xshift=-6mm]L2) {$S_{3}$, \ $\beta=\tfrac{5}{18}$};
+\node[anchor=east,font=\footnotesize,text=PTeal] at ([xshift=-6mm]L3) {$S_{4}$, \ $\beta=\tfrac{17}{36}$};
 
-% the rational member k = -2 (beta = 1), highlighted, at the bottom of the box
+% the rational member k = 0 (beta = 1/36, a square), highlighted, at the bottom of the box
 \plate{0.35}{0.25}{-0.55}{4.3}{1.9}{0.18}{rq}
 \begin{scope}[obl]\coordinate (Lm) at (0.35,0.25,-0.46);\coordinate (Rm) at (4.65,1.2,-0.46);\end{scope}
-\node[anchor=east,font=\footnotesize,text=POchre] at ([xshift=-6mm]Lm) {$S_{-2}$, \ $\beta=1$};
+\node[anchor=east,font=\footnotesize,text=POchre] at ([xshift=-6mm]Lm) {$S_{0}$, \ $\beta=\tfrac{1}{36}$};
 \node[anchor=north east,align=right,font=\footnotesize,text=POchre] at ([xshift=-6mm,yshift=-2.5mm]Lm)
   {a rational point $J_{0}$\\lives here};
 
@@ -87,29 +87,27 @@
   \foreach \k in {0,...,10}
     \node[font=\tiny,text=PSlate,anchor=north] at (\k*\ux,-0.05) {\k};
 
-  % mu_k / beta(k) = 2592, flat
+  % mu_k / beta(k) = 10368 = int eta^4 / 3, flat
   \draw[PTeal,thick] (0,1.2) -- (10*\ux,1.2);
   \foreach \k in {0,...,10} \fill[PTeal] (\k*\ux,1.2) circle (1.1pt);
   \node[anchor=west,font=\footnotesize,text=PTeal] at (10*\ux+0.15,1.2)
-    {$\mu_{k}/\beta(k)=2592$};
+    {$\mu_{k}/\beta(k)=10368$};
 
-  % beta(k) = (1 + 2k^2)/9 scaled: y = 0.22 * beta
+  % beta(k) = (1 + k^2)/36 scaled: y = 1.75 * beta
   \draw[POchre,thick] plot[smooth] coordinates {
-    (0*\ux,0.024) (1*\ux,0.073) (2*\ux,0.22) (3*\ux,0.464) (4*\ux,0.807)
-    (5*\ux,1.247) (6*\ux,1.784) (7*\ux,2.42) (8*\ux,3.153) (9*\ux,3.984) (10*\ux,4.913)};
-  \foreach \k/\y in {0/0.024,2/0.22,4/0.807,6/1.784,8/3.153,10/4.913}
+    (0*\ux,0.049) (1*\ux,0.097) (2*\ux,0.243) (3*\ux,0.486) (4*\ux,0.826) (5*\ux,1.264) (6*\ux,1.799) (7*\ux,2.431) (8*\ux,3.160) (9*\ux,3.986) (10*\ux,4.910)};
+  \foreach \k/\y in {0/0.049,2/0.243,4/0.826,6/1.799,8/3.160,10/4.910}
     \fill[POchre] (\k*\ux,\y) circle (1.1pt);
   \node[anchor=west,align=left,font=\footnotesize,text=POchre] at (10*\ux+0.15,4.6)
-    {$\beta(k)=\tfrac{1+2k^{2}}{9}$};
+    {$\beta(k)=\tfrac{1+k^{2}}{36}$};
 
-  % degree lower bound sqrt(beta/6)/N, linear growth, scaled: y = 3.4 * sqrt(beta/6)/4
-  \draw[PClay,thick] plot coordinates {
-    (0*\ux,0.115) (1*\ux,0.2) (2*\ux,0.347) (3*\ux,0.505) (4*\ux,0.665)
-    (5*\ux,0.826) (6*\ux,0.988) (7*\ux,1.15) (8*\ux,1.313) (9*\ux,1.476) (10*\ux,1.639)};
-  \foreach \k/\y in {0/0.115,5/0.826,10/1.639}
+  % degree lower bound 864 sqrt(6) sqrt(1 + k^2), linear growth, scaled: y = 0.163 * sqrt(1 + k^2)
+  \draw[PClay,thick] plot[smooth] coordinates {
+    (0*\ux,0.163) (1*\ux,0.231) (2*\ux,0.364) (3*\ux,0.515) (4*\ux,0.672) (5*\ux,0.831) (6*\ux,0.991) (7*\ux,1.153) (8*\ux,1.314) (9*\ux,1.476) (10*\ux,1.638)};
+  \foreach \k/\y in {0/0.163,5/0.831,10/1.638}
     \fill[PClay] (\k*\ux,\y) circle (1.1pt);
   \node[anchor=west,align=left,font=\footnotesize,text=PClay] at (10*\ux+0.15,2.1)
-    {$\deg\ge\sqrt{\beta(k)/6}\,/N_{3}$\\[-1pt]{\scriptsize linear in $k$}};
+    {$\deg\ge864\sqrt{6}\,\sqrt{1+k^{2}}$\\[-1pt]{\scriptsize linear in $k$}};
 
   \node[anchor=north west,align=left,font=\footnotesize,text=PInk] at (0,-0.5)
     {the class is the same size at every member of the pencil;\\

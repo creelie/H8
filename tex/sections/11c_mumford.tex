@@ -108,7 +108,8 @@ are $\psi_{11}\psi_{22}$ and $\psi_{12}^{2}$ in the notation of the proof of
 \Cref{prop:mumfordproduct}. They are invariant under the whole of
 $\Sp(V,\psi)$, whose endomorphisms of $H^{2}=\QQ\theta\oplus U$ are spanned
 by the identity and the projection onto $\QQ\theta$, and they are linearly
-independent by \cite{BMB26}; so they span $\QQ\times\QQ$, and any complement of
+independent, being a multiple of the projection and a multiple of the
+identity (proof of \Cref{prop:mumfordproduct}); so they span $\QQ\times\QQ$, and any complement of
 $\QQ\times\QQ$ in $\QQ\times F$ may serve as the two remaining classes.
 
 (iii) The adjoint action of the Hodge cocharacter is trivial on $T_{1}$ and
@@ -130,9 +131,7 @@ cocharacter, and positive on its orthogonal complement, the real points of
 the types $(2,0)$ and $(0,2)$. The Hodge--Riemann relations for a structure
 of K3 type ask for exactly these signs after multiplication by
 $\sigma_{i}(\lambda)$, so $q_{\lambda}$ polarises $T(-1)$ precisely when every
-$\sigma_{i}(\lambda)$ is positive. A computation in \cite{BMB26}
-determines the four projections from the Casimir operators of the three factors
-on an explicit model and checks (i) and the Hodge numbers.
+$\sigma_{i}(\lambda)$ is positive.
 \end{proof}
 
 The two classes are thus the endomorphisms of $U$ given by the elements of
@@ -187,11 +186,21 @@ $\mu^{\dagger_{1}}$ carries $U_{ij}$ into
 $(T_{i}\otimes T_{j})\oplus(T_{j}\otimes T_{i})$, on which $m_{g}\otimes m_{g}$
 is multiplication by $\sigma_{i}(g)\sigma_{j}(g)=\Nm(g)/\sigma_{k}(g)$. Hence
 $\mu_{e}\mu_{e}^{\dagger}$ is $\Nm(g)\sigma_{k}(g)^{-1}$ times
-$\mu\mu^{\dagger_{1}}$ on $U_{ij}$. A computation in \cite{BMB26} determines $\mu\mu^{\dagger_{1}}$
-on the split model and finds one and the same nonzero rational number $\nu$
-on the three summands $U_{ij}$; it also checks the formula for
-$\mu_{e}\mu_{e}^{\dagger}$ directly for several values of the conjugates of
-$e$ and $\lambda$. By \Cref{prop:mumfordrm}(ii) an endomorphism of $U$ acting
+$\mu\mu^{\dagger_{1}}$ on $U_{ij}$. The summands of $H^{2}(X,\bar{\QQ})$ are
+pairwise non-isomorphic and self-dual, so $B$ is nondegenerate on $U_{ij}$,
+and by Schur's lemma the pull-back of $B$ along the isomorphism
+$\mu_{0}=\mu|_{T_{i}\otimes T_{j}}$ is $c_{k}\,q_{1}\otimes q_{1}$ with
+$c_{k}\ne0$; then $\mu_{0}\mu_{0}^{\dagger_{1}}=c_{k}$ on $U_{ij}$. As $\mu$
+is symmetric in its two arguments and the exchange of the factors is an
+isometry of $q_{1}\otimes q_{1}$, $\mu^{\dagger_{1}}u=\mu_{0}^{\dagger_{1}}u+
+s\,\mu_{0}^{\dagger_{1}}u$ with $s$ that exchange, and $\mu\mu^{\dagger_{1}}=2c_{k}$
+on $U_{ij}$. On the split model $V=\bar{\QQ}^{2}\otimes\bar{\QQ}^{2}\otimes
+\bar{\QQ}^{2}$, $\psi=\epsilon\otimes\epsilon\otimes\epsilon$, the
+permutations of the three factors preserve $\psi$, hence $\theta$, $B$ and
+$\mu$, and also $q_{1}=\sum_{i}\operatorname{tr}(x_{i}y_{i})$, while they
+permute the $U_{ij}$; so $c_{1}=c_{2}=c_{3}$, and $\mu\mu^{\dagger_{1}}$ is one
+and the same nonzero number $\nu$ on the three summands $U_{ij}$, rational
+because $\mu\mu^{\dagger_{1}}$ is defined over $\QQ$. By \Cref{prop:mumfordrm}(ii) an endomorphism of $U$ acting
 on $U_{ij}$ by $\nu\Nm(g)/\sigma_{k}(g)$ is the element $\nu\Nm(g)g^{-1}$ of
 $F$.
 \end{proof}
@@ -300,9 +309,7 @@ matrices, which is impossible; so the $e_{ab}$ span $F$, and two of them, $e$
 and $e'$, are not rational multiples of each other. Then $(e/e')^{2}$ is irrational, since a cubic field
 contains no irrational element with rational square, so $e^{2}/\lambda$ and
 $e'^{2}/\lambda$ are not both rational. Fix a block $\kappa=m_{e}$ with
-$e^{2}/\lambda\notin\QQ$, induced by a cycle $\Gamma$. A computation in \cite{BMB26} builds the
-Clifford algebra of the split model and checks that $\Psi$ has this shape,
-with three anticommuting $N_{i}$.
+$e^{2}/\lambda\notin\QQ$, induced by a cycle $\Gamma$.
 
 Consider first the real multiplication. The trace form
 $(a,b)\mapsto\operatorname{tr}(ab)$ on $\End(V)$ is induced by an algebraic
@@ -401,7 +408,9 @@ surface of Picard number seventeen, as Morrison notes
 $T(S)=U\oplus\langle6\rangle\oplus\langle-2\rangle\oplus\langle-2\rangle$,
 the transcendental lattice of the very general K3 surface of a family of
 dimension three \cite[Corollary~2.10]{Mor84}, $T(S)_{\QQ}$ has Witt index one,
-since $\langle6,-2,-2\rangle$ is anisotropic over $\QQ_{3}$ (a computation in \cite{BMB26}). The double planes branched along six lines, of Picard
+since $\langle6,-2,-2\rangle$ is anisotropic over $\QQ_{3}$: a primitive
+solution of $3x^{2}=y^{2}+z^{2}$ in $\ZZ_{3}$ would have $3\mid y$ and
+$3\mid z$, as $-1$ is not a square modulo $3$, and then $3\mid x$. The double planes branched along six lines, of Picard
 number at least sixteen, are settled by Paranjape's cycle; see \cite{vG00}.
 Floccari proves the conjecture for the K3 surfaces attached to projective
 sixfolds of generalised Kummer type \cite{Flo24}, and then, for the K3
@@ -488,7 +497,7 @@ $S_{\lambda}$ to a power of $X$ (\Cref{prop:mumfordkslink}), and no such link
 can pass through an abelian variety of dimension at most five
 (\Cref{prop:mumfordcarrier}). The theorem and the corollary are
 implications, and \Cref{rem:mumfordpowersopen} collects the forms they give
-to the first case of (F2). The computations are those of \cite{BMB26}.
+to the first case of (F2).
 
 \begin{proposition}[Where $T$ occurs]\label{prop:mumfordwhere}
 In \Cref{setup:mumford}, write $\Hom_{\mathrm{Hdg}}$ for morphisms of rational
@@ -520,14 +529,34 @@ and the Galois group permutes the three summands transitively. Hence $T$ is
 irreducible, a representation of $G$ defined over $\QQ$ contains
 $T_{1}$, $T_{2}$ and $T_{3}$ with one and the same multiplicity $m$, and its
 space of $G$-maps from $T$, of $\QQ$-dimension $3m$, is a vector space over
-$\End_{G}(T)=F$ (\Cref{prop:mumfordrm}(iii)) of dimension $m$. A computation in \cite{BMB26}
-decomposes every $\bigwedge^{k}V$, and \cite{BMB26} checks in two ways, by
-repeated subtraction of highest weights and by Weyl's alternating sum over
-the Weyl group of $\SL_{2}^{3}$, that no summand $S^{2}V_{i}$ occurs; that is
-(i). For (ii),
+$\End_{G}(T)=F$ (\Cref{prop:mumfordrm}(iii)) of dimension $m$.
+
+For (i), write $V=V_{1}\otimes W$ with $W=V_{2}\otimes V_{3}$, on which
+$\SL(V_{2})\times\SL(V_{3})$ acts through $\SO(W,q)$, $q$ the product of the
+two symplectic forms. By the skew Cauchy formula
+$\bigwedge^{k}V=\bigoplus_{\lambda}S_{\lambda}V_{1}\otimes S_{\lambda'}W$,
+over the partitions $\lambda$ of $k$ with at most two rows and at most four
+columns, and $S_{\lambda}V_{1}\cong S^{\lambda_{1}-\lambda_{2}}V_{1}$ as a
+representation of $\SL(V_{1})$. So $T_{1}$ occurs in $\bigwedge^{k}V$ only
+through $\lambda=(2,0)$, $(3,1)$ or $(4,2)$, and only if $S_{\lambda'}W$ has a
+nonzero invariant under $\SL(V_{2})\times\SL(V_{3})$. As representations of
+$\SL(W)$, $S_{(1,1)}W=\bigwedge^{2}W$, $S_{(2,2,1,1)}W\cong\bigwedge^{2}W$, and
+$S_{(2,1,1)}W\cong\mathfrak{sl}(W)$, the kernel of the contraction
+$\bigwedge^{3}W\otimes W\to\bigwedge^{4}W$ with $\bigwedge^{3}W\cong W^{*}$.
+Restricted to $\SO(W,q)$, $\bigwedge^{2}W=\mathfrak{so}(W)=
+\mathfrak{sl}(V_{2})\oplus\mathfrak{sl}(V_{3})$ and
+$\mathfrak{sl}(W)=\mathfrak{so}(W)\oplus S^{2}V_{2}\otimes S^{2}V_{3}$, the
+second summand being the trace-free part of $S^{2}W$; none of these has a
+nonzero invariant. So $T_{1}$ occurs in no $\bigwedge^{k}V$, and by the same
+argument with the factors exchanged neither do $T_{2}$ and $T_{3}$. As $G$ is
+reductive, the subquotients of $\bigwedge^{k}V$ are its summands; that is (i).
+
+For (ii),
 $H^{n}(X\times X)=\bigoplus_{a+b=n}\bigwedge^{a}V\otimes\bigwedge^{b}V$, and
-\cite{BMB26} computes by the same two methods the multiplicity of $S^{2}V_{1}$
-in it: $0,0,1,0,6,0,16,0,24,0,16,0,6,0,1,0,0$ for $n=0,\dots,16$. In
+the multiplicity of $S^{2}V_{1}$ in it is a finite computation with the
+characters of $\SL_{2}^{3}$, recorded in \cite{BMB26} (by repeated
+subtraction of highest weights and, independently, by Weyl's alternating
+sum): $0,0,1,0,6,0,16,0,24,0,16,0,6,0,1,0,0$ for $n=0,\dots,16$. In
 $H^{2}(X\times X)=\bigwedge^{2}V\oplus(V\otimes V)\oplus\bigwedge^{2}V$ the
 copy lies in $V\otimes V$ by (i). For (iii), $\End V=S^{2}V\oplus
 \bigwedge^{2}V$ contains each $T_{i}$ once, and the proof of
@@ -590,10 +619,49 @@ $v\mapsto t_{*}\bigl((\theta^{3}\times\theta^{3})\cup v\bigr)$ of
 $V\otimes V$. The pairing $(v,w)\mapsto\int_{X}v\cup w\cup\theta^{3}$ on $V$
 is nondegenerate by hard Lefschetz and $G$-invariant, so $t\mapsto\hat{t}$
 is an isomorphism $(V^{\otimes4})^{G}\to\End_{G}(V\otimes V)$, and $\hat{t}$
-is algebraic when $t$ is. A computation in \cite{BMB26} determines exactly, on the split model over
-$\bar{\QQ}$, that $\cP_{0}$ has dimension $7$ and that the $\hat{t}$ together
-with the composites $\hat{u}\hat{t}$, for $t,u\in\cP_{0}$, span
-$\End_{G}(V\otimes V)$. Since composition is bilinear and $\cP_{0}\otimes
+is algebraic when $t$ is. We show that the $\hat{t}$ and the composites
+$\hat{u}\hat{t}$, for $t,u\in\cP_{0}$, span $\End_{G}(V\otimes V)$. Over
+$\bar{\QQ}$, $\End_{G}(V\otimes V)=\bigotimes_{k}\End_{\SL_{2}}(V_{k}\otimes
+V_{k})$ is the algebra of functions on the eight sign patterns
+$\varepsilon\in\{\pm1\}^{3}$, where $\varepsilon_{k}$ is the eigenvalue of the
+exchange $s_{k}$ of the two copies of $V_{k}$; the patterns with
+$\varepsilon_{1}\varepsilon_{2}\varepsilon_{3}=-1$, the odd ones, make up
+$\bigwedge^{2}V$.
+
+(a) Let $f=(x_{1}+x_{2},x_{3}+x_{4})\colon X^{4}\to X^{2}$. The multilinear
+component of $f^{*}\xi$ depends only on the K\"unneth component of $\xi$ in
+$H^{2}(X)\otimes H^{2}(X)$, and it is that component read as a tensor
+$t\in\bigwedge^{2}V\otimes\bigwedge^{2}V$, so $\hat{t}$ vanishes on $S^{2}V$
+and takes values in $\bigwedge^{2}V$. These components fill
+$(H^{2}\otimes H^{2})^{G}=\End_{G}(H^{2})$, of dimension $4$ by
+\Cref{prop:mumfordrm}(ii); so the $\hat{t}$ span the functions supported on
+the four odd patterns.
+
+(b) The map $g=(x_{1}+x_{3},x_{2}+x_{4})$ is $f$ composed with the exchange
+of the factors $2$ and $3$ of $X^{4}$, which permutes the factors of
+$V^{\otimes4}$ up to sign. On $V_{k}^{\otimes4}$ the $\SL_{2}$-invariants are
+spanned by $\epsilon_{13}\epsilon_{24}$, $\epsilon_{14}\epsilon_{23}$ and
+$\epsilon_{12}\epsilon_{34}=\epsilon_{13}\epsilon_{24}-\epsilon_{14}
+\epsilon_{23}$, where $\epsilon_{ab}$ is $\epsilon_{k}$ on the factors $a$ and
+$b$; up to a common sign their hats are $1$, $s_{k}$ and $1-s_{k}$. The
+exchange of the factors $2$ and $3$ swaps the first and the third and changes
+the sign of the second, so on functions of $\varepsilon_{k}$ it carries
+$\frac12(1-s_{k})$ to $\frac12$ and $\frac12(1+s_{k})$ to $\frac12-s_{k}$.
+Applied to the indicator of the odd pattern $(1,1,-1)$ it gives
+$\frac12(\frac12-s_{1})(\frac12-s_{2})$. The identity is $\hat{t}$ for the
+multilinear component of a product of two divisor classes, the pull-backs of
+the class $\psi$ on $X\times X$ along the projections of $X^{4}$ to the
+factors $(1,3)$ and $(2,4)$, so $h=(1-2s_{1})(1-2s_{2})-1$ lies in the span of the
+$\hat{t}$, $t\in\cP_{0}\otimes\bar{\QQ}$. As $(\varepsilon_{1},\varepsilon_{2})$
+runs through $(1,1)$, $(1,-1)$, $(-1,1)$, $(-1,-1)$, $h$ takes the values
+$0,-4,-4,8$, so $h(h+4)/96$ is the indicator of
+$\varepsilon_{1}=\varepsilon_{2}=-1$; subtracting the indicator of
+$(-1,-1,-1)$, from (a), leaves that of $(-1,-1,1)$. The same argument with the
+factors $V_{k}$ permuted gives the other two even patterns with two minus
+signs, and the indicator of $(1,1,1)$ is $1$ minus the other seven.
+
+So the $\hat{t}$ and $\hat{u}\hat{t}$ span $\End_{G}(V\otimes V)\otimes
+\bar{\QQ}$. Since composition is bilinear and $\cP_{0}\otimes
 \bar{\QQ}$ is spanned by the same pull-backs and products of a basis of
 Hodge classes, the $\QQ$-algebra of algebraic $G$-endomorphisms of
 $V\otimes V$ has dimension $8$: every $G$-endomorphism of $V\otimes V$ is
@@ -602,10 +670,13 @@ algebraic.
 \emph{Step 3: the partial swaps.} Over $\bar{\QQ}$,
 $\End_{G}(V\otimes V)=\bigotimes_{k}\End_{\SL_{2}}(V_{k}\otimes V_{k})$, and
 $\End_{\SL_{2}}(V_{k}\otimes V_{k})$ is spanned by $1$ and the exchange $s_{k}$
-of the two copies of $V_{k}$; \cite{BMB26} checks that
-$s_{k}=\mathrm{Cas}_{k}+\frac12$, with $\mathrm{Cas}_{k}$ the Casimir operator
-of $\mathfrak{sl}(V_{k})$ for the trace form, so that the $s_{k}$ come from
-the three summands $T_{k}$ of $T$. The Galois group permutes the $s_{k}$ as it
+of the two copies of $V_{k}$. In a basis of $V_{k}$ the matrix units
+$E_{ab}$ and $E_{ba}$ are dual for the trace form of $\mathfrak{gl}(V_{k})$,
+and $\sum_{a,b}E_{ab}\otimes E_{ba}=s_{k}$; removing the centre, spanned by the
+identity $1$ with $\operatorname{tr}(1\cdot1)=2$, gives
+$s_{k}=\mathrm{Cas}_{k}+\frac12$, with $\mathrm{Cas}_{k}=\sum_{c}x_{c}\otimes
+x^{c}$ for dual bases $(x_{c})$, $(x^{c})$ of $\mathfrak{sl}(V_{k})$ under the
+trace form. So the $s_{k}$ come from the three summands $T_{k}$ of $T$. The Galois group permutes the $s_{k}$ as it
 permutes the embeddings $\sigma_{k}$, so for $a\in F$ the endomorphism
 $r_{a}=\sum_{k}\sigma_{k}(a)s_{k}$ is rational, hence algebraic by Step 2. For
 $m\ge2$ and $1\le i<m$ let $r_{a}^{(i)}$ and $s_{k}^{(i)}$ act as $r_{a}$ and
@@ -622,8 +693,10 @@ the discriminant of $F$, so each $s_{k}^{(i)}$ is a $\bar{\QQ}$-linear
 combination of the $r_{a_{j}}^{(i)}$. The $\QQ$-algebra generated by the
 $r_{a}^{(i)}$ therefore lies in $\End_{G}(V^{\otimes m})$ and spans it over
 $\bar{\QQ}$, so it is $\End_{G}(V^{\otimes m})$: every $G$-endomorphism of
-$V^{\otimes m}$ is algebraic. A computation in \cite{BMB26} checks the dimensions, $8$ for $m=2$
-and $125=5^{3}$ for $m=3$.
+$V^{\otimes m}$ is algebraic. Its dimension is the cube of
+$\dim\End_{\SL_{2}}(V_{k}^{\otimes m})$, the sum of the squares of the
+multiplicities in $V_{k}^{\otimes m}$: $8=2^{3}$ for $m=2$ and $125=5^{3}$ for
+$m=3$, where $V_{k}^{\otimes3}=S^{3}V_{k}\oplus V_{k}^{\oplus2}$.
 
 \emph{Step 4: all multilinear invariants.} By the first fundamental theorem
 for $\SL_{2}$ the invariants in $V_{k}^{\otimes2m}$ are spanned by the images
@@ -647,19 +720,29 @@ Cauchy decomposition $\bigwedge^{4}(V\otimes\QQ^{4})=\bigoplus_{\lambda}
 S_{\lambda}V\otimes S_{\lambda'}\QQ^{4}$, over the partitions $\lambda$ of $4$
 with conjugates $\lambda'$, is functorial in $\QQ^{4}$, and its summand
 $S^{4}V\otimes\bigwedge^{4}\QQ^{4}$ contains exactly one line of Hodge classes
-of $X^{4}$. It is spanned by a class $\mathrm{Det}\in(V^{\otimes4})^{G}$ whose
+of $X^{4}$: $S_{4}$ acts on the two-dimensional space of $\SL_{2}$-invariants
+in $V_{k}^{\otimes4}$ through its two-dimensional irreducible representation
+$\sigma$, and the trivial representation occurs once in $\sigma^{\otimes3}$.
+That line is spanned by a class $\mathrm{Det}\in(V^{\otimes4})^{G}$ on which
+the permutations of the factors of $X^{4}$ act by the sign, and whose
 restriction to the diagonal, on the split model
-$V=\bar{\QQ}^{2}\otimes\bar{\QQ}^{2}\otimes\bar{\QQ}^{2}$, is a nonzero
-multiple of Cayley's hyperdeterminant \cite{BMB26}, and the permutations of the
-factors of $X^{4}$ act on it by the sign. Pull-backs along homomorphisms
+$V=\bar{\QQ}^{2}\otimes\bar{\QQ}^{2}\otimes\bar{\QQ}^{2}$, is an invariant
+quartic form of $\SL_{2}^{3}$, hence a nonzero multiple of Cayley's
+hyperdeterminant. Pull-backs along homomorphisms
 $X^{4}\to X^{2}$ have no component in that summand, because
 $\bigwedge^{4}\QQ^{2}=0$, and products of divisor classes have none, because
 they are invariant under $\Sp(V,\psi)$ and $S^{4}V$ has no
-$\Sp(V,\psi)$-invariant. So the space $\cP_{0}$ of Step 2, of dimension $7$,
-is the space of Hodge classes of $X^{4}$ in the multilinear parts of the other
-summands, and $\mathrm{Det}$ is reached only through a
-composite of correspondences, which involves a push-forward; \cite{BMB26} finds
-one already of the form $\hat{t}\hat{t}$. This is where
+$\Sp(V,\psi)$-invariant. In the notation of Step 2 the hats of the elements
+of $\cP_{0}$ therefore satisfy one linear condition, which is
+$v_{(1,-1,-1)}+v_{(-1,1,-1)}+v_{(-1,-1,1)}=3v_{(1,1,1)}$ for the values $v$ on
+the even patterns, since the functions found in (a) and (b), those supported
+on the odd patterns, the constant, $h$ and its two images under the
+permutations of the factors $V_{k}$, satisfy it and
+span a space of dimension $7$. So $\cP_{0}$ has dimension $7$ and is the space
+of Hodge classes of $X^{4}$ in the multilinear parts of the other summands,
+and $\mathrm{Det}$ is reached only through a composite of correspondences,
+which involves a push-forward. The composite $h^{2}$ of Step 2 is one: the
+indicator of $(-1,-1,1)$ violates the condition. This is where
 \Cref{thm:mumfordpowers} differs from \Cref{prop:powers}, in which the first
 fundamental theorem for $\SL(W)$ lets pull-backs and products suffice. We have
 not found \Cref{thm:mumfordpowers} in the literature; it is an implication
@@ -675,40 +758,13 @@ point. Then the Hodge conjecture holds for $X_{c}^{n}$ for every $n\ge1$.
 \end{proposition}
 
 \begin{proof}
-By the proof of \Cref{thm:mumfordcm}, $H^{1}(X_{c},\CC)$ has a basis of
-vectors $x_{w}$ of the eight pairwise distinct weights $w\in\{\pm1\}^{3}$ of
-the Hodge group, and $\End^{0}(X_{c})\otimes\CC$ is the algebra of diagonal
-matrices in this basis. So $\Hdg^{*}(X_{c}^{n})\otimes\CC$ is spanned by the
-products of vectors $x_{w}\otimes u$, $u\in\CC^{n}$, in
-$\bigwedge^{*}(H^{1}(X_{c},\CC)\otimes\CC^{n})$ in which the weights $w$,
-counted with multiplicity, sum to zero. Put $w_{1}=(1,1,1)$,
-$w_{2}=(1,-1,-1)$, $w_{3}=(-1,1,-1)$ and $w_{4}=(-1,-1,1)$; the weights are
-the $\pm w_{i}$, $w_{1}+w_{2}+w_{3}+w_{4}=0$, and any three of the $w_{i}$ are
-linearly independent, so the integer relations among them are the multiples
-of $(1,1,1,1)$. Let $\alpha_{i}$ and $\beta_{i}$ be the multiplicities of $w_{i}$
-and $-w_{i}$ in a nonempty multiset of weights with sum zero. Then
-$\alpha_{i}-\beta_{i}$ is independent of $i$; so either some $\alpha_{i}$ and
-$\beta_{i}$ are both positive, or all $\alpha_{i}$ are positive, or all
-$\beta_{i}$ are. In each case the multiset contains one of the sets
-$\{w_{i},-w_{i}\}$, $\{w_{1},w_{2},w_{3},w_{4}\}$,
-$\{-w_{1},-w_{2},-w_{3},-w_{4}\}$, each of sum zero, and by induction every
-product above is, up to sign, a product of monomials
-$\bigwedge_{w\in P}(x_{w}\otimes u_{w})$ over such sets $P$, whose weights are
-pairwise distinct; \cite{BMB26} confirms that these six sets are the
-irreducible multisets of sum zero with multiplicities at most five. As the
-diagonal entries of an element of $\End^{0}(X_{c})\otimes\CC$ can be
-prescribed independently, there is $f\in\Hom(X_{c}^{n},X_{c})\otimes\CC$ with
-$f^{*}x_{w}=x_{w}\otimes u_{w}$ for $w\in P$, and then
-$\bigwedge_{w\in P}(x_{w}\otimes u_{w})=f^{*}\bigl(\bigwedge_{w\in P}x_{w}\bigr)$,
-with $\bigwedge_{w\in P}x_{w}$ a Hodge class of $X_{c}$ tensored with $\CC$.
-As in the proof of \Cref{thm:mumfordcm}, Zariski density lets $f$ and the
-class be taken rational, so the ring $\Hdg^{*}(X_{c}^{n})$ is generated by
-pull-backs of Hodge classes of the fourfold $X_{c}$ along homomorphisms, and
-these are algebraic \cite{Mar25a}.
+The proof of \Cref{thm:mumfordcm} shows that for every $n\ge1$ the ring
+$\Hdg^{*}(X_{c}^{n})$ is generated by pull-backs of Hodge classes of the
+fourfold $X_{c}$ along homomorphisms $X_{c}^{n}\to X_{c}$, and these are
+algebraic \cite{Mar25a}.
 \end{proof}
 
-For $n=2$ this recovers \Cref{thm:mumfordcm} without the computation of \cite{BMB26}
-it uses. The statement is also contained in the theorem of \cite{Li26} on the
+The statement is also contained in the theorem of \cite{Li26} on the
 powers of CM fourfolds.
 
 \begin{corollary}[Powers and fibre powers of a Mumford family]
@@ -902,10 +958,15 @@ $\Res_{F/\QQ}K^{1}$ over $\bar{\QQ}$, and
 $H=\bigoplus_{i}(V_{i}\chi_{i}\oplus V_{i}\chi_{i}^{-1})$, of dimension twelve,
 with types $(1,0)$ on $V_{i}\chi_{i}$ and $(0,1)$ on $V_{i}\chi_{i}^{-1}$ for
 $i=1,2$, and with the Hodge cocharacter of $V_{3}$ on the two summands with
-$i=3$: the signature $(2,0)$, $(2,0)$, $(1,1)$. A computation in \cite{BMB26} determines that the
-part of $\bigwedge^{2}H$ on which the torus acts trivially is
-$T_{1}\oplus T_{2}\oplus T_{3}$ plus three trivial summands, and that this
-copy of $T$ has Hodge numbers $(1,7,1)$, those of $T(S_{\lambda})$. We recall
+$i=3$: the signature $(2,0)$, $(2,0)$, $(1,1)$. The characters
+$\chi_{i}^{\pm1}\chi_{j}^{\pm1}$ with $i\ne j$ and $\chi_{i}^{\pm2}$ are
+nontrivial, so the part of $\bigwedge^{2}H$ on which the torus acts trivially
+is $\bigoplus_{i}V_{i}\chi_{i}\otimes V_{i}\chi_{i}^{-1}=\bigoplus_{i}
+(S^{2}V_{i}\oplus\bigwedge^{2}V_{i})$, that is, $T_{1}\oplus T_{2}\oplus T_{3}$
+plus three trivial summands. For $i=1,2$ the summand $T_{i}$ is of type
+$(1,1)$, and $S^{2}V_{3}$ has one dimension in each of the types $(2,0)$,
+$(1,1)$, $(0,2)$, so this copy of $T$ has Hodge numbers $(1,7,1)$, those of
+$T(S_{\lambda})$. We recall
 without proof that these are the Hodge structures on $H^{1}(Z,\QQ)\cong D$ of
 the abelian sixfolds $Z$ with multiplication by $K$ over the Shimura curves of
 PEL type attached to $K$ and $D$, which go back to Shimura, and that at a
@@ -1088,9 +1149,7 @@ isotropic by the Hasse--Minkowski theorem \cite{OMe00}. So $T=H\oplus H\oplus
 K$ with $H$ a hyperbolic plane and $K$ negative definite, and each of the
 countably many rational subspaces $W\subset T$ of signature $(2,3)$ and Witt
 index two, for instance $H\oplus H\oplus\QQ k$ with $k\in K$, defines a
-subfamily $\cK_{W}=\{S:T(S)_{\QQ}\subseteq W\}$ of dimension three; \cite{BMB26}
-exhibits $H\oplus H\oplus K$ and such a $W$ for
-$F=\QQ(2\cos(2\pi/7))$. At a very general point of a component of $\cK_{W}$
+subfamily $\cK_{W}=\{S:T(S)_{\QQ}\subseteq W\}$ of dimension three. At a very general point of a component of $\cK_{W}$
 one has $T(S)_{\QQ}=W$, so $\kappa$ is algebraic there. After a finite cover
 with level structure the component carries a family of K3 surfaces and of
 Kuga--Satake abelian varieties, on which $\kappa$ is a flat section of Hodge

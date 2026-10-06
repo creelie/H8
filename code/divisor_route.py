@@ -22,30 +22,31 @@ so that x(u, v) = E(phi_x u, v).
        checked on every pair of basis vectors, so I(x) = tr(phi_x^2)/24 *
        int eta^4 on R;
   (R3) I has signature (8, 4) on R;
-  (R4) an explicit pencil x_k = x + k y in R with phi_{x_k}^2 = beta(k) a
-       positive rational scalar for every k, beta(k) a quadratic polynomial
-       with positive leading coefficient and negative discriminant, so each
-       x_k is the divisor class of a quaternionic point with algebra
-       (-d, beta(k)) and I(x_k) = beta(k) int eta^4 / 3;
+  (R4) the pencil x_k(u, v) = E(phi_k u, v), phi_k = left multiplication by
+       (2d)^{-1} C_k j with C_k = [[1, k], [k, -1]]: x_k is an integral,
+       primitive class in R, x_k = x_0 + k (x_1 - x_0), phi_k^2 =
+       beta(k) = (1 + k^2)/(4 d^2), I(x_k) = beta(k) int eta^4 / 3, and
+       int eta^4 = 384 d^4;
   (R5) for k = 0..10 the lattice N_k = (Q eta + Q x_k + Q (i.x_k)) cap
-       H^2(Lambda, Z) is positive definite for I, and the minimum mu_k of I
-       on N_k off Q eta is at least beta(k) int eta^4 / 12, so it grows
-       like k^2; by the nef bound
-       I(D) <= 2 (int D eta^3)^2 / int eta^4 for effective D, every effective
-       divisor outside Q eta at a very general point of Hdg(x_k) has degree
-       at least sqrt(mu_k int eta^4 / 2);
-  (R6) the index of Z[i] x_k in the K-line lattice (Q x_k + Q i.x_k) cap
-       H^2(Lambda, Z) divides a constant N_d for every integer k: the 2x2
-       minors of the matrix with rows x_k, i.x_k are integer polynomials of
-       degree at most 2 in k, and N_d is a gcd of resultants of pairs of
-       them, so it divides the gcd of the minors at every k; checked also
-       directly for |k| <= 200.  This gives mu_k >= beta(k) / (3 N_d^2
-       int eta^4) for every k;
+       H^2(Lambda, Z) is Z eta/(2d) + Z x_k + Z i.x_k, it is positive
+       definite for I, and the minimum mu_k of I on N_k off Q eta, found by
+       an exhaustive search, is exactly 32 d^2 (1 + k^2); by the nef bound
+       I(D) <= 2 (int D eta^3)^2 / int eta^4 for effective D, every
+       effective divisor outside Q eta at a very general point of
+       Hdg(x_k) has degree at least sqrt(mu_k int eta^4 / 2);
+  (R6) Z x_k + Z i.x_k is saturated for every integer k: the 2x2 minors of
+       the matrix with rows x_k, i.x_k are integer polynomials of degree at
+       most 2 in k, and the gcd of resultants of pairs of them is 1; checked
+       also directly for |k| <= 200;
   (R7) the Lie algebra of the centraliser of {i, phi_{x_k}} in sp(V, E) has
        dimension 10, and its invariants in wedge^2 V^* have dimension 3, for
-       k = 0..4: the rank-three statement for NS at a very general point.
+       k = 0..4: the rank-three statement for NS at a very general point;
+  (R8) at k = 0, where beta(0) = (2d)^{-2} is a rational square, a rational
+       point J0 of the Siegel locus, and the Lie algebra step: [c, J0] has
+       dimension 6 and generates c with its brackets.
 
-Everything is exact rational arithmetic; the only floating point is a
+The paper proves all of this by hand, for every d; the script checks it
+for d = 1, 3.  Everything is exact rational arithmetic; the only floating point is a
 square root used to bound an enumeration box, and each bound is widened by
 one before use.
 """
@@ -75,16 +76,23 @@ def check(name, ok, detail=""):
         NF += 1
 
 
-PENCIL = {
-    1: ([0, 1, -1, 1, -1, 1, -1, -1, -1, -1, -1, -1, -1, 0, 1, -1, 1, -1,
-         -1, -1, -1, -1, 0, 1, -1, -1, -1, 0],
-        [0, 0, -1, 1, -1, 1, -1, -1, 0, -1, -1, -1, -1, 0, 1, -1, 1, -1,
-         -1, -1, -1, -1, 0, 1, 0, 0, -1, 0]),
-    3: ([0, -1, -1, -1, -1, -1, -1, -1, 3, -1, 3, -1, 3, 0, -1, -1, -1, -1,
-         -1, 3, -1, 3, 0, -1, -1, -1, 3, 0],
-        [0, 1, 1, 0, 0, -1, -1, 1, -3, 0, 0, -1, 3, 0, -1, -1, 0, 0, -1, 3,
-         0, 0, 0, 1, 1, 1, -3, 0]),
-}
+def pencil_class(d, k):
+    """the class x_k(u, v) = E(phi_k u, v), phi_k = left multiplication by
+    (2d)^{-1} C_k j on B^2, C_k = [[1, k], [k, -1]], as 28 coordinates."""
+    M = Model(2, d, 1)
+    Bq, E = M.B, M.E()
+    C = [[F(1, 2 * d), F(k, 2 * d)], [F(k, 2 * d), F(-1, 2 * d)]]
+    Phi = [[F(0)] * 8 for _ in range(8)]
+    for l in range(2):
+        for r in range(4):
+            e = [F(0)] * 4
+            e[r] = F(1)
+            je = Bq.mul(Bq.j(), tuple(e))
+            for kk in range(2):
+                for t in range(4):
+                    Phi[4 * kk + t][4 * l + r] += C[kk][l] * je[t]
+    X = matmul([list(r) for r in zip(*Phi)], E)
+    return [X[a][b] for (a, b) in K2]
 
 
 def inverse(M):
@@ -422,6 +430,35 @@ def siegel_point(L, xk):
     return J0
 
 
+def span_rank_vec(vs):
+    """rank of a list of vectors of equal length."""
+    m = len(vs[0])
+    return len(vs) - len(nullspace([[v[t] for v in vs] for t in range(m)],
+                                   len(vs)))
+
+
+def det3(A, Bv):
+    """the determinant of the change of basis between two bases of the same
+    rank-3 lattice, A = (a_1, a_2, a_3) and B: solve A = M B and return det M."""
+    rows = []
+    for t in range(len(Bv[0])):
+        rows.append([Bv[0][t], Bv[1][t], Bv[2][t]])
+    # pick three independent coordinates
+    idx = []
+    for t in range(len(rows)):
+        cand = idx + [t]
+        sub = [[rows[u][c] for c in range(3)] for u in cand]
+        if len(nullspace([[sub[r][c] for r in range(len(cand))] for c in range(3)],
+                         len(cand))) == 0:
+            idx = cand
+        if len(idx) == 3:
+            break
+    Bm = [[F(rows[u][c]) for u in idx] for c in range(3)]
+    Am = [[F(A[c][u]) for u in idx] for c in range(3)]
+    M = matmul(Am, inverse(Bm))
+    return det(M)
+
+
 def span_rank(vs):
     return len(vs) - len(nullspace([[v[a] for v in vs] for a in range(8)], len(vs)))
 
@@ -452,56 +489,53 @@ if __name__ == "__main__":
         check("(R3) I has signature (8, 4) on R", sg == (8, 4),
               "signature %s" % (sg,))
 
-        x, y = PENCIL[d]
-        px, py = L.phi(x), L.phi(y)
-        okx, bx = scalar(matmul(px, px))
-        oky, by = scalar(matmul(py, py))
-        ac = [[matmul(px, py)[i][j] + matmul(py, px)[i][j]
-               for j in range(8)] for i in range(8)]
-        okc, c2 = scalar(ac)
-        disc = c2 * c2 - 4 * bx * by
-        direct = True
+        x0, x1 = pencil_class(d, 0), pencil_class(d, 1)
+        x = [int(v) for v in x0]
+        y = [int(b - a) for a, b in zip(x0, x1)]
+        inR = span_rank_vec(R + [x]) == 12 and span_rank_vec(R + [y]) == 12
+        direct = L.e4 == 384 * d ** 4 and inR
         for k in (-7, -1, 0, 1, 2, 5, 13, 40):
-            xk = [a + k * b for a, b in zip(x, y)]
+            xk = pencil_class(d, k)
+            direct = direct and xk == [a + k * b for a, b in zip(x, y)]
+            direct = direct and all(v.denominator == 1 for v in xk)
+            g = 0
+            for v in xk:
+                g = gcd(g, int(v))
+            direct = direct and g == 1
             pk = L.phi(xk)
             s_ok, s = scalar(matmul(pk, pk))
-            direct = direct and s_ok and s == bx + c2 * k + by * k * k
+            direct = direct and s_ok and s == F(1 + k * k, 4 * d * d)
             direct = direct and L.pair(xk, xk) == s * L.e4 / 3
-        check("(R4) the pencil x + k y: phi^2 = %s + %s k + %s k^2, a "
-              "positive scalar for every k" % (bx, c2, by),
-              okx and oky and okc and by > 0 and disc < 0 and direct,
-              "discriminant %s < 0; I(x_k) = beta(k) int eta^4 / 3 checked "
-              "directly at eight values of k" % disc)
+        check("(R4) the pencil x_k = E(phi_k ., .): integral, primitive, in R, "
+              "phi_k^2 = (1 + k^2)/(4 d^2)", direct,
+              "int eta^4 = 384 d^4 and I(x_k) = beta(k) int eta^4 / 3, "
+              "checked at eight values of k")
 
         eta_v = vec_of(L.E)
         rows = []
-        grow = True
-        mus = []
+        exact = True
         for k in range(0, 11):
-            xk = [a + k * b for a, b in zip(x, y)]
-            ik = L.times_i(xk)
-            N = saturation([eta_v, xk, [int(v) for v in ik]])
+            xk = [int(a + k * b) for a, b in zip(x, y)]
+            ik = [int(v) for v in L.times_i(xk)]
+            N = saturation([eta_v, xk, ik])
+            mine = [[v / (2 * d) for v in eta_v], xk, ik]
+            same = (span_rank_vec(N + mine) == 3 and
+                    abs(det3(N, mine)) == 1)
             mu, Gk = min_off_eta(L, N, eta_v)
             pd = signature(Gk) == (3, 0)
-            beta = bx + c2 * k + by * k * k
-            grow = grow and pd and mu >= beta * L.e4 / 12
-            mus.append(mu)
+            exact = exact and same and pd and mu == 32 * d * d * (1 + k * k)
             deg2 = mu * L.e4 / 2
-            rows.append("k=%2d  beta=%-7s  mu_k=%-8s  mu_k/beta=%-6s  "
-                        "deg >= sqrt(%s)" % (k, beta, mu, mu / beta, deg2))
+            rows.append("k=%2d  beta=%-7s  mu_k=%-8s  deg >= sqrt(%s)"
+                        % (k, F(1 + k * k, 4 * d * d), mu, deg2))
         for r in rows:
             print("      " + r)
-        check("(R5) N_k is positive definite and mu_k >= beta(k) int eta^4 "
-              "/ 12 for k = 0..10", grow)
+        check("(R5) N_k = Z eta/(2d) + Z x_k + Z i.x_k, positive definite, "
+              "and mu_k = 32 d^2 (1 + k^2) for k = 0..10", exact)
 
         N, direct = index_bound(L, x, y)
-        okb = direct and all(
-            m >= (bx + c2 * k + by * k * k) / (3 * N * N * L.e4)
-            for k, m in enumerate(mus))
-        check("(R6) the index of Z[i] x_k in its K-line lattice divides "
-              "N_%d = %d for every k" % (d, N), okb,
-              "so mu_k >= beta(k) / (3 N^2 int eta^4) = beta(k) / %s for "
-              "every integer k" % (3 * N * N * L.e4))
+        check("(R6) Z x_k + Z i.x_k is saturated for every integer k",
+              direct and N == 1,
+              "the gcd of resultants of pairs of minors is %d" % N)
 
         dims = set(centraliser_invariants(L, [a + k * b for a, b in
                                                zip(x, y)])
@@ -510,18 +544,16 @@ if __name__ == "__main__":
               "3 invariants in wedge^2 V^*", dims == {(10, 3)},
               "dimensions %s for k = 0..4" % sorted(dims))
 
-        # (R8) the Lie algebra step behind Proposition 14.x(iv): at a point
-        # J0 of the Siegel locus, the tangent directions p = [c, J0] and their
-        # brackets generate the whole centraliser c, so a class fixed by every
-        # point of the locus is fixed by all of c.  Needs a rational J0, which
-        # exists exactly when beta(k) is a rational square.
-        kq = next((k for k in range(-6, 7)
-                   if siegel_point(L, [a + k * b for a, b in zip(x, y)]) is not None), None)
-        if kq is None:
-            check("(R8) a rational point of the Siegel locus exists in the pencil", False)
+        # (R8) the Lie algebra step behind the proof of the rank-three
+        # statement: at a point J0 of the Siegel locus, the tangent directions
+        # p = [c, J0] and their brackets generate the whole centraliser c, so
+        # a class fixed by every point of the locus is fixed by all of c.  A
+        # rational J0 exists at k = 0, where beta(0) = (2d)^{-2} is a square.
+        xk = x
+        J0 = siegel_point(L, xk)
+        if J0 is None:
+            check("(R8) a rational point of the Siegel locus at k = 0", False)
         else:
-            xk = [a + k * b for a, b in zip(x, y)] if False else [a + kq * b for a, b in zip(x, y)]
-            J0 = siegel_point(L, xk)
             okJ = all((matmul(J0, J0)[a][b] == (-1 if a == b else 0)) for a in range(8) for b in range(8))
             JtEJ = matmul([list(r) for r in zip(*J0)], matmul(L.E, J0))
             okE = all(JtEJ[a][b] == L.E[a][b] for a in range(8) for b in range(8))
@@ -529,8 +561,8 @@ if __name__ == "__main__":
             phi = L.phi(xk)
             comm2 = all(matmul(J0, phi)[a][b] == matmul(phi, J0)[a][b] for a in range(8) for b in range(8))
             dc, dp, dg = cartan_generation(L, xk, J0)
-            check("(R8) at k = %d the tangent space p = [c, J0] of the Siegel locus "
-                  "has dimension 6 and p + [p, p] is all of c" % kq,
+            check("(R8) at k = 0 the tangent space p = [c, J0] of the Siegel locus "
+                  "has dimension 6 and p + [p, p] is all of c",
                   okJ and okE and comm and comm2 and (dc, dp, dg) == (10, 6, 10),
                   "J0^2 = -1, E-compatible, commutes with i and phi; "
                   "dim c = %d, dim p = %d, dim(p + [p,p]) = %d" % (dc, dp, dg))

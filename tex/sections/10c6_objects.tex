@@ -304,7 +304,8 @@ with a nonzero Weil component; the tuples of at most four that do satisfy the
 Chern character condition with a nonzero Weil component, $888$ of them at
 $d=1$ and $30$ at $d=2$, all have exactly four terms, and all of them fail
 \Cref{lem:splitsemireg}(iii): the kernel has dimension $2$, $3$, $4$ or $6$
-at $d=1$ and $3$ or $6$ at $d=2$, never $0$. A computation in \cite{BMB26} carries both computations.
+at $d=1$ and $3$ or $6$ at $d=2$, never $0$. Both are exact computations
+recorded in \cite{BMB26}.
 
 So the object of \Cref{thm:semiregclosure}, if it exists at a split member, is
 not a sum of line bundles in any arrangement of signs and shifts, and
@@ -457,8 +458,8 @@ zero sum of squares,
 while the sums of cubes are $-3$ and $+3$. A search over the norm circles of
 $\cO_{K}$ with $\Nm\le200$ and $|g|,|h|\le25$, for $K=\QQ(\sqrt{-d})$ with
 $d=1,2,3,7$, finds this solution and its conjugate at $n=3$, one further pair
-at $d=1$ and $n=4$, and nothing else; a computation in \cite{BMB26}
-records the search.
+at $d=1$ and $n=4$, and nothing else; the search is recorded in
+\cite{BMB26}.
 
 \begin{proposition}[An explicit object at $n=3$]\label{prop:explicitobject}
 Let $K=\QQ(\sqrt{-3})$, $n=3$, and let $A_{0}=X\times\widehat X$ be a split
@@ -489,13 +490,65 @@ $15=\dim H^{2}(\cO_{A_{0}})$.
 \end{proposition}
 
 \begin{proof}
-Everything asserted is a finite exact computation, carried out in \cite{BMB26}. The classes are the images under
-$\theta(u)=2g\gamma+2dh\,\ell$, $u=g+h\sqrt{-3}$, of the six roots of unity
-of $K$; the Chern character is \Cref{prop:chintermsofu} with the
-Prouhet--Tarry--Escott data above; the index computation and the rank of
-$\Phi$ are the two remaining items. For the shift, condition (ii) asks that
+With $d=3$, the class $\theta(u)=2g\gamma+6h\ell$ of $u=g+h\sqrt{-3}$ has
+coordinates $(6g,-2g,6h)$, so $\lambda_{1},\lambda_{2},\lambda_{3}$ are the
+images of the cube roots $\zeta_{6},\zeta_{6}^{3},\zeta_{6}^{5}$ of $-1$ and
+$\lambda_{4},\lambda_{5},\lambda_{6}$ those of the cube roots of $+1$; the six
+classes are distinct and integral. All six have norm $1$, and
+$\sum_{i}m_{i}u_{i}^{k}$ is $0$ for $k=0,1,2$ and $-3-3=-6$ for $k=3$, so
+\eqref{eq:ptepure} holds at $n=3$. By \Cref{lem:pte} and
+\Cref{prop:chintermsofu}, $\ch_{k}(E)=0$ for $k\ne3$ and
+$\ch_{3}(E)=-\bigl((\theta^{+})^{3}+(\theta^{-})^{3}\bigr)$, and by
+\Cref{ex:splitsmall} at $n=3$,
+$\omega_{1}\pm\sqrt{-3}\,\omega_{2}=-\frac16(\theta^{\mp})^{3}$; so
+$\ch_{3}(E)=12\,\omega_{1}$.
+
+Every difference is $\lambda_{j}-\lambda_{i}=\theta(w)$ with
+$w=u_{j}-u_{i}\ne0$, and $\theta(w)$ is nondegenerate of index $n$ for every
+$w\in K^{\times}$. Indeed $\theta(1)=2\gamma$ and $\theta(\sqrt{-d})=2d\ell$ are of
+type $(1,1)$, hence so are $\theta^{\pm}$, so
+$\theta^{+}\in V_{+}^{1,0}\otimes V_{+}^{0,1}$, and $V_{+}^{0,1}$ is the
+conjugate of $V_{-}^{1,0}$. In the splitting of the tangent space dual to
+$H^{1,0}=V_{+}^{1,0}\oplus V_{-}^{1,0}$, the hermitian form of $\theta(w)$
+therefore has the block form
+$\bigl(\begin{smallmatrix}0&wP\\ \bar wP^{*}&0\end{smallmatrix}\bigr)$, with $P$
+the block of $2\gamma$, which is invertible because $\gamma$ is nondegenerate.
+Its eigenvalues are plus and minus the singular values of $wP$, so it has
+signature $(n,n)$, and a line bundle with this class has cohomology only in
+degree $n$ \cite[Chapter~3]{BL04}. For the shift, condition (ii) asks that
 $2+p_{i}-p_{j}\ne3$ whenever $i\ne j$, that is $p_{i}-p_{j}\ne1$; within each
 of the two blocks the difference is $0$, and between them it is $\pm3$.
+
+For the rank, the $u_{i}$ are the six sixth roots of unity, each once, and
+$\bbar u_{i}=u_{i}^{-1}$. Absorb the signs into the $\zeta_{i}$ as in
+\Cref{lem:splitsemireg}(iii) and expand
+$e^{\lambda_{i}}=e^{u_{i}\theta^{+}}e^{\bbar u_{i}\theta^{-}}$:
+\[
+  \Phi(\zeta)=\sum_{a,b=0}^{3}\frac{(\theta^{+})^{a}(\theta^{-})^{b}}{a!\,b!}\,Z_{a-b},
+  \qquad Z_{k}=\sum_{i}u_{i}^{k}\zeta_{i},
+\]
+with $k$ read modulo $6$. The $Z_{0},\dots,Z_{5}$ determine the $\zeta_{i}$,
+by a Vandermonde matrix. Split
+$H^{0,2}(A_{0})=\bigwedge^{2}V_{+}^{0,1}\oplus(V_{+}^{0,1}\otimes V_{-}^{0,1})
+\oplus\bigwedge^{2}V_{-}^{0,1}$, write $Z_{k}=Z_{k}^{+}+Z_{k}^{0}+Z_{k}^{-}$
+accordingly, and grade $H^{*}(A_{0})=\bigwedge^{*}V_{+}\otimes\bigwedge^{*}V_{-}$
+by the Hodge types of the two factors. The term
+$(\theta^{+})^{a}(\theta^{-})^{b}Z_{k}^{0}$ has types $(a,a+1)$ and $(b,b+1)$,
+the term with $Z_{k}^{+}$ has types $(a,a+2)$ and $(b,b)$, and the term with
+$Z_{k}^{-}$ has types $(a,a)$ and $(b,b+2)$. These are different for
+different $(a,b)$ and different pieces, so every term vanishes separately.
+Since $\theta^{\pm}$ pairs $V_{\pm}^{1,0}$ nondegenerately with $V_{\pm}^{0,1}$,
+both of dimension $3$, multiplication by $(\theta^{\pm})^{a}$ is injective on
+$\bigwedge^{j}V_{\pm}^{0,1}$ when $a+j\le3$ and zero otherwise; in bases
+with $\theta^{+}=\sum_{i}e_{i}f_{i}$ it sends $f_{J}$ to a signed sum of the
+$e_{I}f_{I\cup J}$ with $I\cap J=\emptyset$, $|I|=a$, and different $J$ give
+disjoint supports. Hence $Z_{k}^{0}=0$ unless no $a,b\le2$ have $a-b\equiv k$,
+which leaves $k=3$; $Z_{k}^{+}=0$ unless no $a\le1$, $b\le3$ have
+$a-b\equiv k$, which leaves $k=2$; and likewise $Z_{k}^{-}=0$ unless $k=4$. So
+$\ker\Phi$ is $V_{+}^{0,1}\otimes V_{-}^{0,1}$ at $k=3$ together with
+$\bigwedge^{2}V_{+}^{0,1}$ at $k=2$ and $\bigwedge^{2}V_{-}^{0,1}$ at $k=4$, of
+dimension $9+3+3=15=\dim H^{2}(\cO_{A_{0}})$, and $\Phi$ has rank
+$90-15=75$. The first summand is the kernel of \Cref{thm:equalnorms}.
 \end{proof}
 
 \begin{remark}[What the construction settles]\label{rem:pteoutcome}
@@ -691,9 +744,7 @@ $L_{i}^{-1}[3]$ are $v\lrcorner\,\lambda_{i}$ and
 $v\lrcorner\,(-\lambda_{i})=-v\lrcorner\,\lambda_{i}$, so an element of the
 image of the shape $(z,\dots,z)$ has $z=-z$, hence is zero; this is
 $\Delta\cap\image\ob_{E}=0$, and with $\dim\ker\sigma_{E}=15$ from
-\Cref{prop:explicitobject} the dimension count follows. Every number in (iv)
-is also computed directly in a computation in \cite{BMB26}, in the
-model of \cite{BMB26}.
+\Cref{prop:explicitobject} the dimension count follows.
 \end{proof}
 
 \begin{remark}[Meaning of the obstruction classes]\label{rem:obstructionmeaning}
@@ -734,9 +785,7 @@ whose two terms lie in the different summands $\bigwedge^{2}V_{+}^{0,1}$ and
 $\bigwedge^{2}V_{-}^{0,1}$ of $H^{0,2}(A_{0})$. So the kernel of
 $v\mapsto v\lrcorner\,\theta$ on $T$ does not depend on $u\ne0$; it is
 therefore the common kernel for $\gamma$ and $\ell$, the cases $u=1$ and
-$u=\sqrt{-d}$, which is $T_{\mathrm{spl}}$ by (ii). A computation in \cite{BMB26}
-confirms this for each of the seven classes tested at
-$(n,d)=(2,1),(2,3),(3,3)$. So every split object built from line bundles
+$u=\sqrt{-d}$, which is $T_{\mathrm{spl}}$ by (ii). So every split object built from line bundles
 other than powers of $\eta$ is obstructed in exactly the normal directions
 to the split locus, and \Cref{thm:positivity} says that an object built
 from powers of $\eta$ carries no Weil class. What survives is the statement
@@ -828,10 +877,7 @@ $\Ext^{2}(E,E)=\bigoplus_{i}H^{0,2}(A_{0})$.
   So every direction in which $\sigma_{E}$ is blind is the value of
   $\operatorname{ev}_{E}$ on a Hochschild class that preserves $\ch(E)$ to
   first order, and the weakened hypothesis fails for $E$ by all fifteen
-  dimensions. The rank of $\operatorname{ev}_{E}$ is $45$. The same
-  containment $\ker\sigma_{E}\subseteq\image\operatorname{ev}_{E}$, with
-  $\dim\ker\sigma_{E}=15$, holds for each of the eighteen configurations of
-  \Cref{rem:familyuniform}.
+  dimensions. The rank of $\operatorname{ev}_{E}$ is $45$.
 \end{enumerate}
 \end{proposition}
 
@@ -859,8 +905,7 @@ lies in $\ker\sigma_{E}$ if and only if $x\lrcorner\,\ch(E)=0$.
 (iii) The three summands of \eqref{eq:HT2} have dimensions $\binom{2n}{2}$,
 $4n^{2}$ and $\binom{2n}{2}$. The inequality
 $s\binom{2n}{2}>2\binom{2n}{2}+4n^{2}$ is $(s-2)(2n-1)>4n$, and
-$4n/(2n-1)\le8/3$ for $n\ge2$, so it holds for $s\ge5$; it is checked for
-$2\le n\le30$ and $5\le s\le40$ in the Lean certificate of \cite{BMB26}.
+$4n/(2n-1)\le8/3$ for $n\ge2$, so it holds for $s\ge5$.
 
 (iv) Since $\ch(E)=12\omega_{1}$ is of type $(3,3)$, the three summands of
 $x\lrcorner\,\ch(E)$ have types $(3,5)$, $(2,4)$ and $(1,3)$, so the kernel
@@ -913,14 +958,46 @@ $\Sigma$ of the shape $(z,\dots,z)$ has $u_{i}a+\bbar u_{i}b=z=-z$ on
 comparing $i$ with $3+i$, so $z=0$ and then $a=b=0$: $\Delta\cap\Sigma=0$.
 By (ii), $\Delta\oplus\Sigma\subseteq\ker\sigma_{E}\cap\image\operatorname{ev}_{E}$,
 and its dimension $9+6=15$ equals $\dim\ker\sigma_{E}$ by
-\Cref{prop:explicitobject}, so the three spaces coincide. The rank of
-$\operatorname{ev}_{E}$ and the statement for the eighteen configurations
-are computations of \cite{BMB26}, which also recompute every dimension in
-this proof.
+\Cref{prop:explicitobject}, so the three spaces coincide.
+
+For the rank, each term of \eqref{eq:evsplit} is a scalar depending on $i$
+times a class independent of $i$. Write $\mathbf{u}^{k}=(u_{i}^{k})_{i}\in\CC^{6}$
+and $M=V_{+}^{0,1}\otimes V_{-}^{0,1}$. The class $z$ contributes
+$\mathbf{u}^{0}\otimes z$. Split $v$ into its four blocks
+$v_{\varepsilon\varepsilon'}\colon V_{\varepsilon}^{1,0}\to V_{\varepsilon'}^{0,1}$;
+then $v\lrcorner\,\theta^{+}$ is the sum of $v_{++}\lrcorner\,\theta^{+}\in
+\bigwedge^{2}V_{+}^{0,1}$ and $v_{+-}\lrcorner\,\theta^{+}\in M$, the first
+ranging over $\bigwedge^{2}V_{+}^{0,1}$ as above and the second over $M$
+because $\theta^{+}$ is a nondegenerate pairing, and symmetrically for
+$v\lrcorner\,\theta^{-}$ with the blocks $v_{--}$ and $v_{-+}$. As
+$\bbar u_{i}=u_{i}^{-1}$, the values on the second summand of
+\eqref{eq:HT2} are therefore $\mathbf{u}^{1}\otimes(a+c)+\mathbf{u}^{-1}\otimes(b+c')$
+with $a$, $b$, $c$, $c'$ ranging independently over
+$\bigwedge^{2}V_{+}^{0,1}$, $\bigwedge^{2}V_{-}^{0,1}$, $M$, $M$. On the
+third summand, the outer block $\pi_{++}$ kills $(\theta^{-})^{2}$ and
+$\theta^{+}\theta^{-}$, and $\pi_{++}\mapsto\frac12\pi_{++}\lrcorner\,(\theta^{+})^{2}$
+is an isomorphism onto $\bigwedge^{2}V_{+}^{0,1}$ (in bases with
+$\theta^{+}=\sum_{j}e_{j}f_{j}$ it sends $e_{j}^{\vee}\wedge e_{k}^{\vee}$ to
+$\pm f_{j}f_{k}$); likewise for
+$\pi_{--}$, and the middle block contributes $\mathbf{u}^{0}\otimes z_{\pi}$.
+So
+\[
+  \image\operatorname{ev}_{E}
+  =\mathbf{u}^{0}\otimes H^{0,2}
+  +\mathbf{u}^{\pm1}\otimes\bigl(\textstyle\bigwedge^{2}V_{\pm}^{0,1}\oplus M\bigr)
+  +\mathbf{u}^{\pm2}\otimes\textstyle\bigwedge^{2}V_{\pm}^{0,1}.
+\]
+The $u_{i}$ are the six sixth roots of unity, so the vectors
+$\mathbf{u}^{k}$ for $k=0,\pm1,\pm2$ are distinct characters of the cyclic
+group they form and are linearly independent. The sum is direct, and the
+rank is $15+2\cdot12+2\cdot3=45$.
 \end{proof}
 
 \Cref{fig:evaluation} draws the three kernels and their images in
-$\Ext^{2}(E,E)$.
+$\Ext^{2}(E,E)$. A computation recorded in \cite{BMB26} finds the same
+containment $\ker\sigma_{E}\subseteq\image\operatorname{ev}_{E}$, with
+$\dim\ker\sigma_{E}=15$, for each of the eighteen configurations of
+\Cref{rem:familyuniform}.
 
 \begin{figure}[tbp]
 \centering
@@ -986,12 +1063,13 @@ $r_{K}(N)=\#\{u\in\cO_{K}:\Nm_{K/\QQ}(u)=N\}$.
   $S_{\min}=\operatorname{lcm}_{j}\bigl(|D_{j}|/\gcd(|D_{j}|,P)\bigr)$.
   Multiplicity one, \Cref{lem:splitsemireg}(i), forces
   $|M_{j}|\le r_{K}(N_{j})$ for every $j$.
-\item For $4\le n\le8$, every $d\in\{1,2,3,7,11,19\}$ and every choice of
-  norms below the bounds recorded in a computation in \cite{BMB26},
-  no set of $n+1$ norms and no set of $n+2$ norms satisfies those constraints.
-  In that range no split object of the shape of \Cref{setup:pte} is
-  semiregular, and the reason is arithmetic rather than geometric: the least
-  integral scale outruns the supply of elements at the levels it demands.
+\item Let $d\in\{1,2,3,7,11,19\}$. For $n=4,5,6,7,8$ no set of $n+1$ norms
+  at most $110$, $48$, $38$, $32$, $30$ respectively satisfies those
+  constraints, and for $n=4,5,6$ no set of $n+2$ norms at most $40$, $32$,
+  $28$ does. In that range no split object of the shape of \Cref{setup:pte}
+  is semiregular, and the reason is arithmetic rather than geometric: the
+  least integral scale outruns the supply of elements at the levels it
+  demands.
 \item At $n=3$ the constraints of (i) can be met. With norms at most $200$
   there are exactly eleven sets of four norms that meet them, all of them at
   $d=1$ or $d=2$, and after dividing out the common factor each has one of the
@@ -1018,7 +1096,8 @@ $S_{\min}$ is the definition of a least common multiple, and the bound on
 $|M_{j}|$ holds because each $u$ of norm $N_{j}$ contributes at most one term
 $m_{i}=\pm1$ to $M_{j}$.
 
-(ii), (iii) and (iv) are the computations of \cite{BMB26}, carried out in exact integer arithmetic. For (ii) and
+(ii), (iii) and (iv) are finite computations in exact integer arithmetic,
+recorded in \cite{BMB26}; we describe them so that they can be repeated. For (ii) and
 (iii) the computation enumerates every set of $n+1$ norms represented by $\cO_{K}$
 below the bound, forms $D_{j}$ and $S_{\min}$, and tests
 $|M_{j}|\le r_{K}(N_{j})$; at $\nu=n+2$ the solution space of the diagonal
@@ -1373,9 +1452,7 @@ $i$-eigenspace of $K$ on $H^{1}(A,\CC)$, and $\alpha$ spans its top exterior
 power, which is a Weil class, and $\bbar\alpha$ the conjugate one. (ii) The
 moments $\mu_{m}=\sum_{i}\sigma_{i}t_{i}^{m}$ make the Hankel matrix of
 \Cref{setup:p2prime} a product of Vandermonde matrices of rank $3$, and
-\Cref{thm:p2primenumber}(ii) gives $r$. The counts are immediate. A
-computation in \cite{BMB26} checks (i) in exact arithmetic for $n=2,3$ and
-three values of $p$, and (ii).
+\Cref{thm:p2primenumber}(ii) gives $r$. The counts are immediate.
 \end{proof}
 
 The pieces $L_{\zeta}$ and $L_{\zeta'}$ have a degenerate difference as soon
@@ -1514,14 +1591,17 @@ the edges, and the eight pieces with a given $\zeta_{1}$ are connected, so
 $\Gamma_{\tau}$ has $4$ components; for $\tau=(1,1,0)$ the edges change the
 sign of $\zeta_{3}$ only, and $\Gamma_{\tau}$ has $16$ components. The
 kernel therefore contains a space of dimension $3\cdot4\cdot1+3\cdot16\cdot4
-=12+192=204$. A computation in \cite{BMB26} lists the pairs, finds the
-components, and finds rank $276$, so a kernel of exactly $204$, for general
-components on all $48+96$ pairs.\footnote{The computation draws the
+=12+192=204$.
+\end{proof}
+
+The bound $204$ is attained for general components: a computation in
+\cite{BMB26} lists the $48+96$ pairs and finds rank $276$ for the cup
+products on these classes.\footnote{The computation draws the
 harmonic components of the pairs at random modulo the prime $1000003$. The
 rank of a matrix can only drop under specialisation, so $276$ is the largest
 rank the cup products can have on these classes for any choice of the
-components, and $204$ the least dimension of their kernel.}
-\end{proof}
+components, and $204$ the least dimension of their kernel.} Nothing below
+uses this.
 
 \begin{theorem}[The diagonal on $E_{0}^{6}$]\label{thm:esixdiagonal}
 Let $n=3$ and let $E$ be a convolution of the $32$ bundles $L_{\zeta}$ and
@@ -2099,8 +2179,7 @@ occurs once, and $U\le3$: the drop $7-U$ is at least four.%
 run $L_{\zeta}\to M_{1}\to M_{2}\to M_{3}\to L_{\zeta'}$, up three times and
 down once, changes the shift by $3-7=-4$. With $p$ in the middle,
 $t_{1}<p<t_{2}<t_{3}$, the run up through $M_{2}$ and $M_{3}$, down to $M_{1}$
-and up to $L_{\zeta'}$ changes it by $3-7=-4$ as well. The Lean certificate of
-\cite{BMB26} runs over all four positions of $p$.} If $D\ge2$, at most
+and up to $L_{\zeta'}$ changes it by $3-7=-4$ as well.} If $D\ge2$, at most
 six multiples occur, counted with repetition, so there are at most seven
 steps outside $\cH^{1}(a,a)$, $U\le7-D$, and the drop $7D-U\ge8D-7$ is at
 least nine. For the consequence, split the sequence at the pieces
@@ -2205,16 +2284,7 @@ $\mathcal{H}^{3}(W,V)$ survives in $\Ext^{2}(E,E)$.}
 
 \Cref{fig:efourshifts} draws the shifts along a run. The hypothesis of (ii) is the arrangement of the explicit convolution of
 \Cref{prop:explicitconvolution} at $n=3$, where the sixteen pieces of each
-parity share a shift. A computation in \cite{BMB26} checks
-\Cref{lem:efourshifts} and \Cref{thm:efourtwolevels} independently of the
-proofs, by enumerating, for the four placements of the $t_{i}$ relative to
-$p$ and both choices of $\epsilon$, every chain of components that the
-degrees allow, with the shifts of the multiples left free, at every one of
-the $1792$ pairs of pieces of (ii): no element of degree one reaches their
-groups and no term of $d_{E}$ the degrees allow leaves them; the Lean
-certificate of \cite{BMB26} repeats the counts of the footnote, the drop of
-\Cref{lem:efourshifts}(iii) and the case analysis of the degrees in (ii) for
-every position of $p$ among the four values. The pieces
+parity share a shift. The pieces
 must not be twisted by line bundles of degree zero here, unlike in
 \Cref{thm:noconvolution}: a twist that is nontrivial on the surface where
 $\zeta$ and $\zeta'$ agree removes $\cH(L_{\zeta},L_{\zeta'})$.
@@ -2329,21 +2399,36 @@ Cayley graph on the group of ratios of two pieces of one parity, of order
 $64$ and degree $960$. For the vector $x=\pm1$ of the cut, the weight is
 $\tfrac14\bigl(64\cdot960-x^{\mathsf T}Ax\bigr)\le16\,(960-\lambda)$, with
 $A$ the weighted adjacency matrix and $\lambda$ its least eigenvalue. Its
-eigenvalues are the character sums $\sum_{g}\dim\cH^{5}(1,g)\,\chi(g)$, and
-the least is $-192$,\footnote{The eight distinct values are $960$, $384$,
-$192$, $96$, $-32$, $-64$, $-128$ and $-192$. The bound $18432$ is
+eigenvalues are the character sums $\sum_{g}\dim\cH^{5}(1,g)\,\chi(g)$. A
+character is $\chi(g)=\prod_{j}g_{j}^{k_{j}}$ with $k\in(\ZZ/4)^{4}$, up to
+adding $(1,1,1,1)$; put $\omega_{j}=i^{k_{j}}$, $W=\sum_{j}\omega_{j}$,
+$\varrho=\sum_{j}\omega_{j}^{2}$ and $\Omega=\prod_{j}\omega_{j}$. By the
+list in the footnote, the ratios that move the pair of coordinates
+$\{j,l\}$ contribute $64\,\omega_{j}^{2}\omega_{l}^{2}
++32\,\Re(\omega_{j}\bbar\omega_{l})$, and those that fix only the
+coordinate $o$ contribute $32\,\Re\bigl(\Omega\bbar\omega_{o}(W-\omega_{o})\bigr)$.
+Summing,
+\[
+  \chi\bigl(\textstyle\sum_{g}\dim\cH^{5}(1,g)\,g\bigr)
+  =32\varrho^{2}+16|W|^{2}-192+32\,\Re(\Omega)\bigl(|W|^{2}-4\bigr).
+\]
+If $\Re\Omega=0$, the sum of the $k_{j}$ is odd, so an odd number of them
+are odd, $|\varrho|=2$, and the value is at least $-64$. If $\Re\Omega=1$,
+an even number are odd: with none or four, $|\varrho|=4$ and the value is at
+least $192$; with two, $\varrho=0$, and $W=0$ would force the $k_{j}$ to be
+$0,1,2,3$, whose sum is not divisible by $4$, so $|W|^{2}\ge4$ and the value
+is at least $-128$. If $\Re\Omega=-1$, the value is
+$32\varrho^{2}-16|W|^{2}-64$, and $|W|^{2}\le8+2\varrho^{2}$: when all
+$k_{j}$ have the same parity, $|W|\le4=|\varrho|$, and when two are odd,
+$\varrho=0$ and $W$ is a sum of two of $\pm1$ and two of $\pm i$, so
+$|W|^{2}\le8$. Hence $\lambda\ge-192$,\footnote{The eight values are $960$,
+$384$, $192$, $96$, $-32$, $-64$, $-128$ and $-192$. The bound $18432$ is
 attained by the cut $\zeta_{3}\zeta_{4}\in\{1,i\}$ against
 $\zeta_{3}\zeta_{4}\in\{-1,-i\}$, so $22528$ is the best bound that this
-count gives.} computed in \cite{BMB26}; so the sum is at most
-$16\cdot1152=18432$.
+count gives.} and the sum is at most $16\cdot1152=18432$.
 \end{proof}
 
-A computation in \cite{BMB26} checks (ii) independently of the proof, for
-the four placements of the $t_{i}$ and every split of the pieces between $T$
-and $B$, by enumerating the chains that the degrees allow for the types of
-the pieces, and piece by piece for several splits; it also checks the counts
-of the footnotes and the eigenvalues. \Cref{fig:efourthree} draws the three
-shifts and the budget.
+\Cref{fig:efourthree} draws the three shifts and the budget.
 
 \begin{figure}[tbp]
 \centering
@@ -2528,9 +2613,7 @@ $|H|\,(1024-256-64(|H|-2))$, which is $1536$, $2560$ and $3072$, for
 $|H|=2,4,8$, and at least $64|H|\ge1024$ for $|H|\ge16$, because some
 generator lies outside $H$.\footnote{The orders of the subgroups of
 $G_{0}\cong(\ZZ/4)^{3}$ are powers of two. A cut at one vertex weighs exactly
-$1024$, so the bound is sharp. The computation in \cite{BMB26} runs over all
-$129$ subgroups and finds the least cut, $1024$, by the algorithm of Stoer
-and Wagner; the least number of edges in a cut is $13$.}
+$1024$, so the bound is sharp.}
 \end{proof}
 
 \begin{theorem}[One parity at two or three values]\label{thm:efourspreadtwo}
@@ -2690,8 +2773,7 @@ through multiples, and neither is possible.\footnote{Between distinct pieces
 $\cH^{8}=0$. A run from a piece through $m\le3$ distinct multiples to a piece
 has $m+1$ steps, at least one up and one down, and lowers the shift by
 $7D'-U'$ with $U'+D'=m+1$: by $6$, $5$, $4$ for $D'=1$, by $13$, $12$ for
-$D'=2$ and by $20$ for $D'=3$, never by seven. The Lean certificate of
-\cite{BMB26} checks the list.} A piece $c$ with a multiple $e$ is the same
+$D'=2$ and by $20$ for $D'=3$, never by seven.} A piece $c$ with a multiple $e$ is the same
 with the runs exchanged. If $c$ and $e$ are multiples, both runs are
 nonempty and together pass through at most three multiples, so $U+D\le3$
 and $U+D\ge2$. Degree $0$ needs $U=3+X+7D$, so $X=D=0$ and $U=3$. Degree $8$
@@ -2779,9 +2861,8 @@ $|H|=32$ some $r\in S_{3}$ lies outside $H$, and so does $-r$, which gives
 weight at least $32$, or $64$ if $r=-r$; and for $|H|=64$ the weight outside
 $H$ is at least $16$. So every such cut weighs at least $640$.\footnote{The
 subgroups of $\Gamma\cong(\ZZ/4)^{3}\times\ZZ/2$ have orders that are powers
-of two. The computation in \cite{BMB26} runs over all $636$ subgroups, and
-the algorithm of Stoer and Wagner finds the least cut, $640$, at a single
-vertex.}
+of two. A cut at a single vertex weighs exactly $640$, so the bound is
+sharp.}
 \end{proof}
 
 \begin{corollary}[Six consecutive shifts]\label{cor:efoursix}
@@ -2842,20 +2923,7 @@ prime $1000003$; so $484$ is the least kernel that the cup products can
 leave.}
 \end{proof}
 
-A computation in \cite{BMB26} checks \Cref{lem:efourspread} independently of
-the proof, by enumerating over the ratios every term with leaves between
-pieces that the degrees on the four surfaces and \Cref{lem:degreedrop} allow,
-and every run through the multiples in the four placements; it checks the
-cut of \Cref{lem:cayleycut}, the counts of the footnotes, and, piece by
-piece with the shifts of the multiples left free, the arrangements of
-\Cref{thm:efourspreadtwo}, \Cref{thm:efourspreadthree} and
-\Cref{prop:efourgap}. Another computation in \cite{BMB26} checks
-\Cref{lem:efourlonely} by enumerating, with the shifts of the multiples
-left free, every term on a diagonal class that the degrees allow when the
-parities sit at single shifts at the distances $5$ to $13$, and
-\Cref{prop:efourpairs} piece by piece for random splits, with the $636$
-subgroups of $\Gamma$ and the least cut; it also runs over the occupied sets
-within six values. \Cref{fig:efourspread} and \Cref{fig:efoursix} draw the
+\Cref{fig:efourspread} and \Cref{fig:efoursix} draw the
 arrangements and the bounds.
 
 \begin{figure}[tbp]
