@@ -586,7 +586,8 @@ for a very general member when the vanishing cohomology is not of type
 (r/2, r/2)); references [ACGH85], [Mac62], [Bry87]. `verify.ps1` was
 rewritten for Windows (Python suite, then the Lean file; logs in
 `verify_python.log` and `lean/axioms.txt`; the expected count is read from
-the file), and Deep ran the Python suite on his Windows machine. 2218 checks,
+the file), and Deep ran the Python suite on his Windows machine (2218 checks
+passed, 0 failed). 2218 checks,
 409 Lean theorems (128 axiom-free, 281 on `propext`), 416 pages, 766 labels.
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.

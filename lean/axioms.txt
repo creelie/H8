@@ -42,10 +42,10 @@
 'HodgeObstruction.level_matrix_nonsingular' depends on axioms: [propext]
 'HodgeObstruction.gauss_norm_counts' does not depend on any axioms
 'HodgeObstruction.norm_supply_blocks_small_case' does not depend on any axioms
-'HodgeObstruction.pencil_index_d1' does not depend on any axioms
-'HodgeObstruction.pencil_index_d3' depends on axioms: [propext]
-'HodgeObstruction.pencil_beta_positive' does not depend on any axioms
-'HodgeObstruction.pencil_square_members' does not depend on any axioms
+'HodgeObstruction.pencil_volume' does not depend on any axioms
+'HodgeObstruction.pencil_square' does not depend on any axioms
+'HodgeObstruction.pencil_minimum' does not depend on any axioms
+'HodgeObstruction.pencil_degree_bound' does not depend on any axioms
 'HodgeObstruction.split_obstruction_rank' does not depend on any axioms
 'HodgeObstruction.split_obstruction_count' does not depend on any axioms
 'HodgeObstruction.evaluation_not_surjective' does not depend on any axioms
