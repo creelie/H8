@@ -23,14 +23,17 @@ keywords:
   - abelian varieties
   - Cohen-Macaulay supports
   - Lean 4
-version: "3.2.0"
-doi: "10.5281/zenodo.23093099"
-date-released: "2026-10-02"
+version: "4.0.0"
+doi: "10.5281/zenodo.23197107"
+date-released: "2026-10-06"
 repository-code: "https://github.com/creelie/H8"
 identifiers:
   - type: doi
     value: "10.5281/zenodo.22950275"
     description: "Concept DOI of all versions"
+  - type: doi
+    value: "10.5281/zenodo.23197107"
+    description: "Version DOI of release v4.0.0"
   - type: doi
     value: "10.5281/zenodo.23093099"
     description: "Version DOI of release v3.2.0"

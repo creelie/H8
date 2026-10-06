@@ -9,12 +9,13 @@ every statement in its text; the programs here repeat its finite arithmetic
 as an independent check, and some of them record data that the paper does
 not use.
 
-Release v3.2.0 accompanies the current version of the paper, which cites this
+Release v4.0.0 accompanies the current version of the paper, which cites this
 archive by its Zenodo DOI. Zenodo archives each GitHub release under its own
 version DOI, and gathers all of them under one concept DOI:
 
 | | DOI |
 | --- | --- |
+| release v4.0.0 (version DOI) | 10.5281/zenodo.23197107 (https://doi.org/10.5281/zenodo.23197107) |
 | release v3.2.0 (version DOI) | 10.5281/zenodo.23093099 (https://doi.org/10.5281/zenodo.23093099) |
 | release v3.1.1 (version DOI) | 10.5281/zenodo.23078541 (https://doi.org/10.5281/zenodo.23078541) |
 | release v3.0.0 (version DOI) | 10.5281/zenodo.23047883 (https://doi.org/10.5281/zenodo.23047883) |
