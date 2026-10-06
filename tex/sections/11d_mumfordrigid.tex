@@ -186,8 +186,9 @@ the Kodaira--Spencer class
 $\kappa$ is the component of type $(-1,1)$ of an element of
 $\mathfrak{sl}(V_{3})$, the lowering operator acting on both copies of $V$.
 It kills $\omega$ because $\omega$ is invariant under $G$; it is fixed by
-$\tau$ and has weight zero for $S$; and \cite{BMB26} checks that it spans that
-kernel. This proves (i) and (ii).
+$\tau$ and has weight zero for $S$; and it is nonzero, because the Hodge
+structures along $C$ vary. As that kernel is one-dimensional, $\kappa$ spans
+it. This proves (i) and (ii).
 
 For (iii), a point of $\mathfrak{S}$ is a Hodge filtration $F^{1}$ on
 $H^{1}(Y,\CC)$, and $\omega$ is of Hodge type at it when $\omega\in F^{2}
@@ -344,11 +345,23 @@ $D\otimes_{F,\sigma_{1}}\RR\cong\mathbb{H}$. The unit quaternions $j$ with
 $j^{2}=-1$ form a two-sphere, and the complex structures given by left
 multiplication by them on a quaternionic vector space form a twistor line.
 Each $j$ lies in $G(\RR)$, and so does the circle $\cos\vartheta+j\sin\vartheta$,
-which fixes $\omega$; so $\omega$ is of type $(2,2)$. A computation in \cite{BMB26} realises $V_{\RR}$ inside $V_{1}\otimes V_{2}
-\otimes V_{3}$ as the fixed space of the real structure that is quaternionic on
-the first two factors and real on the third, and finds that $\psi(x,Jy)$ is
-definite for the structures of the Mumford family and of signature $(4,4)$ for
-$J=j\otimes1\otimes1$. At a member whose Mumford--Tate group is $G$, the Hodge
+which fixes $\omega$; so $\omega$ is of type $(2,2)$. Inside
+$V_{1}\otimes V_{2}\otimes V_{3}$ the space $V_{\RR}$ is the fixed space of a
+real structure that is quaternionic on the first two factors and real on the
+third, so $V_{\RR}=U\otimes V_{3,\RR}$ with $U$ the real form of
+$V_{1}\otimes V_{2}$. On $U$ the form $g=\epsilon_{1}\otimes\epsilon_{2}$ is
+symmetric and invariant under the compact group of pairs of unit quaternions,
+which acts irreducibly on $U\otimes\CC=V_{1}\otimes V_{2}$; so $g$ is
+definite. The complex structures of the Mumford family are $1\otimes h$, with
+$h$ a complex structure on $V_{3,\RR}$ for which $\epsilon_{3}(\cdot,h\cdot)$
+is definite, and $\psi(x,(1\otimes h)y)=g\otimes\epsilon_{3}(\cdot,h\cdot)$ is
+definite. For $J=j\otimes1\otimes1$ the form $g(\cdot,(j\otimes1)\cdot)$ is
+alternating, $j\otimes1$ being an isometry of $g$ with square $-1$, and
+$\psi(x,Jy)=g(\cdot,(j\otimes1)\cdot)\otimes\epsilon_{3}$ is the product of
+nondegenerate alternating forms on spaces of dimensions $4$ and $2$; as the
+product of two alternating forms on $\RR^{2}$ is the determinant on
+$\RR^{2}\otimes\RR^{2}=M_{2}(\RR)$, of signature $(2,2)$, it has signature
+$(4,4)$. At a member whose Mumford--Tate group is $G$, the Hodge
 classes of degree two on $V_{\RR}\oplus V_{\RR}$ are the forms $\psi\otimes s$
 with $s$ a symmetric $2\times2$ matrix, by \Cref{prop:mumfordproduct}(ii), and
 the signature of $\psi(\cdot,J\cdot)\otimes s$ is $(4(p+q),4(p+q))$ when $s$ has

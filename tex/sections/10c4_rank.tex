@@ -223,8 +223,7 @@ $H^{0}(\bigwedge^{2}T_{A})$ is $T_{+}\otimes T_{-}$. Since the images of the
 three summands of $HT^{2}$ lie in the three different Hodge components
 $H^{n,n+2}$, $H^{n-1,n+1}$ and $H^{n-2,n}$ of $H^{*}(A,\CC)$, the annihilator
 is the direct sum of the three annihilators computed, of dimensions $n^{2}$,
-$2n^{2}$ and $n^{2}$. A computation in \cite{BMB26} carries out the
-whole computation in the exterior algebra for $n=2$ and $n=3$.
+$2n^{2}$ and $n^{2}$.
 
 (ii) By the commutative square $\sigma_{E}\circ\operatorname{ev}_{E}
 =(\,\cdot\,)\lrcorner\ch(E)$ of \Cref{setup:criterion}, $\sigma_{E}$
@@ -284,8 +283,7 @@ $I_{+}+I_{-}=N_{p}$ since $T_{+}\oplus T_{-}=T_{p}A$. If both $I_{\pm}$ were
 nonzero, every nonzero $\bar b\in I_{-}$ would be proportional to every
 nonzero $\bar a\in I_{+}$, so $I_{+}=I_{-}$ would be a line and
 $N_{p}=I_{+}+I_{-}$ of dimension one, against $c\ge2$. Hence $I_{+}=0$ or
-$I_{-}=0$, which is the claim. The two pieces of linear algebra, the shape of
-the ideal in (iii) and the dichotomy just used, are checked in \cite{BMB26}.
+$I_{-}=0$, which is the claim.
 \end{proof}
 
 \begin{corollary}[Locally free components are excluded]\label{cor:p2shape}
@@ -479,9 +477,7 @@ $\pi_{P}\lrcorner\alpha_{-}=\pi_{Q}\lrcorner\alpha_{+}$. In degree zero the
 annihilator is zero because $\omega\ne0$. Taking $k=2$ and $n\ge2$, so that
 $2\ne2n$, gives (ii), the dimension being
 $\dim P\cdot\dim Q=4n^{2}$; the general count is
-$\binom{4n}{k}-\binom{2n}{k}-\binom{2n}{k}$ plus the exceptional line. A computation in \cite{BMB26} carries out the whole computation in the
-exterior algebra over $\QQ$ for $n=1$ and $n=2$ in every degree, for two
-choices of $(a,b)$, and for $n=3$ in degrees up to three.
+$\binom{4n}{k}-\binom{2n}{k}-\binom{2n}{k}$ plus the exceptional line.
 \end{proof}
 
 \begin{corollary}[Consequences for the Hochschild action]
@@ -619,8 +615,7 @@ applies.
 
 \Cref{thm:p2numerical}(iii) is a sufficient condition for
 $\mathbf{W}(K,n,\delta)$ that mentions no map at all: one object, at one
-point, and one number. At $n=2$ the number is $12$ and at $n=3$ it is $30$;
-the two computations behind it are a computation in \cite{BMB26}.
+point, and one number. At $n=2$ the number is $12$ and at $n=3$ it is $30$.
 By \Cref{thm:p2false} no complex attains it, but the first two parts of the
 theorem hold for the polarised criterion (P2$'$) with the number $r(\gamma)$
 of \Cref{thm:p2primenumber}(iv) in place of $2n(2n-1)$, and that is the form
@@ -694,19 +689,19 @@ residue field, since every module of finite length has a composition series
 whose factors are all isomorphic to it. The lemma says that the product of two
 independent jet classes detects this generator, and on a complex of Euler
 characteristic zero the product can vanish. Let $K$ be the Koszul resolution
-of the residue field $k$ of $\QQ[x_{1},x_{2}]$, and $C$ the cone of the class
-$J(\partial_{2})J(\partial_{1})$, viewed as a chain map $K\to K[2]$. The
-complex $C$ has two cohomology modules, each isomorphic to $k$, so
-$\chi(C)=0$, and on $C$ the product $J(\partial_{2})J(\partial_{1})$ is null
-homotopic: the gluing has killed it. On the split complex $k\oplus k[1]$,
-whose Euler characteristic is also zero, the same product is not null
-homotopic. Both facts are checked in a computation in \cite{BMB26},
-which also tests the lemma on eighteen finite length modules in two and three
-variables, among them powers of the maximal ideal, monomial and non-monomial
-complete intersections, a Gorenstein algebra of socle degree two and three
-modules that are not cyclic, and on three complexes with several cohomology
-modules, for every pair of coordinate directions and for a random pair; in
-every case with $\chi\ne0$ the product is nonzero.
+of the residue field $k$ of $\QQ[x_{1},x_{2}]$, on which the jet class of a
+derivation $D$ is the chain map $-D(d_{K})$, and let $u=\partial_{2}(d_{K})
+\partial_{1}(d_{K})\colon K\to K[2]$ represent $J(\partial_{2})J(\partial_{1})$.
+The entries of $d_{K}$ are $\pm x_{1},\pm x_{2}$, so $u$ has constant
+entries. Let $C$ be the cone of $u$, with $C^{m}=K^{m+1}\oplus K^{m+2}$ and
+$d_{C}(a,b)=(-d_{K}a,\,u(a)+d_{K}b)$. As $u$ induces zero on cohomology, $C$ has
+two cohomology modules, each isomorphic to $k$, so $\chi(C)=0$. Since
+$\partial_{i}(u)=0$, the matrix $\partial_{i}(d_{C})$ is block diagonal, and the
+product $J(\partial_{2})J(\partial_{1})$ on $C$ is $(a,b)\mapsto(u(a),u(b))$,
+which equals $d_{C}H+Hd_{C}$ for $H(a,b)=(b,0)$: it is null homotopic, the
+gluing has killed it. On the split complex $k\oplus k[1]$, whose Euler
+characteristic is also zero, the same product is $u\oplus u[1]$, which is not
+null homotopic because $u\ne0$ in $\Ext^{2}(k,k)$ by the lemma applied to $k$.
 
 \begin{theorem}[The support of an object meeting the criterion]
 \label{thm:p2support}
@@ -806,7 +801,7 @@ on the complexification its action commutes with complex conjugation, which
 carries the eigenspace of $\sqrt{-d}$ for one embedding of $K$ to that for the
 other. On the tangent space the conjugate of $T_{+}$ is the eigenspace in
 $T^{0,1}$ for the second embedding; it pairs with $V_{-}^{0,1}$, not with
-$V_{+}^{0,1}$. The archive \cite{BMB26} checks this in a rational model.}
+$V_{+}^{0,1}$.}
 so the subring lies in $\bigwedge^{*}(V_{-}^{1,0}\oplus V_{+}^{0,1})$. When
 $T_{0}B\supseteq T_{-}$ it lies in $\bigwedge^{*}(V_{+}^{1,0}\oplus
 V_{-}^{0,1})$. Choose bases of the four pieces. Both exterior algebras are
@@ -901,9 +896,7 @@ $V_{+}\otimes V_{-}$ and $\theta\wedge\alpha_{\pm}=0$, because $\alpha_{\pm}$
 spans the top exterior power of $V_{\pm}$. So $\omega$ is a nonzero rational
 primitive class of type $(n,n)$ in the middle degree, and the Hodge--Riemann
 relations give $(-1)^{n(2n-1)}\int_{A}\omega^{2}>0$, where
-$(-1)^{n(2n-1)}=(-1)^{n}$. A computation in \cite{BMB26} checks the
-primitivity and the sign of the intersection form on the whole rational Weil
-plane in the coordinate model, for $n=2,3$ and several discriminants.
+$(-1)^{n(2n-1)}=(-1)^{n}$.
 
 (ii) The category $D^{b}(A)$ has finite dimensional morphism spaces and split
 idempotents, so $E=\bigoplus_{i}E_{i}$ with each $E_{i}$ indecomposable. The
@@ -930,8 +923,7 @@ against the fourth condition, so $l<n$ and the third condition gives $k=0$;
 hence $i=n+l$, so $i=n$ and $l=0$: the component lies in
 $\bigwedge^{n}A_{+}\otimes\bigwedge^{n}B_{+}=\CC\alpha_{+}$. If $j<n$, the
 first two conditions give $l=n$ and $i=0$, hence $k=n$ and $j=0$: the
-component lies in $\CC\alpha_{-}$. This proves the claim, which \cite{BMB26} also
-checks in every degree for $n=2,3$. Since $\ch(E_{i})$ is a rational class of
+component lies in $\CC\alpha_{-}$. This proves the claim. Since $\ch(E_{i})$ is a rational class of
 Hodge type killed by $P\wedge Q$, it lies on the rational Weil plane, and
 when it is nonzero \Cref{cor:hhfactor}(i) gives
 $\dim\Ext^{2}(E_{i},E_{i})\ge2n(2n-1)$, a nonzero rational Weil class having
@@ -947,14 +939,18 @@ $\End(E)=\CC\cdot\id\oplus J$ with $J$ nilpotent. By
 $\bigwedge^{2}P\oplus\bigwedge^{2}Q$ isomorphically onto $\Ext^{2}(E,E)$.
 By Serre duality $e_{2n-2}=e_{2}$, and contraction with $\omega$ is injective
 on $\bigwedge^{2n-2}P\oplus\bigwedge^{2n-2}Q$ by \Cref{thm:hhsplitting}(iv),
-since $2n-2\ne2n$ (\cite{BMB26} checks this too); so, with the compatibility in
+since $2n-2\ne2n$; so, with the compatibility in
 degree $2n-2$, $\operatorname{ev}_{E}$ maps that space isomorphically onto
 $\Ext^{2n-2}(E,E)$. In degree $2n$ the semiregularity map is the trace, since
 $H^{q+2n}(\Omega^{q}_{A})=0$ for $q>0$, so
 $\operatorname{tr}\operatorname{ev}_{E}(\xi)$ is the $H^{0,2n}$ component of
 $\xi\lrcorner\ch(E)$; for the generators $\pi_{P}$, $\pi_{Q}$ of
 $\bigwedge^{2n}P$ and $\bigwedge^{2n}Q$ it is $Nc_{P}$ and $Nc_{Q}$ with
-$c_{P}c_{Q}\ne0$ \cite{BMB26}. For $f\in\End(E)$ and
+$c_{P}c_{Q}\ne0$. Indeed $\pi_{P}$ wedges with a basis of $B_{+}$ and contracts
+a basis of $A_{-}$, so it kills $\alpha_{+}$, whose factor $\bigwedge^{n}B_{+}$
+is already full, and carries $\alpha_{-}$ to $\pm$ the generator
+$\bigwedge^{n}B_{+}\wedge\bigwedge^{n}B_{-}$ of $H^{0,2n}$; so $c_{P}=\pm b$
+and likewise $c_{Q}=\pm a$, both nonzero. For $f\in\End(E)$ and
 $x\in\bigwedge^{2}P\oplus\bigwedge^{2}Q$ write
 $f\cdot\operatorname{ev}_{E}(x)=\operatorname{ev}_{E}(\varphi_{f}(x))$; then
 $f\mapsto\varphi_{f}$ is a homomorphism of algebras. Let $x\in\bigwedge^{2}P$
@@ -1002,10 +998,11 @@ $2e_{0}-2e_{1}+60-e_{3}$. So $2e_{0}=\chi+2e_{1}-12\ge\chi+4$ at $n=2$, and
 $2e_{0}=\chi+2e_{1}+e_{3}-60\ge\chi+4$ at $n=3$, where also
 $e_{1}=e_{0}+30-\frac12(\chi+e_{3})\le e_{0}+9$. With (i) this gives the
 bound. An autoequivalence preserves $\End$, and a stable sheaf is simple.
-An indecomposable object with $\dim\End\ge3$ has $J\ne0$. The smallest
-profiles are those with $e_{0}=3$, which \cite{BMB26} lists by exhaustive search
-over the admissible values, and the Lean certificate of \cite{BMB26} checks the
-inequality $e_{0}\ge3$ for all natural numbers.
+An indecomposable object with $\dim\End\ge3$ has $J\ne0$. For the smallest
+profiles take $e_{0}=3$. At $n=2$, $\chi$ is even and positive, so
+$2e_{1}=18-\chi\le16$, and $e_{1}\ge8$ forces $e_{1}=8$ and $\chi=2$. At
+$n=3$, $2e_{1}+e_{3}=66-\chi\le65$ with $e_{1}\ge12$ and $e_{3}\ge40$
+forces $e_{1}=12$ and $e_{3}\in\{40,41\}$, with $\chi=2$ and $\chi=1$.
 \end{proof}
 
 \begin{remark}[Objects excluded by the shape]\label{rem:p2endo}
@@ -1024,7 +1021,11 @@ $\Ext^{3}(E,E)$ of dimension forty or forty-one. Iterated self-extensions and
 thickenings are the natural objects with nilpotent endomorphisms, but an
 extension of a simple object $F$ by itself has $\ch=2\ch(F)$, so $F$ would
 already have to carry the class, and the question returns one level down.
-For $n\ge4$ the same count asks only for an excess in some even degree other
-than $2$ and $2n-2$ \cite{BMB26}, and the bound on $\End$ disappears. By
+For $n\ge4$ write $e_{k}=2\binom{2n}{k}+\delta_{k}$ for $1\le k\le2n-1$,
+with $\delta_{k}\ge0$ and $\delta_{2}=\delta_{2n-2}=0$. Since
+$\sum_{k=1}^{2n-1}(-1)^{k}\binom{2n}{k}=-2$, the Euler characteristic is
+$2e_{0}-4+\sum_{k}(-1)^{k}\delta_{k}$, and an excess $\delta_{k}$ in an even
+degree $4\le k\le2n-4$ can make it positive with $e_{0}=1$; so the bound on
+$\End$ disappears. By
 \Cref{thm:p2false} none of these shapes is realised.
 \end{remark}

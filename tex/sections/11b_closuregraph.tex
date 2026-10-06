@@ -827,7 +827,7 @@ $H^{*}(K_{n}(A),\QQ)$, since $A\times K_{n}(A)\to A^{[n+1]}$ is an \'etale
 Galois cover with group $A[n+1]$. When $n+1$ is prime the rest is spanned by
 the classes of the punctual Hilbert schemes at the points of $A[n+1]$, which
 are algebraic, and (ii) suffices; when $n+1$ is composite the rest contains
-transcendental classes, and \cite{Xu15,FTV19} are needed. A computation in \cite{BMB26} determines the two parts for $n+1\le6$. These results
+transcendental classes, and \cite{Xu15,FTV19} are needed. These results
 concern the varieties $K_{n}(A)$ themselves, not every variety of
 generalised Kummer type; for products of varieties $K_{n}(A)$ the Hodge
 conjecture itself is known \cite[Theorem~3.3]{Xu15}, and for the varieties
@@ -1037,7 +1037,9 @@ quotient; the Fermat sextic lies in $\mathcal{A}$ by
 \Cref{prop:aclosure}(iii). For a smooth sextic fourfold $Y$ in a
 hyperplane of $\PP^{6}$ no resolution is needed, and the rational sixfold
 $\mathrm{Bl}_{Y}\PP^{6}$, with $h^{6,0}=0$, $h^{5,1}=1$, $h^{4,2}=426$ and
-$h^{3,3}=1753$, satisfies \textup{(F3$'$)} if and only if $Y$ does; a computation in \cite{BMB26} checks these numbers. For the Hodge
+$h^{3,3}=1753$ by the blow-up formula \cite[\S7.3.3]{Voi02} and the Hodge
+numbers $1$, $426$, $1752$ of $Y$, satisfies \textup{(F3$'$)} if and only if
+$Y$ does. For the Hodge
 conjecture these equivalences are folklore, and we claim no priority for
 them.
 \end{remark}
@@ -1096,6 +1098,85 @@ by powers of the hyperplane class, so it is algebraic. A quotient $B/G$ by a
 finite group is dominated by $B$, and so is every smooth projective model of
 it.
 \end{proof}
+
+Lefschetz theory carries the two statements from a variety to its ample
+complete intersections, outside the middle degree always and in the middle
+degree for a very general member.
+
+\begin{proposition}[Ample complete intersections]
+\label{prop:f3primeample}
+Let $X$ be a smooth complex projective variety of dimension $N$, $L$ an
+ample line bundle on $X$, and $Y=Y_{c}\subset Y_{c-1}\subset\dots\subset
+Y_{0}=X$ with each $Y_{j}$ a smooth divisor of $Y_{j-1}$ in the linear
+system of $L^{m_{j}}|_{Y_{j-1}}$, $m_{j}\ge1$; put $r=\dim Y=N-c\ge1$ and
+let $i\colon Y\to X$ be the inclusion.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item If $2p\ne r$, every Hodge class of degree $2p$ on $Y$ is $i^{*}\alpha$
+  for a Hodge class $\alpha$ of degree $2p$ on $X$. So if \textup{(F3$'$)}, or
+  the Hodge conjecture, holds for $X$ in degree $2p$, it holds for $Y$ in
+  degree $2p$; if $r$ is odd and it holds for $X$ in every degree, it holds
+  for $Y$ in every degree.
+\item Let $r$ be even, $c=1$ and $L^{m_{1}}$ very ample, and let
+  $V\subset H^{r}(Y,\QQ)$ be the vanishing cohomology, the kernel of the
+  Gysin map $i_{*}$. If $V$ is not of type $(r/2,r/2)$, then for a very
+  general $Y$ in the linear system every Hodge class of degree $r$ on $Y$ is
+  $i^{*}\alpha$ for a Hodge class $\alpha$ on $X$, and the conclusion of (i)
+  holds in degree $r$ as well.
+\end{enumerate}
+So the Hodge conjecture holds for every smooth ample divisor of odd dimension
+in $B\times\PP^{k}$, for $B$ an abelian variety of dimension at most five, and
+for the very general member of every very ample linear system on an abelian
+fivefold; and \textup{(F3$'$)} holds for every smooth ample divisor of odd
+dimension in a member of $\mathcal{A}$.
+\end{proposition}
+
+\begin{proof}
+(i) By the Lefschetz hyperplane theorem \cite[Chapter~1]{Voi03}, applied
+to each $Y_{j}\subset Y_{j-1}$, the restriction $i^{*}\colon H^{k}(X,\QQ)\to
+H^{k}(Y,\QQ)$ is an isomorphism for $k<r$ and injective for $k=r$. Let
+$2p<r$. Then $i^{*}$ is an isomorphism of Hodge structures in degree $2p$,
+so every Hodge class on $Y$ is $i^{*}$ of a Hodge class on $X$. Let $2p>r$.
+The Gysin map $i_{*}\colon H^{2p}(Y,\QQ)\to H^{2p+2c}(X,\QQ)$ is Poincar\'e
+dual to $i^{*}$ in degree $2r-2p<r$, hence an isomorphism, and
+$i_{*}i^{*}$ is cup product with $[Y]=m_{1}\cdots m_{c}\,c_{1}(L)^{c}$. By the
+hard Lefschetz theorem \cite[Chapter~6]{Voi02}, cup product with
+$c_{1}(L)^{c}$ maps $H^{2p}(X,\QQ)$ onto $H^{2p+2c}(X,\QQ)$ when $2p\ge N-c$,
+so $i^{*}$ is onto in degree $2p$. A surjective morphism of polarisable
+Hodge structures has a section that is a morphism of Hodge structures, so
+again every Hodge class on $Y$ is $i^{*}$ of a Hodge class on $X$. The
+restriction $i^{*}$ is induced by the transpose of the graph of $i$, so it
+carries $\mathrm{Ab}^{p}(X)$ into $\mathrm{Ab}^{p}(Y)$ and algebraic classes
+to algebraic classes, which gives the rest of (i).
+
+(ii) The projection formula shows that $V$ is the orthogonal complement of
+$i^{*}H^{r}(X,\QQ)$ for the intersection form, and
+$H^{r}(Y,\QQ)=i^{*}H^{r}(X,\QQ)\oplus V$ as Hodge structures
+\cite[Chapter~2]{Voi03}; the Hodge classes in the first summand are the
+$i^{*}\alpha$ with $\alpha$ a Hodge class on $X$. Over the open set $U$ of
+the linear system parametrising smooth members, $V$ is a local system, and
+its monodromy group $\Gamma$ acts irreducibly \cite[Chapter~3]{Voi03}. For
+each class $v$ of the lattice of $V$ at a point of the universal cover of
+$U$, the set where the flat continuation of $v$ is of Hodge type is a closed
+analytic subset, either everything or nowhere dense; so at a very general
+point the Hodge classes of $V$ are those whose continuation is of Hodge type
+everywhere. They form a subspace $W$ stable under $\Gamma$, hence $W=0$ or
+$W=V$, and $W=V$ would make $V$ of type $(r/2,r/2)$. So $W=0$.
+
+For the consequences, $B\times\PP^{k}$ satisfies the Hodge conjecture by the
+K\"unneth formula, since $B$ does \cite{Mar25a,Mar25b,MZ99}. For a very ample
+divisor $Y$ of an abelian fivefold $B$, $r=4$, and $V$ is not of type $(2,2)$:
+$h^{4,0}(Y)=h^{0}(K_{Y})=h^{0}(Y,\cO_{Y}(Y))=h^{0}(B,\cO_{B}(Y))+4$, by the
+sequence $0\to\cO_{B}\to\cO_{B}(Y)\to\cO_{Y}(Y)\to0$ and $h^{1}(\cO_{B}(Y))=0$,
+exceeds $h^{4,0}(B)=5$ because $h^{0}(\cO_{B}(Y))\ge2$, so $V$ has a nonzero
+part of type $(4,0)$. Members of $\mathcal{A}$ satisfy \textup{(F3$'$)} by
+\Cref{prop:f3prime}(iii).
+\end{proof}
+
+For the Hodge conjecture these transfers are classical, and we claim no
+priority. What they add to \textup{(F3$'$)} is a large class outside
+$\mathcal{A}$: the vanishing cohomology of an ample divisor of odd dimension
+is not reached from abelian varieties in general, yet it carries no Hodge
+class in even degree, since its only degree is the odd middle one.
 
 A hypersurface of Delsarte type is defined by as many monomials as
 variables. Shioda observed that such a surface is dominated by a Fermat
@@ -1176,13 +1257,7 @@ coefficient of $t^{6}$ in $(1-t)^{-1}\prod_{k\ge2}(1-t^{k})^{-2}$, which is $29$
 the least $d$ is the least common multiple of the denominators of the
 entries of $A^{-1}$, computed block by block. The
 Hodge numbers are those of every smooth sextic fourfold, read off from the
-Jacobian ring \cite[Chapter~6]{Voi03}. A computation in \cite{BMB26} checks
-the identity of (i) for the $29$ shapes, with $d=|\det A|$ and with the
-least $d$, and for the chains and loops of
-lengths $2$ to $6$ and degrees $3$ to $8$, their smoothness independently by
-Gr\"obner bases, and the Jacobian ring of the loop sextic, of dimensions
-$1$, $426$, $1751$, $426$, $1$ in degrees $0$, $6$, $12$, $18$, $24$; the
-Lean certificate of \cite{BMB26} checks $AB=15624\cdot I$ for the loop.
+Jacobian ring \cite[Chapter~6]{Voi03}.
 \end{proof}
 
 \begin{figure}[tbp]
@@ -1524,9 +1599,16 @@ smooth. It is irreducible, $F_{A}$ being irreducible, and not contained in a
 coordinate hyperplane, so it is the closure of its part in the torus, and
 \Cref{thm:simplextype} applies.
 
-(iii) The invariant factors of $M/M'$ are computed from the Smith normal form
-of the matrix of the $a_{i}-a_{0}$ in \cite{BMB26}. For the Klein quartic, $\det A=28$, so
-$[M:M']=7$ and $e_{A}=7$.
+(iii) The least $d$ with $dA^{-1}$ integral is the exponent of
+$\ZZ^{r+2}/R$. For the loop, $A=5I+P$ with $P$ a cyclic permutation matrix,
+and $\ZZ^{6}/R\cong\ZZ[x]/(x+5,x^{6}-1)=\ZZ/15624$; for the chain the
+relations $x_{j+1}=-5x_{j}$ and $6x_{5}=0$ make $\ZZ^{6}/R$ cyclic of order
+$6\cdot5^{5}=18750$. In both cases $M/M'$ is the subgroup of index $6$ of a
+cyclic group, so $e_{A}=[M:M']$ is $2604$, respectively $3125$. For the
+Klein quartic, $\det A=28$, so $[M:M']=7$ and $e_{A}=7$. For the other
+$27$ shapes the invariant factors of $M/M'$ come from the Smith normal form
+of the matrix of the $a_{i}-a_{0}$, a finite computation recorded in
+\cite{BMB26}.
 \end{proof}
 
 For the Klein quartic the construction is classical: the isogeny has kernel
@@ -1538,15 +1620,7 @@ degree lowered to $e_{A}$. Its content lies in dimension five and more, where
 otherwise only the Fermat hypersurfaces are covered
 (\Cref{prop:aclosure}(iii)), and in the cyclic covers, among them the Calabi--Yau
 varieties $\{y^{2}=F_{A}(x)\}$ with $F_{A}$ of degree $2r+4$ in $r+2$
-variables. A computation in \cite{BMB26} checks the ingredients:
-the invariant factors for the $29$ sextic shapes; the Euler number
-$((1-m)^{r+2}-1)/m+r+2$ of $X_{A}$, recomputed as the sum over the orbits of
-$\PP^{r+1}$ of the Euler numbers $(-1)^{s}|\det A_{R,S}|/m$ that
-\Cref{lem:simplexchart}(i) gives, for the $29$ shapes and $168$ chains and
-loops; the holomorphic forms of top degree, as the characters of the Fermat
-variety of degree $e_{A}$ trivial on the kernel of the isogeny, for the $29$
-shapes, $90$ chains and loops and $40$ cyclic covers; and the fan of the Klein
-quartic. Khovanskii's compactification and Shioda's cover are classical, and
+variables. Khovanskii's compactification and Shioda's cover are classical, and
 we claim no priority for the two lemmas. What \Cref{thm:simplextype} adds is
 that the boundary of the compactification is again of simplex type with the
 same exponent $e$, so that the whole cohomology, not only its part of top
@@ -1712,7 +1786,7 @@ closed points is generically \'etale of degree one, hence birational, and a
 finite birational morphism onto a normal variety is an isomorphism
 \cite[Chapter~III, Corollary~11.4]{Har77}. The group $G$ acts faithfully on $C^{r}$,
 since $H$ is the group of deck transformations of $C\to\PP^{1}$, so
-$\Phi$ has degree $|G|$; \cite{BMB26} counts the points of general fibres.}
+$\Phi$ has degree $|G|$.}
 The order of $G$ is $r!\,|H|^{r-1}$.
 
 (iii) $C$ is a curve, so $C^{r}\in\mathcal{A}$, and $X$ is the image of
@@ -1831,8 +1905,7 @@ dimension at most five,%
 \footnote{Both bounds are sharp: for $d=3$ and $N=7$ a character with eight
 nonzero coordinates has $\dim V_{a}=6$ and $|[a]|=2$, so $\dim B_{[a]}=6$;
 for $d=2$ and $N=13$ a character with fourteen nonzero coordinates has
-$\dim B_{[a]}=6$. The computation in \cite{BMB26} runs over all characters in
-each case.} and the Hodge
+$\dim B_{[a]}=6$.} and the Hodge
 conjecture holds on abelian varieties of dimension at most five
 \cite{Mar25a,Mar25b,MZ99}; \Cref{thm:vandermonde}(iv) gives the conclusion,
 and (i) the last statement.
@@ -1841,24 +1914,20 @@ and contain two-dimensional parts of type $(1,0)$, so $K$ acts on
 $H^{1,0}(B_{[a]})$ with multiplicities $(2,2)$ and $B_{[a]}$, of dimension
 four, is of Weil type; $\bigwedge^{4}V_{a}$ and $\bigwedge^{4}V_{-a}$ are its
 Weil lines, of type $(2,2)$ for every $\lambda$, and they lie in
-$H^{4}(C^{4})^{G}=\Phi^{*}H^{4}(X)$. A computation in \cite{BMB26} counts the
-orbits. Distinct orbits give independent classes, and the hyperplane class
+$H^{4}(C^{4})^{G}=\Phi^{*}H^{4}(X)$. The zero coordinate of $a$ is one of
+seven, and the other six $a_{i}\in\{1,\dots,d-1\}$ add up to $3d$, which
+they do in $20$, $141$ and $1751$ ways for $d=3,4,6$, the coefficients of
+$x^{3d-6}$ in $(1+x+\dots+x^{d-2})^{6}$; removing the character of order two
+with every $a_{i}=d/2$ leaves $20$, $140$ and $1750$, and $(\ZZ/d)^{\times}=
+\{\pm1\}$ pairs them off, since $-a$ again has coordinate sum $3d$; this
+gives $7\cdot20/2=70$, $7\cdot140/2=490$ and $7\cdot1750/2=6125$ orbits.
+Distinct orbits give independent classes, and the hyperplane class
 lies in the part of the trivial character, which gives the bounds; the
 Picard group of a complete intersection of dimension at least three is
 generated by $h$.
 \end{proof}
 
-\Cref{fig:vandermonde} draws the construction. A computation in
-\cite{BMB26} checks \Cref{thm:vandermonde} independently of the proof: the Lagrange identity and the spaces $\Lambda_{k}$ in exact
-arithmetic; the minors; random points of $C^{r}$ mapping to smooth points of
-$X$, random points of $X$ lifted through the roots of $F$, and fibres of
-exactly $|G|$ points; the genus three ways; the Euler number of $X$ from the
-complete intersection formula and from the orbifold formula for $C^{r}/G$;
-and the middle Hodge numbers of $X$, from Hirzebruch's formula for complete
-intersections and from the sum over the characters of
-$\binom{\dim V_{a}^{1,0}}{p}\binom{\dim V_{a}^{0,1}}{r-p}$, for $43$
-triples $(d,N,r)$; the Lean certificate of \cite{BMB26} repeats the genus,
-the orders of $G$ and the counts of \Cref{cor:twodiagonal}(iii). For $c=1$ the theorem is \Cref{prop:aclosure}(iii) again,
+\Cref{fig:vandermonde} draws the construction. For $c=1$ the theorem is \Cref{prop:aclosure}(iii) again,
 by a different route, and for $r=1$ it restates the definition of $C$.
 
 \begin{figure}[tbp]
@@ -2098,9 +2167,7 @@ whose sum is $2$, leaving a $3$. For $m=6$ at least $2k-12\ge2$ coordinates
 equal $5$ ($b=1$). If three do, merge two of them, whose sum is $4$, leaving
 a $5$; if exactly two do, then $k=7$ and $a=(5,5,4,4,4,4,4)$, and merging a
 $5$ with a $4$, of sum $3$ and $b_{i}+b_{j}=3$, leaves a $5$. In both cases
-$q'=q-1\ge2$ and the order is kept.\footnote{A computation in \cite{BMB26}
-runs through all $57213$ admissible multisets of residues with $7\le k\le40$
-($k\le30$ for $m=6$) and finds such a merge in each.}
+$q'=q-1\ge2$ and the order is kept.
 \end{proof}
 
 \begin{proposition}[Monodromy of cyclic covers]\label{prop:cyclicmonodromy}
@@ -2126,12 +2193,7 @@ one and square zero. A computation in \cite{BMB26} shows that the smallest
 subspace of $\mathfrak{gl}(E_{a})$ that contains these $\log u_{J}=u_{J}-1$
 and is stable under brackets and under conjugation by the images of the
 $A_{st}$ is $\mathfrak{sl}(E_{a})$, of dimension $n^{2}-1$. Hence
-$\mathfrak{g}_{a}\supseteq\mathfrak{sl}(E_{a})$.%
-\footnote{The same computation checks the model: in all $40$ cases with
-$k=5,6$ each $A_{st}$ acts as a pseudo-reflection of determinant
-$(t_{s}t_{t})^{\pm1}$, and for $k=5,6,7$ the invariant hermitian form of the
-$70$ cases is unique up to a scalar, of signature $\{p,q\}$, computed
-exactly by congruence over $K$.}
+$\mathfrak{g}_{a}\supseteq\mathfrak{sl}(E_{a})$.
 
 Let $n\ge5$ and assume the assertion for $n-1$. By \Cref{lem:merge} and a
 relabelling, $a_{1}+a_{2}\ne0$, and $a'=(a_{1}+a_{2},a_{3},\dots,a_{k})$ has
@@ -2217,8 +2279,7 @@ trace form of $\cO_{K}$ scaled by $\Nm(cM)$. Changing the basis by
 $P\in\GL_{n}(K)$ multiplies both sides by $\Nm_{K/\QQ}(\det P)^{2}$, and a
 basis in which $M$ is diagonal makes the form an orthogonal sum of forms of
 rank one. Here $d_{K}=-4$ and $\Nm(\tfrac{1}{2i})=\tfrac14$, or $d_{K}=-3$ and
-$\Nm(\tfrac{1}{2\sqrt{-3}})=\tfrac1{12}$. A computation in \cite{BMB26} checks
-the formula on random lattices over $\ZZ[\zeta_{3}]$ and $\ZZ[i]$.}
+$\Nm(\tfrac{1}{2\sqrt{-3}})=\tfrac1{12}$.}
 Hence $(-1)^{n/2}\det H$ equals $2^{n}$ for $m=3$, $2^{g'}$ for $m=4$ and
 $2^{n+g_{3}}3^{g_{2}}$ for $m=6$, the sign being that of a form of signature
 $(n/2,n/2)$. For $m=3$ this is $\Nm(2^{n/2})$, and for $m=4$ a norm as
@@ -2340,8 +2401,7 @@ $[c_{k}^{2},c_{k+1}^{2}]=\pm4c_{k}c_{k+1}$, and if all products
 $c_{i}c_{j}$ with $i,j\le k$ lie in the generated algebra, so do the
 $c_{i}c_{k+1}=\pm\tfrac12[c_{i}c_{k},c_{k+1}^{2}]$ for $i<k$, because
 $c_{k+1}$ meets only $c_{k}$ among $c_{1},\dots,c_{k}$. By induction every
-$c_{i}c_{j}$ lies in it, and these span $\mathrm{Sym}^{2}V$. A computation in
-\cite{BMB26} confirms the dimension $g(2g+1)$ for $g\le7$.} So the Zariski
+$c_{i}c_{j}$ lies in it, and these span $\mathrm{Sym}^{2}V$.} So the Zariski
 closure contains $\Sp(V_{a})$, whose invariants in
 $\bigwedge^{r}V_{a}$ are the multiples of $\omega_{a}^{r/2}$, $\omega_{a}$ the
 polarisation form \cite[Theorem~17.5]{FH91}.%
@@ -2425,21 +2485,15 @@ variety of Weil type for $\QQ(\sqrt{-3})$ or $\QQ(i)$.}
 \label{fig:vgmonodromy}
 \end{figure}
 
-\Cref{fig:vgmonodromy} draws the steps of the proof. A computation in
-\cite{BMB26} checks the finite facts behind \Cref{thm:vgvandermonde}: the Lie algebra generated by the $N_{k}$, the
-intersection matrices of the chains, the invariants of $\mathfrak{sp}$ and
-$\mathfrak{sl}$ in the exterior powers, the relation between the signature
-and the exponents used by Achter and Pries, the determinant of the trace
-form, and the dimensions of (iii) by enumeration of the characters. These
-dimensions never exceed $h^{r/2,r/2}(X)$, and they equal it for a quadric, for
+\Cref{fig:vgmonodromy} draws the steps of the proof. The dimensions of (iii)
+never exceed $h^{r/2,r/2}(X)$, and they equal it for a quadric, for
 the Fermat hypersurfaces (for cubics $7$, $21$ and $71$ in dimensions $2$, $4$
 and $6$, for quartics $142$ and $1108$ in dimensions $4$ and $6$, for sextics
 $1752$ in dimension $4$) and for two quadrics in $\PP^{N}$ with $N$ even
 ($N+2$), where every class of type $(r/2,r/2)$ is algebraic. For two cubics
 in $\PP^{6}$ the very general member has $141$ Hodge classes of degree four
 against $h^{2,2}=267$, and for three quartics in $\PP^{7}$ it has $3950$
-against $h^{2,2}=29872$ (\Cref{fig:vgcounts}). The Lean certificate of \cite{BMB26} repeats the
-counts. \Cref{fig:vgscope} shows, for each degree $d$ and dimension $r$,
+against $h^{2,2}=29872$ (\Cref{fig:vgcounts}). \Cref{fig:vgscope} shows, for each degree $d$ and dimension $r$,
 what is known for the very general member.
 
 \begin{figure}[tbp]
@@ -2557,7 +2611,7 @@ rational Hodge isometries \cite{Bus19,Mar24} act on $T$ by $\pm1$, and a
 composite of Hodge similarities that returns to $T$ is an element $g\in E$
 with $g^{2}\in\QQ$, the adjoint involution of $E$ being trivial; such
 elements span only the compositum of the quadratic subfields of $E$, which is
-$\QQ$ for the cubic field of $S_{\lambda}$ (\cite{BMB26} computes it in examples). Apart from proving the
+$\QQ$ for the cubic field of $S_{\lambda}$. Apart from proving the
 conjecture itself where zero-cycles are small, none of these results touches
 the step that
 \Cref{rem:f3primeopen} identifies: putting a Hodge class into
@@ -2674,8 +2728,7 @@ the third is
 hypothesis of the rule set, and the one remaining rule records what the literature supplies on Weil classes. The
 bounded criterion (P1) is absent: by
 \Cref{thm:p1equivalent} it is equivalent to its own conclusion, so it is a
-restatement and not a premise. A computation in \cite{BMB26} carries the whole set as data and checks that every
-label here is a label of this paper.}
+restatement and not a premise.}
 \label{tab:rules}
 \end{table}
 
@@ -2973,8 +3026,21 @@ $\Hdg^{k}(Y)\otimes\CC$ is the space of $\Hg(Y)_{\CC}$-invariants in
 $\bigwedge^{2k}H^{1}(Y,\CC)$, and $\Hg(X\times X)=\Hg(X)$ acting
 diagonally on $V\oplus V$. Over $\CC$ the group is
 $\mathrm{SL}_{2}^{3}$ and the weights of $V$ under its maximal torus are the
-eight sign vectors $(\pm1,\pm1,\pm1)$. A computation in \cite{BMB26}
-decomposes every $\bigwedge^{k}V$ by peeling highest weights and finds
+eight sign vectors $(\pm1,\pm1,\pm1)$. Write $V=V_{1}\otimes W$ with
+$W=V_{2}\otimes V_{3}$, on which $\mathrm{SL}_{2}^{2}=\mathrm{Spin}(4)$ acts
+orthogonally. The Cauchy formula
+$\bigwedge^{k}(V_{1}\otimes W)=\bigoplus_{|\lambda|=k}S_{\lambda}V_{1}\otimes
+S_{\lambda'}W$ \cite[\S6.1]{FH91}, with $S^{2}V_{1}=S_{(3,1)}V_{1}=V(2)$,
+$\bigwedge^{2}V_{1}=S_{(2,2)}V_{1}=\mathbf{1}$ and $S^{4}V_{1}=V(4)$, gives
+$\bigwedge^{2}V=V(2)\otimes\bigwedge^{2}W\oplus S^{2}W$ and
+$\bigwedge^{4}V=V(4)\otimes\bigwedge^{4}W\oplus V(2)\otimes S_{(2,1,1)}W
+\oplus S_{(2,2)}W$. Under $\mathrm{Spin}(4)$, $\bigwedge^{2}W=V(2,0)\oplus
+V(0,2)$, $S^{2}W=V(2,2)\oplus\mathbf{1}$, $\bigwedge^{4}W=\mathbf{1}$,
+$S_{(2,1,1)}W\cong\mathfrak{sl}(W)=\bigwedge^{2}W\oplus S^{2}_{0}W$, and
+$S_{(2,2)}W=V(4,0)\oplus V(0,4)\oplus V(2,2)\oplus\mathbf{1}$, the
+decomposition of the algebraic curvature tensors in dimension four into the
+self-dual and anti-self-dual Weyl parts, the traceless Ricci part and the
+scalar part. Hence
 \begin{gather*}
   \textstyle\bigwedge^{2}V=V(2,2,0)\oplus V(2,0,2)\oplus V(0,2,2)\oplus\mathbf{1},\\
   \textstyle\bigwedge^{4}V=V(2,2,2)\oplus\bigoplus_{\text{cyc}}V(4,0,0)
@@ -2988,12 +3054,17 @@ summand is self-dual; the counts are $1,1,4,1,1$, total $8$, the $4$ coming
 from the four distinct irreducible summands of $\bigwedge^{2}V$. Likewise the
 invariants in $\bigwedge^{2}(V\oplus V)$ number $1+1+1=3$. The divisor
 classes of $X\times X$ are the three symplectic forms $\psi_{11}$, $\psi_{12}$,
-$\psi_{22}$ on $V\oplus V$ built from the polarisation $\psi$ of $V$, and the
-same computation multiplies them in the exterior algebra of $V\oplus V$ and finds
-their six pairwise products linearly independent; it also counts the
-$\Sp_{8}$-invariants of $\bigwedge^{4}(V\oplus V)$ by the Weyl character
-formula and finds six, so the six products are all the classes a Hodge group
-equal to $\Sp_{8}$ would allow. For (iii), the Weil classes of an abelian
+$\psi_{22}$ on $V\oplus V$ built from the polarisation $\psi$ of $V$. Their
+six pairwise products are linearly independent: they lie in the summands
+$\bigwedge^{a}V\otimes\bigwedge^{4-a}V$ with $a=4,3,2,2,1,0$, each is
+nonzero, and in the summand $a=2$ the classes $\psi_{11}\psi_{22}$ and
+$\psi_{12}^{2}$ correspond, as maps $\bigwedge^{2}V\to\bigwedge^{2}V$, to a
+multiple of the projection onto $\CC\psi$ and to a multiple of the
+identity. The $\Sp_{8}$-invariants of $\bigwedge^{4}(V\oplus V)$ number
+$1+1+2+1+1=6$ by the same count, since $\bigwedge^{1}V=V$,
+$\bigwedge^{2}V=\bigwedge^{2}_{0}V\oplus\mathbf{1}$ and
+$\bigwedge^{3}V=\bigwedge^{3}_{0}V\oplus V$ under $\Sp_{8}$; so the six
+products are all the classes a Hodge group equal to $\Sp_{8}$ would allow. For (iii), the Weil classes of an abelian
 variety $Y$ with respect to a CM field $F\subseteq\End^{0}(Y)$ are, by
 definition, the classes in $\bigwedge^{2k}_{F}H^{1}(Y,\QQ)\subseteq
 H^{2k}(Y,\QQ)$ with $2k=\dim_{F}H^{1}(Y,\QQ)$ (\Cref{setup:cmfield}). A CM
@@ -3066,11 +3137,7 @@ $3$ occurs in $\operatorname{Lie}\mathrm{MT}(V)$. So $V$ is not of abelian type,
 neither is any Hodge structure containing it as a subquotient, in particular
 $H^{*}(Y,\QQ)$. A correspondence inducing an injection of $V$ into the
 cohomology of an abelian variety would exhibit $V$ as a sub-Hodge structure
-of a Tate twist of that cohomology, which is of abelian type. A computation in \cite{BMB26}
-records the Hodge numbers $(1,101,101,1)$ from the Jacobian ring of the
-Fermat quintic, checks the symplectic identity and the weight of the
-displayed endomorphism in a four-dimensional model with the same weights, and
-lists the adjoint weights that occur.
+of a Tate twist of that cohomology, which is of abelian type.
 \end{proof}
 
 \begin{figure}[tbp]
@@ -3334,7 +3401,7 @@ point; and if the same $N$ and $M$ served at infinitely many CM points the
 answer would be yes everywhere, by \Cref{cor:mumfordbounded}, because the
 components of an effective cycle of degree $56NM$ have degree at most $56NM$
 and the Hilbert polynomials of subvarieties of bounded degree form a finite
-set. A computation in \cite{BMB26} checks the two integrals in the split model.
+set.
 \end{example}
 
 \Cref{fig:massgap} draws the theorem and the example.
@@ -3349,7 +3416,7 @@ positive form; the minima over closed integral currents lie on or above it,
 with $\|kc\|_{\ZZ}/k\to L_{h}(c)$ by Federer's theorem, and for $M$ large the
 class is algebraic exactly when one of them lies on the line, where the minimiser is
 an effective algebraic cycle. The heights of the dots are schematic. Right:
-the numbers of the Mumford square, computed in the split model of \cite{BMB26}. Of the seven terms $\binom6k\theta^{k}\otimes\theta^{6-k}$ of
+the numbers of the Mumford square, in the split model. Of the seven terms $\binom6k\theta^{k}\otimes\theta^{6-k}$ of
 $\theta_{Y}^{6}$ only $k=3$ pairs with $\pi_{0}=\frac14\theta\otimes\theta$,
 giving $20\cdot144=2880$, and none pairs with the primitive summands; so
 $L_{\theta_{Y}}(\omega_{a})=4a_{0}$, the Wirtinger bound of an exceptional

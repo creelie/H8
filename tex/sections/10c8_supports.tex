@@ -159,13 +159,21 @@ at least two, and
 \[
   \ch(\cO_{S})=1-\ch(\cI_{S})=1-\ch(\cF)\,e^{-b\Theta}.
 \]
-Expanding the right side in $\QQ[\Theta]/(\Theta^{5})$ and collecting gives
+Put $z=b+\sqrt{-d}$, so that $z\bbar z=2N$. Since
+$u_{\Theta}=\Re e^{\sqrt{-d}\Theta}$ and
+$\sqrt d\,v_{\Theta}=\Im e^{\sqrt{-d}\Theta}$, we have
+$\ch(\cF)=\Im\bigl(z\,e^{\sqrt{-d}\Theta}\bigr)/\sqrt d$, hence
+$\ch(\cF)e^{-b\Theta}=\Im\bigl(z\,e^{-\bbar z\Theta}\bigr)/\sqrt d$, whose
+coefficient of $\Theta^{k}$ is
+$(-1)^{k}\Im(z\bbar z^{k})/(\sqrt d\,k!)=(-1)^{k+1}\,2N\Im(z^{k-1})/(\sqrt d\,k!)$.
+With $\Im z=\sqrt d$, $\Im z^{2}=2b\sqrt d$ and
+$\Im z^{3}=(3b^{2}-d)\sqrt d$ this gives
 \[
   \ch_{2}(\cO_{S})=\tfrac{b^{2}+d}{2}\Theta^{2}=N\Theta^{2},\quad
   \ch_{3}(\cO_{S})=-\tfrac{2bN}{3}\Theta^{3},\quad
-  \ch_{4}(\cO_{S})=\tfrac{3b^{4}+2db^{2}-d^{2}}{24}\Theta^{4},
+  \ch_{4}(\cO_{S})=\tfrac{3b^{4}+2db^{2}-d^{2}}{24}\Theta^{4}.
 \]
-which is a computation in \cite{BMB26}. The first
+The first
 identity says $S$ has codimension exactly two, so it is a surface, with class
 $N\Theta^{2}$. Because $T_{X}$ is trivial, $\td(T_{X})=1$, and
 Grothendieck--Riemann--Roch for $\iota$ reads
@@ -240,7 +248,8 @@ support.
 
 \begin{proof}
 This is immediate from \eqref{eq:threebounds} at $b=3$ and the arithmetic of
-\eqref{eq:smoothinvariants}; the table is a computation in \cite{BMB26}. The value $d=9$ is the equality case of the
+\eqref{eq:smoothinvariants}, and the table evaluates
+\eqref{eq:smoothinvariants} at $b=3$. The value $d=9$ is the equality case of the
 Bogomolov--Miyaoka--Yau inequality, where $K_{S}^{2}=3e(S)=2916$ and $S$ would
 have to be a quotient of the ball; it is excluded because $9$ is not
 squarefree.
@@ -908,11 +917,7 @@ congruences are the integrality of the last three. For $b=3$ the second
 reads $3d+6-3d=6$, so $m_{3}=1$, and the third reads
 $d^{2}+7d-18=(d+9)(d-2)$. Modulo $8$ the condition is $8\mid(d+1)(d-2)$
 with $d$ odd, hence $d\equiv7\pmod8$; modulo $3$ it is $3\mid d(d-2)$, hence
-$d\equiv0,2\pmod3$; together $d\equiv15,23\pmod{24}$. A computation in \cite{BMB26} checks the closed formula against the solved system,
-the congruence for every $d<400$, and the witness of
-\Cref{thm:secantexists} at $d=3$, $(a,b)=(1,1)$, whose moments
-$(1,1,-2,\tfrac43,-\tfrac12)$ have least common denominator $6$, the
-multiple recorded there.
+$d\equiv0,2\pmod3$; together $d\equiv15,23\pmod{24}$.
 \end{proof}
 
 \begin{corollary}[Split resolutions, for every rank and every twist]
@@ -1023,9 +1028,7 @@ Integrating, with $\int_{X}\Theta^{4}=24$, and dividing by $2N$ gives
 $6m=3d-b^{2}-4ab$. By Riemann--Roch with trivial Todd class,
 $\chi(E)=\int_{X}\ch_{4}(E)=a^{4}-2a^{2}m+\frac12m^{2}$ is an integer, so $m$
 is even, which is the congruence. At $b=3$ it reads $3(d-3)\equiv12a\equiv0$
-modulo $12$, that is, $d\equiv3\pmod4$. A computation in \cite{BMB26} checks these formulas and confirms, by an
-independent search over the Chern data at $b=3$ and $d\le40$, that rank two
-data exist exactly for $d\equiv3\pmod4$.
+modulo $12$, that is, $d\equiv3\pmod4$.
 \end{proof}
 
 \begin{remark}[What the ranks exclude]\label{rem:lowrankburch}

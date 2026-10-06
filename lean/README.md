@@ -78,10 +78,10 @@ axiom.
 | `level_matrix_nonsingular` | with at most `n` distinct norms the matrix `(N_j^r)` is nonsingular, so every level sum vanishes |
 | `gauss_norm_counts` | the number of Gaussian integers of norm `1, 2, 3, 4, 5, 9, 45` |
 | `norm_supply_blocks_small_case` | at the nodes `1,2,3,4` the forced `|M_3| = 4` while `Z[i]` has no element of norm `3` |
-| `pencil_index_d1` | at `d = 1` two minors of the pencil differ by the constant `2` for all `|k| <= 200`, so the index of `Z[i] x_k` divides `N_1 = 2` |
-| `pencil_index_d3` | at `d = 3` the constant minor `-4` and a second minor have gcd dividing `4`, so `N_3 = 4` |
-| `pencil_beta_positive` | `4 beta_1(k) = 2 + 2k + k^2` and `9 beta_3(k) = 1 + 2k^2` are positive on the range, discriminants `-4` and `-8` |
-| `pencil_square_members` | `beta_1(-1) = 1/4` and `beta_3(-2) = 1`, the two members with a rational point of the locus |
+| `pencil_volume` | `int eta^4 = 4! (2d)^4 = 384 d^4` on `O^2`, as a polynomial identity in `d` |
+| `pencil_square` | `C_k^2 = (1 + k^2) I` for the matrix of the pencil, so `phi_k^2 = (1 + k^2)/(4 d^2)` |
+| `pencil_minimum` | `(8/24) beta(k) int eta^4 = 32 d^2 (1 + k^2)`, the minimum `mu_k` |
+| `pencil_degree_bound` | `mu_k int eta^4 / 2 = 6144 d^6 (1 + k^2)` and `6144 = 32^2 6`, the degree bound |
 | `split_obstruction_rank` | `n^2 - n(n+1)/2 = n(n-1)/2` and `n(n-1) = 2 (n(n-1)/2)` for `n <= 30`: the rank of the obstruction map of a split object and the even side of the semiregularity kernel |
 | `split_obstruction_count` | the bookkeeping of the explicit object at `n = 3`: kernel `15 = 9 + 6`, tangent copy `9`, obstruction image `3`, direct sum `12`, complement `3` |
 | `evaluation_not_surjective` | `s C(2n,2) > 2 C(2n,2) + 4n^2` for `5 <= s <= 40` and `2 <= n <= 30`, so the evaluation map of a sum of five or more line bundles is not surjective; at `n = 3`, `s = 6` the dimensions are `66` and `90` |
@@ -243,8 +243,8 @@ axiom.
 | `transport_scaling`, `transport_multiplicity` | $\det\phi=c^{2G}$ and $\phi^{T}E\phi=c^{2}E$ on the samples; the multiplicity is $c^{4}$ on the stable sublattice and smaller on the unstable one, and the lower bound increases strictly, Lemma 16.13, Lemma 16.14 |
 | `quaternionic_ratios`, `quaternionic_scaling`, `quaternionic_presentation` | the scale-free ratios of the quaternionic Weil cycle, the growth of its data in $b$ alone, and the change of presentation by $\alpha$, Proposition 16.19 |
 | `quaternionic_weil_lattice_0`, `quaternionic_weil_lattice_1`, `quaternionic_weil_lattice_2`, `quaternionic_weil_lattice_3` | for $d=1,2,3,7$ the integral Weil lattice has Gram matrix $\operatorname{diag}(8d,8d^{2})$ and the divisor products meet it in a sublattice of index $2(a_{1}a_{2})^{2}$, Proposition 16.19 |
-| `divisor_route_rank`, `divisor_route_trace`, `divisor_route_pencil`, `divisor_route_index` | the lattice of $K$-bilinear classes has rank $12$ and signature $(8,4)$; the pencil $\phi_{x+ky}^{2}=\beta(k)$; and the index of $\mathbb{Z}[i]x_{k}$ divides $N_{d}$, Proposition 16.24 |
-| `divisor_route_minimum_one`, `divisor_route_minimum_three` | the minimum of $I$ on $N_{k}$ off $\mathbb{Q}\eta$ and its two lower bounds, for $d=1,3$ and $k\le10$, Proposition 16.24 |
+| `divisor_route_rank`, `divisor_route_trace`, `divisor_route_pencil`, `divisor_route_index` | the lattice of $K$-bilinear classes has rank $12$ and signature $(8,4)$; the pencil $\phi_{k}^{2}=(1+k^{2})/(4d^{2})$ with $x_{k}$ primitive; and $\mathbb{Z}x_{k}+\mathbb{Z}x_{k}(i\cdot,\cdot)$ saturated for every $k$, Proposition 16.24 |
+| `divisor_route_minimum_one`, `divisor_route_minimum_three` | $N_{k}=\mathbb{Z}\tfrac{1}{2d}\eta\oplus\mathbb{Z}x_{k}\oplus\mathbb{Z}x_{k}(i\cdot,\cdot)$ and the minimum $\mu_{k}=32d^{2}(1+k^{2})$ of $I$ on it off $\mathbb{Q}\eta$, for $d=1,3$ and $k\le10$, Proposition 16.24 |
 | `divisor_route_unitary_one`, `divisor_route_unitary_three`, `divisor_route_centraliser_one_0`, `divisor_route_centraliser_one_1`, `divisor_route_centraliser_one_2`, `divisor_route_centraliser_one_3`, `divisor_route_centraliser_one_4`, `divisor_route_centraliser_three_0`, `divisor_route_centraliser_three_1`, `divisor_route_centraliser_three_2`, `divisor_route_centraliser_three_3`, `divisor_route_centraliser_three_4` | the centraliser of $i$ in $\mathfrak{sp}(V,E)$ has dimension $16$, and that of $i$ and $\phi_{x_{k}}$ dimension $10$ with three invariants in $\wedge^{2}V^{*}$, for $d=1,3$ and $k\le4$, Proposition 16.24 |
 | `divisor_route_siegel_one`, `divisor_route_siegel_three` | a rational complex structure on the Siegel locus and its brackets span the centraliser, $d=1,3$, Proposition 16.24 |
 | `exceptional_mumford_square`, `exceptional_quintic`, `exceptional_annihilator` | two of the eight invariants of $\wedge^{4}(V\oplus V)$ on a Mumford square are exceptional; the adjoint weights of the quintic threefold; and the annihilator of the Weil class in $HT^{2}$ for $n=2,3$, Proposition 20.72, Proposition 20.73, Theorem 16.30 |

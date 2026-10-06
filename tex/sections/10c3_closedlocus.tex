@@ -106,9 +106,7 @@ algebraic then so is $\iota(\tau)^{*}w=\tau^{2n}w$, and the two together span.
 \end{proof}
 
 \Cref{lem:onecomponent} writes out the last step of the proof of
-\Cref{cor:whatisleft}, where the witness $\tau$ has to be chosen. The
-determinant identity and the existence of the witness for small $n$ are among
-the statements certified by the Lean certificate of \cite{BMB26}.
+\Cref{cor:whatisleft}, where the witness $\tau$ has to be chosen.
 
 \begin{theorem}[The algebraic locus is a countable union of closed
 subvarieties]\label{thm:closedlocus}
@@ -413,8 +411,8 @@ cohomology is constant.
 
 \subsection{Transport along isogenies}
 
-The mechanism of \Cref{rem:whereunbounded} can be computed, and the
-computation settles one of the two readings of \textup{(P1)}: the reading in
+The mechanism of \Cref{rem:whereunbounded} can be made explicit, and doing
+so settles one of the two readings of \textup{(P1)}: the reading in
 which the cycle at $s_{0}$ is transported along the orbit rather than chosen
 afresh at each point. Write $\Lambda$ for the reference lattice, of rank $4n$
 over $\ZZ$, and $E$ for the alternating form of the polarisation, so that a
@@ -495,15 +493,10 @@ For the degree, the projection formula gives
 \]
 \end{proof}
 
-A computation in \cite{BMB26} verifies \Cref{lem:transport}(i)
-and (ii) on an explicit sample of elements $u$ of the unipotent radical of a
-proper parabolic $\QQ$-subgroup of $G$, with $c(u)$ up to $29$, for
-$2n=4,6,8$. It also verifies both identities of \Cref{lem:multiplicity} for
-subtori of an abelian fourfold, with $m$ computed as a lattice index by Smith
-normal form and the degrees as Pfaffians. There the two cases are visible
-side by side: a subtorus preserved by $\varphi$ has $m=c^{2n}$ and image
-degree constant, and one not preserved has $m=c^{2n-1}$ and image degree
-growing linearly in $c$.
+For example, for multiplication by $c$ on an abelian variety of dimension $2n$,
+an abelian subvariety $Z$ of dimension $n$ has $G(Z)=Z$, so $m=|Z[c]|=c^{2n}$
+and $\deg\varphi(Z)=\deg Z$, while a $Z$ whose stabiliser meets $A[c]$
+trivially has $m=1$ and $\deg\varphi(Z)=c^{2n}\deg Z$.
 
 \begin{theorem}[The transported cycle]\label{thm:p1forces}
 Let $s_{0}\in\Sigma$ and let $Z=\sum_{i}q_{i}Z_{i}$, with $q_{i}\ne0$ and the
@@ -637,11 +630,52 @@ $\Sigma=\cD_{n,n}$ carries no information about the deformation theory of any
 particular perfect complex. In its pure form, with Chern character a Weil
 class, it is never satisfied (\Cref{thm:p2false}); the polarised criterion
 \textup{(P2$'$)} of \Cref{rem:p2prime}, in which the Chern character may also
-carry powers of the polarisation, is the form computed in
+carry powers of the polarisation, is the form studied in
 \Cref{sec:polarised}.
 \end{remark}
 
 \subsection{Products of divisors}
+
+The intersection numbers needed below are Pfaffians. Let $E$ be a
+nondegenerate alternating form on a real vector space $V$ of dimension $2g$,
+let $\eta$ be its class, with the orientation for which
+$e=\int\eta^{g}>0$, and for an $E$-self-adjoint endomorphism $\phi$ write
+$x_{\phi}(u,v)=E(\phi u,v)$, an alternating form.
+
+\begin{lemma}[Pfaffians of self-adjoint classes]\label{lem:pfaffian}
+For real $s$, $\int(s\eta+x_{\phi})^{g}=e\,p_{\phi}(s)$, where $p_{\phi}$ is
+the monic polynomial of degree $g$ with $p_{\phi}^{2}=\det(s+\phi)$. In
+particular:
+\begin{enumerate}[label=\textup{(\roman*)},nosep]
+\item $2g\int x_{\phi}\eta^{g-1}=e\,\mathrm{tr}\,\phi$, and if
+  $\mathrm{tr}\,\phi=0$ then
+  $2g(g-1)\int x_{\phi}^{2}\eta^{g-2}=-e\,\mathrm{tr}(\phi^{2})$;
+\item if $\mathrm{tr}\,\phi=0$ and $\phi^{2}=\beta$ is a nonzero real
+  scalar, then $g$ is even and $\int x_{\phi}^{g}=e\,(-\beta)^{g/2}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+In a basis with Gram matrix $G$ for $E$, the class $s\eta+x_{\phi}$ has Gram
+matrix $(s+\phi)^{T}G$, of determinant $\det G\det(s+\phi)$. Its Pfaffian
+divided by $\mathrm{Pf}(G)$ is therefore a polynomial in $s$, monic of degree
+$g$, whose square is $\det(s+\phi)$; and $\int\omega^{g}/e$ is
+$\mathrm{Pf}(\omega)/\mathrm{Pf}(G)$ for every alternating form $\omega$.
+This is the identity. Write $p_{\phi}(s)=s^{g}+p_{1}s^{g-1}+p_{2}s^{g-2}+\cdots$
+and compare with
+$\det(s+\phi)=s^{2g}+\mathrm{tr}(\phi)\,s^{2g-1}
++\tfrac12\bigl((\mathrm{tr}\,\phi)^{2}-\mathrm{tr}(\phi^{2})\bigr)s^{2g-2}+\cdots$:
+then $2p_{1}=\mathrm{tr}\,\phi$ and
+$2p_{2}+p_{1}^{2}=\tfrac12\bigl((\mathrm{tr}\,\phi)^{2}-\mathrm{tr}(\phi^{2})\bigr)$,
+while the binomial expansion of $\int(s\eta+x_{\phi})^{g}$ gives
+$g\int x_{\phi}\eta^{g-1}=e\,p_{1}$ and
+$\binom{g}{2}\int x_{\phi}^{2}\eta^{g-2}=e\,p_{2}$; this is (i). Under the
+hypothesis of (ii) the eigenvalues of $\phi$ are $\pm\sqrt{\beta}$, each with
+multiplicity $g$ because the trace vanishes, so
+$\det(s+\phi)=(s^{2}-\beta)^{g}$; this is the square of a polynomial only
+for $g$ even, and then $p_{\phi}(s)=(s^{2}-\beta)^{g/2}$ and
+$\int x_{\phi}^{g}=e\,p_{\phi}(0)$.
+\end{proof}
 
 At the quaternionic points of \Cref{setup:quat} the mechanism of
 \Cref{rem:whereunbounded} can be seen explicitly. Take $n=2$ and the integral
@@ -705,28 +739,27 @@ choice changes both sides by algebraically trivial cycles.
 
 For (iii), $E_{u}$ and $E_{v}$ live on complementary halves $U,V'$ of
 $\Lambda\otimes\QQ$ of rank four, so $\eta_{u}^{3}=\eta_{v}^{3}=0$ and
-$\int\eta_{b}^{4}=6b^{2}\int\eta_{u}^{2}\eta_{v}^{2}$. The form $g_{1}$ pairs
-$U$ with $V'$, so $g_{1}^{2}\in\wedge^{2}U^{*}\otimes\wedge^{2}V'^{*}$, and
-only the mixed term survives in
-$\int g_{b}^{2}\eta_{b}^{2}=2b^{3}\int g_{1}^{2}\eta_{u}\eta_{v}$; likewise
-$\int Z_{b}^{2}=b^{4}\int Z_{1}^{2}$. Hence the ratios
-$\int g_{b}^{2}\eta_{b}^{2}/\int\eta_{b}^{4}$ and
-$\int Z_{b}^{2}/\int\eta_{b}^{4}$ are $b$ and $b^{2}$ times their values at
-$b=1$, which are $-1/3$ and $4/3$ by direct evaluation.
+$\int\eta_{b}^{4}=6b^{2}\int\eta_{u}^{2}\eta_{v}^{2}$. The form $g_{b}$ is
+$x_{\phi}$ for $\phi=j$, which is $E_{b}$-self-adjoint by
+\Cref{thm:quatweil}(i), anticommutes with $i$, so has trace $0$, and has
+$j^{2}=b$; hence \Cref{lem:pfaffian}(i), with $g=4$, gives
+$\int g_{b}^{2}\eta_{b}^{2}=-\tfrac{1}{24}\,\mathrm{tr}(j^{2})\int\eta_{b}^{4}
+=-\tfrac{8b}{24}\int\eta_{b}^{4}$. For real $a,c$ the class
+$ag_{b}+c\lambda_{b}$ is $x_{\phi}$ for $\phi=j(a-\tfrac{c}{d}\,i)$, again
+self-adjoint of trace $0$, and
+$\phi^{2}=(a+\tfrac{c}{d}i)\,j^{2}\,(a-\tfrac{c}{d}i)=b\,(a^{2}+c^{2}/d)$.
+So \Cref{lem:pfaffian}(ii) gives
+$\int(ag_{b}+c\lambda_{b})^{4}=b^{2}(a^{2}+c^{2}/d)^{2}\int\eta_{b}^{4}$, and
+comparing coefficients, $\int g_{b}^{4}=b^{2}\int\eta_{b}^{4}$,
+$\int g_{b}^{2}\lambda_{b}^{2}=\tfrac{b^{2}}{3d}\int\eta_{b}^{4}$ and
+$\int\lambda_{b}^{4}=\tfrac{b^{2}}{d^{2}}\int\eta_{b}^{4}$. Hence
+$\int Z_{b}^{2}=\int g_{b}^{4}-2d\int g_{b}^{2}\lambda_{b}^{2}
++d^{2}\int\lambda_{b}^{4}=\tfrac{4b^{2}}{3}\int\eta_{b}^{4}$.
 
 For (iv), $(\alpha j)^{2}=N(\alpha)b$, and
 $g_{\alpha j}+\sqrt{-d}\,\lambda_{\alpha j}$ is $\alpha$ or $\bbar{\alpha}$
 times $g_{j}+\sqrt{-d}\,\lambda_{j}$.
 \end{proof}
-
-A computation in \cite{BMB26} confirms (i) to (iv) in exact
-arithmetic for $d\in\{1,3\}$, two weight vectors and fifteen values of $b$ up
-to $101$. It also computes the integral Weil lattice
-$\HW_{\ZZ}=(\QQ Z_{b}+\QQ Z'_{b})\cap\wedge^{4}\Lambda^{*}$ and the
-sublattice spanned inside it by products of two integral divisor classes: for
-$d\in\{1,2,3,7\}$, three weight vectors and seven values of $b$, the Gram
-matrix of $\HW_{\ZZ}$ is $\mathrm{diag}(8d,8d^{2})$ and the index is
-$2(a_{1}a_{2})^{2}$, both independent of $b$.
 
 \begin{remark}[Growth of the polarisation]\label{rem:quatdivisible}
 At these points no multiple growing with $b$ enters when the Weil class is
@@ -839,58 +872,108 @@ on products of divisors.
 
 At $n=2$ the phenomenon can be exhibited on one fixed polarised lattice. Take
 $\Lambda=\cO^{2}$ with $\cO=\ZZ\langle1,i,j,ij\rangle$, $i^{2}=-d$, $j^{2}=1$,
-and $E$ as in \eqref{eq:quatE}. The lattice and the polarisation are fixed,
-and all the loci below lie in the one family $\cD_{2,2}$ that they define. Let
+and $E$ as in \eqref{eq:quatE} with $a_{1}=a_{2}=1$. The lattice and the
+polarisation are fixed, and all the loci below lie in the one family
+$\cD_{2,2}$ that they define. Let
 $R=\{x:\ x(iu,v)=x(u,iv)\}\subset H^{2}(\Lambda,\QQ)$ be the space of
 $K$-bilinear classes, where the divisor classes of the quaternionic points
 live, and for $x\in R$ let $\phi_{x}=E^{-1}x$, so that $x(u,v)=E(\phi_{x}u,v)$.
+Put $e=\int\eta^{4}$ and, for $k\in\ZZ$,
+\[
+  C_{k}=\begin{pmatrix}1&k\\k&-1\end{pmatrix},\qquad
+  \phi_{k}(u_{1},u_{2})=\tfrac{1}{2d}\bigl(j(u_{1}+ku_{2}),\,j(ku_{1}-u_{2})\bigr),
+  \qquad x_{k}(u,v)=E(\phi_{k}u,v),
+\]
+so that $\phi_{k}$ is left multiplication by the matrix $(2d)^{-1}C_{k}\,j$
+and $x_{k}=x_{0}+k(x_{1}-x_{0})$ is a pencil.
 
 \begin{proposition}[A pencil of quaternionic loci]\label{prop:pencil}
-In this setting, for $d\in\{1,3\}$:
+In this setting, for every $d$ and every $k\in\ZZ$:
 \begin{enumerate}[label=\textup{(\roman*)},nosep]
-\item $R\cap H^{2}(\Lambda,\ZZ)$ has rank $12$, every $x\in R$ has $t(x)=0$,
-  and $I(x)=\tfrac{1}{24}\,\mathrm{tr}(\phi_{x}^{2})\int\eta^{4}$; the form $I$
-  has signature $(8,4)$ on $R$;
-\item there are $x,y\in R\cap H^{2}(\Lambda,\ZZ)$ such that
-  $\phi_{x+ky}^{2}=\beta(k)$ is a positive rational scalar for every
-  $k\in\ZZ$, with $\beta(k)=\tfrac12+\tfrac12k+\tfrac14k^{2}$ for $d=1$ and
-  $\beta(k)=\tfrac19+\tfrac29k^{2}$ for $d=3$;
-\item for every $k$ the set $\mathrm{Hdg}(x+ky)$ is a quaternionic locus
-  with algebra $(-d,\beta(k))$, nonempty of dimension $3$, and loci with
+\item $e=384\,d^{4}$; $R$ has dimension $12$, every $x\in R$ has $t(x)=0$
+  and $I(x)=\tfrac{1}{24}\,\mathrm{tr}(\phi_{x}^{2})\,e$, and the form $I$ has
+  signature $(8,4)$ on $R$;
+\item $x_{k}$ is a primitive integral class in $R$, and
+  $\phi_{x_{k}}^{2}=\beta(k)$ with $\beta(k)=(1+k^{2})/(4d^{2})$;
+\item the set $\mathrm{Hdg}(x_{k})$ is a quaternionic locus with algebra
+  $(-d,\beta(k))\cong(-d,1+k^{2})$, nonempty of dimension $3$, and loci with
   different values of $\beta$ are not related by any automorphism of
   $(\Lambda,E,i)$;
-\item at a very general point of $\mathrm{Hdg}(x+ky)$ one has
-  $\NS\otimes\QQ=\QQ\eta\oplus\QQ x_{k}\oplus\QQ\,x_{k}(i\cdot,\cdot)$ with
-  $x_{k}=x+ky$, and for every $k\in\ZZ$ the minimum $\mu_{k}$ of $I$ on
-  $\NS\setminus\QQ\eta$ satisfies
-  $\mu_{k}\ge\beta(k)\big/\bigl(3N_{d}^{2}\int\eta^{4}\bigr)$, with $N_{1}=2$
-  and $N_{3}=4$.
+\item at a very general point of $\mathrm{Hdg}(x_{k})$ one has
+  $\NS=\ZZ\,\tfrac{1}{2d}\eta\oplus\ZZ x_{k}\oplus\ZZ\,\iota x_{k}$, where
+  $\iota x=x(i\cdot,\cdot)$, and the minimum of $I$ on $\NS\setminus\QQ\eta$
+  is $\mu_{k}=32\,d^{2}(1+k^{2})$.
 \end{enumerate}
-Consequently, at a very general point of $\mathrm{Hdg}(x+ky)$ every effective
-divisor whose class is not a multiple of $\eta$ has degree at least
-$\sqrt{\beta(k)/6}\,/N_{d}$, which grows linearly in $|k|$.
+Consequently, at a very general point of $\mathrm{Hdg}(x_{k})$ every effective
+divisor $D$ whose class is not a multiple of $\eta$ has
+$\int[D]\eta^{3}\ge32\sqrt{6}\,d^{3}\sqrt{1+k^{2}}$, which grows linearly in
+$|k|$.
 \end{proposition}
 
 \begin{proof}
-(i) and (ii) are finite exact computations, carried out in \cite{BMB26}: the trace identity is checked on all pairs of a basis
-of $R\cap H^{2}(\Lambda,\ZZ)$, which proves it on $R$ by bilinearity, and in
-(ii) the three matrices $\phi_{x}^{2}$, $\phi_{y}^{2}$ and
-$\phi_{x}\phi_{y}+\phi_{y}\phi_{x}$ are scalar, so
-$\phi_{x+ky}^{2}=\phi_{x}^{2}+k(\phi_{x}\phi_{y}+\phi_{y}\phi_{x})+k^{2}\phi_{y}^{2}$
-is scalar for every $k$; $\beta$ has positive leading coefficient and negative
-discriminant, so $\beta(k)>0$ for every $k$.
+Two facts about $\cO$ are used throughout. The reduced trace form
+$\mathrm{trd}(wz)$ is diagonal on $1,i,j,ij$ with entries $2,-2d,2,2d$, so
+the dual lattice $\cO^{\sharp}=\{w\in B:\mathrm{trd}(w\cO)\subseteq\ZZ\}$ is
+$\ZZ\tfrac12\oplus\ZZ\tfrac{i}{2d}\oplus\ZZ\tfrac{j}{2}\oplus\ZZ\tfrac{ij}{2d}$.
+And a form $y(u,v)=\sum_{k,l}\mathrm{trd}(\bbar{u_{l}}\,w_{lk}\,v_{k})$ on
+$\cO^{2}$ with $w_{lk}\in B$ is integral if and only if every $w_{lk}$ lies
+in $\cO^{\sharp}$, because $\mathrm{trd}(\bbar{u}wv)=\mathrm{trd}(wv\bbar{u})$
+and the products $v\bbar{u}$ with $u,v\in\cO$ span $\cO$.
 
-For (iii) write $\phi=\phi_{x+ky}$ and $\beta=\beta(k)$. The map $\phi$ is $E$-self-adjoint, anticommutes with $i$, and $\phi^{2}=\beta>0$, so
+(i) The Gram matrix of $\mathrm{trd}(\bbar{u}iv)$ on $1,i,j,ij$ pairs $1$
+with $i$ and $j$ with $ij$, with entries $\mp2d$ and $\pm2d$ and zeros
+elsewhere, so $E$ has elementary divisors $2d$ four times on $\Lambda$ and
+$e=4!\cdot(2d)^{4}=384\,d^{4}$. The involution $\sigma(x)=d^{-1}x(i\cdot,i\cdot)$
+of $\bigwedge^{2}V^{*}$ has $R$ as its $(-1)$-eigenspace, since
+$x(iu,v)=x(u,iv)$ is equivalent to $x(iu,iv)=-d\,x(u,v)$. Over $\CC$,
+$V_{\CC}=W\oplus\bbar{W}$ with $W,\bbar{W}$ the eigenspaces of $i$ for
+$\pm\sqrt{-d}$, each of dimension $4$, and $\sigma$ is $-1$ on
+$\bigwedge^{2}W^{*}\oplus\bigwedge^{2}\bbar{W}^{*}$ and $+1$ on
+$W^{*}\otimes\bbar{W}^{*}$; so $\dim R=6+6=12$. For $x\in R$ the map
+$\phi_{x}$ is $E$-self-adjoint, as $x$ and $E$ are alternating, and
+anticommutes with $i$, as $i$ is $E$-skew-adjoint by
+\Cref{thm:quatweil}(i): $E(\phi_{x}iu,v)=x(u,iv)=E(\phi_{x}u,iv)=-E(i\phi_{x}u,v)$.
+Hence $\mathrm{tr}\,\phi_{x}=-\mathrm{tr}(i\phi_{x}i^{-1})=-\mathrm{tr}\,\phi_{x}=0$,
+and \Cref{lem:pfaffian}(i), with $g=4$, gives $t(x)=0$ and
+$I(x)=-\int x^{2}\eta^{2}=\tfrac{1}{24}\mathrm{tr}(\phi_{x}^{2})e$.
+
+For the signature regard $V_{\RR}$ as a complex vector space through
+$i/\sqrt{d}$, with the hermitian form $H$ of \Cref{lem:hermform}, which has
+signature $(2,2)$ by \Cref{thm:quatweil}(ii), and an $H$-orthogonal basis in
+which $H=\mathrm{diag}(h_{1},\dots,h_{4})$. The maps $\phi_{x}$, $x\in R\otimes\RR$,
+are the $E$-self-adjoint antilinear maps. Writing $\phi(v)=A\bbar{v}$,
+self-adjointness for $E=d^{-1/2}\,\mathrm{Im}\,H$ says exactly that
+$S=h\bbar{A}$ is antisymmetric, and then
+$\mathrm{tr}_{\RR}(\phi^{2})=2\,\mathrm{Re}\,\mathrm{tr}(A\bbar{A})
+=-4\sum_{k<l}|S_{kl}|^{2}/(h_{k}h_{l})$. Four of the six pairs $k<l$ have
+$h_{k}h_{l}<0$ and two have $h_{k}h_{l}>0$, and each $S_{kl}$ is a complex
+coordinate, so $I$ has signature $(8,4)$.
+
+(ii) $\phi_{k}$ anticommutes with $i$ because $ji=-ij$ and the entries of
+$C_{k}$ are rational. It is $E$-self-adjoint because $C_{k}$ is symmetric and
+left multiplication by $j$ is self-adjoint for $\mathrm{trd}(\bbar{u}iv)$ on
+each factor, by \Cref{thm:quatweil}(i); so $x_{k}\in R$. Since the entries of
+$C_{k}$ commute with $j$, $\phi_{k}^{2}=(2d)^{-2}C_{k}^{2}j^{2}=(1+k^{2})/(4d^{2})$.
+In the form of the first paragraph $x_{k}$ has
+$w_{lk}=-(2d)^{-1}c_{kl}\,j\,i=(2d)^{-1}c_{kl}\,ij$, with $c_{kl}$ the entries of
+$C_{k}$, which lie in $\cO^{\sharp}$; so $x_{k}$ is integral, and
+$x_{k}\bigl((1,0),(ij,0)\bigr)=(2d)^{-1}\mathrm{trd}(ij\cdot ij)=1$, so it is
+primitive.
+
+(iii) Write $\phi=\phi_{k}$ and $\beta=\beta(k)$. The map $\phi$ is
+$E$-self-adjoint, anticommutes with $i$, and $\phi^{2}=\beta>0$, so
 $V_{\RR}=V_{+}\oplus V_{-}$ with $V_{\pm}$ the $\pm\sqrt{\beta}$ eigenspaces,
 $E$-orthogonal to each other, and $i$ exchanges them. A complex structure $J$
 on $V_{+}$ compatible with $E|_{V_{+}}$, extended to $V_{-}=iV_{+}$ by
 $J(iw)=iJw$, commutes with $i$ and $\phi$ and is compatible with $E$, and $i$
 has eigenvalues $\pm\sqrt{-d}$ each with multiplicity $2$ on $V^{1,0}$; so
-these $J$ are points of $\cD_{2,2}$ at which $x+ky$ is of type $(1,1)$, and
+these $J$ are points of $\cD_{2,2}$ at which $x_{k}$ is of type $(1,1)$, and
 they form a copy of the Siegel space of $V_{+}$, of dimension $3$, in
-agreement with \Cref{prop:lagrangian}. An automorphism $\gamma$
-of $(\Lambda,E,i)$ sends $\phi_{x}$ to $\gamma\phi_{x}\gamma^{-1}$ and so
-preserves $\mathrm{tr}(\phi_{x}^{2})$.
+agreement with \Cref{prop:lagrangian}. The algebra generated by $i$ and $\phi$
+is $(-d,\beta)$, and $(-d,\beta)\cong(-d,1+k^{2})$ because the two differ by
+the square $(2d)^{2}$. An automorphism $\gamma$ of $(\Lambda,E,i)$ sends
+$\phi_{x}$ to $\gamma\phi_{x}\gamma^{-1}$ and so preserves
+$\mathrm{tr}(\phi_{x}^{2})=8\beta$.
 
 For the first half of (iv), let $S_{k}\subset\cD_{2,2}$ be the Siegel space
 just described and $\mathcal{C}_{k}\subset\Sp(V_{\RR},E)$ the centraliser of
@@ -921,43 +1004,42 @@ $\mathcal{C}_{k}$. So the classes of type $(1,1)$ at every point of $S_{k}$
 are the invariants of $\Sp(V_{+})$ in $\bigwedge^{2}(V_{+}\otimes\RR^{2})
 =\bigl(\bigwedge^{2}V_{+}\otimes S^{2}\RR^{2}\bigr)
 \oplus\bigl(S^{2}V_{+}\otimes\bigwedge^{2}\RR^{2}\bigr)$, a space of dimension
-$3$ spanned by $\eta$, $x_{k}$ and $x_{k}(i\cdot,\cdot)$. Every other rational
+$3$ spanned by $\eta$, $x_{k}$ and $\iota x_{k}$. Every other rational
 class $z$ is of type $(1,1)$ only on a proper closed analytic subset of the
 connected manifold $S_{k}$, and a very general point avoids these countably
-many subsets. A computation in \cite{BMB26} confirms both steps over $\QQ$: for $0\le k\le4$
-the centraliser of $i$ and $\phi$ in $\mathfrak{sp}(V,E)$ has dimension $10$
-and exactly three invariants in $\bigwedge^{2}V^{*}$; and at one value of $k$
-at which $\beta(k)$ is a rational square, $k=-1$ for $d=1$ and $k=-2$ for
-$d=3$, a rational point $J_{0}$ of $S_{k}$ is written down,
-$\mathfrak{p}=[\mathfrak{c},J_{0}]$ has dimension $6$, and
-$\mathfrak{p}+[\mathfrak{p},\mathfrak{p}]$ has dimension $10$.
+many subsets.
 
-For the bound in (iv), write $e=\int\eta^{4}$, $\iota x=x(i\cdot,\cdot)$ and
-$M_{k}=(\QQ x_{k}+\QQ\iota x_{k})\cap H^{2}(\Lambda,\ZZ)$. Since
-$\phi_{\iota x}=\phi_{x}\,i$ and $i\phi_{x}=-\phi_{x}i$, the identity of (i)
-gives $I((a+b\iota)x_{k})=(a^{2}+db^{2})I(x_{k})$ and
-$I(x_{k})=\beta(k)e/3$. The index of $\ZZ x_{k}+\ZZ\iota x_{k}$ in $M_{k}$
-divides the gcd $G(k)$ of the $2\times2$ minors of the matrix with rows
-$x_{k}$, $\iota x_{k}$. These minors are integer polynomials of degree at most
-two in $k$, so $G(k)$ divides every element of the ideal they generate in
-$\ZZ[k]$ that is a constant; \cite{BMB26} finds such constants, resultants of
-pairs of minors, whose gcd is $N_{d}$. Hence $N_{d}M_{k}\subset\ZZ x_{k}+\ZZ\iota
-x_{k}$, and every nonzero $w\in M_{k}$ has $I(w)\ge I(x_{k})/N_{d}^{2}$. Now let
-$y\in\NS\setminus\QQ\eta$ and $z=y-t(y)\eta$. Then $0\ne ez\in M_{k}$, because
-$e\,y$ and $e\,t(y)=\int y\eta^{3}$ are integral, and
-$I(y)=t(y)^{2}e+I(z)\ge I(ez)/e^{2}\ge\beta(k)/(3N_{d}^{2}e)$. The final
-assertion follows from \Cref{lem:nefnorm}(ii).
+For the lattice, $\iota x_{k}$ is the form of $\phi_{k}i=-i\phi_{k}$, so every
+class in $\QQ\eta+\QQ x_{k}+\QQ\iota x_{k}$ is
+$y=s\eta+E(\phi_{k}\lambda\,\cdot,\cdot)$ with $s\in\QQ$ and $\lambda\in K$
+acting by left multiplication. In the form of the first paragraph, $y$ has
+$w_{lk}=\delta_{lk}\,s\,i+(2d)^{-1}c_{kl}\bbar{\lambda}\,ij$. The first
+summand lies in $K$ and the second in $Kj$, and $\cO^{\sharp}$ is the direct
+sum of its parts in $K$ and in $Kj$, so $y$ is integral if and only if
+$s\in(2d)^{-1}\ZZ$ and $(2d)^{-1}c_{kl}\bbar{\lambda}\,ij\in\cO^{\sharp}$
+for all $k,l$. Writing $\bbar{\lambda}=p-q\,i$, one has
+$\bbar{\lambda}\,ij=p\,ij+qd\,j$, and since $c_{11}=1$ and all $c_{kl}$ are
+integers this holds exactly when $p,q\in\ZZ$, that is $\lambda\in\ZZ[i]$.
+This is the stated description of $\NS$. Now $t(\eta)=1$ and $t$ vanishes
+on $R$, so $I(s\eta+z)=s^{2}e+I(z)$ for $z\in R$, and
+$(\phi_{k}\lambda)^{2}=\phi_{k}^{2}\bbar{\lambda}\lambda=N(\lambda)\beta(k)$,
+so by (i)
+\[
+  I\bigl(s\eta+E(\phi_{k}\lambda\,\cdot,\cdot)\bigr)
+  =s^{2}e+\tfrac{8}{24}N(\lambda)\beta(k)e
+  =s^{2}e+32\,d^{2}(1+k^{2})N(\lambda).
+\]
+A class off $\QQ\eta$ has $\lambda\ne0$, hence $N(\lambda)\ge1$, and
+$\lambda=1$, $s=0$ gives $x_{k}$; so $\mu_{k}=32\,d^{2}(1+k^{2})$. The final
+assertion follows from \Cref{lem:nefnorm}(ii): an effective $D$ with
+$[D]\notin\QQ\eta$ has
+$(\int[D]\eta^{3})^{2}\ge e\,\mu_{k}/2=6144\,d^{6}(1+k^{2})$.
 \end{proof}
 
-The bound in (iv) is far from sharp. The exact values computed in \cite{BMB26}
-for $0\le k\le10$ are $\mu_{k}=\beta(k)\int\eta^{4}/3$ or half of it for
-$d=1$, and $\mu_{k}=\beta(k)\int\eta^{4}/12$ for $d=3$; the proof loses the
-factor $(\int\eta^{4})^{2}$ in passing from $y$ to its primitive part, and
-only the growth in $k$ matters here. Each locus of the pencil carries
-algebraic Weil classes, by the divisorial criterion, and on the $k$-th of them
-the divisors that produce those classes have degree at least of order $|k|$.
-This is
-\Cref{prop:divroute} seen on explicit quaternionic loci in one fixed
+Each locus of the pencil carries algebraic Weil classes, by the divisorial
+criterion, since $x_{k}$ is nondegenerate, and on the $k$-th of them the
+divisors that produce those classes have degree at least of order $|k|$.
+This is \Cref{prop:divroute} seen on explicit quaternionic loci in one fixed
 polarised lattice, and \Cref{fig:pencil} illustrates it.
 
 \begin{figure}[t]
@@ -965,12 +1047,12 @@ polarised lattice, and \Cref{fig:pencil} illustrates it.
   \includegraphics[width=\textwidth]{fig_pencil}
 \caption{\Cref{prop:pencil} at $d=3$. Left: the members $S_{k}$ of the
 pencil, each a Siegel threefold inside the four-dimensional family, with the
-member $k=-2$, where $\beta=1$ and a rational point $J_{0}$ can be written
-down, drawn apart. Right: along the pencil the ratio $\mu_{k}/\beta(k)$ is
-the constant $2592=\int\eta^{4}/12$, so $\mu_{k}$ grows like $k^{2}$ and the
-least degree of a divisor not proportional to $\eta$ grows linearly in $k$.
-The Weil class is a flat class of the one fixed lattice and does not change;
-the divisors that produce it must.}
+member $k=0$, where $\beta=\tfrac{1}{36}$ is a square and a rational point
+$J_{0}$ can be written down, drawn apart. Right: along the pencil the ratio
+$\mu_{k}/\beta(k)$ is the constant $10368=\int\eta^{4}/3$, so $\mu_{k}$
+grows like $k^{2}$ and the least degree of a divisor not proportional to
+$\eta$ grows linearly in $k$. The Weil class is a flat class of the one fixed
+lattice and does not change; the divisors that produce it must.}
 \label{fig:pencil}
 \end{figure}
 
@@ -984,7 +1066,7 @@ The complex structures commuting with $B$ and compatible with $E$ are then
 the complex structures on $W$ compatible with its symplectic form, that is the
 points of the Siegel
 space $\mathfrak{H}_{n}$, of dimension $n(n+1)/2$, and the codimension in
-$\cD_{n,n}$ is $n^{2}-n(n+1)/2=n(n-1)/2$. This count is checked in \cite{BMB26} for $n\le10$ and certified by its Lean certificate. At
+$\cD_{n,n}$ is $n^{2}-n(n+1)/2=n(n-1)/2$. At
 $n=2$ the quaternionic locus is therefore the symmetric space of
 $\Sp(4,\RR)$ inside $\cD_{2,2}$, of dimension $3$, so it is a divisor. Its
 $G(\QQ)$-translates are infinitely many

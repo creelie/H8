@@ -318,30 +318,32 @@ computed, how it is computed, and which statements of the paper it supports.
   seven values of $b$, and finds Gram matrix $\mathrm{diag}(8d,8d^{2})$ and
   index $2(a_{1}a_{2})^{2}$ throughout.
 \item \emph{The divisor route on a fixed lattice.} The computation checks
-  \Cref{prop:pencil} on $\Lambda=\cO^{2}$ with $j^{2}=1$, for $d\in\{1,3\}$. It computes the
+  \Cref{prop:pencil}, which is proved by hand for every $d$, on
+  $\Lambda=\cO^{2}$ with $j^{2}=1$, for $d\in\{1,3\}$. It computes the
   lattice of $K$-bilinear classes, of rank $12$, checks $t(x)=0$ on it and the
   identity $-\int xy\,\eta^{2}\big/\!\int\eta^{4}=\mathrm{tr}(\phi_{x}\phi_{y})/24$
   on all $78$ pairs of basis vectors, and finds signature $(8,4)$ for $I$. It
-  verifies that $\phi_{x}^{2}$, $\phi_{y}^{2}$ and
-  $\phi_{x}\phi_{y}+\phi_{y}\phi_{x}$ are scalar for the pencil, and
-  rechecks $\phi_{x+ky}^{2}=\beta(k)$ and $I(x+ky)=\beta(k)\int\eta^{4}/3$
-  directly at eight values of $k$. For $0\le k\le10$ it saturates
-  $\QQ\eta+\QQ x_{k}+\QQ x_{k}(i\cdot,\cdot)$ in $H^{2}(\Lambda,\ZZ)$,
-  checks that $I$ is positive definite on the result, and computes the
-  minimum $\mu_{k}$ of $I$ off $\QQ\eta$ by an exhaustive search in a box
-  derived from the inverse Gram matrix. For the bound valid at every $k$ it
-  forms the $2\times2$ minors of the matrix with rows $x_{k}$ and
-  $x_{k}(i\cdot,\cdot)$ as polynomials in $k$, computes resultants of pairs of
-  them, and obtains $N_{1}=2$ and $N_{3}=4$; it checks directly that the gcd of
-  the minors divides $N_{d}$ for $|k|\le200$. Finally, for $0\le k\le4$ it
-  computes the centraliser of $i$ and $\phi_{x_{k}}$ in $\mathfrak{sp}(V,E)$,
-  of dimension $10$, and its invariants in $\bigwedge^{2}V^{*}$, of dimension
-  $3$; and at the one value of $k$ in $[-6,6]$ for each $d$ at which
-  $\beta(k)$ is a rational square it constructs a rational complex structure
-  $J_{0}$ on the pencil member, commuting with $i$ and $\phi_{x_{k}}$ and
-  compatible with $E$, and checks that $[\mathfrak{c},J_{0}]$ has dimension
-  $6$ and that $[\mathfrak{c},J_{0}]$ together with its brackets spans all of
-  $\mathfrak{c}$, which is the Lie algebra step in the proof of
+  builds the pencil $x_{k}=E(\phi_{k}\cdot,\cdot)$ from its definition and
+  checks at eight values of $k$ that $x_{k}$ is integral, primitive and in
+  $R$, that $\phi_{k}^{2}=(1+k^{2})/(4d^{2})$, that
+  $I(x_{k})=\beta(k)\int\eta^{4}/3$, and that $\int\eta^{4}=384d^{4}$. For
+  $0\le k\le10$ it saturates $\QQ\eta+\QQ x_{k}+\QQ x_{k}(i\cdot,\cdot)$ in
+  $H^{2}(\Lambda,\ZZ)$, checks that the result is
+  $\ZZ\tfrac{1}{2d}\eta\oplus\ZZ x_{k}\oplus\ZZ x_{k}(i\cdot,\cdot)$ and
+  that $I$ is positive definite on it, and finds the minimum of $I$ off
+  $\QQ\eta$, by an exhaustive search in a box derived from the inverse Gram
+  matrix, to be $32d^{2}(1+k^{2})$. It forms the $2\times2$ minors of the
+  matrix with rows $x_{k}$ and $x_{k}(i\cdot,\cdot)$ as polynomials in $k$,
+  finds resultants of pairs of them with gcd $1$, so the minors are coprime at
+  every integer $k$, and checks this directly for $|k|\le200$. Finally, for
+  $0\le k\le4$ it computes the centraliser of $i$ and $\phi_{x_{k}}$ in
+  $\mathfrak{sp}(V,E)$, of dimension $10$, and its invariants in
+  $\bigwedge^{2}V^{*}$, of dimension $3$; and at $k=0$, where
+  $\beta(0)=(2d)^{-2}$ is a rational square, it constructs a rational complex
+  structure $J_{0}$ on the pencil member, commuting with $i$ and $\phi_{0}$
+  and compatible with $E$, and checks that $[\mathfrak{c},J_{0}]$ has
+  dimension $6$ and that $[\mathfrak{c},J_{0}]$ together with its brackets
+  spans all of $\mathfrak{c}$, which is the Lie algebra step in the proof of
   \Cref{prop:pencil}(iv).
 \item \emph{The obstruction map of a split object.} The computation works in
   the model of item (XIII), modulo the same prime, and checks

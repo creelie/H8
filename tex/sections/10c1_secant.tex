@@ -119,12 +119,8 @@ $\bigwedge^{2}V_{+}\oplus\bigwedge^{2}V_{-}$ it produces is
 $\beta-d\widehat\beta$ rather than $\gamma=d\beta-\widehat\beta$. The
 convention of \eqref{eq:Mdef} is the one whose action on cohomology is
 $x\mapsto-Bx$, $\xi\mapsto dB^{-1}\xi$ in the proof of
-\Cref{thm:splitclosed}, and it is the one used in the computations of
-\cite{BMB26}, which check the three eigenvalues that determine it and show
-that mixing the two conventions gives the wrong answer: the space of polarised
-deformations killing the Weil line then has dimension $n(n+1)/2$ instead of
-$n^{2}$. For $d=1$ the two conventions
-coincide.
+\Cref{thm:splitclosed}, and every formula below refers to it. For $d=1$ the
+two conventions coincide.
 
 \begin{remark}\label{rem:abundant}
 \Cref{thm:explicitweil} says that abelian $2n$-folds of Weil type of the split
@@ -489,19 +485,32 @@ by the classes $(e^{t}-1)^{k}$ for $0\le k\le n$, because the $(n+1)$st finite
 difference of a polynomial of degree $n$ vanishes; and $(e^{t}-1)^{k}=t^{k}+
 \cdots$ has leading term $t^{k}$, not $t^{k}/k!$. The secant plane, by
 contrast, is spanned by classes whose coordinates in the basis $t^{k}/k!$ are
-integers. The integer $M$ measures the index between the two lattices, and
-that index comes from the factorials in $\ch$. A computation in \cite{BMB26}
-determines the least $M$ for $1\le n\le10$, $d\in\{1,2,3,5,7,11\}$,
-$a\in\{1,2,3\}$ and $b\in\{\pm1,\pm2\}$, together with the witness \eqref{eq:lbwitness} in each
-case. At $n=4$, $d=3$, $a=b=1$ the least multiple is $M=6$ and the witness is
+integers. The index between the two lattices can be computed exactly. Write
+$j^{k}=\sum_{i\le k}S(k,i)\,i!\binom{j}{i}$ with the Stirling numbers $S(k,i)$
+of the second kind. As $j$ runs over $0,\dots,n$, the vectors
+$\bigl(\binom{j}{i}\bigr)_{0\le i\le n}$ form a unitriangular basis of
+$\ZZ^{n+1}$, so the vectors $(j^{k})_{0\le k\le n}$, which are the coordinates
+of $\ch\cO_{X}(jt)$ in the basis $t^{k}/k!$, span the image of $\ZZ^{n+1}$
+under the lower triangular matrix $T=\bigl(S(k,i)\,i!\bigr)_{k,i}$, whose
+diagonal is $0!,1!,\dots,n!$. The index is therefore $\prod_{k\le n}k!$. The
+inverse of $T$ is $\bigl(s(k,i)/k!\bigr)_{k,i}$, with the Stirling numbers
+$s(k,i)$ of the first kind, because $\binom{j}{k}=\sum_{i}s(k,i)j^{i}/k!$;
+so $n!\,T^{-1}$ is integral, and for every integral point $p$ of the secant
+plane the least admissible $M$ divides $n!$. It is often larger than $1$. At $n=4$, $d=3$, $a=b=1$ the least multiple is $M=6$,
+a divisor of $4!$, and the witness is
 \[
   \alpha=-23\,[\cO_{X}]+66\,[\cO_{X}(t)]-54\,[\cO_{X}(2t)]
          +20\,[\cO_{X}(3t)]-3\,[\cO_{X}(4t)],
 \]
-of rank $6=Ma$; at $n=8$ the largest multiple over the range tested is $2016$,
-and for each $n\ge7$ none of the seventy-two cases tested has $M=1$. The
-freedom to rescale is therefore needed. \Cref{fig:multiple} shows the least
-multiple for $n\le10$.
+of rank $-23+66-54+20-3=6=Ma$; in degree one its coefficient is
+$66-108+60-12=6=Mb$, and in degrees two to four the sums
+$\sum_{j}n_{j}j^{k}$ are $-18$, $-18$ and $54$, which are $6c_{2}$, $6c_{3}$ and
+$6c_{4}$. \Cref{fig:multiple} shows the least
+multiple for $n\le10$, $d\in\{1,2,3,5,7,11\}$, $a\in\{1,2,3\}$ and
+$b\in\{\pm1,\pm2\}$, found by solving the Vandermonde system of the proof
+\cite{BMB26}: at $n=8$ the largest is $2016$, a divisor of $8!$, and for each
+$n\ge7$ none of the seventy-two cases has $M=1$. The freedom to rescale is
+therefore needed.
 
 The same computation also checks, in the exterior algebra of a symplectic lattice,
 that $\theta^{k}/k!$ is an integral class for a principal polarisation

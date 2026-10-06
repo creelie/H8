@@ -9,14 +9,16 @@ i^2 = -d, j^2 = 1, the polarisation E of the quaternionic model at b = 1,
 R the lattice of K-bilinear classes, phi_x = E^{-1} x.  The kernel rebuilds
 E and the left multiplication by i itself (Section 73); the script records
 
-  * the pencil (x, y) of code/divisor_route.py;
+  * the pencil x_k = x + k y of code/divisor_route.py, x_k(u, v) =
+    E(phi_k u, v) with phi_k left multiplication by (2d)^{-1} C_k j,
+    C_k = [[1, k], [k, -1]];
   * an integer matrix S and s > 0 with E S = s I (so E^{-1} = S / s);
   * a basis of R, a left inverse of it, and a nonzero minor of size 16 of the
     linear conditions defining R (so R is the whole lattice, of rank 12);
   * an integer matrix P with P^T G P diagonal, G = (-int x_a x_b eta^2) on
     the basis of R, and det P != 0 (the signature);
   * pairs of 2 x 2 minors of the rows x_k, i.x_k, as polynomials in k, whose
-    resultants have gcd N_d;
+    resultants have gcd 1;
   * for k = 0..10 a basis of N_k = (Q eta + Q x_k + Q i.x_k) cap Z^28 with
     certificates of membership and a left inverse, and the minimum mu_k;
   * a basis of the centraliser u of i in sp(V, E), with minors certifying
@@ -25,7 +27,7 @@ E and the left multiplication by i itself (Section 73); the script records
     a minor of size 6 of the matrix of X -> [X, phi_{x_k}] on u (so c has
     dimension 10), and a basis of its invariants in wedge^2 V^*, with minors
     certifying dimension 3;
-  * at the k of the pencil where beta(k) is a rational square, a rational
+  * at k = 0, where beta(0) = (2d)^{-2} is a rational square, a rational
     complex structure J0 (as an integer matrix over a denominator), four
     relations among the [X_i, J0], and minors certifying dim [c, J0] = 6 and
     dim([c, J0] + [[c, J0], [c, J0]]) = 10.
@@ -162,6 +164,7 @@ def flat(X):
 
 def main():
     out = []
+    pencils = {}
     for d in (1, 3):
         L = D.Lattice(d)
         sE, S = mat_int(L.Einv)
@@ -224,7 +227,10 @@ def main():
         neg = sum(1 for i in range(n) if Dg[i][i] < 0)
         assert (pos, neg) == (8, 4)
         # (R6): minors as polynomials, and pairs whose resultants give N
-        x, y = D.PENCIL[d]
+        x0, x1 = D.pencil_class(d, 0), D.pencil_class(d, 1)
+        x = [int(v) for v in x0]
+        y = [int(b - a) for a, b in zip(x0, x1)]
+        pencils[d] = (x, y)
         ix = [int(v) for v in L.times_i(x)]
         iy = [int(v) for v in L.times_i(y)]
         polys = []
@@ -306,7 +312,7 @@ def main():
     # emit
     print("/-- the pencils `(x, y)` of (R4) for `d = 1, 3`. -/")
     print("def drPencil : List (List Int × List Int) := [")
-    print(",\n".join("  (%s,\n   %s)" % (lean_list(D.PENCIL[d][0]), lean_list(D.PENCIL[d][1]))
+    print(",\n".join("  (%s,\n   %s)" % (lean_list(pencils[d][0]), lean_list(pencils[d][1]))
                      for d in (1, 3)) + "]")
     print("/-- per field: `(d, s, S, R, R^-1, minor of the conditions, P, resultant")
     print("pairs, N_d)`. -/")
