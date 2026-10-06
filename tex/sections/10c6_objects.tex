@@ -290,25 +290,8 @@ $\sum_{L_{i}\subset F}\Nm(u_{i})=\sum_{L_{j}\subset G}\Nm(u_{j})$, which is
 satisfiable; and \Cref{lem:splitsemireg} still applies verbatim, with the
 shifts absorbing condition (ii).
 
-Two further facts, both computational, say how little room is left at $n=2$,
-and how much more there is beyond it. First, the map $\Phi$ of
-\Cref{lem:splitsemireg}(iii) is injective at $n=2$ for $s\le3$ and, for a
-general choice of $\lambda_{1},\dots,\lambda_{4}$, has rank $22$ rather than
-$24$; so at $n=2$ no more than three line bundles may occur at all. This is
-special to $n=2$: at $n=3$ the same map is injective for a general choice of
-up to ten classes, and the dimension count permits up to $33$. Second, an
-exhaustive search over the classes $a\beta+b\widehat\beta+c\ell$ with
-$|a|,|b|,|c|\le3$, for $d=1$ and $d=2$, finds no signed tuple of at most
-three line bundles whose Chern character is a flat section of Hodge classes
-with a nonzero Weil component; the tuples of at most four that do satisfy the
-Chern character condition with a nonzero Weil component, $888$ of them at
-$d=1$ and $30$ at $d=2$, all have exactly four terms, and all of them fail
-\Cref{lem:splitsemireg}(iii): the kernel has dimension $2$, $3$, $4$ or $6$
-at $d=1$ and $3$ or $6$ at $d=2$, never $0$. Both are exact computations
-recorded in \cite{BMB26}.
-
-So the object of \Cref{thm:semiregclosure}, if it exists at a split member, is
-not a sum of line bundles in any arrangement of signs and shifts, and
+The object of \Cref{thm:semiregclosure}, if it exists at a split member, is
+not a sum of line bundles in any arrangement of signs and shifts:
 \Cref{cor:noline} below proves this in every dimension. It must have
 $\Ext^{2}$ that the trace does not see, that is, it must be indecomposable in
 the derived category. This description of the remaining construction is
@@ -455,11 +438,7 @@ two. Explicitly, with $\zeta_{6}$ a primitive sixth root of unity, the
 cube roots of $-1$ are $\zeta_{6},\zeta_{6}^{3},\zeta_{6}^{5}$ and those of
 $+1$ are $1,\zeta_{6}^{2},\zeta_{6}^{4}$; each triple sums to zero and has
 zero sum of squares,
-while the sums of cubes are $-3$ and $+3$. A search over the norm circles of
-$\cO_{K}$ with $\Nm\le200$ and $|g|,|h|\le25$, for $K=\QQ(\sqrt{-d})$ with
-$d=1,2,3,7$, finds this solution and its conjugate at $n=3$, one further pair
-at $d=1$ and $n=4$, and nothing else; the search is recorded in
-\cite{BMB26}.
+while the sums of cubes are $-3$ and $+3$.
 
 \begin{proposition}[An explicit object at $n=3$]\label{prop:explicitobject}
 Let $K=\QQ(\sqrt{-3})$, $n=3$, and let $A_{0}=X\times\widehat X$ be a split
@@ -564,11 +543,9 @@ zero and the argument of \Cref{thm:equalnorms} produces a kernel of
 dimension $n^{2}$.
 
 This leaves the existence of a solution with $n+1$ norms. The level sums are
-then forced up to scale, and they compete with the supply of elements of
-$\cO_{K}$ at each level; \Cref{thm:pterange} carries out that competition in
-a range, and \Cref{cor:noline} shows that no solution in any range could
-serve, because a line bundle summand off the polarisation line is obstructed
-along the family whatever the norms.
+then forced up to scale (\Cref{thm:pterange}), and \Cref{cor:noline} shows
+that no solution could serve, because a line bundle summand off the
+polarisation line is obstructed along the family whatever the norms.
 \end{remark}
 
 \subsubsection*{The obstruction classes of the explicit object}
@@ -994,10 +971,7 @@ rank is $15+2\cdot12+2\cdot3=45$.
 \end{proof}
 
 \Cref{fig:evaluation} draws the three kernels and their images in
-$\Ext^{2}(E,E)$. A computation recorded in \cite{BMB26} finds the same
-containment $\ker\sigma_{E}\subseteq\image\operatorname{ev}_{E}$, with
-$\dim\ker\sigma_{E}=15$, for each of the eighteen configurations of
-\Cref{rem:familyuniform}.
+$\Ext^{2}(E,E)$.
 
 \begin{figure}[tbp]
 \centering
@@ -1047,44 +1021,25 @@ We return to the Diophantine problem of \Cref{setup:pte}. By
 distinct norms, and multiplicity one bounds each level sum by the number of
 elements of $\cO_{K}$ of that norm.
 
-\begin{theorem}[Where a semiregular split object can live]\label{thm:pterange}
+\begin{proposition}[The level sums]\label{thm:pterange}
 Keep \Cref{setup:pte} and suppose $E$ satisfies \eqref{eq:pteconditions} with
 $\ch_{0}(E)\ne0$, so that the $u_{i}$ take $\nu\ge n+1$ distinct norms by
 \Cref{cor:nplusone}. Write $N_{1}<\dots<N_{\nu}$ for those norms, $M_{j}$ for
 the sum of the $m_{i}$ at level $N_{j}$, and
-$r_{K}(N)=\#\{u\in\cO_{K}:\Nm_{K/\QQ}(u)=N\}$.
-\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em]
-\item If $\nu=n+1$ then, with $P=\prod_{k}N_{k}$, $S=\ch_{0}(E)$ and
-  $D_{j}=N_{j}\prod_{k\ne j}(N_{j}-N_{k})$,
-  \begin{equation}\label{eq:levelsums}
-    M_{j}=(-1)^{n}\,\frac{S\,P}{D_{j}},
-  \end{equation}
-  and the least $S>0$ making every $M_{j}$ an integer is
-  $S_{\min}=\operatorname{lcm}_{j}\bigl(|D_{j}|/\gcd(|D_{j}|,P)\bigr)$.
-  Multiplicity one, \Cref{lem:splitsemireg}(i), forces
-  $|M_{j}|\le r_{K}(N_{j})$ for every $j$.
-\item Let $d\in\{1,2,3,7,11,19\}$. For $n=4,5,6,7,8$ no set of $n+1$ norms
-  at most $110$, $48$, $38$, $32$, $30$ respectively satisfies those
-  constraints, and for $n=4,5,6$ no set of $n+2$ norms at most $40$, $32$,
-  $28$ does. In that range no split object of the shape of \Cref{setup:pte}
-  is semiregular, and the reason is arithmetic rather than geometric: the
-  least integral scale outruns the supply of elements at the levels it
-  demands.
-\item At $n=3$ the constraints of (i) can be met. With norms at most $200$
-  there are exactly eleven sets of four norms that meet them, all of them at
-  $d=1$ or $d=2$, and after dividing out the common factor each has one of the
-  three shapes $(1,2,3,4)$, $(1,2,4,5)$ and $(1,4,9,10)$. The smallest is
-  $d=2$ at $(9,18,27,36)$, where $S=1$, $|M|=(4,6,4,1)$ and $\ch_{0}(E)=1$.
-\item For all eleven, the full system \eqref{eq:pteconditions} has no
-  solution: no assignment of signs to the elements of $\cO_{K}$ at those
-  norms, with the level sums of \eqref{eq:levelsums}, satisfies the
-  off-diagonal conditions. In particular no split object of the shape of
-  \Cref{setup:pte} with norms at most $200$ is semiregular at $n=3$.
-\end{enumerate}
-\end{theorem}
+$r_{K}(N)=\#\{u\in\cO_{K}:\Nm_{K/\QQ}(u)=N\}$. If $\nu=n+1$ then, with
+$P=\prod_{k}N_{k}$, $S=\ch_{0}(E)$ and
+$D_{j}=N_{j}\prod_{k\ne j}(N_{j}-N_{k})$,
+\begin{equation}\label{eq:levelsums}
+  M_{j}=(-1)^{n}\,\frac{S\,P}{D_{j}},
+\end{equation}
+the least $S>0$ making every $M_{j}$ an integer is
+$S_{\min}=\operatorname{lcm}_{j}\bigl(|D_{j}|/\gcd(|D_{j}|,P)\bigr)$, and
+multiplicity one, \Cref{lem:splitsemireg}(i), forces
+$|M_{j}|\le r_{K}(N_{j})$ for every $j$.
+\end{proposition}
 
 \begin{proof}
-(i) The conditions $T_{r,r}=0$ for $r=1,\dots,n$ say that the linear
+The conditions $T_{r,r}=0$ for $r=1,\dots,n$ say that the linear
 functional $f\mapsto\sum_{j}M_{j}f(N_{j})$ kills $x,x^{2},\dots,x^{n}$, hence
 sends every polynomial $f$ of degree at most $n$ to $S\,f(0)$. Applying it to
 $f(x)=\prod_{k\ne j}(x-N_{k})$, which has degree $n$, gives
@@ -1095,58 +1050,12 @@ and multiplying by $N_{j}$ turns this into \eqref{eq:levelsums}. The value of
 $S_{\min}$ is the definition of a least common multiple, and the bound on
 $|M_{j}|$ holds because each $u$ of norm $N_{j}$ contributes at most one term
 $m_{i}=\pm1$ to $M_{j}$.
-
-(ii), (iii) and (iv) are finite computations in exact integer arithmetic,
-recorded in \cite{BMB26}; we describe them so that they can be repeated. For (ii) and
-(iii) the computation enumerates every set of $n+1$ norms represented by $\cO_{K}$
-below the bound, forms $D_{j}$ and $S_{\min}$, and tests
-$|M_{j}|\le r_{K}(N_{j})$; at $\nu=n+2$ the solution space of the diagonal
-conditions is two dimensional and its integer points inside the same box are
-swept by running two coordinates over their own ranges. For (iv) the
-off-diagonal conditions are, after grouping by norm,
-\[
-  \sum_{j}N_{j}^{r}A_{1,j}=0\ \ (r=0,1,2),
-  \qquad
-  \sum_{j}N_{j}^{r}A_{2,j}=0\ \ (r=0,1),
-  \qquad
-  A_{k,j}=\sum_{\Nm(u)=N_{j}}m_{u}u^{k},
-\]
-which are additive over the levels; the four levels are therefore split into
-one half that is tabulated and one that is run against the table, so the
-enumeration is complete and not a sample. It is applied directly to four of
-the eleven sets: $d=2$ at $(9,18,27,36)$, $(27,54,81,108)$ and
-$(33,66,99,132)$, and $d=1$ at $(5,20,45,50)$. Four more are their images
-under multiplication by an element of norm $2$ or $4$, which is a bijection
-on the relevant norm levels because the element counts agree, so a solution
-for one would give a solution for the other. The remaining three, $d=1$ at
-$(13,52,117,130)$, $(17,68,153,170)$ and $(25,50,100,125)$, have levels of
-$8,8,8,16$ and $12,12,12,16$ elements. For them the scale is $S=\pm S_{\min}$,
-since $|S|\ge2$ violates the bound $|M_{j}|\le r_{K}(N_{j})$ and $S\mapsto-S$
-is the symmetry $m\mapsto-m$. The first three levels are run against the
-fourth, matched through a linear hash of the ten integer coordinates of the
-off-diagonal conditions, and every match is checked on all ten coordinates
-exactly. A solution has all ten coordinates zero and cannot be missed, so the
-search is complete; it covers $4.29\times10^{14}$ sign patterns in the
-largest case and finds none.
 \end{proof}
 
-\begin{remark}[Meaning of the range]\label{rem:pterangemeaning}
-The dimension that matters is $n\ge4$: for the families with a split member,
-$n=2$ and $n=3$ are settled by Markman \cite{Mar25a,Mar25b}, and $n=2$ in
-discriminant $1$ also by Floccari and Fu \cite{FF26}. There
-\Cref{thm:pterange}(ii) says that the split route closes before any geometry
-is used: the level sums cannot exist, so there is nothing to test for
-semiregularity. At $n=3$, where the geometry does produce an object, the level
-sums do exist and the off-diagonal conditions are what remove them, which is a
-different mechanism and a reminder that (ii) is a statement about a range and
-not a theorem for all $n$. What both cases share is that the obstruction is
-arithmetic: it lives in the norm form of $K$ and in the supply of integers of
-a given norm, not in the cohomology of $A$.
-\end{remark}
-
-The bound on the norms is, however, beside the point: a second mechanism,
-this one in the cohomology of $A$, closes the split route for every $n$ and
-every set of norms at once.
+So the level sums are determined by the norms up to the scale $S$, and they
+compete with the supply $r_{K}(N_{j})$ of elements at each level. That
+competition is arithmetic. A second mechanism, in the cohomology of $A$,
+closes the split route for every $n$ and every set of norms at once.
 
 \begin{corollary}[Sums of line bundles fail both criteria]\label{cor:noline}
 Let $A$ be of $(K,-1,n)$-Weil type with $n\ge2$, and let
@@ -1158,10 +1067,7 @@ $E$ is neither semiregular nor semiregular in the weakened sense of
 \cite[Question 11.4]{Mar25b}, and it is obstructed to first order along some
 direction of the Weil family. In particular every object of \Cref{setup:pte}
 satisfying \eqref{eq:pteconditions}, for every $n\ge2$, every field $K$,
-every rank and every set of norms, fails both criteria: the conclusion of
-\Cref{thm:pterange}, that no split object of that shape is semiregular, holds
-without any bound on the norms, in every dimension, and for the weakened
-criterion as well.
+every rank and every set of norms, fails both criteria.
 \end{corollary}
 
 \begin{proof}
@@ -1181,11 +1087,9 @@ gives a flat Chern character with a nonzero Weil component by
 \end{proof}
 
 \begin{remark}[What the corollary asks of an object]\label{rem:nolinemeaning}
-\Cref{cor:noline} ends the search that \Cref{thm:pterange} began: there is no
-sum of line bundles, at any member of any Weil family in any dimension, that
-could run the semiregularity argument in either form, and the arithmetic of
-\Cref{thm:pterange} is a description of how the level sums fail rather
-than the reason the route fails. The reason is \Cref{prop:rigidity}(i): the
+By \Cref{cor:noline} there is no sum of line bundles, at any member of any
+Weil family in any dimension, that could run the semiregularity argument in
+either form. The reason is \Cref{prop:rigidity}(i): the
 only divisor class that stays of type $(1,1)$ across the whole family is the
 polarisation, so every line bundle summand off that line is obstructed in
 some direction of the family, and the semiregularity map, whose composite
@@ -1216,12 +1120,11 @@ enters the diagonal, cup products remove at most $276$ of these classes, and
 everything else would have to be removed by fourfold products along a path
 through the three multiples and one of the Weil pieces: one family of them
 for some placements of the multiples, and two families that exclude each
-other for the others (\Cref{prop:mixedplacement}). Those products do reach
-the rank needed (\Cref{prop:fourfoldrank}), and one order of the pieces
-gives a convolution that solves the Maurer--Cartan equation and meets the
-diagonal count (\Cref{prop:explicitconvolution}). The obstruction then
-moves off the diagonal: the classes between two pieces that differ in every
-coordinate are reached by no product (\Cref{lem:allthree}), and no
+other for the others (\Cref{prop:mixedplacement}); one order of the pieces
+gives a convolution that solves the Maurer--Cartan equation
+(\Cref{prop:explicitconvolution}). Off the diagonal, the classes between two
+pieces that differ in every coordinate are reached by no product
+(\Cref{lem:allthree}), and no
 convolution of these pieces meets the polarised criterion
 (\Cref{thm:noconvolution}). At $n=4$ the same classes, now between pieces
 that differ in three coordinates, are reached by no product in any
@@ -1594,15 +1497,6 @@ kernel therefore contains a space of dimension $3\cdot4\cdot1+3\cdot16\cdot4
 =12+192=204$.
 \end{proof}
 
-The bound $204$ is attained for general components: a computation in
-\cite{BMB26} lists the $48+96$ pairs and finds rank $276$ for the cup
-products on these classes.\footnote{The computation draws the
-harmonic components of the pairs at random modulo the prime $1000003$. The
-rank of a matrix can only drop under specialisation, so $276$ is the largest
-rank the cup products can have on these classes for any choice of the
-components, and $204$ the least dimension of their kernel.} Nothing below
-uses this.
-
 \begin{theorem}[The diagonal on $E_{0}^{6}$]\label{thm:esixdiagonal}
 Let $n=3$ and let $E$ be a convolution of the $32$ bundles $L_{\zeta}$ and
 of $M_{1},M_{2},M_{3}$ as in \Cref{prop:weilpieces}, with
@@ -1630,27 +1524,65 @@ The same holds for $t_{1}<t_{2}<t_{3}\le p-2$ with $E$ replaced by its dual.
 \end{theorem}
 
 \begin{proof}
-(i) By \Cref{lem:harmonicmodel}(iii), a product of length $k$ acting on
-$y\in H^{2}(\cO_{A})$ at a piece runs along a path $s\to\dots\to e$ with $k-1$
-steps of degree one and lands in degree three, so the excesses of its steps
-add up to its $\Ext$ degree minus $3$, a number between $-3$ and $3$; on each
-surface \Cref{lem:degreedrop} bounds the degree drop. The degrees of all
-steps depend only on the signs of $t_{i}-p\pm1$ and on the order of the
-$t_{i}$, so the placement $p=0$, $t=(2,4,6)$ is general. A computation in
-\cite{BMB26} enumerates every path meeting these conditions, in every order
-of the pieces and with every choice of shifts of the given parities, which
-is more than any single convolution allows.\footnote{Enumerating too many
-paths is harmless: a path that is discarded is carried by no convolution,
-and a path that is kept only adds to the products that can act.} It then discards the paths with
-two consecutive steps of $\Ext$ degree $0$ whose product is the only term of
-its component of the Maurer--Cartan equation: that equation makes the
-product of the two sections zero, and a product of nonzero sections is
-nonzero, so one of them vanishes. Among the eight sign patterns, pure
-$L_{\zeta}$ paths never survive, and the only survivors are the paths of
-(i), for the two patterns with $\sigma_{1}=\sigma_{3}=-\sigma_{2}$. Along
-such a path the steps have $\Ext$ degrees $0$, $6$ and $0$, so degree one
-forces $d_{M_{3}}=d_{M_{2}}+1$, $d_{L}=d_{M_{3}}-5$ and
-$d_{M_{1}}=d_{L}+1$; this gives the signs, and the value lies in
+(i) By \Cref{lem:harmonicmodel}(iii) a term with $k\ge3$ leaves acting on
+$y\in H^{2}(\cO_{A})$ at a piece $c$ runs along a chain
+$s=a_{0}\to\dots\to a_{k-1}=e$ of distinct pieces, increasing in the order
+of the convolution, whose $k-1$ steps are components of degree one, with $y$
+inserted at $c$. Its value lies in $\cH(s,e)$, in $\Ext$ degree
+$2+\sum_{j}q_{j}-(k-2)=3+\varepsilon$, where $\varepsilon$ is the sum of the
+excesses of the steps; so $-3\le\varepsilon\le3$, and $\cH(s,e)$ must be
+nonzero in degree $3+\varepsilon$. By the proof of \Cref{prop:nothingenters}
+a step between two $L_{\zeta}$ has excess at least $1$, with equality only
+between pieces of opposite parities, and a step between pieces at different
+values of $\phi$ has excess $-1$ and $\Ext$ degree $0$ going up, excess $5$
+and $\Ext$ degree $6$ going down. Let $U$ and $D$ be the numbers of steps
+up and down and $\lambda$ the total excess of the steps between two
+$L_{\zeta}$, so that $\varepsilon=5D-U+\lambda$. For two distinct
+$L_{\zeta}$, $L_{\zeta'}$ differing in $m\ge1$ coordinates, $\cH(L_{\zeta},
+L_{\zeta'})$ vanishes above degree $6-m$; for pieces at different values it
+sits in degree $0$ if the target is higher and in degree $6$ if it is lower.
+
+Two observations remove chains. First, a chain of total excess $-2$ has no
+step down, and so consists of steps between $L_{\zeta}$ followed by at most
+three steps up. Second, let $a\to b\to c$ be two consecutive steps of
+$\Ext$ degree $0$, sections $x_{ab}$ and $x_{bc}$ of line bundles. The
+Maurer--Cartan equation $\pi(\delta\circ\delta)=0$ of the proof of
+\Cref{prop:explicitconvolution}(i) has, in $\cH^{0}(a,c)$, one term for each
+chain from $a$ to $c$ of total excess $-2$. If $a\to b\to c$ is the only such
+chain, the equation reads $x_{ab}x_{bc}=0$, a product of holomorphic
+sections being holomorphic and so harmonic; since $A$ is connected, $x_{ab}$
+or $x_{bc}$ vanishes, and every term along a chain through both steps is
+zero.
+
+Here every step up ends at one of $M_{1},M_{2},M_{3}$, so $U\le3$, and
+$D\le1$. If $D=0$, the chain is $r\ge0$ pieces $L_{\zeta}$ followed by
+multiples in increasing order. When it ends at an $L_{\zeta}$, $k\ge3$ gives
+$\lambda\ge2$, so $s$ and $e$ differ in one coordinate and $\lambda=2$; then
+the two steps change the parity twice, whereas $s$ and $e$ have opposite
+parities. When it ends at a multiple, $e$ lies above $s$, so $\varepsilon=-3$,
+which forces $U=3$, $\lambda=0$ and the chain $L_{\zeta}\to M_{1}\to
+M_{2}\to M_{3}$; by the first observation $L_{\zeta}\to M_{1}\to M_{2}$ is the
+only chain of excess $-2$ from $L_{\zeta}$ to $M_{2}$, and the second removes
+it. If $D=1$, then $U\ge2+\lambda$, so $(U,\lambda)$ is $(2,0)$, $(3,0)$ or
+$(3,1)$ and $\varepsilon$ is $3$, $2$ or $3$. For $\varepsilon=3$ the piece
+$s$ is a multiple and $e$ lies below it. With $(3,1)$ the three steps up
+would end at three multiples other than $s$, which do not exist. With $(2,0)$
+the chain has three steps, and a step down lands at an $L_{\zeta}$, since a
+fourth multiple does not exist. It is $M_{1}\to M_{2}\to M_{3}\to L_{\zeta}$,
+removed by the second observation at $M_{1}\to M_{2}\to M_{3}$; or
+$M_{a}\to M_{b}\to L_{\zeta}\to M_{c}$ with $t_{a}<t_{b}$ and $t_{c}<t_{a}$,
+that is $M_{2}\to M_{3}\to L_{\zeta}\to M_{1}$; or
+$M_{a}\to L_{\zeta}\to M_{b}\to M_{c}$ with $t_{b}<t_{c}<t_{a}$, that is
+$M_{3}\to L_{\zeta}\to M_{1}\to M_{2}$, removed at $L_{\zeta}\to M_{1}\to
+M_{2}$. For $\varepsilon=2$, with $(U,\lambda)=(3,0)$, the pieces $s$ and $e$
+are $L_{\zeta}$ differing in one coordinate; the last step is the step down,
+preceded by three steps up from $s$, so the chain is $L_{\zeta}\to M_{1}\to
+M_{2}\to M_{3}\to L_{\zeta'}$, removed at $L_{\zeta}\to M_{1}\to M_{2}$.
+
+Only $M_{2}\to M_{3}\to L_{\zeta}\to M_{1}$ remains. Its steps have $\Ext$
+degrees $0$, $6$ and $0$, so degree one forces $d_{M_{3}}=d_{M_{2}}+1$,
+$d_{L}=d_{M_{3}}-5$ and $d_{M_{1}}=d_{L}+1$; this gives the signs, and the
+value lies in
 $\cH^{3+d_{M_{2}}-d_{M_{1}}}(M_{2},M_{1})=\cH^{6}(M_{2},M_{1})$, whose
 dimension is $|\chi(\cO_{A}((t_{1}-t_{2})\theta))|=(t_{2}-t_{1})^{6}$.
 (ii) By \Cref{prop:nothingenters} it suffices to bound the kernel of $d_{E}$
@@ -1683,8 +1615,8 @@ products.}
 \end{figure}
 
 The placements of the $t_{i}$ on both sides of $p$ are not covered by
-\Cref{thm:esixdiagonal}. There the same computation finds two families of
-fourfold products instead of one, which no convolution carries together.
+\Cref{thm:esixdiagonal}. There two families of fourfold products occur
+instead of one, and no convolution carries both.
 
 \begin{proposition}[Placements on both sides of $p$]\label{prop:mixedplacement}
 Keep \Cref{thm:esixdiagonal}, but let $t_{1}\le p-2$ and
@@ -1717,13 +1649,38 @@ $\sigma_{2}=\sigma_{3}=-\sigma_{1}$.
 \end{proposition}
 
 \begin{proof}
-(i) As in the proof of \Cref{thm:esixdiagonal}(i), the degrees of the steps
-depend only on which $t_{i}$ lie above $p$ and on their order, so the
-placement $p=0$, $t=(-2,2,4)$ is general, and the computation in
-\cite{BMB26} enumerates and filters the paths in the same way for all eight
-sign patterns. Survivors occur only for the two patterns with
-$\sigma_{1}=\sigma_{2}=-\sigma_{3}$; they are the paths (a) and (b),
-through each of the sixteen $L_{\zeta}$ with $\prod\zeta=\sigma_{3}$.
+(i) We use the notation and the two observations of the proof of
+\Cref{thm:esixdiagonal}(i). Now $\phi(M_{1})=t_{1}<p<t_{2}<t_{3}$; a step up
+ends at $M_{2}$, at $M_{3}$, or at an $L_{\zeta}$ coming from $M_{1}$, so
+again $U\le3$ and $D\le1$. If $D=0$, the values do not decrease along the
+chain. When $e$ lies above $s$, $\varepsilon=-3$ forces $U=3$, $\lambda=0$
+and the chain $M_{1}\to L_{\zeta}\to M_{2}\to M_{3}$, removed at
+$L_{\zeta}\to M_{2}\to M_{3}$, the only chain of excess $-2$ from
+$L_{\zeta}$ to $M_{3}$. When $e$ and $s$ have the same value, they are two
+$L_{\zeta}$ joined by steps between $L_{\zeta}$, which is excluded as before.
+If $D=1$, $(U,\lambda)$ is $(2,0)$, $(3,0)$ or $(3,1)$. For
+$\varepsilon=3$, $e$ lies below $s$. With $(3,1)$ the steps up end at
+$M_{2}$, $M_{3}$ and an $L_{\zeta}$ following $M_{1}$; then $s$ is an
+$L_{\zeta}$, so $e=M_{1}$, which is followed by a step: impossible. With
+$(2,0)$ the chain has three steps and no two consecutive $L_{\zeta}$. As
+$M_{1}$ is the lowest piece, it is never the end of a step up, and a step up
+into an $L_{\zeta}$ comes from $M_{1}$; so two consecutive steps up end at
+$M_{2}$ or $M_{3}$. The chain cannot start at $M_{1}$. If it starts at an
+$L_{\zeta}$, it ends at $M_{1}$ with the step down, after two steps up:
+$L_{\zeta}\to M_{2}\to M_{3}\to M_{1}$, removed at $L_{\zeta}\to M_{2}\to
+M_{3}$. If it starts at $M_{3}$, the first step goes down and the last two
+go up, ending at $M_{2}$; the middle piece is then an $L_{\zeta}$ entered
+from $M_{1}$, and the chain is $M_{3}\to M_{1}\to L_{\zeta}\to M_{2}$, path
+(b). If it starts at $M_{2}$, then $e\in\{L_{\zeta},M_{1}\}$, so the last two
+steps are not both up; the first step goes up to $M_{3}$, the second down,
+and the third up into $e=L_{\zeta}$ from $M_{1}$: the chain is $M_{2}\to
+M_{3}\to M_{1}\to L_{\zeta}$, path (a). For $\varepsilon=2$,
+$(U,\lambda)=(3,0)$ and $s$, $e$ are $L_{\zeta}$ differing in one
+coordinate. The last step enters $e$ from $M_{1}$, since a step down into
+$e$ would follow three steps up from $s$, one more than the values allow;
+$M_{1}$ is entered by the step down, after two steps up from $s$:
+$L_{\zeta}\to M_{2}\to M_{3}\to M_{1}\to L_{\zeta'}$, removed at
+$L_{\zeta}\to M_{2}\to M_{3}$.
 Along (a) the steps have $\Ext$ degrees $0$, $6$ and $0$, so degree one
 forces $d_{M_{3}}=d_{M_{2}}+1$, $d_{M_{1}}=d_{M_{3}}-5$ and
 $d_{L}=d_{M_{1}}+1$. Along (b) they have $\Ext$ degrees $6$, $0$ and $0$,
@@ -1745,140 +1702,17 @@ unless $\sigma_{1}=\sigma_{2}=-\sigma_{3}$. The criterion asks for $57$,
 so $\rho\ge192$, and $(t_{3}-t_{2})^{6}\ge192$ exactly when
 $t_{3}-t_{2}\ge3$. For the last statement, $E\mapsto E^{\vee}[1]$ preserves
 $\Ext^{2}$, sends $p$ and the $t_{i}$ to $-p$ and the $-t_{i}$, reverses the
-order of the pieces and changes every sign; the computation also treats
-$t=(-4,-2,2)$ directly and finds the duals of the paths (a) and (b).
+order of the pieces and changes every sign.
 \end{proof}
 
-The products of \Cref{thm:esixdiagonal}(i) can be computed, and they do
-reach the rank the theorem asks for. They are computed on covers. On
-$B_{j}$ the isogeny $\phi_{u}(w_{1},w_{2})=(w_{1}+w_{2},\,u(w_{1}-w_{2}))$
-from $E_{0}\times E_{0}$, of degree four, with $u=\zeta_{j}$, pulls the form
-of $L_{\zeta}$ back to $\operatorname{diag}(2(p+1),2(p-1))$ and those of the
-$M_{i}$ to $\operatorname{diag}(2t_{i},2t_{i})$, so that along a path every
-piece becomes an external product of line bundles on six elliptic curves and
-the Laplacian splits.\footnote{The kernel of $\phi_{u}$ is
-$\{(h,h):2h\in\ZZ[i]\}$, of order four. Pulling back the flat metrics, the
-harmonic forms, $G$ and $h$ on $B_{j}$ are the forms and operators on the
-cover that commute with this kernel, so nothing is lost by computing
-upstairs.}
-
-\begin{proposition}[The fourfold products remove the classes]
-\label{prop:fourfoldrank}
-Keep \Cref{thm:esixdiagonal} with $p=0$ and $t=(2,5,6)$, with the order and
-the signs of (i) there and $\sigma_{2}=1$, so that the paths run through the
-sixteen $L_{\zeta}$ with $\prod\zeta=1$. Take the pieces to be external
-products $L_{\zeta}=N_{1,\zeta_{1}}\boxtimes N_{2,\zeta_{2}}\boxtimes
-N_{3,\zeta_{3}}$ and $M_{i}=M_{i,1}\boxtimes M_{i,2}\boxtimes M_{i,3}$ of line
-bundles on the $B_{j}$. Let $Y_{110}\subset D^{2}$ be the space of classes
-that vanish at the $M_{i}$, whose components of the three types $(2,0,0)$
-vanish, and whose components of the three types $(1,1,0)$ are constant on
-the components of the graphs $\Gamma_{\tau}$ of \Cref{prop:cupkernel}. Then
-$\dim Y_{110}=192$ and the cup products vanish on $Y_{110}$. For all choices
-of the $N_{j,u}$, the $M_{i,j}$ and the harmonic components
-$x_{1}\in\cH^{0}(M_{2},M_{3})$, $x_{2}^{\zeta}\in\cH^{6}(M_{3},L_{\zeta})$ and
-$x_{3}^{\zeta}\in\cH^{0}(L_{\zeta},M_{1})$ outside a closed nowhere dense
-set, the fourfold products of \Cref{thm:esixdiagonal}(i) are injective on
-$Y_{110}$, with values in $\cH^{6}(M_{2},M_{1})$, of dimension $729$. They
-are also injective for some components with $x_{1}x_{2}^{\zeta}=0$ and
-$x_{2}^{\zeta}x_{3}^{\zeta}=0$ for every $\zeta$, and for general choices at
-$t=(2,5,7)$.
-\end{proposition}
-
-\begin{proof}
-A component of $\Gamma_{\tau}$ for $\tau$ of type $(1,1,0)$ is a pair of
-pieces, one with $\prod\zeta=1$ and one with $\prod\zeta=-1$, so restriction
-to the sixteen $L_{\zeta}$ with $\prod\zeta=1$ is an isomorphism of
-$Y_{110}$ onto the space of their classes of type $(1,1,0)$, of dimension
-$16\cdot12$; the cup products vanish by \Cref{prop:cupkernel}. Since $y$
-vanishes at the $M_{i}$, the products on $y\in Y_{110}$ are
-$\sum_{\zeta}m_{4}(x_{1},x_{2}^{\zeta},y_{\zeta},x_{3}^{\zeta})$, where
-$y_{\zeta}$ is the component at $L_{\zeta}$ and $m_{4}$ is the sum over the
-five planar binary trees with four leaves of \Cref{lem:harmonicmodel}(iii).
-Pull back by $\phi_{\zeta_{1}}\times\phi_{\zeta_{2}}\times\phi_{\zeta_{3}}$
-and write $h=\sum_{a}h_{a}$ over the six curves, as in
-\Cref{lem:degreedrop}. A class of type $(1,1,0)$ is a sum of forms
-$d\bar w_{a}\wedge d\bar w_{b}$ with the curves $a$, $b$ over two different
-surfaces. On the curves, $x_{1}$ and $x_{3}$ have degree $0$, $x_{2}$ has
-degree $1$ on all six, and $d\bar w_{a}\wedge d\bar w_{b}$ has degree $1$ on
-$a$ and on $b$. The value has degree $1$ on every curve, so the two internal
-edges carry $h_{a}$ and $h_{b}$; and a product of two forms of degree one on
-a curve vanishes. Of the five trees only $(x_{1}x_{2})(y\,x_{3})$ survives,
-with $h_{a}$ on one internal edge and $h_{b}$ on the other, in either
-assignment.
-
-On a curve, a line bundle of degree $d>0$ with its flat metric has, in the
-unitary gauge, $\nabla_{\bar z}=\partial_{\bar z}+\tfrac{\pi d}{2}z$ and
-$\nabla_{z}=\partial_{z}-\tfrac{\pi d}{2}\bar z$ with
-$[\nabla_{\bar z},\nabla_{z}]=-\pi d$, so its sections split into levels,
-the $k$-th spanned by $\nabla_{z}^{k}$ of the holomorphic sections, on which
-the Laplacian is a positive multiple of $k$ and $\nabla_{z}^{k}$ multiplies
-the squared norm by $k!\,(\pi d)^{k}$; the levels of a bundle of negative
-degree are the conjugates. The operator $h_{a}$ acts on each level of the
-product $x_{1}x_{2}$ on the curve $a$ by an explicit scalar, and after the
-final harmonic projection only the levels $0$ and $1$ contribute. This
-writes the value on $d\bar w_{a}\wedge d\bar w_{b}$ as a difference of two
-explicit sums of products, over the six curves, of integrals of theta
-functions and of their first derivatives in this gauge.\footnote{On the
-curves other than $a$ and $b$ the factor is the cup product; on $a$ and $b$
-it is either the level one part of $x_{1}x_{2}$ lowered by
-$\bar\partial^{*}$, or the level zero or level one part of $x_{1}x_{2}$
-paired with $\nabla_{z}x_{3}$. The two sums come from the two assignments
-of $h_{a}$ and $h_{b}$, and the rank below is the same when their relative
-sign is reversed, so it does not depend on the sign conventions.}
-
-Each of these integrals is a coefficient of a holomorphic section in a theta
-basis. For holomorphic sections $a$, $b$ of degrees $d_{a}$, $d_{b}$ on a
-curve, $\nabla_{z}(ab)$ has level one, while
-$H=d_{b}(\nabla_{z}a)\,b-d_{a}\,a\,\nabla_{z}b$ is holomorphic, since
-$\nabla_{\bar z}$ of it is $-\pi d_{a}d_{b}\,ab+\pi d_{a}d_{b}\,ab=0$; so
-$(\nabla_{z}a)\,b=\bigl(d_{a}\nabla_{z}(ab)+H\bigr)/(d_{a}+d_{b})$. Hence
-the pairing of a product of two sections of levels at most one with a
-section of level at most one is the pairing of a holomorphic section with a
-theta function $\vartheta_{k}$ of the same degree $d$, which is the
-coefficient of $\vartheta_{k}$ in that section times
-$\|\vartheta_{k}\|^{2}=(2d)^{-1/2}$. A holomorphic section of degree $d$ is
-determined by its values at $d$ points at which the $\vartheta_{k}$ are
-linearly independent, so these coefficients solve a linear system whose
-entries are values of theta series. The sections on $B_{j}$ are the
-sections on the cover invariant under the kernel of $\phi_{\zeta_{j}}$,
-generated by the half periods $(\frac12,\frac12)$ and
-$(\frac i2,\frac i2)$, which act by commuting involutions; so they form the
-image of the projector $\frac14(1+R_{1})(1+R_{2})$. The theta functions in
-the coordinates of $A$ pull back exactly, since the gauge
-$e^{-\pi d|z|^{2}/2}$ is invariant under the unitary map
-$\phi_{\zeta_{j}}/\sqrt2$, and their coefficients are found in the same
-way; pairing with them gives the values in a basis of
-$\cH^{6}(M_{2},M_{1})$ common to all $\zeta$. Every entry of the
-$729\times192$ matrix of the products on $Y_{110}$ is thereby a finite
-expression in values of theta series, and the tails of the series are
-bounded explicitly. A computation in \cite{BMB26} evaluates the matrix in
-ball arithmetic, which returns for every number an interval that contains
-it, at a precision of $128$ bits, for line bundles with rational
-semicharacters and components with rational coordinates in these bases. The
-Gram determinant of the $192$ columns is an interval that does not contain
-$0$, so at that choice the matrix has rank exactly $192$.\footnote{The radii
-of the intervals are below $10^{-25}$ of the largest entry, and the smallest
-singular value is $0.014$ of the largest. The computation agrees with an
-evaluation of the integrals by quadrature to $10^{-14}$, checks in rational
-arithmetic that $R_{1}$ and $R_{2}$ are commuting involutions, checks that
-the invariant sections have dimension $|\det|$ on every surface, and
-certifies the rank $12$ on each of the sixteen blocks.}
-The entries depend real-analytically on the line bundles and linearly on
-each component, so the rank is $192$ outside the common zero set of the
-maximal minors, which is closed and nowhere dense. The same computation
-certifies rank $192$ for components with
-$x_{1}x_{2}^{\zeta}=x_{2}^{\zeta}x_{3}^{\zeta}=0$ (those of
-\Cref{prop:explicitconvolution}(ii)), after certifying that the kernels of
-$x_{2}\mapsto x_{1}x_{2}$ and $x_{2}\mapsto x_{2}x_{3}$ have dimensions
-$11$ and $19$, and at $t=(2,5,7)$.
-\end{proof}
-
-So the inequality of \Cref{thm:esixdiagonal}(iii) can hold. The
-Maurer--Cartan equation can be solved as well, for one order of the pieces.
+The Maurer--Cartan equation can be solved for one order of the pieces.
 
 \begin{proposition}[An explicit convolution]\label{prop:explicitconvolution}
-Keep \Cref{prop:fourfoldrank}, and order the pieces as $M_{2}$, $M_{3}$, the
-sixteen $L_{\zeta}$ with $\prod\zeta=1$, $M_{1}$, the sixteen $L_{\zeta}$
+Keep \Cref{thm:esixdiagonal} with $p=0$ and $t=(2,5,6)$, take the pieces to
+be external products $L_{\zeta}=N_{1,\zeta_{1}}\boxtimes N_{2,\zeta_{2}}
+\boxtimes N_{3,\zeta_{3}}$ and $M_{i}=M_{i,1}\boxtimes M_{i,2}\boxtimes
+M_{i,3}$ of line bundles on the $B_{j}$, and order them as $M_{2}$, $M_{3}$,
+the sixteen $L_{\zeta}$ with $\prod\zeta=1$, $M_{1}$, the sixteen $L_{\zeta}$
 with $\prod\zeta=-1$, with the shifts $0$, $1$, $-4$, $-3$, $-5$.
 \begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
 \item The components that the degrees allow are
@@ -1898,9 +1732,7 @@ with $\prod\zeta=-1$, with the shifts $0$, $1$, $-4$, $-3$, $-5$.
   and every solution is the harmonic part of a convolution $E$ with
   $\ch(E)=32(\alpha+\bbar\alpha)+e^{5\theta}-e^{6\theta}-e^{2\theta}$.
 \item There are solutions with every $x_{2}^{\zeta}\ne0$ and
-  $x_{1}x_{2}^{\zeta}=x_{2}^{\zeta}x_{3}^{\zeta}=0$, and for some of them,
-  with general components on the $144$ pairs, $\dim\ker(d_{E}|_{D^{2}})\le57$:
-  the diagonal count of \Cref{thm:esixdiagonal} is met.
+  $x_{1}x_{2}^{\zeta}=x_{2}^{\zeta}x_{3}^{\zeta}=0$.
 \item For every solution $\dim\Ext^{2}(E,E)\ge2560$, so $E$ does not meet
   the polarised criterion.
 \end{enumerate}
@@ -1927,23 +1759,17 @@ $\cH^{5}(M_{2},M_{1})=0$ and $x_{2}^{\zeta}$ composed with a component in
 $\cH^{2}(L_{\zeta},L_{\zeta'})$ in degree eight. The signs
 $(-1)^{d}$ are $+,-,+,-,-$, which gives the Chern character by
 \Cref{prop:weilpieces}(i).
-(ii) Take $x_{1}$ and the $x_{3}^{\zeta}$ to be external products of sections
-on the $B_{j}$. On each $B_{j}$ the products with their factors map $H^{2}(B_{j},M_{3}^{-1}L_{\zeta})$, of dimension $35$, onto
-spaces of dimensions $24$ and $16$, so they have kernels of dimensions $11$
+(ii) Take $x_{1}$ and the $x_{3}^{\zeta}$ to be external products of
+nonzero sections on the $B_{j}$. On each $B_{j}$ the products with their
+factors map $H^{2}(B_{j},M_{3}^{-1}L_{\zeta})$, of dimension $35$, to spaces
+of dimensions $24$ and $16$, so they have kernels of dimensions at least $11$
 and $19$. A sum of external products whose factor on one surface lies in the
 first kernel and whose factor on another lies in the second is a nonzero
 $x_{2}^{\zeta}$ with $x_{1}x_{2}^{\zeta}=x_{2}^{\zeta}x_{3}^{\zeta}=0$, which
 solves (i).\footnote{Such solutions are far from unique: the equations of
 (i) are linear in each of $x_{1}$, $x_{2}^{\zeta}$, $x_{3}^{\zeta}$
 separately, and the components on the $144$ pairs do not enter them at
-all.} By \Cref{prop:fourfoldrank} there are such solutions on which the
-fourfold products are injective on $Y_{110}$. Choose the components on the
-$144$ pairs general, so that the cup products have the kernel $Y$ of
-dimension exactly $249$ of \Cref{prop:cupkernel}, which contains $Y_{110}$.
-On $D^{2}$ the differential is the sum of the cup products and of the
-fourfold products, which land in different groups, since no component joins
-$M_{2}$ to $M_{1}$; so $\ker(d_{E}|_{D^{2}})$ is the kernel of the fourfold
-products on $Y$, of dimension at most $249-192=57$.
+all.}
 (iii) The sixteen $L_{\zeta}$ with $\prod\zeta=1$ have shift $-4$ and the
 others $-5$, so \Cref{lem:allthree} below applies to every pair of them
 that differ in all three coordinates: there are $112$ such pairs, and their
@@ -2289,10 +2115,10 @@ must not be twisted by line bundles of degree zero here, unlike in
 \Cref{thm:noconvolution}: a twist that is nontrivial on the surface where
 $\zeta$ and $\zeta'$ agree removes $\cH(L_{\zeta},L_{\zeta'})$.
 
-With a third shift, a component of $\Ext$ degree two can now follow or
-precede a class of $\cH^{3}(L_{\zeta},L_{\zeta'})$, and the computation in
-\cite{BMB26} finds such terms as soon as one piece is moved two shifts down.
-When the three shifts are consecutive, these terms reach only the groups
+With a third shift, a component of $\Ext$ degree two can follow or precede
+a class of $\cH^{3}(L_{\zeta},L_{\zeta'})$, so the differential no longer
+vanishes on these classes. When the three shifts are consecutive, such terms
+reach only the groups
 between the highest and the lowest shift, which are too small to remove the
 classes.
 
@@ -2525,8 +2351,7 @@ every coordinate has entries in $\{i,-1,-i\}$ and product $1$. With a $-1$
 among them it is $(-1,-1,-1,-1)$ or has exactly two entries $-1$ and the
 entries $i$ and $-i$, twelve ratios; together thirteen, and
 $256+12\cdot64=1024$. The other eight ratios have all four entries in
-$\{i,-i\}$ and $D=16$; for them both statements of (ii) fail, by the
-computation in \cite{BMB26}.} A coboundary with a component in $\cH(a,b)$ is
+$\{i,-i\}$ and $D=16$; (ii) makes no statement about them.} A coboundary with a component in $\cH(a,b)$ is
 a sum of terms of \Cref{lem:harmonicmodel}(iii) along a path
 $a\to\dots\to b$ of morphisms of degree one, one of them an element $u$ and
 the others components, that lowers the shift by two. By
@@ -2914,13 +2739,7 @@ four values of the coordinate, the six types $(1,1,0,0)$ have dimension four
 and sixteen values of the two coordinates: $4\cdot4+6\cdot16\cdot4=400$. By
 \Cref{prop:nothingenters}, which holds for $n=4$, the kernel of $d_{E}$ on
 $D^{2}$ injects into $\Ext^{2}(E,E)$, and it is at most $104$ only if the
-longer products remove $380$ dimensions of these $484$.\footnote{For
-general components on every pair of pieces that the degrees allow, the
-computation in \cite{BMB26} finds that the graphs $\Gamma_{\tau}$ of the
-proof of \Cref{prop:cupkernel} have exactly these $4$ and $16$ components and
-that the cup products have rank $3184$ on the $3584$ classes, modulo the
-prime $1000003$; so $484$ is the least kernel that the cup products can
-leave.}
+longer products remove $380$ dimensions of these $484$.
 \end{proof}
 
 \Cref{fig:efourspread} and \Cref{fig:efoursix} draw the
@@ -2961,12 +2780,11 @@ values, each with its bound on $\dim\Ext^{2}$ (\Cref{cor:efoursix}).}
 
 \begin{remark}[What the route gives]\label{rem:convolutionsopen}
 At $n=3$ the route through convolutions of these pieces is decided. The
-diagonal obstruction of \Cref{thm:esixdiagonal} can be removed: the
-fourfold products have the rank it asks for (\Cref{prop:fourfoldrank}), and
-the explicit convolution of \Cref{prop:explicitconvolution} solves the
-Maurer--Cartan equation and meets the diagonal count. The obstruction then
-reappears off the diagonal, in classes that no product of any length can
-reach: those between pieces that differ in every coordinate and have
+diagonal obstruction of \Cref{thm:esixdiagonal} leaves room only for the
+fourfold products along one path, and the explicit convolution of
+\Cref{prop:explicitconvolution} solves the Maurer--Cartan equation. The
+obstruction that decides the route lies off the diagonal, in classes that no
+product of any length can reach: those between pieces that differ in every coordinate and have
 adjacent shifts (\Cref{lem:allthree}), and, at pieces whose shifts are not
 adjacent to the shift of the paths, the classes of type $(1,1,0)$. No order
 and no choice of shifts or twists avoids both, and

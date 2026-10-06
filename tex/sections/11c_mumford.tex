@@ -505,11 +505,12 @@ Hodge structures.
 \begin{enumerate}[label=\textup{(\roman*)},nosep,leftmargin=2.6em]
 \item $T$ is isomorphic to no subquotient of $H^{k}(X,\QQ)(j)$, for any $k$
   and $j$.
-\item For $n=2,4,\dots,14$ the $F$-vector space
-  $\Hom_{\mathrm{Hdg}}\bigl(T,H^{n}(X\times X,\QQ)(n/2)\bigr)$ has dimension
-  $1,6,16,24,16,6,1$, and for $n\notin\{2,4,\dots,14\}$ the Hodge structure
-  $T$ is isomorphic to no subquotient of any $H^{n}(X\times X,\QQ)(j)$. The
-  copy of $T$ in $H^{2}(X\times X,\QQ)(1)$ lies in $H^{1}(X)\otimes H^{1}(X)$.
+\item The $F$-vector space
+  $\Hom_{\mathrm{Hdg}}\bigl(T,H^{2}(X\times X,\QQ)(1)\bigr)$ is
+  one-dimensional, and the copy of $T$ in $H^{2}(X\times X,\QQ)(1)$ lies in
+  $H^{1}(X)\otimes H^{1}(X)$. For $n$ odd and for $n\in\{0,16\}$ the Hodge
+  structure $T$ is isomorphic to no subquotient of any
+  $H^{n}(X\times X,\QQ)(j)$.
 \item $\Hom_{\mathrm{Hdg}}(T,\End V)$ is a one-dimensional $F$-vector space,
   spanned by the inclusion. For $\lambda\in F$ totally positive, after an
   isogeny $\mathrm{KS}(S_{\lambda})\to X^{32}$ the Kuga--Satake embedding of
@@ -552,13 +553,22 @@ argument with the factors exchanged neither do $T_{2}$ and $T_{3}$. As $G$ is
 reductive, the subquotients of $\bigwedge^{k}V$ are its summands; that is (i).
 
 For (ii),
-$H^{n}(X\times X)=\bigoplus_{a+b=n}\bigwedge^{a}V\otimes\bigwedge^{b}V$, and
-the multiplicity of $S^{2}V_{1}$ in it is a finite computation with the
-characters of $\SL_{2}^{3}$, recorded in \cite{BMB26} (by repeated
-subtraction of highest weights and, independently, by Weyl's alternating
-sum): $0,0,1,0,6,0,16,0,24,0,16,0,6,0,1,0,0$ for $n=0,\dots,16$. In
+$H^{n}(X\times X)=\bigoplus_{a+b=n}\bigwedge^{a}V\otimes\bigwedge^{b}V$. The
+element of $G$ that is $-1$ on the first factor $\SL(V_{1})$ and $1$ on the
+other two acts on $V$ by $-1$, hence on $H^{n}(X\times X)$ by $(-1)^{n}$, and
+trivially on $T$; and $H^{0}$, $H^{16}$ are trivial representations. In
 $H^{2}(X\times X)=\bigwedge^{2}V\oplus(V\otimes V)\oplus\bigwedge^{2}V$ the
-copy lies in $V\otimes V$ by (i). For (iii), $\End V=S^{2}V\oplus
+summands $\bigwedge^{2}V$ contain no $T_{i}$ by (i), and
+$V\otimes V=S^{2}V\oplus\bigwedge^{2}V$ with
+\[
+  S^{2}(V_{1}\otimes V_{2}\otimes V_{3})
+  =S^{2}V_{1}\otimes S^{2}V_{2}\otimes S^{2}V_{3}
+  \oplus\bigoplus_{i=1}^{3}S^{2}V_{i}\otimes
+  \textstyle\bigwedge^{2}V_{j}\otimes\bigwedge^{2}V_{k},
+\]
+$\{i,j,k\}=\{1,2,3\}$, where $\bigwedge^{2}V_{j}$ is trivial. So each $T_{i}$
+occurs exactly once in $H^{2}(X\times X)$, inside $V\otimes V$, and $m=1$.
+For (iii), $\End V=S^{2}V\oplus
 \bigwedge^{2}V$ contains each $T_{i}$ once, and the proof of
 \Cref{thm:mumfordks}(ii) shows that the blocks of the Kuga--Satake embedding
 are maps $m_{e_{ab}}$. Finally $\mathrm{KS}(S_{\lambda})$ is isogenous to

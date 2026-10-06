@@ -134,6 +134,7 @@ eq:quarticcompensated
 eq:quarticstar
 eq:quatE
 eq:secantkernel
+eq:sexticexcess
 eq:sexticomega
 eq:shift
 eq:shufflesign
@@ -181,7 +182,6 @@ fig:efourspread
 fig:efourthree
 fig:escape
 fig:evaluation
-fig:extprofile
 fig:f3primereach
 fig:factor
 fig:fibres
@@ -213,7 +213,6 @@ fig:quarticloci
 fig:quarticrank
 fig:rigidity
 fig:route
-fig:sexticweil
 fig:simplextype
 fig:speciallocus
 fig:spinor
@@ -280,6 +279,7 @@ lem:indexsum
 lem:lefinvolution
 lem:localproducts
 lem:merge
+lem:mergefive
 lem:multiplicity
 lem:mumfordmu
 lem:nefnorm
@@ -360,7 +360,6 @@ prop:f3primesmall
 prop:f3primestrength
 prop:firstorder
 prop:flatall
-prop:fourfoldrank
 prop:genus3
 prop:grading
 prop:grr
@@ -428,7 +427,6 @@ prop:secantprofile
 prop:separate
 prop:sexticcount
 prop:sexticintegral
-prop:sexticweilmin
 prop:signatureforced
 prop:smoothlocal
 prop:smoothrank
@@ -534,9 +532,7 @@ rem:pointwise
 rem:positiverankscope
 rem:prodscope
 rem:pteoutcome
-rem:pterangemeaning
 rem:quarticisogeny
-rem:quarticmixedkernel
 rem:quarticnegext
 rem:quarticprym
 rem:quarticsecantshape
@@ -553,7 +549,6 @@ rem:semiregneed
 rem:semiregunavailable
 rem:sexticnatural
 rem:sexticparity
-rem:sextictargets
 rem:signcheck
 rem:sizeconstant
 rem:sizeofloss
@@ -664,7 +659,6 @@ ssec:tangent
 ssec:targets
 ssec:thirdexists
 ssec:whatobject
-tab:burch
 tab:n3coeffs
 tab:rules
 tab:scope
@@ -674,7 +668,6 @@ thm:BF
 thm:LHT
 thm:albert
 thm:anntangent
-thm:burchsearch
 thm:candidatefails
 thm:cdk
 thm:character

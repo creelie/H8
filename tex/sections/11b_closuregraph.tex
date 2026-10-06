@@ -1,18 +1,18 @@
-\subsection{The closure computation}
+\subsection{Which hypotheses suffice}
 \label{ssec:closure}
 
 The implications proved above, together with those of \Cref{ssec:bullseye},
-determine exactly which combinations of statements yield the conjecture, and
-we determine them by computation. The logical skeleton of the paper and of
-the literature it quotes is finite: a set of statements, each of them proved
-here, quoted from the literature, or taken as a hypothesis, and a set of
-inference rules, each of them one theorem. Consequences can then be taken.
+determine exactly which combinations of statements yield the conjecture. The
+logical skeleton of the paper and of the literature it quotes is finite: a
+set of statements, each of them proved here, quoted from the literature, or
+taken as a hypothesis, and a set of inference rules, each of them one
+theorem. Consequences can then be taken.
 
-Such a computation is only as strong as its rule set. A set of statements
-the rules do not carry to the conjecture is \emph{insufficient} in the sense
-of the computation, and that means no more than that no rule derives the
-conjecture from it. An implication that is true and left out makes the
-computation report a set as necessary when it is not. One such implication
+The answer is only as strong as the rule set. A set of statements the rules
+do not carry to the conjecture is \emph{insufficient} in the sense of the
+rules, and that means no more than that no rule derives the conjecture from
+it. An implication that is true and left out makes a set look necessary when
+it is not. One such implication
 is elementary, and it decides the shape of the answer, so we prove it first.
 
 \begin{proposition}[The conjecture for the varieties that are not abelian
@@ -240,9 +240,12 @@ $\QQ$-algebra that contains the algebraic classes and is stable under
 pull-back and push-forward along morphisms \cite[\S2]{And96b}. So
 $\mathrm{pr}_{B_{j}}^{*}\beta_{j}\cup[\Gamma_{j}]$ is motivated, and so is its
 push-forward $\Gamma_{j*}\beta_{j}$; hence $\gamma$ is motivated. Motivated
-classes are absolutely Hodge \cite[\S2]{And96b}. The last assertion is the
-computation in \cite{BMB26}, which adds the rule to
-the rule set and recomputes the minimal sufficient sets.
+classes are absolutely Hodge \cite[\S2]{And96b}. For the last assertion,
+the new rule has the premise (F3$'$) and the conclusion (M). The sets $C_{1}$
+and $C_{2}$ of the proof of \Cref{thm:closure} omit (F3$'$), and $C_{3}$ and
+$C_{4}$ contain both statements, so the four sets stay closed and that proof
+applies without change; the five sets remain sufficient, since adding a rule
+only enlarges closures.
 \end{proof}
 
 So on the route $\{\mathrm{L},\mathrm{F3}'\}$ the second member already
@@ -1254,8 +1257,13 @@ vanishes, the product of the relations $x_{j-1}^{m-1}=-(m-1)x_{j}^{m-2}
 x_{j+1}$ gives $\prod_{j}x_{j}^{m-1}=(1-m)^{k}\prod_{j}x_{j}^{m-1}$, which
 is impossible because $|1-m|\ge2$. The number of shapes, drawn in \Cref{fig:delsarte}, is the
 coefficient of $t^{6}$ in $(1-t)^{-1}\prod_{k\ge2}(1-t^{k})^{-2}$, which is $29$, and
-the least $d$ is the least common multiple of the denominators of the
-entries of $A^{-1}$, computed block by block. The
+the least $d$ is the least common multiple of the orders of the cyclic groups
+attached to the terms in the proof of \Cref{cor:delsarteall}(iii): $6$ for
+$x^{6}$, $6\cdot5^{k-1}$ for a chain and $5^{k}-(-1)^{k}$ for a loop of length
+$k$; so $24$ or $30$ when the terms other than $x^{6}$ are all loops or all
+chains of length two, and at least $\operatorname{lcm}(24,30)=120$, $5^{3}+1$
+or $6\cdot5^{2}$ when both kinds of length two, or a loop or chain of length at
+least three, occur. The
 Hodge numbers are those of every smooth sextic fourfold, read off from the
 Jacobian ring \cite[Chapter~6]{Voi03}.
 \end{proof}
@@ -1600,15 +1608,24 @@ coordinate hyperplane, so it is the closure of its part in the torus, and
 \Cref{thm:simplextype} applies.
 
 (iii) The least $d$ with $dA^{-1}$ integral is the exponent of
-$\ZZ^{r+2}/R$. For the loop, $A=5I+P$ with $P$ a cyclic permutation matrix,
-and $\ZZ^{6}/R\cong\ZZ[x]/(x+5,x^{6}-1)=\ZZ/15624$; for the chain the
-relations $x_{j+1}=-5x_{j}$ and $6x_{5}=0$ make $\ZZ^{6}/R$ cyclic of order
-$6\cdot5^{5}=18750$. In both cases $M/M'$ is the subgroup of index $6$ of a
-cyclic group, so $e_{A}=[M:M']$ is $2604$, respectively $3125$. For the
-Klein quartic, $\det A=28$, so $[M:M']=7$ and $e_{A}=7$. For the other
-$27$ shapes the invariant factors of $M/M'$ come from the Smith normal form
-of the matrix of the $a_{i}-a_{0}$, a finite computation recorded in
-\cite{BMB26}.
+$\ZZ^{r+2}/R$, and the map $x\mapsto\sum_{j}x_{j}$ modulo $m$ is well defined
+on it because the rows sum to $m$. For a polynomial as in
+\Cref{prop:delsarte}(iii) the group $\ZZ^{r+2}/R$ is the direct sum of one
+group for each term. The relations of a chain are $x_{j+1}=(1-m)x_{j}$ and
+$mx_{k}=0$, those of a loop are $x_{j+1}=(1-m)x_{j}$, indices modulo $k$, and
+that of $x^{m}$ is $mx=0$. So each summand is cyclic, generated by the class
+of its first variable, of order $N=m(m-1)^{k-1}$, $(m-1)^{k}-(-1)^{k}$ and
+$m$ respectively, and the sum map sends that generator to $1$, since
+$1-m\equiv1$ modulo $m$; each $N$ is divisible by $m$. The least $d$ is the
+least common multiple of these orders, which gives the values of
+\Cref{prop:delsarte}(iii). The group $M/M'$ is the kernel of the sum map. With
+one term only, the loop or the chain in six variables, the kernel is
+$m\ZZ/N\ZZ$, of exponent $N/m$, which is $15624/6=2604$ and $18750/6=3125$;
+for the Klein quartic, a loop with $m=4$ and $k=3$, it is $28/4=7$. With at
+least two terms, of orders $N_{1},N_{2},\dots$, the kernel contains the
+differences of the generators of the first and of the $b$-th summand, of order
+$\operatorname{lcm}(N_{1},N_{b})$; so its exponent is the least common multiple
+of all the $N_{b}$, which is the least $d$.
 \end{proof}
 
 For the Klein quartic the construction is classical: the isogeny has kernel
@@ -1861,7 +1878,7 @@ hyperplane class by the Lefschetz hyperplane theorem. Then $\Phi^{*}x$ is a
 $G$-invariant Hodge class, its components in the $W_{[a]}$ and along $\eta$
 are Hodge classes, being cut out by the algebraic projectors attached to
 the action of $H^{r}$, and they are algebraic; so $\Phi^{*}x$ is algebraic,
-and so is $x=\Phi_{*}\Phi^{*}x/|G|$. Finally $\dim B_{[a]}$ is half of
+and so is $x=\Phi_{*}\Phi^{*}x/|G|$.\enlargethispage{2pt} Finally $\dim B_{[a]}$ is half of
 $\sum_{a'\in[a]}\dim V_{a'}=|[a]|\dim V_{a}$.
 \end{proof}
 
@@ -1985,9 +2002,10 @@ of the statement.
 \end{proof}
 
 For the characters of order three, four and six the monodromy of the
-curves $D_{a}$ is computed by induction on the number of branch points. The
+curves $D_{a}$ is determined by induction on the number of branch points. The
 step lets two branch points collide, and a lemma on two copies of $\SL$ of a
-hyperplane closes it; the base is a finite computation
+hyperplane closes it. The base has four branch points, two of them with
+opposite exponents, whose full twist is a transvection
 (\Cref{fig:cyclicmerge}).
 
 \begin{setupenv}[Cyclic covers]\label{setup:cyclic}
@@ -2099,20 +2117,24 @@ power of $\zeta$.
 \end{proof}
 
 \begin{lemma}[Two hyperplanes]\label{lem:hyperplanes}
-Let $E=Y\oplus L$ be a complex vector space with $\dim Y\ge3$ and
+Let $E=Y\oplus L$ be a complex vector space with $\dim Y\ge2$ and
 $\dim L=1$, let $S\subset\SL(E)$ be the subgroup acting on $Y$ through
 $\SL(Y)$ and trivially on $L$, and let $\gamma\in\GL(E)$ satisfy
-$\gamma L\ne L$ and $\gamma Y\ne Y$. Then $S$ and $\gamma S\gamma^{-1}$ generate
-$\SL(E)$.
+$\gamma L\ne L$ and $\gamma Y\ne Y$. Then the group $T$ generated by $S$ and
+$\gamma S\gamma^{-1}$ acts irreducibly on $E$. If $\dim Y\ge3$, then
+$T=\SL(E)$. If $\dim Y=2$, every connected semisimple subgroup of $\SL(E)$
+that contains $T$ is $\SL(E)$.
 \end{lemma}
 
 \begin{proof}
-The group $T$ they generate is connected. As a representation of $S$, $E$ is
+The group $T$ is connected. As a representation of $S$, $E$ is
 the sum of the irreducible nontrivial $Y$ and the trivial $L$, so its
 $S$-stable subspaces are $0$, $L$, $Y$ and $E$, and those of
 $\gamma S\gamma^{-1}$ are $0$, $\gamma L$, $\gamma Y$ and $E$; by the
 hypotheses and the dimensions only $0$ and $E$ are in both lists, and $T$ is
-irreducible. As a representation of $\mathfrak{sl}(Y)$,
+irreducible.
+
+Let $\dim Y\ge3$. As a representation of $\mathfrak{sl}(Y)$,
 \[
   \mathfrak{sl}(E)=\mathfrak{sl}(Y)\oplus\mathrm{Hom}(L,Y)\oplus
   \mathrm{Hom}(Y,L)\oplus\CC z,
@@ -2126,10 +2148,23 @@ $\mathrm{Hom}(L,Y)$ it preserves $L$, and without $\mathrm{Hom}(Y,L)$ it
 preserves $Y$; both are excluded by irreducibility. The bracket of a nonzero
 map $L\to Y$ with a map $Y\to L$ not vanishing on its image has a nonzero
 component along $z$, so $\mathfrak{t}=\mathfrak{sl}(E)$ and $T=\SL(E)$.
+
+Let $\dim Y=2$ and let $G\supseteq T$ be connected and semisimple. Then $E$
+is a faithful irreducible representation of dimension $3$ of the Lie algebra
+$\mathfrak{g}$ of $G$. An irreducible representation of a product of simple
+Lie algebras is a tensor product of irreducible representations of the
+factors, and $3$ is prime, so $\mathfrak{g}$ is simple. It lies in
+$\mathfrak{sl}(E)$, of dimension $8$ and rank $2$, and the simple Lie
+algebras of rank at most $2$ are $\mathfrak{sl}_{2}$, $\mathfrak{sl}_{3}$,
+$\mathfrak{so}_{5}$ and $\mathfrak{g}_{2}$, of dimensions $3$, $8$, $10$ and
+$14$. If $\mathfrak{g}\cong\mathfrak{sl}_{2}$, then $\mathfrak{g}$ equals the
+Lie algebra of $S$, both being of dimension $3$, so $G=S$, which preserves
+$L$, against the irreducibility of $T$. Hence $\mathfrak{g}=\mathfrak{sl}(E)$
+and $G=\SL(E)$.
 \end{proof}
 
 \begin{lemma}[Merging two branch points]\label{lem:merge}
-Let $m$ and $a$ be as in \Cref{setup:cyclic}, with $k\ge7$ and $p,q\ge1$.
+Let $m$ and $a$ be as in \Cref{setup:cyclic}, with $k\ge6$ and $p,q\ge1$.
 Then there are $i\ne j$ with $a_{i}+a_{j}\ne0$ such that the vector $a'$
 obtained by replacing $a_{i}$ and $a_{j}$ by $a_{i}+a_{j}$ has order $m$, and
 its numbers $p'$ and $q'$ are at least $1$.
@@ -2142,32 +2177,60 @@ by one if $f_{i}+f_{j}<1$, and lowers $p$ by one and keeps $q$ if
 $f_{i}+f_{j}>1$. Since $a_{i}+a_{j}=-\sum_{l\ne i,j}a_{l}$, the order of $a'$ is
 that of the subgroup generated by the $a_{l}$ with $l\ne i,j$, the rest of
 $a$. Replacing $a$ by $-a$ exchanges $p$ and $q$, so we may assume $q\ge p$,
-hence $q\ge3$ as $p+q=k-2\ge5$; if $p\ge2$, every merge keeps $p',q'\ge1$
+hence $q\ge2$ as $p+q=k-2\ge4$; if $p\ge2$, every merge keeps $p',q'\ge1$
 and only the order matters.
 
 \emph{The order.} For $m=3$ two equal coordinates exist, their sum is not
 $0$, and any nonzero rest generates $\ZZ/3$. For $m=4$ the number of odd
 coordinates is even and positive; if it is at least $4$, merge two equal odd
-ones, and if it is $2$, merge an odd one with one of the at least five
+ones, and if it is $2$, merge an odd one with one of the at least four
 coordinates equal to $2$. For $m=6$ the rest generates $\ZZ/6$ exactly when
 it contains an odd coordinate and one prime to $3$. The odd coordinates
 are even in number and the coordinates prime to $3$ have sum divisible by
 $3$, so each kind occurs at least twice. If exactly two coordinates are
-odd, the at least five others lie in $\{2,4\}$; merge two equal ones among
+odd, the at least four others lie in $\{2,4\}$; merge two equal ones among
 them. If exactly two are prime to $3$, the others equal $3$; merge a $3$
 with one of the two. Otherwise each kind occurs at least three times, and
 any two coordinates with nonzero sum can be merged; they exist, since
 pairwise sums $0$ would force every coordinate to be $3$.
 
-\emph{The case $p=1$.} Then $\sum_{i}b_{i}=2m$ with $k\ge7$ terms $b_{i}\ge1$,
-so $k\le2m$, $m\in\{4,6\}$, and at most $2m-k$ coordinates have
-$b_{i}\ge2$; the merge must have $b_{i}+b_{j}<m$. For $m=4$ at least six
-coordinates equal $3$ ($b=1$) and at most one equals $2$; merge two $3$'s,
-whose sum is $2$, leaving a $3$. For $m=6$ at least $2k-12\ge2$ coordinates
-equal $5$ ($b=1$). If three do, merge two of them, whose sum is $4$, leaving
-a $5$; if exactly two do, then $k=7$ and $a=(5,5,4,4,4,4,4)$, and merging a
-$5$ with a $4$, of sum $3$ and $b_{i}+b_{j}=3$, leaves a $5$. In both cases
-$q'=q-1\ge2$ and the order is kept.
+\emph{The case $p=1$.} Then $\sum_{i}b_{i}=2m$. Some $b_{i}$ equals $1$,
+since otherwise $\sum_{i}b_{i}\ge2k\ge12\ge2m$, with equality only if $m=6$
+and every coordinate is $4$, when $a$ has order three. Keep such a coordinate,
+$a_{i}=-1$, which generates $\ZZ/m$. The other $k-1\ge5$ coordinates have
+$b$-sum $2m-1$, so the two smallest values of $b$ among them add up to at most
+$2(2m-1)/5<m$; merge these two coordinates. Their sum is not $0$, $p'=p=1$,
+$q'=q-1=k-4\ge2$, and the rest contains $a_{i}$, so $a'$ has order $m$.
+\end{proof}
+
+\begin{lemma}[Five branch points]\label{lem:mergefive}
+Let $m$ and $a$ be as in \Cref{setup:cyclic}, with $k=5$ and $p,q\ge1$. Then
+$a_{i}+a_{j}=0$ for some $i\ne j$, and the other three coordinates can be
+labelled $x,y,z$ so that $x+y\ne0$ and $a'=(x+y,z,a_{i},a_{j})$ has order $m$
+and $p'=q'=1$.
+\end{lemma}
+
+\begin{proof}
+Replacing $a$ by $-a$ we may assume $p=1$, so that $\sum_{l}b_{l}=2m$ with
+five terms in $[1,m-1]$; and $a_{i}+a_{j}=0$ means $b_{i}+b_{j}=m$. For $m=3$
+the terms lie in $\{1,2\}$ and exactly one is $2$; take it and a $1$. For
+$m=4$, take a $3$ and a $1$ if both occur. If no term is $3$, the terms lie in
+$\{1,2\}$ and at least three are $2$, which gives $2+2$; if no term is $1$,
+they lie in $\{2,3\}$ and add up to at least $10$, which is impossible. For
+$m=6$ suppose that no two terms add up to $6$. Then at most one term is $3$,
+and neither $1$ and $5$ nor $2$ and $4$ both occur. Terms in $\{1,2,3\}$ with
+at most one $3$ add up to at most $11$, and terms in $\{3,4,5\}$ to at least
+$19$. Terms in $\{1,3,4\}$, respectively $\{2,3,5\}$, cannot add up to $12$,
+since the number $y$ of terms $4$, respectively $5$, would satisfy
+$3y\in\{7,5\}$, respectively $3y\in\{2,1\}$. This proves the first assertion.
+
+The other three coordinates add up to $0$ and have $b$-sum $m$, so any two of
+them, $x$ and $y$, have $x+y=-z\ne0$ and $b$-sum less than $m$; merging them
+keeps $p'=1$, so $q'=1$, and $a'$ contains $c=a_{i}$ and $a_{j}=-c$. The order
+of $a'$ is that of the subgroup generated by $z$ and $c$. If $c$ generates
+$\ZZ/m$, any choice of $z$ will do. Otherwise $c$ is even, or $m=6$ and $c=3$.
+As $a$ has order $m$, one of $x,y,z$ is then odd, respectively prime to $3$,
+and we take it as $z$; then $z$ and $c$ generate $\ZZ/m$.
 \end{proof}
 
 \begin{proposition}[Monodromy of cyclic covers]\label{prop:cyclicmonodromy}
@@ -2179,43 +2242,61 @@ $n\ge3$ and $p,q\ge1$ then $G_{a}^{0}\supseteq\SL(V_{a})$.
 If $pq=0$, the polarisation is definite on $V_{a}$ up to sign, and
 $\Gamma_{a}$ preserves it and the $\ZZ[\zeta]$-lattice spanned by
 $H^{1}(D_{a},\ZZ)$; a discrete subgroup of a compact group is finite. Assume
-$p,q\ge1$ and use the model of \Cref{lem:foxmodel}. Two facts are used
-throughout: if $u\in\Gamma_{a}$ is unipotent, the Zariski closure of its
+$p,q\ge1$ and use the model of \Cref{lem:foxmodel}. Three facts are used
+throughout. If $u\in\Gamma_{a}$ is unipotent, the Zariski closure of its
 powers is the group $\exp(\tau\log u)$, so $\log u$ lies in the Lie algebra
-$\mathfrak{g}_{a}$ of $G_{a}^{0}$; and $\mathfrak{g}_{a}$ is stable under
-conjugation by $\Gamma_{a}$, which normalises $G_{a}^{0}$.
+of $G_{a}^{0}$. The group $\Gamma_{a}$ normalises $G_{a}^{0}$. And $G_{a}^{0}$
+is semisimple: by Andr\'e's theorem \cite[Theorem~1]{And92} the identity
+component of the Zariski closure of the monodromy group of
+$H^{1}(D_{a},\QQ)$ is a normal subgroup of the derived group of the
+Mumford--Tate group of a very general fibre, hence semisimple, and
+$G_{a}^{0}$ is its image in $\GL(V_{a})$, the monodromy commuting with the
+deck group.
 
-For $n=3,4$, that is $k=5,6$, there are $38$ vectors $a$ up to order and
-sign. In each, after a relabelling, a set $J$ of at most $k-2$ consecutive
-points has $\sum_{i\in J}a_{i}=0$, so a loop around $J$ lifts to closed curves
-and the full twist of $J$ acts as a unipotent $u_{J}$ with $u_{J}-1$ of rank
-one and square zero. A computation in \cite{BMB26} shows that the smallest
-subspace of $\mathfrak{gl}(E_{a})$ that contains these $\log u_{J}=u_{J}-1$
-and is stable under brackets and under conjugation by the images of the
-$A_{st}$ is $\mathfrak{sl}(E_{a})$, of dimension $n^{2}-1$. Hence
-$\mathfrak{g}_{a}\supseteq\mathfrak{sl}(E_{a})$.
+\emph{Four points.} Let $k=4$, so $n=2$, and suppose that two coordinates
+of $a$ are opposite; relabel them $a_{1}$ and $a_{2}$, so that $t_{1}t_{2}=1$.
+The full twist $A_{12}$ maps $x_{i}\mapsto wx_{i}w^{-1}$ for $i=1,2$, with
+$w=x_{1}x_{2}$, and fixes $x_{3},x_{4}$. As $t(w)=1$, the formula for
+$\partial(wx_{i}w^{-1})/\partial x_{j}$ in the proof of \Cref{lem:cabling}
+gives $vJ_{A_{12}}=v+\varphi(v)\,\delta$, with $\delta=e_{1}+t_{1}e_{2}$ and
+$\varphi(v)=(1-t_{1})v_{1}+(1-t_{2})v_{2}$, which equals
+$\sum_{j\ge3}(t_{j}-1)v_{j}$ on $\ker\partial$. Here $\delta\in\ker\partial$,
+$\varphi(\delta)=0$, $\varphi(\ell)=t_{1}\cdots t_{k}-t_{1}t_{2}=0$, the
+vector $\delta$ is not a multiple of $\ell$, whose third coordinate is
+$t_{1}t_{2}=1$, and $\varphi\bigl((t_{3}-1)e_{1}-(t_{1}-1)e_{3}\bigr)
+=-(t_{1}-1)(t_{3}-1)\ne0$. So $A_{12}$ acts on $E_{a}$ as a unipotent
+$u\ne1$, and $G_{a}^{0}$ is a connected semisimple subgroup of
+$\SL(E_{a})\cong\SL_{2}$ containing $\exp(\tau\log u)$. The connected
+subgroups of $\SL_{2}$ of dimension one or two are solvable, so
+$G_{a}^{0}=\SL(E_{a})$.
 
-Let $n\ge5$ and assume the assertion for $n-1$. By \Cref{lem:merge} and a
-relabelling, $a_{1}+a_{2}\ne0$, and $a'=(a_{1}+a_{2},a_{3},\dots,a_{k})$ has
-order $m$ and $p',q'\ge1$, so the monodromy of $E_{a'}$ has a Zariski closure
-whose identity component contains $\SL(E_{a'})$. Let $H$ be the identity
-component of the Zariski closure of the doubled braids of
-\Cref{lem:cabling}. Then $H\subseteq G_{a}^{0}$, $H$ preserves $Y$ and $KI$
-and acts trivially on $KI$, where the doubled braids act through a finite
-group, and its image in $\GL(Y)$ is the identity component of the Zariski
-closure of the monodromy of $E_{a'}$, which contains $\SL(Y)$. So $G_{a}^{0}$
-contains the group $S$ of \Cref{lem:hyperplanes} for $E_{a}=Y\oplus KI$. Let
-$\gamma=A_{23}$, the full twist of the second and third points; its
-automorphism fixes $x_{1}$ and maps $x_{2}\mapsto
-x_{2}x_{3}x_{2}x_{3}^{-1}x_{2}^{-1}$ and $x_{3}\mapsto x_{2}x_{3}x_{2}^{-1}$. Then
-$\gamma(I)=I+(1-t_{1})t_{2}I_{23}$ with $I_{23}=(1-t_{3})e_{2}-(1-t_{2})e_{3}$,
-and $\gamma(KI)\ne KI$, since $I$, $I_{23}$ and $\ell$ are independent, $\ell$
-having a nonzero fourth coordinate. The functional $v\mapsto
-v_{2}-t_{1}v_{1}$ vanishes on $\ell$ and cuts out $Y$, and at $\gamma(v)$ for
-$v\in Y$ it equals $(t_{3}-1)(t_{1}t_{2}v_{1}-v_{3})$, which is nonzero for the
-cycle $(1-t_{4})e_{3}-(1-t_{3})e_{4}$ of $Y$; so $\gamma Y\ne Y$. As
-$\gamma\in\Gamma_{a}$ normalises $G_{a}^{0}$, \Cref{lem:hyperplanes} gives
-$G_{a}^{0}\supseteq\SL(E_{a})$.
+\emph{The induction.} Let $n\ge3$. If $n=3$, \Cref{lem:mergefive} gives,
+after a relabelling, a vector $a'=(a_{1}+a_{2},a_{3},a_{4},a_{5})$ of order $m$
+with $a_{1}+a_{2}\ne0$, $p'=q'=1$ and two opposite coordinates, so the
+identity component of the Zariski closure of the monodromy of $E_{a'}$ is
+$\SL(E_{a'})$ by the case of four points. If $n\ge4$, \Cref{lem:merge} and
+a relabelling give $a_{1}+a_{2}\ne0$ and $a'=(a_{1}+a_{2},a_{3},\dots,a_{k})$
+of order $m$ with $p',q'\ge1$, and by induction on $n$ that identity
+component contains $\SL(E_{a'})$. Let $H$ be the identity component of the
+Zariski closure of the doubled braids of \Cref{lem:cabling}. Then
+$H\subseteq G_{a}^{0}$, $H$ preserves $Y$ and $KI$ and acts trivially on
+$KI$, where the doubled braids act through a finite group, and its image in
+$\GL(Y)$ is the identity component of the Zariski closure of the monodromy of
+$E_{a'}$, which contains $\SL(Y)$. So $G_{a}^{0}$ contains the group $S$ of
+\Cref{lem:hyperplanes} for $E_{a}=Y\oplus KI$. Let $\gamma=A_{23}$, the full
+twist of the second and third points; its automorphism fixes $x_{1}$ and
+maps $x_{2}\mapsto x_{2}x_{3}x_{2}x_{3}^{-1}x_{2}^{-1}$ and $x_{3}\mapsto
+x_{2}x_{3}x_{2}^{-1}$. Then $\gamma(I)=I+(1-t_{1})t_{2}I_{23}$ with
+$I_{23}=(1-t_{3})e_{2}-(1-t_{2})e_{3}$, and $\gamma(KI)\ne KI$, since $I$,
+$I_{23}$ and $\ell$ are independent, $\ell$ having a nonzero fourth
+coordinate. The functional $v\mapsto v_{2}-t_{1}v_{1}$ vanishes on $\ell$ and
+cuts out $Y$, and at $\gamma(v)$ for $v\in Y$ it equals
+$(t_{3}-1)(t_{1}t_{2}v_{1}-v_{3})$, which is nonzero for the cycle
+$(1-t_{4})e_{3}-(1-t_{3})e_{4}$ of $Y$; so $\gamma Y\ne Y$. As $\gamma$
+normalises $G_{a}^{0}$, this group contains $S$ and $\gamma S\gamma^{-1}$,
+and \Cref{lem:hyperplanes}, with $\dim Y=n-1$, gives
+$G_{a}^{0}=\SL(E_{a})$: for $n\ge4$ directly, and for $n=3$ because
+$G_{a}^{0}$ is connected and semisimple.
 \end{proof}
 
 For $m=3$ the proposition also follows from the $\ell$-adic theorem of
@@ -2300,9 +2381,10 @@ $\lambda_{1},\lambda_{2}$ collide inside a disc (\Cref{lem:cabling}); the
 cycles outside the disc form the hyperplane $Y\cong E_{a'}$, the cycle $I$
 of the disc spans the complementary line, and the twist $\gamma$ of the
 second and third points moves both. Middle: the two copies of $\SL(Y)$ of
-\Cref{lem:hyperplanes} generate $\SL(E_{a})$. Right: the induction on
-$n=k-2$, each merge lowering $p$ or $q$ by one (\Cref{lem:merge}), down to
-the $38$ computed cases with $n=3,4$.}
+\Cref{lem:hyperplanes}, which generate $\SL(E_{a})$ when $\dim Y\ge3$. Right: the induction on
+$n=k-2$, each merge lowering $p$ or $q$ by one (\Cref{lem:merge},
+\Cref{lem:mergefive}), down to $n=2$, where the full twist of two points
+with opposite exponents is a transvection.}
 \label{fig:cyclicmerge}
 \end{figure}
 
@@ -2653,21 +2735,48 @@ $S^{21}$ (\Cref{prop:k3powers}, \Cref{fig:k3threshold}).}
 \end{figure}
 
 \begin{setupenv}[The rule set]\label{setup:rules}
-A computation in \cite{BMB26} carries forty-two statements and
-twenty-two rules; the propagation statement (P2) is carried family by
-family, as (P2) for the split and for the other families of the imaginary
-quadratic fields and of the fields of degree at least four. Each statement is marked proved in this paper, quoted from the
-literature, or hypothesis. Each rule is a finite set of premises together with one
-conclusion, and carries the label of the theorem of this paper that proves it;
-\Cref{tab:rules} lists the rules whose conclusion is derived rather than
-assumed. For a set $T$ of statements write $\Cn(T)$ for the least set that
-contains $T$ and is closed under the rules, which exists because each rule has
-a single conclusion and the consequence operator is therefore monotone. Write
-$\mathbf{T}$ for the set of statements marked proved or quoted, and
-$\mathbf{HC}$ for the Hodge conjecture for every smooth complex projective
-variety. Call a set $S$ of hypotheses \emph{sufficient} if
-$\mathbf{HC}\in\Cn(\mathbf{T}\cup S)$, and \emph{minimal} if no proper subset
-of $S$ is sufficient.
+The rule set has forty-two statements and twenty-two rules. Ten statements
+are proved in this paper: the base point with an explicit cycle in every Weil
+family of an imaginary quadratic field (\Cref{thm:everyfamily}) and of a CM
+field of degree at least four (\Cref{thm:cmbasepoint}); for each of the two
+kinds of field, the reduction of the Weil classes of a family to one class at
+every point of one connected domain, and the stability of the algebraic locus
+under the rational points, with dense orbits (\Cref{sec:reduction},
+\Cref{prop:densealg}, \Cref{thm:cmpropagation}); and four statements on
+secant objects: the form of the weakened criterion for the transform
+(\Cref{thm:factor}), the conditions of Markman's strategy that bear on the
+Chern character, the description of the local obstruction as a failure of
+Cohen--Macaulayness (\Cref{cor:cmdichotomy}), and three of the four
+ingredients of the construction in every dimension. Four are quoted:
+$\mathbf{W}(K,2,\delta)$ for every $K$ and $\delta$, $\mathbf{W}(K,3,\delta_{0})$
+\cite{Mar25a,Mar25b}, the deformation theorem for motivated classes
+\cite[Th\'eor\`eme~0.5]{And96b}, and the accessibility of Hodge classes on
+abelian varieties \cite[\S5.1, Theorem~3]{Mil20}. Sixteen are hypotheses:
+(F3), (F2) of \Cref{cor:fourremain} and (F3$'$) of \Cref{def:f3prime};
+(L), (M), (V) of \Cref{def:lmv}; (P2), in the polarised form of
+\Cref{rem:p2prime}, for four groups of families, the split and the other
+families of the imaginary quadratic fields and of the CM fields of degree at
+least four, the third group giving $\mathrm{P2}_{\mathrm{split}}$; secant
+objects meeting the weakened criterion in every dimension, and an affirmative
+answer to \cite[Question~11.4]{Mar25b}; and, for a smooth and for a singular
+Cohen--Macaulay support on an abelian fourfold, its existence with the
+required extension property and the vanishing of the image of the product of
+translation classes. The other twelve are derived: $\mathbf{HC}$, the
+conjecture for every abelian variety, written $\mathbf{AB}$, and the Weil
+classes of every CM field, of the imaginary quadratic fields, of their
+families of trivial and of nontrivial discriminant, of the CM fields of
+degree at least four and of their split and their other families, together
+with one secant object on an abelian fourfold, $\mathbf{W}(K,4,\delta_{0})$,
+and the range settled in the literature. Each rule is a finite set of
+premises with one conclusion, and each is a theorem of this paper:
+\Cref{tab:rules} lists twenty-one of them, and the twenty-second derives the
+range settled in the literature from the two quoted Weil statements. For a
+set $T$ of statements write $\Cn(T)$ for the least set that contains $T$ and
+is closed under the rules, which exists because each rule has a single
+conclusion and the consequence operator is therefore monotone. Write
+$\mathbf{T}$ for the set of statements proved or quoted. Call a set $S$ of
+hypotheses \emph{sufficient} if $\mathbf{HC}\in\Cn(\mathbf{T}\cup S)$, and
+\emph{minimal} if no proper subset of $S$ is sufficient.
 \end{setupenv}
 
 \begin{table}[htbp]
@@ -2774,34 +2883,99 @@ With the notation of \Cref{setup:rules}:
 \end{theorem}
 
 \begin{proof}
-The consequence operator is monotone, so $\Cn$ is computed by iterating the
-one step map to a fixed point, and the set of subsets of the sixteen
-hypotheses is finite. A computation in \cite{BMB26} carries out the iteration and the exhaustive search
-over all $2^{16}$ subsets of the sixteen hypotheses in exact arithmetic,
-and the Lean certificate of \cite{BMB26} repeats (i), (ii), (iii) and (iv)
-in the kernel, over the same rule set,
-checking in particular all sixteen single hypotheses and all one
-hundred and twenty pairs. The content of the statement is the rule set itself, and every rule is
-one of the theorems named in \Cref{tab:rules}. The sufficiency of (F3)
-alone is the chain $\mathrm{(F3)}\Rightarrow$ abelian varieties by
-\Cref{prop:f3ishc}, then abelian varieties $\wedge\,\mathrm{(F3)}
-\Rightarrow\mathbf{HC}$; every sufficient set that contains (F3) and has
-another element is therefore not minimal, and a sufficient set without
-(F3) must reach $\mathbf{HC}$ through one of the two other rules with that
-conclusion, \Cref{prop:lefmot} or \Cref{prop:f3prime}(i), the second of
-which needs the conjecture for abelian varieties, reached by \textup{(V)},
-by \textup{(L)} through \textup{(V)}, or by (P2) with (F2). For (vi):
-\textup{(L)} follows from $\mathbf{HC}$ by \Cref{thm:equivalence},
+(i) and (v). No rule has a proved or quoted statement as its conclusion, so
+each of them lies in $\Cn(\mathbf{T})$ by itself, on the strength of its proof
+in this paper or in the literature; this is the first assertion of (v). The
+twenty-second rule is the only one whose premises all lie in $\mathbf{T}$:
+every other rule has among its premises a hypothesis or a derived statement
+other than the range settled in the literature. Hence $\Cn(\mathbf{T})$ is
+$\mathbf{T}$ together with that range, and it does not contain $\mathbf{HC}$,
+which is (i). For acyclicity, list first the thirty statements that are
+proved, quoted or hypotheses other than (V); then one secant object,
+$\mathbf{W}(K,4,\delta_{0})$ and the range settled in the literature; the
+split and then the other families of the CM fields of degree at least four;
+the families of trivial and then of nontrivial discriminant of the imaginary
+quadratic fields; the imaginary quadratic fields, the CM fields of degree at
+least four and every CM field; and last (V), $\mathbf{AB}$ and $\mathbf{HC}$.
+The premises of every rule come before its conclusion in this list.
+
+(ii) and (iii). The five sets are sufficient:
+$\mathrm{F3}\Rightarrow\mathbf{AB}$ (\Cref{prop:f3ishc}) and
+$\mathbf{AB}\wedge\mathrm{F3}\Rightarrow\mathbf{HC}$; $\mathrm{L}\wedge
+\mathrm{M}\Rightarrow\mathbf{HC}$ (\Cref{prop:lefmot}); (L) and the
+deformation theorem give (V) (\Cref{prop:lefvhc}), (V) and accessibility give
+$\mathbf{AB}$ (\Cref{thm:vhcab}), and $\mathbf{AB}\wedge\mathrm{F3}'
+\Rightarrow\mathbf{HC}$ (\Cref{prop:f3prime}(i)), which settles
+$\{\mathrm{L},\mathrm{F3}'\}$ and $\{\mathrm{V},\mathrm{F3}'\}$; and
+$\mathrm{P2}_{\mathrm{split}}$ with the CM base point, the reduction and the
+orbit gives the split families of the CM fields of degree at least four
+(\Cref{thm:cmpropagation}), descent gives their other families and the
+families of trivial discriminant of the imaginary quadratic fields
+(\Cref{prop:descent}), hence the fields of degree at least four
+(\Cref{prop:cmweil}), the nontrivial discriminant (\Cref{prop:descent}),
+the imaginary quadratic fields (\Cref{prop:separate}) and every CM field
+(\Cref{app:albert}), and with (F2) this is $\mathbf{AB}$ and with (F3$'$)
+it is $\mathbf{HC}$.
+
+Let $C_{1}$, respectively $C_{2}$, be the set of all statements other than
+$\mathbf{HC}$, (F3), (F3$'$) and (L), respectively (M). Let $C_{3}$ be the
+set of all statements other than $\mathbf{HC}$, $\mathbf{AB}$, the Weil
+classes of every CM field, of the fields of degree at least four and of their
+split families, (F3), (L), (V) and $\mathrm{P2}_{\mathrm{split}}$; and let
+$C_{4}$ be the set of all statements other than $\mathbf{HC}$,
+$\mathbf{AB}$, (F3), (L), (V) and (F2). Each $C_{j}$ contains $\mathbf{T}$
+and not $\mathbf{HC}$, and each is closed under the rules: every rule whose
+conclusion it omits has a premise it omits. For $C_{1}$ and $C_{2}$ the only
+omitted conclusion is $\mathbf{HC}$, and the three rules with that
+conclusion have the premises (F3), (F3$'$), and (L) and (M). For $C_{3}$
+and $C_{4}$ the rules with conclusion $\mathbf{HC}$ have the premises
+$\mathbf{AB}$ or (L); those with conclusion $\mathbf{AB}$ have the premises
+(F3), the Weil classes of every CM field together with (F2), and (V); the
+only rule with conclusion (V) has the premise (L); and for $C_{3}$ the rule
+for every CM field needs the fields of degree at least four, the rule for
+these needs their split families, and the rule for the split families needs
+$\mathrm{P2}_{\mathrm{split}}$. Since $\Cn$ is monotone, a set of
+hypotheses contained in some $C_{j}$ has its closure, together with
+$\mathbf{T}$, inside $C_{j}$, and is not sufficient. So a sufficient set
+meets each of
+\begin{gather*}
+  H_{1}=\{\mathrm{F3},\mathrm{F3}',\mathrm{L}\},\qquad
+  H_{2}=\{\mathrm{F3},\mathrm{F3}',\mathrm{M}\},\\
+  H_{3}=\{\mathrm{F3},\mathrm{L},\mathrm{V},\mathrm{P2}_{\mathrm{split}}\},\qquad
+  H_{4}=\{\mathrm{F3},\mathrm{L},\mathrm{V},\mathrm{F2}\},
+\end{gather*}
+the hypotheses omitted from $C_{1},\dots,C_{4}$. Let $S$ meet all four. If
+$\mathrm{F3}\in S$, then $S\supseteq\{\mathrm{F3}\}$. If $\mathrm{F3}\notin S$
+and $\mathrm{L}\in S$, then $S$ meets $H_{2}$ in (F3$'$) or (M). If neither is
+in $S$, then $S$ contains (F3$'$), from $H_{1}$, and (V) or both
+$\mathrm{P2}_{\mathrm{split}}$ and (F2), from $H_{3}$ and $H_{4}$. So a set
+of hypotheses is sufficient exactly when it contains one of the five sets,
+and as none of the five contains another, they are the minimal sufficient
+sets. The other assertions of (ii) can be read off the list, and the
+derivations above show that only the last uses a statement proved here;
+(iii) is the minimality.
+
+(iv) Granting the two demands of the secant route, the rule of
+\Cref{prop:splitgeom} gives the families of trivial discriminant, descent
+those of nontrivial discriminant, and \Cref{prop:separate} the imaginary
+quadratic fields. The set formed by $\mathbf{T}$, the range settled in the
+literature, the two demands and these three statements is closed, since
+every other rule has a premise outside it: a hypothesis not granted, one
+secant object, or a Weil statement about the fields of degree at least four
+or about every CM field. Every base point the secant route produces is a
+member $X\times\widehat{X}$, whose discriminant is trivial whatever $\beta$
+is chosen (\Cref{prop:splitgeom}(ii)); the deformation argument stays inside
+the family of trivial discriminant, and it is \Cref{prop:descent}(i), not
+the deformation, that carries the result to the other discriminants. The
+route has no base point over a field of degree at least four, so it reaches
+none of them, and none of its hypotheses lies in one of the five sets.
+
+(vi) \textup{(L)} follows from $\mathbf{HC}$ by \Cref{thm:equivalence},
 \textup{(M)} by \Cref{prop:lefmot}, \textup{(V)} by \Cref{prop:lefvhc},
 (F3$'$) by \Cref{prop:f3prime}(i), and (F2) and (F3) are special cases of
-$\mathbf{HC}$.
-
-In (iv), every base point the secant route produces is a member
-$X\times\widehat{X}$, whose discriminant is trivial whatever $\beta$ is chosen
-(\Cref{prop:splitgeom}(ii)); the deformation argument stays inside the family
-of trivial discriminant, and it is \Cref{prop:descent}(i), not the
-deformation, that carries the result to the other discriminants. It has no
-base point over a field of degree at least four, so it reaches none of them.
+$\mathbf{HC}$. The equivalence of $\{\mathrm{F3}\}$ with $\mathbf{HC}$ is
+\Cref{prop:f3ishc}, and $\{\mathrm{L},\mathrm{M}\}$ is equivalent to it by
+\Cref{prop:lefmot} and the first two implications.
 \end{proof}
 
 \begin{corollary}[The three statements, one of which is the
@@ -3501,7 +3675,7 @@ The local part of the weakened criterion
     vanishing beside first-order extension \\
 A support that is a complete intersection
   & closed for every $b$ and every $d$, \Cref{thm:noci}
-  & supports of higher Hilbert--Burch rank, \Cref{thm:burchsearch} \\
+  & supports of higher Hilbert--Burch rank, \Cref{prop:lowrankburch} \\
 A support with a Hilbert--Burch resolution by line bundles or by simple
 semi-homogeneous bundles
   & closed for every rank, twist and $d$, \Cref{thm:nosplit},
@@ -3597,8 +3771,7 @@ Twistor deformation of the square, for the same two classes
   & the Kuga--Satake class, which moves in a seven-dimensional family \\
 Five further routes, for the same two classes
   & one statement: three of them are equivalent to the target and two imply
-    it, and every minimal set of hypotheses yielding the target has one
-    element, \Cref{cor:mumfordone}, \cite{BMB26}
+    it, so any one of them suffices, \Cref{cor:mumfordone}
   & the target itself, which is only the first case of (F2),
     \Cref{rem:mumfordneeded} \\
 Pull-back from a hyperk\"ahler manifold, for the same two classes

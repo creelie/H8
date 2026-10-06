@@ -297,8 +297,8 @@ The annihilator computations of \Cref{sec:propagation} assume that $\ch(E)$
 is a pure Weil class, as \Cref{rem:p2prime} notes. This subsection carries
 them out for a Chern character with components in every even degree. In
 degree two the answer is complete and holds for every $n$; in the other
-degrees it is a closed formula, proved away from the middle degree and
-checked in it. The same computation gives the Hodge locus of the character,
+degrees it is a closed formula, with one correction term in the middle
+degree. The same computation gives the Hodge locus of the character,
 and with it the list of the obstructions of this paper that apply to
 polarised characters (\Cref{prop:p2primelocus}, \Cref{rem:p2primesurvive}).
 None of this constructs an object or decides whether one exists. It gives,
@@ -464,9 +464,9 @@ four Hankel ranks.
 \caption{The dimension $r(\gamma)=(4+\rho)n^{2}-2n$ that
 $\Ext^{2}(E,E)$ must have for a complex with Chern character
 $\gamma=N\omega_{1}+\sum_{k}c_{k}\theta^{k}$ to meet the polarised criterion,
-for the four Hankel ranks $\rho$ of \Cref{thm:p2primenumber}; the dots are the
-values computed exactly over $\QQ(i)$ by \cite{BMB26}, through $n=10$, where
-$HT^{2}$ has dimension $780$. The pure form, $\rho=0$, is the bottom curve
+for the four Hankel ranks $\rho$ of \Cref{thm:p2primenumber}; the dots mark
+the values at $n=2,\dots,10$, and at $n=10$ the space $HT^{2}$ has dimension
+$780$. The pure form, $\rho=0$, is the bottom curve
 $2n(2n-1)$, which no complex attains (\Cref{thm:p2false}); a general shape
 lies on the top curve $7n^{2}-2n$. At $n=2$ the weight argument fails for one
 pair of weights and seven values occur.}
@@ -487,8 +487,7 @@ $K'=\mathrm{antidiag}\bigl((-1)^{a}\binom{n}{a}\bigr)$.
     \rho_{k}=2\binom{2n}{k}+M_{k}\min(k+1,\,2n+1-k,\,r'),\qquad
     M_{k}=\sum_{\substack{i+j=k\\1\le i,j\le n-1}}\binom{n}{i}\binom{n}{j};
   \]
-  in the middle degree the same formula holds with $d$ subtracted, which is
-  checked for $n\le5$. In particular $\rho_{k}=\rho_{2n-k}$, and the general
+  in the middle degree the same formula holds with $d$ subtracted. In particular $\rho_{k}=\rho_{2n-k}$, and the general
   profiles are $(1,8,24,8,1)$ at $n=2$ and $(1,12,57,112,57,12,1)$ at
   $n=3$.
 \item $\chi(E,E)=V\,Q(c)+W$ for a perfect complex with $\ch(E)=\gamma$, where
@@ -511,9 +510,87 @@ fixed index sets $I$, $J$ has entries $C_{s+t+m+m'}$ depending only on
 $s+t$ and $m+m'$, so its rank is that of a catalecticant of the binary form
 $\sum_{k}c_{k}x^{k}y^{2n-k}/(2n-k)!$, which is $\min(k+1,2n+1-k,r')$ by the
 classical Hilbert function of an apolar ideal. The pure sources
-$\bigwedge^{k}Q$ and $\bigwedge^{k}P$ contract $\alpha_{+}$ and $\alpha_{-}$
-injectively into targets that no other source reaches unless $k=n$. The
-symmetry is \Cref{lem:rankduality}. (ii) $\ch(E)^{\vee}$ changes the sign of
+$\bigwedge^{k}Q$ and $\bigwedge^{k}P$ kill $\alpha_{-}$ and $\alpha_{+}$
+respectively and contract the other class injectively
+(\Cref{thm:hhsplitting}(iii)). To see where their images go, use the torus of
+the proof of \Cref{thm:p2primenumber}(i) and put $I_{Q}=\{j<n\}$,
+$I_{P}=\{j\ge n\}$. The basis vectors $w(f_{j}),c(e_{j})$ of $Q$ have weight
+$-\epsilon_{j}$ for $j\in I_{Q}$, the vectors $w(e_{j}),c(f_{j})$ of $P$ have
+weight $\epsilon_{j}$ for $j\in I_{P}$, $\theta$ has weight $0$ and
+$\alpha_{\pm}$ has weight $\pm\sum_{j}\epsilon_{j}$. If $\xi\in\bigwedge^{k}Q$
+is a monomial, $k<2n$, and another monomial $\eta$ of $HT^{k}$ sends
+$p(\theta)$ or $\alpha_{-}$ to the weight of $\xi\lrcorner\alpha_{+}$, which is
+$+1$ at every $j\in I_{P}$, then it is not $\alpha_{-}$, which would need two
+factors from $P$ at every $j\in I_{P}$; so $\eta$ has one factor from $P$ for
+each $j\in I_{P}$, $\xi$ has weight at most $-1$ at every $j\in I_{Q}$, and
+$k\ge n$. For $k=n$ this forces $\xi$ and $\eta$ to lie in the spans
+$D_{Q}\subset\bigwedge^{n}Q$ and $D_{P}\subset\bigwedge^{n}P$ of the $2^{n}$
+monomials with one factor for each index. The same holds with $P$ and $Q$
+exchanged. A mixed monomial kills
+$\omega$, so for $k<n$ the matrix of contraction is block triangular, the pure
+blocks injective onto targets of their own, and $\rho_{k}$ is $2\binom{2n}{k}$
+plus the rank of the mixed blocks; for $k>n$ the formula follows from
+\Cref{lem:rankduality}, which also gives $\rho_{k}=\rho_{2n-k}$.
+
+For $k=n$, a pure monomial outside $D_{Q}\cup D_{P}$ repeats an index, so it
+kills $1$ and $t_{j}$ at that index and hence $p(\theta)$, and keeps a target
+of its own; no mixed monomial reaches the weights $\sum_{j\in I_{P}}
+\epsilon_{j}$ and $-\sum_{j\in I_{Q}}\epsilon_{j}$ of the images of
+$D_{Q}\oplus D_{P}$, since it would need $n$ factors from one side. So
+$\rho_{n}$ is the value of the formula minus the dimension of the kernel of the
+block $\beta\colon D_{Q}\oplus D_{P}\to T_{1}\oplus T_{2}$, $T_{1}$ and $T_{2}$
+being the targets of those two weights. For $R\subseteq I_{Q}$ and
+$J\subseteq I_{P}$ let $X_{R}=\prod_{j\in I_{Q}}z_{j}$ with $z_{j}=w(f_{j})$ for
+$j\in R$ and $c(e_{j})$ otherwise, and $Y_{J}=\prod_{j\in I_{P}}z_{j}$ with
+$z_{j}=c(f_{j})$ for $j\in J$ and $w(e_{j})$ otherwise, the factor of largest
+index acting first, and write $\alpha_{+}=a\,e_{0}\cdots e_{2n-1}$,
+$\alpha_{-}=b\,f_{0}\cdots f_{2n-1}$. Since
+$\theta^{2n}/(2n)!=\prod_{j}t_{j}=\prod_{j}s_{j}\,e_{0}\cdots e_{2n-1}
+f_{0}\cdots f_{2n-1}$, the normalisation of \Cref{setup:p2prime} gives
+$ab=(-1)^{n}\prod_{j}s_{j}$. As the $t_{j}$ are even with $t_{j}^{2}=0$,
+$p(\theta)=\sum_{S}\mu_{|S|}\prod_{j\in S}t_{j}$. Each operator acts on one
+factor of $H^{*}(A)=\bigotimes_{j}\bigwedge^{*}\langle e_{j},f_{j}\rangle$
+with the Koszul sign of the factors before it, and in each of the four
+products below the parities of those factors do not depend on $R$ or $J$;
+the signs are $+1$ on $p(\theta)$, $\epsilon_{1}=(-1)^{n(n-1)/2}$ for $X_{R}$ on
+$\alpha_{+}$ and $\epsilon_{2}=(-1)^{n(3n-1)/2}$ for $Y_{J}$ on $\alpha_{-}$.
+With $\tau_{R}=e_{n}\cdots e_{2n-1}\prod_{j\in R}t_{j}$ and
+$\tau'_{R'}=f_{0}\cdots f_{n-1}\prod_{j\in R'}t_{j}$, and using
+$c(f_{j})t_{j}=-is_{j}e_{j}$, $c(e_{j})t_{j}=is_{j}f_{j}$ and
+$e_{j}f_{j}=-is_{j}t_{j}$, one finds
+\begin{align*}
+  X_{R}\lrcorner\,\alpha_{+}&=\epsilon_{1}a\prod_{j\in R}(is_{j})\,\tau_{R},&
+  Y_{J}\lrcorner\,p(\theta)&=\sum_{R}\mu_{|J|+|R|}\prod_{j\in J}(-is_{j})\,\tau_{R},\\
+  Y_{J}\lrcorner\,\alpha_{-}&=\epsilon_{2}b\prod_{j\in I_{P}\setminus J}(-is_{j})\,
+    \tau'_{I_{P}\setminus J},&
+  X_{R}\lrcorner\,p(\theta)&=\sum_{R'}\mu_{n-|R|+|R'|}\prod_{j\in I_{Q}\setminus R}
+    (is_{j})\,\tau'_{R'}.
+\end{align*}
+For $x=\sum_{R}x_{R}X_{R}$ and $y=\sum_{J}y_{J}Y_{J}$ put
+$\tilde x_{R}=\prod_{j\in R}(is_{j})\,x_{R}$ and
+$\tilde y_{J}=\prod_{j\in J}(-is_{j})\,y_{J}$, and let
+$\Pi_{P}=\prod_{j\in I_{P}}(-is_{j})$, $\Pi_{Q}=\prod_{j\in I_{Q}}(is_{j})$.
+Then $\beta(x,y)=0$ says
+\[
+  \epsilon_{1}a\,u\,\tilde x_{R}=-\sum_{J}\mu_{|J|+|R|}\,\tilde y_{J},
+  \qquad
+  \epsilon_{2}b\,\bbar u\,\Pi_{P}(-1)^{|J|}\tilde y_{J}
+  =-\Pi_{Q}\sum_{R}\mu_{2n-|R|-|J|}(-1)^{|R|}\tilde x_{R}
+\]
+for all $R$ and $J$. So $\tilde x_{R}=g_{|R|}$ and $(-1)^{|J|}\tilde y_{J}=h_{|J|}$
+depend only on $|R|$ and $|J|$, and with $D=\operatorname{diag}\bigl((-1)^{c}
+\binom{n}{c}\bigr)$ and the exchange matrix $J_{0}$, so that $DJ_{0}=K'$ and
+$J_{0}DJ_{0}=(-1)^{n}D$, the conditions read
+$\epsilon_{1}a\,u\,g=-H'Dh$ and $\epsilon_{2}b\,\bbar u\,\Pi_{P}h=-\Pi_{Q}
+J_{0}H'J_{0}Dg$. Eliminating $h$ gives $(H'K')^{2}g=\lambda g$ with
+$\lambda=(-1)^{n}\epsilon_{1}\epsilon_{2}\,ab\,|u|^{2}\,\Pi_{P}/\Pi_{Q}$, and
+$\epsilon_{1}\epsilon_{2}=(-1)^{n}$, $ab=(-1)^{n}\prod_{j}s_{j}$,
+$\Pi_{P}/\Pi_{Q}=(-1)^{n}\prod_{j}s_{j}$, so $\lambda=|u|^{2}$. Conversely an
+eigenvector $g$ determines $h$, $x$ and $y$. Hence $\dim\ker\beta=
+\dim\ker\bigl((H'K')^{2}-|u|^{2}\bigr)=d$, as $H'K'$ and $K'H'$ are
+conjugate.
+
+(ii) $\ch(E)^{\vee}$ changes the sign of
 the components of odd codegree, $\omega\theta=0$ kills the cross terms, and
 Hodge--Riemann gives $W>0$; parity holds because the Chern character of a
 perfect complex on a complex torus is integral, and the intersection form on
@@ -762,9 +839,7 @@ K\"ahler cone of $6\int\gamma\kappa^{2}\big/\bigl(|c|\,\sigma_{2}(h)\int
 cone by a positive hermitian form of rank two whose Pl\"ucker coordinates
 satisfy $|\xi_{01}\xi_{23}|=\frac14$. It is negative exactly for $R<3/4$, and
 $R=3/4$ is also where the Hodge locus of $\gamma$ jumps from dimension $4$ to
-$5$ and its stabiliser becomes $\mathfrak{so}(4,3)$, with $r(\gamma)=23$; at
-$R=3$ the annihilator has dimension $6$ and $r(\gamma)=22$; these last values
-are computed in \cite{BMB26}.}
+$5$ and its stabiliser becomes $\mathfrak{so}(4,3)$.}
 \label{fig:kahlersign}
 \end{figure}
 

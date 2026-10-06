@@ -29,12 +29,9 @@ dimension count, whatever the quartic field (\Cref{thm:quarticobstruction}),
 and no Orlov product of complexes does so unless both factors have nonzero self-Ext
 groups in some degree at most $-3$ (\Cref{rem:quarticnegext}). Those products
 are in any case candidates only for a twisted form of the criterion, the form
-of Markman's reduction (\Cref{rem:quarticsecantshape}). Complexes supported on
-graphs of real multiplication and objects with pure spinor characters give no
-Weil class at all (\Cref{prop:quarticexclusions}). One kernel that is not an
-external product has a character of the untwisted form, with $r=94$, but no
-object with that character is known to meet the criterion
-(\Cref{rem:quarticmixedkernel}). Together these results fix the loci that
+of Markman's reduction (\Cref{rem:quarticsecantshape}). Objects with pure
+spinor characters give no Weil class at all (\Cref{prop:quarticexclusions}).
+Together these results fix the loci that
 divisors, scalar extension and correspondences reach inside $\cD_{F}$, and
 the numbers that one complex has to attain on the rest.
 
@@ -631,9 +628,14 @@ $\omega$ only through a rescaling of the variables of $p$, and each statement
 of the theorem holds for every $\omega$ once it holds for one. The rank is
 lower semicontinuous in $p$, and it equals $112$ at
 $p=\theta_{1}^{2}\theta_{2}^{2}$ by \Cref{thm:quarticrank}(iii) below, so it
-equals $112$ for a general $p$. The value at a general element of the Hodge
-ring with nonzero Weil component is a finite computation, recorded in
-\cite{BMB26}, at an explicit such element.
+equals $112$ for a general $p$. Every element of the complexified Hodge ring
+of a member with $\Hg(A)=G_{F}$ is invariant under $G_{F}$, so its components
+stay of Hodge type along $\cD_{F}$ and it is killed by $T_{[A]}\cD_{F}$; its
+rank is therefore at most $112$. The ring contains $\omega+\theta_{1}^{2}
+\theta_{2}^{2}$, since it contains $W_{F}\otimes\CC$ and the classes
+$\theta_{1}$, $\theta_{2}$, whose span is defined over $\QQ$, and the rank
+is lower semicontinuous; so it is $112$ at a general element of the ring, whose
+component in $W_{F}\otimes\CC$ is not zero.
 
 (iii) and (iv) are \Cref{thm:quarticrank}(iii) and (iv) below.
 
@@ -656,7 +658,7 @@ of $HT^{2}$ minus that of the family. For the pure shape the argument of
 $A_{\theta}A_{\theta'}=0$ for $\theta\in T_{\rho}$, $\theta'\in T_{\rho'}$,
 $\rho\ne\rho'$, and a smooth component of the support of codimension at least
 two along which $E$ is locally free of positive rank would be tangent to three
-of the four $T_{\rho}$. The pure shape is in fact excluded, for every CM
+of the four $T_{\rho}$. The pure shape is excluded, for every CM
 field, by \Cref{thm:cmpurefalse}.
 
 The rank $r(\gamma)$ can be computed for every $p$. In the basis of the
@@ -697,7 +699,7 @@ In this notation:
 \item $r(\gamma)=64+16\mu(p)+4\rho_{1}(p)+4\rho_{2}(p)+R_{1}(p)+R_{2}(p)$.
 \item $R_{t}(p)\in\{7,8\}$. If $R_{1}(p)=7$, then
   $(e_{10},e_{20},e_{30},e_{40})$ lies on $V_{+}\cup V_{-}$ and
-  $\rho_{1}(p)=2$; conversely, if $p$ depends on $\theta_{1}$ alone and
+  $\rho_{1}(p)=2$; conversely, if $\mu(p)=0$ and
   $(e_{10},\dots,e_{40})$ lies on $V_{+}\cup V_{-}$, then $R_{1}(p)=7$, as for
   $p=\theta_{1}^{2}/2$. The same holds for $R_{2}$ with
   $(e_{01},\dots,e_{04})$. Each $V_{\pm}$ contains the surface of points
@@ -738,36 +740,109 @@ pair of labels over different real places; eight of dimension four, one for
 each pair $\{(\sigma,k),(\bbar\sigma,l)\}$ over one place; and $W_{1}$,
 $W_{2}$. The class $\gamma$ is invariant under $S$, so contraction carries
 each weight space into the same weight of $H^{*}(A,\CC)$, and $r(\gamma)$ is
-the sum of the ranks on the $34$ spaces. A line $y_{\sigma,k}\otimes
-\partial_{\bbar\sigma,k}$ kills every $\theta_{1}^{i}\theta_{2}^{j}$, since
-$x_{\bbar\sigma,k}$ occurs in $\theta_{1}$ and $\theta_{2}$ only multiplied by
-$y_{\sigma,k}$, and it does not kill $\alpha_{\bbar\sigma}$: rank one. On a
-space of the second kind three basis elements carry $\omega$ to independent
-vectors on monomials that no image of $p$ meets, and the coordinates of the
-image of the fourth, the bivector, are up to sign the $e_{ij}$ with
-$i,j\ge1$: rank $3+\mu(p)$. On a space of the third kind over $\tau_{1}$ one
-basis element carries $\omega$ to a vector that no image of $p$ meets, the
-two elements of $H^{0,1}\otimes T_{0}A$ have opposite images, and the
-coordinates of the images of one of them and of the bivector are, after one
-global sign, the pairs $\pm(e_{i,j},e_{i+1,j})$: rank $1+\rho_{1}(p)$, and
-$1+\rho_{2}(p)$ over $\tau_{2}$. These descriptions are finite computations
-in the basis, recorded in \cite{BMB26}, and the total is
+the sum of the ranks on the $34$ spaces.
+
+Two rules compute these ranks. For a label $P=(\rho,k)$ with $\rho$ over
+$\tau_{t}$ put $y_{P}=y_{\bbar\rho,k}$, the element of $H^{0,1}$ that carries
+it. Contraction by $\partial_{\rho,k}$ is a derivation that maps $\theta_{t}$ to
+$\pm y_{P}$ and the other $\theta_{t'}$ to $0$, so it maps $f(\theta_{1},
+\theta_{2})$ to $\pm y_{P}\,(\partial_{t}f)(\theta_{1},\theta_{2})$. Hence a basis
+element with labels $P,Q$ carries $p$ to $\pm y_{P}y_{Q}\,(Dp)(\theta_{1},
+\theta_{2})$, where $D$ is $1$, $\partial_{t}$ or $\partial_{t}\partial_{t'}$
+according as none, one or both labels are carried by elements of $T_{0}A$, and
+$t,t'$ are their places. Multiplication by $y_{P}y_{Q}$ removes from
+$\theta_{1}$ and $\theta_{2}$ the terms that contain $y_{P}$ or $y_{Q}$, and
+the products $\theta_{1}^{a}\theta_{2}^{b}$ of what remains are linearly
+independent as long as $a$ and $b$ do not exceed the numbers of remaining
+terms. Every monomial of $y_{P}y_{Q}f(\theta_{1},\theta_{2})$ contains, with
+each $x_{\sigma,i}$, its partner $y_{\bbar\sigma,i}$. The second rule is that
+the images of $\omega$ below contain some $x_{\sigma,i}$ without its partner,
+so they are independent of every image of $p$.
+
+A line $y_{\sigma,k}\otimes\partial_{\bbar\sigma,k}$ carries $p$ to
+$\pm y_{\sigma,k}^{2}(\cdots)=0$ and $\alpha_{\bbar\sigma}$ to
+$\pm y_{\sigma,k}x_{\bbar\sigma,k'}y_{\bbar\sigma,1}y_{\bbar\sigma,2}\ne0$,
+$k'\ne k$: rank one. On a space of the second kind, with labels
+$P=(\rho,k)$ over $\tau_{1}$ and $Q=(\rho',l)$ over $\tau_{2}$, the four basis
+elements are $y_{P}\wedge y_{Q}$, $y_{P}\otimes\partial_{\rho',l}$,
+$y_{Q}\otimes\partial_{\rho,k}$ and $\partial_{\rho,k}\wedge\partial_{\rho',l}$.
+They carry $\omega$ to $y_{P}y_{Q}(\alpha_{\rho}+\alpha_{\rho'})$,
+$y_{P}\,(\partial_{\rho',l}\lrcorner\,\alpha_{\rho'})$,
+$y_{Q}\,(\partial_{\rho,k}\lrcorner\,\alpha_{\rho})$ and $0$, the factors $y_{P}$
+and $y_{Q}$ killing $\alpha_{\bbar\rho}$ and $\alpha_{\bbar\rho'}$; these
+contain $x_{\rho,k'}$ or $x_{\rho',l'}$ with $k'\ne k$, $l'\ne l$, without its
+partner, and the first three are independent, having two, one and one such
+factors $x$ at different places. The bivector carries $\gamma$ to
+$\pm y_{P}y_{Q}(\partial_{1}\partial_{2}p)(\theta_{1},\theta_{2})$, with three
+terms left in each $\theta_{t}$, and $\partial_{1}\partial_{2}p$ has degree at
+most three in each variable; so this image is zero exactly when
+$\partial_{1}\partial_{2}p=0$: rank $3+\mu(p)$. On a space of the third kind,
+with labels $P=(\sigma,k)$ and $Q=(\bbar\sigma,l)$ over $\tau_{1}$, the element
+$y_{P}\wedge y_{Q}$ carries $\omega$ to $y_{P}y_{Q}(\alpha_{\sigma'}+
+\alpha_{\bbar\sigma'})$, $\sigma'$ and $\bbar\sigma'$ the embeddings over
+$\tau_{2}$, and the other three elements kill $\omega$: $y_{P}\otimes
+\partial_{\bbar\sigma,l}$ and $y_{Q}\otimes\partial_{\sigma,k}$ carry
+$\alpha_{\bbar\sigma}$ and $\alpha_{\sigma}$ into multiples of
+$y_{\bbar\sigma,k}y_{\bbar\sigma,1}y_{\bbar\sigma,2}=0$ and
+$y_{\sigma,l}y_{\sigma,1}y_{\sigma,2}=0$, and the bivector meets no
+$\alpha$. They carry $p$ to $\pm y_{P}y_{Q}(\partial_{1}p)$, twice, and to
+$\pm y_{P}y_{Q}(\partial_{1}^{2}p)$, with two terms left in $\theta_{1}$ and
+four in $\theta_{2}$. So the rank is $1$ plus the dimension of the span of
+$\partial_{1}p$ and $\partial_{1}^{2}p$ modulo $\theta_{1}^{3}$; in the basis
+$\theta_{1}^{a}\theta_{2}^{j}/(a!\,j!)$, $a\le2$, their coefficient vectors are
+$(e_{a+1,j})$ and $(e_{a+2,j})$, and the rank is $1+\rho_{1}(p)$; over
+$\tau_{2}$ it is $1+\rho_{2}(p)$. The total is
 $8+16(3+\mu)+4(1+\rho_{1})+4(1+\rho_{2})+R_{1}+R_{2}$.
 
-(ii) The matrix of the contraction on $W_{1}$, also computed in \cite{BMB26},
-reduces by elementary operations to the direct sum of an invertible
-$4\times4$ block that does not involve $p$ and the matrix
-$K=\bigl(K^{0}\,\big|\,\mathrm{diag}(H,H)\bigr)$, where, with $e_{k}=e_{k0}$,
+(ii) Over $\tau_{1}$ write $x_{k},X_{k},y_{k},Y_{k}$ for $x_{\sigma,k},
+x_{\bbar\sigma,k},y_{\sigma,k},y_{\bbar\sigma,k}$, so that
+$\theta_{1}=\sum_{k}(x_{k}Y_{k}+X_{k}y_{k})$, $\alpha_{\sigma}=x_{1}x_{2}y_{1}y_{2}$
+and $\alpha_{\bbar\sigma}=X_{1}X_{2}Y_{1}Y_{2}$, and put $c=y_{1}y_{2}$,
+$C=Y_{1}Y_{2}$, $a_{k}=x_{k}y_{1}y_{2}Y_{k}$, $A_{k}=X_{k}y_{k}Y_{1}Y_{2}$,
+$b=x_{1}x_{2}y_{1}y_{2}Y_{1}Y_{2}$ and $B=X_{1}X_{2}y_{1}y_{2}Y_{1}Y_{2}$. Let
+$\alpha'$ be the part of $\omega$ over $\tau_{2}$, so that $\alpha'\theta_{2}=0$,
+and put $\langle e_{i}\rangle=\sum_{j}e_{ij}\theta_{2}^{j}/j!$. Since $c$ kills
+the terms $X_{k}y_{k}$ of $\theta_{1}$, $c\,\theta_{1}^{i}/i!$ is $c$,
+$a_{1}+a_{2}$, $-b$ and $0$ for $i=0$, $1$, $2$ and $i\ge3$, so that
+$c\gamma=B+c(\alpha'+\langle e_{0}\rangle)+(a_{1}+a_{2})\langle e_{1}\rangle
+-b\langle e_{2}\rangle$; in the same way, with $\partial$ acting as a left
+derivation, the other seven basis elements of $W_{1}$ carry $\gamma$ to
+\begin{align*}
+  C\gamma&=b+C(\alpha'+\langle e_{0}\rangle)+(A_{1}+A_{2})\langle e_{1}\rangle
+    -B\langle e_{2}\rangle,\\
+  \partial_{\sigma,1}\lrcorner\,\partial_{\sigma,2}\lrcorner\,\gamma&=
+    -c+C\langle e_{2}\rangle+(A_{1}+A_{2})\langle e_{3}\rangle-B\langle e_{4}\rangle,\\
+  \partial_{\bbar\sigma,1}\lrcorner\,\partial_{\bbar\sigma,2}\lrcorner\,\gamma&=
+    -C+c\langle e_{2}\rangle+(a_{1}+a_{2})\langle e_{3}\rangle-b\langle e_{4}\rangle,\\
+  \pm y_{k}\,\partial_{\bbar\sigma,k'}\lrcorner\,\gamma&=
+    A_{k}+c\langle e_{1}\rangle+(a_{1}+a_{2})\langle e_{2}\rangle-b\langle e_{3}\rangle,\\
+  \pm Y_{k}\,\partial_{\sigma,k'}\lrcorner\,\gamma&=
+    a_{k}+C\langle e_{1}\rangle+(A_{1}+A_{2})\langle e_{2}\rangle-B\langle e_{3}\rangle,
+\end{align*}
+where $\{k,k'\}=\{1,2\}$ and the sign is $+$ for $k=1$. The differences of
+the last two pairs are $A_{1}-A_{2}$ and $a_{1}-a_{2}$. In a basis containing
+$A_{1}-A_{2}$, $a_{1}-a_{2}$, $c\alpha'$ and $C\alpha'$, these four
+coordinates form the identity matrix on the two differences and on $c\gamma$,
+$C\gamma$, and vanish on the other four images. So $R_{1}$ is $4$ plus the rank of the two
+images of the bivectors and of the halves of the sums of the last two pairs,
+$\tfrac12(A_{1}+A_{2})+c\langle e_{1}\rangle+(a_{1}+a_{2})\langle e_{2}\rangle
+-b\langle e_{3}\rangle$ and $\tfrac12(a_{1}+a_{2})+C\langle e_{1}\rangle+
+(A_{1}+A_{2})\langle e_{2}\rangle-B\langle e_{3}\rangle$. In the coordinates
+along $c$, $a_{1}+a_{2}$, $b$, $C$, $-(A_{1}+A_{2})$, $B$ times
+$\theta_{2}^{j}/j!$, and up to the signs of some columns, the matrix of these
+four vectors is $K=\bigl(K^{0}\,\big|\,\mathrm{diag}(H,H)\bigr)$: the columns
+with $j=0$ form, with $e_{k}=e_{k0}$,
 \[
   K^{0}=\begin{pmatrix}
   e_{1}&e_{2}&-e_{3}&0&-\frac12&0\\
   e_{2}&e_{3}&-e_{4}&-1&0&0\\
   0&\frac12&0&e_{1}&-e_{2}&-e_{3}\\
   -1&0&0&e_{2}&-e_{3}&-e_{4}
-  \end{pmatrix}
+  \end{pmatrix},
 \]
-and $H$ is the $2\times12$ matrix of the pairs $(e_{i,j},e_{i+1,j})$,
-$1\le i\le3$, $1\le j\le4$; so $R_{1}=4+\operatorname{rk}K$. Let
+and those with $j\ge1$ form $\mathrm{diag}(H,H)$, with $H$ the $2\times12$
+matrix of the pairs $(e_{i,j},e_{i+1,j})$, $1\le i\le3$, $1\le j\le4$. So
+$R_{1}=4+\operatorname{rk}K$. Let
 $(a,b,c,d)$ annihilate the columns of $K^{0}$. The first two columns give
 $d=ae_{1}+be_{2}$ and $c=-2(ae_{2}+be_{3})$, and the other four then say that
 $(a,b)$ is orthogonal to the rows of
@@ -783,16 +858,29 @@ so $\operatorname{rk}K^{0}=2+\operatorname{rk}Q$. If $Q$ were zero, then
 $e_{3}=e_{4}=0$ by its first row, $e_{2}^{2}=\frac14$ by its third, and the
 second row would have the entry $-\frac34$. So $\operatorname{rk}K\ge3$ and
 $R_{1}\ge7$. If $R_{1}=7$, then $\operatorname{rk}Q=1$, and the $2\times2$
-minors of $Q$ vanish exactly on $V_{+}\cup V_{-}$: they lie in the ideals of
-both, and the squares of the products of their generators lie in the ideal of
-the minors (\cite{BMB26}; the minor of the first two rows, for instance, is
-$e_{2}h_{3}-2e_{3}h_{1}-e_{3}$). If moreover $\rho_{1}(p)\le1$, then
+minors of $Q$ vanish exactly on $V_{+}\cup V_{-}$. Indeed, with
+$P=2h_{1}+1$ and $m_{ij}$ the minor of rows $i$ and $j$, expanding gives
+\begin{gather*}
+  m_{12}=e_{2}h_{3}-e_{3}P,\quad 2m_{13}=e_{4}P-2e_{2}h_{2},\quad
+  m_{14}=2e_{3}h_{2}-e_{4}h_{3},\\
+  2m_{23}=e_{2}^{2}-P^{2},\quad m_{24}=Ph_{3}-e_{2}e_{3},\quad
+  2m_{34}=e_{3}^{2}-h_{2}-4h_{1}h_{2}.
+\end{gather*}
+On $V_{\pm}$, $(P,h_{3},2h_{2})=\pm(e_{2},e_{3},e_{4})$, which makes the first
+five vanish, and the last is $e_{3}^{2}-h_{2}-2(\pm e_{2}-1)h_{2}=
+e_{3}^{2}+h_{2}-e_{2}e_{4}=0$. Conversely, let all six vanish. If
+$e_{2}=e_{3}=e_{4}=0$ then $P=1$ and $m_{23}\ne0$; so
+$(P,h_{3},2h_{2})=\lambda(e_{2},e_{3},e_{4})$ for some $\lambda$, by the first
+three. If $e_{2}\ne0$, then $m_{23}=0$ gives $\lambda=\pm1$. If $e_{2}=0$, then
+$P=0$, so $e_{1}e_{3}=-\frac12$, and $h_{3}=e_{1}e_{4}=\lambda e_{3}$ and
+$2h_{2}=-2e_{3}^{2}=\lambda e_{4}$ give $e_{4}=-2\lambda e_{3}^{2}$ and then
+$\lambda^{2}=1$. In both cases the point lies on $V_{\lambda}$. If moreover $\rho_{1}(p)\le1$, then
 $h_{1}=h_{2}=h_{3}=0$, and the minors of the second and third rows and of the
 first and third rows become $(e_{2}^{2}-1)/2$ and, once $e_{2}^{2}=1$,
 $e_{4}/2$; so $e_{4}=0$, $e_{3}^{2}=e_{2}e_{4}=0$ and $e_{1}e_{3}=0\ne
-e_{2}^{2}$, against $h_{1}=0$. Hence $\rho_{1}(p)=2$. If $p$ depends on
-$\theta_{1}$ alone, then $H=0$ and $R_{1}=6+\operatorname{rk}Q$, which is $7$
-on $V_{\pm}$; the point $(0,1,0,0)$ of $p=\theta_{1}^{2}/2$ lies on $V_{-}$.
+e_{2}^{2}$, against $h_{1}=0$. Hence $\rho_{1}(p)=2$. If $\mu(p)=0$, then
+$e_{ij}=0$ for $i,j\ge1$, so $H=0$ and $R_{1}=6+\operatorname{rk}Q$, which is
+$7$ on $V_{\pm}$; the point $(0,1,0,0)$ of $p=\theta_{1}^{2}/2$ lies on $V_{-}$.
 The parametrised points satisfy $h_{1}=\pm\frac12w\lambda^{2}-\frac14$,
 $h_{2}=\pm\frac12w\lambda^{4}$ and $h_{3}=\pm w\lambda^{3}$, which are the
 equations of $V_{\pm}$. The space $W_{2}$ is the same with the indices
@@ -803,15 +891,25 @@ $\mu=1$ forces $\rho_{1},\rho_{2}\ge1$, and by (ii) $R_{t}=7$ forces
 $\rho_{t}=2$. The tuples $(\mu,\rho_{1},\rho_{2},R_{1},R_{2})$ allowed by
 these two conditions give exactly the fifteen values, and $80$ only for
 $(0,0,0,8,8)$; $\rho_{1}=\rho_{2}=0$ means that $e_{ij}=0$ unless $i=j=0$,
-that is, $p$ is constant. Each value is taken, at explicit $p$ computed on
-all $120$ basis elements at once in \cite{BMB26}: $p=0$, $\theta_{1}$,
-$\theta_{1}^{2}$, $\theta_{1}^{2}+\theta_{2}$, $\theta_{1}^{2}+
-\theta_{2}^{2}$, $\theta_{1}\theta_{2}$, $\theta_{1}\theta_{2}^{2}$ and
-$\theta_{1}^{2}\theta_{2}^{2}$ give $80$, $84$, $88$, $92$, $96$, $104$, $108$
-and $112$, and adding to $\theta_{1}^{2}/2$ nothing, $\theta_{2}$,
-$\theta_{2}^{2}$, $\theta_{2}^{2}/2$, $\theta_{1}\theta_{2}$,
-$\theta_{1}\theta_{2}+\theta_{2}^{2}$ and $\theta_{1}\theta_{2}+
-\theta_{2}^{2}/2$ gives $87$, $91$, $95$, $94$, $107$, $111$ and $110$.
+that is, $p$ is constant. Each value is taken. For $p=0$, $\theta_{1}$,
+$\theta_{1}^{2}$, $\theta_{1}^{2}+\theta_{2}$, $\theta_{1}^{2}+\theta_{2}^{2}$,
+$\theta_{1}\theta_{2}$, $\theta_{1}\theta_{2}^{2}$ and
+$\theta_{1}^{2}\theta_{2}^{2}$ the points $(e_{10},\dots,e_{40})$ and
+$(e_{01},\dots,e_{04})$ are $0$, $(1,0,0,0)$ or $(0,2,0,0)$, which lie on
+neither $V_{\pm}$, as $2h_{1}+1$ is $1$, $1$ and $-7$ there; so $R_{1}=R_{2}=8$,
+and $(\mu,\rho_{1},\rho_{2})$ is $(0,0,0)$, $(0,1,0)$, $(0,2,0)$, $(0,2,1)$,
+$(0,2,2)$, $(1,1,1)$, $(1,1,2)$ and $(1,2,2)$, giving $80$, $84$, $88$, $92$,
+$96$, $104$, $108$ and $112$. For $p=\theta_{1}^{2}/2+q$ with $q$ one of $0$,
+$\theta_{2}$, $\theta_{2}^{2}$, $\theta_{2}^{2}/2$ the point $(0,1,0,0)$ lies on
+$V_{-}$ and $\mu=0$, so $R_{1}=7$, and $R_{2}=7$ exactly for $q=\theta_{2}^{2}/2$;
+this gives $87$, $91$, $95$ and $94$. For $p=\theta_{1}^{2}/2+\theta_{1}\theta_{2}
++q$ with $q$ one of $0$, $\theta_{2}^{2}$, $\theta_{2}^{2}/2$, the only nonzero
+$e_{ij}$ with $i,j\ge1$ is $e_{11}=1$, so the columns of $\mathrm{diag}(H,H)$
+are multiples of $(1,0,0,0)$ and $(0,0,1,0)$; at $e=(0,1,0,0)$ the columns of
+$K^{0}$ span the space of $(1,0,0,0)$, $(0,0,1,0)$ and $(0,1,0,-1)$, so
+$\operatorname{rk}K=3$ and $R_{1}=7$, and likewise $R_{2}=7$ for
+$q=\theta_{2}^{2}/2$. With $\mu=1$ and $(\rho_{1},\rho_{2})=(2,1)$, $(2,2)$,
+$(2,2)$ this gives $107$, $111$ and $110$.
 
 (iv) The element of the torus of the proof of \Cref{thm:quarticp2prime}(ii)
 that multiplies $x_{\sigma,k}$ by $s_{\sigma}$ and $y_{\sigma,k}$ by
@@ -1495,9 +1593,8 @@ has one, since a nonzero rational Weil class has nonzero components at all
 four embeddings. The class $\ch(E)=\kappa e^{-\ell/2}$ itself is not flat
 when $\rk(E)\ne0$: for $Y$ in the Lie algebra of $G_{F}$,
 $D_{Y}\ch(E)=-\tfrac12(D_{Y}\ell)\ch(E)$, whose part of degree two is
-$-\tfrac12\rk(E)\,D_{Y}\ell$, and $\ell$ is not flat; a computation in
-\cite{BMB26} finds it not flat also for five objects of rank zero. So these objects are
-candidates only for a twisted form of \Cref{thm:quarticp2prime}(v), with
+$-\tfrac12\rk(E)\,D_{Y}\ell$, and $\ell$ is not flat. So these objects, when
+their rank is not zero, are candidates only for a twisted form of \Cref{thm:quarticp2prime}(v), with
 hypothesis a flat twisted character $\kappa$ with $\kappa_{4}=N\omega+P_{4}$,
 which needs the extension of \Cref{thm:BF} to twisted objects \cite{Per26}
 and the extraction of untwisted cycles of \cite[Section~2]{Mar25b}, as after
@@ -1506,9 +1603,7 @@ reduction: he uses the normalised class $\ch(E)\exp(-c_{1}(E)/\rk E)$, which is
 $\kappa e^{-\kappa_{1}/\kappa_{0}}$ when $\rk E\ne0$, asserts the shape of a
 polynomial plus a nonzero Weil class only for its component in $H^{4}$, and
 takes as propagation hypothesis that this component stays algebraic
-\cite[Proposition~10.2.1, Corollary~10.2.3]{Mar25c}. The class of
-\Cref{rem:quarticmixedkernel} has the untwisted form of
-\Cref{thm:quarticp2prime}(v).
+\cite[Proposition~10.2.1, Corollary~10.2.3]{Mar25c}.
 \end{remark}
 
 \begin{remark}[Negative Ext groups]\label{rem:quarticnegext}
@@ -1567,45 +1662,27 @@ degree at most $-3$ when $F_{0}=\QQ(\sqrt3)$); a kernel on $X\times X$ that is
 not an external product; or a proof of the injectivity of $\sigma_{E}$ for
 some Orlov product that does not go through a dimension count, which is what
 Markman's question \cite[Question~11.2.2]{Mar25c} asks for. The next
-proposition shows that a kernel of the second kind cannot be supported on
-graphs of real multiplication, and \Cref{rem:quarticmixedkernel} gives one
-that is not.
+proposition shows that a kernel whose transform has a pure spinor as its
+character, for instance a line bundle on the graph of a homomorphism, gives no
+Weil class.
 
-\begin{proposition}[Graphs and pure spinors give no Weil class]
+\begin{proposition}[Pure spinors give no Weil class]
 \label{prop:quarticexclusions}
 Keep the notation of \Cref{rem:quarticsecantshape} on $A=X\times\widehat X$
-with $t=0$, let $V_{j}\subseteq H^{1}(A,\RR)$ be the part at $\tau_{j}$, let
-$\mathrm{pt}_{j}$ be a generator of $\bigwedge^{8}V_{j}$, and call a class
-flat if it is invariant under $G_{F}(\RR)$.
-\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
-\item Let $v=c\,e^{\beta}\Omega_{N}$ be a real pure spinor, with
-  $c\in\RR^{\times}$, $\beta$ a real $2$-form, $N\subseteq H^{1}(A,\RR)$ and
-  $\Omega_{N}$ a generator of $\det N$. If $v$ is flat, then $N$ is one of
-  $0$, $V_{1}$, $V_{2}$, $H^{1}(A,\RR)$, and $v\in\RR[\eta_{1},\eta_{2}]$.
-  This applies to the characters of line bundles on translates of abelian
-  subvarieties, of points and of simple semi-homogeneous bundles, and of
-  their images under derived equivalences and isogenies, twisted by any real
-  $B$-field; for instance to $\Phi$ of a line bundle on the graph of a
-  homomorphism $X\to X\times X$.
-\item Let $Z$ be a real linear combination of classes $(\beta,\alpha)_{*}(c)$,
-  where $(\beta,\alpha)\in\cO^{2}\setminus\{0\}$ defines
-  $X\to X\times X$, $x\mapsto(\beta x,\alpha x)$, and $c\in
-  H^{\mathrm{ev}}(X,\RR)$; these include the Chern characters of all perfect
-  complexes on $X\times X$ whose cohomology sheaves are supported on finitely
-  many graphs $\Gamma_{\beta,\alpha}=\{(\beta x,\alpha x)\}$. Let
-  $B=\sum_{j}(f_{j}\theta_{j}+g_{j}\widehat\theta_{j}+h_{j}\ell_{j})$ with real
-  coefficients. If $\ch(\Phi(Z))e^{B}$ is flat, it lies in
-  $e^{g_{1}\eta_{1}+g_{2}\eta_{2}}\,\mathrm{span}(1,\mathrm{pt}_{1},
-  \mathrm{pt}_{2},\mathrm{pt}_{1}\mathrm{pt}_{2})\subseteq\RR[\eta_{1},\eta_{2}]$.
-\item Let $\Gamma$ be one such graph, $L$ a line bundle on $X\times X$ whose
-  first Chern class is a sum of classes of the two places, and $B$ as in
-  (ii). If $\ch(\Phi(I_{\Gamma}\otimes L))e^{B}$ is flat, it lies in
-  $\RR[\eta_{1},\eta_{2}]$.
-\end{enumerate}
-In each case the component in $W_{F}\otimes\RR$ vanishes in every degree: no
-such object has a character, twisted as stated, of the form required by
-\Cref{thm:quarticp2prime}(v) or by its twisted form, whatever the quartic
-field.
+with $t=0$, let $V_{j}\subseteq H^{1}(A,\RR)$ be the part at $\tau_{j}$, and
+call a class flat if it is invariant under $G_{F}(\RR)$. Let
+$v=c\,e^{\beta}\Omega_{N}$ be a real pure spinor, with $c\in\RR^{\times}$,
+$\beta$ a real $2$-form, $N\subseteq H^{1}(A,\RR)$ and $\Omega_{N}$ a
+generator of $\det N$. If $v$ is flat, then $N$ is one of $0$, $V_{1}$,
+$V_{2}$, $H^{1}(A,\RR)$, and $v\in\RR[\eta_{1},\eta_{2}]$. This applies to
+the characters of line bundles on translates of abelian subvarieties, of
+points and of simple semi-homogeneous bundles, and of their images under
+derived equivalences and isogenies, twisted by any real $B$-field; for
+instance to $\Phi$ of a line bundle on the graph of a homomorphism $X\to
+X\times X$. The component in $W_{F}\otimes\RR$ of such a class vanishes in
+every degree: no such object has a character, twisted as stated, of the form
+required by \Cref{thm:quarticp2prime}(v) or by its twisted form, whatever
+the quartic field.
 \end{proposition}
 
 \begin{proof}
@@ -1620,7 +1697,7 @@ $\mathrm{Inv}_{j}\subseteq\bigwedge^{*}V_{j}$ is spanned by the powers of
 $\eta_{j}$ and the two Weil classes $(\gamma_{j}\mp s_{j}\ell_{j})^{2}$; in
 degree two it is $\RR\eta_{j}$, and $\eta_{j}^{4}$ spans $\bigwedge^{8}V_{j}$.
 
-(i) If $v$ is real and pure over $\CC$, then $N=\{\xi:\xi\wedge v=0\}$ is
+If $v$ is real and pure over $\CC$, then $N=\{\xi:\xi\wedge v=0\}$ is
 defined over $\RR$, and so are $c$ and the class of $\beta$ modulo
 $N\wedge H^{1}$. For $g\in G_{F}(\RR)$, $gv=v$ gives $gN=N$, and
 $g\Omega_{N}=\det(g|_{N})\Omega_{N}=\Omega_{N}$ because the connected
@@ -1636,159 +1713,7 @@ $\eta_{1}^{4}\eta_{2}^{4}$. The characters listed are pure spinors, and
 derived equivalences, isogenies and twists preserve purity; this is the
 classical description recalled in \Cref{setup:lagquadric} and after
 \Cref{cor:naturalsums}.
-
-(ii) As in the proof of \Cref{thm:quarticobstruction}(iii), everything factors
-over the places: $H^{1}(X,\RR)=U_{1}\oplus U_{2}$, $\Phi=\Phi_{1}\otimes\Phi_{2}$,
-and for $c=c_{1}c_{2}$ with $c_{j}\in\bigwedge^{m_{j}}U_{j}^{\vee}$ the
-correspondence of $(\beta,\alpha)_{*}(c)$ is the tensor product of the maps
-$y\mapsto b^{k}a^{4-k-m_{j}}\,y\wedge c_{j}$ on $\bigwedge^{k}U_{j}^{\vee}$,
-with $b=\tau_{j}(\beta)$ and $a=\tau_{j}(\alpha)$. Flat classes have even
-degree at each place, and $\Phi_{j}$ and $e^{B_{j}}$ preserve the parity of the
-degree there, so only the part of $Z$ of even degree at each place matters;
-it lies in $L_{1}\otimes L_{2}$, where $L_{j}$ is the space of classes of the
-$j$-th factor whose correspondence has the form $y\mapsto C_{\deg y}\wedge y$
-with every $C_{k}$ of even degree, of dimension $24$. The space
-$\Phi_{j}(L_{j})$ is stable under multiplication by the $2$-forms pulled back
-from $X$ and by $\ell_{j}$. For the former, $\Phi(Z\,\delta^{*}\omega)=
-\omega\,\Phi(Z)$ for $\omega$ pulled back from $X$ and $\delta(a,b)=a-b$,
-because $\Phi=(1\times\Phi_{\cP})\circ\mu_{*}$ with $\mu(a,b)=(a-b,b)$, and
-$\delta^{*}\omega$ restricts to $(\beta-\alpha)^{*}\omega$ on the graph of
-$(\beta,\alpha)$. For the latter, multiplication by $e^{s\ell}$, $s\in\ZZ$,
-corresponds under $\Phi_{\cP}$ to translation of the second variable by $\pm
-sx$, hence under $\Phi$ to pull-back by the automorphism
-$\nu_{\pm s}(a,b)=(a\pm s(a-b),b\pm s(a-b))$ of $X\times X$, which carries
-graphs of pairs in $\cO^{2}$ to graphs of pairs in $\cO^{2}$; the same holds at
-one place with real pairs. Writing
-$B_{j}=g_{j}\eta_{j}+(f_{j}-g_{j}\tau_{j}(q))\theta_{j}+h_{j}\ell_{j}$
-therefore gives $e^{B_{j}}\Phi_{j}(L_{j})=e^{g_{j}\eta_{j}}\Phi_{j}(L_{j})$, and
-as $\eta_{j}$ is flat and $(U_{1}\otimes U_{2})\cap(W_{1}\otimes W_{2})=
-(U_{1}\cap W_{1})\otimes(U_{2}\cap W_{2})$ for subspaces, the flat classes in
-$e^{B}\Phi(L_{1}\otimes L_{2})$ form
-\[
-  e^{g_{1}\eta_{1}+g_{2}\eta_{2}}\,
-  \bigl(\mathrm{Inv}_{1}\cap\Phi_{1}(L_{1})\bigr)\otimes
-  \bigl(\mathrm{Inv}_{2}\cap\Phi_{2}(L_{2})\bigr).
-\]
-Finally $\mathrm{Inv}_{j}\cap\Phi_{j}(L_{j})=\mathrm{span}(1,\mathrm{pt}_{j})$,
-the images of $X\times\{0\}$ and of the diagonal at that place. This is a
-finite computation in exact arithmetic at $\tau_{j}(q)=1$, recorded in
-\cite{BMB26}, and it holds for every
-value by rescaling: for $\lambda>0$ the automorphism $g_{\lambda}$ of $V_{j}$
-that multiplies $H^{1}(X)$ by $\lambda$ and $H^{1}(\widehat X)$ by
-$\lambda^{-1}$ fixes $1$, $\mathrm{pt}_{j}$ and $\ell_{j}$, carries the flat
-classes for $\tau_{j}(q)=d$ to those for $d\lambda^{4}$, commutes with the
-complex structure of $X\times\widehat X$, and preserves $\Phi_{j}(L_{j})$,
-being induced up to a scalar by multiplication by $\lambda$ on the $j$-th
-factor of $X\times X$. For a complex whose cohomology sheaves are supported on
-graphs, a filtration with quotients that are sheaves on the reduced graphs,
-and Grothendieck--Riemann--Roch with trivial Todd classes, put its Chern
-character in the span of the classes $(\beta,\alpha)_{*}(c)$.
-
-(iii) Over the places, $\ch(I_{\Gamma}\otimes L)=\ch(L)-\ch(\cO_{\Gamma}\otimes
-L)=a_{1}a_{2}-b_{1}b_{2}$, where $a_{j}$ is the exponential of the part of
-$c_{1}(L)$ at $\tau_{j}$ and $b_{j}\ne0$ is a class of graph type with no
-component of degree below $4$. Put $A_{j}=e^{B_{j}}\Phi_{j}(a_{j})$ and
-$A_{j}'=e^{B_{j}}\Phi_{j}(b_{j})$; they are linearly independent, as $a_{j}$
-and $b_{j}$ are. If $A_{1}A_{2}-A_{1}'A_{2}'$ is flat, applying $\pi\otimes1$,
-with $\pi$ the quotient map of $\bigwedge^{*}V_{1}$ by $\mathrm{Inv}_{1}$,
-gives $\pi(A_{1})\otimes A_{2}=\pi(A_{1}')\otimes A_{2}'$, so
-$\pi(A_{1})=\pi(A_{1}')=0$; likewise at the second place. So $A_{1}A_{2}$, the
-twisted character of $\Phi(L)$, and $A_{1}'A_{2}'$, that of
-$\Phi(\cO_{\Gamma}\otimes L)$, are both flat, and they lie in
-$\RR[\eta_{1},\eta_{2}]$ by (i) and (ii).
 \end{proof}
-
-\begin{remark}[A kernel that is not an external product]
-\label{rem:quarticmixedkernel}
-Keep the notation of \Cref{rem:quarticsecantshape} and
-\Cref{prop:quarticexclusions}, with
-$H^{*}(X,\RR)=\bigotimes_{j}\bigwedge^{*}U_{j}^{\vee}$ and $\int_{j}$ the
-integral at $\tau_{j}$, normalised by $\int_{j}\theta_{j}^{2}=2$. On
-$\bigwedge^{*}U_{j}^{\vee}$ let $U^{0}_{j}(y)=(\int_{j}y)\,\theta_{j}^{2}/2$ and
-$P_{j}(y)=\int_{j}y$, the factors at $\tau_{j}$ of the correspondences of
-$X\times\{0\}$ and of $X\times X$, and let $T_{j}$ be multiplication by
-$-\frac12\tau_{j}(q)^{2}\theta_{j}^{2}$, $0$, $\frac12\tau_{j}(q)$,
-$\frac32\tau_{j}(q)$, $3\tau_{j}(q)$ on $\bigwedge^{k}U_{j}^{\vee}$ for
-$k=0,\dots,4$. Let $Z''$ be the class on $X\times X$ with correspondence
-\[
-  U^{0}_{1}\otimes(T_{2}-P_{2})+(T_{1}-P_{1})\otimes U^{0}_{2}.
-\]
-\begin{enumerate}[label=\textup{(\alph*)},leftmargin=2.6em,itemsep=2pt]
-\item \emph{$Z''$ is rational.} It is $G''-1\boxtimes c'$, where $G''$ has
-  correspondence $U^{0}_{1}\otimes T_{2}+T_{1}\otimes U^{0}_{2}$ and
-  $c'=(\theta_{1}^{2}+\theta_{2}^{2})/2$ is a rational polynomial in the classes
-  $\theta_{t}$, $t\in\cO$, of $X$, which are first Chern classes of line
-  bundles. $G''$ is invariant under $\mathrm{Gal}(F_{0}/\QQ)$,
-  which exchanges the places, so it is rational. At each place the classes
-  $(b,a)_{*}(\theta_{j}^{i})$, $(b,a)\in\RR^{2}$, span the $9$-dimensional space
-  of correspondences $y\mapsto C_{\deg y}\wedge y$ with $C_{k}\in\RR[\theta_{j}]$;
-  as $\cO^{2}$ is Zariski dense in $(F_{0}\otimes\RR)^{2}$, the classes
-  $(\beta,\alpha)_{*}(c)$ with $\beta,\alpha\in\cO$ and $c$ in the rational
-  algebra of the $\theta_{t}$ span the tensor product of these spaces, which
-  contains $G''$, over $\RR$, and a rational vector in the real span of
-  rational vectors lies in their rational span. So $NZ''$ is the Chern character of a perfect complex on
-  $X\times X$ for some integer $N\ge1$.
-\item \emph{Its character.} At each place $\ch\Phi_{j}(U^{0}_{j})=1$ and
-  $\ch\Phi_{j}(T_{j}-P_{j})=-\frac14\bigl(\eta_{j}^{2}+\gamma_{j}^{2}-\tau_{j}(q)
-  \ell_{j}^{2}\bigr)$, an identity of degree two in $\tau_{j}(q)$ checked
-  exactly in \cite{BMB26} at four values, so
-  \[
-    \ch\Phi(Z'')=-\tfrac14\textstyle\sum_{j}\bigl(\eta_{j}^{2}+\gamma_{j}^{2}
-    -\tau_{j}(q)\ell_{j}^{2}\bigr)=P+\omega,
-  \]
-  with $P=-\frac14(\eta_{1}^{2}+\eta_{2}^{2})$ and
-  $\omega=-\frac18\sum_{j}\bigl((\gamma_{j}-s_{j}\ell_{j})^{2}
-  +(\gamma_{j}+s_{j}\ell_{j})^{2}\bigr)$, both invariant under
-  $\mathrm{Gal}(F_{0}/\QQ)$ and so rational. The class is flat, of pure degree
-  four, and $\omega$ is a nonzero rational Weil class: $\ch\Phi(NZ'')$ has
-  exactly the form of \Cref{thm:quarticp2prime}(v), without a twist, at the
-  member $X\times\widehat X$ of the $(F,2,1)$-family (not at the base point
-  $s_{0}$). By \Cref{prop:quarticexclusions}(ii) the product term
-  $1\boxtimes c'$ is needed, and $\ch\Phi(Z'')e^{\pm\ell/2}$ is not flat.
-\item \emph{Its rank.} An object $E$ with this character has $\chi(E,E)=0$, and
-  $r(\ch E)=94$ for every quartic CM field and every $q$. The annihilator, of
-  dimension $26$, is the $16$-dimensional space of bivectors in
-  $T_{\sigma}\otimes T_{\sigma'}$ with $\sigma,\sigma'$ over different real places,
-  plus, at each place, a $5$-dimensional subspace of $H^{1}(T_{A})$ containing
-  the $4$-dimensional part of $T_{[A]}\cD_{F}$ at that place. Indeed at each
-  place $-\frac14(\eta_{j}^{2}+\gamma_{j}^{2}-\tau_{j}(q)\ell_{j}^{2})$, with
-  $\int\eta_{j}^{4}:\int(\gamma_{j}^{2}-\tau_{j}(q)\ell_{j}^{2})^{2}=3:4$, is a
-  class of the kind of \Cref{rem:p2primeexceptional}, a Weil class plus a
-  multiple of the square of the polarisation at the exceptional ratio; it has
-  rank $23$, where a general invariant class has rank $24$ and annihilator
-  the tangent space. A computation in \cite{BMB26} determines $94$ and the annihilator exactly for
-  four fields, and they hold for all by the rescaling $g_{\lambda}$ of the proof
-  of \Cref{prop:quarticexclusions} and scalar multiplication on each $V_{j}$,
-  which commute with the complex structure and carry the class for
-  $(\tau_{1}(q),\tau_{2}(q))$ to a multiple of that for any other pair of
-  positive reals, place by place. The value $94$ is the one of
-  \Cref{thm:quarticrank}(iii) with $R_{1}=R_{2}=7$, taken for instance at
-  $p=(\theta_{1}^{2}+\theta_{2}^{2})/2$: the class is exceptional at both
-  places. The annihilator in $H^{1}(T_{A})$ has
-  dimension $10>8$, and the Hodge locus of the class near $A$ contains the
-  product of the orbits of $\mathrm{Spin}(4,3)$ at the two places, of
-  dimension $10$: it leaves $\cD_{F}$, as at the exceptional ratio of
-  \Cref{rem:p2primeexceptional}.
-\item \emph{Direct sums do not realise it.} If $E=\bigoplus_{i}F_{i}[k_{i}]$ has
-  $\ch(E)=\ch\Phi(NZ'')$ and $\sigma_{E}$ injective, then, as in the proof of
-  \Cref{lem:p2primesummands}(i), every $\operatorname{ev}_{F_{i}}$ kills
-  $T_{[A]}\cD_{F}$, so $T_{[A]}\cD_{F}$ kills every $\ch(F_{i})$; a real class
-  killed by it is killed by its conjugate too, hence by the Lie algebra of
-  $G_{F}$, which they generate, so every $\ch(F_{i})$ is flat. By
-  \Cref{prop:quarticexclusions}(ii) the summands supported on graphs of pairs
-  in $\cO^{2}$ then have no Weil part, while a summand $\cO_{X}\boxtimes F'$
-  with $\ch(F')$ a multiple of $c'$ has character a multiple of
-  $\Phi_{1}(P_{1})+\Phi_{2}(P_{2})$, where $\Phi_{j}(P_{j})$ is, up to sign, the
-  factor at $\tau_{j}$ of the class of $X\times\{0\}$ in $A$, which is not
-  flat. So the realisation of $NZ''$ by shifted sheaves on graphs and copies
-  of such $\cO_{X}\boxtimes F'$ has $\dim\Ext^{2}(E,E)>94$.
-\end{enumerate}
-The class is a candidate character, for an object with
-$\dim\Ext^{2}(E,E)=94$. Complexes with character $N\omega_{s_{0}}$ exist by
-\Cref{thm:cmpropagation}(v), with $r=80$ by \Cref{thm:quarticp2prime}(i);
-what the kernel adds is an explicit construction from graphs and one product,
-and the value $94$.
-\end{remark}
 
 \subsubsection*{Markman's candidate for a quartic field}
 
@@ -1903,11 +1828,6 @@ $\bigwedge^{2}T_{p}Y$ is spanned by $\partial_{2}\wedge\partial_{3}$ and the
 $\partial_{i}\wedge\partial_{j}$ with $j\ge4$, which is
 $\bigwedge^{2}T_{p}D+T_{p}C\wedge T_{p}Y$.
 \end{proof}
-
-By the method of \Cref{lem:localproducts}, a computation in \cite{BMB26}
-treats further germs: a line bundle and a vector bundle of rank two on a
-smooth curve and a skyscraper give $\bigwedge^{2}N$, and a line bundle on a
-smooth divisor and a maximal Cohen--Macaulay module on a node give nothing.
 
 Now keep the notation of \Cref{prop:quarticsecant}, with $X$ an abelian
 fourfold with real multiplication by $F_{0}$ and $\theta=\theta_{1}+\theta_{2}$
@@ -2413,8 +2333,11 @@ against $264$, and $r(\kappa)\le104$ against $112$.
 The count of \Cref{prop:sexticcount}(iii) is a condition on the Euler
 characteristic of the character alone, so it can be tested on the lattice of
 integral characters, as \Cref{prop:quarticother} tests the quartic one. In
-degree four the test excludes every minimal character; in degree six it
-excludes none on the lattices computed in \Cref{prop:sexticintegral}. For
+degree four the test excludes every minimal character. In degree six it can
+exclude an integral character only if $-26<\chi(v,v)<0$
+(\Cref{prop:sexticintegral}(i),(ii)), and it excludes neither of the integral
+classes $\operatorname{Re}e^{\sqrt{-1}\,\theta}$ and
+$\operatorname{Im}e^{\sqrt{-1}\,\theta}$ (\Cref{prop:sexticintegral}(iv)). For
 $t=0$, the case in which
 \Cref{prop:sexticcount}(iv) makes $\kappa$ flat, put
 $B_{j}=1-\tfrac12\tau_{j}(q)\,\theta_{j}^{2}$, so that
@@ -2447,17 +2370,8 @@ Keep the notation of \Cref{prop:sexticcount}.
   \]
 \item For $q=1$, the classes $\operatorname{Re}e^{\sqrt{-1}\,\theta}=v(1,0,-1,0)$
   and $\operatorname{Im}e^{\sqrt{-1}\,\theta}=v(0,1,0,-1)$ are integral
-  points of $S(0,1)$ with $\chi=-32$ and $N_{w}=2$.
-\item Let $F_{0}$ be one of the sixteen cubic fields computed in \cite{BMB26}, among them $\QQ(\zeta_{7})^{+}$ and
-  $\QQ(\zeta_{9})^{+}$, and let $q=1$ or $q=k+\alpha$, with $\alpha$ the
-  generator of $\cO_{F_{0}}$ used there and $k$ the least integer for which
-  $q$ is totally positive. On the lattice of integral points of $S(0,q)$ the
-  form $-\chi/8$ takes integer values, and it takes no value in
-  $\{1,2,3\}$. So every nonzero integral $v\in S(0,q)$ has
-  $\chi(v,v)\le-32$, and satisfies the condition of
-  \Cref{prop:sexticcount}(iii) whatever its shape. For $q=1$ the value $-32$
-  is attained exactly at $\pm\operatorname{Re}e^{\sqrt{-1}\,\theta}$ and
-  $\pm\operatorname{Im}e^{\sqrt{-1}\,\theta}$.
+  points of $S(0,1)$ with $\chi=-32$ and $N_{w}=2$, so they satisfy the
+  condition of \Cref{prop:sexticcount}(iii).
 \end{enumerate}
 \end{proposition}
 
@@ -2476,22 +2390,56 @@ e_{I}e_{J}$ is even. For $N_{w}=2$ the condition of
 negative even integer by \Cref{prop:sexticcount}(ii).
 
 (ii) For $j$ and $\sigma=\pm1$ let $W_{j,\sigma}$ be the $2\times2$ slice
-$(w_{\varepsilon})_{\varepsilon_{j}=\sigma}$. The matrices
-$M^{(j';j)}_{\sigma}$ are $W_{j,\sigma}$ and its transpose, so
+$(w_{\varepsilon})_{\varepsilon_{j}=\sigma}$, with rows and columns indexed by
+the signs at the two other places. The matrices $M^{(j';j)}_{\sigma}$ are
+$W_{j,\sigma}$ and its transpose, so
 $\sum_{j\ne j'}\bigl(\rk M^{(j;j')}_{+}+\rk M^{(j;j')}_{-}\bigr)
-=2\sum_{j,\sigma}\rk W_{j,\sigma}$, and $\rho_{j}$ is the dimension of the span
-of $W_{j,+}$ and $W_{j,-}$. Three constraints link these numbers to the
-support of $w$: a slice has rank two only if its support contains a diagonal
-or an antidiagonal; if $\rho_{j}=1$ and both slices along $j$ are nonzero
-they are proportional, with equal supports and ranks; and if $\rho_{j}=1$
-then $w=a\otimes W$ with $a$ indexed by $\varepsilon_{j}$, so every slice along
-another index is $a\otimes(\text{a row of }W)$, of rank at most one. By the
-formulas of \Cref{prop:sexticcount}(i), $r^{3}-2r^{2}$ is a function of the
-support, the ranks of the six slices and the $\rho_{j}$, and \cite{BMB26}
-maximises it over the $255$ nonempty supports and all rank data meeting the
-three constraints: the maximum is $4$, attained only with full support, six
-slices of rank two and $\rho_{j}=2$, that is at $(54,112)$. The threshold
-$r^{3}-2r^{2}+22$ of \Cref{prop:sexticcount}(iii) is therefore at most $26$.
+=2\sum_{j,\sigma}\rk W_{j,\sigma}$. Since $w_{-\varepsilon}=\bbar{w}_{\varepsilon}$,
+$W_{j,-}$ is the complex conjugate of $W_{j,+}$ with its rows and its columns
+reversed, so the two slices have the same rank $k_{j}$. Let $S$ be the support
+of $w$ and $N=N_{w}=|S|$. By \Cref{prop:sexticcount}(i),
+\begin{equation}\label{eq:sexticexcess}
+  r^{3}(v)-2r^{2}(v)=8N-8\,(A_{12}+A_{13}+A_{23})
+  +\sum_{j}\bigl(8k_{j}-2\rho_{j}\bigr).
+\end{equation}
+The set $S$ is stable under $\varepsilon\mapsto-\varepsilon$, which exchanges
+the two slices along each place; so $N$ is even, each slice has $N/2$ nonzero
+entries, $k_{j}\ge1$, and $A_{jj'}\in\{2,4\}$, the projection of $S$ to the
+signs at $j$ and $j'$ being stable under negation. Also $1\le\rho_{j}\le2$ and
+$k_{j}\le2$, and a slice whose nonzero entries lie in one row or one column
+has rank one. If $\rho_{j}=1$, then $w_{\varepsilon}=a_{\varepsilon_{j}}
+W(\varepsilon')$, with $\varepsilon'$ the signs at the two other places, so
+every slice along a place $j'\ne j$ is $a\otimes(\text{a row of }W)$ and
+$k_{j'}\le1$. Now take the four values of $N$ in turn.
+
+If $N=8$, every $A_{jj'}$ is $4$ and \eqref{eq:sexticexcess} is
+$-32+\sum_{j}(8k_{j}-2\rho_{j})$. When every $\rho_{j}$ is $2$ this is at most
+$-32+3\cdot12=4$, with equality exactly when every $k_{j}$ is $2$, and then
+$r^{2}=48+6=54$ and $r^{3}=64+48=112$. When some $\rho_{j}$ is $1$, the two
+other $k$ are at most $1$ and \eqref{eq:sexticexcess} is at most
+$-32+14+6+6=-6$.
+
+If $N=6$, $S$ misses one pair $\{\pm\varepsilon_{0}\}$. As $\varepsilon_{0}$
+and $-\varepsilon_{0}$ differ at every place, they never have the same signs
+at two places, so every sign pair at two places occurs in $S$, every
+$A_{jj'}$ is $4$, and \eqref{eq:sexticexcess} is at most $48-96+3\cdot14=-6$.
+
+If $N=4$, $S=\{\pm\varepsilon,\pm\varepsilon'\}$, and after replacing
+$\varepsilon'$ by $-\varepsilon'$ if necessary, $\varepsilon$ and
+$\varepsilon'$ differ at exactly one place $j$. For the two other places $k$
+and $l$ one has $A_{kl}=2$ and $A_{jk}=A_{jl}=4$. The two nonzero entries of
+a slice along $k$ are $w_{\pm\varepsilon}$ and $w_{\pm\varepsilon'}$ with the
+same sign, whose indices agree at $l$; they lie in one row or one column, so
+$k_{k}=1$, and likewise $k_{l}=1$. Hence \eqref{eq:sexticexcess} is at most
+$32-80+8\,(2+1+1)-6=-22$.
+
+If $N=2$, $S=\{\pm\varepsilon_{0}\}$, every $A_{jj'}$ is $2$, every $k_{j}$ is
+$1$, and every $\rho_{j}$ is $2$, the two slices along $j$ having their
+nonzero entries at different positions; so \eqref{eq:sexticexcess} is
+$16-48+24-12=-20$, the value $40-60$ of \Cref{prop:sexticcount}(i).
+
+So $r^{3}-2r^{2}\le4$, with equality only at $(54,112)$, and the threshold
+$r^{3}-2r^{2}+22$ of \Cref{prop:sexticcount}(iii) is at most $26$.
 
 (iii) Since $\theta_{j}^{3}=0$ and $s_{j}^{2}=-\tau_{j}(q)$,
 $e^{\pm s_{j}\theta_{j}}=B_{j}\pm s_{j}\theta_{j}$, so the eight exponentials
@@ -2519,27 +2467,6 @@ They are $\tfrac12(e_{(1,1,1)}+e_{(-1,-1,-1)})$ and
 $\tfrac1{2\sqrt{-1}}(e_{(1,1,1)}-e_{(-1,-1,-1)})$, so $N_{w}=2$ and
 $\chi=-64\,(\tfrac14+\tfrac14)=-32$ by \Cref{prop:sexticcount}(ii); expanding
 $\prod_{j}(B_{j}+\sqrt{-1}\,\theta_{j})$ gives the coordinates.
-
-(v) This is the computation of \cite{BMB26}. A model of $X$ is
-$H_{1}(X,\ZZ)=\cO e_{1}\oplus\cO e_{2}\oplus\mathfrak d^{-1}f_{1}\oplus
-\mathfrak d^{-1}f_{2}$ with $\psi(e_{a},f_{b})=\delta_{ab}$; by the local
-argument in the proof of \Cref{lem:quarticlattice}, every principally
-polarised lattice with real multiplication by $\cO$ is locally of this shape,
-so integrality does not depend on the model. In the Z-basis of
-$\bigwedge^{\mathrm{ev}}H^{1}(X,\ZZ)$ the coordinates of
-$v(c_{0},f,g,c_{3})$ are rational linear forms in the eight rational
-parameters; they are computed modulo three primes that split completely in
-$F_{0}$, where the $\tau_{j}$ become the three roots of the minimal polynomial,
-reconstructed as rationals and confirmed modulo a fourth prime. The integral
-points are the dual of the lattice spanned by the rows. The Gram matrix of
-$-\chi/8$ on that lattice, computed from (iii) and confirmed by computing
-$\int_{X}v^{\vee}v$ directly, is integral, and a Fincke--Pohst enumeration
-finds no vector of norm at most $3$; for $q=1$ it finds exactly four of norm
-$4$, which are the four classes of (iv). Since $-\chi$ is then a positive
-multiple of $8$ that is at least $32$, and $26<32$, (ii) gives the condition.
-For $\QQ(\zeta_{7})^{+}$ and $\QQ(\zeta_{9})^{+}$ one has $k=2$, and $2+\alpha$
-is the square of a unit (\Cref{prop:sexticweilmin}(i)), so both values of $q$
-give the same CM field $F_{0}(\sqrt{-1})$, with different secant spaces.
 \end{proof}
 
 The flatness of \Cref{prop:sexticcount}(iv) makes $\kappa$ a Hodge class on
@@ -2724,140 +2651,6 @@ $\mathrm{P2}_{\mathrm{split}}$. By \Cref{prop:composite}, $\mathbf{W}(F,2,1)$
 gives the $K$-Weil classes on the members of the $F$-family, and the converse
 is not available; a consequence for $K$ through \Cref{prop:descent} would
 still need a twisted form of the propagation of \Cref{thm:semiregclosure}.
-
-\begin{proposition}[Integral characters with an $F$-Weil part]
-\label{prop:sexticweilmin}
-Keep the notation of \Cref{prop:sexticintegral}(v), with $\alpha$ a root of
-$x^{3}+x^{2}-2x-1$ for $\QQ(\zeta_{7})^{+}$ and of $x^{3}-3x+1$ for
-$\QQ(\zeta_{9})^{+}$, and let $q$ run over $1$, $k+\alpha$ and $k+1+\alpha$
-for each of the sixteen fields, forty-eight cases in all.
-\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
-\item For $\QQ(\zeta_{7})^{+}$ and $\QQ(\zeta_{9})^{+}$, $k=2$ and
-  $2+\alpha=\beta^{2}$ with the unit $\beta=-1+\alpha+\alpha^{2}$, of norm
-  $-1$, respectively $\beta=-2+\alpha+\alpha^{2}$, of norm $1$. So
-  $F_{0}(\sqrt{-(2+\alpha)})=F_{0}(\sqrt{-1})$, and the integral classes of
-  $S(0,2+\alpha)$ with $\chi=-32$ are $\pm\operatorname{Re}
-  e^{\sqrt{-1}\,\theta_{\beta}}$ and $\pm\operatorname{Im}
-  e^{\sqrt{-1}\,\theta_{\beta}}$, where
-  $\theta_{\beta}=\sum_{j}\tau_{j}(\beta)\theta_{j}$; they have $\Omega=0$.
-\item $F=F_{0}(\sqrt{-q})$ contains an imaginary quadratic field in exactly
-  twenty of the cases: $\QQ(\sqrt{-1})$ for $q=1$ and for $q=2+\alpha$ over
-  $\QQ(\zeta_{7})^{+}$ and $\QQ(\zeta_{9})^{+}$, and $\QQ(\sqrt{-3})$ for
-  $q=2+\alpha$ over the field of discriminant $321$, where $k=2$, and for
-  $q=4+\alpha$ over the field of discriminant $1509$, where $k=3$. In these
-  two cases the least $-\chi$ of a nonzero integral class is $288$,
-  respectively $4608$, attained with $\Omega=0$, and the least $-\chi$ of an
-  integral class with $\Omega\ne0$ is $728$, respectively $6504$.
-\item For $q=1$, every integral class with $-\chi<296$ over
-  $\QQ(\zeta_{7})^{+}$, respectively $-\chi<488$ over $\QQ(\zeta_{9})^{+}$,
-  lies in $\ZZ\operatorname{Re}e^{\sqrt{-1}\,\theta}
-  \oplus\ZZ\operatorname{Im}e^{\sqrt{-1}\,\theta}$, and so has $\Omega=0$.
-  The least $-\chi$ of an integral class with $\Omega\ne0$ is $296$,
-  respectively $488$, attained by eight classes up to sign, among them
-  $v(-5,0,-2,0)$, respectively $v(-7,0,-2,0)$, all with $N_{w}=8$ and
-  $(r^{2},r^{3})=(54,112)$. The least values for $q=2+\alpha$ are the same.
-\item For $q=3+\alpha$ over $\QQ(\zeta_{7})^{+}$, $\Nm(q)=13$, $F$ contains
-  no imaginary quadratic field, and the least $-\chi$ of a nonzero integral
-  class is $192$, attained only at $\pm v_{*}$ with
-  $v_{*}=v(-1,0,2-\alpha^{2},0)$, which has $N_{w}=8$,
-  $(r^{2},r^{3})=(54,112)$ and $\Omega(v_{*})=(18-4\alpha-6\alpha^{2})/13$.
-  Over $\QQ(\zeta_{9})^{+}$, $\Nm(q)=17$ and the least value is $256$,
-  attained only at $\pm v(1,0,-\alpha,0)$, with $N_{w}=8$,
-  $(r^{2},r^{3})=(54,112)$ and $\Omega=(6\alpha+6\alpha^{2})/17$.
-\item Over the forty-eight cases the least $-\chi$ of an integral class with
-  $\Omega\ne0$ is $192$, attained only at $\pm v_{*}$. In each case this
-  least value lies between $192$ and $7080$, and for $q=1$ between $296$ and
-  $3872$.
-\end{enumerate}
-\end{proposition}
-
-\begin{proof}
-(i) In $\ZZ[\alpha]$, with $\alpha^{3}=-\alpha^{2}+2\alpha+1$, respectively
-$\alpha^{3}=3\alpha-1$, one computes $\beta^{2}=2+\alpha$, and the norms of
-$\beta$ are $\pm1$; so $\sqrt{-(2+\alpha)}=\beta\sqrt{-1}$. The class
-$e^{\sqrt{-1}\,\theta_{\beta}}$ is $e_{\varepsilon}$ with
-$\varepsilon_{j}$ the sign of $\tau_{j}(\beta)$, and expanding
-$\prod_{j}(B_{j}+\sqrt{-1}\,\tau_{j}(\beta)\theta_{j})$ gives
-$v(1,0,-\Nm(\beta)\beta^{-1},0)+\sqrt{-1}\,v(0,\beta,0,-\Nm(\beta))$, with
-$\chi=-32$ by \Cref{prop:sexticintegral}(iii) and $\Omega=0$ by
-\Cref{lem:sexticweil}(ii),(iii); the enumeration of \cite{BMB26} finds these
-four classes, and no others, among the integral classes with $-\chi\le32$.
-
-(ii) If $\QQ(\sqrt{-D})\subseteq F$ with $D$ squarefree, then
-$\sqrt{-D}=b\sqrt{-q}$ with $b\in F_{0}$, since
-$\sqrt{-D}\notin F_{0}$ and its square lies in $F_{0}$; so $D=b^{2}q$,
-$Dq=(bq)^{2}$ is a square in $F_{0}$, and taking norms,
-$D^{3}=\Nm(b)^{2}\Nm(q)$, so $D$ is the squarefree part of $\Nm(q)$.
-Conversely, if $Dq=c^{2}$ with $c\in F_{0}$, then
-$(c\sqrt{-q}/q)^{2}=-D$. A computation in \cite{BMB26} tests whether
-$\prod_{j}(x^{2}-D\tau_{j}(q))$ is reducible over $\QQ$, which is the
-condition. The rest of (ii) and (iii) to (v) are a computation in \cite{BMB26}:
-the lattices of \Cref{prop:sexticintegral}(v), computed in the same
-way for $q=k+1+\alpha$, are enumerated by Fincke--Pohst after LLL reduction,
-with a bound doubled until a class with $\Omega\ne0$ appears, and $\Omega$ is
-computed exactly in $F_{0}$ from \Cref{lem:sexticweil}(ii). The classes of
-$\ZZ\operatorname{Re}e^{\sqrt{-1}\,\theta}\oplus\ZZ\operatorname{Im}
-e^{\sqrt{-1}\,\theta}$ have $\Omega=0$ by \Cref{lem:sexticweil}(iii). The
-shapes are computed modulo a prime at which the $s_{j}$ exist; a rank modulo
-a prime bounds the rank below, and $8$, $54$ and $112$ are the largest values
-of $N_{w}$, $r^{2}$ and $r^{3}$ (\Cref{prop:sexticcount}(i)).
-\end{proof}
-
-\begin{figure}[tbp]
-\centering
-  \includegraphics[width=\textwidth]{fig_sexticweil}
-\caption{\Cref{prop:sexticweilmin} case by case. For each of the sixteen
-totally real cubic fields $F_{0}$ of \Cref{prop:sexticintegral}(v), ordered by
-discriminant, and each of $q=1$, $k+\alpha$ and $k+1+\alpha$, the cell gives
-the least $-\chi(v,v)$ of an integral point $v$ of $S(0,q)$ whose Orlov square
-has a nonzero $F$-Weil part, that is with $\Omega(v)\ne0$
-(\Cref{lem:sexticweil}), as computed in \cite{BMB26}; the shading is logarithmic in this value, which lies
-between $192$ and $7080$, and between $296$ and $3872$ for $q=1$. A corner
-mark shows that $F=F_{0}(\sqrt{-q})$ contains an imaginary quadratic field,
-$\QQ(\sqrt{-1})$ in eighteen cases and $\QQ(\sqrt{-3})$ in two
-(\Cref{prop:sexticweilmin}(ii)); in those cases the lattice has classes of
-smaller $-\chi$, namely $32$, respectively $288$ and $4608$, all with
-$\Omega=0$. The heavy frame marks the least value
-$192$, attained only at $\pm v_{*}$ over $\QQ(\zeta_{7})^{+}$ with
-$q=3+\alpha$, the target of \Cref{rem:sextictargets}; the dashed frames mark
-the values $296$ and $488$ for $q=1$ over $\QQ(\zeta_{7})^{+}$ and
-$\QQ(\zeta_{9})^{+}$, below which every integral class lies in
-$\ZZ\operatorname{Re}e^{\sqrt{-1}\,\theta}\oplus\ZZ\operatorname{Im}
-e^{\sqrt{-1}\,\theta}$ (\Cref{prop:sexticweilmin}(iii)). These are least
-values over the lattices computed, not bounds, and a character does not give
-a complex.}
-\label{fig:sexticweil}
-\end{figure}
-
-\begin{remark}[What a certificate in degree six would need]
-\label{rem:sextictargets}
-Among the forty-eight lattices of \Cref{prop:sexticweilmin}
-(\Cref{fig:sexticweil}), the integral
-character of least $-\chi$ whose Orlov square has a nonzero $F$-Weil part is
-$v_{*}$, over $F=\QQ(\zeta_{7})^{+}(\sqrt{-(3+\alpha)})$, a field with no
-imaginary quadratic subfield. A minimal factor with character $v_{*}$ would
-have, by \Cref{prop:sexticcount}(iii), the profile $(1,12,54,278,54,12,1)$,
-and the Orlov product of two such factors would have
-$\dim\Ext^{2}(E,E)=r(\kappa)=54+144+54=252<264$, a flat twisted character,
-and all six $\kappa_{j,\sigma}$ nonzero. The computation singles out this
-target as the least value over the lattices computed, not as a bound, and
-nothing here shows that a complex with character $v_{*}$ and that profile
-exists, since a character does not determine the Ext groups. By
-\Cref{lem:sexticweil}(iii), the classes $\operatorname{Re}
-e^{\sqrt{-1}\,\theta}$ and $\operatorname{Im}e^{\sqrt{-1}\,\theta}$ of
-\Cref{prop:sexticintegral}(iv) can enter only as one factor of a mixed pair:
-for $q=1$ the pair of characters $(\operatorname{Re}e^{\sqrt{-1}\,\theta},
-v(-5,0,-2,0))$ has a twisted character of rank $-8$ with all six
-$\kappa_{j,\sigma}$ equal to $7$, and $r(\kappa)=30+144+54=228$; minimal
-factors with these characters would have the profiles
-$(1,12,30,70,30,12,1)$ and $(1,12,54,382,54,12,1)$. By
-\Cref{rem:sexticnatural}, neither $v_{*}$ nor $v(-5,0,-2,0)$ is a combination
-of fewer than seven characters of natural objects. Even an object realising
-one of these targets would bear only on $\mathbf{W}(F,2,1)$ for one sextic
-field $F$, and only through a twisted form of the propagation of
-\Cref{thm:semiregclosure}. $\mathrm{P2}_{\mathrm{split}}$ concerns every
-CM field of degree at least four in infinitely many dimensions.
-\end{remark}
 
 \begin{remark}[Natural objects]\label{rem:sexticnatural}
 Let $X$ be very general with real multiplication by $\cO_{F_{0}}$, so that

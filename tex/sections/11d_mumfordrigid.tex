@@ -132,63 +132,201 @@ rational exceptional class.
 \end{theorem}
 
 \begin{proof}
-Over $\CC$ the Hodge decomposition at $c$ is
-$H^{1,0}(X_{c})=V_{1}\otimes V_{2}\otimes V_{3}^{1,0}$, as at every point of
-$C$, since the Hodge cocharacter lies in the third factor. A maximal torus
-$S$ of $\SL(V_{1})\times\SL(V_{2})$ therefore preserves the Hodge
-decomposition of $H^{1}(Y,\CC)=V\oplus V$ and acts on $HT^{2}(Y)$ and on
-$H^{*}(Y,\CC)$, and so does $\tau$. Contraction is equivariant for both, and
-$\omega$ is fixed by both, so $x\mapsto x\lrcorner\,\omega$ preserves the
-decomposition of $HT^{2}(Y)$ by type ($H^{0,2}$, $H^{1}(T)$ or
-$H^{0}(\bigwedge^{2}T)$, which land in the distinct summands $H^{2,4}$,
-$H^{1,3}$ and $H^{0,2}$ of $H^{*}(Y)$), by weight of $S$, and by parity under
-$\tau$. The annihilator is therefore the sum of the kernels on the $46$
-nonzero blocks. A computation in \cite{BMB26} writes each block as a
-matrix whose entries are linear in $a$ and computes the Gram determinant of
-its columns, a polynomial in $a$ that, for real $a$, vanishes exactly where
-the columns become dependent. The only block with a kernel at a generic point
-is the $\tau$-even block of weight zero in $H^{1}(T)$; its kernel is spanned,
-for every $a$, by one vector independent of $a$, which is dropped before the
-determinant is taken. Every Gram determinant is a positive constant times a
-product of the following factors.
-\begin{enumerate}[label=\textup{(\alph*)},leftmargin=2.6em,itemsep=1pt]
-\item Eleven quadratic forms $P_{1},P_{2},Q_{1},\dots,Q_{4},R,S_{1},\dots,
-  S_{4}$, each a positive combination of squares of rational linear forms
-  whose common zeros have two of $a_{1},a_{2},a_{3}$ equal or one of them
-  zero, for instance
-  $2P_{1}=\sum_{i<j}(a_{i}-a_{j})^{2}$,
-  $Q_{4}=(3a_{1}-a_{0}-a_{2}-a_{3})^{2}+16(a_{2}-a_{3})^{2}$ and
-  $S_{2}=(a_{0}+a_{2})^{2}+3(a_{1}+a_{3})^{2}+8a_{2}^{2}$.
-\item Six positive definite forms $Z_{1},\dots,Z_{6}$, each a positive
-  combination of the squares of four independent linear forms.
-\item The linear forms $a_{2}$, $a_{3}$, $a_{0}-3a_{1}+a_{2}-3a_{3}$,
-  $a_{0}-3a_{1}-3a_{2}+a_{3}$, $a_{0}+9a_{1}-3a_{2}-3a_{3}$, whose
-  coefficients on $a_{1},a_{2},a_{3}$ are not all equal.
-\item The linear form $L_{0}$, which divides the Gram determinants of the
-  nine $\tau$-odd blocks of $H^{0}(\bigwedge^{2}T)$ and no other.
-\end{enumerate}
-The sums of squares are certified in exact arithmetic by \cite{BMB26} and in the
-Lean certificate. For a rational exceptional class the coefficients are real,
-and by \Cref{lem:conjugates} the factors of (a), (b) and (c) do not vanish:
-those of (a) would force two conjugates of $\alpha$ to coincide or one to
-vanish, those of (b) vanish only at $a=0$, whereas $a\ne0$, and those of (c)
-would give a rational relation among the conjugates with unequal
-coefficients. Hence every block is injective except the $\tau$-even block of
-weight zero in $H^{1}(T)$ and the nine bivector blocks of (d). Those nine are
-injective when $L_{0}(a)\ne0$; when $L_{0}(a)=0$, the four of them of
-dimension one, whose Gram determinants are $L_{0}^{2}/16$, lie in the
-annihilator.
+\emph{Notation.} Over $\CC$ write $V=V_{1}\otimes V_{2}\otimes V_{3}$ and
+$\psi=\epsilon_{1}\otimes\epsilon_{2}\otimes\epsilon_{3}$, as in the proof of
+\Cref{lem:mumfordmu}, and identify $V$ with $H^{1}(X_{c},\CC)$ and with its
+dual through $\psi$. As at every point of $C$, the Hodge cocharacter lies in
+the third factor: $V_{3}^{1,0}=\CC e$, $V_{3}^{0,1}=\CC f$, $V^{1,0}=V_{1}
+\otimes V_{2}\otimes e$ and $V^{0,1}=V_{1}\otimes V_{2}\otimes f$. Let
+$N\in\mathfrak{sl}(V_{3})$ be the nilpotent element with $Ne=f$, $Nf=0$. Then
+$H^{1}(Y,\CC)=V_{(1)}\oplus V_{(2)}$, two copies of $V$, with the form
+$\psi\oplus\psi$, and $\omega\in{\textstyle\bigwedge^{2}}V_{(1)}\otimes
+{\textstyle\bigwedge^{2}}V_{(2)}$.
 
-It remains to identify the kernel of the $\tau$-even block of weight zero in
-$H^{1}(T)$. The family of Hodge structures along $C$ is the orbit of the
-Hodge structure at $c$ under the real points of the third factor of $G$, so
-the Kodaira--Spencer class
-$\kappa$ is the component of type $(-1,1)$ of an element of
-$\mathfrak{sl}(V_{3})$, the lowering operator acting on both copies of $V$.
-It kills $\omega$ because $\omega$ is invariant under $G$; it is fixed by
-$\tau$ and has weight zero for $S$; and it is nonzero, because the Hodge
-structures along $C$ vary. As that kernel is one-dimensional, $\kappa$ spans
-it. This proves (i) and (ii).
+\emph{Step 1: operators.} For $J\subseteq\{1,2,3\}$ let $E_{J}\subset\End V$
+be the tensor product of $\mathfrak{sl}(V_{i})$ for $i\in J$ and of $\CC\cdot1$
+for $i\notin J$. Then $\End V=\bigoplus_{J}E_{J}$, and the $E_{J}$ are
+irreducible and pairwise non-isomorphic under conjugation by $G$. The
+$\psi$-adjoint of an element of $\mathfrak{sl}(V_{i})$ is its negative, so
+$E_{J}$ consists of $\psi$-skew operators when $|J|$ is odd and of
+$\psi$-symmetric ones when $|J|$ is even. The map $v\wedge w\mapsto
+\psi(v,\cdot)w-\psi(w,\cdot)v$ identifies ${\textstyle\bigwedge^{2}}V$ with the
+$\psi$-symmetric operators $E_{\emptyset}\oplus E_{12}\oplus E_{13}\oplus
+E_{23}$, which are $\CC\theta$, $U_{12}$, $U_{13}$, $U_{23}$; a direct
+expansion shows that ${\textstyle\bigwedge^{2}}\psi$ becomes the form
+$\langle M,M'\rangle=\frac12\operatorname{tr}(MM')$, and that the derivation
+action of $X\in\End V$ becomes $M\mapsto XM+MX^{\psi}$, that is
+$D_{X}M=[X,M]$ if $X$ is $\psi$-skew and $D_{X}M=XM+MX$ if $X$ is
+$\psi$-symmetric. In particular $D_{X}^{\dagger}=\mp D_{X}$ in the two cases,
+$\dagger$ denoting the adjoint for $\langle\,,\rangle$. By the Cayley--Hamilton
+theorem $XY=\frac12[X,Y]+\frac12\operatorname{tr}(XY)$ for
+$X,Y\in\mathfrak{sl}(V_{i})$. Finally, by \Cref{setup:omegaa},
+$\omega=\sum_{j}M_{j}\otimes P_{a}M^{j}$ for a basis $(M_{j})$ of
+${\textstyle\bigwedge^{2}}V$ with dual basis $(M^{j})$, where $P_{a}$ acts on
+$E_{\emptyset},E_{12},E_{13},E_{23}$ by $a_{0},a_{1},a_{2},a_{3}$. As $P_{a}$
+commutes with $G$, it preserves the Hodge types.
+
+The space ${\textstyle\bigwedge^{2}}V^{0,1}$ consists of the $\psi$-symmetric
+operators that kill $V^{0,1}$ and take values in it, namely
+$\mathfrak{sl}(V_{1})\otimes1\otimes N\oplus1\otimes\mathfrak{sl}(V_{2})
+\otimes N\subset E_{13}\oplus E_{23}$, on which $P_{a}$ is $a_{2}$ and $a_{3}$.
+The map $v\otimes w\mapsto\psi(v,\cdot)w$ identifies $V^{0,1}\otimes V^{0,1}$
+with $\Hom(V^{1,0},V^{0,1})=\End V_{1}\otimes\End V_{2}\otimes\CC N=
+\bigoplus_{J\ni3}E_{J}^{-}$, where $E_{J}^{-}=E_{J}\cap\Hom(V^{1,0},V^{0,1})$
+has dimension $1,3,3,9$ for $J=\{3\},\{1,3\},\{2,3\},\{1,2,3\}$.
+
+\emph{Step 2: the pieces.} The space $HT^{2}(Y)$ acts as follows:
+$H^{0,2}={\textstyle\bigwedge^{2}}H^{0,1}$ by the wedge product,
+$H^{1}(T_{Y})=\Hom(H^{1,0},H^{0,1})$ by derivations, and
+$H^{0}({\textstyle\bigwedge^{2}}T_{Y})={\textstyle\bigwedge^{2}}(H^{1,0})^{\vee}$,
+which $\psi\oplus\psi$ identifies with ${\textstyle\bigwedge^{2}}H^{0,1}$, by
+contraction. Write $\eta\in{\textstyle\bigwedge^{2}}H^{0,1}$ as
+$\eta_{11}+\eta_{12}+\eta_{22}$ with $\eta_{11}\in{\textstyle\bigwedge^{2}}
+V^{0,1}_{(1)}$, $\eta_{12}\in V^{0,1}_{(1)}\otimes V^{0,1}_{(2)}$,
+$\eta_{22}\in{\textstyle\bigwedge^{2}}V^{0,1}_{(2)}$, and $\xi\in H^{1}(T_{Y})$
+as a matrix $(\xi_{st})$ with $\xi_{st}\in\Hom(V^{1,0}_{(t)},V^{0,1}_{(s)})$.
+The products $\eta_{11}\wedge\omega$, $\eta_{12}\wedge\omega$,
+$\eta_{22}\wedge\omega$ lie in different summands
+${\textstyle\bigwedge^{p}}V_{(1)}\otimes{\textstyle\bigwedge^{q}}V_{(2)}$, and so
+do the three contractions, and $\xi_{11}\omega+\xi_{22}\omega$, $\xi_{12}\omega$,
+$\xi_{21}\omega$. So each annihilator is computed piece by piece, and $\tau$
+exchanges the pieces $11$ and $22$, $12$ and $21$. For a rational exceptional
+class, \Cref{lem:conjugates} gives: $a_{1},a_{2},a_{3}$ are pairwise distinct
+and nonzero, and no linear form in $a_{0},\dots,a_{3}$ with rational
+coefficients that are not all equal on $a_{1},a_{2},a_{3}$ vanishes. We use
+this for $a_{i}\pm a_{j}$ ($i\ne j$), $a_{2}+3a_{3}$, $3a_{2}+a_{3}$ and the
+three forms in Step 4.
+
+\emph{Step 3: $H^{0,2}$.} Let $(x_{j})$ be a basis of
+${\textstyle\bigwedge^{2}}V^{1,0}$ and $(x^{j})$ the dual basis of
+${\textstyle\bigwedge^{2}}V^{0,1}$. The component of $\omega$ in
+${\textstyle\bigwedge^{2}}V^{1,0}_{(1)}\otimes{\textstyle\bigwedge^{2}}
+V^{0,1}_{(2)}$ is $\sum_{j}x_{j}\otimes Kx^{j}$, where $K=P_{a}$ on
+${\textstyle\bigwedge^{2}}V^{0,1}$ is invertible because $a_{2}a_{3}\ne0$. For
+$\eta_{11}\ne0$ the part of $\eta_{11}\wedge\omega$ in
+$H^{2,2}(X_{c})\otimes H^{0,2}(X_{c})$ is $\sum_{j}(\eta_{11}\wedge x_{j})
+\otimes Kx^{j}$, which is nonzero because ${\textstyle\bigwedge^{2}}V^{0,1}
+\otimes{\textstyle\bigwedge^{2}}V^{1,0}\to{\textstyle\bigwedge^{4}}V$ is
+injective; by $\tau$ the same holds for $\eta_{22}$. For
+$\eta_{12}=\sum_{r}v_{r}\otimes w_{r}$ the part of $\eta_{12}\wedge\omega$ in
+$H^{2,1}\otimes H^{0,3}$ is $\sum_{r,j}(v_{r}\wedge x_{j})\otimes
+(w_{r}\wedge Kx^{j})$. If it vanishes, then, as $V^{0,1}\otimes
+{\textstyle\bigwedge^{2}}V^{1,0}\to{\textstyle\bigwedge^{3}}V$ is injective and
+the $Kx^{j}$ span ${\textstyle\bigwedge^{2}}V^{0,1}$,
+$\sum_{r}\phi(v_{r})\,w_{r}\wedge y=0$ for every linear form $\phi$ on
+$V^{0,1}$ and every $y\in{\textstyle\bigwedge^{2}}V^{0,1}$; as
+$\dim V^{0,1}=4$ this forces $\sum_{r}\phi(v_{r})w_{r}=0$ for every $\phi$,
+so $\eta_{12}=0$. Hence $\Ann_{H^{0,2}(Y)}(\omega)=0$.
+
+\emph{Step 4: $H^{0}({\textstyle\bigwedge^{2}}T_{Y})$.} Up to signs and one
+nonzero factor fixed by the normalisation of the contraction,
+$\iota_{\eta_{11}}\omega=\sum_{j}\langle\eta_{11},M_{j}\rangle P_{a}M^{j}=
+P_{a}\eta_{11}$, which is nonzero for $\eta_{11}\ne0$ because $a_{2}a_{3}\ne0$;
+likewise for $\eta_{22}$. For $\eta_{12}=v\otimes w$ the contraction is
+$\sum_{j}M_{j}v\otimes(P_{a}M^{j})w$, and through $v\otimes w\mapsto
+\psi(v,\cdot)w$ it becomes the operator $Q_{a}(R)=\sum_{j}(P_{a}M^{j})\,R\,
+M_{j}$ with $R=\psi(v,\cdot)w$, because the $M_{j}$ are $\psi$-symmetric.
+For a basis $(X_{k})$ of $\mathfrak{sl}(V_{i})$ and the dual basis $(X^{k})$
+for the trace form, $\sum_{k}X^{k}RX_{k}$ is $\frac32R$ for $R=1$ and
+$-\frac12R$ for $R\in\mathfrak{sl}(V_{i})$ (take $X_{k}=h,e,f$ and $X^{k}=h/2,
+f,e$). The dual basis of $E_{ij}$ for $\langle\,,\rangle$ is the tensor
+product of these dual bases, and that of $E_{\emptyset}$ is $\frac14$. Hence
+$Q_{a}$ acts on $E_{J}$ by the scalar
+\[
+  q_{J}(a)=\tfrac14a_{0}+\sum_{\{i,j\}}a_{\{i,j\}}\,\lambda_{i}\lambda_{j},
+  \qquad\lambda_{i}=-\tfrac12\ (i\in J),\quad\lambda_{i}=\tfrac32\
+  (i\notin J),
+\]
+where $a_{\{1,2\}}=a_{1}$, $a_{\{1,3\}}=a_{2}$, $a_{\{2,3\}}=a_{3}$; on the four
+pieces $E_{J}^{-}$ this is
+\begin{gather*}
+  4q_{3}=a_{0}+9a_{1}-3a_{2}-3a_{3},\qquad
+  4q_{13}=a_{0}-3a_{1}+a_{2}-3a_{3},\\
+  4q_{23}=a_{0}-3a_{1}-3a_{2}+a_{3},\qquad
+  4q_{123}=L_{0}(a).
+\end{gather*}
+The first three do not vanish. So the annihilator in
+$H^{0}({\textstyle\bigwedge^{2}}T_{Y})$ is zero when $L_{0}(a)\ne0$, and is the
+piece $E_{123}^{-}$ of $\eta_{12}$, of dimension nine, when $L_{0}(a)=0$.
+
+\emph{Step 5: $H^{1}(T_{Y})$, the diagonal pieces.} Put
+$\Phi(x\otimes y)(z)=\langle z,x\rangle y$, so that $\Phi(\omega)=P_{a}$,
+$\Phi((D\otimes1)\omega)=P_{a}D^{\dagger}$ and $\Phi((1\otimes D)\omega)=
+DP_{a}$. Thus $\xi_{11}\omega+\xi_{22}\omega=0$ if and only if
+$P_{a}D_{\xi_{11}}^{\dagger}+D_{\xi_{22}}P_{a}=0$. This condition is
+$G$-equivariant in $(\xi_{11},\xi_{22})\in\End V\oplus\End V$, so its solutions
+are the pairs $(b_{11}X,b_{22}X)$ with $X\in E_{J}$ and $(b_{11},b_{22})$ in a
+subspace $M_{J}\subseteq\CC^{2}$; we need $J\ni3$. For $X=\bigotimes X_{i}\in
+E_{J}$ and $M=\bigotimes M_{i}\in E_{I}$, the product rule above gives
+$XM\pm MX$ as $2^{1-|I\cap J|}$ times the sum, over $T\subseteq I\cap J$ with
+$|T|\equiv|J|$ modulo $2$, of the tensor with factor $[X_{i},M_{i}]$ for
+$i\in T$, $\operatorname{tr}(X_{i}M_{i})$ for $i\in(I\cap J)\setminus T$, and
+the remaining factor of $X$ or $M$ elsewhere; this term lies in
+$E_{(I\triangle J)\cup T}$ and is nonzero for suitable $X$ and $M$. On the
+block from $E_{I}$ to $E_{I'}$ the condition reads $b_{22}a_{I}=b_{11}a_{I'}$
+for $|J|$ odd and $b_{22}a_{I}=-b_{11}a_{I'}$ for $|J|$ even, with
+$a_{\emptyset}=a_{0}$, $a_{12}=a_{1}$, $a_{13}=a_{2}$, $a_{23}=a_{3}$.
+\begin{itemize}[leftmargin=1.6em,itemsep=1pt]
+\item $J=\{3\}$: the blocks from $E_{13}$ to $E_{13}$ and from $E_{23}$ to
+  $E_{23}$ give $(b_{22}-b_{11})a_{2}=0$, so $M_{J}=\CC(1,1)$.
+\item $J=\{1,2,3\}$: there is a block between any two distinct
+  $E_{12},E_{13},E_{23}$, so $b_{22}a_{1}=b_{11}a_{2}$ and
+  $b_{22}a_{2}=b_{11}a_{1}$, whence $(b_{11}+b_{22})(a_{1}-a_{2})=0$ and
+  $b_{11}=-b_{22}$; then $b_{22}(a_{1}+a_{2})=b_{22}(a_{1}+a_{3})=0$, and
+  $b_{22}\ne0$ would give $a_{2}=-a_{1}=a_{3}$. So $M_{J}=0$.
+\item $J=\{1,3\}$: the blocks between $E_{12}$ and $E_{23}$ give
+  $b_{22}a_{1}+b_{11}a_{3}=b_{22}a_{3}+b_{11}a_{1}=0$, of determinant
+  $a_{1}^{2}-a_{3}^{2}\ne0$, so $M_{J}=0$; and $J=\{2,3\}$ likewise, with
+  $a_{1}^{2}-a_{2}^{2}\ne0$.
+\end{itemize}
+So on the diagonal pieces the annihilator is the line of $(N,N)$, with $N$
+acting on both copies of $V$.
+
+\emph{Step 6: $H^{1}(T_{Y})$, the mixed pieces.} The map $\xi_{12}$ kills
+$V^{0,1}_{(2)}$, so the part of $\xi_{12}\omega$ in $H^{0,3}(X_{c})\otimes
+H^{1,0}(X_{c})$ comes from the component $\sum_{j}Kx^{j}\otimes x_{j}$ of
+$\omega$ in ${\textstyle\bigwedge^{2}}V^{0,1}_{(1)}\otimes{\textstyle\bigwedge^{2}}
+V^{1,0}_{(2)}$ only, and is $\sum_{j}Kx^{j}\wedge\xi_{12}(x_{j}')\otimes
+x_{j}''$, where $x\mapsto x'\otimes x''$ is the coproduct
+${\textstyle\bigwedge^{2}}\to V\otimes V$. Identify $V^{1,0}$ and $V^{0,1}$
+with $W=V_{1}\otimes V_{2}$ through $e$ and $f$, with the symmetric form
+$q=\epsilon_{1}\otimes\epsilon_{2}$ and a volume form; then
+${\textstyle\bigwedge^{2}}W$ is the space of $q$-skew operators
+$\mathfrak{sl}(V_{1})\otimes1\oplus1\otimes\mathfrak{sl}(V_{2})$, the Hodge
+star is $+1$ on one summand and $-1$ on the other, and $K$ is $a_{2}$ on the
+first and $a_{3}$ on the second. Pair the part above with $b\in W$ in the
+first factor, through the volume form, and with $\beta\in W$ in the second,
+through $q$. Writing $\operatorname{vol}(y\wedge y')=q(\ast y,y')$ on
+${\textstyle\bigwedge^{2}}W$ turns the pairing into the trace of
+$x\mapsto K\ast\bigl(\xi_{12}(\iota_{\beta}x)\wedge b\bigr)$ on
+${\textstyle\bigwedge^{2}}W$, and summing over orthogonal bases of the two
+summands gives, up to a nonzero factor and a sign,
+$q\bigl(c_{a}(\xi_{12})\beta,b\bigr)$ with
+\[
+  c_{a}(\xi)=a_{2}\sum_{k}(X^{k}\otimes1)\,\xi\,(X_{k}\otimes1)
+  -a_{3}\sum_{k}(1\otimes X^{k})\,\xi\,(1\otimes X_{k})
+\]
+for $\xi\in\End W=\End V_{1}\otimes\End V_{2}$.
+By the scalars of Step 4, $c_{a}$ acts on $1\otimes1$, $\mathfrak{sl}(V_{1})
+\otimes1$, $1\otimes\mathfrak{sl}(V_{2})$, $\mathfrak{sl}(V_{1})\otimes
+\mathfrak{sl}(V_{2})$, that is on $E_{3}^{-}$, $E_{13}^{-}$, $E_{23}^{-}$,
+$E_{123}^{-}$, by
+\[
+  \tfrac32(a_{2}-a_{3}),\qquad
+  -\tfrac12(a_{2}+3a_{3}),\qquad
+  \tfrac12(3a_{2}+a_{3}),\qquad
+  -\tfrac12(a_{2}-a_{3}),
+\]
+none of which vanishes. So $\xi_{12}\omega\ne0$ for $\xi_{12}\ne0$, and by
+$\tau$ the same holds for $\xi_{21}$.
+
+\emph{Step 7: $\kappa$.} The family of Hodge structures along $C$ is the
+orbit of the Hodge structure at $c$ under the real points of the third factor
+of $G$, so the Kodaira--Spencer class $\kappa$ is the component of type
+$(-1,1)$ of an element of $\mathfrak{sl}(V_{3})$ acting on both copies of $V$,
+a nonzero multiple of $(N,N)$; it is nonzero because the Hodge structures
+along $C$ vary. By Steps 5 and 6, $\Ann_{H^{1}(T_{Y})}(\omega)=\CC\kappa$.
+With Steps 3 and 4 this proves (i) and (ii).
 
 For (iii), a point of $\mathfrak{S}$ is a Hodge filtration $F^{1}$ on
 $H^{1}(Y,\CC)$, and $\omega$ is of Hodge type at it when $\omega\in F^{2}
@@ -209,35 +347,31 @@ $\CC\kappa$; so the two germs are equal.
 \end{proof}
 
 \begin{remark}[Comparison with the divisor classes]\label{rem:rigidcompare}
-The same computation at classes with $\alpha\in\QQ$ shows what rigidity
-excludes. At $a=(3,5,5,5)$, a combination of products of divisor classes, the
-tangent space of the Hodge locus in $\mathfrak{S}$ has dimension $10$ and
-contains the tangent space of the diagonal Siegel space $\{X'\times X'\}$,
-also of dimension $10$, because that class is invariant under the whole of
-$\Sp(V,\psi)$; at $a=(1,1,1,1)$ it has dimension $20$. The products of
-divisor classes therefore move with $X'\times X'$ for every $X'$, whereas the
-exceptional classes move with $X_{t}\times X_{t}$ for $t\in C$ only and cease
-to be of Hodge type under every deformation of $Y$ off the curve, however
-small. \Cref{fig:rigidity} shows the three loci.
+For $\alpha\in\QQ$ the class $\omega_{a}$ is a combination of products of
+divisor classes and is invariant under the whole of $\Sp(V,\psi)$ acting
+diagonally on $V\oplus V$, so its Hodge locus in $\mathfrak{S}$ contains the
+diagonal Siegel space $\{X'\times X'\}$, of dimension $10$; in the proof above
+this shows in the scalars $a_{2}-a_{3}$ of Step~6, which vanish when
+$a_{1}=a_{2}=a_{3}$. The products of divisor classes therefore move with
+$X'\times X'$ for every $X'$, whereas the exceptional classes move with
+$X_{t}\times X_{t}$ for $t\in C$ only and cease to be of Hodge type under
+every deformation of $Y$ off the curve, however small.
 \end{remark}
 
 \begin{figure}[tbp]
 \centering
   \includegraphics[width=\textwidth]{fig_rigidity}
-\caption{\Cref{thm:mumfordrigid}. Left: the Siegel space $\mathfrak{S}$ of
-dimension $36$ near $Y=X_{c}\times X_{c}$ and three Hodge loci through it,
-labelled by the tangent dimension $T$ at $Y$: the class with equal
-coefficients ($T=20$), the products of divisor classes with $a_{1}=a_{2}=a_{3}$
-($T=10$, the diagonal Siegel space), and a rational exceptional class ($T=1$),
-whose locus is the compact Mumford curve with its CM points (hollow). The
-dashed rim is the boundary of $\mathfrak{S}$, which the curve does not reach.
-Right: the nine weight blocks of $\mathfrak{sp}^{-1,1}$ under the torus of
-the first two factors, with their dimensions and the forms whose product is
-the Gram determinant of each; only the block of weight $(0,0)$ has a kernel,
-the direction $\kappa$ of the curve. The same holds in the $46$ blocks of
-$HT^{2}(Y)$ off the hyperplane $L_{0}=0$. Below: the sums of squares that
-make the determinants nonzero at the conjugates of an irrational element of
-$F$.}
+\caption{\Cref{thm:mumfordrigid}. Top: the tangent space
+$\mathfrak{sp}^{-1,1}$ of the Siegel space $\mathfrak{S}$ at
+$Y=X_{c}\times X_{c}$, of dimension $36$, split into nine blocks by the
+weights of a maximal torus of $\SL(V_{1})\times\SL(V_{2})$, one cube for each
+dimension. The tangent space of the Hodge locus of an exceptional class is
+the line $\CC\kappa$ of the Mumford curve, in the block of weight $(0,0)$;
+for $\alpha\in\QQ$ it contains the tangent space of the diagonal Siegel space,
+of dimension $10$ (\Cref{rem:rigidcompare}). Bottom: the scalars of Steps 4
+to 6 of the proof on the pieces $E_{J}^{-}$ of $HT^{2}(Y)$; the pieces of
+$H^{0,2}$ and the unmixed pieces of $H^{0}(\bigwedge^{2}T_{Y})$ are controlled
+by the block $K$ of $P_{a}$ (Steps 3 and 4).}
 \label{fig:rigidity}
 \end{figure}
 
@@ -278,7 +412,7 @@ countably many, do not carry algebraicity to the other members
 (\Cref{lem:spreading} needs uncountably many points).
 \end{proof}
 
-The same computation controls deformations that are not algebraic at all,
+The same annihilator controls deformations that are not algebraic at all,
 and so decides whether the twistor lines along which Markman moves sheaves
 in his proof for Weil classes can be used here.
 

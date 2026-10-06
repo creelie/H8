@@ -505,18 +505,18 @@ a divisor of $4!$, and the witness is
 of rank $-23+66-54+20-3=6=Ma$; in degree one its coefficient is
 $66-108+60-12=6=Mb$, and in degrees two to four the sums
 $\sum_{j}n_{j}j^{k}$ are $-18$, $-18$ and $54$, which are $6c_{2}$, $6c_{3}$ and
-$6c_{4}$. \Cref{fig:multiple} shows the least
-multiple for $n\le10$, $d\in\{1,2,3,5,7,11\}$, $a\in\{1,2,3\}$ and
-$b\in\{\pm1,\pm2\}$, found by solving the Vandermonde system of the proof
-\cite{BMB26}: at $n=8$ the largest is $2016$, a divisor of $8!$, and for each
-$n\ge7$ none of the seventy-two cases has $M=1$. The freedom to rescale is
-therefore needed.
+$6c_{4}$. The solution of the Vandermonde system is unique and the $n_{j}$
+have no common factor, $23$ being prime to $6$, so $M=6$ is the least
+multiple, and the freedom to rescale is needed. \Cref{fig:multiple} shows
+the least multiple in further cases.
 
-The same computation also checks, in the exterior algebra of a symplectic lattice,
-that $\theta^{k}/k!$ is an integral class for a principal polarisation
-$\theta$; this is Poincar\'e's formula in a form that does not need a curve,
-and it is why $t^{k}/k!$ is the natural integral basis in which to take the
-coordinates $c_{k}$.
+For a principal polarisation $\theta$ the classes $\theta^{k}/k!$ are
+integral: in a symplectic basis $x_{1},\dots,x_{g},y_{1},\dots,y_{g}$ of
+$H^{1}(X,\ZZ)$, $\theta=\sum_{i}x_{i}y_{i}$, the products $x_{i}y_{i}$
+commute and square to zero, and so
+$\theta^{k}/k!=\sum_{|I|=k}\prod_{i\in I}x_{i}y_{i}$. This is Poincar\'e's
+formula in a form that does not need a curve, and it is why $t^{k}/k!$ is the
+natural integral basis in which to take the coordinates $c_{k}$.
 \end{remark}
 
 \begin{figure}[htbp]
@@ -525,9 +525,10 @@ coordinates $c_{k}$.
 \caption{\Cref{rem:themultiple}. The least multiple $M$ of
 \Cref{thm:secantexists} for $1\le n\le10$, over the seventy-two cases
 $d\in\{1,2,3,5,7,11\}$, $a\in\{1,2,3\}$, $b\in\{\pm1,\pm2\}$ for each
-$n$, on a logarithmic scale; the area of a disc counts the cases with that
-value. The solid line joins the largest values and the dashed one is $n!$,
-which every $M$ divides: the quotient of $\ZZ^{n+1}$ by the lattice of the
+$n$, read off from the solution of the Vandermonde system, on a logarithmic
+scale; the area of a disc counts the cases with that value. The solid line
+joins the largest values and the dashed one is $n!$, which every $M$ divides
+by the remark: the quotient of $\ZZ^{n+1}$ by the lattice of the
 characters $(1,j,\dots,j^{n})$ of the powers of a line bundle is dual to the
 integer-valued polynomials of degree at most $n$, spanned by the
 $\binom{x}{k}$, whose coefficients have denominators dividing $n!$.}
