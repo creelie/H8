@@ -161,8 +161,7 @@
   "rem:cmsharp"
  ],
  "XXXII": [
-  "thm:noci",
-  "thm:burchsearch"
+  "thm:noci"
  ],
  "LXIX": [
   "thm:lattice"
@@ -178,8 +177,7 @@
   "ssec:quartic",
   "rem:quarticsecantshape",
   "rem:quarticnegext",
-  "prop:quarticexclusions",
-  "rem:quarticmixedkernel"
+  "prop:quarticexclusions"
  ],
  "LXV": [
   "thm:quarticrank",
@@ -198,8 +196,7 @@
   "prop:sexticintegral"
  ],
  "LVIII": [
-  "lem:sexticweil",
-  "prop:sexticweilmin"
+  "lem:sexticweil"
  ],
  "LIV": [
   "prop:descent"
@@ -279,7 +276,6 @@
   "rem:convolutionsopen"
  ],
  "LXXII": [
-  "prop:fourfoldrank",
   "prop:explicitconvolution",
   "lem:allthree",
   "thm:noconvolution",

@@ -2,7 +2,7 @@
 """
 make_frontier.py
 
-Seven figures for the sections on the closure of the rule set, the Lefschetz
+Six figures for the sections on the closure of the rule set, the Lefschetz
 standard conjecture for abelian schemes over curves, and the Mumford target.
 
   fig_frontier       the rule set of the closure theorem with the rules of the
@@ -34,26 +34,19 @@ standard conjecture for abelian schemes over curves, and the Mumford target.
                      general point t, the class y and its transports, and the
                      global class u that B(W) makes algebraic.
 
-  fig_rigidity       the tangent spaces at Y = X_c x X_c of the Hodge loci of
-                     three classes, block by block over the weight lattice of
-                     the torus of the first two factors, in 3D (one cube per
-                     dimension: kappa, then the tangent space at a1=a2=a3,
-                     then at a0=a1=a2=a3, then the rest of sp^{-1,1}); the
-                     Gram determinant of each of the nine blocks; and the sums
-                     of squares that certify the forms, checked here at random
-                     rational points.
+  fig_rigidity       the tangent space at Y = X_c x X_c of the Hodge locus of
+                     an exceptional class, block by block over the weight
+                     lattice of the torus of the first two factors, in 3D (one
+                     cube per dimension: kappa, then the tangent space of the
+                     diagonal Siegel space, which the Hodge locus of a class
+                     with alpha rational contains, then the rest of
+                     sp^{-1,1}); and the table of the scalars of the proof of
+                     thm:mumfordrigid on the pieces E_J^- of HT^2(Y).
 
   fig_bypass         the ten routes to the Mumford target that avoid the
                      Lefschetz standard conjecture, numbered as in
                      rem:bypassaudit, with the obstruction or the reduction
                      that settles each.
-
-  fig_extprofile     the lower bounds r_k for dim Ext^k(E,E) when ch(E) is a
-                     multiple of an exceptional class, the upper envelope
-                     min(C(16,k), C(16,8-k)) from dim HT^k and Serre duality,
-                     the split 28 + 63 + 28 of the bar at k = 2, the values
-                     on the hyperplane L0 = 0, and the parity balance that
-                     chi(E,E) = 0 forces.
 
   fig_hodgecount     the Hodge classes of X_t x X_t for a Mumford fourfold X_t,
                      degree by degree, computed here from the representation
@@ -528,206 +521,6 @@ def write(fig):
 
 
 # ================================================================ Ext profile
-def extprofile():
-    F = Fig("fig_extprofile",
-            "Lower bounds r_k for dim Ext^k(E,E) when ch(E) = N omega, with the "
-            "upper envelope from HT^k and Serre duality, and the parity "
-            "balance forced by chi(E,E) = 0.")
-    F.preamble = ("\\definecolor{BEven}{RGB}{58,64,140}\n"
-                  "\\definecolor{BOdd}{RGB}{214,112,38}\n")
-    r = [1, 16, 119, 328, 560, 328, 119, 16, 1]
-    assert r == r[::-1] and sum(r) == 1488
-    assert sum((-1) ** k * v for k, v in enumerate(r)) == 112
-    # the upper envelope: r_k <= dim HT^k = C(16,k), and r_k = r_{8-k}
-    U = [min(comb(16, k), comb(16, 8 - k)) for k in range(9)]
-    assert U == [1, 16, 120, 560, 1820, 560, 120, 16, 1]
-    # on the hyperplane L0 = 0, at a sample point (item (XLV))
-    r_L0 = {2: 110, 4: 548, 6: 110}
-    dx, bw = 0.88, 0.56
-    S = 4.50 / 600.0
-    X = [k * dx for k in range(9)]
-    ax0, ax1 = -0.50, 8 * dx + 0.50
-    DASH = "PSlate,dash pattern=on 2.2pt off 1.6pt"
-    # axes
-    F.path([(ax0, 0), (ax1, 0)], "PInk", lw=0.6, tag="axis")
-    F.path([(ax0, 0), (ax0, 600 * S + 0.08)], "PInk", lw=0.6, tag="axis")
-    for v in range(0, 601, 100):
-        F.path([(ax0 - 0.08, v * S), (ax0, v * S)], "PInk", lw=0.5,
-               tag="axis")
-        F.text(ax0 - 0.13, v * S, r"$%d$" % v, "PSlate", SS, anchor="east")
-    F.text(ax0 - 0.98, 300 * S, r"$r_{k}=\dim HT^{k}(Y)\lrcorner\,\omega$",
-           "PInk", FS, extra=",rotate=90")
-    for k in range(9):
-        F.path([(X[k], 0), (X[k], -0.07)], "PInk", lw=0.5, tag="axis")
-        F.text(X[k], -0.30, r"$%d$" % k, "PInk", SS)
-    F.text(4 * dx, -0.72, r"degree $k$ of $HT^{k}(Y)$ and of "
-           r"$\mathrm{Ext}^{k}(E,E)$", "PInk", FS)
-    # the envelope, dashed, drawn first
-    gw = bw / 2 + 0.07
-    top = 600 * S + 0.45
-    for k in range(9):
-        if U[k] == r[k]:
-            continue
-        h = U[k] * S
-        if h > top:
-            yb = top - 0.32
-            for sx in (-gw, gw):
-                F.path([(X[k] + sx, 0), (X[k] + sx, yb - 0.06)], DASH,
-                       lw=0.55, tag="env%d" % k)
-                F.path([(X[k] + sx, yb + 0.14), (X[k] + sx, top)], DASH,
-                       lw=0.55, tag="env%d" % k)
-            for d in (-0.02, 0.10):
-                F.path([(X[k] - gw - 0.07, yb + d - 0.05),
-                        (X[k] + gw + 0.07, yb + d + 0.05)], "PSlate",
-                       lw=0.6, tag="env%d" % k)
-            F.text(X[k], top + 0.20, r"$%d$" % U[k], "PSlate", SS)
-        else:
-            F.path([(X[k] - gw, 0), (X[k] - gw, h), (X[k] + gw, h),
-                    (X[k] + gw, 0)], DASH, lw=0.55, tag="env%d" % k)
-            if U[k] - r[k] > 50:
-                F.text(X[k], h + 0.20, r"$%d$" % U[k], "PSlate", SS)
-    # the bars; the bar at k = 2 split by type
-    for k in range(9):
-        col = "BEven" if k % 2 == 0 else "BOdd"
-        h = max(r[k] * S, 0.03)
-        if k == 2:
-            parts = [(28, "BEven!40"), (63, "BEven!70"), (28, "BEven")]
-            y = 0.0
-            for v, c in parts:
-                F.rect(X[k] - bw / 2, y, X[k] + bw / 2, y + v * S, c,
-                       tag="bar%d" % k)
-                y += v * S
-            for yy in (28 * S, 91 * S):
-                F.path([(X[k] - bw / 2, yy), (X[k] + bw / 2, yy)], "white",
-                       lw=0.5, tag="bar%d" % k)
-        else:
-            F.rect(X[k] - bw / 2, 0, X[k] + bw / 2, h, col, tag="bar%d" % k)
-        if k in r_L0:
-            yy = r_L0[k] * S
-            F.path([(X[k] - bw / 2 + 0.04, yy), (X[k] + bw / 2 - 0.04, yy)],
-                   "white,dash pattern=on 1.6pt off 1.2pt", lw=0.7,
-                   tag="l0%d" % k)
-        if r[k] * S > 1.5:
-            F.text(X[k], h - 0.40, r"$%d$" % r[k], "white", SS,
-                   allow=("bar%d" % k,))
-        elif k == 2:
-            pass
-        else:
-            F.text(X[k], max(h, U[k] * S) + 0.20, r"$%d$" % r[k], "PInk", SS)
-    # the three summands of the bar at k = 2, magnified above it
-    zs = 0.020
-    ib, iw, ix = 1.62, 0.40, X[2] - 0.10
-    parts = [(28, "BEven!40", r"$H^{0,2}(Y)$"),
-             (63, "BEven!70", r"$H^{1}(T_{Y})$"),
-             (28, "BEven", r"$H^{0}(\wedge^{2}T_{Y})$")]
-    # a framed inset, so that it is not read against the scale
-    fx0, fx1, fy0, fy1 = -0.34, ix + iw / 2 + 0.14, ib - 0.14, ib + 2.38 + 0.52
-    F.rect(fx0, fy0, fx1, fy1, "white", draw="PRule", lw=0.5, tag="bg")
-    F.segs += [((fx0, fy0), (fx1, fy0), "frame"), ((fx1, fy0), (fx1, fy1),
-               "frame"), ((fx1, fy1), (fx0, fy1), "frame"),
-               ((fx0, fy1), (fx0, fy0), "frame")]
-    y = ib
-    for v, c, name in parts:
-        F.rect(ix - iw / 2, y, ix + iw / 2, y + v * zs, c, tag="inset")
-        F.text(ix, y + v * zs / 2, r"$%d$" % v, "white", SS,
-               allow=("inset",))
-        F.text(ix - iw / 2 - 0.10, y + v * zs / 2, name, "PInk", SS,
-               anchor="east")
-        y += v * zs
-    for yy in (ib + 28 * zs, ib + 91 * zs):
-        F.path([(ix - iw / 2, yy), (ix + iw / 2, yy)], "white", lw=0.5,
-               tag="insetsep")
-    F.text(ix, y + 0.20, r"$119$", "PInk", SS)
-    # the zoom lines, from the top corners of the bar to the inset
-    for sx in (-1, 1):
-        F.path([(X[2] + sx * bw / 2, 119 * S + 0.03),
-                (ix + sx * iw / 2, ib - 0.03)], "PSlate!70", lw=0.4,
-               tag="zoom")
-    # legend
-    lx, ly = X[5] + gw + 0.30, 4.35
-    F.rect(lx, ly - 0.09, lx + 0.24, ly + 0.09, "BEven", tag="leg")
-    F.rect(lx + 0.30, ly - 0.09, lx + 0.54, ly + 0.09, "BOdd", tag="leg")
-    F.text(lx + 0.64, ly, r"$r_{k}$, even and odd $k$", "PInk", SS,
-           anchor="west")
-    ly2 = ly - 0.42
-    F.path([(lx, ly2 - 0.10), (lx, ly2 + 0.10), (lx + 0.54, ly2 + 0.10),
-            (lx + 0.54, ly2 - 0.10)], DASH, lw=0.55, tag="leg")
-    F.text(lx + 0.64, ly2, r"$\min\{\binom{16}{k},\binom{16}{8-k}\}$",
-           "PInk", SS, anchor="west")
-    ly3 = ly2 - 0.45
-    F.rect(lx, ly3 - 0.09, lx + 0.54, ly3 + 0.09, "BEven!70", tag="leg")
-    F.path([(lx + 0.05, ly3), (lx + 0.49, ly3)],
-           "white,dash pattern=on 1.6pt off 1.2pt", lw=0.7, tag="leg")
-    F.text(lx + 0.64, ly3, r"on $L_{0}=0$", "PInk", SS, anchor="west")
-
-    # ------------------------------------------------ right: the balance
-    x0 = 9.75
-    s = 4.70 / 800.0
-    yE, yO, hh = 3.05, 1.55, 0.46
-
-    def bx(v):
-        return x0 + v * s
-    ya = 0.12
-    F.path([(bx(0), ya), (bx(850), ya)], "PInk", lw=0.5, tag="axis2")
-    for v in range(0, 801, 200):
-        F.path([(bx(v), ya), (bx(v), ya - 0.07)], "PInk", lw=0.5,
-               tag="axis2")
-        F.text(bx(v), ya - 0.30, r"$%d$" % v, "PSlate", SS)
-    even = [(2, "BEven"), (238, "BEven!70"), (560, "BEven!42")]
-    v0 = 0
-    for v, c in even:
-        F.rect(bx(v0), yE, bx(v0 + v), yE + hh, c, tag="even")
-        v0 += v
-    odd = [(32, "BOdd"), (656, "BOdd!70")]
-    v0 = 0
-    for v, c in odd:
-        F.rect(bx(v0), yO, bx(v0 + v), yO + hh, c, tag="odd")
-        v0 += v
-    F.raw(r"  \fill[pattern=north east lines,pattern color=BOdd] "
-          r"(%.3f,%.3f) rectangle (%.3f,%.3f);"
-          % (bx(688), yO, bx(800), yO + hh))
-    F.path([(bx(688), yO), (bx(800), yO), (bx(800), yO + hh),
-            (bx(688), yO + hh), (bx(688), yO)], "BOdd", lw=0.6, tag="odd")
-    F.polys.append(([(bx(688), yO), (bx(800), yO), (bx(800), yO + hh),
-                     (bx(688), yO + hh)], "odd"))
-    F.text(bx(0) - 0.12, yE + hh / 2, r"$\sum_{k\ \mathrm{even}}e_{k}$",
-           "PInk", FS, anchor="east")
-    F.text(bx(0) - 0.12, yO + hh / 2, r"$\sum_{k\ \mathrm{odd}}e_{k}$",
-           "PInk", FS, anchor="east")
-    # the line chi = 0
-    F.path([(bx(800), yO - 0.20), (bx(800), yE + hh + 0.62)],
-           "PMag,dash pattern=on 3pt off 2pt", lw=0.7, tag="chi")
-    F.text(bx(800) + 0.06, yE + hh + 0.70, r"$\chi(E,E)=0$", "PMag", FS,
-           anchor="south east")
-    # even labels, above
-    F.text(bx(2 + 175), yE + hh + 0.22, r"$e_{2}+e_{6}\ge238$", "PInk", SS)
-    F.text(bx(240 + 270), yE + hh + 0.22, r"$e_{4}\ge560$", "PInk", SS)
-    F.path([(bx(1), yE + hh + 0.02), (bx(0) - 0.07, yE + hh + 0.34)],
-           "PSlate", lw=0.4, tag="l02")
-    F.text(bx(0) - 0.10, yE + hh + 0.34, r"$e_{0}+e_{8}\ge2$", "PInk", SS,
-           anchor="east", tag="l02")
-    F.text(bx(800) - 0.10, yE + hh / 2, r"$800$", "white", SS,
-           anchor="east", tag="even")
-    # odd labels, below
-    F.text(bx(32 + 300), yO - 0.25, r"$e_{3}+e_{5}\ge656$", "PInk", SS)
-    F.path([(bx(16), yO - 0.02), (bx(0) - 0.07, yO - 0.34)], "PSlate",
-           lw=0.4, tag="l17")
-    F.text(bx(0) - 0.10, yO - 0.34, r"$e_{1}+e_{7}\ge32$", "PInk", SS,
-           anchor="east", tag="l17")
-    F.path([(bx(688), yO - 0.02), (bx(688), yO - 0.20)], "PInk", lw=0.5,
-           tag="h688")
-    F.text(bx(688), yO - 0.38, r"$688$", "PInk", SS, tag="h688")
-    F.text(bx(800) - 0.08, yO + hh + 0.22, r"$\ge112$", "BOdd", SS,
-           anchor="east")
-    # e1 + e3 >= 400, a bracket between the rows
-    yb = yO + hh + 0.16
-    F.path([(bx(0), yb - 0.08), (bx(0), yb), (bx(400), yb),
-            (bx(400), yb - 0.08)], "PClay", lw=0.6, tag="br")
-    F.text(bx(200), yb + 0.20, r"$e_{1}+e_{3}\ge400$", "PClay", SS,
-           tag="br")
-    return F
-
-
 # ================================================================== frontier
 # The rule set of thm:closure as carried by item (XXXIII): the standing of
 # each statement and the Horn rules, each with the label of its theorem.
@@ -1219,37 +1012,23 @@ def weight_blocks():
 
 def rigidity():
     F = Fig("fig_rigidity",
-            "The tangent spaces at Y = X_c x X_c of the Hodge loci of three "
-            "classes, block by block, and the Gram determinants of the nine "
-            "weight blocks of sp^{-1,1}.")
+            "The tangent space at Y = X_c x X_c of the Hodge locus of an "
+            "exceptional class, block by block, and the scalars of the proof "
+            "of the rigidity theorem.")
     from render3d import Camera, Scene
     full, diag = weight_blocks()
     assert sum(full.values()) == 36 and sum(diag.values()) == 10
-    # the kernels, block by block, as computed with the model of item
-    # (XLIV): at a generic exceptional class only kappa, in the block of
-    # weight (0,0); at a = (3,5,5,5) the tangent space of the diagonal Siegel
-    # space, one dimension in every block and two in the block (0,0); at
-    # a = (1,1,1,1) twice as much in every block (totals 1, 10, 20, as in
-    # rem:rigidcompare)
+    # at an exceptional class only kappa, in the block of weight (0,0); for
+    # alpha rational the class is invariant under Sp(V) acting diagonally, so
+    # the tangent space of the diagonal Siegel space, the symmetric square of
+    # one copy of H^{1,0}, lies in that of the Hodge locus
     K1 = {m: (1 if m == (0, 0) else 0) for m in full}
     K10 = dict(diag)
-    K20 = {m: 2 * diag[m] for m in full}
-    assert sum(K10.values()) == 10 and sum(K20.values()) == 20
-    assert all(K1[m] <= K10[m] <= K20[m] <= full[m] for m in full)
-    # Gram determinants (item (XLIV)): a positive constant times the forms
-    GRAM = {(-2, -2): ("1/2", "P_{1}P_{2}Q_{1}"),
-            (-2, 0): ("1/4", "P_{1}P_{2}Q_{1}Q_{2}"),
-            (-2, 2): ("1/2", "P_{1}P_{2}Q_{1}"),
-            (0, -2): ("1/4", "P_{1}P_{2}Q_{1}Q_{3}"),
-            (0, 0): ("9/256", "RP_{1}P_{2}Q_{1}Q_{2}Q_{3}Q_{4}"),
-            (0, 2): ("1/4", "P_{1}P_{2}Q_{1}Q_{3}"),
-            (2, -2): ("1/2", "P_{1}P_{2}Q_{1}"),
-            (2, 0): ("1/4", "P_{1}P_{2}Q_{1}Q_{2}"),
-            (2, 2): ("1/2", "P_{1}P_{2}Q_{1}")}
+    assert all(K1[m] <= K10[m] <= full[m] for m in full)
     # ------------------------------------------------ the columns, in 3D
     S, E = 1.45, 0.60                 # lattice pitch, cube edge
     COL = [("PClay", 0.30, 0.48), ("PTeal", 0.30, 0.48),
-           ("PIndigo", 0.36, 0.46), ("PSlate", 0.78, 0.20)]
+           ("PSlate", 0.78, 0.20)]
     EDGE = "PInk!55,line width=0.25pt"
     az, el, dist = math.radians(-128.0), math.radians(31.0), 34.0
     tgt = (0.0, 0.0, 1.9)
@@ -1261,7 +1040,6 @@ def rigidity():
         cam = Camera(eye=eye, target=tgt, focal=dist, scale=scale)
         sc = Scene(cam, light=(-0.45, -0.75, 0.95))
         R = 1.55 * S
-        # the floor and its lattice lie under everything: drawn first
         pr = lambda p: "(%.4f,%.4f)" % cam.project(p)[0]
         sc.add(1e9, "  \\fill[PSlate!4!white] %s -- %s -- %s -- %s -- cycle;\n"
                % (pr((-R, -R, 0)), pr((R, -R, 0)), pr((R, R, 0)),
@@ -1279,10 +1057,8 @@ def rigidity():
                     c = COL[0]
                 elif top < K10[(m1, m2)]:
                     c = COL[1]
-                elif top < K20[(m1, m2)]:
-                    c = COL[2]
                 else:
-                    c = COL[3]
+                    c = COL[2]
                 sc.box((x, y, E * (k + 0.5)), (E, E, E), base=c[0],
                        ambient=c[1], diffuse=c[2], edge_style=EDGE)
         return cam, sc.emit()
@@ -1296,7 +1072,6 @@ def rigidity():
     F.scene(body, tag="cubes")
     P = lambda p: (cam.project(p)[0][0] + dx, cam.project(p)[0][1] + dy)
     R = 1.55 * S
-    # the weights along two edges of the floor
     for t in (-1, 0, 1):
         q = P((t * S, -R - 0.42, 0))
         F.text(q[0], q[1], r"$%s$" % ("-2", "0", "+2")[t + 1], "PInk", SS)
@@ -1306,95 +1081,68 @@ def rigidity():
     F.text(q[0], q[1], r"$\mu_{1}$", "PInk", FS)
     q = P((-R - 1.15, 0, 0))
     F.text(q[0], q[1], r"$\mu_{2}$", "PInk", FS)
-
-    # ------------------------------------------------ the Gram table
     W3 = max(xs) + dx
-    tx0 = W3 + 1.55
-    cw, ch = 2.28, 1.08
-    ty0 = max(ys) + dy - 1.05
-    for (m1, m2), (cst, forms) in GRAM.items():
-        i, j = (m1 + 2) // 2, (m2 + 2) // 2
-        x = tx0 + i * cw
-        y = ty0 - (2 - j) * ch
-        hot = (m1, m2) == (0, 0)
-        d = full[(m1, m2)]
-        num, den = cst.split("/")
-        cf = r"\tfrac{%s}{%s}" % (num, den)
-        if hot:
-            t = (r"$d=%d$, $\ker=\mathbb{C}\kappa$\\$%s\,R\,P_{1}P_{2}$\\"
-                 r"$Q_{1}Q_{2}Q_{3}Q_{4}$" % (d, cf))
-        else:
-            t = r"$d=%d$\\$%s\,%s$" % (d, cf, forms)
-        F.node(x, y, t,
-               F.box_opts("WClay" if hot else "WOchre",
-                          "PClay" if hot else "POchre", lw=0.5, size=SS,
-                          w=cw - 0.10, h=ch - 0.10)
-               .replace("inner sep=2.6pt", "inner sep=1.2pt"))
-    for i in range(3):
-        lab = r"$%s$" % ("-2", "0", "+2")[i]
-        F.text(tx0 + i * cw, ty0 + ch / 2 + 0.20, lab, "PInk", SS)
-        F.text(tx0 - cw / 2 - 0.25, ty0 - (2 - i) * ch, lab, "PInk", SS)
-    F.text(tx0 + cw, ty0 + ch / 2 + 0.68, r"$\mu_{1}$", "PInk", FS)
-    F.text(tx0 - cw / 2 - 0.66, ty0 - ch, r"$\mu_{2}$", "PInk", FS)
-    # legend, under the table
+    top = max(ys) + dy
+    # ------------------------------------------------ legend, right of the cubes
     items = [(COL[0], r"$\omega_{a}$ exceptional: $\mathbb{C}\kappa$, "
                       r"$\dim 1$"),
-             (COL[1], r"$a=(3,5,5,5)$: $\dim 10$"),
-             (COL[2], r"$a=(1,1,1,1)$: $\dim 20$"),
-             (COL[3], r"$T_{Y}\mathfrak{S}=\mathfrak{sp}^{-1,1}$: "
+             (COL[1], r"$\alpha\in\mathbb{Q}$: contains $T_{Y}\{X'\times "
+                      r"X'\}$, $\dim 10$"),
+             (COL[2], r"$T_{Y}\mathfrak{S}=\mathfrak{sp}^{-1,1}$: "
                       r"$\dim 36$")]
-    ly = ty0 - 2.5 * ch - 0.86
-    F.text(tx0 - cw / 2 + 0.05, ly + 0.44, r"tangent space at $Y$ of the "
-           r"Hodge locus of $\omega_{a}$", "PSlate", SS, anchor="west")
+    lx = W3 + 1.10
+    ly = top - 1.30
+    F.text(lx, ly + 0.55, r"tangent space at $Y$ of the Hodge locus of "
+           r"$\omega_{a}$", "PSlate", SS, anchor="west")
     for n, (c, t) in enumerate(items):
-        lx = tx0 - cw / 2 + 0.05
-        yy = ly - 0.42 * n
+        yy = ly - 0.46 * n
         F.rect(lx, yy - 0.12, lx + 0.24, yy + 0.12, "%s!%d!white" % (
-            c[0], 62 if n < 3 else 18), draw="PInk!55", lw=0.3, tag="leg")
+            c[0], 62 if n < 2 else 18), draw="PInk!55", lw=0.3, tag="leg")
         F.text(lx + 0.34, yy, t, "PInk", SS, anchor="west")
-    # ------------------------------------------------ the certificates
-    sos = (r"$2P_{1}=\sum_{i<j}(a_{i}-a_{j})^{2}$,\quad "
-           r"$2P_{2}=\sum_{i<j}(a_{i}+a_{j})^{2}$,\quad "
-           r"$R=a_{2}^{2}+a_{3}^{2}$,\quad "
-           r"$Q_{4}=(3a_{1}-a_{0}-a_{2}-a_{3})^{2}+16(a_{2}-a_{3})^{2}$\\[2pt]"
-           r"$33Q_{1}=3(11a_{1}-a_{0}-5a_{2}-5a_{3})^{2}+8(6a_{2}-a_{0}"
-           r"-5a_{3})^{2}+88(a_{3}-a_{0})^{2}$\\[2pt]"
-           r"$119Q_{2}=21(17a_{1}+a_{0}+5a_{2}+a_{3})^{2}+16(7a_{2}-2a_{0}"
-           r"+15a_{3})^{2}+272(3a_{3}+a_{0})^{2}$\\[2pt]"
-           r"$51Q_{3}=9(17a_{1}+a_{0}+a_{2}+5a_{3})^{2}+8(18a_{2}+a_{0}"
-           r"+5a_{3})^{2}+136(a_{3}-a_{0})^{2}$")
-    _check_sos()
-    xmid = (0 + tx0 + 2.5 * cw) / 2
-    F.boxed(xmid, -1.25, sos, "WSlate", "PSlate", lw=0.5, size=SS)
+    F.text(lx, ly - 1.62, r"blocks: weights $(\mu_{1},\mu_{2})$ of a maximal"
+           r"\\torus of $\mathrm{SL}(V_{1})\times\mathrm{SL}(V_{2})$",
+           "PSlate", SS, anchor="west", extra=",align=left")
+    # ------------------------------------------------ the table of scalars
+    rows = [r"$H^{1}(T_{Y})$\\diagonal", r"$H^{1}(T_{Y})$\\mixed",
+            r"$H^{0}(\bigwedge^{2}T_{Y})$\\mixed"]
+    cols = [r"$E_{3}^{-}$, $\dim 1$", r"$E_{13}^{-}$, $\dim 3$",
+            r"$E_{23}^{-}$, $\dim 3$", r"$E_{123}^{-}$, $\dim 9$"]
+    cells = [
+        [r"$b_{11}=b_{22}$: $\kappa$", r"$a_{1}^{2}-a_{3}^{2}$",
+         r"$a_{1}^{2}-a_{2}^{2}$", r"$a_{1},a_{2},a_{3}$\\distinct"],
+        [r"$\tfrac32(a_{2}-a_{3})$", r"$-\tfrac12(a_{2}+3a_{3})$",
+         r"$\tfrac12(3a_{2}+a_{3})$", r"$-\tfrac12(a_{2}-a_{3})$"],
+        [r"$\tfrac14(a_{0}+9a_{1}$\\$-3a_{2}-3a_{3})$",
+         r"$\tfrac14(a_{0}-3a_{1}$\\$+a_{2}-3a_{3})$",
+         r"$\tfrac14(a_{0}-3a_{1}$\\$-3a_{2}+a_{3})$",
+         r"$\tfrac14L_{0}(a)$"]]
+    rw, cw, ch = 2.55, 2.95, 1.02
+    tx0 = 0.10
+    ty0 = -0.95
+    for j, c in enumerate(cols):
+        x = tx0 + rw + (j + 0.5) * cw
+        F.text(x, ty0 + 0.30, c, "PInk", SS)
+    for i, r in enumerate(rows):
+        y = ty0 - (i + 0.5) * ch
+        F.text(tx0 + rw / 2, y, r, "PInk", SS)
+        for j in range(4):
+            x = tx0 + rw + (j + 0.5) * cw
+            hot = (i, j) == (0, 0)
+            l0 = (i, j) == (2, 3)
+            fill = "WClay" if hot else ("WTeal" if l0 else "WOchre")
+            draw = "PClay" if hot else ("PTeal" if l0 else "POchre")
+            F.node(x, y, cells[i][j],
+                   F.box_opts(fill, draw, lw=0.5, size=SS, w=cw - 0.12,
+                              h=ch - 0.12)
+                   .replace("inner sep=2.6pt", "inner sep=1.2pt"))
+    note = (r"$H^{0,2}$ and the unmixed pieces of $\bigwedge^{2}T_{Y}$: the "
+            r"block $K=(a_{2},a_{3})$ of $P_{a}$.\quad At a rational "
+            r"exceptional class no entry vanishes, by the lemma on conjugates,"
+            r"\\except $b_{11}-b_{22}$, which leaves $\kappa$, and $L_{0}$, "
+            r"which can be made nonzero by adding a multiple of $\pi_{0}$.")
+    F.boxed(tx0 + (rw + 4 * cw) / 2, ty0 - 3 * ch - 0.62, note, "WSlate",
+            "PSlate", lw=0.5, size=SS)
     return F
-
-
-def _check_sos():
-    """the sums of squares of the figure, checked at random rational points
-    against the forms of item (XLIV)"""
-    rnd = _random.Random(7)
-    for _ in range(40):
-        a0, a1, a2, a3 = [_Fr(rnd.randint(-40, 40), rnd.randint(1, 9))
-                          for _ in range(4)]
-        P1 = a1**2 + a2**2 + a3**2 - a1*a2 - a1*a3 - a2*a3
-        P2 = a1**2 + a2**2 + a3**2 + a1*a2 + a1*a3 + a2*a3
-        Q1 = (3*a0**2 - 2*a0*a1 - 2*a0*a2 - 2*a0*a3 + 11*a1**2 - 10*a1*a2
-              - 10*a1*a3 + 11*a2**2 - 10*a2*a3 + 11*a3**2)
-        Q2 = (3*a0**2 + 6*a0*a1 - 2*a0*a2 + 6*a0*a3 + 51*a1**2 + 30*a1*a2
-              + 6*a1*a3 + 11*a2**2 + 30*a2*a3 + 51*a3**2)
-        Q3 = (3*a0**2 + 6*a0*a1 + 6*a0*a2 - 2*a0*a3 + 51*a1**2 + 6*a1*a2
-              + 30*a1*a3 + 51*a2**2 + 30*a2*a3 + 11*a3**2)
-        Q4 = (a0**2 - 6*a0*a1 + 2*a0*a2 + 2*a0*a3 + 9*a1**2 - 6*a1*a2
-              - 6*a1*a3 + 17*a2**2 - 30*a2*a3 + 17*a3**2)
-        assert 2*P1 == (a1-a2)**2 + (a1-a3)**2 + (a2-a3)**2
-        assert 2*P2 == (a1+a2)**2 + (a1+a3)**2 + (a2+a3)**2
-        assert 33*Q1 == (3*(11*a1-a0-5*a2-5*a3)**2 + 8*(6*a2-a0-5*a3)**2
-                         + 88*(a3-a0)**2)
-        assert 119*Q2 == (21*(17*a1+a0+5*a2+a3)**2 + 16*(7*a2-2*a0+15*a3)**2
-                          + 272*(3*a3+a0)**2)
-        assert 51*Q3 == (9*(17*a1+a0+a2+5*a3)**2 + 8*(18*a2+a0+5*a3)**2
-                         + 136*(a3-a0)**2)
-        assert Q4 == (3*a1-a0-a2-a3)**2 + 16*(a2-a3)**2
 
 
 # ================================================================== bypass
@@ -1915,7 +1663,7 @@ def build(name):
 
 
 FIGURES = [frontier, lefschetzgrid, propagation, rigidity, bypass,
-           extprofile, hodgecount]
+           hodgecount]
 
 if __name__ == "__main__":
     names = sys.argv[1:]

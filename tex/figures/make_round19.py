@@ -2,24 +2,7 @@
 """
 make_round19.py
 
-Four plates for the results of round nineteen.
-
-  fig_sexticweil     the least -chi(v,v) of an integral point v of the secant
-                     lattice S(0,q) whose Orlov square kappa(v,v) has a
-                     nonzero F-Weil part (Omega(v) != 0), for the sixteen
-                     totally real cubic fields F_0 of item (LVII), ordered by
-                     discriminant, and q = 1, k + alpha, k + 1 + alpha
-                     (prop:sexticweilmin, rem:sextictargets).  The numbers
-                     are read from the transcript of item (LVIII),
-                     code/attack/gaps/sextic/transcripts/s3_weil.log, and the
-                     statements of the proposition are asserted on them: the
-                     least value 192, at Q(zeta_7)^+ with q = 3 + alpha and
-                     nowhere else; the values 296 and 488 for q = 1 (and
-                     q = 2 + alpha) over Q(zeta_7)^+ and Q(zeta_9)^+; the
-                     twenty cases in which F = F_0(sqrt(-q)) contains an
-                     imaginary quadratic field; the range 192 to 7080, and
-                     296 to 3872 for q = 1.  One cell per case, shaded on a
-                     logarithmic scale, the number printed in it.
+Three plates for the results of round nineteen.
 
   fig_mumfordgroups  the four possible groups M^1 = M cap Sp(V,psi) of the
                      motives of a Mumford fourfold (prop:mumfordmotivic):
@@ -84,9 +67,6 @@ import make_core                                    # noqa: E402
 from make_core import Fig, f4                       # noqa: E402
 
 GEN = "make_round19.py"
-ROOT = os.path.dirname(HERE)
-S3LOG = os.path.join(ROOT, "code", "attack", "gaps", "sextic",
-                     "transcripts", "s3_weil.log")
 TIP = "-{Stealth[length=4.6pt,width=3.6pt]}"
 TIPS2 = "{Stealth[length=4.6pt,width=3.6pt]}-{Stealth[length=4.6pt,width=3.6pt]}"
 FN = r"\footnotesize"
@@ -232,208 +212,6 @@ def build(name):
         except OSError:
             pass
     print("   built %s.pdf and %s.png" % (name, name))
-
-
-# ============================================================ sextic Weil
-LINE = re.compile(
-    r"^\s+(Q\(zeta_7\)\^\+|Q\(zeta_9\)\^\+|disc \d+)\s+q = (1|\d+\+1 a)\s+"
-    r"Nm\(q\) = (\d+)\s+min -chi = (\d+)\s+least -chi with Omega != 0: "
-    r"(\d+)\s+\((\d+) classes up to sign\).*K = (.*?)\s*$")
-
-
-def cubic_disc(a, b, c):
-    """Discriminant of x^3 + a x^2 + b x + c."""
-    return a * a * b * b - 4 * b ** 3 - 4 * a ** 3 * c - 27 * c * c + 18 * a * b * c
-
-
-def sextic_data():
-    """The forty-eight cases of item (LVIII), read from its transcript, with
-    the statements of prop:sexticweilmin asserted on them."""
-    disc_of = {"Q(zeta_7)^+": cubic_disc(1, -2, -1),    # x^3+x^2-2x-1: 49
-               "Q(zeta_9)^+": cubic_disc(0, -3, 1)}     # x^3-3x+1:    81
-    assert disc_of == {"Q(zeta_7)^+": 49, "Q(zeta_9)^+": 81}
-    rows = []
-    for ln in open(S3LOG):
-        m = LINE.match(ln)
-        if not m:
-            continue
-        fld, q, nm, lmin, val, ncl, K = m.groups()
-        D = disc_of[fld] if fld in disc_of else int(fld.split()[1])
-        kq = 0 if q == "1" else int(q.split("+")[0])
-        rows.append(dict(field=fld, disc=D, kq=kq, nm=int(nm), lmin=int(lmin),
-                         val=int(val), ncl=int(ncl),
-                         K=None if K == "none" else K))
-    assert len(rows) == 48, len(rows)
-    fields = sorted({r["disc"] for r in rows})
-    assert len(fields) == 16
-    data = {}
-    kfield = {}
-    for D in fields:
-        mine = [r for r in rows if r["disc"] == D]
-        assert len(mine) == 3
-        ks = sorted(r["kq"] for r in mine if r["kq"])
-        assert len(ks) == 2 and ks[1] == ks[0] + 1, (D, ks)
-        kfield[D] = ks[0]
-        for r in mine:
-            row = 0 if r["kq"] == 0 else (1 if r["kq"] == ks[0] else 2)
-            data[(D, row)] = r
-    # prop:sexticweilmin, asserted on the transcript
-    vals = [r["val"] for r in rows]
-    assert min(vals) == 192 and vals.count(192) == 1
-    best = data[(49, 2)]
-    assert best["val"] == 192 and best["kq"] == 3 and best["nm"] == 13
-    assert best["K"] is None and best["ncl"] == 1 and best["lmin"] == 192
-    assert data[(81, 2)]["val"] == 256 and data[(81, 2)]["nm"] == 17
-    assert data[(81, 2)]["lmin"] == 256
-    assert data[(49, 0)]["val"] == 296 and data[(81, 0)]["val"] == 488
-    assert data[(49, 1)]["val"] == 296 and data[(81, 1)]["val"] == 488
-    assert kfield[49] == 2 and kfield[81] == 2
-    assert max(vals) == 7080
-    q1 = [data[(D, 0)]["val"] for D in fields]
-    assert min(q1) == 296 and max(q1) == 3872
-    withK = [(D, r) for (D, r), v in data.items() if v["K"]]
-    assert len(withK) == 20
-    assert all(data[(D, 0)]["K"] == "Q(sqrt(-1))" for D in fields)
-    assert data[(49, 1)]["K"] == data[(81, 1)]["K"] == "Q(sqrt(-1))"
-    s3 = sorted((D, r) for (D, r), v in data.items()
-                if v["K"] == "Q(sqrt(-3))")
-    assert s3 == [(321, 1), (1509, 2)], s3
-    assert kfield[321] == 2 and kfield[1509] == 3
-    assert (data[(321, 1)]["lmin"], data[(321, 1)]["val"]) == (288, 728)
-    assert (data[(1509, 2)]["lmin"], data[(1509, 2)]["val"]) == (4608, 6504)
-    # with an imaginary quadratic subfield Q(sqrt(-1)) the lattice minimum 32
-    # is attained with Omega = 0; without one, the lattice minimum already
-    # has Omega != 0
-    for (D, r), v in data.items():
-        if v["K"] == "Q(sqrt(-1))":
-            assert v["lmin"] == 32 < v["val"]
-        if v["K"] is None:
-            assert v["lmin"] == v["val"]
-    return fields, kfield, data
-
-
-def fig_sexticweil():
-    fields, kfield, data = sextic_data()
-    F = Plate("fig_sexticweil",
-              "Least -chi of an integral flat secant character with a nonzero "
-              "F-Weil part, over the 48 cases of prop:sexticweilmin.")
-    CW, RH, GAP = 0.80, 0.72, 0.06
-    lo, hi = math.log(192), math.log(7080)
-
-    def pct(v):
-        return 9 + 63 * (math.log(v) - lo) / (hi - lo)
-
-    def cell(c, r):
-        x0 = c * CW
-        y1 = (3 - r) * RH
-        return x0, y1 - RH + GAP, x0 + CW - GAP, y1
-
-    # the cells, with the value in each
-    for c, D in enumerate(fields):
-        for r in range(3):
-            v = data[(D, r)]
-            x0, y0, x1, y1 = cell(c, r)
-            p = pct(v["val"])
-            F.rect(x0, y0, x1, y1, fill="PIndigo!%d!white" % round(p), bg=True)
-            col = "white" if p > 44 else "PInk"
-            F.text((x0 + x1) / 2 + 0.01, (y0 + y1) / 2 - 0.09,
-                   "$%d$" % v["val"], color=col, onbg=True)
-            if v["K"]:
-                s, i = 0.16, 0.07      # inside the frames of the marked cells
-                base = "PTeal" if v["K"] == "Q(sqrt(-1))" else "PClay"
-                F.poly([(x0 + i, y1 - i), (x0 + i + s, y1 - i),
-                        (x0 + i, y1 - i - s)], fill=base)
-    # the least value, and the two values for q = 1
-    x0, y0, x1, y1 = cell(fields.index(49), 2)
-    F.rect(x0 + 0.02, y0 + 0.02, x1 - 0.02, y1 - 0.02, draw="PAmber",
-           lw=1.3)
-    for D in (49, 81):
-        x0, y0, x1, y1 = cell(fields.index(D), 0)
-        F.rect(x0 + 0.02, y0 + 0.02, x1 - 0.02, y1 - 0.02, draw="PMag",
-               lw=1.1, extra="dash pattern=on 2.2pt off 1.1pt")
-    # rows
-    names = [r"$q=1$", r"$q=k+\alpha$", r"$q=k+1+\alpha$"]
-    for r in range(3):
-        x0, y0, x1, y1 = cell(0, r)
-        F.text(-0.14, (y0 + y1) / 2, names[r], anchor="east")
-    # headers: k, the discriminant, the two cyclic fields
-    ytop = 3 * RH
-    yk, yd, yn = ytop + 0.24, ytop + 0.64, ytop + 1.07
-    for c, D in enumerate(fields):
-        xc = c * CW + (CW - GAP) / 2
-        F.text(xc, yk, "$%d$" % kfield[D], color="PSlate")
-        F.text(xc, yd, "$%d$" % D)
-    F.text(-0.14, yk, "$k$", anchor="east", color="PSlate")
-    F.text(-0.14, yd, r"$\operatorname{disc}F_{0}$", anchor="east")
-    xa = fields.index(49) * CW + 0.10
-    xb = fields.index(81) * CW + CW - GAP - 0.10
-    yb = yd + 0.27
-    F.seg([(xa, yb - 0.07), (xa, yb), (xb, yb), (xb, yb - 0.07)],
-          "PInk,line width=0.4pt")
-    F.text((xa + xb) / 2, yb + 0.07,
-           r"$\QQ(\zeta_{7})^{+}$, $\QQ(\zeta_{9})^{+}$", anchor="south")
-    wgrid = 16 * CW - GAP
-    F.text(wgrid / 2 + 1.3, yn + 0.02,
-           r"the sixteen totally real cubic fields $F_{0}$, by discriminant",
-           color="PSlate")
-
-    # the logarithmic scale
-    ys, hs = -0.62, 0.20
-    xs0, xs1 = 3.0, 10.6
-    n = 90
-    for i in range(n):
-        a = xs0 + (xs1 - xs0) * i / n
-        b = xs0 + (xs1 - xs0) * (i + 1) / n
-        v = math.exp(lo + (hi - lo) * (i + 0.5) / n)
-        F.rect(a, ys - hs / 2, b + 0.004, ys + hs / 2,
-               fill="PIndigo!%d!white" % round(pct(v)))
-    F.rect(xs0, ys - hs / 2, xs1, ys + hs / 2, draw="PRule", lw=0.35)
-    for v in (192, 300, 500, 1000, 2000, 3000, 5000, 7080):
-        x = xs0 + (xs1 - xs0) * (math.log(v) - lo) / (hi - lo)
-        F.seg([(x, ys - hs / 2), (x, ys - hs / 2 - 0.08)],
-              "PInk,line width=0.35pt")
-        F.text(x, ys - hs / 2 - 0.15, "$%d$" % v, anchor="north", font=SN)
-    F.text(xs0 - 0.35, ys, r"$-\chi(v,v)$, least with $\Omega(v)\neq0$",
-           anchor="east")
-
-    # the legend
-    yl = -1.62
-    PITCH = 0.46
-    xl = -1.95
-    s = 0.22
-    # (a) Q(sqrt(-1))
-    F.poly([(xl, yl + s / 2), (xl + s, yl + s / 2), (xl, yl - s / 2)],
-           fill="PTeal")
-    F.text(xl + s + 0.14, yl,
-           r"$F\supset\QQ(\sqrt{-1})$: every $q=1$, and "
-           r"$q=2+\alpha$ over $\QQ(\zeta_{7})^{+}$, $\QQ(\zeta_{9})^{+}$; "
-           r"lattice minimum $32$, attained with $\Omega=0$",
-           anchor="west")
-    yl -= PITCH
-    F.poly([(xl, yl + s / 2), (xl + s, yl + s / 2), (xl, yl - s / 2)],
-           fill="PClay")
-    F.text(xl + s + 0.14, yl,
-           r"$F\supset\QQ(\sqrt{-3})$: $q=2+\alpha$ at "
-           r"$\operatorname{disc}F_{0}=321$, $q=4+\alpha$ at $1509$; "
-           r"lattice minima $288$, $4608$, attained with $\Omega=0$",
-           anchor="west")
-    yl -= PITCH
-    F.rect(xl, yl - s / 2, xl + s, yl + s / 2, draw="PAmber", lw=1.3)
-    F.text(xl + s + 0.14, yl,
-           r"$192=-\chi(v_{*})$, $v_{*}=v(-1,0,2-\alpha^{2},0)$, "
-           r"$q=3+\alpha$ over $\QQ(\zeta_{7})^{+}$: the least of the "
-           r"forty-eight, only at $\pm v_{*}$",
-           anchor="west")
-    yl -= PITCH
-    F.rect(xl, yl - s / 2, xl + s, yl + s / 2, draw="PMag", lw=1.1,
-           extra="dash pattern=on 2.2pt off 1.1pt")
-    F.text(xl + s + 0.14, yl,
-           r"$q=1$: $296$ and $488$; every class with smaller $-\chi$ lies in "
-           r"$\ZZ\operatorname{Re}e^{\sqrt{-1}\,\theta}\oplus"
-           r"\ZZ\operatorname{Im}e^{\sqrt{-1}\,\theta}$, where $\Omega=0$",
-           anchor="west")
-    F.write()
-    return F.name
 
 
 # ====================================================== Mumford groups
@@ -955,7 +733,7 @@ def fig_k3threshold():
 
 
 # ================================================================== main
-ALL = ["sexticweil", "mumfordgroups", "f3primereach", "k3threshold"]
+ALL = ["mumfordgroups", "f3primereach", "k3threshold"]
 
 if __name__ == "__main__":
     which = sys.argv[1:] or ALL

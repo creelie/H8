@@ -589,6 +589,34 @@ rewritten for Windows (Python suite, then the Lean file; logs in
 the file), and Deep ran the Python suite on his Windows machine (2218 checks
 passed, 0 failed). 2218 checks,
 409 Lean theorems (128 axiom-free, 281 on `propext`), 416 pages, 766 labels.
+Round 50 answered Prof. Mandal's standard, relayed by Deep (journals reject
+the paper as computational; the text must be analytical, with no synthetic
+phrasing, transitions or hedges), with Deep's choice "Whole monograph" on a
+decision card: every statement whose only proof was a computation in
+[BMB26] now has a hand proof in the text or is removed. The paper cites
+[BMB26] only in the introduction, Appendix A and the data availability
+section, and the introduction and the title-page footnote say that no
+statement rests on the archive. Hand proofs: the semiregularity, secant and
+support chapters; the convolutions on E_0^6; `thm:mumfordrigid` block by
+block (`fig_rigidity` redrawn); the lattice degrees of the Delsarte shapes;
+the base of `prop:cyclicmonodromy` (the full twist of two branch points with
+opposite exponents is a transvection, `lem:mergefive` at five points,
+`lem:hyperplanes` from dim Y = 2 with Andre's semisimplicity [And92];
+`fig_cyclicmerge` redrawn); `thm:closure` by four closed sets C_1 to C_4,
+with `prop:f3primestrength` and `rem:f2rule`; `thm:quarticrank` and
+`thm:quarticp2prime`(ii); `prop:sexticintegral`(ii) by the four values of
+N_w; and the middle degree of `prop:p2primeprofile` for every n (one coupled
+block of size 2^{n+1}, whose kernel is ker((K'H')^2 - |u|^2) after the
+Koszul signs are collected). Removed: `prop:fourfoldrank` with its
+ball-arithmetic rank, `thm:burchsearch` with `tab:burch`, `fig_extprofile`,
+`rem:pterangemeaning`, parts (ii) and (iii) of `prop:quarticexclusions`,
+`rem:quarticmixedkernel`, `prop:sexticintegral`(v), `prop:sexticweilmin`,
+`fig_sexticweil` and `rem:sextictargets`. `ssec:closure` is titled "Which
+hypotheses suffice". No code change (2218 checks, 409 Lean theorems);
+`items.tex`, `lean.tex`, `item_labels.json`, `README.md` and `.zenodo.json`
+say which computations the paper no longer uses. 412 pages, 759 labels.
+Deep also asked for a full unconditional closure of the conjecture; it was
+declined, since nothing proves it.
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 

@@ -4,7 +4,10 @@
 
 Verification code and figure sources for the paper *Algebraic Loci of Weil
 Classes from Abelian Varieties to Diagonal Complete Intersections*, by Deep
-Bhattacharjee, Priyabrata Mandal and Ushashi Bhattacharya.
+Bhattacharjee, Priyabrata Mandal and Ushashi Bhattacharya. The paper proves
+every statement in its text; the programs here repeat its finite arithmetic
+as an independent check, and some of them record data that the paper does
+not use.
 
 Release v3.2.0 accompanies the current version of the paper, which cites this
 archive by its Zenodo DOI. Zenodo archives each GitHub release under its own

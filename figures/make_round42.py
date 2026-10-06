@@ -14,10 +14,10 @@ The figure of round 42.
                     representation, Y, Y^* and the trivial one, used by
                     lem:hyperplanes.  Right: the induction on n = p + q,
                     each merge of two branch points lowering p or q by one
-                    (lem:merge), down to the 38 computed cases with
-                    n = 3, 4; on the axes p q = 0 the monodromy is finite.
-                    The count 38 is recomputed here from the multisets of
-                    code/cyclic_monodromy.py.
+                    (lem:merge, lem:mergefive), down to n = 2, where the
+                    full twist of two points with opposite exponents is a
+                    transvection; on the axes p q = 0 the monodromy is
+                    finite.
 
 Every label is written as  \\node[...] at (x,y) {...};  so that checkfigs.py
 can read it back, and each plate is audited against its own raster before it
@@ -30,27 +30,12 @@ import os
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-CODE = os.path.join(os.path.dirname(HERE), "code")
-for p in (HERE, CODE):
-    if p not in sys.path:
-        sys.path.insert(0, p)
+if HERE not in sys.path:
+    sys.path.insert(0, HERE)
 import make_round19                                 # noqa: E402
 from make_round19 import Plate, build, TIP, FN, SN  # noqa: E402
-from cyclic_monodromy import multisets, hodge_p    # noqa: E402
 
 make_round19.GEN = "make_round42.py"
-
-
-# ------------------------------------------------------------ the numbers
-def base_cases():
-    """The vectors a with k = 5, 6 points and p, q >= 1, up to order and
-    sign (multisets() keeps one of a and -a)."""
-    return sum(1 for m in (3, 4, 6) for k in (5, 6) for a in multisets(m, k)
-               if 1 <= hodge_p(m, a) <= k - 3)
-
-
-BASE = base_cases()
-assert BASE == 38, BASE
 
 
 # ------------------------------------------------------------ fig_cyclicmerge
@@ -149,16 +134,16 @@ def fig_cyclicmerge():
     for p in range(M + 1):
         for q in range(M + 1):
             n = p + q
-            if n < 3:
+            if n < 2:
                 continue
             x, y = P(p, q)
             if p == 0 or q == 0:
                 F.disc(x, y, 1.5, "PSlate!55", ring="white", lw=0.3)
-            elif n <= 4:
+            elif n == 2:
                 F.disc(x, y, 2.3, "POchre", ring="white", lw=0.4)
             else:
                 F.disc(x, y, 2.3, "PGrass", ring="white", lw=0.4)
-    chain = [(4, 4), (4, 3), (3, 3), (3, 2), (2, 2)]
+    chain = [(4, 4), (4, 3), (3, 3), (3, 2), (2, 2), (2, 1), (1, 1)]
     for (p0, q0), (p1, q1) in zip(chain, chain[1:]):
         (x0, y0), (x1, y1) = P(p0, q0), P(p1, q1)
         dx, dy = x1 - x0, y1 - y0
@@ -179,13 +164,13 @@ def fig_cyclicmerge():
            onbg=True)
     right = [r"each arrow merges",
              r"two branch points;",
-             r"for $k\ge7$ one keeps",
-             r"$m$ and $p,q\ge1$"]
+             r"the order $m$ and",
+             r"$p,q\ge1$ are kept"]
     for k, s in enumerate(right):
         F.text(13.30, 3.55 - 0.45 * k, s, anchor="west", font=SN, onbg=True,
                color="PMag" if k < 2 else "PInk")
-    keys = [("POchre", 2.3, r"$n=3,4$: the $%d$ computed cases" % BASE),
-            ("PGrass", 2.3, r"$n\ge5$: two hyperplanes, by induction"),
+    keys = [("POchre", 2.3, r"$n=2$: a transvection"),
+            ("PGrass", 2.3, r"$n\ge3$: two hyperplanes, by induction"),
             ("PSlate!55", 1.5, r"$p=0$ or $q=0$: finite monodromy")]
     for k, (col, rad, s) in enumerate(keys):
         yk = 0.62 - 0.42 * k

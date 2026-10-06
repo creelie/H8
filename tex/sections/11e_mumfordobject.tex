@@ -59,26 +59,15 @@ $e_{k}=\dim\Ext^{k}(E,E)$ for a perfect complex $E$ on $Y$.
   $e_{k}=e_{8-k}$.
 \item For a rational exceptional class $\omega=\omega_{a}$ with
   $L_{0}(a)\ne0$: $r_{0}=r_{8}=1$, $r_{1}=r_{7}=16$ and $r_{2}=r_{6}=119$.
-\item There is a set of rational exceptional classes, Zariski dense in the
-  space of rational Hodge classes in $H^{2}\otimes H^{2}$, on which
-  \[
-    \bigl(r_{0},\dots,r_{8}\bigr)(\omega)\;\ge\;
-    (1,16,119,328,560,328,119,16,1)
-  \]
-  term by term. When $F$ is the cubic subfield of $\QQ(\zeta_{7})$ it contains
-  the class with $a_{0}=2$ and $(a_{1},a_{2},a_{3})$ the conjugates of
-  $\zeta_{7}+\zeta_{7}^{-1}$.
-\item Let $\omega$ be in the set of (iii) and $\ch(E)=N\omega$ with $N\ne0$.
-  Then
+\item Let $\omega$ be a rational exceptional class and $\ch(E)=N\omega$
+  with $N\ne0$. Then
   \[
     e_{1}+e_{3}=e_{0}+e_{2}+\tfrac12e_{4}
       +\sum_{j\ge1}(-1)^{j}e_{-j}.
   \]
   If $\Ext^{<0}(E,E)=0$, for instance if $E$ is a sheaf, then
-  $\sum_{k\ \mathrm{odd}}e_{k}=\sum_{k\ \mathrm{even}}e_{k}\ge800$,
-  $e_{1}+e_{3}\ge400$, and $\sum_{k}e_{k}\ge1600$, while the bounds of
-  (iii) add up to $1488$: the odd degrees carry at least $112$ dimensions
-  beyond the Hochschild bound $2(16+328)=688$.
+  $\sum_{k\ \mathrm{odd}}e_{k}=\sum_{k\ \mathrm{even}}e_{k}$, and
+  $e_{1}+e_{3}\ge120+\frac12e_{4}$ when $L_{0}(a)\ne0$.
 \end{enumerate}
 \end{theorem}
 
@@ -97,21 +86,7 @@ ideal; for $w\ne0$ these products span a space of dimension $15$, which cannot
 lie in $\Ann_{HT^{2}}(\omega)=\CC\kappa$. So $r_{1}=16$, and
 \Cref{lem:rankduality} gives $r_{8},r_{7},r_{6}$.
 
-(iii) For each $k$ the set of $a\in\CC^{4}$ at which the contraction on
-$HT^{k}(Y)$ into $\omega_{a}$ has rank at least the displayed number is Zariski
-open, being the complement of the common zeros of minors, and a computation in \cite{BMB26} shows that it contains $a=(3,5,-7,11)$, by an exact
-computation over $\QQ$ block by block. The rational Hodge classes in
-$H^{2}\otimes H^{2}$ form a $\QQ$-vector space of dimension four whose complex
-span is $\CC^{4}$ (\Cref{setup:omegaa}), hence Zariski dense, and so they
-meet the intersection of these open sets in a Zariski dense set. The classes
-with $\alpha\in\QQ$ form a proper linear subspace, and removing them leaves a
-Zariski dense set. A computation in \cite{BMB26} also computes the ranks modulo a prime at which
-the minimal polynomial of $\zeta_{7}+\zeta_{7}^{-1}$ splits, for $a_{0}=2$ and
-the three conjugates in each of the six orders, and finds the displayed
-numbers; the rank of a matrix with entries integral at a prime is at least the
-rank of its reduction modulo that prime.
-
-(iv) Since $\ch(E)$ has only a component in $H^{4}$, $\ch(E^{\vee})\ch(E)$
+(iii) Since $\ch(E)$ has only a component in $H^{4}$, $\ch(E^{\vee})\ch(E)$
 lies in $H^{8}(Y)$ and $\chi(E,E)=\int_{Y}\ch(E^{\vee})\ch(E)=0$, the Todd
 class being trivial. By (i) and Serre duality, which also pairs
 $\Ext^{-j}$ with $\Ext^{8+j}$,
@@ -120,26 +95,9 @@ $\Ext^{-j}$ with $\Ext^{8+j}$,
   +2\sum_{j\ge1}(-1)^{j}e_{-j},
 \]
 which is the displayed identity. With no negative extensions the odd and even
-parts are equal, and the even part is at least $2\cdot1+2\cdot119+560=800$ by
-(i) and (iii), so the odd part is at least $800$ as well, and $e_{1}+e_{3}\ge400$ by
-Serre duality. The Hochschild bound on the odd part is $2(16+328)=688$.
+parts are equal, and $e_{0}\ge1$, $e_{2}\ge119$ by (i) and (ii) when
+$L_{0}(a)\ne0$.
 \end{proof}
-
-\Cref{fig:extprofile} draws these bounds.
-
-\begin{figure}[tbp]
-\centering
-  \includegraphics[width=\textwidth]{fig_extprofile}
-\caption{\Cref{thm:mumfordprofile}. Left: the lower bounds $r_{k}$ for
-$\dim\Ext^{k}(E,E)$ when $\ch(E)=N\omega$, one bar per degree, symmetric about
-$k=4$ as \Cref{lem:rankduality} predicts; the bar at $k=2$ is the $119$ of
-\Cref{thm:mumfordrigid}, made of $28$ classes in $H^{0,2}$, $63$ in
-$H^{1}(T)$ and $28$ bivectors. On the hyperplane $L_{0}=0$ the bars at $2$,
-$4$ and $6$ drop to $110$, $548$ and $110$ at a sample point. Right: $\chi(E,E)=0$ balances the
-even and the odd degrees, so the odd side, which Hochschild cohomology fills
-only to $688$, carries at least $800$.}
-\label{fig:extprofile}
-\end{figure}
 
 \begin{proposition}[Divisor classes do not reach the exceptional classes]
 \label{prop:mumforddivisor}
@@ -822,11 +780,7 @@ Of the five routes, specialisation, reduction modulo $p$ and motivated
 classes are the Mumford target itself in three other forms, by
 \Cref{cor:mumfordone}(i) and, for the motivated classes,
 \Cref{cor:mumfordequiv}; semiregularity and Kuga--Satake are stronger inputs
-that imply it. So any one route suffices. The closure computation of
-\cite{BMB26}, run on the implications proved in the paper, gives more: every
-minimal set of hypotheses from which the
-target follows has one element, and the statements equivalent to it over what
-is proved are exactly the four forms of (i) and the target. Each of the three
+that imply it. So any one route suffices. Each of the three
 forms is the whole of the problem, a bound on Hilbert data or a case of
 \textup{(L)} that is equivalent to the target, and the two stronger inputs
 ask for an object and for a cycle.
@@ -1187,8 +1141,14 @@ minimal sufficient sets become
   \{\mathrm{L},\mathrm{F3}'\},\quad\{\mathrm{V},\mathrm{F3}'\},\quad
   \{\mathrm{F2},\mathrm{F3}'\},
 \]
-as a computation in \cite{BMB26} checks, and
-$\mathrm{P2}_{\mathrm{split}}$ lies in none of them. So the results of this
+and $\mathrm{P2}_{\mathrm{split}}$ lies in none of them. Indeed the new rule
+has the premise (F2) and the conclusion $\mathbf{AB}$, the conjecture for
+abelian varieties, so the sets $C_{1}$, $C_{2}$ and $C_{4}$ of the proof of
+\Cref{thm:closure} stay closed, and a sufficient set meets $H_{1}$, $H_{2}$
+and $H_{4}$. The sets meeting these three that are minimal with this property
+are the five above, by the argument of that proof without $H_{3}$, and each is
+sufficient: $\{\mathrm{F2},\mathrm{F3}'\}$ gives $\mathbf{AB}$ by the new
+rule and then $\mathbf{HC}$ by \Cref{prop:f3prime}(i). So the results of this
 paper on Weil classes do not shorten a route to the conjecture. What they do
 is reduce one case of it, the algebraicity of the Weil classes of every CM
 field, to the single statement $\mathrm{P2}_{\mathrm{split}}$, by a route that

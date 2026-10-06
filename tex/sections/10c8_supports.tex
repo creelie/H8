@@ -586,27 +586,33 @@ left side lies in a sheaf whose $\cE xt^{2}$ factor is zero.
 Two observations show that \Cref{thm:cmvanishing} is the right statement.
 
 First, Cohen--Macaulayness is strictly weaker than the more familiar
-conditions that could be imposed instead. A computation in \cite{BMB26}
-determines
-$\cE xt^{2}(\cI_{Z},\cI_{Z})$ for ten codimension two germs in $\CC^{4}$. It
-vanishes for the smooth germ $(x_{1},x_{2})$; for two planes meeting along a
-line, $(x_{1},x_{2}x_{3})$, and for three planes meeting along a line,
-$(x_{1},x_{2}x_{3}x_{4})$; for the double plane $(x_{1}^{2},x_{2})$ and the
-quadric cone $(x_{1},x_{2}^{2}-x_{3}x_{4})$; and also for the fat plane
-$(x_{1},x_{2})^{2}$ and for the cone over the twisted cubic, the ideal of
-$2\times2$ minors of $\left(\begin{smallmatrix}x_{1}&x_{2}&x_{3}\\
-x_{2}&x_{3}&x_{4}\end{smallmatrix}\right)$, neither of which is a local
-complete intersection, both needing three generators in codimension two.
+conditions that could be imposed instead. Among codimension two germs in
+$\CC^{4}$, the smooth germ $(x_{1},x_{2})$, two planes meeting along a line,
+$(x_{1},x_{2}x_{3})$, three planes meeting along a line,
+$(x_{1},x_{2}x_{3}x_{4})$, the double plane $(x_{1}^{2},x_{2})$ and the
+quadric cone $(x_{1},x_{2}^{2}-x_{3}x_{4})$ are complete intersections. The
+fat plane $(x_{1},x_{2})^{2}$ and the cone over the twisted cubic are the
+ideals of $2\times2$ minors of
+$\left(\begin{smallmatrix}x_{1}&x_{2}&0\\
+0&x_{1}&x_{2}\end{smallmatrix}\right)$ and of
+$\left(\begin{smallmatrix}x_{1}&x_{2}&x_{3}\\
+x_{2}&x_{3}&x_{4}\end{smallmatrix}\right)$, of the expected codimension two,
+so they are Cohen--Macaulay by the Hilbert--Burch theorem, although neither
+is a local complete intersection, both needing three generators. By
+\Cref{thm:cmvanishing}, $\cE xt^{2}(\cI_{Z},\cI_{Z})$ vanishes at all seven.
 Reducedness, irreducibility and the complete intersection property are
 therefore all irrelevant; what matters is the projective dimension, which by
 Auslander--Buchsbaum is a matter of depth.
 
 Second, the vanishing fails at the germs that the construction of
-\Cref{setup:markman} produces. The same computation finds
-$\cE xt^{2}\ne0$, with nonzero products of translation classes, for two planes
-meeting at a point, for three planes meeting pairwise at a point, and for a
-plane with an embedded point; the projective dimensions of $\cO_{Z,p}$ there
-are $3$, $3$ and $4$. By Hartshorne's connectedness theorem, a scheme whose local ring at $p$
+\Cref{setup:markman} produces. Two planes meeting at a point and three planes
+meeting pairwise at a point are reduced surface germs that become
+disconnected when the point is removed, so they have depth $1$: at least $1$
+because they are reduced, and at most $1$ by the connectedness theorem
+recalled below. A plane with an embedded point has depth $0$. By Auslander--Buchsbaum the projective
+dimensions of $\cO_{Z,p}$ are $3$, $3$ and $4$, and the proof of
+\Cref{cor:cmdichotomy}(i) below gives $\cE xt^{q}(\cI_{Z},\cI_{Z})_{p}\ne0$
+for $q=2$, $2$ and $3$. By Hartshorne's connectedness theorem, a scheme whose local ring at $p$
 is Cohen--Macaulay is connected in codimension one at $p$, so a support with
 two components through $p$ meeting only at $p$ is never Cohen--Macaulay
 there. This is precisely the configuration analysed in
@@ -699,7 +705,7 @@ extension along the polarised deformations, one condition on them.
 The class consists of the Cohen--Macaulay subschemes of codimension two, and
 for these the proof of \Cref{thm:cmvanishing} gives more than the vanishing
 it was used for: the ideal sheaf has projective dimension one at every point.
-This is the Hilbert--Burch shape, and it lends itself to a search.
+This is the Hilbert--Burch shape, whose invariants are polynomials in the twists.
 
 \begin{setupenv}[A resolution of the support]\label{setup:burch}
 Let $(X,\Theta)$ be a principally polarised abelian fourfold with
@@ -786,55 +792,7 @@ roots $b-a_{1}$ and $b-a_{2}$ then has discriminant $-\tfrac29b^{2}-2d<0$, so
 the degrees are not even real.
 \end{proof}
 
-For $r\ge2$ the moment conditions alone no longer decide the question, and
-\eqref{eq:burchsystem} becomes a finite search over the twists. A computation in \cite{BMB26} carries it out exactly, by a meet-in-the-middle
-search on the four moments; the outcome is \Cref{tab:burch}.
-
-\begin{theorem}[Split resolutions]%
-\label{thm:burchsearch}
-In \Cref{setup:burch} with $b=3$, over every squarefree $d<24$ and every
-choice of twists in the box recorded in \Cref{tab:burch}:
-\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em]
-\item at $r=2$ and $r=3$ the system \eqref{eq:burchsystem} has no solution at
-  all, and the same holds for every $b\le6$ over seven fields;
-\item at $r=4,5,6$ it has solutions, but only for $d=15$ and $d=23$;
-\item every $d$ that survives at any rank exceeds $9$.
-\end{enumerate}
-\end{theorem}
-
-\begin{proof}
-The search is a computation in \cite{BMB26}, carried out in exact
-integer arithmetic with the two conditions of \Cref{lem:burchmoments} on
-$\max_{i}e_{i}$ and $\min_{i}e_{i}$ imposed. Without the first, the system
-acquires solutions that are not resolutions; the smallest is
-$p=(-8,-5,0,1,2)$, $q=(-7,-6,-4,4)$ at $r=4$ and $d=23$, where the summand of
-$E_{1}$ with the largest twist admits no nonzero map to $E_{0}$.
-\end{proof}
-
-\begin{table}[htbp]
-\centering
-\small
-\renewcommand{\arraystretch}{1.12}
-\begin{tabular}{@{}clll@{}}
-\toprule
-$r$ & twists searched & $d$ surviving & first candidate, as twists of $\Theta$ \\
-\midrule
-$1$ & every $b$, every $d$ & none & \Cref{thm:noci} \\
-$2$ & $[-18,18]$ & none & \\
-$3$ & $[-14,14]$ & none & \\
-$4$ & $[-11,11]$ & $23$ & $E_{0}:(-11,-6,0,2,7)$,\ \ $E_{1}:(-10,-9,5,6)$ \\
-$5$ & $[-9,9]$ & $23$ & $E_{0}:(-8,-4,-3,-2,1,6)$,\ \ $E_{1}:(-7,-6,-6,4,5)$ \\
-$6$ & $[-8,8]$ & $15,23$ & $E_{0}:(-8,-4,-4,-1,-1,1,4)$,\ \ $E_{1}:(-7,-6,-6,0,3,3)$ \\
-\bottomrule
-\end{tabular}
-\caption{The split Hilbert--Burch resolutions of \Cref{setup:burch} at $b=3$,
-over every squarefree $d<24$. Nothing survives below rank four, and from
-rank four on only $d=15$ and $d=23$ survive. Both exceed the bound $d\le9$
-of \Cref{cor:fourdiscriminants}, so none of these supports can be smooth.}
-\label{tab:burch}
-\end{table}
-
-The two values that survive are not an accident of the boxes searched. The
+For $r\ge2$ the moment conditions alone no longer decide the question. The
 Chern characters of the bundles of \Cref{setup:burch}, and of every bundle
 built from line bundles, lie in one lattice, and the secant plane meets that
 lattice only along a congruence. Write a class $\xi\in\QQ[\Theta]/(\Theta^{5})$
@@ -929,9 +887,7 @@ twists, or $E_{0}$ and $E_{1}$ built from such line bundles and from the
 bundles $M_{m\Theta}$ by the operations listed above. If
 $\ch(\cI_{Z}(3\Theta))=u_{\Theta}+3v_{\Theta}$, then $d\equiv15$ or
 $23\pmod{24}$. In particular this never happens for the four discriminants
-of \Cref{cor:fourdiscriminants}, and the values $15$ and $23$ are exactly
-the values below $24$, which is what \Cref{thm:burchsearch} finds at ranks
-four to six and cannot find at ranks two and three.
+of \Cref{cor:fourdiscriminants}.
 \end{corollary}
 
 \begin{proof}
@@ -1035,9 +991,9 @@ modulo $12$, that is, $d\equiv3\pmod4$.
 Part (i) extends \Cref{thm:noci} from two divisors to the zero locus of a
 section of any rank two bundle, stable or not, so the construction of Serre
 produces no secant support; it holds for every $X$, with no condition on
-$\NS(X)$. Part (ii) extends the row $r=2$ of \Cref{tab:burch} from sums of
-line bundles to arbitrary bundles whose Chern classes are polynomials in
-$\Theta$, at $d\equiv1\pmod4$. The integrality of
+$\NS(X)$. Part (ii) holds for arbitrary bundles whose Chern classes are
+polynomials in $\Theta$, not only for sums of line bundles, and at $b=3$ it
+excludes $r=2$ whenever $d\not\equiv3\pmod4$. The integrality of
 the Chern classes of $E_{0}$ is automatic, since
 $c(E_{0}(b\Theta))=c(E_{1}(b\Theta))\,c(F)$ and $c(F)$ is integral, so it is
 the vanishing above the rank, and not integrality, that constrains. Neither
@@ -1046,11 +1002,10 @@ class on a fourfold, and at $r=3$ the only condition, $c_{4}(E)=0$, involves
 $E$ alone.
 \end{remark}
 
-The search of \Cref{thm:burchsearch} records where a split resolution can
-have the right Chern character, and \Cref{cor:latticeburch} removes the
-bound on the twists from it. A stronger statement needs neither a search
-nor a bound on the twists: no object with a split resolution satisfies the
-criterion, at any rank and for any discriminant (\Cref{thm:nosplit}). It
+\Cref{cor:latticeburch} says where a split resolution can have the right
+Chern character. A stronger statement holds: no object with a split
+resolution satisfies the criterion, at any rank and for any discriminant
+(\Cref{thm:nosplit}). It
 rests on a necessary condition that we isolate, because it applies to
 every object and can be tested on any candidate before any global
 computation is attempted.
@@ -1283,8 +1238,7 @@ Let $(X,\Theta)$ be a principally polarised abelian fourfold.
 \begin{enumerate}[label=\textup{(\roman*)},nosep]
 \item No secant object of rank one whose support has a resolution
   \eqref{eq:burchres} by sums of powers of $\Theta$ satisfies the weakened
-  criterion, for any $r$, any twists and any $d$; in particular every
-  candidate of \Cref{tab:burch} is excluded, whether or not its matrix
+  criterion, for any $r$, any twists and any $d$, whether or not its matrix
   degenerates in codimension two.
 \item If a secant object $\cI_{Z}(b\Theta)$ satisfies the criterion, then
   $Z$ has no point at which two smooth branches of codimension two meet

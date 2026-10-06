@@ -1,14 +1,15 @@
 \section{Computations}\label{sec:verification}
 
-Every numerical assertion in this paper is checked in exact arithmetic:
-rational, integer or exterior-algebra computations, and exact linear algebra
-over number fields and over function fields in one variable, or, for the
-integrals of theta functions behind \Cref{prop:fourfoldrank}, in ball
+Every statement of the paper is proved in the text, and no proof rests on
+the items below. They repeat the finite arithmetic of the proofs in exact
+arithmetic: rational, integer or exterior-algebra computations, and exact
+linear algebra over number fields and over function fields in one variable,
+or, for the integrals of theta functions of part (H) of item (LXXII), in ball
 arithmetic, which returns for every number an interval guaranteed to
-contain it (part (H) of item (LXXII)). No statement rests on a computation
-in floating point: the quadrature of item (LXXII) and the random tests in
-items (LXXI) and (LXXIII) check statements that are proved in the text or
-certified otherwise. A rank computed modulo a prime is used only
+contain it. Some items also record data beyond what the paper uses, such as
+the searches of items (XXXII), (LVII), (LVIII) and (LXXVI) and the ranks of
+item (LXXII); the paper does not cite them. The quadrature of item (LXXII)
+and the random tests in items (LXXI) and (LXXIII) are in floating point. A rank computed modulo a prime is used only
 as a lower bound for the rank over $\QQ$, since reduction can only lower a
 rank, and the bound is matched by an exact computation in the other
 direction. Items (XXIX), (XXXI) and (XL) are $\Ext$
@@ -474,13 +475,15 @@ computed, how it is computed, and which statements of the paper it supports.
   every $b\le11$ and every squarefree $d<200$, so that no complete
   intersection can occur. It then enumerates \eqref{eq:burchsystem} exactly,
   by meet in the middle on the four moments, over every multiset of twists in
-  the boxes of \Cref{tab:burch}, imposing the two conditions of
+  bounded boxes, imposing the two conditions of
   \Cref{lem:burchmoments}. Nothing survives at $r=2$ or $r=3$, for $b=3$ and
   every squarefree $d<24$ and also for every $b\le6$ over seven fields; at
   $r=4,5,6$ only $d=15$ and $d=23$ survive, and the first candidate at each
   rank is recorded. The moment system alone does not suffice: at $r=4$,
   $d=23$ it has the solution $p=(-8,-5,0,1,2)$, $q=(-7,-6,-4,4)$, which only
-  the injectivity of $\varphi$ removes.
+  the injectivity of $\varphi$ removes. This search is not used in the
+  paper, which proves \Cref{prop:lowrankburch} and \Cref{thm:nosplit} by
+  hand.
 
 \item \emph{The closure graph.} The computation carries the rule set of
   \Cref{setup:rules} as data: forty-two statements, each marked proved here,
@@ -489,7 +492,7 @@ computed, how it is computed, and which statements of the paper it supports.
   is declared and every declared statement is used, that the rule set is
   acyclic, and that each of the seventeen theorem labels it names, for its
   rules and for the consequences of $\mathbf{HC}$ it records, is a label of
-  this paper, against the list of all $686$ labels generated from the
+  this paper, against the list of all labels generated from the
   sources. It then computes the forward closure by iterating the one step map
   to a fixed point, and verifies the following. No statement marked proved
   rests at any depth on an open one, and $\mathbf{HC}$ is not in the closure
@@ -555,7 +558,7 @@ computed, how it is computed, and which statements of the paper it supports.
   $\cO(e\Theta)$ is nonzero for every twist and every $d>0$ in a range; the
   vanishing pattern $H^{2}(\cO(m\Theta))=0$ for $m\ne0$ on an $n$-fold with
   $3\le n\le6$, from the index theorem; that the three split resolutions of
-  \Cref{tab:burch} have no twist in common between $E_{0}$ and $E_{1}$ and
+  item (XXXII) have no twist in common between $E_{0}$ and $E_{1}$ and
   satisfy the moment identities \eqref{eq:burchsystem}, so that the theorem
   excludes them as they stand; and, as a control, that no Koszul resolution
   of a complete intersection, twisted by any $b\in[-6,12]$, is secant for
@@ -1212,9 +1215,10 @@ computed, how it is computed, and which statements of the paper it supports.
   of dimension six, $\int v^{\vee}v$ is even for forty random integral
   classes of even degree. (B) Over the $255$ nonempty supports of a
   $2\times2\times2$ coefficient tensor and all ranks of its six slices and
-  of its three flattenings allowed by the three constraints in the proof of
+  of its three flattenings allowed by the constraints in the proof of
   \Cref{prop:sexticintegral}(ii), $r^{3}-2r^{2}$ is at most $4$, and equal to
-  $4$ only at $(r^{2},r^{3})=(54,112)$. (C, D) For the sixteen totally real
+  $4$ only at $(r^{2},r^{3})=(54,112)$, which repeats the case analysis of
+  that proof. (C, D) For the sixteen totally real
   cubic fields $\QQ(\zeta_{7})^{+}$, $\QQ(\zeta_{9})^{+}$ and the fields
   generated by a root $\alpha$ of $x^{3}+ax^{2}+bx+c$ with $|a|\le1$,
   $|b|,|c|\le7$, irreducible with squarefree discriminant (the discriminants
@@ -1235,7 +1239,8 @@ computed, how it is computed, and which statements of the paper it supports.
   e^{\sqrt{-1}\,\theta}$, $\pm\operatorname{Im}e^{\sqrt{-1}\,\theta}$ with
   $-\chi=32$, each of shape $N_{w}=2$, the shape being computed exactly
   modulo a prime near $10^{6}$ at which the $s_{j}$ exist. This is
-  \Cref{prop:sexticintegral}(ii), (iv) and (v).
+  \Cref{prop:sexticintegral}(i), (ii) and (iv); the lattice minima of (C, D)
+  are not used in the paper.
 
 \item \emph{The $F$-Weil part of Orlov products in degree six.} The
   computation works in the exterior algebra on the twenty-four generators of
@@ -1273,7 +1278,7 @@ computed, how it is computed, and which statements of the paper it supports.
   $\QQ(\zeta_{9})^{+}$, $q=2+\alpha$ and $3+\alpha$ and five classes, two of
   them with $I\ne0$ and one with $\Omega=0$, the formula
   $\kappa_{j,\sigma}(v,v)=-\Nm(q)\tau_{j}(q)\tau_{j,\sigma}(\Omega(v))$; and
-  the two values of $\Omega$ in \Cref{prop:sexticweilmin}(iv). (D)
+  the two values of $\Omega$ at the minima of (E). (D)
   $\beta^{2}=2+\alpha$ with $\Nm(\beta)=-1$ and $1$ for the two cyclic
   fields, and the integral classes of $S(0,2+\alpha)$ with $-\chi\le32$,
   which are $\pm\operatorname{Re}e^{\sqrt{-1}\,\theta_{\beta}}$ and
@@ -1297,11 +1302,11 @@ computed, how it is computed, and which statements of the paper it supports.
   are the largest values. (F) The imaginary quadratic subfields of
   $F_{0}(\sqrt{-q})$ in the forty-eight cases, from the factorisation over
   $\QQ$ of $\prod_{j}(x^{2}-D\tau_{j}(q))$ with $D$ the squarefree part of
-  $\Nm(q)$: exactly the twenty cases of \Cref{prop:sexticweilmin}(ii), with
+  $\Nm(q)$: exactly twenty cases, with
   the lattice minima $288$ and $4608$, attained with $\Omega=0$, and the
   least values $728$ and $6504$ with $\Omega\ne0$ in the two cases with
-  $\QQ(\sqrt{-3})$. This is \Cref{lem:sexticweil} and
-  \Cref{prop:sexticweilmin}.
+  $\QQ(\sqrt{-3})$. Parts (A) to (C) are \Cref{lem:sexticweil}; the lattice
+  minima of (D) to (F) are not used in the paper.
 
 \item \emph{Kernels on $X\times X$ for a quartic field.} The computation
   works over $\RR$ place by place, as in the proof of
@@ -1316,7 +1321,7 @@ computed, how it is computed, and which statements of the paper it supports.
   of six graphs; $\Phi_{j}(P_{j})$ is minus the factor of the class of
   $X\times\{0\}$ in $A$, and is not flat; the formula
   $\ch\Phi_{j}(T_{j}-P_{j})=-\frac14(\eta_{j}^{2}+\gamma_{j}^{2}-d\ell_{j}^{2})$
-  of \Cref{rem:quarticmixedkernel}(b) at $d=1,2,3,\frac52$, both sides being
+  for the mixed kernel $T_{j}-P_{j}$ at $d=1,2,3,\frac52$, both sides being
   of degree at most two in $d$, and over $\QQ(\sqrt5,\sqrt{-1})$ at
   $d=\frac12(5+\sqrt5)$; the flatness of this class, its pure degree four,
   its nonzero Weil part, and its Hodge type at $X\times\widehat X$; the
@@ -1373,9 +1378,10 @@ computed, how it is computed, and which statements of the paper it supports.
   whenever $\varphi(N)\ge4$ and $g\ge3$, for $N<200$ and $g<60$; and a
   hyperbolic hermitian form of rank $2n$ has determinant $(-1)^{n}$. This is
   \Cref{rem:quarticsecantshape}, \Cref{rem:quarticnegext},
-  \Cref{prop:quarticexclusions}, \Cref{rem:quarticmixedkernel} and the numbers
-  in \Cref{rem:quarticprym}; the algebraicity of the Weil classes of the Prym
-  varieties is Schoen's theorem and is not recomputed.
+  \Cref{prop:quarticexclusions} and the numbers in \Cref{rem:quarticprym};
+  the kernels of (A) to (E) are not used in the paper, and the algebraicity
+  of the Weil classes of the Prym varieties is Schoen's theorem and is not
+  recomputed.
 
 \item \emph{The motivic group of a Mumford fourfold, the known classes, and
   the Kuga--Satake base points.} The computation works in the split model
@@ -1850,9 +1856,9 @@ computed, how it is computed, and which statements of the paper it supports.
   degree one and to have no target of degree three, and the same is found
   for every such pair with adjacent shifts in $36$ random orders and shifts
   of the three placements of \Cref{lem:allthree}. That is
-  \Cref{prop:fourfoldrank}, \Cref{prop:explicitconvolution},
-  \Cref{lem:allthree}, \Cref{thm:noconvolution} and
-  \Cref{rem:convolutionsopen}.
+  \Cref{prop:explicitconvolution}, \Cref{lem:allthree},
+  \Cref{thm:noconvolution} and \Cref{rem:convolutionsopen}; the ranks of (G)
+  and (H) are not used in the paper.
 
 \item \emph{Diagonal complete intersections of Vandermonde type.} The
   Lagrange identity $\sum_{i}w_{i}\lambda_{i}^{k}=0$ for $k\le N-1$ is checked
@@ -1958,7 +1964,9 @@ computed, how it is computed, and which statements of the paper it supports.
   fourfold and sixfold and the Fermat sextic fourfold). That is
   \Cref{lem:foxmodel}, \Cref{lem:cabling}, \Cref{lem:merge},
   \Cref{prop:cyclicmonodromy}, \Cref{lem:newdisc} and
-  \Cref{thm:vgvandermonde}.
+  \Cref{thm:vgvandermonde}; the paper proves the base of the induction by
+  hand (\Cref{lem:mergefive} and the transvection of two points), so the
+  $38$ cases with $n=3,4$ are not used.
 \item \emph{Groups of spread two and three on $E_0^8$, and five consecutive
   shifts.} Over the ratios of two pieces, every term of the differential with
   leaves between pieces $L_{\zeta}$ that the degrees on the four surfaces and
@@ -2018,10 +2026,9 @@ computed, how it is computed, and which statements of the paper it supports.
   \Cref{rem:convolutionsopen}.
 \end{enumerate}
 
-Items (I), (II), (III), (VI), (VII), (VIII) and (X) to (LXXVIII) are the ones
-on which theorems depend. Items (IV) and (V) support statements that no
-obstruction exists; a failure there would strengthen the paper rather than
-weaken it, and they are included for completeness.
+No theorem of the paper depends on these items. Items (IV) and (V) support
+statements that no obstruction exists; a failure there would strengthen the
+paper rather than weaken it.
 The seventy-five items other than (XXIX), (XXXI) and (XL) perform $2218$
 checks, all of which pass; those three, and the local part of (LXVIII), are
 $\Ext$ computations over a polynomial ring, recorded with their output.
