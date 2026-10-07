@@ -12,18 +12,22 @@ cor:efourfive
 cor:efoursix
 cor:equivariant
 cor:exactform
+cor:f2cm
 cor:fanolines
 cor:fourdiscriminants
 cor:fourremain
 cor:hhfactor
+cor:k3all
 cor:kernelfamily
 cor:ksboundary
+cor:kstype
 cor:latticeburch
 cor:lefschetzsmall
 cor:localobstruction
 cor:markmancondition
 cor:markmanquarticfails
 cor:meagre
+cor:mumfordall
 cor:mumfordbounded
 cor:mumfordequiv
 cor:mumfordksproducts
@@ -46,6 +50,7 @@ cor:pteobstructed
 cor:quarticbase
 cor:quarticleast
 cor:quarticlocus
+cor:simplexhc
 cor:speciallocus
 cor:splitalgebraic
 cor:splitsatisfies
@@ -53,6 +58,7 @@ cor:stability
 cor:surfacecase
 cor:twodiagonal
 cor:verygeneral
+cor:vgalldegrees
 cor:weilalgebraic
 cor:weilequiv
 cor:whatisleft
@@ -253,6 +259,7 @@ lem:chicompare
 lem:cibig
 lem:cliffJ
 lem:cliffdim
+lem:cliffordspan
 lem:cmdense
 lem:cmgeneric
 lem:cmweiltori
@@ -276,6 +283,7 @@ lem:hodgenumbers
 lem:hyperclass
 lem:hyperplanes
 lem:indexsum
+lem:ksgenerates
 lem:lefinvolution
 lem:localproducts
 lem:merge
@@ -334,6 +342,7 @@ prop:cmweiltorussheaves
 prop:composite
 prop:concentrated
 prop:corestriction
+prop:coversreach
 prop:cupkernel
 prop:cyclicmonodromy
 prop:delsarte
@@ -368,6 +377,7 @@ prop:hksquare
 prop:jacobiancontinuation
 prop:k3ntype
 prop:k3powers
+prop:k3twosmall
 prop:ksembed
 prop:ksnotrestriction
 prop:ktheory
@@ -433,6 +443,7 @@ prop:smoothrank
 prop:speciallocus
 prop:splitgeom
 prop:splitobstruction
+prop:stabilise
 prop:target
 prop:thresholds
 prop:weildomain
@@ -539,6 +550,7 @@ rem:quarticsecantshape
 rem:quatdivisible
 rem:question1122
 rem:question114
+rem:remains
 rem:residualmap
 rem:retract
 rem:rightcharacter
@@ -593,6 +605,7 @@ sec:intro
 sec:ks
 sec:numerology
 sec:polarised
+sec:preprints
 sec:propagation
 sec:reduction
 sec:scope
@@ -636,7 +649,10 @@ ssec:divcrit
 ssec:everyfamily
 ssec:exactform
 ssec:f2cm
+ssec:fermatall
 ssec:hilbertburch
+ssec:k3all
+ssec:kspowers
 ssec:lagrangian
 ssec:mumford
 ssec:mumfordobject
@@ -649,6 +665,7 @@ ssec:pte
 ssec:quartic
 ssec:rankzero
 ssec:reach
+ssec:remains
 ssec:residual
 ssec:rmlocus
 ssec:sextic
@@ -658,6 +675,7 @@ ssec:split
 ssec:tangent
 ssec:targets
 ssec:thirdexists
+ssec:weilsix
 ssec:whatobject
 tab:n3coeffs
 tab:rules
@@ -703,6 +721,7 @@ thm:hdgcount
 thm:hhsplitting
 thm:hyperplane
 thm:introvandermonde
+thm:kspowers
 thm:lattice
 thm:lefschetzclosure
 thm:lefschetzfamily
@@ -758,3 +777,4 @@ thm:vgvandermonde
 thm:vhcab
 thm:weakfails
 thm:weilmult
+thm:weilsix

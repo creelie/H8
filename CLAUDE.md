@@ -640,6 +640,61 @@ data availability section and of `BMB26` (with the archive title of round
 51), the README table and `CITATION.cff`. Deep sent the DOI; zenodo.org and
 doi.org could not be reached from the session to check the record, while the
 GitHub release itself was checked.
+Round 53 (Deep: "attempt a full closure", with the OpenAI preprints mirrored
+in creelie/math01-openAI; he chose "Weil loci title" on a decision card)
+retitled the paper "Algebraic Loci of Weil Classes on Abelian Varieties",
+with a one-sentence abstract that leads with `thm:main`, and added Section 23,
+`tex/sections/13b_preprints.tex` (`sec:preprints`, before the closure theorem,
+now Theorem 24.1). It takes five theorems of the unrefereed preprints
+[OAI26a] to [OAI26f] as hypotheses (P1) to (P5) (CM abelian varieties, split
+Weil eightfolds, Kuga-Satake classes of K3 surfaces, products of K3 surfaces,
+abelian covers and diagonal complete intersections; [OAI26g] is cited and not
+used) and proves the deductions by hand: `prop:stabilise` (Schoen's product
+with a Weil surface of the same discriminant), `thm:weilsix` (Weil classes on
+every Weil sixfold and split eightfold; the very general Vandermonde bounds
+become nine for cubics and quartics and seven for sextics),
+`lem:cliffordspan` (two-sided multiplications span End C^+, by the character
+of a 2-group and Burnside), `lem:ksgenerates`, `thm:kspowers` (HC on
+A^k x S^l for the Kuga-Satake variety A of a K3 surface S), `cor:kstype`,
+`cor:mumfordall` (every power of a Mumford fourfold), `cor:k3all` (every K3
+surface in the class A, HC on Hilbert schemes and moduli spaces, the real
+multiplication locus is everything), `prop:k3twosmall` (K3^[2] type with
+dim T <= 19, or T embedding in the K3 lattice over Q, through Markman's
+[Mar24] and Witt cancellation; open only for six shapes of dimension 20 to
+22), `cor:simplexhc`, `cor:vgalldegrees` (every power of the very general
+X_{d,r}(lambda), every d, c, r, from `thm:vandermonde` and [OAI26a, Thm 1.1]),
+`cor:f2cm` and `rem:remains` (what stays open: Weil eightfolds of nontrivial
+discriminant, n >= 5, CM fields of degree >= 4 off CM points, other
+exceptional classes, (F3') beyond A). The introduction, `thm:twostand`,
+`thm:final`(vi), `rem:f3primefrontier`, `rem:f3primeopen`, `rem:mumfordks`
+and `rem:mumfordpowersopen` point to it, always as conditional. The URL
+github.com/openai/math could not be opened from the session (proxy 403); the
+preprints were read from Deep's mirror. CITATION.cff and `BMB26` keep the
+v4.0.0 archive title. No code change (2218 checks, 409 Lean theorems);
+423 pages, 779 labels.
+Round 54 (Deep: "attempt for a full closure now") sharpened two results of
+Section 23 in `tex/sections/13b_preprints.tex`. `prop:k3twosmall` now holds,
+under (P4), for every fourfold of K3^[2] type whose Neron-Severi space is
+isotropic or represents -2 (the orthogonal of T in the Mukai lattice
+H^2 + Qe, q(e) = 2, is then isotropic, and Witt cancellation embeds T in
+Lambda_Q); this covers Picard number at least four and every Lagrangian
+fibration, the condition is necessary for the argument, and the shapes left
+are (2,10), (4,5), (5,4) at rho = 3, (3,7), (7,3) at rho = 2 and (2,11) at
+rho = 1. The new `prop:coversreach` (before `rem:remains`) shows that (P5)
+with `thm:main` cannot reach the open Weil families: an isotypic part H_chi
+of an abelian cover is pulled back from the marked curves, of dimension
+3g - 3 + k_chi = 3n - k_chi/2 < m n^2 when it is of (F,n)-Weil type, so its
+image is meagre for m >= 2, n >= 2 and for m = 1, n >= 4; the one boundary
+case, etale cyclic covers of degree 3, 4, 6 of genus-4 curves (sixfolds),
+needs the multiplication map H^0(K + eta) x H^0(K - eta) -> H^0(2K) to be
+onto at one point (Griffiths, [Voi02, Ch. 10]). The data availability
+section now says, at Deep's request, that Deep Bhattacharjee computed all
+the calculations in C, Python, Julia, Macaulay2, Lean 4 and shell scripts
+with the assistance of Claude Code, and that the programs in the archive are
+those in Python (FLINT and Arb through python-flint), Macaulay2, shell and
+the Lean certificate (this replaces the round 47 note that Julia, C and PARI
+are not named). No code change (2218 checks, 409 Lean theorems); 424 pages,
+780 labels.
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 
