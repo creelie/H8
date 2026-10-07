@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
-title: "Verification code and figure sources for the paper Hodge Conjecture for Very General Vandermonde Quadric Intersections"
+title: "Verification code and figure sources for the paper Algebraic Loci of Weil Classes on Abelian Varieties"
 abstract: "Exact-arithmetic verification code, a kernel-checked Lean 4 certificate of the finite arithmetic, Macaulay2 computations and the TikZ sources of every figure accompanying the paper of the same name."
 type: software
 license: MIT
@@ -23,14 +23,17 @@ keywords:
   - abelian varieties
   - Cohen-Macaulay supports
   - Lean 4
-version: "4.0.0"
-doi: "10.5281/zenodo.23197107"
-date-released: "2026-10-06"
+version: "5.0.0"
+doi: "10.5281/zenodo.23221435"
+date-released: "2026-10-07"
 repository-code: "https://github.com/creelie/H8"
 identifiers:
   - type: doi
     value: "10.5281/zenodo.22950275"
     description: "Concept DOI of all versions"
+  - type: doi
+    value: "10.5281/zenodo.23221435"
+    description: "Version DOI of release v5.0.0"
   - type: doi
     value: "10.5281/zenodo.23197107"
     description: "Version DOI of release v4.0.0"

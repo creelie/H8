@@ -695,6 +695,13 @@ those in Python (FLINT and Arb through python-flint), Macaulay2, shell and
 the Lean certificate (this replaces the round 47 note that Julia, C and PARI
 are not named). No code change (2218 checks, 409 Lean theorems); 424 pages,
 780 labels.
+Round 55 recorded the version DOI of release v5.0.0 (tag `v5.0.0`, the merge
+commit `afa42f6` of rounds 52 to 54, published by Deep from a prefilled
+release link; numbered 5 because the title changed again),
+10.5281/zenodo.23221435, in `\zenodoCodeID`, the release number of the data
+availability section and of `BMB26` (with the title of round 53), the README
+table and `CITATION.cff` (whose title now follows round 53). Deep sent the
+DOI; the GitHub release itself was checked.
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 
@@ -706,13 +713,14 @@ under 10.5281/zenodo.23047883, release v3.1.1 (tag `v3.1.1`, published
 by Deep; it accompanies rounds 30 to 33) under 10.5281/zenodo.23078541, and
 release v3.2.0 (tag `v3.2.0`, published by Deep; it accompanies rounds 35 to
 37) under 10.5281/zenodo.23093099, and release v4.0.0 (tag `v4.0.0`, published
-by Deep; it accompanies rounds 38 to 51) under 10.5281/zenodo.23197107; the
-concept DOI of all versions is
+by Deep; it accompanies rounds 38 to 51) under 10.5281/zenodo.23197107, and
+release v5.0.0 (tag `v5.0.0`, published by Deep; it accompanies rounds 52 to
+54) under 10.5281/zenodo.23221435; the concept DOI of all versions is
 10.5281/zenodo.22950275. They are listed in the README table and
 `CITATION.cff`. The paper names one DOI for the code, `\zenodoCodeID` in
 `tex/declarations.tex` (used by the data availability section and the `BMB26`
 bibliography entry), and no GitHub URL; it holds the version DOI of release
-v4.0.0. When Deep publishes a later release and sends its version DOI, put it
+v5.0.0. When Deep publishes a later release and sends its version DOI, put it
 in `\zenodoCodeID`, the release number of the data availability section and
 of `BMB26`, the README table and `CITATION.cff`. There is no separate AI declaration: the use of Claude
 for the Python and Lean computations is stated in the Data availability
