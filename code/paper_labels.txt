@@ -342,6 +342,7 @@ prop:cmweiltorussheaves
 prop:composite
 prop:concentrated
 prop:corestriction
+prop:coversreach
 prop:cupkernel
 prop:cyclicmonodromy
 prop:delsarte

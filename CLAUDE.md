@@ -672,6 +672,29 @@ github.com/openai/math could not be opened from the session (proxy 403); the
 preprints were read from Deep's mirror. CITATION.cff and `BMB26` keep the
 v4.0.0 archive title. No code change (2218 checks, 409 Lean theorems);
 423 pages, 779 labels.
+Round 54 (Deep: "attempt for a full closure now") sharpened two results of
+Section 23 in `tex/sections/13b_preprints.tex`. `prop:k3twosmall` now holds,
+under (P4), for every fourfold of K3^[2] type whose Neron-Severi space is
+isotropic or represents -2 (the orthogonal of T in the Mukai lattice
+H^2 + Qe, q(e) = 2, is then isotropic, and Witt cancellation embeds T in
+Lambda_Q); this covers Picard number at least four and every Lagrangian
+fibration, the condition is necessary for the argument, and the shapes left
+are (2,10), (4,5), (5,4) at rho = 3, (3,7), (7,3) at rho = 2 and (2,11) at
+rho = 1. The new `prop:coversreach` (before `rem:remains`) shows that (P5)
+with `thm:main` cannot reach the open Weil families: an isotypic part H_chi
+of an abelian cover is pulled back from the marked curves, of dimension
+3g - 3 + k_chi = 3n - k_chi/2 < m n^2 when it is of (F,n)-Weil type, so its
+image is meagre for m >= 2, n >= 2 and for m = 1, n >= 4; the one boundary
+case, etale cyclic covers of degree 3, 4, 6 of genus-4 curves (sixfolds),
+needs the multiplication map H^0(K + eta) x H^0(K - eta) -> H^0(2K) to be
+onto at one point (Griffiths, [Voi02, Ch. 10]). The data availability
+section now says, at Deep's request, that Deep Bhattacharjee computed all
+the calculations in C, Python, Julia, Macaulay2, Lean 4 and shell scripts
+with the assistance of Claude Code, and that the programs in the archive are
+those in Python (FLINT and Arb through python-flint), Macaulay2, shell and
+the Lean certificate (this replaces the round 47 note that Julia, C and PARI
+are not named). No code change (2218 checks, 409 Lean theorems); 424 pages,
+780 labels.
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 

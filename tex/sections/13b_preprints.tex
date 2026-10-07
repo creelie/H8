@@ -11,7 +11,8 @@ class (\Cref{prop:stabilise}); the Hodge conjecture on every product of
 powers of a K3 surface and of its Kuga--Satake variety, through a spanning
 lemma for Clifford algebras (\Cref{lem:cliffordspan}, \Cref{thm:kspowers});
 the transfer to fourfolds of K3$^{[2]}$ type whose transcendental part is
-that of a K3 surface (\Cref{prop:k3twosmall}); and the effect of the
+that of a K3 surface, which happens exactly when the N\'eron--Severi space
+is isotropic or represents $-2$ (\Cref{prop:k3twosmall}); and the effect of the
 preprints on the statements of the earlier sections. The theorems we use are
 the following.
 \begin{enumerate}[label=\textup{(P\arabic*)},leftmargin=2.8em,itemsep=2pt]
@@ -413,18 +414,38 @@ rational Hodge isometries.
 \begin{proposition}[Fourfolds of K3$^{[2]}$ type]\label{prop:k3twosmall}
 Assume \textup{(P4)}. Let $X$ be a smooth projective variety of K3$^{[2]}$
 type, with $T=T(X)_{\QQ}$ and the form $q$ as in \Cref{prop:k3ntype}, and
-suppose that $(T,q)$ embeds isometrically in $\Lambda_{\QQ}$, where
-$\Lambda$ is the K3 lattice; this holds whenever $\dim T\le19$. Then the
+suppose that $\NS(X)_{\QQ}$ contains a nonzero class of square $0$ or a
+class of square $-2$ for $q$. This holds whenever $\rho(X)\ge4$, that is
+$\dim T\le19$, and whenever $X$ admits a Lagrangian fibration. Then the
 Hodge conjecture holds for $X$. In particular it holds for $F(Y)$ and for
-$Y\times Y$ for every smooth cubic fourfold $Y$ with $\dim T(Y)\le19$.
+$Y\times Y$ for every smooth cubic fourfold $Y$ for which $F(Y)$ satisfies
+the hypothesis, for instance when $\dim T(Y)\le19$.
 \end{proposition}
 
 \begin{proof}
-The form $q$ has signature $(3,20)$ on $H^{2}(X,\RR)$ and signature
-$(1,\rho-1)$ on $\NS(X)_{\RR}$, which contains an ample class, so $(T,q)$ has
-signature $(2,\dim T-2)$. When $\dim T\le19$ the argument of
-\Cref{thm:mumfordks}(i) gives an isometric embedding
-$\iota\colon T\to\Lambda_{\QQ}$. The line $\ell=\iota(H^{2,0}(X))$ satisfies
+Let $\tilde\Lambda=H^{2}(X,\QQ)\oplus\QQ e$ with $q(e)=2$. By \cite{Bea83},
+$H^{2}(X,\ZZ)$ is isometric to $\Lambda\oplus\langle-2\rangle$, where
+$\Lambda$ is the K3 lattice, and $\langle-2\rangle\oplus\langle2\rangle$
+is a hyperbolic plane over $\QQ$, so $\tilde\Lambda$ is isometric to
+$\Lambda_{\QQ}\oplus U_{\QQ}$ with $U_{\QQ}$ a hyperbolic plane. The
+orthogonal complement of $T$ in $\tilde\Lambda$ is
+$N'=\NS(X)_{\QQ}\oplus\QQ e$. A nonzero vector $\alpha+ae$ of $N'$ with
+$q(\alpha)+2a^{2}=0$ is a nonzero isotropic $\alpha$ when $a=0$ and gives
+$q(\alpha/a)=-2$ otherwise, so the hypothesis says exactly that $N'$ is
+isotropic. An isotropic vector of $N'$ lies in a hyperbolic plane
+$H\subseteq N'$ \cite{OMe00}, and by Witt's cancellation theorem the
+orthogonal complement of $H$ in $\tilde\Lambda$, which contains $T$, is
+isometric to $\Lambda_{\QQ}$. This gives an isometric embedding
+$\iota\colon T\to\Lambda_{\QQ}$. When $\rho(X)\ge4$, the space $N'$ has
+dimension at least five and signature $(2,\rho(X)-1)$, since $q$ has
+signature $(1,\rho(X)-1)$ on $\NS(X)_{\RR}$, which contains an ample class,
+so $N'$ is isotropic by the Hasse--Minkowski theorem \cite[\S66]{OMe00}. If
+$f\colon X\to B$ is a Lagrangian fibration and $h$ is ample on the surface
+$B$, then $f^{*}h\ne0$ and $\int_{X}(f^{*}h)^{4}=0$, so the relation
+$\int_{X}\alpha^{4}=3q(\alpha)^{2}$ of Fujiki and Beauville (proof of
+\Cref{prop:k3ntype}(iii)) gives $q(f^{*}h)=0$.
+
+The line $\ell=\iota(H^{2,0}(X))$ satisfies
 $(\ell,\ell)=0$ and $(\sigma,\bar\sigma)>0$ for $0\ne\sigma\in\ell$, so there
 is a K3 surface $S$ with a marking that carries $H^{2,0}(S)$ to $\ell$
 \cite[Chs.~6--7]{Huy16}. A rational class orthogonal to $\ell$ has its
@@ -471,13 +492,17 @@ $T(F(Y))_{\QQ}=\alpha(T(Y))$ has the dimension of $T(Y)$, by the proof of
 \Cref{cor:fanolines} for $Y\times Y$.
 \end{proof}
 
-A projective K3 surface has $\dim T(S)\le21$, while $\dim T(X)$ can be $22$
-for $X$ of K3$^{[2]}$ type. With real multiplication by a field of degree
-$r\ge2$, $\dim T=r\dim_{E}T$ with $\dim_{E}T\ge3$, so the cases that
-\Cref{prop:k3twosmall} leaves are those of dimension $20$, $21$ or $22$ in
-which $(T,q)$ does not embed in $\Lambda_{\QQ}$, with
-$(r,\dim_{E}T)$ among $(2,10)$, $(4,5)$, $(5,4)$, $(3,7)$, $(7,3)$ and
-$(2,11)$.
+The hypothesis is also necessary for this argument: if $T$ embeds
+isometrically in $\Lambda_{\QQ}$, then by Witt's extension theorem its
+orthogonal complement in $\tilde\Lambda$ is isometric to that of the image,
+which contains $U_{\QQ}$, so $N'$ is isotropic. The varieties that
+\Cref{prop:k3twosmall} leaves are therefore those with $\rho(X)\le3$ whose
+N\'eron--Severi space is anisotropic and does not represent $-2$; for
+$\rho(X)=1$ this is every $X$, since $\NS(X)_{\QQ}=\QQ h$ with $q(h)>0$.
+With real multiplication by a field of degree $r\ge2$,
+$23-\rho(X)=\dim T=r\dim_{E}T$ with $\dim_{E}T\ge3$, so the shapes left
+are $(r,\dim_{E}T)$ among $(2,10)$, $(4,5)$, $(5,4)$ for $\rho(X)=3$,
+$(3,7)$, $(7,3)$ for $\rho(X)=2$, and $(2,11)$ for $\rho(X)=1$.
 
 \subsection{Fermat and diagonal varieties}\label{ssec:fermatall}
 
@@ -571,6 +596,118 @@ share every property that \Cref{thm:escape} shows to be insufficient, and an
 interior point of $\Sigma_{F}$ still requires the Weil classes at a member
 with full Hodge group, which is what (P2) provides for the split eightfolds.
 
+The abelian covers of (P5) reach the Weil classes in a second way: a
+character of the covering group cuts out of the Jacobian a piece on which a
+cyclotomic field acts, and when that piece is of Weil type and its periods
+fill an open subset of $\cD_{F}$, (P5) and \Cref{thm:main}(iii) close the
+algebraic locus. A count of moduli shows that this happens only in low
+dimension. Write $\varphi$ for Euler's function.
+
+\begin{proposition}[Weil pieces of abelian covers]\label{prop:coversreach}
+In the setting of \textup{(P5)}, let $C_{s}\to B_{s}$, $s\in T$, be the full
+marked family of a connected abelian cover with group $P$ of a curve of
+genus $g$, branched over a set $D$ whose meridians have nontrivial image in
+$P$. Let $\chi$ be a character of $P$ of order $\ell\ge3$, put
+$F=\QQ(\zeta_{\ell})$, of degree $2m=\varphi(\ell)$, let $D_{\chi}\subseteq D$
+be the set of branch points whose meridian does not lie in $\ker\chi$,
+$k_{\chi}=|D_{\chi}|$, suppose $2g-2+k_{\chi}>0$, and let
+$H_{\chi}\subseteq H^{1}(C_{s},\QQ)$ be the rational subspace whose
+complexification is the sum of the eigenspaces of $P$ for the characters
+$\chi^{j}$, $j$ prime to $\ell$.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.6em,itemsep=2pt]
+\item $H_{\chi}$ is a sub-Hodge structure, $P$ acts on it through an action
+  of $F$, and each of the $2m$ eigenspaces has dimension $2g-2+k_{\chi}$.
+\item The polarised variation $H_{\chi}$ over $T$ is pulled back from the
+  marked family of curves of genus $g$ with $k_{\chi}$ marked points, a
+  complex manifold of dimension $3g-3+k_{\chi}$.
+\item If $H_{\chi}$ is of $(F,n)$-Weil type, then $2n=2g-2+k_{\chi}$, and the
+  image of $T$ in $\cD_{F}$, which has dimension $mn^{2}$, is the image of a
+  complex manifold of dimension $3n-k_{\chi}/2$. It is meagre when $m\ge2$
+  and $n\ge2$, when $m=1$ and $n\ge4$, and when $m=1$, $n=3$ and
+  $k_{\chi}>0$.
+\item If $m=1$, $n=3$ and $k_{\chi}=0$, so that $C_{s}/\ker\chi\to B_{s}$ is
+  an \'etale cyclic cover of degree $\ell\in\{3,4,6\}$ of a curve of genus
+  four given by a line bundle $\eta$ of order $\ell$, and if for one $s$ the
+  multiplication map
+  $H^{0}(K_{B_{s}}\otimes\eta)\otimes H^{0}(K_{B_{s}}\otimes\eta^{-1})\to
+  H^{0}(K_{B_{s}}^{\otimes2})$ is surjective, then \textup{(P5)} gives
+  $\Sigma_{F}=\cD_{F}$ for the family of $(F,3)$-Weil type that contains
+  $H_{\chi}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) The characters $\chi^{j}$ with $j$ prime to $\ell$ form one orbit of
+$\Gal(\bar\QQ/\QQ)$, so the sum of their eigenspaces is defined over $\QQ$,
+and it is a sub-Hodge structure because $P$ acts by automorphisms of the
+curve. A generator $\gamma$ of $P/\ker\chi\cong\mu_{\ell}$ acts on each
+eigenspace by a primitive $\ell$-th root of unity, so the cyclotomic
+polynomial $\Phi_{\ell}$ kills $\gamma$ on $H_{\chi}$, and $\QQ[\gamma]\cong
+F$ acts, compatibly with the polarisation since $P$ preserves the
+intersection form. Put $C_{\chi}=C_{s}/\ker\chi$; pull-back identifies the
+$\chi^{j}$-eigenspaces of $H^{1}(C_{\chi},\CC)$ and of $H^{1}(C_{s},\CC)$,
+since $\chi^{j}$ is trivial on $\ker\chi$. The cyclic cover $C_{\chi}\to
+B_{s}$ is branched exactly over $D_{\chi}$. Let $U=B_{s}\setminus D_{\chi}$
+and $\tilde U\subseteq C_{\chi}$ its preimage. The direct image of
+$\CC_{\tilde U}$ is the sum of rank one local systems $L_{\psi}$ over the
+characters $\psi$ of $\mu_{\ell}$, each with Euler characteristic
+$2-2g-k_{\chi}$; for $\psi=\chi^{j}$ the local system is nontrivial, so
+$H^{0}(U,L_{\psi})=0$, and $H^{2}(U,L_{\psi})$ vanishes, because $U$ is not
+compact when $k_{\chi}>0$ and by Poincar\'e duality with the nontrivial dual
+system when $k_{\chi}=0$. So $\dim H^{1}(\tilde U,\CC)_{\chi^{j}}=
+2g-2+k_{\chi}$. In the exact sequence
+$0\to H^{1}(C_{\chi})\to H^{1}(\tilde U)\to\bigoplus_{x}\CC\to H^{2}(C_{\chi})$,
+the sum over the points over $D_{\chi}$, the group $\mu_{\ell}$ permutes the
+points over a branch point $p$ with stabiliser generated by the image of the
+meridian at $p$, on which $\chi^{j}$ is nontrivial, so the
+$\chi^{j}$-component of the third term is zero, and
+$H^{1}(C_{\chi})_{\chi^{j}}=H^{1}(\tilde U)_{\chi^{j}}$.
+
+(ii) The meridians at the points of $D\setminus D_{\chi}$ lie in $\ker\chi$,
+so the homomorphism $\pi_{1}(B_{s}\setminus D)\to\mu_{\ell}$ factors through
+$\pi_{1}(U)$ and $C_{\chi}$ is the cover of $B_{s}$ determined by the marked
+curve $(B_{s},D_{\chi})$ and that topological datum. Hence the Hodge
+structure on $H^{1}(C_{\chi})$, its polarisation and the action of $\mu_{\ell}$
+depend only on the image of $s$ in the marked family of curves of genus $g$
+with $k_{\chi}$ points, which has dimension $3g-3+k_{\chi}$ when
+$2g-2+k_{\chi}>0$; and the polarisation of $H_{\chi}\subseteq H^{1}(C_{s})$
+is $|\ker\chi|$ times the one pulled back from $C_{\chi}$.
+
+(iii) The space $H_{\chi}$ has dimension $2m(2g-2+k_{\chi})$ over $\QQ$, so
+$2n=2g-2+k_{\chi}$ over $F$, and
+$3g-3+k_{\chi}=3(n-k_{\chi}/2)+k_{\chi}=3n-k_{\chi}/2$. The marking makes the
+period map of $H_{\chi}$ a holomorphic map to $\cD_{F}$, which is a product
+of $m$ hermitian symmetric domains of $\mathrm{U}(n,n)$, each of dimension
+$n^{2}$. The image of a holomorphic map from a manifold of smaller dimension
+is a countable union of compact sets of measure zero, so it is meagre. Now
+$mn^{2}\ge2n^{2}>3n$ for $m\ge2$ and $n\ge2$, $n^{2}>3n$ for $n\ge4$, and
+$9>9-k_{\chi}/2$ for $n=3$ and $k_{\chi}>0$.
+
+(iv) Here $H^{1,0}$ of the $\chi$-eigenspace is $H^{0}(B_{s},K_{B_{s}}\otimes
+\eta)$ for a suitable choice of $\eta$ among $\eta^{\pm1}$, of dimension
+three, and the tangent space of $\cD_{F}$ is
+$\Hom\bigl(H^{0}(K\otimes\eta),H^{1}(\eta)\bigr)$, of dimension nine. By
+Griffiths' theorem on the derivative of the period map \cite[Chapter~10]{Voi02},
+applied to the $\chi$-eigenspace of $C_{\chi}$, whose Kodaira--Spencer class
+is pulled back from $B_{s}$, the differential at $s$ sends a class in
+$H^{1}(B_{s},T_{B_{s}})$ to cup product with it, and its
+transpose, after Serre duality $H^{1}(\eta)\cong H^{0}(K\otimes\eta^{-1})^{\vee}$,
+is the multiplication map of the statement. Both sides have dimension nine,
+so when that map is surjective the period map is a local isomorphism at $s$
+and its image contains an open set $\Omega\subseteq\cD_{F}$. By (P5) the
+Weil classes are algebraic at the image of every parameter outside a
+countable union of proper closed analytic subsets of $T$, and the image of
+that complement is not meagre in $\Omega$. So $\Sigma_{F}$ is not meagre, and
+$\Sigma_{F}=\cD_{F}$ by \Cref{thm:main}(iii).
+\end{proof}
+
+Within the reach of (P5), \Cref{prop:coversreach} leaves only the Weil
+fourfolds, where Markman's theorem already applies, and the sixfolds of
+part (iv), which (P2) covers by \Cref{thm:weilsix}. The eightfolds of
+nontrivial discriminant, which \Cref{prop:stabilise} reduces to the split
+tenfolds, and the Weil classes of the fields of degree at least four, are not
+reached by any piece $H_{\chi}$ except on a meagre set.
+
 \begin{remark}[What remains of (F2) and (F3$'$)]\label{rem:remains}
 With (P1) to (P5) and the results above, the open cases named in
 \Cref{thm:twostand} change as follows. In part (ii) the non-split Weil
@@ -582,9 +719,10 @@ real multiplication is the whole domain in every family of \Cref{setup:rm}
 (\Cref{cor:k3all}); the second, the fourfolds of K3$^{[2]}$ type with real
 multiplication, among them $F(Y)$ and $Y\times Y$ for a cubic fourfold $Y$
 with real multiplication (\Cref{cor:fanolines}), is settled when the
-transcendental part has dimension at most $19$, or more generally embeds in
-$\Lambda_{\QQ}$ (\Cref{prop:k3twosmall}), and is open in the six shapes of
-dimension $20$ to $22$ listed after that proposition.
+N\'eron--Severi space is isotropic or represents $-2$, in particular when
+$\rho\ge4$ or there is a Lagrangian fibration (\Cref{prop:k3twosmall}),
+and is open for $\rho\le3$ otherwise, in the six shapes listed after that
+proposition.
 
 By \Cref{prop:f2isab}, (F2) is the Hodge conjecture for all abelian
 varieties. It is now known, or conditional only on (P1) to (P5), for the
