@@ -1,4 +1,4 @@
-# Machine verification for *Hodge Conjecture for Very General Vandermonde Quadric Intersections*
+# Machine verification for *Algebraic Loci of Weil Classes on Abelian Varieties*
 
 `HodgeObstruction.lean` is a certificate, checked by the Lean 4 kernel, of the
 finite arithmetic on which the results of the paper turn.
