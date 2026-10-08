@@ -97,8 +97,8 @@ if cur.strip(): parts.append(cur)
 out = []
 out.append('# Computations\n')
 out.append('This document accompanies the paper *Algebraic Loci of Weil Classes '
-           'on Abelian Varieties* by Deep Bhattacharjee, Priyabrata Mandal '
-           'and Ushashi Bhattacharya. The paper cites the programs of this archive '
+           'on Abelian Varieties*, whose LaTeX source is in `tex/`. The paper '
+           'cites the programs of this archive '
            'as [BMB26]. Below, each computation is listed under the item number '
            'that the programs, `code/verify_all.py` and the README use, with the '
            'results of the paper that it checks. Theorem, section and equation '

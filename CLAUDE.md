@@ -708,6 +708,20 @@ link; a patch release, since it only recorded the v5.0.0 DOI),
 10.5281/zenodo.23225483, in `\zenodoCodeID`, the release number of the data
 availability section and of `BMB26`, the README table and `CITATION.cff`.
 Deep sent the DOI; the tag on GitHub was checked.
+Round 57 (Deep: "create a new release with only deep bhattacharjee and upload
+the entire tex") credited the archive to Deep Bhattacharjee alone: the
+creators of `.zenodo.json`, the authors of `CITATION.cff` and the copyright
+line of `LICENSE` name only him, and the archive descriptions (`README.md`,
+`.zenodo.json`, `COMPUTATIONS.md` through `make_computations.py`) name the
+paper by its title without its authors. The paper itself keeps its three
+authors. The whole `tex/` folder was already tracked, so every release
+archive carries it; the archive is now titled "LaTeX source and verification
+code for the paper Algebraic Loci of Weil Classes on Abelian Varieties", and
+the README layout and the Zenodo description list `tex/` and `main.pdf`. The
+release that follows is v5.1.0; when Deep sends its version DOI, record it as
+below and change `BMB26` to Deep Bhattacharjee alone (key `Bha26`) with the
+new archive title. No code or paper change (2218 checks, 409 Lean theorems,
+424 pages, 780 labels).
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 

@@ -1,6 +1,6 @@
 # Computations
 
-This document accompanies the paper *Algebraic Loci of Weil Classes on Abelian Varieties* by Deep Bhattacharjee, Priyabrata Mandal and Ushashi Bhattacharya. The paper cites the programs of this archive as [BMB26]. Below, each computation is listed under the item number that the programs, `code/verify_all.py` and the README use, with the results of the paper that it checks. Theorem, section and equation numbers refer to the compiled paper `tex/main.pdf`.
+This document accompanies the paper *Algebraic Loci of Weil Classes on Abelian Varieties*, whose LaTeX source is in `tex/`. The paper cites the programs of this archive as [BMB26]. Below, each computation is listed under the item number that the programs, `code/verify_all.py` and the README use, with the results of the paper that it checks. Theorem, section and equation numbers refer to the compiled paper `tex/main.pdf`.
 
 Every statement of the paper is proved in the text, and no proof rests on
 the items below. They repeat the finite arithmetic of the proofs in exact
