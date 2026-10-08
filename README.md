@@ -2,12 +2,11 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22950275.svg)](https://doi.org/10.5281/zenodo.22950275)
 
-Verification code and figure sources for the paper *Algebraic Loci of
-Weil Classes on Abelian Varieties*, by Deep
-Bhattacharjee, Priyabrata Mandal and Ushashi Bhattacharya. The paper proves
-every statement in its text; the programs here repeat its finite arithmetic
-as an independent check, and some of them record data that the paper does
-not use.
+The complete LaTeX source of the paper *Algebraic Loci of Weil Classes on
+Abelian Varieties*, with its figures and the compiled PDF, and the
+verification code that accompanies it. The paper proves every statement in
+its text; the programs here repeat its finite arithmetic as an independent
+check, and some of them record data that the paper does not use.
 
 Release v5.0.1 accompanies the current version of the paper, which cites this
 archive by its Zenodo DOI. Zenodo archives each GitHub release under its own
@@ -57,6 +56,12 @@ licence, or a package other than those named below.
                 Hilbert-Burch resolutions of secant supports on abelian
                 fourfolds (neither is part of verify_all.py)
     figures/    the generators and TikZ sources of every figure in the paper
+    tex/        the whole LaTeX source of the paper: main.tex, preamble.tex,
+                sections/, appendices/, bibliography.tex, declarations.tex
+                and figures/ (a copy of figures/ above, with the PDF and PNG
+                of every figure); latexmk -pdf main.tex, run in tex/ with
+                a standard TeX Live, builds tex/main.pdf, which is included
+    main.pdf    a copy of the compiled paper tex/main.pdf
 
 ## Running the verification
 
