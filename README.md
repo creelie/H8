@@ -8,12 +8,13 @@ verification code that accompanies it. The paper proves every statement in
 its text; the programs here repeat its finite arithmetic as an independent
 check, and some of them record data that the paper does not use.
 
-Release v5.0.1 accompanies the current version of the paper, which cites this
+Release v5.1.0 accompanies the current version of the paper, which cites this
 archive by its Zenodo DOI. Zenodo archives each GitHub release under its own
 version DOI, and gathers all of them under one concept DOI:
 
 | | DOI |
 | --- | --- |
+| release v5.1.0 (version DOI) | 10.5281/zenodo.23227940 (https://doi.org/10.5281/zenodo.23227940) |
 | release v5.0.1 (version DOI) | 10.5281/zenodo.23225483 (https://doi.org/10.5281/zenodo.23225483) |
 | release v5.0.0 (version DOI) | 10.5281/zenodo.23221435 (https://doi.org/10.5281/zenodo.23221435) |
 | release v4.0.0 (version DOI) | 10.5281/zenodo.23197107 (https://doi.org/10.5281/zenodo.23197107) |
@@ -33,7 +34,7 @@ licence, or a package other than those named below.
 ## Layout
 
     COMPUTATIONS.md  every computation, item by item, with the results of the
-                paper that it checks (the paper cites the archive as [BMB26]);
+                paper that it checks (the paper cites the archive as [Bha26]);
                 code/computations/make_computations.py rebuilds it
     code/       exact-arithmetic verification in Python 3 (sympy for secant_plane.py,
                 weiltype_family.py, mumford_rigidity.py, mumford_object.py,
