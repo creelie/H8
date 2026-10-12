@@ -722,6 +722,16 @@ release that follows is v5.1.0; when Deep sends its version DOI, record it as
 below and change `BMB26` to Deep Bhattacharjee alone (key `Bha26`) with the
 new archive title. No code or paper change (2218 checks, 409 Lean theorems,
 424 pages, 780 labels).
+Round 58 recorded the version DOI of release v5.1.0 (tag `v5.1.0`, the merge
+commit `a1c27fc` of round 57, published by Deep from a prefilled release
+link), 10.5281/zenodo.23227940, in `\zenodoCodeID`, the release number of the
+data availability section and of the archive entry, the README table and
+`CITATION.cff`. The archive entry of the bibliography, formerly `BMB26`, is
+now `Bha26`: D. Bhattacharjee alone, with the archive title of round 57; the
+three `\cite`s, `README.md` and `make_computations.py` follow. Deep sent the
+DOI; zenodo.org and doi.org could not be reached from the session, while the
+GitHub release itself was checked. No code change (2218 checks, 409 Lean
+theorems, 424 pages, 780 labels).
 P2_split, (F2) and (F3') remain open. Never use
 agents or workflows in this repository's sessions: do the work directly.
 
@@ -736,15 +746,16 @@ release v3.2.0 (tag `v3.2.0`, published by Deep; it accompanies rounds 35 to
 by Deep; it accompanies rounds 38 to 51) under 10.5281/zenodo.23197107, and
 release v5.0.0 (tag `v5.0.0`, published by Deep; it accompanies rounds 52 to
 54) under 10.5281/zenodo.23221435, and release v5.0.1 (tag `v5.0.1`,
-published by Deep; it accompanies round 55) under 10.5281/zenodo.23225483; the
-concept DOI of all versions is
+published by Deep; it accompanies round 55) under 10.5281/zenodo.23225483, and
+release v5.1.0 (tag `v5.1.0`, published by Deep; it accompanies round 57)
+under 10.5281/zenodo.23227940; the concept DOI of all versions is
 10.5281/zenodo.22950275. They are listed in the README table and
 `CITATION.cff`. The paper names one DOI for the code, `\zenodoCodeID` in
-`tex/declarations.tex` (used by the data availability section and the `BMB26`
+`tex/declarations.tex` (used by the data availability section and the `Bha26`
 bibliography entry), and no GitHub URL; it holds the version DOI of release
-v5.0.1. When Deep publishes a later release and sends its version DOI, put it
+v5.1.0. When Deep publishes a later release and sends its version DOI, put it
 in `\zenodoCodeID`, the release number of the data availability section and
-of `BMB26`, the README table and `CITATION.cff`. There is no separate AI declaration: the use of Claude
+of `Bha26`, the README table and `CITATION.cff`. There is no separate AI declaration: the use of Claude
 for the Python and Lean computations is stated in the Data availability
 section.
 

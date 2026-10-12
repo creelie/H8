@@ -99,7 +99,7 @@ out.append('# Computations\n')
 out.append('This document accompanies the paper *Algebraic Loci of Weil Classes '
            'on Abelian Varieties*, whose LaTeX source is in `tex/`. The paper '
            'cites the programs of this archive '
-           'as [BMB26]. Below, each computation is listed under the item number '
+           'as [Bha26]. Below, each computation is listed under the item number '
            'that the programs, `code/verify_all.py` and the README use, with the '
            'results of the paper that it checks. Theorem, section and equation '
            'numbers refer to the compiled paper `tex/main.pdf`.\n')
